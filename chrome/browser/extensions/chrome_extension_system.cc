@@ -198,8 +198,7 @@ void ChromeExtensionSystem::Shared::Init(bool extensions_enabled) {
 
   user_script_manager_ = std::make_unique<UserScriptManager>(profile_);
 
-  bool autoupdate_enabled =
-      !profile_->IsGuestSession() && !profile_->IsSystemProfile();
+  bool autoupdate_enabled = false;
 #if BUILDFLAG(IS_CHROMEOS)
   if (!extensions_enabled) {
     autoupdate_enabled = false;
