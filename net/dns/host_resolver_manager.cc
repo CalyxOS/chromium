@@ -151,12 +151,12 @@ const unsigned kMinimumTTLSeconds = kCacheEntryTTLSeconds;
 
 // Time between IPv6 probes, i.e. for how long results of each IPv6 probe are
 // cached.
-const int kIPv6ProbePeriodMs = 1000;
+const int kIPv6ProbePeriodMs = 15000;
 
-// Google DNS address used for IPv6 probes.
-const uint8_t kIPv6ProbeAddress[] = {0x20, 0x01, 0x48, 0x60, 0x48, 0x60,
-                                     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                     0x00, 0x00, 0x88, 0x88};
+// RIPE NCC k.root-servers.net. 2001:7fd::1 (anycasted)
+const uint8_t kIPv6ProbeAddress[] =
+    { 0x20, 0x01, 0x07, 0xfd, 0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01 };
 
 // ICANN uses this localhost address to indicate a name collision.
 //
