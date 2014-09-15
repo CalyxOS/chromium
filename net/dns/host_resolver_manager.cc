@@ -150,12 +150,12 @@ const size_t kMaxHostLength = 4096;
 
 // Time between IPv6 probes, i.e. for how long results of each IPv6 probe are
 // cached.
-const int kIPv6ProbePeriodMs = 1000;
+const int kIPv6ProbePeriodMs = 15000;
 
-// Google DNS address used for IPv6 probes.
-const uint8_t kIPv6ProbeAddress[] = {0x20, 0x01, 0x48, 0x60, 0x48, 0x60,
-                                     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                     0x00, 0x00, 0x88, 0x88};
+// Cloudflare DNS address used for IPv6 probes. 2606:4700:4700::1111
+const uint8_t kIPv6ProbeAddress[] =
+    { 0x26, 0x06, 0x47, 0x00, 0x47, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x11, 0x11 };
 
 // True if |hostname| ends with either ".local" or ".local.".
 bool ResemblesMulticastDNSName(std::string_view hostname) {
