@@ -239,7 +239,7 @@ std::unique_ptr<TemplateURLData> GetPrepopulatedFallbackSearch(
     std::vector<const TemplateURLPrepopulateData::PrepopulatedEngine*>
         regional_prepopulated_engines) {
   return FindPrepopulatedEngineInternal(prefs, regional_prepopulated_engines,
-                                        google.id,
+                                        duckduckgo.id,
                                         /*use_first_as_fallback=*/true);
 }
 
