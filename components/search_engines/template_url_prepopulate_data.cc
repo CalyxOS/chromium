@@ -284,7 +284,7 @@ void ClearPrepopulatedEnginesInPrefs(PrefService* prefs) {
 std::unique_ptr<TemplateURLData> GetPrepopulatedFallbackSearch(
     PrefService& prefs,
     CountryID country_id) {
-  return FindPrepopulatedEngineInternal(prefs, country_id, google.id,
+  return FindPrepopulatedEngineInternal(prefs, country_id, duckduckgo.id,
                                         /*use_first_as_fallback=*/true);
 }
 
