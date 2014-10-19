@@ -63,6 +63,7 @@ struct EngineAndTier {
 
 // Default (for countries with no better engine set)
 constexpr EngineAndTier engines_default[] = {
+    {SearchEngineTier::kTopEngines, &duckduckgo},
     {SearchEngineTier::kTopEngines, &googleen},
     {SearchEngineTier::kTopEngines, &google},
     {SearchEngineTier::kTopEngines, &bing},
@@ -272,6 +273,7 @@ constexpr EngineAndTier engines_CN[] = {
   {SearchEngineTier::kTopEngines, &sogou},
   {SearchEngineTier::kTopEngines, &so_360},
   {SearchEngineTier::kTopEngines, &google},
+  {SearchEngineTier::kTopEngines, &duckduckgo},
 };
 
 // Colombia
@@ -732,6 +734,7 @@ constexpr EngineAndTier engines_KR[] = {
   {SearchEngineTier::kTopEngines, &bing},
   {SearchEngineTier::kTopEngines, &daum},
   {SearchEngineTier::kTopEngines, &coccoc},
+  {SearchEngineTier::kTopEngines, &duckduckgo},
 };
 
 // Kuwait
@@ -1912,7 +1915,7 @@ std::vector<std::unique_ptr<TemplateURLData>> GetPrepopulatedEngines(
   }
   if (default_search_provider_index) {
     const auto itr =
-        base::ranges::find(t_urls, google.id, &TemplateURLData::prepopulate_id);
+        base::ranges::find(t_urls, duckduckgo.id, &TemplateURLData::prepopulate_id);
     *default_search_provider_index =
         itr == t_urls.end() ? 0 : std::distance(t_urls.begin(), itr);
   }
