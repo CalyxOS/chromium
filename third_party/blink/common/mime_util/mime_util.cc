@@ -87,6 +87,7 @@ constexpr auto kUnsupportedTextTypes =
         "text/x-csv",
         "text/x-vcf",
         "text/rtf",
+        "text/x-suse-ymp",
         "text/comma-separated-values",
         "text/csv",
         "text/tab-separated-values",
