@@ -20,7 +20,7 @@
     BUILDFLAG(IS_FUCHSIA)
 // When not defined, the EVRootCAMetadata singleton is a dumb placeholder
 // implementation that will fail all EV lookup operations.
-#define PLATFORM_USES_CHROMIUM_EV_METADATA
+//#define PLATFORM_USES_CHROMIUM_EV_METADATA
 #endif
 
 namespace base {
@@ -42,6 +42,11 @@ class NET_EXPORT_PRIVATE EVRootCAMetadata {
 
   EVRootCAMetadata(const EVRootCAMetadata&) = delete;
   EVRootCAMetadata& operator=(const EVRootCAMetadata&) = delete;
+
+  // Returns true if |policy_oid| is for 2.23.140.1.1 (CA/Browser Forum's
+  // Extended Validation Policy). This is used as a hack by the
+  // platform-specific CertVerifyProcs when doing EV verification.
+  static bool IsCaBrowserForumEvOid(der::Input policy_oid);
 
   // Returns true if policy_oid is an EV policy OID of some root CA.
   bool IsEVPolicyOID(der::Input policy_oid) const;
