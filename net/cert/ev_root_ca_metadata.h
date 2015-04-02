@@ -20,7 +20,7 @@
     BUILDFLAG(IS_FUCHSIA)
 // When not defined, the EVRootCAMetadata singleton is a dumb placeholder
 // implementation that will fail all EV lookup operations.
-#define PLATFORM_USES_CHROMIUM_EV_METADATA
+//#define PLATFORM_USES_CHROMIUM_EV_METADATA
 #endif
 
 namespace base {
