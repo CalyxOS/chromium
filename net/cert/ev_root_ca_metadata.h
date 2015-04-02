@@ -20,7 +20,7 @@
     BUILDFLAG(IS_FUCHSIA)
 // When not defined, the EVRootCAMetadata singleton is a dumb placeholder
 // implementation that will fail all EV lookup operations.
-#define PLATFORM_USES_CHROMIUM_EV_METADATA
+//#define PLATFORM_USES_CHROMIUM_EV_METADATA
 #endif
 
 namespace base {
@@ -65,12 +65,10 @@ class NET_EXPORT_PRIVATE EVRootCAMetadata {
   bool HasEVPolicyOIDGivenBytes(const SHA256HashValue& fingerprint,
                                 const der::Input& policy_oid) const;
 
-#if defined(PLATFORM_USES_CHROMIUM_EV_METADATA)
   // Returns true if |policy_oid| is for 2.23.140.1.1 (CA/Browser Forum's
   // Extended Validation Policy). This is used as a hack by the
   // platform-specific CertVerifyProcs when doing EV verification.
   static bool IsCaBrowserForumEvOid(PolicyOID policy_oid);
-#endif
 
   // AddEVCA adds an EV CA to the list of known EV CAs with the given policy.
   // |policy| is expressed as a string of dotted numbers. It returns true on
