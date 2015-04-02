@@ -36,7 +36,19 @@ struct EVMetadata {
   const base::StringPiece policy_oids[kMaxOIDsPerCA];
 };
 
-#include "net/data/ssl/chrome_root_store/chrome-ev-roots-inc.cc"
+static const EVMetadata kEvRootCaMetadata[] = {
+    // need some dummy data to make compiler happy, because
+    // arraysize() is implemented as a convoluted template rather than
+    // the traditional sizeof(x)/sizeof(*x)
+    {
+       {{0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+        0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff}},
+        {
+            "1.3.159.1.17.1",
+            "",
+        },
+    }
+};
 
 #endif  // defined(PLATFORM_USES_CHROMIUM_EV_METADATA)
 }  // namespace
@@ -115,7 +127,6 @@ bool EVRootCAMetadata::RemoveEVCA(const SHA256HashValue& fingerprint) {
 //
 
 bool EVRootCAMetadata::IsEVPolicyOID(der::Input policy_oid) const {
-  LOG(WARNING) << "Not implemented";
   return false;
 }
 
