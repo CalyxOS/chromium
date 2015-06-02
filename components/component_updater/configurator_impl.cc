@@ -40,8 +40,7 @@ ConfiguratorImpl::ConfiguratorImpl(
     : background_downloads_enabled_(config_policy.BackgroundDownloadsEnabled()),
       deltas_enabled_(config_policy.DeltaUpdatesEnabled()),
       fast_update_(config_policy.FastUpdate()),
-      pings_enabled_(config_policy.PingsEnabled()),
-      require_encryption_(require_encryption),
+      pings_enabled_(false),
       url_source_override_(config_policy.UrlSourceOverride()),
       initial_delay_(config_policy.InitialDelay()) {
   if (config_policy.TestRequest()) {
@@ -77,22 +76,21 @@ base::TimeDelta ConfiguratorImpl::UpdateDelay() const {
 
 std::vector<GURL> ConfiguratorImpl::UpdateUrl() const {
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
+  if ((true)) return std::vector<GURL>();
   if (url_source_override_.is_valid()) {
     return {GURL(url_source_override_)};
   }
 
   std::vector<GURL> urls{GURL(kUpdaterJSONDefaultUrl),
                          GURL(kUpdaterJSONFallbackUrl)};
-  if (require_encryption_) {
-    update_client::RemoveUnsecureUrls(&urls);
-  }
+  update_client::RemoveUnsecureUrls(&urls);
 
   return urls;
 }
 
 std::vector<GURL> ConfiguratorImpl::PingUrl() const {
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
-  return pings_enabled_ ? UpdateUrl() : std::vector<GURL>();
+  return std::vector<GURL>();
 }
 
 const base::Version& ConfiguratorImpl::GetBrowserVersion() const {
