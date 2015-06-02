@@ -15,9 +15,9 @@ namespace component_updater {
 // The value of |kDefaultUrlSource| can be overridden with
 // --component-updater=url-source=someurl.
 const char kUpdaterJSONDefaultUrl[] =
-    "https://update.googleapis.com/service/update2/json";
+    "about:blank";
 
 const char kUpdaterJSONFallbackUrl[] =
-    "http://update.googleapis.com/service/update2/json";
+    "about:blank";
 
 }  // namespace component_updater
