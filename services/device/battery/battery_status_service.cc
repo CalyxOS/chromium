@@ -43,17 +43,7 @@ base::CallbackListSubscription BatteryStatusService::AddCallback(
   if (!battery_fetcher_)
     battery_fetcher_ = BatteryStatusManager::Create(update_callback_);
 
-  if (callback_list_.empty()) {
-    bool success = battery_fetcher_->StartListeningBatteryChange();
-    // On failure pass the default values back.
-    if (!success)
-      callback.Run(mojom::BatteryStatus());
-  }
-
-  if (status_updated_) {
-    // Send recent status to the new callback if already available.
-    callback.Run(status_);
-  }
+  callback.Run(mojom::BatteryStatus());
 
   return callback_list_.Add(callback);
 }
