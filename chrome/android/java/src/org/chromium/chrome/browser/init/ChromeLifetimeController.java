@@ -18,6 +18,7 @@ import org.chromium.base.ContextUtils;
 import org.chromium.base.ThreadUtils;
 import org.chromium.chrome.browser.BrowserRestartActivity;
 import org.chromium.chrome.browser.lifetime.ApplicationLifetime;
+import org.chromium.chrome.browser.incognito.IncognitoNotificationManager;
 
 /**
  * Answers requests to kill and (potentially) restart Chrome's main browser process.
@@ -73,6 +74,7 @@ class ChromeLifetimeController
 
     @Override
     public void onTerminate(boolean restart) {
+        IncognitoNotificationManager.dismissIncognitoNotification();
         mRestartChromeOnDestroy = restart;
 
         // Tell all Chrome Activities to finish themselves.

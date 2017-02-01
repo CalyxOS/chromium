@@ -60,6 +60,7 @@ import org.chromium.base.supplier.UnownedUserDataSupplier;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.ActivityTabProvider;
 import org.chromium.chrome.browser.ActivityUtils;
+import org.chromium.chrome.browser.lifetime.ApplicationLifetime;
 import org.chromium.chrome.browser.ChromeActivitySessionTracker;
 import org.chromium.chrome.browser.ChromeApplicationImpl;
 import org.chromium.chrome.browser.ChromeKeyboardVisibilityDelegate;
@@ -2429,6 +2430,11 @@ public abstract class ChromeActivity<C extends ChromeActivityComponent>
                     "Settings.OpenSettingsFromMenu.PerProfileType",
                     type,
                     BrowserProfileType.MAX_VALUE + 1);
+            return true;
+        }
+
+        if (id == R.id.exit_id) {
+            ApplicationLifetime.terminate(false);
             return true;
         }
 
