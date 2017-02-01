@@ -166,6 +166,9 @@ found in the LICENSE file.
         <item android:id="@+id/managed_by_menu_id"
             android:title="@string/managed_browser"
             android:icon="@drawable/ic_business" />
+        <item android:id="@+id/exit_id"
+            android:title="@string/menu_exit"
+            android:icon="@drawable/ic_exit_to_app_white_24dp" />
     </group>
 
     <!-- Items shown only in the tab switcher -->
@@ -195,6 +198,9 @@ found in the LICENSE file.
         <item android:id="@id/preferences_id"
             android:title="@string/menu_settings"
             android:icon="@drawable/settings_cog" />
+        <item android:id="@+id/exit_id"
+            android:title="@string/menu_exit"
+            android:icon="@drawable/ic_exit_to_app_white_24dp" />
     </group>
 
     <!-- Items shown only when the tablet has no visible tabs -->
