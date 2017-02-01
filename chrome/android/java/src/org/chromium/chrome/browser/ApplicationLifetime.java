@@ -6,6 +6,7 @@ package org.chromium.chrome.browser;
 
 import org.chromium.base.ObserverList;
 import org.chromium.base.annotations.CalledByNative;
+import org.chromium.chrome.browser.incognito.IncognitoNotificationManager;
 
 /**
  * Watches for when Chrome is told to restart itself.
@@ -42,6 +43,7 @@ public class ApplicationLifetime {
 
     @CalledByNative
     public static void terminate(boolean restart) {
+        IncognitoNotificationManager.dismissIncognitoNotification();
         for (Observer observer : sObservers) {
             observer.onTerminate(restart);
         }
