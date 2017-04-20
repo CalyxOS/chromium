@@ -118,7 +118,7 @@ vars = {
 
   # Check out and download nacl for ChromeOS only.
   # This can be disabled e.g. with custom_vars.
-  'checkout_nacl': 'checkout_chromeos',
+  'checkout_nacl': False,
 
   # By default, do not check out src-internal. This can be overridden e.g. with
   # custom_vars.
@@ -175,7 +175,7 @@ vars = {
   # platforms, but support for other platforms may be added in the future.
   'checkout_openxr' : 'checkout_win or checkout_android',
 
-  'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration != "small"',
+  'checkout_instrumented_libraries': False,
 
   # By default bot checkouts the WPR archive files only when this
   # flag is set True.
@@ -544,7 +544,6 @@ allowed_hosts = [
   'chromium-nodejs',
   'chromium-tfhub-models',
   'chrome-linux-sysroot',
-  'chromium-fonts',
   'chromium-style-perftest',
   'chromium-telemetry',
   'chromium-webrtc-resources',
@@ -2100,20 +2099,6 @@ deps = {
       ],
       'condition': 'host_os == mac',
       'dep_type': 'cipd',
-  },
-
-  'src/third_party/test_fonts': {
-      'dep_type': 'gcs',
-      'condition': 'non_git_source',
-      'bucket': 'chromium-fonts',
-      'objects': [
-          {
-              'object_name': '336e775eec536b2d785cc80eff6ac39051931286',
-              'sha256sum': 'a2ca2962daf482a8f943163541e1c73ba4b2694fabcd2510981f2db4eda493c8',
-              'size_bytes': 32624734,
-              'generation': 1647440500943755,
-          },
-      ],
   },
 
   'src/third_party/text-fragments-polyfill/src':
@@ -5042,18 +5027,6 @@ hooks = [
                 '--bucket', 'chromium-browser-clang/rc',
                 '-s', 'src/build/toolchain/win/rc/mac/rc.sha1',
     ],
-  },
-  {
-    'name': 'rc_linux',
-    'pattern': '.',
-    'condition': 'checkout_win and host_os == "linux"',
-    'action': [ 'python3',
-                'src/third_party/depot_tools/download_from_google_storage.py',
-                '--no_resume',
-                '--no_auth',
-                '--bucket', 'chromium-browser-clang/rc',
-                '-s', 'src/build/toolchain/win/rc/linux64/rc.sha1',
-    ]
   },
   {
     'name': 'apache_win32',
