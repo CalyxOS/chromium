@@ -118,7 +118,7 @@ vars = {
 
   # Check out and download nacl for ChromeOS only.
   # This can be disabled e.g. with custom_vars.
-  'checkout_nacl': 'checkout_chromeos',
+  'checkout_nacl': False,
 
   # By default, do not check out src-internal. This can be overridden e.g. with
   # custom_vars.
@@ -175,7 +175,7 @@ vars = {
   # platforms, but support for other platforms may be added in the future.
   'checkout_openxr' : 'checkout_win or checkout_android',
 
-  'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration != "small"',
+  'checkout_instrumented_libraries': False,
 
   # By default bot checkouts the WPR archive files only when this
   # flag is set True.
@@ -548,7 +548,6 @@ allowed_hosts = [
   'chromium-nodejs',
   'chromium-tfhub-models',
   'chrome-linux-sysroot',
-  'chromium-fonts',
   'chromium-style-perftest',
   'chromium-telemetry',
   'chromium-webrtc-resources',
@@ -2434,20 +2433,6 @@ deps = {
       ],
       'condition': 'host_os == mac',
       'dep_type': 'cipd',
-  },
-
-  'src/third_party/test_fonts/test_fonts': {
-      'dep_type': 'gcs',
-      'condition': 'non_git_source',
-      'bucket': 'chromium-fonts',
-      'objects': [
-          {
-              'object_name': 'f26f29c9d3bfae588207bbc9762de8d142e58935c62a86f67332819b15203b35',
-              'sha256sum': 'f26f29c9d3bfae588207bbc9762de8d142e58935c62a86f67332819b15203b35',
-              'size_bytes': 32750602,
-              'generation': 1717109450425063,
-          },
-      ],
   },
 
   'src/third_party/text-fragments-polyfill/src':
@@ -5335,18 +5320,6 @@ hooks = [
                 '--bucket', 'chromium-browser-clang/rc',
                 '-s', 'src/build/toolchain/win/rc/mac/rc.sha1',
     ],
-  },
-  {
-    'name': 'rc_linux',
-    'pattern': '.',
-    'condition': 'checkout_win and host_os == "linux"',
-    'action': [ 'python3',
-                'src/third_party/depot_tools/download_from_google_storage.py',
-                '--no_resume',
-                '--no_auth',
-                '--bucket', 'chromium-browser-clang/rc',
-                '-s', 'src/build/toolchain/win/rc/linux64/rc.sha1',
-    ]
   },
   {
     'name': 'apache_win32',
