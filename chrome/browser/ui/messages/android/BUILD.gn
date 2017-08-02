@@ -25,6 +25,7 @@ android_library("java") {
   srcjar_deps = [ ":jni_headers" ]
   sources = [
     "java/src/org/chromium/chrome/browser/ui/messages/infobar/SimpleConfirmInfoBarBuilder.java",
+    "java/src/org/chromium/chrome/browser/ui/messages/snackbar/INeedSnackbarManager.java",
     "java/src/org/chromium/chrome/browser/ui/messages/snackbar/Snackbar.java",
     "java/src/org/chromium/chrome/browser/ui/messages/snackbar/SnackbarCollection.java",
     "java/src/org/chromium/chrome/browser/ui/messages/snackbar/SnackbarManager.java",
