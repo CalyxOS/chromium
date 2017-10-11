@@ -81,7 +81,7 @@ AutocompleteMatch TitledUrlMatchToAutocompleteMatch(
   // Otherwise, display the path, even if the input matches both or neither.
   bool show_path = titled_url_match.has_ancestor_match ||
                    titled_url_match.url_match_positions.empty();
-  match.contents = show_path ? path : formatted_url;
+  match.contents = /*show_path ? path :*/ formatted_url;
   // The path can become stale (when the bookmark is moved). So persist the URL
   // instead when creating shortcuts.
   if (show_path)
