@@ -227,8 +227,7 @@ public class PageInfoController
                 OmniboxUrlEmphasizer.getOriginEndIndex(
                         displayUrlBuilder.toString(), autocompleteSchemeClassifier);
         autocompleteSchemeClassifier.destroy();
-        containerParams.truncatedUrl =
-                UrlFormatter.formatUrlForDisplayOmitSchemePathAndTrivialSubdomains(mFullUrl);
+        containerParams.truncatedUrl = url;
         containerParams.backButtonClickCallback = this::exitSubpage;
         containerParams.urlTitleClickCallback = mContainer::toggleUrlTruncation;
         // Long press the url text to copy it to the clipboard.
