@@ -254,14 +254,14 @@ base::CallbackListSubscription AddSyncEnabledOrDisabledCallback(
 void PasswordManager::RegisterProfilePrefs(
     user_prefs::PrefRegistrySyncable* registry) {
   registry->RegisterBooleanPref(
-      prefs::kCredentialsEnableService, true,
+      prefs::kCredentialsEnableService, false,
       user_prefs::PrefRegistrySyncable::SYNCABLE_PRIORITY_PREF);
 #if BUILDFLAG(IS_IOS)
   registry->RegisterBooleanPref(prefs::kCredentialProviderEnabledOnStartup,
                                 false);
 #endif  // BUILDFLAG(IS_IOS)
   registry->RegisterBooleanPref(
-      prefs::kCredentialsEnableAutosignin, true,
+      prefs::kCredentialsEnableAutosignin, false,
       user_prefs::PrefRegistrySyncable::SYNCABLE_PRIORITY_PREF);
   registry->RegisterStringPref(prefs::kSyncPasswordHash, std::string(),
                                PrefRegistry::NO_REGISTRATION_FLAGS);
@@ -301,8 +301,8 @@ void PasswordManager::RegisterProfilePrefs(
       user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
   registry->RegisterBooleanPref(prefs::kPasswordsPrefWithNewLabelUsed, false);
 #if BUILDFLAG(IS_ANDROID)
-  registry->RegisterBooleanPref(prefs::kOfferToSavePasswordsEnabledGMS, true);
-  registry->RegisterBooleanPref(prefs::kAutoSignInEnabledGMS, true);
+  registry->RegisterBooleanPref(prefs::kOfferToSavePasswordsEnabledGMS, false);
+  registry->RegisterBooleanPref(prefs::kAutoSignInEnabledGMS, false);
   registry->RegisterBooleanPref(prefs::kSettingsMigratedToUPMLocal, false);
   registry->RegisterIntegerPref(
       prefs::kCurrentMigrationVersionToGoogleMobileServices, 0);
