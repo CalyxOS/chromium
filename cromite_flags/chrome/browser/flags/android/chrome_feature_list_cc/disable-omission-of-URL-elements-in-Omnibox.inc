@@ -1,0 +1,1 @@
+SET_CROMITE_FEATURE_DISABLED(kAndroidVisibleUrlTruncationV2);
