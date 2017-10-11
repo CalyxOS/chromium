@@ -242,9 +242,7 @@ public class EphemeralTabSheetContent implements BottomSheetContent {
         if (url == null) {
             originView.setText("");
         } else {
-            originView.setText(
-                    UrlFormatter.formatUrlForSecurityDisplay(
-                            url, SchemeDisplay.OMIT_HTTP_AND_HTTPS));
+            originView.setText(url.getSpec());
         }
     }
 
