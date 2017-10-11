@@ -63,6 +63,7 @@ public class BookmarkItem {
 
     /** Returns the string to display for the item's url. */
     public String getUrlForDisplay() {
+        if ((true)) return getUrl().getSpec();
         return UrlFormatter.formatUrlForSecurityDisplay(
                 getUrl(), SchemeDisplay.OMIT_HTTP_AND_HTTPS);
     }
