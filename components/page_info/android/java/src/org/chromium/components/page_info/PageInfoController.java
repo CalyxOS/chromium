@@ -221,8 +221,7 @@ public class PageInfoController
                 OmniboxUrlEmphasizer.getOriginEndIndex(
                         displayUrlBuilder.toString(), autocompleteSchemeClassifier);
         autocompleteSchemeClassifier.destroy();
-        String truncatedUrl =
-                UrlFormatter.formatUrlForDisplayOmitSchemePathAndTrivialSubdomains(mFullUrl);
+        String truncatedUrl = url;
         PageInfoContainer.Params containerParams =
                 new PageInfoContainer.Params(
                         /* url= */ displayUrlBuilder,
