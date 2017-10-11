@@ -255,5 +255,5 @@ TemplateURLService* ChromeLocationBarModelDelegate::GetTemplateURLService() {
 // static
 void ChromeLocationBarModelDelegate::RegisterProfilePrefs(
     user_prefs::PrefRegistrySyncable* registry) {
-  registry->RegisterBooleanPref(omnibox::kPreventUrlElisionsInOmnibox, false);
+  registry->RegisterBooleanPref(omnibox::kPreventUrlElisionsInOmnibox, true);
 }
