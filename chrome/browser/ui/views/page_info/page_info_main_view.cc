@@ -562,10 +562,14 @@ void PageInfoMainView::ChildPreferredSizeChanged(views::View* child) {
 }
 
 std::unique_ptr<views::View> PageInfoMainView::CreateBubbleHeaderView() {
-  auto header = std::make_unique<views::View>();
-  header->SetLayoutManager(std::make_unique<views::FlexLayout>())
+  auto cromite_header = std::make_unique<views::ScrollView>();
+  cromite_header->SetVerticalScrollBarMode(views::ScrollView::ScrollBarMode::kHiddenButEnabled);
+  cromite_header->SetHorizontalScrollBarMode(views::ScrollView::ScrollBarMode::kDisabled);
+  cromite_header->ClipHeightTo(0, 150);
+  auto scroll_contents = std::make_unique<views::View>();
+  scroll_contents->SetLayoutManager(std::make_unique<views::FlexLayout>())
       ->SetInteriorMargin(gfx::Insets::VH(0, 20));
-  title_ = header->AddChildView(std::make_unique<views::Label>(
+  title_ = scroll_contents->AddChildView(std::make_unique<views::Label>(
       std::u16string(), views::style::CONTEXT_DIALOG_TITLE,
       views::style::STYLE_HEADLINE_4,
       gfx::DirectionalityMode::DIRECTIONALITY_AS_URL));
@@ -589,9 +593,10 @@ std::unique_ptr<views::View> PageInfoMainView::CreateBubbleHeaderView() {
   // button padding when calculating margins.
   close_button->SetProperty(views::kInternalPaddingKey,
                             close_button->GetInsets());
-  header->AddChildView(close_button.release());
+  scroll_contents->AddChildView(close_button.release());
+  cromite_header->SetContents(std::move(scroll_contents));
 
-  return header;
+  return cromite_header;
 }
 
 std::unique_ptr<views::View> PageInfoMainView::CreateAboutThisSiteSection(
