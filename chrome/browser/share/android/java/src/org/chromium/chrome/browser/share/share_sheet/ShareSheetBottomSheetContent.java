@@ -270,9 +270,7 @@ class ShareSheetBottomSheetContent implements BottomSheetContent, OnItemClickLis
             ShareSheetLinkToggleCoordinator shareSheetLinkToggleCoordinator) {
         // Default preview is to show title + url.
         String title = mParams.getTitle();
-        String subtitle =
-                UrlFormatter.formatUrlForSecurityDisplay(
-                        mParams.getUrl(), SchemeDisplay.OMIT_HTTP_AND_HTTPS);
+        String subtitle = mParams.getUrl();
 
         if (contentTypes.contains(ContentType.IMAGE)
                 || contentTypes.contains(ContentType.IMAGE_AND_LINK)) {

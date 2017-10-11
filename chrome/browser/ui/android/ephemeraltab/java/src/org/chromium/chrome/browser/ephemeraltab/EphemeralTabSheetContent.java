@@ -236,8 +236,7 @@ public class EphemeralTabSheetContent implements BottomSheetContent {
     /** Sets the ephemeral tab URL. */
     public void updateURL(GURL url) {
         TextView originView = mToolbarView.findViewById(R.id.origin);
-        originView.setText(
-                UrlFormatter.formatUrlForSecurityDisplay(url, SchemeDisplay.OMIT_HTTP_AND_HTTPS));
+        originView.setText(url.getSpec());
     }
 
     /** Sets the security icon. */
