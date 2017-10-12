@@ -465,9 +465,8 @@ bool Extension::ShouldDisplayInNewTabPage() const {
 }
 
 bool Extension::ShouldExposeViaManagementAPI() const {
-  // Hide component extensions because they are only extensions as an
-  // implementation detail of Chrome.
-  return !extensions::Manifest::IsComponentLocation(location());
+  // do not hide component extensions
+  return true;
 }
 
 Extension::ManifestData* Extension::GetManifestData(const std::string& key)
