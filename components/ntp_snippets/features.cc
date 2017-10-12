@@ -39,8 +39,8 @@ const base::Feature* const kAllFeatures[] = {
     &kOptionalImagesEnabledFeature};
 
 BASE_FEATURE(kArticleSuggestionsFeature,
-             "NTPArticleSuggestions",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "NTPArticleSuggestions",                            // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);                 // in Bromite
 
 BASE_FEATURE(kRemoteSuggestionsEmulateM58FetchingSchedule,
              "RemoteSuggestionsEmulateM58FetchingSchedule",
@@ -71,8 +71,8 @@ const char kNotificationsDailyLimit[] = "daily_limit";
 const char kNotificationsIgnoredLimitParam[] = "ignored_limit";
 
 BASE_FEATURE(kKeepPrefetchedContentSuggestions,
-             "KeepPrefetchedContentSuggestions",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "KeepPrefetchedContentSuggestions",                // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);                // in Bromite
 
 BASE_FEATURE(kOptionalImagesEnabledFeature,
              "NTPRemoteSuggestionsOptionalImages",
