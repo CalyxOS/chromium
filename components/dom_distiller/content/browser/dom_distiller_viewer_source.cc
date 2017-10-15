@@ -301,7 +301,7 @@ bool DomDistillerViewerSource::ShouldServiceRequest(
 std::string DomDistillerViewerSource::GetContentSecurityPolicy(
     network::mojom::CSPDirectiveName directive) {
   if (directive == network::mojom::CSPDirectiveName::StyleSrc) {
-    return "style-src 'self' https://fonts.googleapis.com;";
+    return "style-src 'self';";
   } else if (directive == network::mojom::CSPDirectiveName::ChildSrc) {
     return "child-src *;";
   } else if (directive ==
