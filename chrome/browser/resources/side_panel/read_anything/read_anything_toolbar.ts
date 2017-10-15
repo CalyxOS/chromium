@@ -372,9 +372,7 @@ export class ReadAnythingToolbarElement extends ReadAnythingToolbarElementBase {
     const link = document.createElement('link');
     link.rel = 'preload';
     link.as = 'style';
-    link.href = 'https://fonts.googleapis.com/css?family=';
-    link.href += chrome.readingMode.allFonts.join('|');
-    link.href = link.href.replace(' ', '+');
+    this.setFontsLoaded();
 
     link.addEventListener('load', () => {
       link.media = 'all';
