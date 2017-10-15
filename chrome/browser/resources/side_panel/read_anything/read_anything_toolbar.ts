@@ -472,9 +472,6 @@ export class ReadAnythingToolbarElement extends ReadAnythingToolbarElementBase {
     const link = document.createElement('link');
     link.rel = 'preload';
     link.as = 'style';
-    link.href =
-        'https://fonts.googleapis.com/css?family=Poppins|Comic+Neue|Lexend+Deca|' +
-        'EB+Garamond|STIX+Two+Text|Andika';
 
     link.addEventListener('load', () => {
       link.media = 'all';
