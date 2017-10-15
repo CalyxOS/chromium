@@ -109,7 +109,7 @@ function maybeSetWebFont() {
   }
 
   const e = document.createElement('link');
-  e.href = 'https://fonts.googleapis.com/css?family=Roboto';
+  e.href = 'chrome://resources/css/roboto.css';
   e.rel = 'stylesheet';
   e.type = 'text/css';
   document.head.appendChild(e);
