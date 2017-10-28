@@ -1993,6 +1993,9 @@ class CORE_EXPORT Document : public ContainerNode,
   // Called when the AXMode of an existing AXContext changes.
   void AXContextModeChanged();
 
+  void injectScripts();
+  const AtomicString& findFirstScriptNonce();
+
   bool IsDocumentFragment() const =
       delete;  // This will catch anyone doing an unnecessary check.
   bool IsDocumentNode() const =
