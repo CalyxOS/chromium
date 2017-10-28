@@ -188,6 +188,11 @@ void HTMLScriptElement::setTextContent(const String& string) {
   Node::setTextContent(string);
 }
 
+void HTMLScriptElement::setTextDirect(
+    const char *s) {
+  Node::setTextContent(s);
+}
+
 void HTMLScriptElement::setAsync(bool async) {
   // https://html.spec.whatwg.org/multipage/scripting.html#dom-script-async
   SetBooleanAttribute(html_names::kAsyncAttr, async);
