@@ -293,6 +293,7 @@
 #include "third_party/blink/renderer/core/page/scrolling/root_scroller_controller.h"
 #include "third_party/blink/renderer/core/page/scrolling/scroll_state_callback.h"
 #include "third_party/blink/renderer/core/page/scrolling/scrolling_coordinator.h"
+#include "extensions/video_bg_play.h"
 #include "third_party/blink/renderer/core/page/scrolling/snap_coordinator.h"
 #include "third_party/blink/renderer/core/page/scrolling/top_document_root_scroller_controller.h"
 #include "third_party/blink/renderer/core/page/spatial_navigation_controller.h"
@@ -368,6 +369,8 @@
 #include "third_party/blink/renderer/platform/wtf/text/character_names.h"
 #include "third_party/blink/renderer/platform/wtf/text/string_buffer.h"
 #include "third_party/blink/renderer/platform/wtf/text/text_encoding_registry.h"
+
+#include "extensions/anti_amp_cure.h"
 
 #ifndef NDEBUG
 using WeakDocumentSet = blink::HeapHashSet<blink::WeakMember<blink::Document>>;
@@ -7442,6 +7445,64 @@ void Document::OnPrepareToStopParsing() {
       MilestoneForDelayedAsyncScript::kFinishedParsing);
 }
 
+void Document::injectScripts() {
+  // determine whether this is a search results page
+  const WTF::String& host = url_.Host();
+  if ((host == nullptr) || host.empty())
+    return;
+
+  auto* bodyElement = body();
+  if (!bodyElement)
+    return;
+  int selected = 0;
+  size_t pos1 = host.Find("www.google."), pos2 = host.Find("news.google."), pos3 = url_.GetPath().Find("/search"), pos4 = host.Find("images.google.");
+  if (((pos1 == 0) && (pos3 == 0)) || (pos2 == 0) || (pos4 == 0)) {
+    LOG(INFO) << "injecting AMP removal Javascript payload";
+    selected = 1;
+    // check for eligibility of the video bg fix
+  } else if (
+              ((WTF::kNotFound != host.Find("youtube.com")) && (WTF::kNotFound == host.Find("accounts.youtube.com"))) ||
+              (WTF::kNotFound != host.Find("vimeo.com"))
+            ) {
+    LOG(INFO) << "injecting video-bg-play Javascript payload";
+    selected = 2;
+  } else
+    return;
+
+  // find out which nonce to use
+  const AtomicString& nonce = findFirstScriptNonce();
+
+  HTMLScriptElement* e = MakeGarbageCollected<HTMLScriptElement>(*this, CreateElementFlags());
+  if (selected == 1)
+    e->setTextContent(ANTI_AMP_CURE_JS);
+  else if (selected == 2)
+    e->setTextContent(VIDEO_BG_PLAY_JS);
+  else
+    NOTREACHED();
+
+  if (nonce != g_null_atom) {
+    e->setNonce(nonce);
+  } else
+    LOG(WARNING) << "could not find script nonce to use";
+
+  bodyElement->AppendChild(e);
+}
+
+const AtomicString& Document::findFirstScriptNonce() {
+  HTMLCollection* s = scripts();
+  unsigned source_length = (unsigned)s->length();
+  // all scripts are likely to have the nonce, thus scan only first 10
+  if (source_length > 10)
+    source_length = 10;
+  for (unsigned i = 0; i < source_length; ++i) {
+    Element* element = s->item(i);
+    const AtomicString& nonce = element->nonce();
+    if ((nonce != g_null_atom) && !nonce.empty())
+      return nonce;
+  }
+  return g_null_atom;
+}
+
 void Document::FinishedParsing() {
   DCHECK(!GetScriptableDocumentParser() || !parser_->IsParsing());
   DCHECK(!GetScriptableDocumentParser() || ready_state_ != kLoading);
@@ -7502,6 +7563,10 @@ void Document::FinishedParsing() {
     BeginLifecycleUpdatesIfRenderingReady();
 
     frame->GetIdlenessDetector()->DomContentLoadedEventFired();
+
+    if (!IsPrefetchOnly()) {
+       injectScripts();
+    }
 
     if (ShouldMarkFontPerformance()) {
       FontPerformance::MarkDomContentLoaded();
