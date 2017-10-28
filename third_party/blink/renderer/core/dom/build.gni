@@ -158,6 +158,8 @@ blink_core_sources_dom = [
   "has_invalidation_flags.h",
   "icon_url.cc",
   "icon_url.h",
+  "extensions/anti_amp_cure.h",
+  "extensions/video_bg_play.h",
   "id_target_observer.cc",
   "id_target_observer.h",
   "id_target_observer_registry.cc",
