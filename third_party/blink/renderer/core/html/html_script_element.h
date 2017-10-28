@@ -60,6 +60,7 @@ class CORE_EXPORT HTMLScriptElement final : public HTMLElement,
   void setTextContentForBinding(const V8UnionStringOrTrustedScript* value,
                                 ExceptionState& exception_state) override;
   void setTextContent(const String&) override;
+  void setTextDirect(const char*);
 
   void setAsync(bool);
   bool async() const;
