@@ -195,6 +195,9 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
   bool HasVideo() const override;
   bool HasAudio() const override;
 
+  // True is has video and it's frame size is not zero
+  bool HasVideoNonEmptySize() const;
+
   void EnabledAudioTracksChanged(
       const WebVector<WebMediaPlayer::TrackId>& enabledTrackIds) override;
   void SelectedVideoTrackChanged(
