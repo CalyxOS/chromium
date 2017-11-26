@@ -95,16 +95,6 @@ enum NewTabURLState {
   NEW_TAB_URL_MAX
 };
 
-const TemplateURL* GetDefaultSearchProviderTemplateURL(Profile* profile) {
-  if (profile) {
-    TemplateURLService* template_url_service =
-        TemplateURLServiceFactory::GetForProfile(profile);
-    if (template_url_service)
-      return template_url_service->GetDefaultSearchProvider();
-  }
-  return nullptr;
-}
-
 bool IsMatchingServiceWorker(const GURL& my_url, const GURL& document_url) {
   // The origin should match.
   if (!MatchesOrigin(my_url, document_url))
@@ -138,33 +128,6 @@ bool IsNTPOrRelatedURLHelper(const GURL& url, Profile* profile) {
                                     IsMatchingServiceWorker(url, new_tab_url));
 }
 
-bool IsURLAllowedForSupervisedUser(const GURL& url, Profile* profile) {
-#if BUILDFLAG(ENABLE_SUPERVISED_USERS)
-  SupervisedUserService* supervised_user_service =
-      SupervisedUserServiceFactory::GetForProfile(profile);
-  if (!supervised_user_service ||
-      !supervised_user_service->IsURLFilteringEnabled()) {
-    return true;
-  }
-
-  supervised_user::SupervisedUserURLFilter* url_filter =
-      supervised_user_service->GetURLFilter();
-  if (url_filter->GetFilteringBehaviorForURL(url) ==
-      supervised_user::SupervisedUserURLFilter::BLOCK) {
-    return false;
-  }
-#endif
-  return true;
-}
-
-bool ShouldShowLocalNewTab(Profile* profile) {
-#if !BUILDFLAG(IS_ANDROID)
-  return DefaultSearchProviderIsGoogle(profile);
-#else
-  return false;
-#endif
-}
-
 // Used to look up the URL to use for the New Tab page. Also tracks how we
 // arrived at that URL so it can be logged with UMA.
 struct NewTabURLDetails {
@@ -187,10 +150,9 @@ struct NewTabURLDetails {
                              : chrome::kChromeUINewTabPageThirdPartyURL);
 #endif
 
-    if (ShouldShowLocalNewTab(profile))
-      return NewTabURLDetails(local_url, NEW_TAB_URL_VALID);
+    return NewTabURLDetails(local_url, NEW_TAB_URL_VALID);
 
-    const TemplateURL* template_url =
+/*    const TemplateURL* template_url =
         GetDefaultSearchProviderTemplateURL(profile);
     if (!profile || !template_url)
       return NewTabURLDetails(local_url, NEW_TAB_URL_BAD);
@@ -206,7 +168,7 @@ struct NewTabURLDetails {
     if (!IsURLAllowedForSupervisedUser(search_provider_url, profile))
       return NewTabURLDetails(local_url, NEW_TAB_URL_BLOCKED);
 
-    return NewTabURLDetails(search_provider_url, NEW_TAB_URL_VALID);
+    return NewTabURLDetails(search_provider_url, NEW_TAB_URL_VALID);*/
   }
 
   const GURL url;
