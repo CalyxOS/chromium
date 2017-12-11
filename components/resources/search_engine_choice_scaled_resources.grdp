@@ -5,6 +5,7 @@
   <if expr="_google_chrome">
     <structure type="chrome_scaled_image" name="IDR_GOOGLE_COM_PNG" file="google_chrome/google_search_logo.png" />
   </if>
+  <structure type="chrome_scaled_image" name="IDR_GOOGLEEN_PNG" file="search_engine_choice/default_favicon.png" />
   <structure type="chrome_scaled_image" name="IDR_AR_YAHOO_COM_PNG" file="search_engine_choice/yahoo_com.png" />
   <structure type="chrome_scaled_image" name="IDR_AT_YAHOO_COM_PNG" file="search_engine_choice/yahoo_com.png" />
   <structure type="chrome_scaled_image" name="IDR_AU_YAHOO_COM_PNG" file="search_engine_choice/yahoo_com.png" />
