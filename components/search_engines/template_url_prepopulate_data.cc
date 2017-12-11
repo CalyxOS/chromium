@@ -28,6 +28,8 @@
 #include "components/search_engines/template_url_data_util.h"
 #include "third_party/search_engines_data/resources/definitions/prepopulated_engines.h"
 
+#include "components/search_engines/cromite/cromite_prepopulated_engines.h"
+
 namespace TemplateURLPrepopulateData {
 
 // Helpers --------------------------------------------------------------------
@@ -123,7 +125,7 @@ int GetDataVersion(PrefService* prefs) {
       kCurrentDataVersion;
 }
 
-std::vector<std::unique_ptr<TemplateURLData>> GetPrepopulatedEngines(
+std::vector<std::unique_ptr<TemplateURLData>> GetPrepopulatedEnginesChromium(
     PrefService& prefs,
     std::vector<const TemplateURLPrepopulateData::PrepopulatedEngine*>
         regional_prepopulated_engines) {
@@ -137,6 +139,17 @@ std::vector<std::unique_ptr<TemplateURLData>> GetPrepopulatedEngines(
 
   return base::ToVector(regional_prepopulated_engines,
                         &PrepopulatedEngineToTemplateURLData);
+}
+
+std::vector<std::unique_ptr<TemplateURLData>> GetPrepopulatedEngines(
+    PrefService& prefs,
+    std::vector<const TemplateURLPrepopulateData::PrepopulatedEngine*>
+        regional_prepopulated_engines) {
+  std::vector<std::unique_ptr<TemplateURLData>> t_urls =
+    GetPrepopulatedEnginesChromium(prefs, regional_prepopulated_engines);
+  t_urls.push_back(TemplateURLDataFromPrepopulatedEngine(googleen));
+  t_urls.push_back(TemplateURLDataFromPrepopulatedEngine(duckduckgo_light));
+  return t_urls;
 }
 
 std::unique_ptr<TemplateURLData> GetPrepopulatedEngine(
@@ -160,9 +173,13 @@ std::vector<std::unique_ptr<TemplateURLData>> GetLocalPrepopulatedEngines(
     return std::vector<std::unique_ptr<TemplateURLData>>();
   }
 
-  return base::ToVector(
+  std::vector<std::unique_ptr<TemplateURLData>> t_urls =
+    base::ToVector(
       regional_capabilities::GetPrepopulatedEngines(country_id, prefs),
       &PrepopulatedEngineToTemplateURLData);
+  t_urls.push_back(TemplateURLDataFromPrepopulatedEngine(googleen));
+  t_urls.push_back(TemplateURLDataFromPrepopulatedEngine(duckduckgo_light));
+  return t_urls;
 }
 
 #endif
