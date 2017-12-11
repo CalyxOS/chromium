@@ -73,6 +73,7 @@ static_library("search_engines") {
     "//third_party/omnibox_proto",
     "//third_party/search_engines_data:prepopulated_engines",
     "//third_party/search_engines_data:regional_settings",
+    "cromite:cromite_prepopulated_engines",
   ]
 
   deps = [
@@ -159,6 +160,7 @@ source_set("search_engine_utils") {
     ":search_engine_type",
     "//components/google/core/common",
     "//third_party/search_engines_data:prepopulated_engines",
+    "cromite:cromite_prepopulated_engines",
   ]
 
   deps = [ "//url" ]
@@ -242,6 +244,7 @@ source_set("unit_tests") {
     "//testing/gmock",
     "//testing/gtest",
     "//third_party/search_engines_data:prepopulated_engines",
+    "cromite:cromite_prepopulated_engines",
     "//ui/base",
     "//url",
   ]

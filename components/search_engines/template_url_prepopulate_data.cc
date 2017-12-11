@@ -30,6 +30,8 @@
 #include "third_party/search_engines_data/resources/definitions/prepopulated_engines.h"
 #include "third_party/search_engines_data/resources/definitions/regional_settings.h"
 
+#include "components/search_engines/cromite/cromite_prepopulated_engines.h"
+
 namespace TemplateURLPrepopulateData {
 
 // Helpers --------------------------------------------------------------------
@@ -56,6 +58,12 @@ const RegionalSettings& GetRegionalSettings(CountryId country_id) {
   return *iter->second;
 }
 
+void AddCromiteDefaultEngines(
+    std::vector<std::unique_ptr<TemplateURLData>>& t_urls) {
+  t_urls.push_back(PrepopulatedEngineToTemplateURLData(&googleen));
+  t_urls.push_back(PrepopulatedEngineToTemplateURLData(&duckduckgo_light));
+}
+
 std::vector<std::unique_ptr<TemplateURLData>>
 GetPrepopulatedEnginesForEeaRegionCountries(CountryId country_id,
                                             PrefService& prefs) {
@@ -80,12 +88,12 @@ GetPrepopulatedEnginesForEeaRegionCountries(CountryId country_id,
   std::vector<std::unique_ptr<TemplateURLData>> t_urls =
       base::ToVector(GetRegionalSettings(country_id).search_engines,
                      &PrepopulatedEngineToTemplateURLData);
+  AddCromiteDefaultEngines(t_urls);
 
   std::default_random_engine generator;
   generator.seed(profile_seed);
   std::shuffle(t_urls.begin(), t_urls.end(), generator);
 
-  CHECK_LE(t_urls.size(), kMaxEeaPrepopulatedEngines);
   return t_urls;
 }
 
@@ -111,8 +119,11 @@ std::vector<std::unique_ptr<TemplateURLData>> GetPrepopulatedTemplateURLData(
 
   const auto& engines = GetRegionalSettings(country_id).search_engines;
   size_t num_top_engines = std::min(engines.size(), kTopSearchEnginesThreshold);
-  return base::ToVector(base::span(engines).first(num_top_engines),
-                        &PrepopulatedEngineToTemplateURLData);
+
+  auto result = base::ToVector(base::span(engines).first(num_top_engines),
+                               &PrepopulatedEngineToTemplateURLData);
+  AddCromiteDefaultEngines(result);
+  return result;
 }
 
 // These values are persisted to logs. Entries should not be renumbered and
@@ -260,6 +271,12 @@ std::unique_ptr<TemplateURLData> GetPrepopulatedEngineFromFullList(
     }
   }
 
+  if (prepopulated_id == googleen.id) {
+    return PrepopulatedEngineToTemplateURLData(&googleen);
+  } else if (prepopulated_id == duckduckgo_light.id) {
+    return PrepopulatedEngineToTemplateURLData(&duckduckgo_light);
+  }
+
   auto engine_matcher = [&](const PrepopulatedEngine* engine) {
     return engine->id == prepopulated_id;
   };
@@ -325,12 +342,15 @@ GetAllEeaRegionPrepopulatedEngines() {
     }
   }
 
+  AddCromiteDefaultEngines(result);
   return result;
 }
 
 std::vector<std::unique_ptr<TemplateURLData>> GetDefaultPrepopulatedEngines() {
-  return base::ToVector(GetRegionalSettings(CountryId()).search_engines,
-                        &PrepopulatedEngineToTemplateURLData);
+  auto result = base::ToVector(GetRegionalSettings(CountryId()).search_engines,
+                               &PrepopulatedEngineToTemplateURLData);
+  AddCromiteDefaultEngines(result);
+  return result;
 }
 
 }  // namespace TemplateURLPrepopulateData
