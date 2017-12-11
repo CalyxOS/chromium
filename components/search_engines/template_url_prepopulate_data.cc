@@ -85,7 +85,6 @@ GetPrepopulatedEnginesForEeaRegionCountries(int country_id,
   generator.seed(profile_seed);
   std::shuffle(t_urls.begin(), t_urls.end(), generator);
 
-  CHECK_LE(t_urls.size(), kMaxEeaPrepopulatedEngines);
   return t_urls;
 }
 
