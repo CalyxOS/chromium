@@ -232,14 +232,14 @@ def main(arguments):
   json_to_struct.GenerateStruct(
       basepath, output_root, opts.namespace, schema, description,
       os.path.split(description_filename)[1], os.path.split(opts.schema)[1],
-      opts.year)
+      False, opts.year)
 
   # TODO(peilinwang) filter the schema by platform, form_factor, etc.
   if opts.java:
     json_to_struct.GenerateClass(basepath, output_root, opts.namespace, schema,
                                  description,
                                  os.path.split(description_filename)[1],
-                                 os.path.split(opts.schema)[1], opts.year)
+                                 os.path.split(opts.schema)[1], False, opts.year)
 
 
 if __name__ == '__main__':

@@ -28,6 +28,8 @@
 #include "components/version_info/version_info.h"
 #include "third_party/search_engines_data/resources/definitions/prepopulated_engines.h"
 
+#include "components/search_engines/cromite/cromite_prepopulated_engines.h"
+
 namespace TemplateURLPrepopulateData {
 
 // Helpers --------------------------------------------------------------------
@@ -67,7 +69,6 @@ GetPrepopulatedEnginesForEeaRegionCountries(CountryID country_id,
   generator.seed(profile_seed);
   std::shuffle(t_urls.begin(), t_urls.end(), generator);
 
-  CHECK_LE(t_urls.size(), kMaxEeaPrepopulatedEngines);
   return t_urls;
 }
 
