@@ -28,15 +28,6 @@ struct PrepopulatedEngine;
 extern const int kMaxPrepopulatedEngineID;
 
 // The maximum number of prepopulated search engines that can be returned in
-// any of the EEA countries by `GetPrepopulatedEngines()`.
-//
-// Note: If this is increased, please also increase the declared variant count
-// for the `Search.ChoiceScreenShowedEngineAt.Index{Index}` histogram.
-// TODO(crbug.com/408932087): Investigate moving it to the file that actually
-// populates these, `//c/regional_capabilities/r*c*_util.cc`.
-inline constexpr size_t kMaxEeaPrepopulatedEngines = 8;
-
-// The maximum number of prepopulated search engines that can be returned in
 // in the rest of the world by `GetPrepopulatedEngines()`.
 // TODO(crbug.com/408932087): Investigate deduping it with the constant
 // `kTopSearchEnginesThreshold` in `//c/regional_capabilities/r*c*_util.cc`.
