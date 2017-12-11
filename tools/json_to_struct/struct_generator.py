@@ -30,20 +30,24 @@ def GenerateField(field_info):
   else:
     raise RuntimeError('Unknown field type "%s"' % type)
 
-def GenerateStruct(type_name, schema):
+def GenerateStruct(excludetype, type_name, schema):
   """Generate a string defining a structure containing the fields specified in
   the schema list.
   """
   lines = []
+  if excludetype:
+    lines.append('struct %s;' % type_name)
+    return '\n'.join(lines) + '\n'
+
   lines.append('struct %s {' % type_name)
   for field_info in schema:
     if field_info['type'] == 'struct':
-      lines.insert(0, GenerateStruct(field_info['type_name'],
+      lines.insert(0, GenerateStruct(excludetype, field_info['type_name'],
                                      field_info['fields']))
     elif (field_info['type'] == 'array'
           and field_info['contents']['type'] == 'struct'):
       contents = field_info['contents']
-      lines.insert(0, GenerateStruct(contents['type_name'],
+      lines.insert(0, GenerateStruct(excludetype, contents['type_name'],
                                      contents['fields']))
     lines.append('  ' + GenerateField(field_info) + ';')
   lines.append('};')

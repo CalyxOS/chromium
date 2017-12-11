@@ -25,6 +25,11 @@ template("json_to_struct") {
   action_name = target_name + "_action"
   source_set_name = target_name
 
+  excludetype = false
+  if (defined(invoker.excludetype)) {
+    excludetype = invoker.excludetype
+  }
+
   action(action_name) {
     visibility = [ ":$source_set_name" ]
     script = "//tools/json_to_struct/json_to_struct.py"
@@ -49,6 +54,10 @@ template("json_to_struct") {
       "--namespace=" + invoker.namespace,
       "--schema=" + rebase_path(invoker.schema_file, root_build_dir),
     ]
+
+    if (excludetype) {
+      args += [ "--excludetype=yes" ]
+    }
   }
 
   source_set(source_set_name) {

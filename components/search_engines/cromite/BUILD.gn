@@ -1,0 +1,12 @@
+import("//tools/json_to_struct/json_to_struct.gni")
+
+json_to_struct("cromite_prepopulated_engines") {
+  visibility = [ "//components/search_engines:*" ]
+
+  source = "cromite_prepopulated_engines.json"
+  schema_file = "//third_party/search_engines_data/prepopulated_engines_schema.json"
+  namespace = "TemplateURLPrepopulateData"
+  excludetype = true
+
+  deps = [ "//base" ]
+}
