@@ -1,0 +1,37 @@
+{
+    "additionals_includes": {
+        "third_party/search_engines_data/resources/definitions/prepopulated_engines.h": ""
+    },
+    "elements": {
+        "duckduckgo_light": {
+            "name": "DuckDuckGo Light",
+            "keyword": "duckduckgo.com/lite",
+            "favicon_url": "https://duckduckgo.com/favicon.ico",
+            "search_url": "https://duckduckgo.com/lite/?q={searchTerms}",
+            "suggest_url": "https://duckduckgo.com/ac/?q={searchTerms}&type=list",
+            "type": "SEARCH_ENGINE_DUCKDUCKGOLIGHT",
+            "id": 12
+        },
+
+        "googleen": {
+            "name": "Google in English",
+            "keyword": "googleen",
+            "favicon_url": "https://www.google.com/favicon.ico",
+            "search_url": "{google:baseURL}search?q={searchTerms}&ie={inputEncoding}&hl=en",
+            "suggest_url": "{google:baseSuggestURL}search?client={google:suggestClient}&q={searchTerms}&hl=en",
+            "image_url": "{google:baseURL}searchbyimage/upload?hl=en",
+            "new_tab_url": "{google:baseURL}_/chrome/newtab?hl=en&ie={inputEncoding}",
+            "contextual_search_url": "{google:baseURL}_/contextualsearch?{google:contextualSearchVersion}{google:contextualSearchContextData}&hl=en",
+            "image_url_post_params": "encoded_image={google:imageThumbnail},image_url={google:imageURL},sbisrc={google:imageSearchSource},original_width={google:imageOriginalWidth},original_height={google:imageOriginalHeight}",
+            "alternate_urls": [
+              "{google:baseURL}?hl=en#q={searchTerms}",
+              "{google:baseURL}search?hl=en#q={searchTerms}",
+              "{google:baseURL}webhp?hl=en#q={searchTerms}",
+              "{google:baseURL}s?hl=en#q={searchTerms}",
+              "{google:baseURL}s?hl=en&q={searchTerms}"
+            ],
+            "type": "SEARCH_ENGINE_GOOGLE_EN",
+            "id": 13
+        }
+    }
+}

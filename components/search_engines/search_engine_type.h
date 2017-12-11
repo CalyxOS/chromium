@@ -94,9 +94,14 @@ enum SearchEngineType {
   SEARCH_ENGINE_STARTPAGE = 75,
   SEARCH_ENGINE_STARTER_PACK_PAGE = 76,
   SEARCH_ENGINE_MCAFEE = 77,
+  SEARCH_ENGINE_GOOGLE_EN = 78,
+  SEARCH_ENGINE_DUCKDUCKGOLIGHT = 79,
 
   SEARCH_ENGINE_MAX  // Bounding value needed for UMA histogram macro.
 };
+
+static_assert(SEARCH_ENGINE_DUCKDUCKGOLIGHT == (SEARCH_ENGINE_MAX - 1),
+              "Please check this patch");
 
 // Enum to record the type of search engine a user used in keyword mode. This
 // should be kept aligned with the `OmniboxBuiltinEngineType` enum in enums.xml.
