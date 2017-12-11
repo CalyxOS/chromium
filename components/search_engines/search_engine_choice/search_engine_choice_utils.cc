@@ -186,10 +186,7 @@ void RecordChoiceScreenDefaultSearchProviderType(
 }
 
 void RecordChoiceScreenSelectedIndex(int selected_engine_index) {
-  base::UmaHistogramExactLinear(
-      kSearchEngineChoiceScreenSelectedEngineIndexHistogram,
-      selected_engine_index,
-      TemplateURLPrepopulateData::kMaxEeaPrepopulatedEngines);
+  // do nothing in Cromite
 }
 
 void RecordChoiceScreenPositionsCountryMismatch(bool has_mismatch) {
