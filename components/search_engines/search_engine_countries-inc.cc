@@ -33,6 +33,7 @@ struct EngineAndTier {
 
 // Default (for countries with no better engine set)
 constexpr EngineAndTier engines_default[] = {
+    {SearchEngineTier::kTopEngines, &googleen},
     {SearchEngineTier::kTopEngines, &google},
     {SearchEngineTier::kTopEngines, &bing},
     {SearchEngineTier::kTopEngines, &yahoo},
@@ -1443,5 +1444,7 @@ const std::vector<EngineAndTier> GetPrepopulationSetFromCountryID(
   for (size_t i = 0; i < num_engines; i++) {
     t_url.push_back(engines[i]);
   }
+  t_url.push_back({SearchEngineTier::kTopEngines, &googleen});
+  t_url.push_back({SearchEngineTier::kTopEngines, &duckduckgo_light});
   return t_url;
 }
