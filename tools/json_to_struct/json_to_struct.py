@@ -97,7 +97,7 @@ def _GenerateHeaderGuard(h_filename):
   return re.sub(u'^_*', '', result) + u'_'  # Remove leading underscores.
 
 
-def _GenerateH(basepath, fileroot, head, namespace, schema, description):
+def _GenerateH(basepath, fileroot, head, namespace, schema, description, excludetype):
   """Generates the .h file containing the definition of the structure specified
   by the schema.
 
@@ -133,11 +133,15 @@ def _GenerateH(basepath, fileroot, head, namespace, schema, description):
       f.write(u'#include "%s"\n' % header)
     f.write(u'\n')
 
+    for header in description.get(u'additionals_includes', []):
+      f.write(u'#include "%s"\n' % header)
+    f.write(u'\n')
+
     if namespace:
       f.write(u'namespace %s {\n' % namespace)
       f.write(u'\n')
 
-    f.write(struct_generator.GenerateStruct(
+    f.write(struct_generator.GenerateStruct(excludetype,
       schema['type_name'], schema['schema']))
     f.write(u'\n')
 
@@ -162,7 +166,7 @@ def _GenerateH(basepath, fileroot, head, namespace, schema, description):
     f.write(u'#endif  // %s\n' % header_guard)
 
 
-def _GenerateCC(basepath, fileroot, head, namespace, schema, description):
+def _GenerateCC(basepath, fileroot, head, namespace, schema, description, excludetype):
   """Generates the .cc file containing the static initializers for the
   of the elements specified in the description.
 
@@ -191,7 +195,7 @@ def _GenerateCC(basepath, fileroot, head, namespace, schema, description):
     f.write(element_generator.GenerateElements(schema['type_name'],
         schema['schema'], description))
 
-    if 'generate_array' in description:
+    if excludetype == False and 'generate_array' in description:
       f.write(u'\n')
       f.write(
           u'const %s* const array_%s[] = {\n' %
@@ -283,7 +287,7 @@ def GenerateClass(basepath,
 
 
 def GenerateStruct(basepath, output_root, namespace, schema, description,
-                   description_filename, schema_filename, year=None):
+                   description_filename, schema_filename, excludetype, year):
   """Generates a C++ struct from a JSON description.
 
   Args:
@@ -302,8 +306,8 @@ def GenerateStruct(basepath, output_root, namespace, schema, description,
   """
   year = int(year) if year else datetime.now().year
   head = HEAD % (year, schema_filename, description_filename)
-  _GenerateH(basepath, output_root, head, namespace, schema, description)
-  _GenerateCC(basepath, output_root, head, namespace, schema, description)
+  _GenerateH(basepath, output_root, head, namespace, schema, description, excludetype)
+  _GenerateCC(basepath, output_root, head, namespace, schema, description, excludetype)
 
 if __name__ == '__main__':
   parser = optparse.OptionParser(
@@ -318,10 +322,16 @@ if __name__ == '__main__':
   parser.add_option('-s', '--schema', help='path to the schema file, '
       'mandatory.')
   parser.add_option('-o', '--output', help='output filename, ')
+  parser.add_option('-x', '--excludetype', help='exclude type generator, ')
   (opts, args) = parser.parse_args()
 
   if not opts.schema:
     parser.error('You must specify a --schema.')
+
+  if not opts.excludetype:
+    opts.excludetype = False
+  else:
+    opts.excludetype = True
 
   description_filename = os.path.normpath(args[0])
   root, ext = os.path.splitext(description_filename)
@@ -339,4 +349,4 @@ if __name__ == '__main__':
   schema = _Load(opts.schema)
   description = _Load(description_filename)
   GenerateStruct(basepath, output_root, opts.namespace, schema, description,
-                 description_filename, opts.schema)
+                 description_filename, opts.schema, opts.excludetype, datetime.now().year)
