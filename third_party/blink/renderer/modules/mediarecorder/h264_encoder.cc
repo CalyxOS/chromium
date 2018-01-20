@@ -213,11 +213,11 @@ bool H264Encoder::ConfigureEncoder(const gfx::Size& size) {
     init_params.iRCMode = RC_OFF_MODE;
   }
 
-#if BUILDFLAG(IS_CHROMEOS)
-  init_params.iMultipleThreadIdc = 0;
+#if BUILDFLAG(OS_MACOSX)
+   // Threading model: Set to 1 due to https://crbug.com/583348.
+   init_params.iMultipleThreadIdc = 1;
 #else
-  // Threading model: Set to 1 due to https://crbug.com/583348.
-  init_params.iMultipleThreadIdc = 1;
+  init_params.iMultipleThreadIdc = 0;
 #endif
 
   // TODO(mcasas): consider reducing complexity if there are few CPUs available.
