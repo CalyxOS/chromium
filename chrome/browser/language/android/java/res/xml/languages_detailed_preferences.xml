@@ -31,47 +31,4 @@ found in the LICENSE file.
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:key="translation_settings_section"
-        android:order="3"
-        android:title="@string/languages_settings_translation_title"
-        app:allowDividerAbove="true"
-        app:allowDividerBelow="false">
-
-        <org.chromium.components.browser_ui.settings.ChromeSwitchPreference
-            android:key="translate_switch"
-            android:summaryOn="@string/languages_send_translate_switch"
-            android:summaryOff="@string/languages_send_translate_switch"
-            app:allowDividerAbove="false"
-            app:allowDividerBelow="true"/>
-
-        <PreferenceCategory
-            android:key="translation_advanced_settings_section"
-            android:layout="@layout/preference_category_no_title_or_padding"
-            app:initialExpandedChildrenCount="0"
-            app:allowDividerAbove="true"
-            app:allowDividerBelow="false">
-
-            <org.chromium.chrome.browser.language.settings.LanguageItemPickerPreference
-                android:key="translate_settings_target_language"
-                android:title="@string/languages_settings_target"
-                app:allowDividerAbove="false"
-                app:allowDividerBelow="false" />
-
-            <org.chromium.chrome.browser.language.settings.LanguageItemListPreference
-              android:key="translate_settings_always_languages"
-              android:title="@string/languages_settings_automatic"
-              app:allowDividerAbove="false"
-              app:allowDividerBelow="false" />
-
-            <org.chromium.chrome.browser.language.settings.LanguageItemListPreference
-              android:key="translate_settings_never_languages"
-              android:title="@string/languages_settings_dont_offer_langs"
-              app:allowDividerAbove="false"
-              app:allowDividerBelow="false" />
-
-        </PreferenceCategory>
-
-    </PreferenceCategory>
-
 </PreferenceScreen>
