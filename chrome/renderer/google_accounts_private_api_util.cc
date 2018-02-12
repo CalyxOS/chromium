@@ -22,6 +22,9 @@ const url::Origin& GetAllowedGoogleAccountsOrigin() {
 
 bool ShouldExposeGoogleAccountsJavascriptApi(
     content::RenderFrame* render_frame) {
+#if !BUILDFLAG(IS_ANDROID)
+  if ((true)) return false;
+#endif
   DCHECK(render_frame);
 
   const url::Origin origin = render_frame->GetWebFrame()->GetSecurityOrigin();
