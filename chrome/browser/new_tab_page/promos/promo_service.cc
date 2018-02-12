@@ -80,11 +80,7 @@ bool CanBlockPromos() {
 }
 
 GURL GetGoogleBaseUrl() {
-  GURL google_base_url = google_util::CommandLineGoogleBaseURL();
-  if (!google_base_url.is_valid()) {
-    google_base_url = GURL(google_util::kGoogleHomepageURL);
-  }
-  return google_base_url;
+  return GURL();
 }
 
 GURL GetApiUrl() {
