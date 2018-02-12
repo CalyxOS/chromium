@@ -98,7 +98,6 @@ import org.chromium.chrome.browser.messages.MessageContainerObserver;
 import org.chromium.chrome.browser.messages.MessagesResourceMapperInitializer;
 import org.chromium.chrome.browser.metrics.UmaSessionStats;
 import org.chromium.chrome.browser.omnibox.OmniboxFocusReason;
-import org.chromium.chrome.browser.omnibox.geo.GeolocationHeader;
 import org.chromium.chrome.browser.omnibox.suggestions.action.OmniboxActionDelegateImpl;
 import org.chromium.chrome.browser.omnibox.voice.VoiceRecognitionHandler;
 import org.chromium.chrome.browser.omnibox.voice.VoiceRecognitionHandler.VoiceInteractionSource;
@@ -1209,10 +1208,8 @@ public class RootUiCoordinator
         String url =
                 TemplateUrlServiceFactory.getForProfile(tab.getProfile())
                         .getUrlForSearchQuery(query);
-        String headers = GeolocationHeader.getGeoHeader(url, tab);
 
         LoadUrlParams loadUrlParams = new LoadUrlParams(url);
-        loadUrlParams.setVerbatimHeaders(headers);
         loadUrlParams.setTransitionType(PageTransition.GENERATED);
         return loadUrlParams;
     }
