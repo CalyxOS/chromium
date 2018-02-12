@@ -257,16 +257,6 @@ static void JNI_UmaSessionStats_ChangeMetricsReportingConsent(
     jint called_from) {
   UpdateMetricsPrefsOnPermissionChange(
       consent, static_cast<ChangeMetricsReportingStateCalledFrom>(called_from));
-
-  // This function ensures a consent file in the data directory is either
-  // created, or deleted, depending on consent. Starting up metrics services
-  // will ensure that the consent file contains the ClientID. The ID is passed
-  // to the renderer for crash reporting when things go wrong.
-  GoogleUpdateSettings::CollectStatsConsentTaskRunner()->PostTask(
-      FROM_HERE,
-      base::BindOnce(
-          base::IgnoreResult(GoogleUpdateSettings::SetCollectStatsConsent),
-          consent));
 }
 
 // Initialize the local consent bool variable to false. Used only for testing.
