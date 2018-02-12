@@ -404,9 +404,9 @@ BASE_FEATURE(kFedCmSelectiveDisclosure,
 
 // Enables the IDP signin status API for use with FedCM, including avoiding
 // network requests when not signed in and mismatch handling.
-BASE_FEATURE(kFedCmIdpSigninStatusEnabled,
-             "FedCmIdpSigninStatusEnabled",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+BASE_FEATURE(kFedCmIdpSigninStatusEnabled,          // disabled
+             "FedCmIdpSigninStatusEnabled",         // by default
+             base::FEATURE_DISABLED_BY_DEFAULT);    // on bromite
 
 // Enables bypassing the well-known file enforcement.
 BASE_FEATURE(kFedCmWithoutWellKnownEnforcement,
