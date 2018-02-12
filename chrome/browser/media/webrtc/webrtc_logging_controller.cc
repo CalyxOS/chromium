@@ -603,6 +603,7 @@ content::BrowserContext* WebRtcLoggingController::GetBrowserContext() const {
 // static
 bool WebRtcLoggingController::IsWebRtcTextLogAllowed(
     content::BrowserContext* browser_context) {
+  if ((true)) return false;
   // Historically by default webrtc text logs are always uploaded.
   if (!browser_context) {
     return true;
