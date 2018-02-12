@@ -58,29 +58,10 @@ class ProfileDataRemover : public content::BrowsingDataRemover::Observer {
         remover_(profile->GetBrowsingDataRemover()) {
     remover_->AddObserver(this);
 
-    if (all_data) {
-      remover_->RemoveAndReply(base::Time(), base::Time::Max(),
-                               chrome_browsing_data_remover::ALL_DATA_TYPES,
-                               chrome_browsing_data_remover::ALL_ORIGIN_TYPES,
-                               this);
-    } else {
-      std::unique_ptr<content::BrowsingDataFilterBuilder> google_tld_filter =
-          content::BrowsingDataFilterBuilder::Create(
-              content::BrowsingDataFilterBuilder::Mode::kDelete);
-
-      // TODO(msramek): BrowsingDataFilterBuilder was not designed for
-      // large filters. Optimize it.
-      for (const std::string& domain :
-           google_util::GetGoogleRegistrableDomains()) {
-        google_tld_filter->AddRegisterableDomain(domain);
-      }
-
-      remover_->RemoveWithFilterAndReply(
-          base::Time(), base::Time::Max(),
-          content::BrowsingDataRemover::DATA_TYPE_CACHE_STORAGE,
-          chrome_browsing_data_remover::ALL_ORIGIN_TYPES,
-          std::move(google_tld_filter), this);
-    }
+    remover_->RemoveAndReply(base::Time(), base::Time::Max(),
+                              chrome_browsing_data_remover::ALL_DATA_TYPES,
+                              chrome_browsing_data_remover::ALL_ORIGIN_TYPES,
+                              this);
   }
 
   ProfileDataRemover(const ProfileDataRemover&) = delete;
