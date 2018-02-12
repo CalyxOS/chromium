@@ -6322,7 +6322,6 @@ test("unit_tests") {
     "//chrome/browser/file_system_access:unit_tests",
     "//chrome/browser/fingerprinting_protection",
     "//chrome/browser/first_party_sets",
-    "//chrome/browser/google:unit_tests",
     "//chrome/browser/ip_protection:unit_tests",
     "//chrome/browser/media/prefs",
     "//chrome/browser/media/prefs:unit_tests",
