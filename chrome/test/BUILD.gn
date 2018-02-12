@@ -6350,7 +6350,6 @@ test("unit_tests") {
     "//chrome/browser/favicon",
     "//chrome/browser/feature_guide/notifications:unit_tests",
     "//chrome/browser/first_party_sets",
-    "//chrome/browser/google:unit_tests",
     "//chrome/browser/media/effects:unittests",
     "//chrome/browser/media/router",
     "//chrome/browser/media/router:media_router_feature",
