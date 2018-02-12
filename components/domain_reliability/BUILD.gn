@@ -2,7 +2,7 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
-action("bake_in_configs") {
+action("bake_in_configs_EXCLUDED") {
   visibility = [ ":*" ]
   script = "bake_in_configs.py"
 
@@ -73,12 +73,9 @@ component("domain_reliability") {
     "util.cc",
     "util.h",
   ]
-  sources += get_target_outputs(":bake_in_configs")
-
   defines = [ "DOMAIN_RELIABILITY_IMPLEMENTATION" ]
 
   deps = [
-    ":bake_in_configs",
     ":prefs",
     "//base",
     "//net",
