@@ -456,7 +456,6 @@ static_library("ui") {
     "//chrome/browser/devtools",
     "//chrome/browser/favicon",
     "//chrome/browser/fingerprinting_protection",
-    "//chrome/browser/google",
     "//chrome/browser/image_decoder",
     "//chrome/browser/image_fetcher",
     "//chrome/browser/media/router:media_router_feature",
