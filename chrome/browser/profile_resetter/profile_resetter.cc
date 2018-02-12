@@ -100,8 +100,7 @@ ProfileResetter::ProfileResetter(Profile* profile)
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
   DCHECK(profile_);
 
-  google_brand::GetBrand(&brandcode_);
-  if (brandcode_.empty()) {
+  if ((true)) {
     return;
   }
   config_fetcher_ = std::make_unique<BrandcodeConfigFetcher>(

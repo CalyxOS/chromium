@@ -9,7 +9,7 @@
 #include "base/strings/string_util.h"
 #include "net/base/url_util.h"
 
-namespace domain_reliability {
+namespace domain_reliability_disabled {
 
 namespace {
 
@@ -28,7 +28,7 @@ struct GoogleConfigParams {
   bool duplicate_for_www;
 };
 
-const GoogleConfigParams kGoogleConfigs[] = {
+/*const GoogleConfigParams kGoogleConfigs[] = {
     // Origins with subdomains and same-origin collectors. Currently, all
     // origins with same-origin collectors also run collectors on their www
     // subdomain. (e.g., both foo.com and www.foo.com.)
@@ -552,11 +552,11 @@ std::unique_ptr<const DomainReliabilityConfig> CreateGoogleConfig(
   config->failure_sample_rate = 1.00;
   config->path_prefixes.clear();
   return config;
-}
+}*/
 
 }  // namespace
 
-std::unique_ptr<const DomainReliabilityConfig> MaybeGetGoogleConfig(
+/*std::unique_ptr<const DomainReliabilityConfig> MaybeGetGoogleConfig(
     const std::string& hostname) {
   bool is_www_subdomain =
       base::StartsWith(hostname, "www.", base::CompareCase::SENSITIVE);
@@ -606,6 +606,6 @@ GetAllGoogleConfigsForTesting() {
       configs_out.push_back(CreateGoogleConfig(params, true));
   }
   return configs_out;
-}
+} */
 
 }  // namespace domain_reliability

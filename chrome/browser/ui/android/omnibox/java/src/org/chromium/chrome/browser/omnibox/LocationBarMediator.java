@@ -48,7 +48,6 @@ import org.chromium.chrome.browser.lifecycle.PauseResumeWithNativeObserver;
 import org.chromium.chrome.browser.locale.LocaleManager;
 import org.chromium.chrome.browser.omnibox.UrlBar.UrlBarDelegate;
 import org.chromium.chrome.browser.omnibox.UrlBarCoordinator.SelectionState;
-import org.chromium.chrome.browser.omnibox.geo.GeolocationHeader;
 import org.chromium.chrome.browser.omnibox.status.StatusCoordinator;
 import org.chromium.chrome.browser.omnibox.styles.OmniboxResourceProvider;
 import org.chromium.chrome.browser.omnibox.suggestions.AutocompleteCoordinator;
@@ -312,24 +311,6 @@ class LocationBarMediator
 
         if (!mUrlFocusedWithoutAnimations) handleUrlFocusAnimation(hasFocus);
 
-        if (hasFocus
-                && mLocationBarDataProvider.hasTab()
-                && !mLocationBarDataProvider.isIncognito()) {
-            if (mTemplateUrlServiceSupplier.hasValue()) {
-                if (mTemplateUrlServiceSupplier.get().isDefaultSearchEngineGoogle()) {
-                    GeolocationHeader.primeLocationForGeoHeaderIfEnabled(
-                            mProfileSupplier.get(), mTemplateUrlServiceSupplier.get());
-                }
-            } else {
-                mTemplateUrlServiceSupplier.onAvailable(
-                        (templateUrlService) -> {
-                            if (templateUrlService.isDefaultSearchEngineGoogle()) {
-                                GeolocationHeader.primeLocationForGeoHeaderIfEnabled(
-                                        mProfileSupplier.get(), templateUrlService);
-                            }
-                        });
-            }
-        } // Focus change caused by a closed tab may result in there not being an active tab.
         if (!hasFocus && mLocationBarDataProvider.hasTab()) {
             setUrl(
                     mLocationBarDataProvider.getCurrentGurl(),
@@ -345,8 +326,6 @@ class LocationBarMediator
                     templateUrlService.addObserver(this);
                     if (OmniboxFeatures.sUseFusedLocationProvider.isEnabled()
                             && templateUrlService.isDefaultSearchEngineGoogle()) {
-                        GeolocationHeader.primeLocationForGeoHeaderIfEnabled(
-                                mProfileSupplier.get(), mTemplateUrlServiceSupplier.get());
                     }
                 });
 
@@ -584,7 +563,6 @@ class LocationBarMediator
             LoadUrlParams loadUrlParams = new LoadUrlParams(url);
             try (TimingMetric record =
                     TimingMetric.shortUptime("Android.Omnibox.SetGeolocationHeadersTime")) {
-                loadUrlParams.setVerbatimHeaders(GeolocationHeader.getGeoHeader(url, currentTab));
             }
             loadUrlParams.setTransitionType(
                     omniboxLoadUrlParams.transitionType | PageTransition.FROM_ADDRESS_BAR);
@@ -1603,15 +1581,12 @@ class LocationBarMediator
         if (OmniboxFeatures.sUseFusedLocationProvider.isEnabled()
                 && mProfileSupplier.hasValue()
                 && mTemplateUrlServiceSupplier.hasValue()) {
-            GeolocationHeader.primeLocationForGeoHeaderIfEnabled(
-                    mProfileSupplier.get(), mTemplateUrlServiceSupplier.get());
         }
     }
 
     @Override
     public void onPauseWithNative() {
         if (OmniboxFeatures.sUseFusedLocationProvider.isEnabled()) {
-            GeolocationHeader.stopListeningForLocationUpdates();
         }
     }
 
