@@ -493,34 +493,11 @@ bool HasGoogleHost(const GURL& url) {
 }
 
 bool IsGoogleHost(std::string_view host) {
-  static const char* kGoogleHostSuffixes[] = {
-      ".google.com",
-      ".youtube.com",
-      ".gmail.com",
-      ".doubleclick.net",
-      ".gstatic.com",
-      ".googlevideo.com",
-      ".googleusercontent.com",
-      ".googlesyndication.com",
-      ".google-analytics.com",
-      ".googleadservices.com",
-      ".googleapis.com",
-      ".ytimg.com",
-  };
-  for (const char* suffix : kGoogleHostSuffixes) {
-    // Here it's possible to get away with faster case-sensitive comparisons
-    // because the list above is all lowercase, and a GURL's host name will
-    // always be canonicalized to lowercase as well.
-    if (host.ends_with(suffix)) {
-      return true;
-    }
-  }
   return false;
 }
 
 bool IsGoogleHostWithAlpnH3(std::string_view host) {
-  return base::EqualsCaseInsensitiveASCII(host, "google.com") ||
-         base::EqualsCaseInsensitiveASCII(host, "www.google.com");
+  return false;
 }
 
 bool IsLocalHostname(std::string_view host) {
