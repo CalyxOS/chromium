@@ -118,9 +118,7 @@ void IntranetRedirectDetector::FinishSleep() {
   simple_loaders_.clear();
   resulting_origins_.clear();
 
-  const base::CommandLine* cmd_line = base::CommandLine::ForCurrentProcess();
-  if (cmd_line->HasSwitch(switches::kDisableBackgroundNetworking))
-    return;
+  return;
 
   DCHECK(simple_loaders_.empty() && resulting_origins_.empty());
 
