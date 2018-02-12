@@ -31,7 +31,7 @@ FedCmIdpSigninStatusMode GetFedCmIdpSigninStatusFlag() {
   if (base::FeatureList::IsEnabled(features::kFedCmIdpSigninStatusEnabled)) {
     return FedCmIdpSigninStatusMode::ENABLED;
   }
-  return FedCmIdpSigninStatusMode::METRICS_ONLY;
+  return FedCmIdpSigninStatusMode::DISABLED;
 }
 
 bool IsFedCmMetricsEndpointEnabled() {
