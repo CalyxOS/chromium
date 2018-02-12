@@ -296,15 +296,6 @@ void SetupInitialPrefsFromInstallPrefs(
 
 // -- Platform-specific functions --
 
-#if !BUILDFLAG(IS_LINUX) && !BUILDFLAG(IS_CHROMEOS) && !BUILDFLAG(IS_BSD) && \
-    !BUILDFLAG(IS_FUCHSIA)
-bool IsOrganicFirstRun() {
-  std::string brand;
-  google_brand::GetBrand(&brand);
-  return google_brand::IsOrganicFirstRun(brand);
-}
-#endif
-
 FirstRunState DetermineFirstRunState(bool has_sentinel,
                                      bool force_first_run,
                                      bool no_first_run) {
