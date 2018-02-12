@@ -1539,9 +1539,9 @@ BASE_FEATURE(kSupportsRtcWakeOver24Hours,
              base::FEATURE_ENABLED_BY_DEFAULT);
 #endif  // BUILDFLAG(IS_CHROMEOS_ASH)
 
-BASE_FEATURE(kWebAuthFlowInBrowserTab,
-             "WebAuthFlowInBrowserTab",
-             base::FeatureState::FEATURE_ENABLED_BY_DEFAULT);
+BASE_FEATURE(kWebAuthFlowInBrowserTab,                          // disable by
+             "WebAuthFlowInBrowserTab",                         // default
+             base::FeatureState::FEATURE_DISABLED_BY_DEFAULT);  // in bromite
 const base::FeatureParam<WebAuthFlowInBrowserTabMode>::Option
     web_auth_flow_modes[] = {
         {WebAuthFlowInBrowserTabMode::kNewTab, "new_tab"},
