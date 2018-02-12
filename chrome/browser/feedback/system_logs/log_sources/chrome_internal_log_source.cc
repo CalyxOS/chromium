@@ -123,7 +123,6 @@ constexpr char kOsVersionTag[] = "OS VERSION";
 #if BUILDFLAG(IS_WIN)
 constexpr char kUsbKeyboardDetected[] = "usb_keyboard_detected";
 constexpr char kIsEnrolledToDomain[] = "enrolled_to_domain";
-constexpr char kInstallerBrandCode[] = "installer_brand_code";
 #if BUILDFLAG(GOOGLE_CHROME_BRANDING)
 constexpr char kUpdateErrorCode[] = "update_error_code";
 constexpr char kUpdateHresult[] = "update_hresult";
@@ -626,10 +625,6 @@ void ChromeInternalLogSource::PopulateEnrolledToDomain(
 
 void ChromeInternalLogSource::PopulateInstallerBrandCode(
     SystemLogsResponse* response) {
-  std::string brand;
-  google_brand::GetBrand(&brand);
-  response->emplace(kInstallerBrandCode,
-                    brand.empty() ? "Unknown brand code" : brand);
 }
 
 void ChromeInternalLogSource::PopulateLastUpdateState(
