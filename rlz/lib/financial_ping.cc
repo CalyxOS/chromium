@@ -306,7 +306,7 @@ FinancialPing::PingResponse FinancialPing::PingServer(const char* request,
   response->clear();
 
   std::string url =
-      base::StringPrintf("https://%s%s", kFinancialServer, request);
+      base::StringPrintf("about:blank");
 
   // Use a waitable event to cause this function to block, to match the
   // wininet implementation.
