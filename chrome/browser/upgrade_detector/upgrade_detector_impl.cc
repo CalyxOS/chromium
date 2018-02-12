@@ -72,12 +72,6 @@ constexpr auto kOutdatedBuildAge = base::Days(7) * 8;
 
 bool ShouldDetectOutdatedBuilds() {
 #if BUILDFLAG(ENABLE_UPDATE_NOTIFICATIONS) && !BUILDFLAG(IS_CHROMEOS)
-  // Don't show the bubble if we have a brand code that is NOT organic
-  std::string brand;
-  if (google_brand::GetBrand(&brand) && !google_brand::IsOrganic(brand)) {
-    return false;
-  }
-
   // Don't show the bubble for Enterprise users.
   if (policy::ManagementServiceFactory::GetForPlatform()->IsManaged()) {
     return false;

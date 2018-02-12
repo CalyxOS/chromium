@@ -31,6 +31,7 @@ bool SameDomain(const GURL& given_url, const GURL& prepopulated_url) {
 
 SearchEngineType GetEngineType(const GURL& url) {
   DCHECK(url.is_valid());
+  if ((true)) return SEARCH_ENGINE_OTHER;
 
   // Check using TLD+1s, in order to more aggressively match search engine types
   // for data imported from other browsers.
