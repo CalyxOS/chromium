@@ -34,7 +34,6 @@ source_set("search_engines") {
 
   deps = [
     "//chrome/browser:browser_process",
-    "//chrome/browser/google",
     "//chrome/browser/regional_capabilities",
     "//chrome/browser/search_engine_choice",
     "//chrome/common:channel_info",
