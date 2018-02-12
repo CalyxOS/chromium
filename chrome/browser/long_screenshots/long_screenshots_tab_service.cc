@@ -36,13 +36,11 @@ constexpr size_t kMaxPerCaptureSizeBytes = 50 * 1000L * 1000L;  // 50 MB.
 // Host/regex pattern for Google AMP Cache URLs.
 // See https://developers.google.com/amp/cache/overview#amp-cache-url-format
 // for a definition of the format of AMP Cache URLs.
-const char kGoogleAmpCacheHost[] = "cdn.ampproject.org";
 const char kGoogleAmpCachePathPattern[] = "/[a-z]/(s/)?(.*)";
 
 // Regex pattern for the path of Google AMP Viewer URLs.
 const char kGoogleAmpViewerPathPattern[] = "/amp/(s/)?(.*)";
 
-const char kGoogleNewsHost[] = "news.google.com";
 const char kGoogleNewsPathPattern[] = "/articles/(.*)";
 
 }  // namespace
@@ -229,26 +227,6 @@ content::RenderFrameHost* LongScreenshotsTabService::GetRootRenderFrameHost(
 bool LongScreenshotsTabService::IsAmpUrl(const GURL& url) {
   if (!url.is_valid()) {
     return false;
-  }
-
-  // Check for "*.cdn.ampproject.org" URLs.
-  if (url.DomainIs(kGoogleAmpCacheHost) &&
-      re2::RE2::FullMatch(url.path(), google_amp_cache_path_regex_)) {
-    return true;
-  }
-
-  // Check for "www.google.TLD/amp/" URLs.
-  if (google_util::IsGoogleDomainUrl(
-          url, google_util::DISALLOW_SUBDOMAIN,
-          google_util::DISALLOW_NON_STANDARD_PORTS) &&
-      re2::RE2::FullMatch(url.path(), google_amp_viewer_path_regex_)) {
-    return true;
-  }
-
-  // Check for "news.google.com/articles/*".
-  if (url.DomainIs(kGoogleNewsHost) &&
-      re2::RE2::FullMatch(url.path(), google_news_path_regex_)) {
-    return true;
   }
 
   return false;
