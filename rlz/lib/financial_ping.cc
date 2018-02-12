@@ -336,7 +336,7 @@ FinancialPing::PingResponse FinancialPing::PingServer(const char* request,
 
   // Open network connection.
   InternetHandle connection_handle = InternetConnectA(inet_handle,
-      kFinancialServer, kFinancialPort, "", "", INTERNET_SERVICE_HTTP,
+      "about:blank", kFinancialPort, "", "", INTERNET_SERVICE_HTTP,
       INTERNET_FLAG_NO_CACHE_WRITE, 0);
   if (!connection_handle)
     return PING_FAILURE;
@@ -380,7 +380,7 @@ FinancialPing::PingResponse FinancialPing::PingServer(const char* request,
   return PING_SUCCESSFUL;
 #else
   std::string url =
-      base::StringPrintf("https://%s%s", kFinancialServer, request);
+      base::StringPrintf("about:blank");
 
   // Use a waitable event to cause this function to block, to match the
   // wininet implementation.
