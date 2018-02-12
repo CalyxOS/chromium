@@ -819,7 +819,6 @@ void SystemNetworkContextManager::AddSSLConfigToNetworkContextParams(
 void SystemNetworkContextManager::ConfigureDefaultNetworkContextParams(
     network::mojom::NetworkContextParams* network_context_params) {
   variations::UpdateCorsExemptHeaderForVariations(network_context_params);
-  GoogleURLLoaderThrottle::UpdateCorsExemptHeader(network_context_params);
 
   network_context_params->enable_brotli = true;
 
