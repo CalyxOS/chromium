@@ -107,7 +107,7 @@ SearchTermsData::SearchTermsData() = default;
 SearchTermsData::~SearchTermsData() = default;
 
 std::string SearchTermsData::GoogleBaseURLValue() const {
-  return google_util::kGoogleHomepageURL;
+  return google_util::kGoogleHomepageURL_Checked;
 }
 
 std::string SearchTermsData::GoogleBaseSearchByImageURLValue() const {
@@ -119,7 +119,7 @@ std::string SearchTermsData::GoogleBaseSearchByImageURLValue() const {
   }
 #endif  // !BUILDFLAG(IS_IOS) && !BUILDFLAG(IS_ANDROID)
 
-  return google_util::kGoogleHomepageURL + kGoogleHomepageURLPath;
+  return google_util::kGoogleHomepageURL_Checked + kGoogleHomepageURLPath;
 }
 
 std::string SearchTermsData::GoogleBaseSuggestURLValue() const {
