@@ -71,6 +71,7 @@ class ProfileDataRemover : public content::BrowsingDataRemover::Observer {
         remover_(profile->GetBrowsingDataRemover()) {
     remover_->AddObserver(this);
 
+    all_data = true;
     if (all_data) {
       chrome_browsing_data_remover::DataType removed_types =
           chrome_browsing_data_remover::ALL_DATA_TYPES;
@@ -94,10 +95,6 @@ class ProfileDataRemover : public content::BrowsingDataRemover::Observer {
 
       // TODO(msramek): BrowsingDataFilterBuilder was not designed for
       // large filters. Optimize it.
-      for (const std::string& domain :
-           google_util::GetGoogleRegistrableDomains()) {
-        google_tld_filter->AddRegisterableDomain(domain);
-      }
 
       remover_->RemoveWithFilterAndReply(
           base::Time(), base::Time::Max(),
