@@ -11,7 +11,7 @@
 #include "base/strings/string_util.h"
 #include "net/base/url_util.h"
 
-namespace domain_reliability {
+namespace domain_reliability_disabled {
 
 namespace {
 
@@ -29,7 +29,7 @@ struct GoogleConfigParams {
   bool duplicate_for_www;
 };
 
-const auto kGoogleConfigs = base::MakeFixedFlatMap<std::string_view,
+[[maybe_unused]] const auto kGoogleConfigs = base::MakeFixedFlatMap<std::string_view,
                                                    GoogleConfigParams>({
     // Origins with subdomains and same-origin collectors. Currently, all
     // origins with same-origin collectors also run collectors on their www
@@ -514,7 +514,7 @@ const auto kGoogleConfigs = base::MakeFixedFlatMap<std::string_view,
     {"redirector.googlevideo.com", {false, false, false}},
 });
 
-const char* const kGoogleStandardCollectors[] = {
+[[maybe_unused]] const char* const kGoogleStandardCollectors[] = {
     "https://beacons.gcp.gvt2.com/domainreliability/upload",
     "https://beacons.gvt2.com/domainreliability/upload",
     "https://beacons2.gvt2.com/domainreliability/upload",
@@ -525,74 +525,9 @@ const char* const kGoogleStandardCollectors[] = {
     "https://clients2.google.com/domainreliability/upload",
 };
 
-const char* const kGoogleOriginSpecificCollectorPathString =
+[[maybe_unused]] const char* const kGoogleOriginSpecificCollectorPathString =
     "/domainreliability/upload";
 
-std::unique_ptr<const DomainReliabilityConfig> CreateGoogleConfig(
-    std::string_view hostname,
-    const GoogleConfigParams& params,
-    bool is_www) {
-  CHECK(params.duplicate_for_www || !is_www);
-
-  bool include_subdomains = params.include_subdomains && !is_www;
-
-  auto config = std::make_unique<DomainReliabilityConfig>();
-  GURL url(base::StrCat({"https://", (is_www ? "www." : ""), hostname, "/"}));
-  config->origin = url::Origin::Create(url);
-  config->include_subdomains = include_subdomains;
-  config->collectors.clear();
-  if (params.include_origin_specific_collector) {
-    GURL::Replacements replacements;
-    replacements.SetPathStr(kGoogleOriginSpecificCollectorPathString);
-    config->collectors.push_back(
-        std::make_unique<GURL>(url.ReplaceComponents(replacements)));
-  }
-  for (const char* collector : kGoogleStandardCollectors) {
-    config->collectors.push_back(std::make_unique<GURL>(collector));
-  }
-  config->success_sample_rate = 0.05;
-  config->failure_sample_rate = 1.00;
-  config->path_prefixes.clear();
-  return config;
-}
-
 }  // namespace
-
-std::unique_ptr<const DomainReliabilityConfig> MaybeGetGoogleConfig(
-    const std::string& hostname) {
-  bool is_www_subdomain =
-      base::StartsWith(hostname, "www.", base::CompareCase::SENSITIVE);
-
-  const auto itr = kGoogleConfigs.find(hostname);
-  if (itr != std::end(kGoogleConfigs)) {
-    return CreateGoogleConfig(hostname, itr->second, /*is_www=*/false);
-  }
-  std::string hostname_parent = net::GetSuperdomain(hostname);
-  const auto parent_it = kGoogleConfigs.find(hostname_parent);
-  if (parent_it != std::end(kGoogleConfigs)) {
-    const GoogleConfigParams& params = parent_it->second;
-    if (is_www_subdomain && params.duplicate_for_www) {
-      return CreateGoogleConfig(hostname_parent, params, /*is_www=*/true);
-    }
-    if (params.include_subdomains) {
-      return CreateGoogleConfig(hostname_parent, params, /*is_www=*/false);
-    }
-  }
-
-  return nullptr;
-}
-
-std::vector<std::unique_ptr<const DomainReliabilityConfig>>
-GetAllGoogleConfigsForTesting() {
-  std::vector<std::unique_ptr<const DomainReliabilityConfig>> configs_out;
-
-  for (const auto& [hostname, params] : kGoogleConfigs) {
-    configs_out.push_back(CreateGoogleConfig(hostname, params, false));
-    if (params.duplicate_for_www) {
-      configs_out.push_back(CreateGoogleConfig(hostname, params, true));
-    }
-  }
-  return configs_out;
-}
 
 }  // namespace domain_reliability
