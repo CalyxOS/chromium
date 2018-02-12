@@ -814,7 +814,6 @@ static_library("extensions") {
     "//chrome/browser/devtools",
     "//chrome/browser/extensions:cws_item_service_proto",
     "//chrome/browser/favicon",
-    "//chrome/browser/google",
     "//chrome/browser/image_decoder",
     "//chrome/browser/media/router",
     "//chrome/browser/media/router:media_router_feature",
