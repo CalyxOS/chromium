@@ -75,7 +75,7 @@ void RlzPingHandler::Ping(
   DCHECK_EQ(id.length(), 50u);
 
   GURL request_url(base::StringPrintf(
-      "https://%s%s?", rlz_lib::kFinancialServer, rlz_lib::kFinancialPingPath));
+      "about:blank"));
   request_url = net::AppendQueryParameter(
       request_url, rlz_lib::kProductSignatureCgiVariable, "chrome");
   request_url =
