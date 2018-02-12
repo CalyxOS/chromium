@@ -1,0 +1,2 @@
+SET_CROMITE_FEATURE_DISABLED(kFedCmIdpSigninStatusEnabled);
+SET_CROMITE_FEATURE_DISABLED(kFedCmMetricsEndpoint);
