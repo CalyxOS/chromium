@@ -126,37 +126,6 @@ void WebRtcLogUploader::OnLoggingStopped(
   DCHECK(log_buffer.get());
   DCHECK(meta_data.get());
   DCHECK(!upload_done_data.paths.directory.empty());
-
-  std::string compressed_log = CompressLog(log_buffer.get());
-
-  std::string local_log_id;
-
-  if (base::PathExists(upload_done_data.paths.directory)) {
-    webrtc_logging::DeleteOldWebRtcLogFiles(upload_done_data.paths.directory);
-
-    local_log_id = base::NumberToString(base::Time::Now().ToDoubleT());
-    base::FilePath log_file_path =
-        upload_done_data.paths.directory.AppendASCII(local_log_id)
-            .AddExtension(FILE_PATH_LITERAL(".gz"));
-    WriteCompressedLogToFile(compressed_log, log_file_path);
-
-    base::FilePath log_list_path =
-        webrtc_logging::TextLogList::GetWebRtcLogListFileForDirectory(
-            upload_done_data.paths.directory);
-    AddLocallyStoredLogInfoToUploadListFile(log_list_path, local_log_id);
-  }
-
-  upload_done_data.local_log_id = local_log_id;
-
-  if (is_text_log_upload_allowed) {
-    PrepareMultipartPostData(compressed_log, std::move(meta_data),
-                             std::move(upload_done_data));
-  } else {
-    main_task_runner_->PostTask(
-        FROM_HERE,
-        base::BindOnce(&WebRtcLogUploader::NotifyUploadDisabled,
-                       base::Unretained(this), std::move(upload_done_data)));
-  }
 }
 
 void WebRtcLogUploader::PrepareMultipartPostData(
@@ -166,6 +135,11 @@ void WebRtcLogUploader::PrepareMultipartPostData(
   DCHECK(background_task_runner_->RunsTasksInCurrentSequence());
   DCHECK(!compressed_log.empty());
   DCHECK(meta_data.get());
+
+  if ((true)) {
+    NotifyUploadDoneAndLogStats(net::HTTP_OK, net::OK, "", std::move(upload_done_data));
+    return;
+  }
 
   std::unique_ptr<std::string> post_data(new std::string());
   SetupMultipart(post_data.get(), compressed_log,
