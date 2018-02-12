@@ -834,8 +834,9 @@ void TranslateManager::FilterIsTranslatePossible(
         TriggerDecision::kDisabledOffline);
   }
 
-  if (!ignore_missing_key_for_testing_ &&
-      !::google_apis::HasAPIKeyConfigured()) {
+//  if (!ignore_missing_key_for_testing_ &&
+//      !::google_apis::HasAPIKeyConfigured()) {
+    if (true) {
     // Without an API key, translate won't work, so don't offer to translate in
     // the first place. Leave kOfferTranslateEnabled on, though, because that
     // settings syncs and we don't want to turn off translate everywhere else.
