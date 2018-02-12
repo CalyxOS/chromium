@@ -51,9 +51,10 @@ const char* GetExperimentGroupParam() {
 }
 
 GURL GetApiUrl(const std::string& application_locale) {
+  if ((true)) return GURL();
   GURL google_base_url = google_util::CommandLineGoogleBaseURL();
   if (!google_base_url.is_valid()) {
-    google_base_url = GURL(google_util::kGoogleHomepageURL);
+    google_base_url = GURL();
   }
   auto url = net::AppendQueryParameter(google_base_url.Resolve(kPath), "hl",
                                        application_locale);
