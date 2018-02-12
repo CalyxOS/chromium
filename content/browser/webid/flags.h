@@ -12,7 +12,7 @@
 namespace content {
 
 // IDP IdpSigninStatus API modes.
-enum class FedCmIdpSigninStatusMode { METRICS_ONLY, ENABLED };
+enum class FedCmIdpSigninStatusMode { DISABLED, METRICS_ONLY, ENABLED };
 
 // Whether the authz flags has been overridden. If it has been overridden
 // to false, we should not let it be enabled using an origin trial.

@@ -222,6 +222,8 @@ void UpgradeDetectorImpl::StartOutdatedBuildDetector() {
   // Don't show the bubble for certain conditions unless an outdated build is
   // being simulated by command line switches.
   if (!simulating_outdated_) {
+    if ((true))
+      return;
     if (!ShouldDetectOutdatedBuilds())
       return;
 

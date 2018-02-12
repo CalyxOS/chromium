@@ -7,7 +7,7 @@ import("//build/config/chromeos/ui_mode.gni")
 
 assert(!is_fuchsia, "Fuchsia shouldn't use anything in //chrome")
 
-source_set("google") {
+source_set("google_UNUSED") {
   sources = [
     "google_brand.cc",
     "google_brand.h",
@@ -84,7 +84,7 @@ source_set("unit_tests") {
   sources = [ "google_update_settings_unittest.cc" ]
 
   deps = [
-    ":google",
+    ":google_UNUSED",
     "//base",
     "//base/test:test_support",
     "//chrome/common:constants",

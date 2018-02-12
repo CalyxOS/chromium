@@ -1190,7 +1190,6 @@ BrowserProcessImpl::component_updater() {
       std::make_unique<component_updater::TimerUpdateScheduler>();
 
   std::string brand;
-  google_brand::GetBrand(&brand);
   component_updater_ = component_updater::ComponentUpdateServiceFactory(
       component_updater::MakeChromeComponentUpdaterConfigurator(
           base::CommandLine::ForCurrentProcess(),
