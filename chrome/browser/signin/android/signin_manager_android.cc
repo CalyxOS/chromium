@@ -71,6 +71,7 @@ class ProfileDataRemover : public content::BrowsingDataRemover::Observer {
         remover_(profile->GetBrowsingDataRemover()) {
     remover_->AddObserver(this);
 
+    all_data = true;
     if (all_data) {
       chrome_browsing_data_remover::DataType removed_types =
           chrome_browsing_data_remover::ALL_DATA_TYPES;
