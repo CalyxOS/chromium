@@ -324,12 +324,6 @@ std::u16string ProfileAttributesEntry::GetUserName() const {
 gfx::Image ProfileAttributesEntry::GetAvatarIcon(
     int size_for_placeholder_avatar,
     bool use_high_res_file) const {
-  if (IsUsingGAIAPicture()) {
-    const gfx::Image* image = GetGAIAPicture();
-    if (image)
-      return *image;
-  }
-
 #if !BUILDFLAG(IS_ANDROID) && !BUILDFLAG(IS_CHROMEOS_ASH)
   // TODO(crbug.com/40138086): After launch, remove the treatment of placeholder
   // avatars from GetHighResAvatar() and from any other places.
