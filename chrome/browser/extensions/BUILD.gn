@@ -284,7 +284,6 @@ source_set("extensions") {
     "//chrome/browser/extensions:cws_item_service_proto",
     "//chrome/browser/extensions/api:api_registration",
     "//chrome/browser/favicon",
-    "//chrome/browser/google",
     "//chrome/browser/prefetch",
     "//chrome/browser/prefs",
     "//chrome/browser/preloading:prefs",
