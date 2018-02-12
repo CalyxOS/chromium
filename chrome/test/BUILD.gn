@@ -6837,7 +6837,6 @@ test("unit_tests") {
     "//chrome/browser/dips:unit_tests",
     "//chrome/browser/favicon",
     "//chrome/browser/first_party_sets",
-    "//chrome/browser/google:unit_tests",
     "//chrome/browser/ip_protection:unit_tests",
     "//chrome/browser/media/prefs",
     "//chrome/browser/media/prefs:unit_tests",
