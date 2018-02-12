@@ -26,11 +26,11 @@ namespace domain_reliability {
 // the www subdomain. A superdomain match occurs if removing the first label of
 // |hostname| yields a string equal to a Google config's hostname and that
 // config specifies that it includes subdomains.
-std::unique_ptr<const DomainReliabilityConfig> DOMAIN_RELIABILITY_EXPORT
-MaybeGetGoogleConfig(const std::string& hostname);
+//std::unique_ptr<const DomainReliabilityConfig> DOMAIN_RELIABILITY_EXPORT
+//MaybeGetGoogleConfig(const std::string& hostname);
 
-std::vector<std::unique_ptr<const DomainReliabilityConfig>>
-    DOMAIN_RELIABILITY_EXPORT GetAllGoogleConfigsForTesting();
+//std::vector<std::unique_ptr<const DomainReliabilityConfig>>
+//    DOMAIN_RELIABILITY_EXPORT GetAllGoogleConfigsForTesting();
 
 }  // namespace domain_reliability
 
