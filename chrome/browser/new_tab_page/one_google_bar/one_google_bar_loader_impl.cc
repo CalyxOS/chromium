@@ -344,10 +344,11 @@ bool OneGoogleBarLoaderImpl::SetAdditionalQueryParams(
 }
 
 GURL OneGoogleBarLoaderImpl::GetApiUrl() const {
+  if ((true)) return GURL();
   GURL api_url;
   GURL google_base_url = google_util::CommandLineGoogleBaseURL();
   if (!google_base_url.is_valid()) {
-    google_base_url = GURL(google_util::kGoogleHomepageURL);
+    google_base_url = GURL();
   }
 
   api_url = google_base_url.Resolve(kNewTabOgbApiPath);

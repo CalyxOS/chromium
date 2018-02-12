@@ -32,65 +32,6 @@
 #include "components/policy/core/common/features.h"
 #endif  // BUILDFLAG(IS_ANDROID)
 
-namespace {
-
-enum MetricsReportingChangeHistogramValue {
-  METRICS_REPORTING_ERROR,
-  METRICS_REPORTING_DISABLED,
-  METRICS_REPORTING_ENABLED,
-  METRICS_REPORTING_MAX
-};
-
-void RecordMetricsReportingHistogramValue(
-    MetricsReportingChangeHistogramValue value) {
-  UMA_HISTOGRAM_ENUMERATION(
-      "UMA.MetricsReporting.Toggle", value, METRICS_REPORTING_MAX);
-}
-
-// Tries to set metrics reporting status to |enabled| and returns whatever is
-// the result of the update.
-bool SetGoogleUpdateSettings(bool enabled) {
-  GoogleUpdateSettings::SetCollectStatsConsent(enabled);
-  bool updated_pref = GoogleUpdateSettings::GetCollectStatsConsent();
-  if (enabled != updated_pref)
-    DVLOG(1) << "Unable to set metrics reporting status to " << enabled;
-
-  return updated_pref;
-}
-
-// Does the necessary changes for MetricsReportingEnabled changes which needs
-// to be done in the main thread.
-// As arguments this function gets:
-//  |to_update_pref| which indicates what the desired update should be,
-//  |callback_fn| is the callback function to be called in the end,
-//  |called_from| is from where the call was made,
-//  |updated_pref| is the result of attempted update.
-// Update considers to be successful if |to_update_pref| and |updated_pref| are
-// the same.
-void SetMetricsReporting(bool to_update_pref,
-                         OnMetricsReportingCallbackType callback_fn,
-                         ChangeMetricsReportingStateCalledFrom called_from,
-                         bool updated_pref) {
-  g_browser_process->local_state()->SetBoolean(
-      metrics::prefs::kMetricsReportingEnabled, updated_pref);
-
-  UpdateMetricsPrefsOnPermissionChange(updated_pref, called_from);
-
-  // Uses the current state of whether reporting is enabled to enable services.
-  g_browser_process->GetMetricsServicesManager()->UpdateUploadPermissions(true);
-
-  if (to_update_pref == updated_pref) {
-    RecordMetricsReportingHistogramValue(updated_pref ?
-        METRICS_REPORTING_ENABLED : METRICS_REPORTING_DISABLED);
-  } else {
-    RecordMetricsReportingHistogramValue(METRICS_REPORTING_ERROR);
-  }
-  if (!callback_fn.is_null())
-    std::move(callback_fn).Run(updated_pref);
-}
-
-}  // namespace
-
 void ChangeMetricsReportingState(
     bool enabled,
     ChangeMetricsReportingStateCalledFrom called_from) {
@@ -126,11 +67,6 @@ void ChangeMetricsReportingStateWithReply(
     return;
   }
 #endif
-  GoogleUpdateSettings::CollectStatsConsentTaskRunner()
-      ->PostTaskAndReplyWithResult(
-          FROM_HERE, base::BindOnce(&SetGoogleUpdateSettings, enabled),
-          base::BindOnce(&SetMetricsReporting, enabled, std::move(callback_fn),
-                         called_from));
 }
 
 void UpdateMetricsPrefsOnPermissionChange(
@@ -196,13 +132,7 @@ void UpdateMetricsPrefsOnPermissionChange(
   crash_keys::ClearMetricsClientId();
 }
 
-void ApplyMetricsReportingPolicy() {
-  GoogleUpdateSettings::CollectStatsConsentTaskRunner()->PostTask(
-      FROM_HERE,
-      base::BindOnce(
-          base::IgnoreResult(&GoogleUpdateSettings::SetCollectStatsConsent),
-          ChromeMetricsServiceAccessor::IsMetricsAndCrashReportingEnabled()));
-}
+void ApplyMetricsReportingPolicy() {}
 
 bool IsMetricsReportingPolicyManaged() {
 #if BUILDFLAG(IS_CHROMEOS)

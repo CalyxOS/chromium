@@ -100,9 +100,6 @@ void PostStoreMetricsClientInfo(const metrics::ClientInfo& client_info) {
   // This must happen on the same sequence as the tasks to enable/disable
   // metrics reporting. Otherwise, this may run while disabling metrics
   // reporting if the user quickly enables and disables metrics reporting.
-  GoogleUpdateSettings::CollectStatsConsentTaskRunner()->PostTask(
-      FROM_HERE, base::BindOnce(&GoogleUpdateSettings::StoreMetricsClientInfo,
-                                client_info));
 }
 
 #if BUILDFLAG(IS_ANDROID)
@@ -336,7 +333,7 @@ ChromeMetricsServicesManagerClient::GetMetricsStateManager() {
                     switches::kEnableGpuBenchmarking),
         },
         base::BindRepeating(&PostStoreMetricsClientInfo),
-        base::BindRepeating(&GoogleUpdateSettings::LoadMetricsClientInfo));
+        metrics::MetricsStateManager::LoadClientInfoCallback());
   }
   return metrics_state_manager_.get();
 }
