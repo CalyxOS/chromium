@@ -96,14 +96,6 @@ void DomainReliabilityMonitor::Shutdown() {
 }
 
 void DomainReliabilityMonitor::AddBakedInConfigs() {
-  for (size_t i = 0; kBakedInJsonConfigs[i]; ++i) {
-    std::string_view json(kBakedInJsonConfigs[i]);
-    std::unique_ptr<const DomainReliabilityConfig> config =
-        DomainReliabilityConfig::FromJSON(json);
-    // Guard against accidentally checking in malformed JSON configs.
-    DCHECK(config->IsValid());
-    context_manager_.AddContextForConfig(std::move(config));
-  }
 }
 
 void DomainReliabilityMonitor::SetDiscardUploads(bool discard_uploads) {
