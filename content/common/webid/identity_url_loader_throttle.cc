@@ -36,6 +36,8 @@ namespace content {
 
 std::unique_ptr<blink::URLLoaderThrottle> MaybeCreateIdentityUrlLoaderThrottle(
     SetIdpStatusCallback cb) {
+  if (!base::FeatureList::IsEnabled(features::kFedCmIdpSigninStatusEnabled))
+    return nullptr;
   return std::make_unique<IdentityUrlLoaderThrottle>(std::move(cb));
 }
 

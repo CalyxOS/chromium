@@ -40,7 +40,7 @@ enum class GoogleSearchMode {
   kMaxValue = kFlights,
 };
 
-extern const char kGoogleHomepageURL[];
+extern const char kGoogleHomepageURL_Checked[];
 
 // True iff |str| contains a "q=" or "as_q=" query parameter with a non-empty
 // value. |str| should be a query or a hash fragment, without the ? or # (as
@@ -133,14 +133,6 @@ bool IsYoutubeDomainUrl(const GURL& url,
 // True if |url| is hosted by Google.
 bool IsGoogleAssociatedDomainUrl(const GURL& url);
 
-// Returns the list of all Google's registerable domains, i.e. domains named
-// google.<eTLD> owned by Google.
-// TODO(msramek): This is currently only used to ensure the deletion of Google
-// service workers on signout. Remove this once we have other options to do it,
-// such as service workers discovering that signin cookies are missing and
-// unregistering themselves.
-const std::vector<std::string>& GetGoogleRegistrableDomains();
-
 // Appends the provided |key| and |value| pair to the "async" query param list,
 // according to the format used by the Google servers:
 //
@@ -153,11 +145,6 @@ const std::vector<std::string>& GetGoogleRegistrableDomains();
 GURL AppendToAsyncQueryParam(const GURL& url,
                              const std::string& key,
                              const std::string& value);
-
-// Returns Google Search mode used by the user. This corresponds to the tab
-// (e.g. web result, image results, video results, etc.) the user is on. This
-// information is extracted from the "tbm" query parameter on the Search URL.
-GoogleSearchMode GoogleSearchModeFromUrl(const GURL& url);
 
 }  // namespace google_util
 
