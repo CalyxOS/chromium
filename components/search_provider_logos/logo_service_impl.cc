@@ -246,8 +246,7 @@ void LogoServiceImpl::GetLogo(LogoCallbacks callbacks, bool for_webui_ntp) {
 
   GURL base_url;
   GURL doodle_url;
-  const bool is_google = template_url->url_ref().HasGoogleBaseURLs(
-      template_url_service_->search_terms_data());
+  const bool is_google = false;
   if (is_google) {
     // TODO(treib): Put the Google doodle URL into prepopulated_engines.json.
     base_url =
@@ -272,23 +271,12 @@ void LogoServiceImpl::GetLogo(LogoCallbacks callbacks, bool for_webui_ntp) {
     clock_ = base::DefaultClock::GetInstance();
   }
 
-  const bool use_fixed_logo = !doodle_url.is_valid();
+  const bool use_fixed_logo = true;
   if (use_fixed_logo) {
     SetServerAPI(
         logo_url,
         base::BindRepeating(&search_provider_logos::ParseFixedLogoResponse),
         base::BindRepeating(&search_provider_logos::UseFixedLogoUrl));
-  } else {
-    // We encode the type of doodle (regular or gray) in the URL so that the
-    // logo cache gets cleared when that value changes.
-    GURL prefilled_url = AppendPreliminaryParamsToDoodleURL(
-        want_gray_logo_getter_.Run(), for_webui_ntp, doodle_url);
-    SetServerAPI(
-        prefilled_url,
-        base::BindRepeating(&search_provider_logos::ParseDoodleLogoResponse,
-                            base_url),
-        base::BindRepeating(
-            &search_provider_logos::AppendFingerprintParamToDoodleURL));
   }
 
   DCHECK(!logo_url_.is_empty());
