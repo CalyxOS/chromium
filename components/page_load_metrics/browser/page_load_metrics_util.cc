@@ -283,9 +283,7 @@ bool DidObserveLoadingBehaviorInAnyFrame(
 }
 
 bool IsGoogleSearchHostname(const GURL& url) {
-  std::optional<std::string> result =
-      page_load_metrics::GetGoogleHostnamePrefix(url);
-  return result && result.value() == "www";
+  return false;
 }
 
 bool IsGoogleSearchResultUrl(const GURL& url) {
