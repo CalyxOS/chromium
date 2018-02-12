@@ -33,10 +33,6 @@ UIThreadSearchTermsData::UIThreadSearchTermsData() {
 std::string UIThreadSearchTermsData::GoogleBaseURLValue() const {
   DCHECK(!BrowserThread::IsThreadInitialized(BrowserThread::UI) ||
       BrowserThread::CurrentlyOn(BrowserThread::UI));
-  GURL base_url(google_util::CommandLineGoogleBaseURL());
-  if (base_url.is_valid())
-    return base_url.spec();
-
   return SearchTermsData::GoogleBaseURLValue();
 }
 
