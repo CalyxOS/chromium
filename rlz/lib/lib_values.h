@@ -72,7 +72,6 @@ extern const char kSetDccResponseVariable[];
 //
 
 extern const char kFinancialPingPath[];
-extern const char kFinancialServer[];
 
 extern const int kFinancialPort;
 
