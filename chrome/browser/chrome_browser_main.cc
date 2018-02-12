@@ -462,11 +462,6 @@ void ProcessSingletonNotificationCallbackImpl(
 
   StartupBrowserCreator::ProcessCommandLineAlreadyRunning(
       command_line, current_directory, startup_profile_path_info);
-
-  // Record now as the last successful chrome start.
-  if constexpr (kShouldRecordActiveUse) {
-    GoogleUpdateSettings::SetLastRunTime();
-  }
 }
 #endif  // BUILDFLAG(ENABLE_PROCESS_SINGLETON)
 
@@ -1716,11 +1711,6 @@ int ChromeBrowserMainParts::PreMainMessageLoopRunImpl() {
     // an upgrade while the browser is kept alive by a persistent extension.
     upgrade_util::SaveLastModifiedTimeOfExe();
 #endif
-
-    // Record now as the last successful chrome start.
-    if constexpr (kShouldRecordActiveUse) {
-      GoogleUpdateSettings::SetLastRunTime();
-    }
 
     // Create the RunLoop for MainMessageLoopRun() to use and transfer
     // ownership of the browser's lifetime to the BrowserProcess.
