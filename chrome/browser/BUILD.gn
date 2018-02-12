@@ -1017,10 +1017,6 @@ static_library("browser") {
     "page_load_metrics/observers/foreground_duration_ukm_observer.h",
     "page_load_metrics/observers/formfill_page_load_metrics_observer.cc",
     "page_load_metrics/observers/formfill_page_load_metrics_observer.h",
-    "page_load_metrics/observers/from_gws_page_load_metrics_observer.cc",
-    "page_load_metrics/observers/from_gws_page_load_metrics_observer.h",
-    "page_load_metrics/observers/gws_page_load_metrics_observer.cc",
-    "page_load_metrics/observers/gws_page_load_metrics_observer.h",
     "page_load_metrics/observers/histogram_suffixes.cc",
     "page_load_metrics/observers/histogram_suffixes.h",
     "page_load_metrics/observers/https_engagement_metrics/https_engagement_page_load_metrics_observer.cc",
@@ -1923,7 +1919,6 @@ static_library("browser") {
     "//chrome/browser/autofill",
     "//chrome/browser/devtools",
     "//chrome/browser/favicon",
-    "//chrome/browser/google",
     "//chrome/browser/profiling_host",
 
     # TODO(crbug.com/1335199): break this dep when favicon is in its own target
@@ -1947,7 +1942,6 @@ static_library("browser") {
 
   public_deps = [
     "//base",
-    "//chrome/browser/google",
     "//chrome/browser/headless",
     "//chrome/common",
     "//chrome/common:buildflags",
@@ -7654,8 +7648,6 @@ static_library("browser") {
       "supervised_user/kids_chrome_management/kids_profile_manager.h",
       "supervised_user/supervised_user_browser_utils.cc",
       "supervised_user/supervised_user_browser_utils.h",
-      "supervised_user/supervised_user_google_auth_navigation_throttle.cc",
-      "supervised_user/supervised_user_google_auth_navigation_throttle.h",
       "supervised_user/supervised_user_interstitial_tab_closer.cc",
       "supervised_user/supervised_user_interstitial_tab_closer.h",
       "supervised_user/supervised_user_metrics_service_factory.cc",
