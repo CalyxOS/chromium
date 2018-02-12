@@ -127,20 +127,13 @@ void TranslateScript::OnScriptFetchComplete(bool success,
     data_ = base::StringPrintf("var translateApiKey = '%s';\n",
                                google_apis::GetAPIKey().c_str());
 
-    // Insert server params to pass experimental params to google translate
-    // server.
-    std::string server_params;
-    std::map<std::string, std::string> params;
-    base::StringAppendF(
-        &data_, "var gtTimeInfo = {'fetchStart': %0.f, 'fetchEnd': %0.f};\n",
-        script_fetch_start_time_,
+     base::StringAppendF(&data_, "var serverParams = '';\n");
+     base::StringAppendF(
+         &data_, "var gtTimeInfo = {'fetchStart': %0.f, 'fetchEnd': %0.f};\n",
+         script_fetch_start_time_,
         base::Time::Now().InMillisecondsFSinceUnixEpoch());
-    base::StringAppendF(&data_, "var serverParams = '%s';\n",
-                        server_params.c_str());
 
-    GURL security_origin = translate::GetTranslateSecurityOrigin();
-    base::StringAppendF(&data_, "var securityOrigin = '%s';\n",
-                        security_origin.spec().c_str());
+    base::StringAppendF(&data_, "var securityOrigin = '';\n");
 
     // Load embedded translate.js.
     data_.append(ui::ResourceBundle::GetSharedInstance().LoadDataResourceString(
