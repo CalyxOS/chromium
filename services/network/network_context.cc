@@ -2570,7 +2570,7 @@ URLRequestContextOwner NetworkContext::MakeURLRequestContext(
   }
 #endif  // BUILDFLAG(IS_CT_SUPPORTED)
 
-  if (params_->enable_domain_reliability) {
+  if ((false) /*params_->enable_domain_reliability*/) {
     domain_reliability_monitor_ =
         std::make_unique<domain_reliability::DomainReliabilityMonitor>(
             result.url_request_context.get(),
