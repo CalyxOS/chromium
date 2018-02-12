@@ -87,7 +87,6 @@ bool ResetSettingsHandler::ShouldShowResetProfileBanner(Profile* profile) {
 
 ResetSettingsHandler::ResetSettingsHandler(Profile* profile)
     : profile_(profile) {
-  google_brand::GetBrand(&brandcode_);
 }
 
 ResetSettingsHandler::~ResetSettingsHandler() {}
