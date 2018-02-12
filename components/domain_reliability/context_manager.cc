@@ -41,26 +41,8 @@ void DomainReliabilityContextManager::RouteBeacon(
   DomainReliabilityContext* superdomain_context =
       GetSuperdomainContext(beacon_host);
 
-  // Try to get a Google config which may match the host itself, or the host's
-  // parent domain.
-  std::unique_ptr<const DomainReliabilityConfig> google_config =
-      MaybeGetGoogleConfig(beacon_host);
-
-  if (!google_config) {
-    if (superdomain_context)
-      superdomain_context->OnBeacon(std::move(beacon));
-    return;
-  }
-
-  context_to_use = superdomain_context;
-  bool google_config_is_exact = (google_config->origin.host() == beacon_host);
-
-  // An exact match takes priority over an existing superdomain context, if any
-  // exists.
-  if (google_config_is_exact || !context_to_use)
-    context_to_use = AddContextForConfig(std::move(google_config));
-
-  context_to_use->OnBeacon(std::move(beacon));
+  if (superdomain_context)
+    superdomain_context->OnBeacon(std::move(beacon));
 }
 
 void DomainReliabilityContextManager::ClearBeacons(

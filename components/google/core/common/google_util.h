@@ -154,11 +154,6 @@ GURL AppendToAsyncQueryParam(const GURL& url,
                              const std::string& key,
                              const std::string& value);
 
-// Returns Google Search mode used by the user. This corresponds to the tab
-// (e.g. web result, image results, video results, etc.) the user is on. This
-// information is extracted from the "tbm" query parameter on the Search URL.
-GoogleSearchMode GoogleSearchModeFromUrl(const GURL& url);
-
 }  // namespace google_util
 
 #endif  // COMPONENTS_GOOGLE_CORE_COMMON_GOOGLE_UTIL_H_
