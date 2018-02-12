@@ -190,8 +190,8 @@ BASE_FEATURE(kFedCmIdAssertionCORS,
 // parsing the signin status HTTP headers.
 // kFedCmIdpSigninStatusEnabled takes precedence over this feature flag.
 BASE_FEATURE(kFedCmIdpSigninStatusMetrics,
-             "FedCmIdpSigninStatusMetrics",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "FedCmIdpSigninStatusMetrics",      // disabled
+             base::FEATURE_DISABLED_BY_DEFAULT); // by default
 
 // If enabled, limits the number of FLEDGE auctions that can be run between page
 // load and unload -- any attempt to run more than this number of auctions will
