@@ -145,8 +145,6 @@ static_library("common_lib") {
     "content_restriction.h",
     "crash_keys.cc",
     "crash_keys.h",
-    "google_url_loader_throttle.cc",
-    "google_url_loader_throttle.h",
     "logging_chrome.cc",
     "logging_chrome.h",
     "media/cdm_registration.cc",

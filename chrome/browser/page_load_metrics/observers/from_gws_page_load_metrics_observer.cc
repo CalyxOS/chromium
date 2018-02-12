@@ -344,8 +344,6 @@ FromGWSPageLoadMetricsLogger::~FromGWSPageLoadMetricsLogger() = default;
 void FromGWSPageLoadMetricsLogger::SetPreviouslyCommittedUrl(const GURL& url) {
   if (page_load_metrics::IsGoogleSearchResultUrl(url)) {
     previously_committed_url_is_search_results_ = true;
-    previously_committed_url_search_mode_ =
-        google_util::GoogleSearchModeFromUrl(url);
   }
   previously_committed_url_is_search_redirector_ =
       page_load_metrics::IsGoogleSearchRedirectorUrl(url);
