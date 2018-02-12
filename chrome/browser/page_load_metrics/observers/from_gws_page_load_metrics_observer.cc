@@ -394,8 +394,7 @@ FromGWSPageLoadMetricsLogger::~FromGWSPageLoadMetricsLogger() = default;
 void FromGWSPageLoadMetricsLogger::SetPreviouslyCommittedUrl(const GURL& url) {
   if (page_load_metrics::IsGoogleSearchResultUrl(url)) {
     previously_committed_url_is_search_results_ = true;
-    navigation_initiated_search_mode_ =
-        google_util::GoogleSearchModeFromUrl(url);
+    navigation_initiated_search_mode_ = google_util::GoogleSearchMode::kWeb;
   }
   previously_committed_url_is_search_redirector_ =
       page_load_metrics::IsGoogleSearchRedirectorUrl(url);
@@ -412,8 +411,7 @@ void FromGWSPageLoadMetricsLogger::SetNavigationStateForSidePanel(
   initiating_side_panel_url_ = initiating_side_panel_url;
   navigation_initiated_via_link_ = navigation_initiated_via_link;
   if (page_load_metrics::IsGoogleSearchResultUrl(initiating_side_panel_url)) {
-    navigation_initiated_search_mode_ =
-        google_util::GoogleSearchModeFromUrl(initiating_side_panel_url);
+    navigation_initiated_search_mode_ = google_util::GoogleSearchMode::kWeb;
   }
 }
 

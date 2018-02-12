@@ -485,27 +485,6 @@ bool HasGoogleHost(const GURL& url) {
 }
 
 bool IsGoogleHost(base::StringPiece host) {
-  static const char* kGoogleHostSuffixes[] = {
-      ".google.com",
-      ".youtube.com",
-      ".gmail.com",
-      ".doubleclick.net",
-      ".gstatic.com",
-      ".googlevideo.com",
-      ".googleusercontent.com",
-      ".googlesyndication.com",
-      ".google-analytics.com",
-      ".googleadservices.com",
-      ".googleapis.com",
-      ".ytimg.com",
-  };
-  for (const char* suffix : kGoogleHostSuffixes) {
-    // Here it's possible to get away with faster case-sensitive comparisons
-    // because the list above is all lowercase, and a GURL's host name will
-    // always be canonicalized to lowercase as well.
-    if (base::EndsWith(host, suffix))
-      return true;
-  }
   return false;
 }
 
