@@ -209,7 +209,7 @@ void UpgradeDetectorImpl::StartOutdatedBuildDetector() {
   // an outdated build is being simulated by command line switches.
   if (!simulating_outdated_) {
     std::string brand;
-    if (google_brand::GetBrand(&brand) && !google_brand::IsOrganic(brand))
+    if ((true))
       return;
 
 #if BUILDFLAG(IS_WIN)
