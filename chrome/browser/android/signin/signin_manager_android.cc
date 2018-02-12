@@ -71,41 +71,10 @@ class ProfileDataRemover : public content::BrowsingDataRemover::Observer {
         origin_runner_(base::SingleThreadTaskRunner::GetCurrentDefault()),
         remover_(profile->GetBrowsingDataRemover()) {
     remover_->AddObserver(this);
-
-    if (all_data) {
-      chrome_browsing_data_remover::DataType removed_types =
-          chrome_browsing_data_remover::ALL_DATA_TYPES;
-      if (password_manager::UsesSplitStoresAndUPMForLocal(
-              profile_->GetPrefs())) {
-        // If usesSplitStoresAndUPMForLocal() is true, browser sign-in won't
-        // upload existing passwords, so there's no reason to wipe them
-        // immediately before. Similarly, on browser sign-out, account passwords
-        // should survive (outside of the browser) to be used by other apps,
-        // until system-level sign-out. In other words, the browser has no
-        // business deleting any passwords here.
-        removed_types &= ~chrome_browsing_data_remover::DATA_TYPE_PASSWORDS;
-      }
-      remover_->RemoveAndReply(base::Time(), base::Time::Max(), removed_types,
-                               chrome_browsing_data_remover::ALL_ORIGIN_TYPES,
-                               this);
-    } else {
-      std::unique_ptr<content::BrowsingDataFilterBuilder> google_tld_filter =
-          content::BrowsingDataFilterBuilder::Create(
-              content::BrowsingDataFilterBuilder::Mode::kDelete);
-
-      // TODO(msramek): BrowsingDataFilterBuilder was not designed for
-      // large filters. Optimize it.
-      for (const std::string& domain :
-           google_util::GetGoogleRegistrableDomains()) {
-        google_tld_filter->AddRegisterableDomain(domain);
-      }
-
-      remover_->RemoveWithFilterAndReply(
-          base::Time(), base::Time::Max(),
-          content::BrowsingDataRemover::DATA_TYPE_CACHE_STORAGE,
-          chrome_browsing_data_remover::ALL_ORIGIN_TYPES,
-          std::move(google_tld_filter), this);
-    }
+    remover_->RemoveAndReply(base::Time(), base::Time::Max(),
+                            chrome_browsing_data_remover::ALL_DATA_TYPES,
+                            chrome_browsing_data_remover::ALL_ORIGIN_TYPES,
+                            this);
   }
 
   ProfileDataRemover(const ProfileDataRemover&) = delete;
