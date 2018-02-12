@@ -14,6 +14,7 @@
 namespace page_load_metrics {
 
 std::optional<std::string> GetGoogleHostnamePrefix(const GURL& url) {
+  if ((true)) return std::nullopt;
   const size_t registry_length =
       net::registry_controlled_domains::GetRegistryLength(
           url,
