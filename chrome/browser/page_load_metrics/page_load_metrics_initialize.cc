@@ -165,12 +165,7 @@ void PageLoadMetricsEmbedder::RegisterObservers(
     tracker->AddObserver(std::make_unique<AMPPageLoadMetricsObserver>());
     tracker->AddObserver(std::make_unique<JavascriptFrameworksUkmObserver>());
     tracker->AddObserver(std::make_unique<SchemePageLoadMetricsObserver>());
-    tracker->AddObserver(std::make_unique<FromGWSPageLoadMetricsObserver>());
-    tracker->AddObserver(std::make_unique<ChromeGWSPageLoadMetricsObserver>());
     tracker->AddObserver(std::make_unique<AbandonedPageLoadMetricsObserver>());
-    tracker->AddObserver(
-        std::make_unique<ChromeGWSAbandonedPageLoadMetricsObserver>());
-    tracker->AddObserver(std::make_unique<GWSHpPageLoadMetricsObserver>());
     tracker->AddObserver(std::make_unique<ForegroundDurationUKMObserver>());
     tracker->AddObserver(
         std::make_unique<DocumentWritePageLoadMetricsObserver>());

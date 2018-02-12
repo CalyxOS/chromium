@@ -285,8 +285,7 @@ bool DidObserveLoadingBehaviorInAnyFrame(
 }
 
 bool IsZstdUrl(const GURL& url) {
-  return url.DomainIs("facebook.com") || url.DomainIs("instagram.com") ||
-         url.DomainIs("whatsapp.com") || url.DomainIs("messenger.com");
+  return false;
 }
 
 bool QueryContainsComponent(std::string_view query,
