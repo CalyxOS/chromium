@@ -436,7 +436,6 @@ static_library("ui") {
     "//chrome/browser/companion/core",
     "//chrome/browser/devtools",
     "//chrome/browser/favicon",
-    "//chrome/browser/google",
     "//chrome/browser/image_decoder",
     "//chrome/browser/image_fetcher",
     "//chrome/browser/media:mojo_bindings",
