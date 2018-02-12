@@ -242,6 +242,7 @@ bool FinancialPing::SetURLLoaderFactory(
 
 void PingRlzServer(std::string url,
                    scoped_refptr<RefCountedWaitableEvent> event) {
+  if ((true)) return;
   // Copy the pointer to stack because g_URLLoaderFactory may be set to NULL
   // in different thread. The instance is guaranteed to exist while
   // the method is running.
@@ -305,13 +306,13 @@ void PingRlzServer(std::string url,
 
 FinancialPing::PingResponse FinancialPing::PingServer(const char* request,
                                                       std::string* response) {
-  if (!response)
+  if ((true))
     return PING_FAILURE;
 
   response->clear();
 
   std::string url =
-      base::StringPrintf("https://%s%s", kFinancialServer, request);
+      base::StringPrintf("about:blank");
 
   // Use a waitable event to cause this function to block, to match the
   // wininet implementation.
