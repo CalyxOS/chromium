@@ -3025,7 +3025,6 @@ void ChromeContentBrowserClient::AppendExtraCommandLineSwitches(
         switches::kForcePNaClSubzero,
 #endif
         switches::kForceUIDirection,
-        switches::kIgnoreGooglePortNumbers,
         switches::kJavaScriptHarmony,
         switches::kEnableExperimentalWebAssemblyFeatures,
         embedder_support::kOriginTrialDisabledFeatures,
@@ -5464,9 +5463,6 @@ ChromeContentBrowserClient::CreateThrottlesForNavigation(
       &throttles);
 #endif
 
-  MaybeAddThrottle(
-      SupervisedUserGoogleAuthNavigationThrottle::MaybeCreate(handle),
-      &throttles);
 
     MaybeAddThrottle(
         supervised_user::MaybeCreateClassifyUrlNavigationThrottleFor(handle),
@@ -6100,7 +6096,8 @@ GetClientDataHeader(content::FrameTreeNodeId frame_tree_node_id) {
 }
 #endif
 
-std::unique_ptr<blink::URLLoaderThrottle> CreateGoogleURLLoaderThrottle(
+
+#if 0 // std::unique_ptr<blink::URLLoaderThrottle> CreateGoogleURLLoaderThrottle(
 #if BUILDFLAG(IS_ANDROID)
     const std::string& client_data_header,
 #endif
@@ -6140,7 +6137,7 @@ std::unique_ptr<blink::URLLoaderThrottle> CreateGoogleURLLoaderThrottle(
       std::move(bound_session_request_throttled_handler),
 #endif
       std::move(dynamic_params));
-}
+#endif // }
 
 std::vector<std::unique_ptr<blink::URLLoaderThrottle>>
 ChromeContentBrowserClient::CreateURLLoaderThrottles(
@@ -6197,15 +6194,6 @@ ChromeContentBrowserClient::CreateURLLoaderThrottles(
       GetClientDataHeader(frame_tree_node_id);
 #endif
 
-  if (auto google_throttle = CreateGoogleURLLoaderThrottle(
-#if BUILDFLAG(IS_ANDROID)
-          client_data_header,
-#endif
-          profile);
-      google_throttle) {
-    result.push_back(std::move(google_throttle));
-  }
-
   {
     auto* factory =
         ProtocolHandlerRegistryFactory::GetForBrowserContext(browser_context);
@@ -6248,20 +6236,6 @@ ChromeContentBrowserClient::CreateURLLoaderThrottlesForKeepAlive(
   DCHECK(browser_context);
   Profile* profile = Profile::FromBrowserContext(browser_context);
   DCHECK(profile);
-
-#if BUILDFLAG(IS_ANDROID)
-  auto [client_data_header, unused_is_custom_tab] =
-      GetClientDataHeader(frame_tree_node_id);
-#endif
-
-  if (auto google_throttle = CreateGoogleURLLoaderThrottle(
-#if BUILDFLAG(IS_ANDROID)
-          client_data_header,
-#endif
-          profile);
-      google_throttle) {
-    result.push_back(std::move(google_throttle));
-  }
 
   return result;
 }
