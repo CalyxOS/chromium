@@ -62,7 +62,6 @@ const char kPopularSitesDefaultDirectory[] = "chrome/ntp/";
 const char kPopularSitesDefaultCountryCode[] = "DEFAULT";
 const char kPopularSitesDefaultVersion[] = "5";
 const int kSitesExplorationStartVersion = 6;
-const int kPopularSitesRedownloadIntervalHours = 24;
 #if BUILDFLAG(IS_IOS)
 const char kIOSDefaultPopularSitesLocaleUS[] =
     "https://www.gstatic.com/chrome/ntp/ios/"
@@ -326,7 +325,12 @@ bool PopularSitesImpl::MaybeStartFetch(bool force_download,
   DCHECK(!callback_);
   callback_ = std::move(callback);
 
-  const base::Time last_download_time = base::Time::FromInternalValue(
+  if (force_download) {
+    std::move(callback_).Run(true);
+    return true;
+  }
+
+/*  const base::Time last_download_time = base::Time::FromInternalValue(
       prefs_->GetInt64(prefs::kPopularSitesLastDownloadPref));
   const base::TimeDelta time_since_last_download =
       base::Time::Now() - last_download_time;
@@ -343,7 +347,7 @@ bool PopularSitesImpl::MaybeStartFetch(bool force_download,
       (time_since_last_download > redownload_interval) || url_changed) {
     FetchPopularSites();
     return true;
-  }
+  }*/
   return false;
 }
 
