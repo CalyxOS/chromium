@@ -112,7 +112,7 @@ public class NewTabPageLayout extends LinearLayout {
      */
     private boolean mHasShownView;
 
-    private boolean mSearchProviderHasLogo = true;
+    private boolean mSearchProviderHasLogo = false;
     private boolean mSearchProviderIsGoogle;
     private boolean mShowingNonStandardLogo;
 
@@ -360,7 +360,7 @@ public class NewTabPageLayout extends LinearLayout {
             boolean isScrollableMvtEnabled, boolean searchProviderIsGoogle) {
         assert mMvTilesContainerLayout != null;
 
-        int maxRows = 2;
+        int maxRows = 4;
         if (searchProviderIsGoogle && QueryTileUtils.isQueryTilesEnabledOnNTP()) {
             maxRows = QueryTileSection.getMaxRowsForMostVisitedTiles(getContext());
         }
@@ -540,7 +540,7 @@ public class NewTabPageLayout extends LinearLayout {
                 && mInitialized) {
             return;
         }
-        mSearchProviderHasLogo = hasLogo;
+        mSearchProviderHasLogo = false;
         mSearchProviderIsGoogle = isGoogle;
 
         updateTilesLayoutMargins();
