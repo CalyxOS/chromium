@@ -21,7 +21,7 @@ public class MostVisitedSitesBridge implements MostVisitedSites {
      * Maximum number of tiles that is explicitly supported. UMA relies on this value, so even if
      * the UI supports it, getting more can raise unexpected issues.
      */
-    public static final int MAX_TILE_COUNT = 12;
+    public static final int MAX_TILE_COUNT = 12 * 2;
 
     private long mNativeMostVisitedSitesBridge;
 
