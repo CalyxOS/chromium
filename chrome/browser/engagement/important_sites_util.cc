@@ -67,7 +67,7 @@ static const int kTimesIgnoredForSuppression = 3;
 // These are the maximum # of bookmarks we can use as signals. If the user has
 // <= kMaxBookmarks, then we just use those bookmarks. Otherwise we filter all
 // bookmarks on site engagement > 0, sort, and trim to kMaxBookmarks.
-static const int kMaxBookmarks = 5;
+static const int kMaxBookmarks = 4 * 4 + 2;
 
 // We need this to be a macro, as the histogram macros cache their pointers
 // after the first call, so when we change the uma name we check fail if we're
