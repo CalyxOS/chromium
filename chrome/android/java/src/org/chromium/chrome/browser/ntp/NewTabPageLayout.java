@@ -110,7 +110,7 @@ public class NewTabPageLayout extends LinearLayout {
      */
     private boolean mHasShownView;
 
-    private boolean mSearchProviderHasLogo = true;
+    private boolean mSearchProviderHasLogo = false;
     private boolean mSearchProviderIsGoogle;
     private boolean mShowingNonStandardGoogleLogo;
 
@@ -499,7 +499,7 @@ public class NewTabPageLayout extends LinearLayout {
             boolean searchProviderIsGoogle) {
         assert mMvTilesContainerLayout != null;
 
-        int maxRows = 2;
+        int maxRows = 4;
 
         mMostVisitedTilesCoordinator =
                 new MostVisitedTilesCoordinator(
@@ -733,7 +733,7 @@ public class NewTabPageLayout extends LinearLayout {
                 && mInitialized) {
             return;
         }
-        mSearchProviderHasLogo = hasLogo;
+        mSearchProviderHasLogo = false;
         mSearchProviderIsGoogle = isGoogle;
 
         boolean isSearchProviderMarginUpdated =
