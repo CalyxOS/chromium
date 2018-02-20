@@ -40,7 +40,7 @@ class TopSitesImplTest;
 struct SitesAndQueriesRequest;
 
 // How many top sites to store in the cache.
-static constexpr size_t kTopSitesNumber = 10;
+static constexpr size_t kTopSitesNumber = 4 * 4 + 2;
 
 // This class allows requests for most visited urls on any thread. All other
 // methods must be invoked on the UI thread. All mutations to internal state
