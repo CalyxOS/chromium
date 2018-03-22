@@ -1946,9 +1946,7 @@ WebContentSettingsClient* LocalFrame::GetContentSettingsClient() {
 }
 
 PluginData* LocalFrame::GetPluginData() const {
-  if (!Loader().AllowPlugins())
     return nullptr;
-  return GetPage()->GetPluginData();
 }
 
 void LocalFrame::SetAdTrackerForTesting(AdTracker* ad_tracker) {
