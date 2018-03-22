@@ -78,46 +78,28 @@ ScriptPromise BatteryManager::StartRequest(ScriptState* script_state) {
 }
 
 bool BatteryManager::charging() {
-  return battery_status_.Charging();
+  return true;
 }
 
 double BatteryManager::chargingTime() {
-  return battery_status_.charging_time().InSecondsF();
+  return 0.0;
 }
 
 double BatteryManager::dischargingTime() {
-  return battery_status_.discharging_time().InSecondsF();
+  return std::numeric_limits<double>::infinity();
 }
 
 double BatteryManager::level() {
-  return battery_status_.Level();
+  return 1.0;
 }
 
 void BatteryManager::DidUpdateData() {
   DCHECK(battery_property_);
 
-  BatteryStatus old_status = battery_status_;
-  battery_status_ = *battery_dispatcher_->LatestData();
-
   if (battery_property_->GetState() == BatteryProperty::kPending) {
     battery_property_->Resolve(this);
     return;
   }
-
-  DCHECK(GetExecutionContext());
-  if (GetExecutionContext()->IsContextPaused() ||
-      GetExecutionContext()->IsContextDestroyed()) {
-    return;
-  }
-
-  if (battery_status_.Charging() != old_status.Charging())
-    DispatchEvent(*Event::Create(event_type_names::kChargingchange));
-  if (battery_status_.charging_time() != old_status.charging_time())
-    DispatchEvent(*Event::Create(event_type_names::kChargingtimechange));
-  if (battery_status_.discharging_time() != old_status.discharging_time())
-    DispatchEvent(*Event::Create(event_type_names::kDischargingtimechange));
-  if (battery_status_.Level() != old_status.Level())
-    DispatchEvent(*Event::Create(event_type_names::kLevelchange));
 }
 
 void BatteryManager::RegisterWithDispatcher() {
