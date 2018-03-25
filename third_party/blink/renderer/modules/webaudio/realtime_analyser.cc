@@ -29,6 +29,7 @@
 #include <algorithm>
 #include <complex>
 
+#include "third_party/blink/renderer/modules/webaudio/base_audio_context.h"
 #include "third_party/blink/renderer/platform/audio/audio_bus.h"
 #include "third_party/blink/renderer/platform/audio/audio_utilities.h"
 #include "third_party/blink/renderer/platform/audio/vector_math.h"
@@ -154,6 +155,7 @@ void RealtimeAnalyser::GetFloatTimeDomainData(
           input_buffer[(i + write_index - fft_size + kInputBufferSize) %
                        kInputBufferSize];
 
+      value = BaseAudioContext::ShuffleAudioData(value, i);
       destination[i] = value;
     }
   }
@@ -180,6 +182,8 @@ void RealtimeAnalyser::GetByteTimeDomainData(DOMUint8Array* destination_array) {
       float value =
           input_buffer[(i + write_index - fft_size + kInputBufferSize) %
                        kInputBufferSize];
+
+      value = BaseAudioContext::ShuffleAudioData(value, i);
 
       // Scale from nominal -1 -> +1 to unsigned byte.
       double scaled_value = 128 * (value + 1);
@@ -300,6 +304,8 @@ void RealtimeAnalyser::ConvertToByteData(DOMUint8Array* destination_array) {
       double scaled_value =
           UCHAR_MAX * (db_mag - min_decibels) * range_scale_factor;
 
+      scaled_value = BaseAudioContext::ShuffleAudioData(scaled_value, i);
+
       // Clip to valid range.
       destination[i] =
           static_cast<unsigned char>(ClampTo(scaled_value, 0, UCHAR_MAX));
@@ -319,6 +325,7 @@ void RealtimeAnalyser::ConvertFloatToDb(DOMFloat32Array* destination_array) {
       float linear_value = source[i];
       double db_mag = audio_utilities::LinearToDecibels(linear_value);
       destination[i] = static_cast<float>(db_mag);
+      destination[i] = BaseAudioContext::ShuffleAudioData(destination[i], i);
     }
   }
 }
