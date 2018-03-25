@@ -115,6 +115,8 @@ class MODULES_EXPORT AudioBuffer final : public ScriptWrappable {
 
   std::unique_ptr<SharedAudioBuffer> CreateSharedAudioBuffer();
 
+  void ShuffleAudioData();
+
  private:
   static DOMFloat32Array* CreateFloat32ArrayOrNull(
       uint32_t length,
