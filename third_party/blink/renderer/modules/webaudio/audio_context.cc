@@ -12,6 +12,7 @@
 #include "third_party/blink/public/common/browser_interface_broker_proxy.h"
 #include "third_party/blink/public/common/features.h"
 #include "third_party/blink/public/common/mediastream/media_devices.h"
+#include "third_party/blink/public/common/features.h"
 #include "third_party/blink/public/platform/modules/webrtc/webrtc_logging.h"
 #include "third_party/blink/public/platform/web_audio_latency_hint.h"
 #include "third_party/blink/renderer/bindings/core/v8/script_promise_resolver.h"
@@ -587,7 +588,9 @@ double AudioContext::baseLatency() const {
   DCHECK(IsMainThread());
   DCHECK(destination());
 
-  return base_latency_;
+  // remove precision past two decimal digits
+  int l = base_latency_ * 100;
+  return double(l)/100;
 }
 
 double AudioContext::outputLatency() const {
