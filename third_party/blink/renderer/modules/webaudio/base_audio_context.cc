@@ -29,6 +29,7 @@
 
 #include "base/metrics/histogram_functions.h"
 #include "build/build_config.h"
+#include "third_party/blink/public/common/features.h"
 #include "third_party/blink/public/mojom/devtools/console_message.mojom-blink.h"
 #include "third_party/blink/public/mojom/frame/lifecycle.mojom-shared.h"
 #include "third_party/blink/public/platform/platform.h"
@@ -707,6 +708,17 @@ void BaseAudioContext::NotifySourceNodeFinishedProcessing(
 
 LocalDOMWindow* BaseAudioContext::GetWindow() const {
   return To<LocalDOMWindow>(GetExecutionContext());
+}
+
+/*static*/
+float BaseAudioContext::ShuffleAudioData(float data, unsigned index) {
+  if (base::FeatureList::IsEnabled(features::kAudioContextShuffleEnabled)) {
+    float rnd = 1.0f +
+                (base::RandDouble() / 10000.0) *
+                  (base::RandInt(0,10) > 5 ? 1.f : -1.f);
+    return data * rnd;
+  }
+  return data;
 }
 
 void BaseAudioContext::NotifySourceNodeStartedProcessing(AudioNode* node) {
