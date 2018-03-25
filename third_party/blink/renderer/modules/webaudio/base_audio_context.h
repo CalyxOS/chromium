@@ -337,6 +337,8 @@ class MODULES_EXPORT BaseAudioContext
   // if the execution context does not exist.
   bool CheckExecutionContextAndThrowIfNecessary(ExceptionState&);
 
+  static float ShuffleAudioData(float data, unsigned index);
+
  protected:
   enum ContextType { kRealtimeContext, kOfflineContext };
 
