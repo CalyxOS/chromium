@@ -572,7 +572,9 @@ double AudioContext::baseLatency() const {
   DCHECK(IsMainThread());
   DCHECK(destination());
 
-  return base_latency_;
+  // remove precision past two decimal digits
+  int l = base_latency_ * 100;
+  return double(l)/100;
 }
 
 double AudioContext::outputLatency() const {
