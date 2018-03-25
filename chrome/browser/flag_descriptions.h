@@ -2119,6 +2119,9 @@ extern const char kWebrtcUseMinMaxVEADimensionsDescription[];
 extern const char kWebTransportDeveloperModeName[];
 extern const char kWebTransportDeveloperModeDescription[];
 
+extern const char kAudioContextShuffleEnabledName[];
+extern const char kAudioContextShuffleEnabledDescription[];
+
 extern const char kWebUsbDeviceDetectionName[];
 extern const char kWebUsbDeviceDetectionDescription[];
 
