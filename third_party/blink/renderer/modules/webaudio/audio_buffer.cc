@@ -196,6 +196,20 @@ AudioBuffer::AudioBuffer(AudioBus* bus)
   }
 }
 
+void AudioBuffer::ShuffleAudioData() {
+  for (unsigned i = 0; i < channels_.size(); ++i) {
+    if (NotShared<DOMFloat32Array> array = getChannelData(i)) {
+      size_t len = array->length();
+      if (len > 0) {
+        float* destination = array->Data();
+        for (unsigned j = 0; j < len; ++j) {
+          destination[j] = BaseAudioContext::ShuffleAudioData(destination[j], j);
+        }
+      }
+    }
+  }
+}
+
 NotShared<DOMFloat32Array> AudioBuffer::getChannelData(
     unsigned channel_index,
     ExceptionState& exception_state) {
