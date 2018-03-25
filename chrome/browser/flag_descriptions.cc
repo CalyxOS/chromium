@@ -3701,6 +3701,11 @@ const char kWebTransportDeveloperModeDescription[] =
     "When enabled, removes the requirement that all certificates used for "
     "WebTransport over HTTP/3 are issued by a known certificate root.";
 
+const char kAudioContextShuffleEnabledName[] =
+    "Enable Audio Context fingerprint deception";
+const char kAudioContextShuffleEnabledDescription[] =
+    "Scale the output values of rendered data with a randomly selected factor.";
+
 const char kWebUsbDeviceDetectionName[] =
     "Automatic detection of WebUSB-compatible devices";
 const char kWebUsbDeviceDetectionDescription[] =
