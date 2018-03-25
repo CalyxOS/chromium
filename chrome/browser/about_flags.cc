@@ -3860,6 +3860,10 @@ const FeatureEntry kFeatureEntries[] = {
      flag_descriptions::kKioskEnableAppServiceDescription, kOsCrOS,
      FEATURE_VALUE_TYPE(features::kKioskEnableAppService)},
 #endif  // BUILDFLAG(IS_CHROMEOS)
+    {"fingerprinting-audio-context-data-noise",
+     flag_descriptions::kAudioContextShuffleEnabledName,
+     flag_descriptions::kAudioContextShuffleEnabledDescription, kOsAll,
+     FEATURE_VALUE_TYPE(blink::features::kAudioContextShuffleEnabled)},
 #if !BUILDFLAG(IS_ANDROID)
     {"enable-webrtc-remote-event-log",
      flag_descriptions::kWebRtcRemoteEventLogName,

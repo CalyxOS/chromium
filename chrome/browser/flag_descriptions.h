@@ -2052,6 +2052,9 @@ extern const char kWebRtcRemoteEventLogDescription[];
 extern const char kWebrtcUseMinMaxVEADimensionsName[];
 extern const char kWebrtcUseMinMaxVEADimensionsDescription[];
 
+extern const char kAudioContextShuffleEnabledName[];
+extern const char kAudioContextShuffleEnabledDescription[];
+
 extern const char kWebUsbDeviceDetectionName[];
 extern const char kWebUsbDeviceDetectionDescription[];
 

@@ -3571,6 +3571,11 @@ const char kWebrtcUseMinMaxVEADimensionsDescription[] =
     "When enabled, WebRTC will only use the Video Encode Accelerator for "
     "video resolutions inside those published as supported.";
 
+const char kAudioContextShuffleEnabledName[] =
+    "Enable Audio Context fingerprint deception";
+const char kAudioContextShuffleEnabledDescription[] =
+    "Scale the output values of rendered data with a randomly selected factor.";
+
 const char kWebUsbDeviceDetectionName[] =
     "Automatic detection of WebUSB-compatible devices";
 const char kWebUsbDeviceDetectionDescription[] =
