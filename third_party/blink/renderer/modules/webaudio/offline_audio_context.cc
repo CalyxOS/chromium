@@ -372,6 +372,7 @@ void OfflineAudioContext::FireCompletionEvent() {
     if (!rendered_buffer) {
       return;
     }
+    rendered_buffer->ShuffleAudioData();
 
     // Call the offline rendering completion event listener and resolve the
     // promise too.
