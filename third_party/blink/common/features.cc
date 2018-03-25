@@ -252,6 +252,10 @@ BASE_FEATURE(kBiddingAndScoringDebugReportingAPI,
              "BiddingAndScoringDebugReportingAPI",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+BASE_FEATURE(kAudioContextShuffleEnabled,
+             "AudioContextShuffleEnabled",
+             base::FEATURE_ENABLED_BY_DEFAULT);
+
 // Blink garbage collection.
 // Enables compaction of backing stores on Blink's heap.
 BASE_FEATURE(kBlinkHeapCompaction,
