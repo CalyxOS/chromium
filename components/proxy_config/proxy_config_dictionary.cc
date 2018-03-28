@@ -30,6 +30,8 @@ const char kProxyPacMandatory[] = "pac_mandatory";
 // String containing proxy bypass rules. For a specification of the
 // expected syntax see net::ProxyBypassRules::ParseFromString().
 const char kProxyBypassList[] = "bypass_list";
+// Boolean telling whether to reverse the meaning of the bypass list.
+const char kProxyReverseBypass[] = "reverse_bypass";
 
 }  // namespace
 
@@ -76,6 +78,14 @@ bool ProxyConfigDictionary::HasBypassList() const {
   return dict_.Find(kProxyBypassList);
 }
 
+bool ProxyConfigDictionary::HasReverseBypass() const {
+  const base::Value* value = dict_.Find(kProxyReverseBypass);
+  if (!value || !value->is_bool()) {
+    return false;
+  }
+  return value->GetBool();
+}
+
 const base::Value::Dict& ProxyConfigDictionary::GetDictionary() const {
   return dict_;
 }
@@ -83,13 +93,13 @@ const base::Value::Dict& ProxyConfigDictionary::GetDictionary() const {
 // static
 base::Value::Dict ProxyConfigDictionary::CreateDirect() {
   return CreateDictionary(ProxyPrefs::MODE_DIRECT, std::string(), false,
-                          std::string(), std::string());
+                          std::string(), std::string(), false);
 }
 
 // static
 base::Value::Dict ProxyConfigDictionary::CreateAutoDetect() {
   return CreateDictionary(ProxyPrefs::MODE_AUTO_DETECT, std::string(), false,
-                          std::string(), std::string());
+                          std::string(), std::string(), false);
 }
 
 // static
@@ -97,16 +107,17 @@ base::Value::Dict ProxyConfigDictionary::CreatePacScript(
     const std::string& pac_url,
     bool pac_mandatory) {
   return CreateDictionary(ProxyPrefs::MODE_PAC_SCRIPT, pac_url, pac_mandatory,
-                          std::string(), std::string());
+                          std::string(), std::string(), false);
 }
 
 // static
 base::Value::Dict ProxyConfigDictionary::CreateFixedServers(
     const std::string& proxy_server,
-    const std::string& bypass_list) {
+    const std::string& bypass_list,
+    bool reverse_bypass) {
   if (!proxy_server.empty()) {
     return CreateDictionary(ProxyPrefs::MODE_FIXED_SERVERS, std::string(),
-                            false, proxy_server, bypass_list);
+                            false, proxy_server, bypass_list, reverse_bypass);
   } else {
     return CreateDirect();
   }
@@ -115,7 +126,7 @@ base::Value::Dict ProxyConfigDictionary::CreateFixedServers(
 // static
 base::Value::Dict ProxyConfigDictionary::CreateSystem() {
   return CreateDictionary(ProxyPrefs::MODE_SYSTEM, std::string(), false,
-                          std::string(), std::string());
+                          std::string(), std::string(), false);
 }
 
 // static
@@ -124,7 +135,8 @@ base::Value::Dict ProxyConfigDictionary::CreateDictionary(
     const std::string& pac_url,
     bool pac_mandatory,
     const std::string& proxy_server,
-    const std::string& bypass_list) {
+    const std::string& bypass_list,
+    bool reverse_bypass) {
   base::Value::Dict dict;
   dict.Set(kProxyMode, base::Value(ProxyModeToString(mode)));
   if (!pac_url.empty()) {
@@ -133,8 +145,10 @@ base::Value::Dict ProxyConfigDictionary::CreateDictionary(
   }
   if (!proxy_server.empty())
     dict.Set(kProxyServer, base::Value(proxy_server));
-  if (!bypass_list.empty())
+  if (!bypass_list.empty()) {
     dict.Set(kProxyBypassList, base::Value(bypass_list));
+    dict.Set(kProxyReverseBypass, base::Value(reverse_bypass));
+  }
   return dict;
 }
 

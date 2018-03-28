@@ -263,7 +263,7 @@ void ProxyPolicyHandler::ApplyPolicySettings(const PolicyMap& policies,
         set_proxy_pref_value(ProxyConfigDictionary::CreateFixedServers(
             server->GetString(), bypass_list && bypass_list->is_string()
                                      ? bypass_list->GetString()
-                                     : std::string()));
+                                     : std::string(), false));
       }
       break;
     }

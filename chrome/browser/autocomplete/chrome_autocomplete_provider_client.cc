@@ -285,6 +285,8 @@ ChromeAutocompleteProviderClient::GetBuiltinsToProvideAsUserTypes() {
       base::ASCIIToUTF16(chrome::kChromeUISettingsURL));
 #endif
   builtins_to_provide.push_back(
+      base::ASCIIToUTF16(chrome::kChromeUIProxyConfigURL));
+  builtins_to_provide.push_back(
       base::ASCIIToUTF16(chrome::kChromeUIVersionURL));
   return builtins_to_provide;
 }

@@ -380,6 +380,7 @@ bool PrefProxyConfigTrackerImpl::PrefConfigToNetConfig(
       if (proxy_dict.GetBypassList(&proxy_bypass)) {
         proxy_config.proxy_rules().bypass_rules.ParseFromString(proxy_bypass);
       }
+      proxy_config.proxy_rules().reverse_bypass = proxy_dict.HasReverseBypass();
       *config = net::ProxyConfigWithAnnotation(
           proxy_config, kSettingsProxyConfigTrafficAnnotation);
       return true;

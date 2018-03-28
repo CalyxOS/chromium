@@ -159,7 +159,7 @@ void ChromeCommandLinePrefStore::ApplyProxyMode() {
         command_line()->GetSwitchValueASCII(switches::kProxyBypassList);
     SetValue(proxy_config::prefs::kProxy,
              base::Value(ProxyConfigDictionary::CreateFixedServers(
-                 proxy_server, bypass_list)),
+                 proxy_server, bypass_list, false)),
              WriteablePrefStore::DEFAULT_PREF_WRITE_FLAGS);
   }
 }

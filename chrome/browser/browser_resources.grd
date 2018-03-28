@@ -81,6 +81,12 @@
         <include name="IDR_DESK_API_MANIFEST" file="resources\chromeos\desk_api\manifest.json" type="BINDATA" />
       </if>
 
+      <!-- Bromite Proxy Configuration UI -->
+      <if expr="is_android">
+        <include name="IDR_PROXY_CONFIG_HTML" file="resources\proxy_config.html" flattenhtml="true" type="BINDATA" compress="gzip" />
+        <include name="IDR_PROXY_CONFIG_JS" file="resources\proxy_config.js" type="BINDATA" compress="gzip" />
+      </if>
+
       <if expr="not is_android">
         <!-- Page not available for guest. -->
         <include name="IDR_PAGE_NOT_AVAILABLE_FOR_GUEST_APP_HTML" file="resources\page_not_available_for_guest\app.html" type="BINDATA" />

@@ -42,6 +42,7 @@ class PROXY_CONFIG_EXPORT ProxyConfigDictionary {
   bool GetProxyServer(std::string* out) const;
   bool GetBypassList(std::string* out) const;
   bool HasBypassList() const;
+  bool HasReverseBypass() const;
 
   const base::Value::Dict& GetDictionary() const;
 
@@ -50,7 +51,8 @@ class PROXY_CONFIG_EXPORT ProxyConfigDictionary {
   static base::Value::Dict CreatePacScript(const std::string& pac_url,
                                            bool pac_mandatory);
   static base::Value::Dict CreateFixedServers(const std::string& proxy_server,
-                                              const std::string& bypass_list);
+                                              const std::string& bypass_list,
+                                              bool reverse_bypass);
   static base::Value::Dict CreateSystem();
 
   // Encodes the proxy server as "<url-scheme>=<proxy-scheme>://<proxy>".
@@ -66,7 +68,8 @@ class PROXY_CONFIG_EXPORT ProxyConfigDictionary {
                                             const std::string& pac_url,
                                             bool pac_mandatory,
                                             const std::string& proxy_server,
-                                            const std::string& bypass_list);
+                                            const std::string& bypass_list,
+                                            bool reverse_bypass);
 
   base::Value::Dict dict_;
 };

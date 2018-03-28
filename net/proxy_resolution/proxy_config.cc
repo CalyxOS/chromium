@@ -109,7 +109,7 @@ void ProxyConfig::ProxyRules::ParseFromString(const std::string& proxy_rules) {
                                    &single_proxies,
                                    ProxyServer::SCHEME_HTTP);
         type = Type::PROXY_LIST;
-        return;
+        continue;
       }
 
       // Trim whitespace off the url scheme.
@@ -138,6 +138,56 @@ void ProxyConfig::ProxyRules::ParseFromString(const std::string& proxy_rules) {
       }
     }
   }
+}
+
+std::string ProxyConfig::ProxyRules::ToString() const {
+  if (type == Type::EMPTY) {
+    return "";
+  }
+
+  // special case: a single proxy servers list specified
+  if (type == Type::PROXY_LIST) {
+    std::string proxy_list;
+    for (const ProxyServer& proxy_server :
+         single_proxies.GetAll()) {
+      proxy_list += ProxyServerToProxyUri(proxy_server) + ";";
+    }
+    // remove last semicolon
+    if (proxy_list.length() != 0 ) {
+      proxy_list.pop_back();
+    }
+    return proxy_list;
+  }
+
+  if (type != Type::PROXY_LIST_PER_SCHEME) {
+    NOTREACHED();
+    // Unexpected LIST with fallback, or other type values
+    return "";
+  }
+
+  // start to build a per-scheme list
+  std::string list;
+  for (const ProxyServer& proxy_server :
+       proxies_for_http.GetAll()) {
+    list += "http=" + ProxyServerToProxyUri(proxy_server) + ";";
+  }
+  for (const ProxyServer& proxy_server :
+       proxies_for_https.GetAll()) {
+    list += "https=" + ProxyServerToProxyUri(proxy_server) + ";";
+  }
+  for (const ProxyServer& proxy_server :
+       proxies_for_ftp.GetAll()) {
+    list += "ftp=" + ProxyServerToProxyUri(proxy_server) + ";";
+  }
+  for (const ProxyServer& proxy_server :
+       fallback_proxies.GetAll()) {
+    list += "socks=" + ProxyServerToProxyUri(proxy_server) + ";";
+  }
+  if (list.length() != 0 ) {
+    // remove last semicolon
+    list.pop_back();
+  }
+  return list;
 }
 
 const ProxyList* ProxyConfig::ProxyRules::MapUrlSchemeToProxyList(

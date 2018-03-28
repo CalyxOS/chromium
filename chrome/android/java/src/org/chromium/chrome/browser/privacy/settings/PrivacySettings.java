@@ -59,6 +59,7 @@ public class PrivacySettings
     private static final String PREF_DO_NOT_TRACK = "do_not_track";
     private static final String PREF_CLEAR_BROWSING_DATA = "clear_browsing_data";
     private static final String PREF_PRIVACY_SANDBOX = "privacy_sandbox";
+    private static final String PREF_PROXY_OPTIONS = "proxy";
     private static final String PREF_PRIVACY_GUIDE = "privacy_guide";
     private static final String PREF_INCOGNITO_LOCK = "incognito_lock";
 

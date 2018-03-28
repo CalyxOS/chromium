@@ -285,6 +285,8 @@ static_library("ui") {
     "webui/metrics_internals/metrics_internals_ui.h",
     "webui/net_export_ui.cc",
     "webui/net_export_ui.h",
+    "webui/proxy_config_ui.cc",
+    "webui/proxy_config_ui.h",
     "webui/net_internals/net_internals_ui.cc",
     "webui/net_internals/net_internals_ui.h",
     "webui/ntp_tiles_internals_ui.cc",

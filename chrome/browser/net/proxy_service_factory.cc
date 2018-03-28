@@ -6,6 +6,7 @@
 
 #include <utility>
 
+#include "base/logging.h"
 #include "base/threading/thread_task_runner_handle.h"
 #include "build/build_config.h"
 #include "build/chromeos_buildflags.h"
@@ -13,6 +14,9 @@
 #include "content/public/browser/browser_task_traits.h"
 #include "content/public/browser/browser_thread.h"
 #include "net/proxy_resolution/proxy_config_service.h"
+#include "components/proxy_config/proxy_config_pref_names.h"
+#include "components/prefs/pref_service.h"
+#include "components/prefs/pref_registry_simple.h"
 
 #if BUILDFLAG(IS_CHROMEOS_ASH)
 #include "chromeos/ash/components/network/proxy/proxy_config_service_impl.h"
@@ -70,7 +74,20 @@ ProxyServiceFactory::CreatePrefProxyConfigTrackerOfProfile(
   return std::make_unique<ash::ProxyConfigServiceImpl>(
       profile_prefs, local_state_prefs, nullptr);
 #else
-  return std::make_unique<PrefProxyConfigTrackerImpl>(profile_prefs, nullptr);
+  // Migrate from profile_prefs to local_state_prefs
+  if (local_state_prefs->GetBoolean("proxy_migrated") == false) {
+    const base::Value::Dict& dict =
+        profile_prefs->GetDict(proxy_config::prefs::kProxy);
+
+    LOG(INFO) << "CreatePrefProxyConfigTrackerOfProfile: Migration from profile to local state";
+
+    const base::Value /*ProxyConfigDictionary*/ proxy_dict(dict.Clone());
+    local_state_prefs->Set(proxy_config::prefs::kProxy, proxy_dict);
+
+    local_state_prefs->SetBoolean("proxy_migrated", true);
+    local_state_prefs->CommitPendingWrite();
+  }
+  return std::make_unique<PrefProxyConfigTrackerImpl>(local_state_prefs, nullptr);
 #endif  // BUILDFLAG(IS_CHROMEOS_ASH)
 }
 
@@ -85,4 +102,9 @@ ProxyServiceFactory::CreatePrefProxyConfigTrackerOfLocalState(
   return std::make_unique<PrefProxyConfigTrackerImpl>(local_state_prefs,
                                                       nullptr);
 #endif  // BUILDFLAG(IS_CHROMEOS_ASH)
+}
+
+// static
+void ProxyServiceFactory::RegisterPrefs(PrefRegistrySimple* registry) {
+  registry->RegisterBooleanPref("proxy_migrated", false);
 }

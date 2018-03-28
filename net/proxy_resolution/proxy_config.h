@@ -103,6 +103,9 @@ class NET_EXPORT ProxyConfig {
     //                                  and use socks4://foopy2 for all other
     //                                  URLs.
     void ParseFromString(const std::string& proxy_rules);
+    // Returns the proxy rules in a format that can be parsed by ParseFromString;
+    // all information except bypass rules is used.
+    std::string ToString() const;
 
     // Returns one of {&proxies_for_http, &proxies_for_https, &proxies_for_ftp,
     // &fallback_proxies}, or NULL if there is no proxy to use.

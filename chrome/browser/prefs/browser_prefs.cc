@@ -165,6 +165,8 @@
 #include "rlz/buildflags/buildflags.h"
 #include "third_party/abseil-cpp/absl/types/optional.h"
 
+#include "chrome/browser/net/proxy_service_factory.h"
+
 #if BUILDFLAG(ENABLE_BACKGROUND_MODE)
 #include "chrome/browser/background/background_mode_manager.h"
 #endif
@@ -1013,6 +1015,8 @@ void RegisterLocalState(PrefRegistrySimple* registry) {
   chrome::enterprise_util::RegisterLocalStatePrefs(registry);
   component_updater::RegisterPrefs(registry);
   embedder_support::OriginTrialPrefs::RegisterPrefs(registry);
+  ProxyServiceFactory::RegisterPrefs(registry);
+
   enterprise_reporting::RegisterLocalStatePrefs(registry);
   ExternalProtocolHandler::RegisterPrefs(registry);
   flags_ui::PrefServiceFlagsStorage::RegisterPrefs(registry);

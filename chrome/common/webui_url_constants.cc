@@ -47,6 +47,8 @@ const char kChromeUICertificateViewerHost[] = "view-cert";
 const char kChromeUICertificateViewerURL[] = "chrome://view-cert/";
 const char kChromeUIChromeSigninHost[] = "chrome-signin";
 const char kChromeUIChromeSigninURL[] = "chrome://chrome-signin/";
+const char kChromeUIProxyConfigHost[] = "proxy";
+const char kChromeUIProxyConfigURL[] = "chrome://proxy/";
 const char kChromeUIChromeURLsHost[] = "chrome-urls";
 const char kChromeUIChromeURLsURL[] = "chrome://chrome-urls/";
 const char kChromeUIComponentsHost[] = "components";
@@ -439,6 +441,7 @@ bool IsSystemWebUIHost(base::StringPiece host) {
     kChromeUILockScreenNetworkHost,
     kChromeUILockScreenStartReauthHost,
     kChromeUIMobileSetupHost,
+    kChromeUIProxyConfigHost,
     kChromeUIMultiDeviceSetupHost,
     kChromeUINetworkHost,
     kChromeUINotificationTesterHost,
@@ -704,6 +707,7 @@ const char* const kChromeHostURLs[] = {
 #if !BUILDFLAG(IS_ANDROID)
 #if !BUILDFLAG(IS_CHROMEOS_ASH)
     kChromeUIAppLauncherPageHost,
+    kChromeUIProxyConfigHost,
 #endif
     kChromeUIBookmarksHost,
     kChromeUIDownloadsHost,

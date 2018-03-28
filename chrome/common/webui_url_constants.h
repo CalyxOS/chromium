@@ -134,6 +134,8 @@ extern const char kChromeUIMetricsInternalsHost[];
 extern const char kChromeUINTPTilesInternalsHost[];
 extern const char kChromeUINaClHost[];
 extern const char kChromeUINetExportHost[];
+extern const char kChromeUIProxyConfigHost[];
+extern const char kChromeUIProxyConfigURL[];
 extern const char kChromeUINetInternalsHost[];
 extern const char kChromeUINetInternalsURL[];
 extern const char kChromeUINewTabHost[];

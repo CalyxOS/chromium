@@ -6,6 +6,7 @@
 #define CHROME_BROWSER_NET_PROXY_SERVICE_FACTORY_H_
 
 #include <memory>
+#include "components/prefs/pref_registry_simple.h"
 
 class PrefProxyConfigTracker;
 class PrefService;
@@ -34,6 +35,8 @@ class ProxyServiceFactory {
   static std::unique_ptr<PrefProxyConfigTracker>
   CreatePrefProxyConfigTrackerOfProfile(PrefService* profile_prefs,
                                         PrefService* local_state_prefs);
+
+  static void RegisterPrefs(PrefRegistrySimple* registry);
 
   // Creates a PrefProxyConfigTracker that tracks local state only. This tracker
   // should be used for the system request context and the signin screen
