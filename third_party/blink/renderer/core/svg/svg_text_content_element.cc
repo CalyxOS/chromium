@@ -117,11 +117,14 @@ float SVGTextContentElement::getComputedTextLength() {
   GetDocument().UpdateStyleAndLayoutForNode(this,
                                             DocumentUpdateReason::kJavaScript);
   auto* layout_object = GetLayoutObject();
+  float value = 0;
   if (IsNGTextOrInline(layout_object)) {
     NGSvgTextQuery query(*layout_object);
-    return query.SubStringLength(0, query.NumberOfCharacters());
+    value = query.SubStringLength(0, query.NumberOfCharacters());
+  } else {
+    value = SVGTextQuery(layout_object).TextLength();
   }
-  return SVGTextQuery(layout_object).TextLength();
+  return value * GetDocument().GetNoiseFactorX();
 }
 
 float SVGTextContentElement::getSubStringLength(
@@ -144,9 +147,12 @@ float SVGTextContentElement::getSubStringLength(
     nchars = number_of_chars - charnum;
 
   auto* layout_object = GetLayoutObject();
+  float value = 0;
   if (IsNGTextOrInline(layout_object))
-    return NGSvgTextQuery(*layout_object).SubStringLength(charnum, nchars);
-  return SVGTextQuery(layout_object).SubStringLength(charnum, nchars);
+    value = NGSvgTextQuery(*layout_object).SubStringLength(charnum, nchars);
+  else
+    value = SVGTextQuery(layout_object).SubStringLength(charnum, nchars);
+  return value * GetDocument().GetNoiseFactorX();
 }
 
 SVGPointTearOff* SVGTextContentElement::getStartPositionOfChar(
@@ -170,6 +176,7 @@ SVGPointTearOff* SVGTextContentElement::getStartPositionOfChar(
   } else {
     point = SVGTextQuery(layout_object).StartPositionOfCharacter(charnum);
   }
+  point.Scale(GetDocument().GetNoiseFactorX(), GetDocument().GetNoiseFactorY());
   return SVGPointTearOff::CreateDetached(point);
 }
 
@@ -194,6 +201,7 @@ SVGPointTearOff* SVGTextContentElement::getEndPositionOfChar(
   } else {
     point = SVGTextQuery(layout_object).EndPositionOfCharacter(charnum);
   }
+  point.Scale(GetDocument().GetNoiseFactorX(), GetDocument().GetNoiseFactorY());
   return SVGPointTearOff::CreateDetached(point);
 }
 
@@ -218,6 +226,7 @@ SVGRectTearOff* SVGTextContentElement::getExtentOfChar(
   } else {
     rect = SVGTextQuery(layout_object).ExtentOfCharacter(charnum);
   }
+  rect.Scale(GetDocument().GetNoiseFactorX(), GetDocument().GetNoiseFactorY());
   return SVGRectTearOff::CreateDetached(rect);
 }
 
@@ -247,12 +256,14 @@ int SVGTextContentElement::getCharNumAtPosition(
   GetDocument().UpdateStyleAndLayoutForNode(this,
                                             DocumentUpdateReason::kJavaScript);
   auto* layout_object = GetLayoutObject();
+  gfx::PointF target = gfx::PointF(point->Target()->Value());
+  target.Scale(GetDocument().GetNoiseFactorX(), GetDocument().GetNoiseFactorY());
   if (IsNGTextOrInline(layout_object)) {
     return NGSvgTextQuery(*layout_object)
-        .CharacterNumberAtPosition(point->Target()->Value());
+        .CharacterNumberAtPosition(target);
   }
   return SVGTextQuery(layout_object)
-      .CharacterNumberAtPosition(point->Target()->Value());
+      .CharacterNumberAtPosition(target);
 }
 
 void SVGTextContentElement::selectSubString(unsigned charnum,
