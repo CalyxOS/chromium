@@ -948,9 +948,15 @@ TextMetrics* CanvasRenderingContext2D::measureText(const String& text) {
   TextDirection direction =
       ToTextDirection(GetState().GetDirection(), canvas());
 
-  return MakeGarbageCollected<TextMetrics>(font, direction,
+  TextMetrics* text_metrics = MakeGarbageCollected<TextMetrics>(font, direction,
                                            GetState().GetTextBaseline(),
                                            GetState().GetTextAlign(), text);
+
+  // Scale text metrics if enabled
+  if (RuntimeEnabledFeatures::FingerprintingCanvasMeasureTextNoiseEnabled()) {
+    text_metrics->Shuffle(canvas()->GetDocument().GetNoiseFactorX());
+  }
+  return text_metrics;
 }
 
 void CanvasRenderingContext2D::drawFormattedText(
