@@ -93,6 +93,8 @@ class CORE_EXPORT TextMetrics final : public ScriptWrappable {
     float x_position_;
   };
 
+  void Shuffle(const double factor);
+
  private:
   void Update(const Font&,
               const TextDirection&,
