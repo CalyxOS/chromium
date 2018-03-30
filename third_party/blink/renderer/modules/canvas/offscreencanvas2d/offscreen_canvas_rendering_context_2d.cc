@@ -5,6 +5,7 @@
 #include "third_party/blink/renderer/modules/canvas/offscreencanvas2d/offscreen_canvas_rendering_context_2d.h"
 
 #include "base/metrics/histogram_functions.h"
+#include "base/rand_util.h"
 #include "base/trace_event/trace_event.h"
 #include "third_party/blink/public/common/features.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_union_gpucanvascontext_imagebitmaprenderingcontext_offscreencanvasrenderingcontext2d_webgl2renderingcontext_webglrenderingcontext.h"
@@ -747,9 +748,15 @@ TextMetrics* OffscreenCanvasRenderingContext2D::measureText(
 
   TextDirection direction = ToTextDirection(GetState().GetDirection());
 
-  return MakeGarbageCollected<TextMetrics>(font, direction,
+  TextMetrics* text_metrics = MakeGarbageCollected<TextMetrics>(font, direction,
                                            GetState().GetTextBaseline(),
                                            GetState().GetTextAlign(), text);
+  // Scale text metrics if enabled
+  if (RuntimeEnabledFeatures::FingerprintingCanvasMeasureTextNoiseEnabled()) {
+    float v = 1.0 + (base::RandDouble() - 0.5) * 0.0003;
+    text_metrics->Shuffle(v);
+  }
+  return text_metrics;
 }
 
 const Font& OffscreenCanvasRenderingContext2D::AccessFont() {
