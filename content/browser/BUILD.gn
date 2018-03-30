@@ -281,6 +281,7 @@ source_set("browser") {
     "//third_party/re2",
     "//third_party/snappy",
     "//third_party/sqlite",
+    "//third_party/ungoogled:switches",
     "//third_party/webrtc_overrides:webrtc_component",
     "//third_party/zlib",
     "//tools/v8_context_snapshot:buildflags",
