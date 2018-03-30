@@ -205,6 +205,11 @@
 #include "ui/gfx/geometry/size.h"
 #include "ui/gfx/geometry/size_f.h"
 #include "ui/gfx/geometry/skia_conversions.h"
+
+#include "third_party/blink/renderer/core/offscreencanvas/offscreen_canvas.h"
+#include "third_party/blink/renderer/core/frame/local_dom_window.h"
+#include "third_party/blink/renderer/platform/graphics/static_bitmap_image.h"
+
 #include "ui/gfx/geometry/vector2d.h"
 #include "ui/gfx/geometry/vector2d_f.h"
 #include "v8/include/v8-local-handle.h"
@@ -2964,6 +2969,10 @@ ImageData* BaseRenderingContext2D::getImageDataInternal(
           snapshot->PaintImageForCurrentFrame().GetSkImageInfo().bounds();
       DCHECK(!bounds.intersect(SkIRect::MakeXYWH(sx, sy, sw, sh)));
     }
+
+    if (read_pixels_successful && RuntimeEnabledFeatures::FingerprintingCanvasImageDataNoiseEnabled()) {
+      StaticBitmapImage::ShuffleSubchannelColorData(image_data_pixmap, sx, sy);
+    }
   }
 
   return image_data;
@@ -3763,12 +3772,26 @@ TextMetrics* BaseRenderingContext2D::measureText(const String& text) {
   TextDirection direction = ToTextDirection(
       state.GetDirection(), GetCanvasRenderingContextHost(), computed_style);
 
-  return MakeGarbageCollected<TextMetrics>(
+  auto* text_metrics = MakeGarbageCollected<TextMetrics>(
       font, direction, state.GetTextBaseline().AsEnum(),
       state.GetTextAlign().AsEnum(), text,
       RuntimeEnabledFeatures::CanvasTextNgEnabled()
           ? &GetCanvasRenderingContextHost()->GetPlainTextPainter()
           : nullptr);
+  // Scale text metrics if enabled
+  if (RuntimeEnabledFeatures::FingerprintingCanvasMeasureTextNoiseEnabled()) {
+    OffscreenCanvas* offscreen_canvas = HostAsOffscreenCanvas();
+    if (offscreen_canvas) {
+      ExecutionContext* execution_context = GetTopExecutionContext();
+      if (auto* window = DynamicTo<LocalDOMWindow>(execution_context)) {
+        Document* document = window->GetFrame()->GetDocument();
+        text_metrics->Shuffle(document->GetNoiseFactorX());
+      }
+    }
+    else
+      text_metrics->Shuffle(canvas->GetDocument().GetNoiseFactorX());
+  }
+  return text_metrics;
 }
 
 void BaseRenderingContext2D::SnapshotStateForFilter() {
