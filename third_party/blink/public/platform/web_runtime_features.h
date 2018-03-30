@@ -66,6 +66,9 @@ class BLINK_PLATFORM_EXPORT WebRuntimeFeatures : public WebRuntimeFeaturesBase {
   static void UpdateStatusFromBaseFeatures();
 
   static void EnableOverlayScrollbars(bool);
+  static void EnableFingerprintingClientRectsNoise(bool);
+  static void EnableFingerprintingCanvasMeasureTextNoise(bool);
+  static void EnableFingerprintingCanvasImageDataNoise(bool);
   static void EnableFluentScrollbars(bool);
   static void EnableFluentOverlayScrollbars(bool);
 
