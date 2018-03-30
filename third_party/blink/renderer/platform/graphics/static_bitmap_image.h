@@ -37,6 +37,8 @@ class PLATFORM_EXPORT StaticBitmapImage : public Image {
 
   StaticBitmapImage(ImageOrientation orientation) : orientation_(orientation) {}
 
+  static void ShuffleSubchannelColorData(const SkPixmap& src_data, int srcX, int srcY);
+
   bool IsStaticBitmapImage() const override { return true; }
 
   // Methods overridden by all sub-classes
