@@ -26,6 +26,7 @@
 #include "third_party/blink/renderer/core/fileapi/blob.h"
 #include "third_party/blink/renderer/core/html/canvas/canvas_rendering_context.h"
 #include "third_party/blink/renderer/platform/graphics/image_data_buffer.h"
+#include "third_party/blink/renderer/platform/graphics/static_bitmap_image.h"
 #include "third_party/blink/renderer/platform/graphics/skia/skia_utils.h"
 #include "third_party/blink/renderer/platform/graphics/unaccelerated_static_bitmap_image.h"
 #include "third_party/blink/renderer/platform/heap/garbage_collected.h"
@@ -218,6 +219,9 @@ CanvasAsyncBlobCreator::CanvasAsyncBlobCreator(
         info = info.makeWH(std::min(info.width(), max_dimension),
                            std::min(info.height(), max_dimension));
         src_data_.reset(info, src_data_.addr(), src_data_.rowBytes());
+      }
+      if (RuntimeEnabledFeatures::FingerprintingCanvasImageDataNoiseEnabled()) {
+        StaticBitmapImage::ShuffleSubchannelColorData(src_data_, 0, 0);
       }
     }
   }
