@@ -2935,6 +2935,15 @@
       base_feature: "none",
     },
     {
+      name: "FingerprintingClientRectsNoise",
+    },
+    {
+      name: "FingerprintingCanvasMeasureTextNoise",
+    },
+    {
+      name: "FingerprintingCanvasImageDataNoise",
+    },
+    {
       name: "Notifications",
       public: true,
       status: "stable",
