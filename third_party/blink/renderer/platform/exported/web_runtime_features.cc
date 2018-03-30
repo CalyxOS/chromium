@@ -68,4 +68,17 @@ void WebRuntimeFeatures::EnableFluentScrollbars(bool enable) {
 void WebRuntimeFeatures::EnableFluentOverlayScrollbars(bool enable) {
   RuntimeEnabledFeatures::SetFluentOverlayScrollbarsEnabled(enable);
 }
+
+void WebRuntimeFeatures::EnableFingerprintingClientRectsNoise(bool enable) {
+  RuntimeEnabledFeatures::SetFingerprintingClientRectsNoiseEnabled(enable);
+}
+
+void WebRuntimeFeatures::EnableFingerprintingCanvasMeasureTextNoise(bool enable) {
+  RuntimeEnabledFeatures::SetFingerprintingCanvasMeasureTextNoiseEnabled(enable);
+}
+
+void WebRuntimeFeatures::EnableFingerprintingCanvasImageDataNoise(bool enable) {
+  RuntimeEnabledFeatures::SetFingerprintingCanvasImageDataNoiseEnabled(enable);
+}
+
 }  // namespace blink
