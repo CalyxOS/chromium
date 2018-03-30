@@ -190,6 +190,7 @@ SVGRectTearOff* SVGGraphicsElement::getBBoxFromJavascript() {
     if (layout_object->IsSVGInline()) {
       UseCounter::Count(GetDocument(), WebFeature::kGetBBoxForText);
     }
+    bounding_box.Scale(GetDocument().GetNoiseFactorX(), GetDocument().GetNoiseFactorY());
   }
   return SVGRectTearOff::CreateDetached(bounding_box);
 }
