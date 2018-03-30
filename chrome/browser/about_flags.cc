@@ -251,6 +251,8 @@
 #include "ui/ui_features.h"
 #include "url/url_features.h"
 
+#include "third_party/ungoogled/ungoogled_switches.h"
+
 #if BUILDFLAG(ENABLE_EXTENSIONS)
 #include "extensions/common/extension_features.h"
 #endif
