@@ -3123,6 +3123,15 @@
       base_feature: "none",
     },
     {
+      name: "FingerprintingClientRectsNoise",
+    },
+    {
+      name: "FingerprintingCanvasMeasureTextNoise",
+    },
+    {
+      name: "FingerprintingCanvasImageDataNoise",
+    },
+    {
       name: "RemotePlayback",
       public: true,
       status: "stable",
