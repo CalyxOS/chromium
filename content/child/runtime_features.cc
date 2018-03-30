@@ -47,6 +47,8 @@
 #include "ui/gl/gl_switches.h"
 #include "ui/native_theme/native_theme_features.h"
 
+#include "third_party/ungoogled/ungoogled_switches.h"
+
 #if BUILDFLAG(IS_ANDROID)
 #include "base/android/build_info.h"
 #endif
@@ -558,6 +560,12 @@ void SetRuntimeFeaturesFromCommandLine(const base::CommandLine& command_line) {
 // as a last resort.
 void SetCustomizedRuntimeFeaturesFromCombinedArgs(
     const base::CommandLine& command_line) {
+  WebRuntimeFeatures::EnableFingerprintingClientRectsNoise(
+      !command_line.HasSwitch(switches::kFingerprintingClientRectsNoise));
+  WebRuntimeFeatures::EnableFingerprintingCanvasMeasureTextNoise(
+      !command_line.HasSwitch(switches::kFingerprintingCanvasMeasureTextNoise));
+  WebRuntimeFeatures::EnableFingerprintingCanvasImageDataNoise(
+      !command_line.HasSwitch(switches::kFingerprintingCanvasImageDataNoise));
   // CAUTION: Only add custom enabling logic here if it cannot
   // be covered by the other functions.
 
