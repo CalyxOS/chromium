@@ -235,6 +235,8 @@
 #include "ui/ui_features.h"
 #include "url/url_features.h"
 
+#include "third_party/ungoogled/ungoogled_switches.h"
+
 #if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)
 #include "base/allocator/buildflags.h"
 #endif
