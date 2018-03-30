@@ -216,6 +216,7 @@
 #include "url/gurl.h"
 #include "url/origin.h"
 
+#include "third_party/ungoogled/ungoogled_switches.h"
 #if BUILDFLAG(IS_ANDROID)
 #include "base/android/child_process_binding_types.h"
 #include "content/browser/android/java_interfaces_impl.h"
@@ -3405,6 +3406,9 @@ void RenderProcessHostImpl::PropagateBrowserCommandLineToRenderer(
     switches::kDisableBreakpad,
     switches::kDisableDatabases,
     switches::kDisableFileSystem,
+    switches::kFingerprintingClientRectsNoise,
+    switches::kFingerprintingCanvasMeasureTextNoise,
+    switches::kFingerprintingCanvasImageDataNoise,
     switches::kDisableFrameRateLimit,
     switches::kDisableGpuMemoryBufferVideoFrames,
     switches::kDisableHistogramCustomizer,
