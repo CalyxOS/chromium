@@ -2379,6 +2379,7 @@ static_library("browser") {
     "//services/device/public/cpp/geolocation",
     "//services/device/public/cpp/serial:switches",
     "//services/device/public/cpp/usb",
+    "//third_party/ungoogled:switches",
     "//services/device/public/mojom",
     "//services/device/public/mojom:usb",
     "//services/image_annotation:service",
