@@ -3169,6 +3169,15 @@
       status: {"Android": "", "default": "stable"},
     },
     {
+      name: "FingerprintingClientRectsNoise",
+    },
+    {
+      name: "FingerprintingCanvasMeasureTextNoise",
+    },
+    {
+      name: "FingerprintingCanvasImageDataNoise",
+    },
+    {
       name: "RemotePlayback",
       public: true,
       status: "stable",
