@@ -1649,6 +1649,12 @@ DOMRectList* Range::getClientRects() const {
   Vector<gfx::QuadF> quads;
   GetBorderAndTextQuads(quads);
 
+  if (RuntimeEnabledFeatures::FingerprintingClientRectsNoiseEnabled()) {
+    for (auto& quad : quads) {
+      quad.Scale(owner_document_->GetNoiseFactorX(), owner_document_->GetNoiseFactorY());
+    }
+  }
+
   return MakeGarbageCollected<DOMRectList>(quads);
 }
 
@@ -1787,7 +1793,11 @@ gfx::RectF Range::BoundingRect() const {
 
   // If all rects are empty, return the first rect.
   if (result.IsEmpty() && !quads.empty())
-    return quads.front().BoundingBox();
+    result = quads.front().BoundingBox();
+
+  if (!result.IsEmpty() && RuntimeEnabledFeatures::FingerprintingClientRectsNoiseEnabled()) {
+    result.Scale(owner_document_->GetNoiseFactorX(), owner_document_->GetNoiseFactorY());
+  }
 
   return result;
 }
