@@ -44,6 +44,8 @@
 #include "ui/gl/gl_switches.h"
 #include "ui/native_theme/native_theme_features.h"
 
+#include "third_party/ungoogled/ungoogled_switches.h"
+
 #if BUILDFLAG(IS_ANDROID)
 #include "base/android/build_info.h"
 #endif
@@ -556,6 +558,13 @@ void SetCustomizedRuntimeFeaturesFromCombinedArgs(
   if (!command_line.HasSwitch(switches::kDisableYUVImageDecoding) &&
       base::FeatureList::IsEnabled(
           blink::features::kDecodeLossyWebPImagesToYUV)) {
+  WebRuntimeFeatures::EnableFingerprintingClientRectsNoise(
+      !command_line.HasSwitch(switches::kFingerprintingClientRectsNoise));
+  WebRuntimeFeatures::EnableFingerprintingCanvasMeasureTextNoise(
+      !command_line.HasSwitch(switches::kFingerprintingCanvasMeasureTextNoise));
+  WebRuntimeFeatures::EnableFingerprintingCanvasImageDataNoise(
+      !command_line.HasSwitch(switches::kFingerprintingCanvasImageDataNoise));
+
     WebRuntimeFeatures::EnableDecodeLossyWebPImagesToYUV(true);
   }
 
