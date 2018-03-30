@@ -143,6 +143,8 @@ SVGRectTearOff* SVGGraphicsElement::getBBoxFromJavascript() {
   if (const auto* layout_object = GetLayoutObject()) {
     bounding_box = GetBBox();
 
+    if (RuntimeEnabledFeatures::FingerprintingClientRectsNoiseEnabled())
+      bounding_box.Scale(GetDocument().GetNoiseFactorX(), GetDocument().GetNoiseFactorY());
     if (layout_object->IsSVGInline()) {
       UseCounter::Count(GetDocument(), WebFeature::kGetBBoxForText);
     }
