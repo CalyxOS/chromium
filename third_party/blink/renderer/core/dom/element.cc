@@ -2852,6 +2852,7 @@ void Element::ClientQuads(Vector<gfx::QuadF>& quads) const {
       quads.push_back(element_layout_object->LocalToAbsoluteQuad(
           gfx::QuadF(element_layout_object->ObjectBoundingBox())));
     }
+    //TODO: cover this as well
     return;
   }
 
@@ -2859,6 +2860,10 @@ void Element::ClientQuads(Vector<gfx::QuadF>& quads) const {
   if (element_layout_object->IsBoxModelObject() ||
       element_layout_object->IsBR()) {
     element_layout_object->AbsoluteQuads(quads);
+  }
+  if (RuntimeEnabledFeatures::FingerprintingClientRectsNoiseEnabled()) {
+    for (auto& quad : quads)
+     quad.Scale(GetDocument().GetNoiseFactorX(), GetDocument().GetNoiseFactorY());
   }
 }
 
@@ -2905,6 +2910,9 @@ gfx::RectF Element::GetBoundingClientRectNoLifecycleUpdate() const {
   DCHECK(element_layout_object);
   GetDocument().AdjustRectForScrollAndAbsoluteZoom(result,
                                                    *element_layout_object);
+  if (RuntimeEnabledFeatures::FingerprintingClientRectsNoiseEnabled()) {
+    result.Scale(GetDocument().GetNoiseFactorX(), GetDocument().GetNoiseFactorY());
+  }
   return result;
 }
 
