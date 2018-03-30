@@ -44,6 +44,7 @@
 #include "base/debug/dump_without_crashing.h"
 #include "base/i18n/time_formatting.h"
 #include "base/metrics/histogram_functions.h"
+#include "base/rand_util.h"
 #include "base/notreached.h"
 #include "base/ranges/algorithm.h"
 #include "base/task/single_thread_task_runner.h"
@@ -908,6 +909,17 @@ Document::Document(const DocumentInit& initializer,
   TRACE_EVENT_WITH_FLOW0("blink", "Document::Document", TRACE_ID_LOCAL(this),
                          TRACE_EVENT_FLAG_FLOW_OUT);
   DCHECK(agent_);
+  if (RuntimeEnabledFeatures::FingerprintingClientRectsNoiseEnabled() ||
+      RuntimeEnabledFeatures::FingerprintingCanvasMeasureTextNoiseEnabled() ||
+      RuntimeEnabledFeatures::FingerprintingCanvasImageDataNoiseEnabled()) {
+    // Precompute -0.0003% to 0.0003% noise factor for get*ClientRect*() fingerprinting
+    noise_factor_x_ = 1.0 + (base::RandDouble() - 0.5) * 0.0003;
+    noise_factor_y_ = 1.0 + (base::RandDouble() - 0.5) * 0.0003;
+  } else {
+    noise_factor_x_ = 1;
+    noise_factor_y_ = 1;
+  }
+
   if (base::FeatureList::IsEnabled(features::kDelayAsyncScriptExecution) &&
       features::kDelayAsyncScriptExecutionDelayByDefaultParam.Get()) {
     script_runner_delayer_->Activate();
@@ -2495,6 +2507,14 @@ void Document::UpdateStyleAndLayoutTreeForThisDocument() {
 #if DCHECK_IS_ON()
   AssertLayoutTreeUpdated(*this, true /* allow_dirty_container_subtrees */);
 #endif
+}
+
+double Document::GetNoiseFactorX() {
+  return noise_factor_x_;
+}
+
+double Document::GetNoiseFactorY() {
+  return noise_factor_y_;
 }
 
 void Document::InvalidateStyleAndLayoutForFontUpdates() {
