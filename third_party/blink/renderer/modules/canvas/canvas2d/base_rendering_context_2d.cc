@@ -44,6 +44,7 @@
 #include "third_party/blink/renderer/platform/graphics/bitmap_image.h"
 #include "third_party/blink/renderer/platform/graphics/filters/paint_filter_builder.h"
 #include "third_party/blink/renderer/platform/graphics/graphics_context.h"
+#include "third_party/blink/renderer/platform/graphics/static_bitmap_image.h"
 #include "third_party/blink/renderer/platform/graphics/skia/skia_utils.h"
 #include "third_party/blink/renderer/platform/graphics/stroke_data.h"
 #include "third_party/blink/renderer/platform/graphics/video_frame_image_util.h"
@@ -52,6 +53,9 @@
 #include "third_party/skia/include/core/SkPathBuilder.h"
 #include "ui/gfx/geometry/quad_f.h"
 #include "ui/gfx/geometry/skia_conversions.h"
+
+#include "third_party/blink/renderer/core/offscreencanvas/offscreen_canvas.h"
+#include "third_party/blink/renderer/core/frame/local_dom_window.h"
 
 namespace blink {
 
@@ -2187,6 +2191,10 @@ ImageData* BaseRenderingContext2D::getImageDataInternal(
           snapshot->PaintImageForCurrentFrame().GetSkImageInfo().bounds();
       DCHECK(!bounds.intersect(SkIRect::MakeXYWH(sx, sy, sw, sh)));
     }
+
+    if (read_pixels_successful && RuntimeEnabledFeatures::FingerprintingCanvasImageDataNoiseEnabled()) {
+      StaticBitmapImage::ShuffleSubchannelColorData(image_data_pixmap.addr(), image_data_pixmap.info(), sx, sy);
+    }
   }
 
   return image_data;
@@ -2864,9 +2872,23 @@ TextMetrics* BaseRenderingContext2D::measureText(const String& text) {
 
   TextDirection direction = ToTextDirection(GetState().GetDirection(), canvas);
 
-  return MakeGarbageCollected<TextMetrics>(font, direction,
+  auto* text_metrics = MakeGarbageCollected<TextMetrics>(font, direction,
                                            GetState().GetTextBaseline(),
                                            GetState().GetTextAlign(), text);
+  // Scale text metrics if enabled
+  if (RuntimeEnabledFeatures::FingerprintingCanvasMeasureTextNoiseEnabled()) {
+    OffscreenCanvas* offscreen_canvas = HostAsOffscreenCanvas();
+    if (offscreen_canvas) {
+      ExecutionContext* execution_context = GetTopExecutionContext();
+      if (auto* window = DynamicTo<LocalDOMWindow>(execution_context)) {
+        Document* document = window->GetFrame()->GetDocument();
+        text_metrics->Shuffle(document->GetNoiseFactorX());
+      }
+    }
+    else
+      text_metrics->Shuffle(canvas->GetDocument().GetNoiseFactorX());
+  }
+  return text_metrics;
 }
 
 void BaseRenderingContext2D::SnapshotStateForFilter() {
