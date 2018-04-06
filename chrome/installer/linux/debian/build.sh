@@ -239,15 +239,15 @@ DEB_CHANGELOG="${TMPFILEDIR}/changelog"
 DEB_FILES="${TMPFILEDIR}/files"
 DEB_CONTROL="${TMPFILEDIR}/control"
 
-source ${OUTPUTDIR}/installer/common/installer.include
+source ${OUTPUTDIR}/installer/common/installer.include || exit $?
 
 get_version_info
 VERSIONFULL="${VERSION}-${PACKAGE_RELEASE}"
 
 if [ "$BRANDING" = "google_chrome" ]; then
-  source "${OUTPUTDIR}/installer/common/google-chrome.info"
+  source "${OUTPUTDIR}/installer/common/google-chrome.info" || exit $?
 else
-  source "${OUTPUTDIR}/installer/common/chromium-browser.info"
+  source "${OUTPUTDIR}/installer/common/chromium-browser.info" || exit $?
 fi
 eval $(sed -e "s/^\([^=]\+\)=\(.*\)$/export \1='\2'/" \
   "${OUTPUTDIR}/installer/theme/BRANDING")
