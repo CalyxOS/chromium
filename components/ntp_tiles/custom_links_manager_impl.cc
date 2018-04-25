@@ -217,7 +217,6 @@ void CustomLinksManagerImpl::RemoveCustomLinksForPreinstalledApps() {
       }
     }
     if (default_app_links_deleted) {
-      metrics::RecordsMigratedDefaultAppDeleted(DeletedTileType::kCustomLink);
       prefs_->SetBoolean(prefs::kCustomLinksForPreinstalledAppsRemoved, true);
     }
   }
