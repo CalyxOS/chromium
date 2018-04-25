@@ -384,8 +384,6 @@ void NTPUserDataLogger::LogMostVisitedImpression(
 
 void NTPUserDataLogger::LogMostVisitedNavigation(
     const ntp_tiles::NTPTileImpression& impression) {
-  ntp_tiles::metrics::RecordTileClick(impression);
-
   // Records the action. This will be available as a time-stamped stream
   // server-side and can be used to compute time-to-long-dwell.
   base::RecordAction(base::UserMetricsAction("MostVisited_Clicked"));
@@ -414,10 +412,8 @@ void NTPUserDataLogger::EmitNtpStatistics(base::TimeDelta load_time,
     if (!impression.has_value()) {
       break;
     }
-    ntp_tiles::metrics::RecordTileImpression(*impression);
     ++tiles_count;
   }
-  ntp_tiles::metrics::RecordPageImpression(tiles_count);
 
   DVLOG(1) << "Emitting NTP load time: " << load_time << ", "
            << "number of tiles: " << tiles_count;
