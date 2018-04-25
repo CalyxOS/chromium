@@ -75,8 +75,8 @@ namespace internal {
 // recording and reporting are enabled. If the feature is enabled, but no
 // consent is given, then there will be no recording or reporting.
 BASE_FEATURE(kMetricsReportingFeature,
-             "MetricsReporting",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "MetricsReporting",                  // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);  // in Bromite
 
 #if BUILDFLAG(IS_ANDROID)
 // Same as |kMetricsReportingFeature|, but this feature is associated with a
@@ -85,8 +85,8 @@ BASE_FEATURE(kMetricsReportingFeature,
 // the fix to not affect the overall sampling rate, this new feature was
 // created. See crbug/1306481.
 BASE_FEATURE(kPostFREFixMetricsReportingFeature,
-             "PostFREFixMetricsReporting",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "PostFREFixMetricsReporting",        // disabled by deault
+             base::FEATURE_DISABLED_BY_DEFAULT);  // in Bromite
 #endif  // BUILDFLAG(IS_ANDROID)
 
 // Name of the variations param that defines the sampling rate.
