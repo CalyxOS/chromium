@@ -23,7 +23,6 @@
 #include "chrome/browser/profiles/profile.h"
 #include "components/favicon_base/favicon_types.h"
 #include "components/history/core/browser/history_service.h"
-#include "components/ntp_tiles/metrics.h"
 #include "components/ntp_tiles/most_visited_sites.h"
 #include "components/ntp_tiles/section_type.h"
 #include "ui/gfx/android/java_bitmap.h"
@@ -43,7 +42,6 @@ using ntp_tiles::NTPTilesVector;
 using ntp_tiles::SectionType;
 using ntp_tiles::TileTitleSource;
 using ntp_tiles::TileSource;
-using ntp_tiles::TileVisualType;
 
 namespace {
 
@@ -226,7 +224,6 @@ void MostVisitedSitesBridge::RecordPageImpression(
     JNIEnv* env,
     const JavaParamRef<jobject>& obj,
     jint jtiles_count) {
-  ntp_tiles::metrics::RecordPageImpression(jtiles_count);
 }
 
 void MostVisitedSitesBridge::RecordTileImpression(
@@ -238,15 +235,6 @@ void MostVisitedSitesBridge::RecordTileImpression(
     jint jtitle_source,
     jint jsource,
     const JavaParamRef<jobject>& jurl) {
-  GURL url = url::GURLAndroid::ToNativeGURL(env, jurl);
-  TileTitleSource title_source = static_cast<TileTitleSource>(jtitle_source);
-  TileSource source = static_cast<TileSource>(jsource);
-  TileVisualType visual_type = static_cast<TileVisualType>(jvisual_type);
-  favicon_base::IconType icon_type =
-      static_cast<favicon_base::IconType>(jicon_type);
-
-  ntp_tiles::metrics::RecordTileImpression(ntp_tiles::NTPTileImpression(
-      jindex, source, title_source, visual_type, icon_type, url));
 }
 
 void MostVisitedSitesBridge::RecordOpenedMostVisitedItem(
@@ -256,11 +244,6 @@ void MostVisitedSitesBridge::RecordOpenedMostVisitedItem(
     jint tile_type,
     jint title_source,
     jint source) {
-  ntp_tiles::metrics::RecordTileClick(ntp_tiles::NTPTileImpression(
-      index, static_cast<TileSource>(source),
-      static_cast<TileTitleSource>(title_source),
-      static_cast<TileVisualType>(tile_type), favicon_base::IconType::kInvalid,
-      /*url_for_rappor=*/GURL()));
 }
 
 static jlong JNI_MostVisitedSitesBridge_Init(JNIEnv* env,
