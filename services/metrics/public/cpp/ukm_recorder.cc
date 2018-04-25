@@ -14,7 +14,7 @@
 
 namespace ukm {
 
-BASE_FEATURE(kUkmFeature, "Ukm", base::FEATURE_ENABLED_BY_DEFAULT);
+BASE_FEATURE(kUkmFeature, "Ukm", base::FEATURE_DISABLED_BY_DEFAULT); // disabled in Bromite
 
 BASE_FEATURE(kUkmReduceAddEntryIPC,
              "UkmReduceAddEntryIPC",
