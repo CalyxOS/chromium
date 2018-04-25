@@ -721,8 +721,6 @@ void MostVisitedSites::SaveTilesAndNotify(
                                    : new_tiles;
 
   if (fixed_tiles.size() != new_tiles.size()) {
-    metrics::RecordsMigratedDefaultAppDeleted(
-        DeletedTileType::kMostVisitedSite);
   }
   if (!current_tiles_.has_value() || (*current_tiles_ != fixed_tiles)) {
     current_tiles_.emplace(std::move(fixed_tiles));
