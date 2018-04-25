@@ -1060,7 +1060,7 @@ void BrowserProcessImpl::RegisterPrefs(PrefRegistrySimple* registry) {
 #endif  // BUILDFLAG(IS_CHROMEOS_ASH)
 
   registry->RegisterBooleanPref(metrics::prefs::kMetricsReportingEnabled,
-                                GoogleUpdateSettings::GetCollectStatsConsent());
+                                false);
   registry->RegisterBooleanPref(prefs::kDevToolsRemoteDebuggingAllowed, true);
 }
 
