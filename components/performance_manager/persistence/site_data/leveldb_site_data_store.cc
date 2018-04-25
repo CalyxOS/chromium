@@ -30,7 +30,7 @@ namespace performance_manager {
 
 namespace {
 
-std::atomic<bool> g_use_in_memory_db_for_testing = false;
+std::atomic<bool> g_use_in_memory_db_for_testing = true;
 
 // The name of the following histograms is the same as the one used in the
 // //c/b/resource_coordinator version of this file. It's fine to keep the same
