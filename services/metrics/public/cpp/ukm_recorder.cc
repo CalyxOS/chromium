@@ -151,4 +151,5 @@ void UkmRecorder::RemoveObserver(Observer* observer) {
   observers_.RemoveObserver(observer);
 }
 
+SET_CROMITE_FEATURE_DISABLED(kUkmFeature);
 }  // namespace ukm
