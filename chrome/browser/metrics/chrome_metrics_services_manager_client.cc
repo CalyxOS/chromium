@@ -89,6 +89,10 @@ BASE_FEATURE(kPostFREFixMetricsReportingFeature,
 // Name of the variations param that defines the sampling rate.
 const char kRateParamName[] = "sampling_rate_per_mille";
 
+SET_CROMITE_FEATURE_DISABLED(kMetricsReportingFeature);
+#if BUILDFLAG(IS_ANDROID)
+SET_CROMITE_FEATURE_DISABLED(kPostFREFixMetricsReportingFeature);
+#endif  // BUILDFLAG(IS_ANDROID)
 }  // namespace internal
 }  // namespace metrics
 
