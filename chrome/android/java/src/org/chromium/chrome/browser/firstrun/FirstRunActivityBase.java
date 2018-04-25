@@ -45,7 +45,7 @@ public abstract class FirstRunActivityBase extends FullscreenSigninAndHistorySyn
     static final String SHOW_SEARCH_ENGINE_PAGE = "ShowSearchEnginePage";
     static final String SHOW_HISTORY_SYNC_PAGE = "ShowHistorySync";
 
-    public static final boolean DEFAULT_METRICS_AND_CRASH_REPORTING = true;
+    public static final boolean DEFAULT_METRICS_AND_CRASH_REPORTING = false;
 
     private boolean mNativeInitialized;
 
