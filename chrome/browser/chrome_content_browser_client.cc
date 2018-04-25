@@ -84,7 +84,6 @@
 #include "chrome/browser/history/history_service_factory.h"
 #include "chrome/browser/interstitials/enterprise_util.h"
 #include "chrome/browser/lifetime/browser_shutdown.h"
-#include "chrome/browser/lookalikes/lookalike_url_navigation_throttle.h"
 #include "chrome/browser/media/audio_service_util.h"
 #include "chrome/browser/media/prefs/capture_device_ranking.h"
 #include "chrome/browser/media/router/media_router_feature.h"
@@ -5053,15 +5052,11 @@ ChromeContentBrowserClient::CreateThrottlesForNavigation(
     content::NavigationHandle* handle) {
   std::vector<std::unique_ptr<content::NavigationThrottle>> throttles;
 
-  // MetricsNavigationThrottle requires that it runs before NavigationThrottles
-  // that may delay or cancel navigations, so only NavigationThrottles that
-  // don't delay or cancel navigations (e.g. throttles that are only observing
-  // callbacks without affecting navigation behavior) should be added before
-  // MetricsNavigationThrottle.
-  if (handle->IsInMainFrame()) {
-    throttles.push_back(
-        page_load_metrics::MetricsNavigationThrottle::Create(handle));
-  }
+#if BUILDFLAG(ENABLE_SUPERVISED_USERS)
+  MaybeAddThrottle(
+      SupervisedUserNavigationThrottle::MaybeCreateThrottleFor(handle),
+      &throttles);
+#endif
 
 #if BUILDFLAG(IS_ANDROID)
   // TODO(davidben): This is insufficient to integrate with prerender properly.
@@ -5160,10 +5155,6 @@ ChromeContentBrowserClient::CreateThrottlesForNavigation(
               FromNavigationHandle(*handle)) {
     throttle_manager->MaybeAppendNavigationThrottles(handle, &throttles);
   }
-
-  MaybeAddThrottle(
-      LookalikeUrlNavigationThrottle::MaybeCreateNavigationThrottle(handle),
-      &throttles);
 
   MaybeAddThrottle(PDFIFrameNavigationThrottle::MaybeCreateThrottleFor(handle),
                    &throttles);
