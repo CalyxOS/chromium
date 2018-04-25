@@ -63,7 +63,7 @@ public abstract class FirstRunActivityBase extends AsyncInitializationActivity
     static final String SHOW_SYNC_CONSENT_PAGE = "ShowSyncConsent";
     static final String SHOW_HISTORY_SYNC_PAGE = "ShowHistorySync";
 
-    public static final boolean DEFAULT_METRICS_AND_CRASH_REPORTING = true;
+    public static final boolean DEFAULT_METRICS_AND_CRASH_REPORTING = false;
 
     private static PolicyLoadListenerFactory sPolicyLoadListenerFactoryForTesting;
 
