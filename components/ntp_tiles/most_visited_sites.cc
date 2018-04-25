@@ -790,8 +790,6 @@ void MostVisitedSites::SaveTilesAndNotify(
                                    : new_tiles;
 
   if (fixed_tiles.size() != new_tiles.size()) {
-    metrics::RecordsMigratedDefaultAppDeleted(
-        DeletedTileType::kMostVisitedSite);
   }
 
   fixed_tiles = ImposeCustomLinks(std::move(fixed_tiles));
