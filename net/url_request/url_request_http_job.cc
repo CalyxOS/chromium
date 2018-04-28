@@ -434,6 +434,7 @@ void URLRequestHttpJob::OnGotFirstPartySetMetadata(
   // fields in the referrer.
   GURL referrer(request_->referrer());
 
+  if (!(request_info_.load_flags & LOAD_MINIMAL_HEADERS)) {
   // Our consumer should have made sure that this is a safe referrer (e.g. via
   // URLRequestJob::ComputeReferrerForPolicy).
   if (referrer.is_valid()) {
@@ -441,11 +442,14 @@ void URLRequestHttpJob::OnGotFirstPartySetMetadata(
     request_info_.extra_headers.SetHeader(HttpRequestHeaders::kReferer,
                                           referer_value);
   }
+  }
 
+  if (!(request_info_.load_flags & LOAD_MINIMAL_HEADERS)) {
   request_info_.extra_headers.SetHeaderIfMissing(
       HttpRequestHeaders::kUserAgent,
       http_user_agent_settings_ ?
           http_user_agent_settings_->GetUserAgent() : std::string());
+  }
 
   AddExtraHeaders();
 
@@ -691,10 +695,10 @@ void URLRequestHttpJob::StartTransactionInternal() {
 void URLRequestHttpJob::AddExtraHeaders() {
   request_info_.extra_headers.SetAcceptEncodingIfMissing(
       request()->url(), request()->accepted_stream_types(),
-      request()->context()->enable_brotli(),
-      request()->context()->enable_zstd());
+      !(request_info_.load_flags & LOAD_MINIMAL_HEADERS) && request()->context()->enable_brotli(),
+      !(request_info_.load_flags & LOAD_MINIMAL_HEADERS) && request()->context()->enable_zstd());
 
-  if (http_user_agent_settings_) {
+  if (!(request_info_.load_flags & LOAD_MINIMAL_HEADERS) && http_user_agent_settings_) {
     // Only add default Accept-Language if the request didn't have it
     // specified.
     std::string accept_language =
