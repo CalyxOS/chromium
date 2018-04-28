@@ -110,3 +110,9 @@ LOAD_FLAG(CAN_USE_SHARED_DICTIONARY, 1 << 17)
 // Indicates that CAN_USE_SHARED_DICTIONARY must be disabled after a redirect to
 // another origin.
 LOAD_FLAG(DISABLE_SHARED_DICTIONARY_AFTER_CROSS_ORIGIN_REDIRECT, 1 << 18)
+
+// This load will not send Accept-Language or User-Agent headers, and not
+// advertise brotli encoding.
+// Used to comply with IETF (draft) DNS-over-HTTPS:
+// "Implementors SHOULD NOT set non-essential HTTP headers in DoH client requests."
+LOAD_FLAG(MINIMAL_HEADERS, 1 << 19)
