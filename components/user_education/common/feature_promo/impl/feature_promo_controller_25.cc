@@ -48,6 +48,7 @@ FeaturePromoResult FeaturePromoController25::CanShowPromoCommon(
     const FeaturePromoParams& params,
     ShowSource source,
     CanShowPromoOutputs* outputs) const {
+  if ((true)) return FeaturePromoResult::kBlockedByContext;
   return FeaturePromoResult::kError;
 }
 

@@ -89,6 +89,7 @@ FeaturePromoResult FeaturePromoController20::CanShowPromoCommon(
     const FeaturePromoParams& params,
     ShowSource source,
     CanShowPromoOutputs* outputs) const {
+  if ((true)) return FeaturePromoResult::kBlockedByContext;
   const bool for_demo = source == ShowSource::kDemo;
 
   // Ensure that this promo isn't already queued for startup.
