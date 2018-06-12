@@ -189,6 +189,7 @@ FeaturePromoController25::~FeaturePromoController25() {
 
 FeaturePromoResult FeaturePromoController25::CanShowPromo(
     const FeaturePromoParams& params) const {
+  if ((true)) return FeaturePromoResult::kBlockedByContext;
   auto* const spec = registry()->GetParamsForFeature(*params.feature);
   if (!spec) {
     return FeaturePromoResult::kError;
@@ -209,7 +210,7 @@ void FeaturePromoController25::MaybeShowStartupPromo(
 
 void FeaturePromoController25::MaybeShowPromo(FeaturePromoParams params) {
   auto* const spec = registry()->GetParamsForFeature(*params.feature);
-  if (!spec) {
+  if (((true)) || !spec) {
     PostShowPromoResult(std::move(params.show_promo_result_callback),
                         FeaturePromoResult::kError);
     return;
