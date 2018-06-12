@@ -170,29 +170,6 @@ public class MainSettings extends ChromeBaseSettingsFragment
         ProfileDataCache profileDataCache =
                 ProfileDataCache.createWithDefaultImageSizeAndNoBadge(getContext());
         AccountManagerFacade accountManagerFacade = AccountManagerFacadeProvider.getInstance();
-        SigninManager signinManager = IdentityServicesProvider.get().getSigninManager(getProfile());
-        IdentityManager identityManager =
-                IdentityServicesProvider.get().getIdentityManager(getProfile());
-
-        SyncPromoPreference syncPromoPreference = findPreference(PREF_SYNC_PROMO);
-        syncPromoPreference.initialize(
-                profileDataCache,
-                accountManagerFacade,
-                signinManager,
-                identityManager,
-                new SyncPromoController(
-                        getProfile(),
-                        SigninAccessPoint.SETTINGS,
-                        SyncConsentActivityLauncherImpl.get()));
-
-        SignInPreference signInPreference = findPreference(PREF_SIGN_IN);
-        signInPreference.initialize(
-                profileDataCache,
-                accountManagerFacade,
-                UserPrefs.get(getProfile()),
-                SyncServiceFactory.getForProfile(getProfile()),
-                signinManager,
-                identityManager);
 
         cachePreferences();
 
@@ -270,14 +247,6 @@ public class MainSettings extends ChromeBaseSettingsFragment
     }
 
     private void updatePreferences() {
-        if (IdentityServicesProvider.get()
-                .getSigninManager(getProfile())
-                .isSigninSupported(/* requireUpdatedPlayServices= */ false)) {
-            addPreferenceIfAbsent(PREF_SIGN_IN);
-        } else {
-            removePreferenceIfPresent(PREF_SIGN_IN);
-        }
-
         updateManageSyncPreference();
         updateSearchEnginePreference();
         updateAutofillPreferences();
@@ -314,6 +283,7 @@ public class MainSettings extends ChromeBaseSettingsFragment
     }
 
     private void updateManageSyncPreference() {
+        if (true) return;
         String primaryAccountName =
                 CoreAccountInfo.getEmailFrom(
                         IdentityServicesProvider.get()
