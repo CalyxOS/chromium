@@ -129,6 +129,7 @@ ui::ElementContext BrowserFeaturePromoController::GetAnchorContext() const {
 
 bool BrowserFeaturePromoController::CanShowPromoForElement(
     ui::TrackedElement* anchor_element) const {
+  if ((true)) return false;
   auto* const profile = browser_view_->GetProfile();
 
   // Verify that there are no required notices pending.
