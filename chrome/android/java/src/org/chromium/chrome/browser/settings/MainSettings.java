@@ -236,13 +236,6 @@ public class MainSettings extends PreferenceFragmentCompat
     }
 
     private void updatePreferences() {
-        if (IdentityServicesProvider.get().getSigninManager(mProfile).isSigninSupported(
-                    /*requireUpdatedPlayServices=*/false)) {
-            addPreferenceIfAbsent(PREF_SIGN_IN);
-        } else {
-            removePreferenceIfPresent(PREF_SIGN_IN);
-        }
-
         updateManageSyncPreference();
         updateSearchEnginePreference();
         updatePasswordsPreference();
@@ -278,6 +271,7 @@ public class MainSettings extends PreferenceFragmentCompat
     }
 
     private void updateManageSyncPreference() {
+        if (true) return;
         String primaryAccountName = CoreAccountInfo.getEmailFrom(
                 IdentityServicesProvider.get().getIdentityManager(mProfile).getPrimaryAccountInfo(
                         ConsentLevel.SIGNIN));
