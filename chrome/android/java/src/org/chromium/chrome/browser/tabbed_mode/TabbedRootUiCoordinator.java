@@ -914,7 +914,7 @@ public class TabbedRootUiCoordinator extends RootUiCoordinator {
      * displayed.
      */
     private boolean triggerPromo(boolean intentWithEffect) {
-        try (TraceEvent e = TraceEvent.scoped("TabbedRootUiCoordinator.triggerPromo")) {
+        /*try (TraceEvent e = TraceEvent.scoped("TabbedRootUiCoordinator.triggerPromo")) {
             if (CommandLine.getInstance().hasSwitch(ChromeSwitches.DISABLE_STARTUP_PROMOS)) {
                 return false;
             }
@@ -938,8 +938,8 @@ public class TabbedRootUiCoordinator extends RootUiCoordinator {
                 preferenceManager.writeBoolean(
                         ChromePreferenceKeys.PROMOS_SKIPPED_ON_FIRST_START, true);
             }
-            return isShowingPromo;
-        }
+            return isShowingPromo;        } */
+            return false;
     }
 
     private boolean maybeShowPromo() {
