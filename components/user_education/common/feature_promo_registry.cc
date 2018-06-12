@@ -29,6 +29,7 @@ const FeaturePromoSpecification* FeaturePromoRegistry::GetParamsForFeature(
 }
 
 void FeaturePromoRegistry::RegisterFeature(FeaturePromoSpecification spec) {
+  if ((true)) return;
   const base::Feature* const iph_feature = spec.feature();
   CHECK(iph_feature);
   CHECK_NE(FeaturePromoSpecification::PromoType::kUnspecified,
