@@ -949,6 +949,7 @@ public class TabbedRootUiCoordinator extends RootUiCoordinator {
     }
 
     private boolean maybeShowPromo() {
+        if ((true)) return false;
         // Only one promo can be shown in one run to avoid nagging users too much.
         if (FullScreenSyncPromoUtil.launchPromoIfNeeded(mActivity,
                     SyncConsentActivityLauncherImpl.get(), VersionInfo.getProductMajorVersion())) {
