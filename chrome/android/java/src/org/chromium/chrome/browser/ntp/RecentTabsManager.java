@@ -14,24 +14,11 @@ import org.chromium.chrome.browser.invalidation.SessionsInvalidationManager;
 import org.chromium.chrome.browser.ntp.ForeignSessionHelper.ForeignSession;
 import org.chromium.chrome.browser.ntp.ForeignSessionHelper.ForeignSessionTab;
 import org.chromium.chrome.browser.profiles.Profile;
-import org.chromium.chrome.browser.signin.SyncConsentActivityLauncherImpl;
-import org.chromium.chrome.browser.signin.services.IdentityServicesProvider;
-import org.chromium.chrome.browser.signin.services.ProfileDataCache;
-import org.chromium.chrome.browser.signin.services.SigninManager;
-import org.chromium.chrome.browser.signin.services.SigninManager.SignInStateObserver;
-import org.chromium.chrome.browser.sync.SyncService;
 import org.chromium.chrome.browser.tab.Tab;
 import org.chromium.chrome.browser.tabmodel.TabModel;
 import org.chromium.chrome.browser.tabmodel.TabModelSelector;
 import org.chromium.chrome.browser.ui.favicon.FaviconHelper;
 import org.chromium.chrome.browser.ui.favicon.FaviconHelper.FaviconImageCallback;
-import org.chromium.chrome.browser.ui.signin.PersonalizedSigninPromoView;
-import org.chromium.chrome.browser.ui.signin.SyncPromoController;
-import org.chromium.chrome.browser.ui.signin.SyncPromoController.SyncPromoState;
-import org.chromium.components.signin.AccountManagerFacadeProvider;
-import org.chromium.components.signin.AccountsChangeObserver;
-import org.chromium.components.signin.identitymanager.ConsentLevel;
-import org.chromium.components.signin.metrics.SigninAccessPoint;
 import org.chromium.url.GURL;
 
 import java.util.HashMap;
@@ -41,8 +28,7 @@ import java.util.Map;
 /**
  * Provides the domain logic and data for RecentTabsPage and RecentTabsRowAdapter.
  */
-public class RecentTabsManager implements SyncService.SyncStateChangedListener, SignInStateObserver,
-                                          ProfileDataCache.Observer, AccountsChangeObserver {
+public class RecentTabsManager {
     /**
      * Implement this to receive updates when the page contents change.
      */
@@ -63,20 +49,14 @@ public class RecentTabsManager implements SyncService.SyncStateChangedListener, 
     private final Runnable mShowHistoryManager;
 
     private TabModel mTabModel;
-    private @SyncPromoState int mPromoState = SyncPromoState.NO_PROMO;
     private FaviconHelper mFaviconHelper;
     private ForeignSessionHelper mForeignSessionHelper;
     private List<ForeignSession> mForeignSessions;
     private List<RecentlyClosedEntry> mRecentlyClosedEntries;
     private RecentTabsPagePrefs mPrefs;
     private RecentlyClosedTabManager mRecentlyClosedTabManager;
-    private SigninManager mSignInManager;
     private UpdatedCallback mUpdatedCallback;
     private boolean mIsDestroyed;
-
-    private final ProfileDataCache mProfileDataCache;
-    private final SyncPromoController mSyncPromoController;
-    private final SyncService mSyncService;
 
     /**
      * Maps Session IDs to whether that entry was restored split by entry type. These are used to
@@ -108,12 +88,6 @@ public class RecentTabsManager implements SyncService.SyncStateChangedListener, 
         mRecentlyClosedTabManager = sRecentlyClosedTabManagerForTests != null
                 ? sRecentlyClosedTabManagerForTests
                 : new RecentlyClosedBridge(profile, tabModelSelector);
-        mSignInManager = IdentityServicesProvider.get().getSigninManager(mProfile);
-
-        mProfileDataCache = ProfileDataCache.createWithDefaultImageSizeAndNoBadge(context);
-        mSyncPromoController = new SyncPromoController(
-                SigninAccessPoint.RECENT_TABS, SyncConsentActivityLauncherImpl.get());
-        mSyncService = SyncService.get();
 
         mRecentlyClosedTabManager.setEntriesUpdatedRunnable(this::updateRecentlyClosedEntries);
         updateRecentlyClosedEntries();
@@ -121,12 +95,6 @@ public class RecentTabsManager implements SyncService.SyncStateChangedListener, 
         mForeignSessionHelper.setOnForeignSessionCallback(this::updateForeignSessions);
         updateForeignSessions();
         mForeignSessionHelper.triggerSessionSync();
-
-        mSyncService.addSyncStateChangedListener(this);
-        mSignInManager.addSignInStateObserver(this);
-        mProfileDataCache.addObserver(this);
-        AccountManagerFacadeProvider.getInstance().addObserver(this);
-        updatePromoState();
 
         SessionsInvalidationManager.get(mProfile).onRecentTabsPageOpened();
     }
@@ -164,14 +132,6 @@ public class RecentTabsManager implements SyncService.SyncStateChangedListener, 
         recordEntries("Tab", mTabSessionIdsRestored);
         recordEntries("Group", mGroupSessionIdsRestored);
         recordEntries("Bulk", mBulkSessionIdsRestored);
-
-        mSyncService.removeSyncStateChangedListener(this);
-
-        mSignInManager.removeSignInStateObserver(this);
-        mSignInManager = null;
-
-        mProfileDataCache.removeObserver(this);
-        AccountManagerFacadeProvider.getInstance().removeObserver(this);
 
         mFaviconHelper.destroy();
         mFaviconHelper = null;
@@ -392,96 +352,12 @@ public class RecentTabsManager implements SyncService.SyncStateChangedListener, 
     }
 
     /**
-     * Collapse the promo.
-     *
-     * @param isCollapsed Whether the promo is collapsed.
-     */
-    public void setPromoCollapsed(boolean isCollapsed) {
-        if (mIsDestroyed) return;
-        mPrefs.setSyncPromoCollapsed(isCollapsed);
-    }
-
-    /**
      * Determine whether the promo is collapsed.
      *
      * @return Whether the promo is collapsed.
      */
     public boolean isPromoCollapsed() {
-        return mPrefs.getSyncPromoCollapsed();
-    }
-
-    /** Returns the current promo state. */
-    @SyncPromoState
-    int getPromoState() {
-        return mPromoState;
-    }
-
-    private @SyncPromoState int calculatePromoState() {
-        if (!mSignInManager.getIdentityManager().hasPrimaryAccount(ConsentLevel.SYNC)) {
-            if (!mSignInManager.isSyncOptInAllowed()) {
-                return SyncPromoState.NO_PROMO;
-            }
-            if (mSignInManager.getIdentityManager().hasPrimaryAccount(ConsentLevel.SIGNIN)) {
-                return SyncPromoState.PROMO_FOR_SIGNED_IN_STATE;
-            }
-            return SyncPromoState.PROMO_FOR_SIGNED_OUT_STATE;
-        }
-
-        if (mSyncService.isSyncRequested() && !mForeignSessions.isEmpty()) {
-            return SyncPromoState.NO_PROMO;
-        }
-        return SyncPromoState.PROMO_FOR_SYNC_TURNED_OFF_STATE;
-    }
-
-    private void updatePromoState() {
-        final @SyncPromoState int newState = calculatePromoState();
-        if (newState == mPromoState) return;
-
-        final boolean hasSyncPromoStateChangedtoShown =
-                (mPromoState == SyncPromoState.NO_PROMO
-                        || mPromoState == SyncPromoState.PROMO_FOR_SYNC_TURNED_OFF_STATE)
-                && (newState == SyncPromoState.PROMO_FOR_SIGNED_IN_STATE
-                        || newState == SyncPromoState.PROMO_FOR_SIGNED_OUT_STATE);
-        if (hasSyncPromoStateChangedtoShown) {
-            mSyncPromoController.increasePromoShowCount();
-        }
-        mPromoState = newState;
-    }
-
-    /**
-     * Sets up the sync promo view.
-     */
-    void setUpSyncPromoView(PersonalizedSigninPromoView view) {
-        mSyncPromoController.setUpSyncPromoView(mProfileDataCache, view, null);
-    }
-
-    // SignInStateObserver implementation.
-    @Override
-    public void onSignedIn() {
-        update();
-    }
-
-    @Override
-    public void onSignedOut() {
-        update();
-    }
-
-    // AccountsChangeObserver implementation.
-    @Override
-    public void onAccountsChanged() {
-        update();
-    }
-
-    // ProfileDataCache.Observer implementation.
-    @Override
-    public void onProfileDataUpdated(String accountEmail) {
-        update();
-    }
-
-    // SyncService.SyncStateChangedListener implementation.
-    @Override
-    public void syncStateChanged() {
-        update();
+        return true;
     }
 
     private void onUpdateDone() {
@@ -491,7 +367,6 @@ public class RecentTabsManager implements SyncService.SyncStateChangedListener, 
     }
 
     private void update() {
-        updatePromoState();
         if (mIsDestroyed) return;
         updateForeignSessions();
         onUpdateDone();

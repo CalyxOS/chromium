@@ -34,8 +34,6 @@ import org.chromium.chrome.browser.password_manager.GooglePasswordManagerUIProvi
 import org.chromium.chrome.browser.policy.PolicyAuditor;
 import org.chromium.chrome.browser.rlz.RevenueStats;
 import org.chromium.chrome.browser.survey.SurveyController;
-import org.chromium.chrome.browser.sync.TrustedVaultClient;
-import org.chromium.chrome.browser.ui.signin.GoogleActivityController;
 import org.chromium.chrome.browser.usage_stats.DigitalWellbeingClient;
 import org.chromium.chrome.browser.webapps.GooglePlayWebApkInstallDelegate;
 import org.chromium.chrome.browser.xsurface.ProcessScope;
@@ -43,8 +41,6 @@ import org.chromium.chrome.browser.xsurface.ProcessScopeDependencyProvider;
 import org.chromium.chrome.modules.image_editor.ImageEditorModuleProvider;
 import org.chromium.components.policy.AppRestrictionsProvider;
 import org.chromium.components.policy.CombinedPolicyProvider;
-import org.chromium.components.signin.AccountManagerDelegate;
-import org.chromium.components.signin.SystemAccountManagerDelegate;
 import org.chromium.components.webapps.AppDetailsDelegate;
 
 import java.util.Collections;
@@ -73,14 +69,6 @@ public abstract class AppHooks {
     public static AppHooks get() {
         if (sInstance == null) sInstance = new AppHooksImpl();
         return sInstance;
-    }
-
-    /**
-     * Creates a new {@link AccountManagerDelegate}.
-     * @return the created {@link AccountManagerDelegate}.
-     */
-    public AccountManagerDelegate createAccountManagerDelegate() {
-        return new SystemAccountManagerDelegate();
     }
 
     /**
@@ -128,21 +116,6 @@ public abstract class AppHooks {
      */
     public FeedbackReporter createFeedbackReporter() {
         return new FeedbackReporter() {};
-    }
-
-    /**
-     * @return An instance of GoogleActivityController.
-     */
-    public GoogleActivityController createGoogleActivityController() {
-        return new GoogleActivityController();
-    }
-
-    /**
-     * @return An instance of {@link GSAHelper} that handles the start point of chrome's integration
-     *         with GSA.
-     */
-    public GSAHelper createGsaHelper() {
-        return new GSAHelper();
     }
 
     /**
@@ -257,13 +230,6 @@ public abstract class AppHooks {
             return ConnectionResult.SERVICE_MISSING;
         }
         return ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED;
-    }
-
-    /**
-     * Returns a new {@link TrustedVaultClient.Backend} instance.
-     */
-    public TrustedVaultClient.Backend createSyncTrustedVaultClientBackend() {
-        return new TrustedVaultClient.EmptyBackend();
     }
 
     /**

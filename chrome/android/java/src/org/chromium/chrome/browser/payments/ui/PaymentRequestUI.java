@@ -45,7 +45,6 @@ import org.chromium.chrome.browser.payments.ui.PaymentRequestSection.OptionSecti
 import org.chromium.chrome.browser.payments.ui.PaymentRequestSection.SectionSeparator;
 import org.chromium.chrome.browser.payments.ui.PaymentUiService.PaymentUisShowStateReconciler;
 import org.chromium.chrome.browser.profiles.Profile;
-import org.chromium.chrome.browser.signin.services.IdentityServicesProvider;
 import org.chromium.components.autofill.EditableOption;
 import org.chromium.components.autofill.prefeditor.EditorObserverForTest;
 import org.chromium.components.browser_ui.widget.FadingEdgeScrollView;
@@ -1136,16 +1135,7 @@ public class PaymentRequestUI implements DimmingDialog.OnDismissListener, View.O
      */
     @Nullable
     private String getSignedInUsersEmail() {
-        if (mProfile.isOffTheRecord()) {
-            return null;
-        }
-
-        IdentityManager identityManager =
-                IdentityServicesProvider.get().getIdentityManager(mProfile);
-        if (identityManager == null) return null;
-        CoreAccountInfo info = identityManager.getPrimaryAccountInfo(ConsentLevel.SYNC);
-        if (info == null) return null;
-        return info.getEmail();
+        return null;
     }
 
     private Callback<SectionInformation> createUpdateSectionCallback(@DataType final int type) {

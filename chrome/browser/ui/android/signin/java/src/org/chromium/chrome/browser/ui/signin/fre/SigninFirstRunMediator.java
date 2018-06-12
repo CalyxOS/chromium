@@ -186,22 +186,16 @@ public class SigninFirstRunMediator
         boolean isSigninDisabledByPolicy = false;
         boolean isMetricsReportingDisabledByPolicy = false;
         if (hasPolicies) {
-            isSigninDisabledByPolicy =
-                    IdentityServicesProvider.get()
-                            .getSigninManager(Profile.getLastUsedRegularProfile())
-                            .isSigninDisabledByPolicy();
-            isMetricsReportingDisabledByPolicy =
-                    !mPrivacyPreferencesManager.isUsageAndCrashReportingPermittedByPolicy();
+            isSigninDisabledByPolicy = true;
+            isMetricsReportingDisabledByPolicy = true;
 
             final FrePolicy frePolicy = new FrePolicy();
             frePolicy.metricsReportingDisabledByPolicy = isMetricsReportingDisabledByPolicy;
             mModel.set(SigninFirstRunProperties.FRE_POLICY, frePolicy);
         }
 
-        mModel.set(SigninFirstRunProperties.IS_SIGNIN_SUPPORTED,
-                ExternalAuthUtils.getInstance().canUseGooglePlayServices()
-                        && !isSigninDisabledByPolicy);
-        mAllowMetricsAndCrashUploading = !isMetricsReportingDisabledByPolicy;
+        mModel.set(SigninFirstRunProperties.IS_SIGNIN_SUPPORTED, false);
+        mAllowMetricsAndCrashUploading = false;
 
         mModel.set(SigninFirstRunProperties.FOOTER_STRING,
                 getFooterString(isMetricsReportingDisabledByPolicy));
@@ -305,41 +299,6 @@ public class SigninFirstRunMediator
                 TextUtils.equals(mDefaultAccountName, mSelectedAccountName)
                         ? MobileFreProgress.WELCOME_SIGNIN_WITH_DEFAULT_ACCOUNT
                         : MobileFreProgress.WELCOME_SIGNIN_WITH_NON_DEFAULT_ACCOUNT);
-        // If the user signs into an account on the FRE, goes to the sync consent page and presses
-        // back to come back to the FRE, then there will already be an account signed in.
-        @Nullable
-        CoreAccountInfo signedInAccount =
-                IdentityServicesProvider.get()
-                        .getIdentityManager(Profile.getLastUsedRegularProfile())
-                        .getPrimaryAccountInfo(ConsentLevel.SIGNIN);
-        if (signedInAccount != null && signedInAccount.getEmail().equals(mSelectedAccountName)) {
-            mDelegate.advanceToNextPage();
-            return;
-        }
-        mModel.set(SigninFirstRunProperties.SHOW_SIGNIN_PROGRESS_SPINNER_WITH_TEXT, true);
-        final SigninManager signinManager = IdentityServicesProvider.get().getSigninManager(
-                Profile.getLastUsedRegularProfile());
-        signinManager.signin(
-                AccountUtils.createAccountFromName(mSelectedAccountName), new SignInCallback() {
-                    @Override
-                    public void onSignInComplete() {
-                        if (mDestroyed) {
-                            // FirstRunActivity was destroyed while we were waiting for sign-in.
-                            return;
-                        }
-                        mDelegate.advanceToNextPage();
-                    }
-
-                    @Override
-                    public void onSignInAborted() {
-                        // TODO(crbug/1248090): For now we enable the buttons again to not block the
-                        // users from continuing to the next page. Should show a dialog with the
-                        // signin error.
-                        mModel.set(SigninFirstRunProperties.SHOW_SIGNIN_PROGRESS_SPINNER_WITH_TEXT,
-                                false);
-                        mModel.set(SigninFirstRunProperties.SHOW_SIGNIN_PROGRESS_SPINNER, false);
-                    }
-                });
     }
 
     /**
@@ -368,26 +327,9 @@ public class SigninFirstRunMediator
 
         mDelegate.recordFreProgressHistogram(MobileFreProgress.WELCOME_DISMISS);
         mDelegate.acceptTermsOfService(mAllowMetricsAndCrashUploading);
-        SigninPreferencesManager.getInstance().temporarilySuppressNewTabPagePromos();
-        if (IdentityServicesProvider.get()
-                        .getIdentityManager(Profile.getLastUsedRegularProfile())
-                        .hasPrimaryAccount(ConsentLevel.SIGNIN)) {
-            mModel.set(SigninFirstRunProperties.SHOW_SIGNIN_PROGRESS_SPINNER, true);
-            SignOutCallback signOutCallback = () -> {
-                if (mDestroyed) {
-                    // FirstRunActivity was destroyed while we were waiting for the sign-out.
-                    return;
-                }
 
-                mDelegate.advanceToNextPage();
-            };
-            IdentityServicesProvider.get()
-                    .getSigninManager(Profile.getLastUsedRegularProfile())
-                    .signOut(SignoutReason.ABORT_SIGNIN, signOutCallback,
-                            /* forceWipeUserData= */ false);
-        } else {
-            mDelegate.advanceToNextPage();
-        }
+        // Bromite: there is no identity provider, always advance to next page
+        mDelegate.advanceToNextPage();
     }
 
     /**

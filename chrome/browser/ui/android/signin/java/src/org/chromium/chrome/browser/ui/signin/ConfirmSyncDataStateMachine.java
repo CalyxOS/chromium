@@ -176,9 +176,6 @@ public class ConfirmSyncDataStateMachine
     }
 
     private void requestNewAccountManagementStatus() {
-        IdentityServicesProvider.get()
-                .getSigninManager(Profile.getLastUsedRegularProfile())
-                .isAccountManaged(mNewAccountName, this::setIsNewAccountManaged);
     }
 
     private void setIsNewAccountManaged(Boolean isManaged) {
@@ -194,17 +191,8 @@ public class ConfirmSyncDataStateMachine
         assert mNewAccountManaged != null;
         assert mState == State.AFTER_NEW_ACCOUNT_DIALOG;
 
-        if (mNewAccountManaged) {
-            // Show 'logging into managed account' dialog
-            // This will call back into onConfirm on success.
-            mDelegate.showSignInToManagedAccountDialog(this,
-                    IdentityServicesProvider.get()
-                            .getSigninManager(Profile.getLastUsedRegularProfile())
-                            .extractDomainName(mNewAccountName));
-        } else {
-            mDelegate.dismissAllDialogs();
-            progress();
-        }
+        mDelegate.dismissAllDialogs();
+        progress();
     }
 
     private void showProgressDialog() {

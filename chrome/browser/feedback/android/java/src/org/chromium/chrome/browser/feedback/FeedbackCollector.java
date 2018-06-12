@@ -20,10 +20,7 @@ import org.chromium.base.ThreadUtils;
 import org.chromium.base.metrics.RecordHistogram;
 import org.chromium.base.task.PostTask;
 import org.chromium.chrome.browser.profiles.Profile;
-import org.chromium.chrome.browser.signin.services.IdentityServicesProvider;
 import org.chromium.components.signin.base.CoreAccountInfo;
-import org.chromium.components.signin.identitymanager.ConsentLevel;
-import org.chromium.components.signin.identitymanager.IdentityManager;
 import org.chromium.content_public.browser.UiThreadTaskTraits;
 
 import java.util.HashMap;
@@ -67,12 +64,6 @@ public abstract class FeedbackCollector<T> implements Runnable {
         //    account.
         mSynchronousSources = buildSynchronousFeedbackSources(activity, initParams);
         mAsynchronousSources = buildAsynchronousFeedbackSources(initParams);
-        IdentityManager identityManager =
-                IdentityServicesProvider.get().getIdentityManager(profile);
-        if (identityManager != null) {
-            mAccountInUse = CoreAccountInfo.getEmailFrom(
-                    identityManager.getPrimaryAccountInfo(ConsentLevel.SIGNIN));
-        }
 
         // Sanity check in case a source is added to the wrong list.
         for (FeedbackSource source : mSynchronousSources) {

@@ -30,11 +30,9 @@ import org.chromium.chrome.R;
 import org.chromium.chrome.browser.ntp.ForeignSessionHelper.ForeignSession;
 import org.chromium.chrome.browser.ntp.ForeignSessionHelper.ForeignSessionTab;
 import org.chromium.chrome.browser.ntp.ForeignSessionHelper.ForeignSessionWindow;
-import org.chromium.chrome.browser.signin.SyncPromoView;
 import org.chromium.chrome.browser.ui.favicon.FaviconHelper.DefaultFaviconHelper;
 import org.chromium.chrome.browser.ui.favicon.FaviconHelper.FaviconImageCallback;
 import org.chromium.chrome.browser.ui.favicon.FaviconUtils;
-import org.chromium.chrome.browser.ui.signin.SyncPromoController.SyncPromoState;
 import org.chromium.components.browser_ui.styles.SemanticColorUtils;
 import org.chromium.components.browser_ui.widget.RoundedIconGenerator;
 import org.chromium.components.embedder_support.util.UrlUtilities;
@@ -422,12 +420,11 @@ public class RecentTabsRowAdapter extends BaseExpandableListAdapter {
 
         @Override
         void setCollapsed(boolean isCollapsed) {
-            mRecentTabsManager.setPromoCollapsed(isCollapsed);
         }
 
         @Override
         boolean isCollapsed() {
-            return mRecentTabsManager.isPromoCollapsed();
+            return true;
         }
     }
 
@@ -452,13 +449,6 @@ public class RecentTabsRowAdapter extends BaseExpandableListAdapter {
         @Override
         View getChildView(
                 int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-                convertView =
-                        layoutInflater.inflate(R.layout.sync_promo_view_recent_tabs, parent, false);
-            }
-            mRecentTabsManager.setUpSyncPromoView(
-                    convertView.findViewById(R.id.signin_promo_view_container));
             return convertView;
         }
     }
@@ -475,9 +465,6 @@ public class RecentTabsRowAdapter extends BaseExpandableListAdapter {
         @Override
         View getChildView(
                 int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                convertView = SyncPromoView.create(parent, SigninAccessPoint.RECENT_TABS);
-            }
             return convertView;
         }
     }
@@ -911,22 +898,6 @@ public class RecentTabsRowAdapter extends BaseExpandableListAdapter {
                 mHasForeignDataRecorded = true;
             }
             addGroup(new ForeignSessionGroup(session));
-        }
-
-        switch (mRecentTabsManager.getPromoState()) {
-            case SyncPromoState.NO_PROMO:
-                break;
-            case SyncPromoState.PROMO_FOR_SIGNED_OUT_STATE:
-                addGroup(new PersonalizedSyncPromoGroup(ChildType.PERSONALIZED_SIGNIN_PROMO));
-                break;
-            case SyncPromoState.PROMO_FOR_SIGNED_IN_STATE:
-                addGroup(new PersonalizedSyncPromoGroup(ChildType.PERSONALIZED_SYNC_PROMO));
-                break;
-            case SyncPromoState.PROMO_FOR_SYNC_TURNED_OFF_STATE:
-                addGroup(new SyncPromoGroup());
-                break;
-            default:
-                assert false : "Unexpected value for promo type!";
         }
 
         // Add separator line after the recently closed tabs group.

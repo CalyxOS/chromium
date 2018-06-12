@@ -18,7 +18,6 @@ import androidx.annotation.VisibleForTesting;
 import org.chromium.chrome.browser.preferences.Pref;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.profiles.ProfileAccountManagementMetrics;
-import org.chromium.chrome.browser.signin.services.IdentityServicesProvider;
 import org.chromium.chrome.browser.signin.services.SigninMetricsUtils;
 import org.chromium.components.signin.GAIAServiceType;
 import org.chromium.components.signin.identitymanager.ConsentLevel;
@@ -95,35 +94,11 @@ public class SignOutDialogCoordinator {
     }
 
     private static @StringRes int getTitleRes(String managedDomain, @ActionType int actionType) {
-        if (!IdentityServicesProvider.get()
-                        .getIdentityManager(Profile.getLastUsedRegularProfile())
-                        .hasPrimaryAccount(ConsentLevel.SYNC)) {
             return R.string.signout_title;
-        }
-        if (managedDomain != null) {
-            return R.string.signout_managed_account_title;
-        }
-        switch (actionType) {
-            case ActionType.REVOKE_SYNC_CONSENT:
-                return R.string.turn_off_sync_title;
-            case ActionType.CLEAR_PRIMARY_ACCOUNT:
-                return R.string.turn_off_sync_and_signout_title;
-            default:
-                throw new IllegalArgumentException(
-                        "Unexpected value for actionType: " + actionType);
-        }
     }
 
     private static String getMessage(Context context, String managedDomain) {
-        if (!IdentityServicesProvider.get()
-                        .getIdentityManager(Profile.getLastUsedRegularProfile())
-                        .hasPrimaryAccount(ConsentLevel.SYNC)) {
             return context.getString(R.string.signout_message);
-        }
-        if (managedDomain != null) {
-            return context.getString(R.string.signout_managed_account_message, managedDomain);
-        }
-        return context.getString(R.string.turn_off_sync_and_signout_message);
     }
 
     private static int getCheckBoxVisibility(String managedDomain) {
@@ -131,10 +106,7 @@ public class SignOutDialogCoordinator {
         // SigninManager.
         final boolean allowDeletingData = UserPrefs.get(Profile.getLastUsedRegularProfile())
                                                   .getBoolean(Pref.ALLOW_DELETING_BROWSER_HISTORY);
-        final boolean hasSyncConsent =
-                IdentityServicesProvider.get()
-                        .getIdentityManager(Profile.getLastUsedRegularProfile())
-                        .hasPrimaryAccount(ConsentLevel.SYNC);
+        final boolean hasSyncConsent = false;
         final boolean showCheckBox = (managedDomain == null) && allowDeletingData && hasSyncConsent;
         return showCheckBox ? View.VISIBLE : View.GONE;
     }
@@ -143,9 +115,7 @@ public class SignOutDialogCoordinator {
     @MainThread
     SignOutDialogCoordinator(Context context, ModalDialogManager dialogManager, Listener listener,
             @ActionType int actionType, @GAIAServiceType int gaiaServiceType) {
-        final String managedDomain = IdentityServicesProvider.get()
-                                             .getSigninManager(Profile.getLastUsedRegularProfile())
-                                             .getManagementDomain();
+        final String managedDomain = "";
         final View view = inflateView(context, managedDomain, actionType);
         mCheckBox = view.findViewById(R.id.remove_local_data);
         mCheckBox.setVisibility(getCheckBoxVisibility(managedDomain));

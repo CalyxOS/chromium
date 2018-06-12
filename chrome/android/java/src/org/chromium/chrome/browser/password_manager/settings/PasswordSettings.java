@@ -40,8 +40,6 @@ import org.chromium.chrome.browser.preferences.Pref;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.settings.ChromeManagedPreferenceDelegate;
 import org.chromium.chrome.browser.settings.SettingsLauncherImpl;
-import org.chromium.chrome.browser.sync.SyncService;
-import org.chromium.chrome.browser.sync.settings.SyncSettingsUtils;
 import org.chromium.components.browser_ui.settings.ChromeBasePreference;
 import org.chromium.components.browser_ui.settings.ChromeSwitchPreference;
 import org.chromium.components.browser_ui.settings.SearchUtils;
@@ -63,7 +61,7 @@ import java.util.Locale;
  */
 public class PasswordSettings extends PreferenceFragmentCompat
         implements PasswordManagerHandler.PasswordListObserver,
-                   Preference.OnPreferenceClickListener, SyncService.SyncStateChangedListener {
+                   Preference.OnPreferenceClickListener {
     @IntDef({TrustedVaultBannerState.NOT_SHOWN, TrustedVaultBannerState.OFFER_OPT_IN,
             TrustedVaultBannerState.OPTED_IN})
     @Retention(RetentionPolicy.SOURCE)
@@ -155,10 +153,6 @@ public class PasswordSettings extends PreferenceFragmentCompat
         getActivity().setTitle(R.string.password_settings_title);
         setPreferenceScreen(getPreferenceManager().createPreferenceScreen(getStyledContext()));
         PasswordManagerHandlerProvider.getInstance().addObserver(this);
-
-        if (SyncService.get() != null) {
-            SyncService.get().addSyncStateChangedListener(this);
-        }
 
         setHasOptionsMenu(true); // Password Export might be optional but Search is always present.
 
@@ -465,9 +459,6 @@ public class PasswordSettings extends PreferenceFragmentCompat
     public void onDestroy() {
         super.onDestroy();
 
-        if (SyncService.get() != null) {
-            SyncService.get().removeSyncStateChangedListener(this);
-        }
         // The component should only be destroyed when the activity has been closed by the user
         // (e.g. by pressing on the back button) and not when the activity is temporarily destroyed
         // by the system.
@@ -585,34 +576,6 @@ public class PasswordSettings extends PreferenceFragmentCompat
     }
 
     private void displayManageAccountLink() {
-        SyncService syncService = SyncService.get();
-        if (syncService == null || !syncService.isEngineInitialized()) {
-            return;
-        }
-        if (!PasswordManagerHelper.isSyncingPasswordsWithNoCustomPassphrase(SyncService.get())) {
-            return;
-        }
-        if (mSearchQuery != null && !mNoPasswords) {
-            return; // Don't add the Manage Account link if there is a search going on.
-        }
-        if (getPreferenceScreen().findPreference(PREF_KEY_MANAGE_ACCOUNT_LINK) != null) {
-            return; // Don't add the Manage Account link if it's present.
-        }
-        if (mLinkPref != null) {
-            // If we created the link before, reuse it.
-            getPreferenceScreen().addPreference(mLinkPref);
-            return;
-        }
-        ForegroundColorSpan colorSpan =
-                new ForegroundColorSpan(SemanticColorUtils.getDefaultTextColorLink(getContext()));
-        SpannableString title = SpanApplier.applySpans(getString(R.string.manage_passwords_text),
-                new SpanApplier.SpanInfo("<link>", "</link>", colorSpan));
-        mLinkPref = new ChromeBasePreference(getStyledContext());
-        mLinkPref.setKey(PREF_KEY_MANAGE_ACCOUNT_LINK);
-        mLinkPref.setTitle(title);
-        mLinkPref.setOnPreferenceClickListener(this);
-        mLinkPref.setOrder(ORDER_MANAGE_ACCOUNT_LINK);
-        getPreferenceScreen().addPreference(mLinkPref);
     }
 
     private Context getStyledContext() {
@@ -623,43 +586,11 @@ public class PasswordSettings extends PreferenceFragmentCompat
         return UserPrefs.get(Profile.getLastUsedRegularProfile());
     }
 
-    @Override
-    public void syncStateChanged() {
-        final @TrustedVaultBannerState int oldTrustedVaultBannerState = mTrustedVaultBannerState;
-        computeTrustedVaultBannerState();
-        if (oldTrustedVaultBannerState != mTrustedVaultBannerState) {
-            rebuildPasswordLists();
-        }
-    }
-
     private void computeTrustedVaultBannerState() {
-        final SyncService syncService = SyncService.get();
-        if (syncService == null) {
             mTrustedVaultBannerState = TrustedVaultBannerState.NOT_SHOWN;
-            return;
-        }
-        if (!syncService.isEngineInitialized()) {
-            // Can't call getPassphraseType() yet.
-            mTrustedVaultBannerState = TrustedVaultBannerState.NOT_SHOWN;
-            return;
-        }
-        if (syncService.getPassphraseType() == PassphraseType.TRUSTED_VAULT_PASSPHRASE) {
-            mTrustedVaultBannerState = TrustedVaultBannerState.OPTED_IN;
-            return;
-        }
-        if (syncService.shouldOfferTrustedVaultOptIn()) {
-            mTrustedVaultBannerState = TrustedVaultBannerState.OFFER_OPT_IN;
-            return;
-        }
-        mTrustedVaultBannerState = TrustedVaultBannerState.NOT_SHOWN;
     }
 
     private boolean openTrustedVaultOptInDialog(Preference unused) {
-        assert SyncService.get() != null;
-        CoreAccountInfo accountInfo = SyncService.get().getAccountInfo();
-        assert accountInfo != null;
-        SyncSettingsUtils.openTrustedVaultOptInDialog(
-                this, accountInfo, REQUEST_CODE_TRUSTED_VAULT_OPT_IN);
         // Return true to notify the click was handled.
         return true;
     }

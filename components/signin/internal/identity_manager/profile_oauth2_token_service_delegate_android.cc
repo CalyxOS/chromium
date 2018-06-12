@@ -14,7 +14,6 @@
 #include "base/memory/raw_ptr.h"
 #include "base/metrics/histogram_functions.h"
 #include "base/metrics/histogram_macros.h"
-#include "components/signin/public/android/jni_headers/ProfileOAuth2TokenServiceDelegate_jni.h"
 #include "components/signin/public/base/account_consistency_method.h"
 #include "components/signin/public/identity_manager/account_info.h"
 #include "google_apis/gaia/gaia_auth_util.h"
@@ -91,20 +90,7 @@ AndroidAccessTokenFetcher::~AndroidAccessTokenFetcher() {}
 void AndroidAccessTokenFetcher::Start(const std::string& client_id,
                                       const std::string& client_secret,
                                       const std::vector<std::string>& scopes) {
-  JNIEnv* env = AttachCurrentThread();
-  std::string scope = CombineScopes(scopes);
-  ScopedJavaLocalRef<jstring> j_email =
-      ConvertUTF8ToJavaString(env, account_id_);
-  ScopedJavaLocalRef<jstring> j_scope = ConvertUTF8ToJavaString(env, scope);
-  std::unique_ptr<FetchOAuth2TokenCallback> heap_callback(
-      new FetchOAuth2TokenCallback(
-          base::BindOnce(&AndroidAccessTokenFetcher::OnAccessTokenResponse,
-                         weak_factory_.GetWeakPtr())));
-
-  // Call into Java to get a new token.
-  signin::Java_ProfileOAuth2TokenServiceDelegate_getAccessTokenFromNative(
-      env, oauth2_token_service_delegate_->GetJavaObject(), j_email, j_scope,
-      reinterpret_cast<intptr_t>(heap_callback.release()));
+  CancelRequest();
 }
 
 void AndroidAccessTokenFetcher::CancelRequest() {
@@ -154,13 +140,6 @@ ProfileOAuth2TokenServiceDelegateAndroid::
       fire_refresh_token_loaded_(RT_LOAD_NOT_START) {
   DVLOG(1) << "ProfileOAuth2TokenServiceDelegateAndroid::ctor";
   DCHECK(account_tracker_service_);
-
-  JNIEnv* env = AttachCurrentThread();
-  base::android::ScopedJavaLocalRef<jobject> local_java_ref =
-      signin::Java_ProfileOAuth2TokenServiceDelegate_Constructor(
-          env, reinterpret_cast<intptr_t>(this),
-          account_tracker_service_->GetJavaObject());
-  java_ref_.Reset(env, local_java_ref.obj());
 }
 
 ProfileOAuth2TokenServiceDelegateAndroid::
@@ -168,30 +147,12 @@ ProfileOAuth2TokenServiceDelegateAndroid::
 
 ScopedJavaLocalRef<jobject>
 ProfileOAuth2TokenServiceDelegateAndroid::GetJavaObject() {
-  return ScopedJavaLocalRef<jobject>(java_ref_);
+  return nullptr;
 }
 
 bool ProfileOAuth2TokenServiceDelegateAndroid::RefreshTokenIsAvailable(
     const CoreAccountId& account_id) const {
-  DVLOG(1)
-      << "ProfileOAuth2TokenServiceDelegateAndroid::RefreshTokenIsAvailable"
-      << " account= " << account_id;
-  std::string account_name = MapAccountIdToAccountName(account_id);
-  if (account_name.empty()) {
-    // This corresponds to the case when the account with id |account_id| is not
-    // present on the device and thus was not seeded.
-    DVLOG(1)
-        << "ProfileOAuth2TokenServiceDelegateAndroid::RefreshTokenIsAvailable"
-        << " cannot find account name for account id " << account_id;
-    return false;
-  }
-  JNIEnv* env = AttachCurrentThread();
-  ScopedJavaLocalRef<jstring> j_account_name =
-      ConvertUTF8ToJavaString(env, account_name);
-  jboolean refresh_token_is_available =
-      signin::Java_ProfileOAuth2TokenServiceDelegate_hasOAuth2RefreshToken(
-          env, java_ref_, j_account_name);
-  return refresh_token_is_available == JNI_TRUE;
+  return false;
 }
 
 std::vector<CoreAccountId>
@@ -235,49 +196,11 @@ void ProfileOAuth2TokenServiceDelegateAndroid::OnAccessTokenInvalidated(
     const std::string& client_id,
     const OAuth2AccessTokenManager::ScopeSet& scopes,
     const std::string& access_token) {
-  ValidateAccountId(account_id);
-  JNIEnv* env = AttachCurrentThread();
-  ScopedJavaLocalRef<jstring> j_access_token =
-      ConvertUTF8ToJavaString(env, access_token);
-  signin::Java_ProfileOAuth2TokenServiceDelegate_invalidateAccessToken(
-      env, java_ref_, j_access_token);
 }
 
 void ProfileOAuth2TokenServiceDelegateAndroid::
     ReloadAllAccountsFromSystemWithPrimaryAccount(
         const absl::optional<CoreAccountId>& primary_account_id) {
-  JNIEnv* env = AttachCurrentThread();
-
-  ScopedJavaLocalRef<jstring> j_account_id =
-      primary_account_id.has_value()
-          ? ConvertUTF8ToJavaString(env, primary_account_id->ToString())
-          : nullptr;
-  signin::
-      Java_ProfileOAuth2TokenServiceDelegate_seedAndReloadAccountsWithPrimaryAccount(
-          env, java_ref_, j_account_id);
-}
-
-void ProfileOAuth2TokenServiceDelegateAndroid::
-    ReloadAllAccountsWithPrimaryAccountAfterSeeding(
-        JNIEnv* env,
-        const base::android::JavaParamRef<jstring>& j_primary_account_id,
-        const base::android::JavaParamRef<jobjectArray>&
-            j_device_account_names) {
-  absl::optional<CoreAccountId> primary_account_id;
-  if (j_primary_account_id) {
-    primary_account_id = CoreAccountId::FromString(
-        ConvertJavaStringToUTF8(env, j_primary_account_id));
-  }
-  std::vector<std::string> device_account_names;
-  base::android::AppendJavaStringArrayToStringVector(
-      env, j_device_account_names, &device_account_names);
-  std::vector<CoreAccountId> account_ids;
-  for (const std::string& name : device_account_names) {
-    CoreAccountId id(MapAccountNameToAccountId(name));
-    if (!id.empty())
-      account_ids.push_back(std::move(id));
-  }
-  UpdateAccountList(primary_account_id, GetValidAccounts(), account_ids);
 }
 
 void ProfileOAuth2TokenServiceDelegateAndroid::UpdateAccountList(
@@ -433,40 +356,3 @@ ProfileOAuth2TokenServiceDelegateAndroid::MapAccountNameToAccountId(
       << "Can't find account id, account_name=" << account_name;
   return account_id;
 }
-
-namespace signin {
-
-// Called from Java when fetching of an OAuth2 token is finished. The
-// |authToken| param is only valid when |result| is true.
-// |expiration_time_secs| param is the number of seconds (NOT milliseconds)
-// after the Unix epoch when the token is scheduled to expire.
-// It is set to 0 if there's no known expiration time.
-void JNI_ProfileOAuth2TokenServiceDelegate_OnOAuth2TokenFetched(
-    JNIEnv* env,
-    const JavaParamRef<jstring>& authToken,
-    const jlong expiration_time_secs,
-    jboolean isTransientError,
-    jlong nativeCallback) {
-  std::string token;
-  if (authToken)
-    token = ConvertJavaStringToUTF8(env, authToken);
-  std::unique_ptr<FetchOAuth2TokenCallback> heap_callback(
-      reinterpret_cast<FetchOAuth2TokenCallback*>(nativeCallback));
-  GoogleServiceAuthError err = GoogleServiceAuthError::AuthErrorNone();
-  if (!authToken) {
-    err =
-        isTransientError
-            ? GoogleServiceAuthError(GoogleServiceAuthError::CONNECTION_FAILED)
-            : GoogleServiceAuthError::FromInvalidGaiaCredentialsReason(
-                  GoogleServiceAuthError::InvalidGaiaCredentialsReason::
-                      CREDENTIALS_REJECTED_BY_SERVER);
-  }
-
-  const base::Time expiration_time =
-      expiration_time_secs == 0
-          ? base::Time()
-          : base::Time::FromJavaTime(expiration_time_secs * 1000);
-
-  std::move(*heap_callback).Run(err, token, expiration_time);
-}
-}  // namespace signin

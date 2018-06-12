@@ -20,8 +20,6 @@ import org.chromium.chrome.browser.preferences.SharedPreferencesManager;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.settings.ChromeManagedPreferenceDelegate;
 import org.chromium.chrome.browser.settings.SettingsLauncherImpl;
-import org.chromium.chrome.browser.signin.services.UnifiedConsentServiceBridge;
-import org.chromium.chrome.browser.sync.settings.GoogleServicesSettings;
 import org.chromium.components.autofill_assistant.AssistantFeatures;
 import org.chromium.components.browser_ui.settings.ChromeSwitchPreference;
 import org.chromium.components.browser_ui.settings.ManagedPreferenceDelegate;
@@ -64,7 +62,6 @@ public class AutofillAssistantPreferenceFragment
     private ChromeSwitchPreference mAutofillAssistantPreference;
     private ChromeSwitchPreference mProactiveHelpPreference;
     private ChromeSwitchPreference mAssistantVoiceSearchEnabledPref;
-    private Preference mGoogleServicesSettingsLink;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -93,15 +90,6 @@ public class AutofillAssistantPreferenceFragment
         } else {
             mProactiveHelpPreference.setVisible(false);
         }
-
-        mGoogleServicesSettingsLink = findPreference(PREF_GOOGLE_SERVICES_SETTINGS_LINK);
-        NoUnderlineClickableSpan linkSpan = new NoUnderlineClickableSpan(getContext(), view -> {
-            SettingsLauncher settingsLauncher = new SettingsLauncherImpl();
-            settingsLauncher.launchSettingsActivity(requireContext(), GoogleServicesSettings.class);
-        });
-        mGoogleServicesSettingsLink.setSummary(
-                SpanApplier.applySpans(getString(R.string.prefs_proactive_help_sync_link),
-                        new SpanApplier.SpanInfo("<link>", "</link>", linkSpan)));
 
         PreferenceCategory assistantVoiceSearchCategory =
                 findPreference(PREF_ASSISTANT_VOICE_SEARCH_CATEGORY);
@@ -178,9 +166,7 @@ public class AutofillAssistantPreferenceFragment
 
         boolean assistant_switch_on_or_missing =
                 !mAutofillAssistantPreference.isVisible() || autofill_assistant_enabled;
-        boolean url_keyed_anonymized_data_collection_enabled =
-                UnifiedConsentServiceBridge.isUrlKeyedAnonymizedDataCollectionEnabled(
-                        Profile.getLastUsedRegularProfile());
+        boolean url_keyed_anonymized_data_collection_enabled = false;
 
         boolean proactive_help_on =
                 mPrefService.getBoolean(Pref.AUTOFILL_ASSISTANT_TRIGGER_SCRIPTS_ENABLED);
@@ -196,7 +182,6 @@ public class AutofillAssistantPreferenceFragment
         }
         mProactiveHelpPreference.setEnabled(proactive_toggle_enabled);
         mProactiveHelpPreference.setChecked(proactive_toggle_enabled && proactive_help_on);
-        mGoogleServicesSettingsLink.setVisible(show_disclaimer);
 
         mAssistantVoiceSearchEnabledPref.setChecked(mSharedPreferencesManager.readBoolean(
                 ChromePreferenceKeys.ASSISTANT_VOICE_SEARCH_ENABLED, /* default= */ false));
