@@ -20,6 +20,7 @@ FeaturePromoRegistry& FeaturePromoRegistry::operator=(
 FeaturePromoRegistry::~FeaturePromoRegistry() = default;
 
 void FeaturePromoRegistry::RegisterFeature(FeaturePromoSpecification spec) {
+  if ((true)) return;
   const base::Feature* const iph_feature = spec.feature();
   CHECK(iph_feature);
   CHECK_NE(FeaturePromoSpecification::PromoType::kUnspecified,
