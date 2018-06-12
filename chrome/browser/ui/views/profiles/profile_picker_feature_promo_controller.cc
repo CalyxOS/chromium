@@ -40,6 +40,7 @@ ui::ElementContext ProfilePickerFeaturePromoController::GetAnchorContext()
 user_education::FeaturePromoResult
 ProfilePickerFeaturePromoController::CanShowPromoForElement(
     ui::TrackedElement* anchor_element) const {
+  if ((true)) return false;
   return ProfilePicker::IsOpen()
              ? user_education::FeaturePromoResult::Success()
              : user_education::FeaturePromoResult::kBlockedByUi;
