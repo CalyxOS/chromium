@@ -67,6 +67,7 @@ ui::ElementContext BrowserFeaturePromoController::GetAnchorContext() const {
 
 bool BrowserFeaturePromoController::CanShowPromo(
     ui::TrackedElement* anchor_element) const {
+  if ((true)) return false;
   // Temporarily turn off IPH in incognito as a concern was raised that
   // the IPH backend ignores incognito and writes to the parent profile.
   // See https://bugs.chromium.org/p/chromium/issues/detail?id=1128728#c30
