@@ -13,7 +13,6 @@ import androidx.annotation.Nullable;
 import org.chromium.base.annotations.JNINamespace;
 import org.chromium.base.annotations.NativeMethods;
 import org.chromium.chrome.browser.profiles.Profile;
-import org.chromium.chrome.browser.signin.services.IdentityServicesProvider;
 import org.chromium.chrome.browser.tab.TabObscuringHandler;
 import org.chromium.chrome.browser.tab.TabObscuringHandlerSupplier;
 import org.chromium.chrome.browser.util.ChromeAccessibilityUtil;
@@ -129,10 +128,7 @@ public class AssistantStaticDependenciesChrome implements AssistantStaticDepende
 
     @Nullable
     public String getSignedInAccountEmailOrNull() {
-        IdentityManager identityManager =
-                IdentityServicesProvider.get().getIdentityManager(getProfile());
-        return CoreAccountInfo.getEmailFrom(
-                identityManager.getPrimaryAccountInfo(ConsentLevel.SYNC));
+        return null;
     }
 
     @Override

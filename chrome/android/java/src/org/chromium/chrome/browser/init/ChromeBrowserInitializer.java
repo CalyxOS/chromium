@@ -38,7 +38,6 @@ import org.chromium.chrome.browser.flags.ChromeFeatureList;
 import org.chromium.chrome.browser.flags.ChromeSwitches;
 import org.chromium.chrome.browser.language.GlobalAppLocaleController;
 import org.chromium.chrome.browser.metrics.UmaUtils;
-import org.chromium.chrome.browser.signin.SigninCheckerProvider;
 import org.chromium.chrome.browser.webapps.ChromeWebApkHost;
 import org.chromium.components.background_task_scheduler.BackgroundTaskSchedulerFactory;
 import org.chromium.components.crash.browser.ChildProcessCrashObserver;
@@ -366,7 +365,6 @@ public class ChromeBrowserInitializer {
             LibraryPrefetcher.asyncPrefetchLibrariesToMemory();
             getBrowserStartupController().startBrowserProcessesSync(
                     LibraryProcessType.PROCESS_BROWSER, /*singleProcess=*/false);
-            SigninCheckerProvider.get();
         } finally {
             TraceEvent.end("ChromeBrowserInitializer.startChromeBrowserProcessesSync");
         }

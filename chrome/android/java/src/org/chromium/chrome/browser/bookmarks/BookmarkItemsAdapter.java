@@ -28,10 +28,7 @@ import org.chromium.chrome.browser.flags.ChromeFeatureList;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.subscriptions.CommerceSubscriptionsServiceFactory;
 import org.chromium.chrome.browser.subscriptions.SubscriptionsManager;
-import org.chromium.chrome.browser.sync.SyncService;
 import org.chromium.chrome.browser.ui.messages.snackbar.SnackbarManager;
-import org.chromium.chrome.browser.ui.signin.PersonalizedSigninPromoView;
-import org.chromium.chrome.browser.ui.signin.SyncPromoController.SyncPromoState;
 import org.chromium.components.bookmarks.BookmarkId;
 import org.chromium.components.bookmarks.BookmarkItem;
 import org.chromium.components.bookmarks.BookmarkType;
@@ -53,7 +50,7 @@ import java.util.List;
  * BaseAdapter for {@link RecyclerView}. It manages bookmarks to list there.
  */
 public class BookmarkItemsAdapter extends DragReorderableListAdapter<BookmarkListEntry>
-        implements BookmarkUIObserver, SyncService.SyncStateChangedListener {
+        implements BookmarkUIObserver {
     private static final int MAXIMUM_NUMBER_OF_SEARCH_RESULTS = 500;
     private static final String EMPTY_QUERY = null;
 
@@ -66,10 +63,8 @@ public class BookmarkItemsAdapter extends DragReorderableListAdapter<BookmarkLis
     @ViewType
     private int mPromoHeaderType = ViewType.INVALID;
     private BookmarkDelegate mDelegate;
-    private BookmarkPromoHeader mPromoHeaderManager;
     private String mSearchText;
     private BookmarkId mCurrentFolder;
-    private SyncService mSyncService;
     private CommerceSubscriptionsServiceFactory mCommerceSubscriptionsServiceFactory;
 
     // Keep track of the currently highlighted bookmark - used for "show in folder" action.
@@ -125,8 +120,6 @@ public class BookmarkItemsAdapter extends DragReorderableListAdapter<BookmarkLis
 
     BookmarkItemsAdapter(Context context, SnackbarManager snackbarManager) {
         super(context);
-        mSyncService = SyncService.get();
-        mSyncService.addSyncStateChangedListener(this);
 
         mImageFetcher =
                 ImageFetcherFactory.createImageFetcher(ImageFetcherConfig.IN_MEMORY_WITH_DISK_CACHE,
@@ -170,11 +163,6 @@ public class BookmarkItemsAdapter extends DragReorderableListAdapter<BookmarkLis
     private void setBookmarks(List<BookmarkId> bookmarks) {
         clearHighlight();
         mElements.clear();
-
-        // Restore the header, if it exists, then update it.
-        if (hasPromoHeader()) {
-            mElements.add(BookmarkListEntry.createSyncPromoHeader(mPromoHeaderType));
-        }
 
         updateHeader(false);
         if (BookmarkId.SHOPPING_FOLDER.equals(mCurrentFolder)) {
@@ -240,9 +228,9 @@ public class BookmarkItemsAdapter extends DragReorderableListAdapter<BookmarkLis
             case ViewType.PERSONALIZED_SIGNIN_PROMO:
                 // fall through
             case ViewType.PERSONALIZED_SYNC_PROMO:
-                return mPromoHeaderManager.createPersonalizedSigninAndSyncPromoHolder(parent);
+                return null;
             case ViewType.SYNC_PROMO:
-                return mPromoHeaderManager.createSyncPromoHolder(parent);
+                return null;
             case ViewType.SECTION_HEADER:
                 return createSectionHeaderViewHolder(parent, viewType);
             case ViewType.FOLDER:
@@ -278,10 +266,6 @@ public class BookmarkItemsAdapter extends DragReorderableListAdapter<BookmarkLis
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (holder.getItemViewType() == ViewType.PERSONALIZED_SIGNIN_PROMO
                 || holder.getItemViewType() == ViewType.PERSONALIZED_SYNC_PROMO) {
-            PersonalizedSigninPromoView view =
-                    (PersonalizedSigninPromoView) holder.itemView.findViewById(
-                            R.id.signin_promo_view_container);
-            mPromoHeaderManager.setUpSyncPromoView(view);
         } else if (holder.getItemViewType() == ViewType.SECTION_HEADER) {
             bindSectionHeaderViewHolder(holder.itemView, getItemByPosition(position));
         } else if (BookmarkListEntry.isBookmarkEntry(holder.getItemViewType())) {
@@ -338,7 +322,6 @@ public class BookmarkItemsAdapter extends DragReorderableListAdapter<BookmarkLis
             case ViewType.PERSONALIZED_SIGNIN_PROMO:
                 // fall through
             case ViewType.PERSONALIZED_SYNC_PROMO:
-                mPromoHeaderManager.detachPersonalizePromoView();
                 break;
             default:
                 // Other view holders don't have special recycling code.
@@ -361,7 +344,6 @@ public class BookmarkItemsAdapter extends DragReorderableListAdapter<BookmarkLis
             updateHeader(true);
         };
 
-        mPromoHeaderManager = new BookmarkPromoHeader(mContext, promoHeaderChangeAction);
         populateTopLevelFoldersList();
 
         mElements = new ArrayList<>();
@@ -376,8 +358,6 @@ public class BookmarkItemsAdapter extends DragReorderableListAdapter<BookmarkLis
         mDelegate.getModel().removeObserver(mBookmarkModelObserver);
         mDelegate.getSelectionDelegate().removeObserver(this);
         mDelegate = null;
-        mPromoHeaderManager.destroy();
-        mSyncService.removeSyncStateChangedListener(this);
     }
 
     @Override
@@ -472,18 +452,6 @@ public class BookmarkItemsAdapter extends DragReorderableListAdapter<BookmarkLis
         setOrder(mElements);
     }
 
-    // SyncStateChangedListener implementation.
-    @Override
-    public void syncStateChanged() {
-        // If mDelegate is null, we will set the top level folders upon its initialization
-        // (see onBookmarkDelegateInitialized method above).
-        if (mDelegate == null) {
-            return;
-        }
-        mTopLevelFolders.clear();
-        populateTopLevelFoldersList();
-    }
-
     /**
      * Updates mPromoHeaderType. Makes sure that the 0th index of mElements is consistent with the
      * promo header. This 0th index is null iff there is a promo header.
@@ -504,29 +472,12 @@ public class BookmarkItemsAdapter extends DragReorderableListAdapter<BookmarkLis
         } else if (currentUIState == BookmarkUIState.STATE_SEARCHING) {
             mPromoHeaderType = ViewType.INVALID;
         } else {
-            switch (mPromoHeaderManager.getPromoState()) {
-                case SyncPromoState.NO_PROMO:
                     mPromoHeaderType = ViewType.INVALID;
-                    break;
-                case SyncPromoState.PROMO_FOR_SIGNED_OUT_STATE:
-                    mPromoHeaderType = ViewType.PERSONALIZED_SIGNIN_PROMO;
-                    break;
-                case SyncPromoState.PROMO_FOR_SIGNED_IN_STATE:
-                    mPromoHeaderType = ViewType.PERSONALIZED_SYNC_PROMO;
-                    break;
-                case SyncPromoState.PROMO_FOR_SYNC_TURNED_OFF_STATE:
-                    mPromoHeaderType = ViewType.SYNC_PROMO;
-                    break;
-                default:
-                    assert false : "Unexpected value for promo state!";
-            }
         }
 
         boolean willShowPromo = hasPromoHeader();
 
         if (!wasShowingPromo && willShowPromo) {
-            // A null element at the 0th index represents a promo header.
-            mElements.add(0, BookmarkListEntry.createSyncPromoHeader(mPromoHeaderType));
             if (shouldNotify) notifyItemInserted(0);
         } else if (wasShowingPromo && willShowPromo) {
             if (shouldNotify) notifyItemChanged(0);
@@ -641,7 +592,6 @@ public class BookmarkItemsAdapter extends DragReorderableListAdapter<BookmarkLis
 
     @VisibleForTesting
     public void simulateSignInForTests() {
-        syncStateChanged();
         onFolderStateSet(mCurrentFolder);
     }
 

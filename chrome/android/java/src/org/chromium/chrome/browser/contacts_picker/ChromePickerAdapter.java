@@ -15,16 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.profiles.Profile;
-import org.chromium.chrome.browser.signin.services.DisplayableProfileData;
-import org.chromium.chrome.browser.signin.services.IdentityServicesProvider;
-import org.chromium.chrome.browser.signin.services.ProfileDataCache;
 import org.chromium.components.browser_ui.contacts_picker.ContactDetails;
 import org.chromium.components.browser_ui.contacts_picker.PickerAdapter;
-import org.chromium.components.signin.AccountManagerFacadeProvider;
-import org.chromium.components.signin.AccountUtils;
-import org.chromium.components.signin.base.CoreAccountInfo;
-import org.chromium.components.signin.identitymanager.ConsentLevel;
-import org.chromium.components.signin.identitymanager.IdentityManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,10 +27,7 @@ import java.util.Collections;
  * Owner email is looked up in the {@link ProfileDataCache}, or, failing that, via the {@link
  * AccountManagerFacade}.
  */
-public class ChromePickerAdapter extends PickerAdapter implements ProfileDataCache.Observer {
-    // The profile data cache to consult when figuring out the signed in user.
-    private ProfileDataCache mProfileDataCache;
-
+public class ChromePickerAdapter extends PickerAdapter {
     // Whether an observer for ProfileDataCache has been registered.
     private boolean mObserving;
 
@@ -46,8 +35,6 @@ public class ChromePickerAdapter extends PickerAdapter implements ProfileDataCac
     private boolean mWaitingOnOwnerInfo;
 
     public ChromePickerAdapter(Context context) {
-        mProfileDataCache =
-                ProfileDataCache.createWithoutBadge(context, R.dimen.contact_picker_icon_size);
     }
 
     // Adapter:
@@ -64,38 +51,15 @@ public class ChromePickerAdapter extends PickerAdapter implements ProfileDataCac
         removeProfileDataObserver();
     }
 
-    // ProfileDataCache.Observer:
-
-    @Override
-    public void onProfileDataUpdated(String accountEmail) {
-        if (!mWaitingOnOwnerInfo || !TextUtils.equals(accountEmail, getOwnerEmail())) {
-            return;
-        }
-
-        // Now that we've received an update for the right accountId, we can stop listening and
-        // update our records.
-        mWaitingOnOwnerInfo = false;
-        removeProfileDataObserver();
-        // TODO(finnur): crbug.com/1021477 - Maintain an member instance of this.
-        DisplayableProfileData profileData =
-                mProfileDataCache.getProfileDataOrDefault(getOwnerEmail());
-        ContactDetails contact = getAllContacts().get(0);
-        Drawable icon = profileData.getImage();
-        contact.setSelfIcon(icon);
-        update();
-    }
-
     private void addProfileDataObserver() {
         if (!mObserving) {
             mObserving = true;
-            mProfileDataCache.addObserver(this);
         }
     }
 
     private void removeProfileDataObserver() {
         if (mObserving) {
             mObserving = false;
-            mProfileDataCache.removeObserver(this);
         }
     }
 
@@ -107,13 +71,7 @@ public class ChromePickerAdapter extends PickerAdapter implements ProfileDataCac
      */
     @Override
     protected String findOwnerEmail() {
-        CoreAccountInfo coreAccountInfo = getCoreAccountInfo();
-        if (coreAccountInfo != null) {
-            return coreAccountInfo.getEmail();
-        }
-        final @Nullable Account defaultAccount = AccountUtils.getDefaultAccountIfFulfilled(
-                AccountManagerFacadeProvider.getInstance().getAccounts());
-        return defaultAccount != null ? defaultAccount.name : null;
+        return null;
     }
 
     @Override
@@ -134,25 +92,8 @@ public class ChromePickerAdapter extends PickerAdapter implements ProfileDataCac
      */
     @SuppressLint("HardwareIds")
     private ContactDetails constructOwnerInfo(String ownerEmail) {
-        DisplayableProfileData profileData = mProfileDataCache.getProfileDataOrDefault(ownerEmail);
-        String name = profileData.getFullNameOrEmail();
-        if (TextUtils.isEmpty(name) || TextUtils.equals(name, ownerEmail)) {
-            name = CoreAccountInfo.getEmailFrom(getCoreAccountInfo());
-        }
-
-        ContactDetails contact = new ContactDetails(ContactDetails.SELF_CONTACT_ID, name,
+        ContactDetails contact = new ContactDetails(ContactDetails.SELF_CONTACT_ID, ownerEmail,
                 Collections.singletonList(ownerEmail), /*phoneNumbers=*/null, /*addresses=*/null);
-        Drawable icon = profileData.getImage();
-        contact.setIsSelf(true);
-        contact.setSelfIcon(icon);
-        return contact;
-    }
-
-    private CoreAccountInfo getCoreAccountInfo() {
-        // Since this is read-only operation to obtain email address, always using regular profile
-        // for both regular and off-the-record profile is safe.
-        IdentityManager identityManager = IdentityServicesProvider.get().getIdentityManager(
-                Profile.getLastUsedRegularProfile());
-        return identityManager.getPrimaryAccountInfo(ConsentLevel.SYNC);
+        return null;
     }
 }

@@ -18,9 +18,7 @@ import org.chromium.chrome.browser.endpoint_fetcher.EndpointFetcher;
 import org.chromium.chrome.browser.endpoint_fetcher.EndpointResponse;
 import org.chromium.chrome.browser.flags.ChromeFeatureList;
 import org.chromium.chrome.browser.profiles.Profile;
-import org.chromium.chrome.browser.signin.services.IdentityServicesProvider;
 import org.chromium.chrome.browser.tasks.tab_management.TabUiFeatureUtilities;
-import org.chromium.components.signin.identitymanager.ConsentLevel;
 import org.chromium.net.NetworkTrafficAnnotationTag;
 
 import java.util.Collections;
@@ -150,15 +148,12 @@ public class TabSuggestionsServerFetcher implements TabSuggestionsFetcher {
         //  avoid fetching server if the TabGroupsAndroid flag is disabled. We need to move this
         //  flag checking logic to somewhere if this server fetcher supports suggestions other than
         //  grouping in the future.
-        return isSignedIn() && isServerFetcherFlagEnabled()
-                && TabUiFeatureUtilities.isTabGroupsAndroidEnabled(mContext);
+        return false;
     }
 
     @VisibleForTesting
     protected boolean isSignedIn() {
-        return IdentityServicesProvider.get()
-                .getIdentityManager(Profile.getLastUsedRegularProfile())
-                .hasPrimaryAccount(ConsentLevel.SYNC);
+        return false;
     }
 
     @VisibleForTesting

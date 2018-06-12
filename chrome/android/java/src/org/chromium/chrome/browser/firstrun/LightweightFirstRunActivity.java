@@ -96,9 +96,7 @@ public class LightweightFirstRunActivity
                     return;
                 }
 
-                boolean isChild = freProperties.getBoolean(
-                        SyncConsentFirstRunFragment.IS_CHILD_ACCOUNT, false);
-                initializeViews(isChild);
+                initializeViews(false);
             }
         };
         mFirstRunFlowSequencer.start();

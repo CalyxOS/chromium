@@ -73,7 +73,7 @@
 #include "chrome/browser/sync/wifi_configuration_sync_service_factory.h"
 #endif  // BUILDFLAG(IS_CHROMEOS_ASH)
 
-namespace {
+/*namespace {
 
 std::unique_ptr<KeyedService> BuildSyncService(
     content::BrowserContext* context) {
@@ -186,7 +186,7 @@ std::unique_ptr<KeyedService> BuildSyncService(
   return sync_service;
 }
 
-}  // anonymous namespace
+}*/  // anonymous namespace
 
 // static
 SyncServiceFactory* SyncServiceFactory::GetInstance() {
@@ -264,7 +264,7 @@ SyncServiceFactory::~SyncServiceFactory() = default;
 
 KeyedService* SyncServiceFactory::BuildServiceInstanceFor(
     content::BrowserContext* context) const {
-  return BuildSyncService(context).release();
+  return nullptr;
 }
 
 bool SyncServiceFactory::ServiceIsNULLWhileTesting() const {
@@ -305,10 +305,4 @@ SyncServiceFactory::GetAllSyncServices() {
     }
   }
   return sync_services;
-}
-
-// static
-BrowserContextKeyedServiceFactory::TestingFactory
-SyncServiceFactory::GetDefaultFactory() {
-  return base::BindRepeating(&BuildSyncService);
 }

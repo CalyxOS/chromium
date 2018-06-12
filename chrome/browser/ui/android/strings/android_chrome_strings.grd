@@ -284,9 +284,6 @@ CHAR_LIMIT guidelines:
       <message name="IDS_SIGN_IN_TO_CHROME" desc="Title for the button to sign in to Chrome using one's Google account. [CHAR_LIMIT=27]">
         Sign in to Chrome
       </message>
-      <message name="IDS_PREFS_MANAGE_SYNC_SETTINGS_CONTENT_DESCRIPTION" is_accessibility_with_no_ui="true" desc="The accessibility text to read when the 'Manage Sync Settings' page is opened from the sign-in page. This text is attached to the 'Navigate Up' button shown at the top of the screen. The first two sentences describe the screen that is currently shown to the user, while 'Navigate up' is a description for the button this text is attached to. 'Navigate up' should match TC ID 6794660482873516081.">
-        You are currently customizing your Sync settings. To finish turning on sync, tap the Confirm button near the bottom of the screen. Navigate up
-      </message>
       <message name="IDS_SIGNIN_PREF_SUMMARY" desc="Summary for the entry in Settings to sign in to Chrome, explaining benefits of signing in.">
         Sync and personalize across devices
       </message>
@@ -395,21 +392,6 @@ CHAR_LIMIT guidelines:
       </message>
       <message name="IDS_PRELOAD_PAGES_EXTENDED_PRELOADING_BULLET_FOUR" desc="Fourth bullet point under the Preload Pages extended preloading mode. Informs the user about what the extended preloading setting does.">
         Because the preloaded pages are encrypted, Google will not learn anything about the preloaded page content. Google servers will learn which sites are privately preloaded. This information is only used to preload the pages, and is not linked to other information from your Google Account.
-      </message>
-      <message name="IDS_URL_KEYED_ANONYMIZED_DATA_TITLE" desc="Title for a checkbox in Settings that controls non-personalized URL collection and informs the user about the data shared by this feature.">
-        Make searches and browsing better
-      </message>
-      <message name="IDS_URL_KEYED_ANONYMIZED_DATA_SUMMARY" desc="Summary for a checkbox in Settings that controls non-personalized URL collection and informs the user about the data shared by this feature.">
-        Sends URLs of pages you visit to Google
-      </message>
-      <message name="IDS_PRIVACY_SYNC_AND_SERVICES_LINK_LEGACY" desc="The text for Privacy preferences that is shown after all preference rows.">
-        For more settings that relate to privacy, security, and data collection, see <ph name="BEGIN_LINK">&lt;link&gt;</ph>Sync and Google services<ph name="END_LINK">&lt;/link&gt;</ph>
-      </message>
-      <message name="IDS_PRIVACY_SYNC_AND_SERVICES_LINK_SYNC_ON" desc="The text for Privacy preferences that is shown after all preference rows. This version of the text is shown if Sync has been turned on.">
-        For more settings that relate to privacy, security, and data collection, see <ph name="BEGIN_LINK1">&lt;link1&gt;</ph>Sync<ph name="END_LINK1">&lt;/link1&gt;</ph> and <ph name="BEGIN_LINK2">&lt;link2&gt;</ph>Google services<ph name="END_LINK2">&lt;/link2&gt;</ph>
-      </message>
-      <message name="IDS_PRIVACY_SYNC_AND_SERVICES_LINK_SYNC_OFF" desc="The text for Privacy preferences that is shown after all preference rows. This version of the text is shown if Sync hasn't been turned on.">
-        For more settings that relate to privacy, security, and data collection, see <ph name="BEGIN_LINK">&lt;link&gt;</ph>Google services<ph name="END_LINK">&lt;/link&gt;</ph>
       </message>
 
       <!-- Metrics settings -->

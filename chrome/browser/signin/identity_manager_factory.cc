@@ -67,14 +67,9 @@ IdentityManagerFactory::IdentityManagerFactory()
   DependsOn(ProfileAccountManagerFactory::GetInstance());
 #endif
   DependsOn(ChromeSigninClientFactory::GetInstance());
-  signin::SetIdentityManagerProvider(
-      base::BindRepeating([](content::BrowserContext* context) {
-        return GetForProfile(Profile::FromBrowserContext(context));
-      }));
 }
 
 IdentityManagerFactory::~IdentityManagerFactory() {
-  signin::SetIdentityManagerProvider({});
 }
 
 // static

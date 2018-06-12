@@ -734,12 +734,7 @@ public class FeedSurfaceCoordinator
 
     /** @return The {@link View} for this class. */
     View getSigninPromoView() {
-        if (mSigninPromoView == null) {
-            LayoutInflater inflater = LayoutInflater.from(mRootView.getContext());
-            mSigninPromoView = inflater.inflate(
-                    R.layout.sync_promo_view_content_suggestions, mRootView, false);
-        }
-        return mSigninPromoView;
+        return null;
     }
 
     /**
@@ -867,7 +862,7 @@ public class FeedSurfaceCoordinator
 
     @Override
     public boolean isSignedIn() {
-        return FeedServiceBridge.isSignedIn();
+        return false;
     }
 
     @Override
