@@ -61,22 +61,9 @@ public class IdentityServicesProvider {
         return result;
     }
 
-    /**
-     * Getter for {@link SigninManager} instance for given profile.
-     * @param profile The profile to get regarding sign-in manager.
-     * @return a {@link SigninManager} instance, or null if the incognito Profile is supplied.
-     */
-    @MainThread
-    public @Nullable SigninManager getSigninManager(Profile profile) {
-        ThreadUtils.assertOnUiThread();
-        SigninManager result = IdentityServicesProviderJni.get().getSigninManager(profile);
-        return result;
-    }
-
     @NativeMethods
     public interface Natives {
         IdentityManager getIdentityManager(Profile profile);
         AccountTrackerService getAccountTrackerService(Profile profile);
-        SigninManager getSigninManager(Profile profile);
     }
 }

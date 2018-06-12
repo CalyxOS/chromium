@@ -63,7 +63,7 @@ void LeakDetectionDelegate::StartLeakCheck(
   is_likely_signup_form_ = submitted_form_was_likely_signup_form;
 
   leak_check_ = leak_factory_->TryCreateLeakCheck(
-      this, client_->GetIdentityManager(), client_->GetURLLoaderFactory(),
+      this, nullptr, client_->GetURLLoaderFactory(),
       client_->GetChannel());
   // Reset the helper to avoid notifications from the currently running check.
   helper_.reset();

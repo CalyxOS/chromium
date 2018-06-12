@@ -41,7 +41,6 @@
 #include "components/password_manager/core/common/password_manager_features.h"
 #include "components/password_manager/core/common/password_manager_pref_names.h"
 #include "components/prefs/pref_service.h"
-#include "components/signin/public/identity_manager/identity_manager.h"
 #include "google_apis/gaia/core_account_id.h"
 #include "third_party/abseil-cpp/absl/types/optional.h"
 #include "third_party/abseil-cpp/absl/types/variant.h"
@@ -290,27 +289,7 @@ bool PasswordFormManager::WasUnblocklisted() const {
 }
 
 bool PasswordFormManager::IsMovableToAccountStore() const {
-  DCHECK(
-      client_->GetPasswordFeatureManager()->ShouldShowAccountStorageBubbleUi())
-      << "Ensure that the client supports moving passwords for this user!";
-  signin::IdentityManager* identity_manager = client_->GetIdentityManager();
-  DCHECK(identity_manager);
-  const std::string gaia_id =
-      identity_manager->GetPrimaryAccountInfo(signin::ConsentLevel::kSignin)
-          .gaia;
-  DCHECK(!gaia_id.empty()) << "Cannot move without signed in user";
-
-  const std::u16string& username = GetPendingCredentials().username_value;
-  const std::u16string& password = GetPendingCredentials().password_value;
-  // If no match in the profile store with the same username and password exist,
-  // then there is nothing to move.
-  auto is_movable = [&](const PasswordForm* match) {
-    return !match->IsUsingAccountStore() && match->username_value == username &&
-           match->password_value == password;
-  };
-  return base::ranges::any_of(form_fetcher_->GetBestMatches(), is_movable) &&
-         !form_fetcher_->IsMovingBlocked(GaiaIdHash::FromGaiaId(gaia_id),
-                                         username);
+  return false;
 }
 
 void PasswordFormManager::Save() {
@@ -477,17 +456,6 @@ void PasswordFormManager::MoveCredentialsToAccountStore() {
 void PasswordFormManager::BlockMovingCredentialsToAccountStore() {
   // Nothing to do if there is no signed in user or the credentials are already
   // blocked for moving.
-  if (!IsMovableToAccountStore())
-    return;
-  const std::string gaia_id =
-      client_->GetIdentityManager()
-          ->GetPrimaryAccountInfo(signin::ConsentLevel::kSignin)
-          .gaia;
-  // The above call to IsMovableToAccountStore() guarantees there is a signed in
-  // user.
-  DCHECK(!gaia_id.empty());
-  password_save_manager_->BlockMovingToAccountStoreFor(
-      GaiaIdHash::FromGaiaId(gaia_id));
 }
 
 bool PasswordFormManager::IsNewLogin() const {

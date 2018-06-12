@@ -39,9 +39,6 @@ public abstract class RequestGenerator {
 
     protected RequestGenerator(Context context) {
         mApplicationContext = context.getApplicationContext();
-        UniqueIdentificationGeneratorFactory.registerGenerator(
-                SettingsSecureBasedIdentificationGenerator.GENERATOR_ID,
-                new SettingsSecureBasedIdentificationGenerator(getContext()), false);
     }
 
     /**

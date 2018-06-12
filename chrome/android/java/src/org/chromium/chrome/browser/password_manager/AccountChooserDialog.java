@@ -128,7 +128,7 @@ public class AccountChooserDialog
                 Drawable avatar = credential.getAvatar();
                 if (avatar == null) {
                     avatar = AppCompatResources.getDrawable(
-                            getContext(), R.drawable.logo_avatar_anonymous);
+                            getContext(), R.drawable.ic_help_and_feedback);
                 }
                 avatarView.setImageDrawable(avatar);
 

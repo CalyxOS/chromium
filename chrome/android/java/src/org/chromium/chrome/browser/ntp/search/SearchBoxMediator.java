@@ -25,7 +25,6 @@ import org.chromium.chrome.browser.omnibox.voice.AssistantVoiceSearchService;
 import org.chromium.chrome.browser.preferences.SharedPreferencesManager;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.search_engines.TemplateUrlServiceFactory;
-import org.chromium.chrome.browser.signin.services.IdentityServicesProvider;
 import org.chromium.chrome.browser.ui.theme.BrandedColorScheme;
 import org.chromium.components.externalauth.ExternalAuthUtils;
 import org.chromium.components.signin.AccountManagerFacadeProvider;
