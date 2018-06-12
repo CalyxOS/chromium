@@ -13,7 +13,6 @@ import androidx.annotation.MainThread;
 
 import org.chromium.base.metrics.RecordUserAction;
 import org.chromium.chrome.browser.profiles.Profile;
-import org.chromium.chrome.browser.signin.services.IdentityServicesProvider;
 import org.chromium.components.browser_ui.settings.ManagedPreferencesUtils;
 import org.chromium.components.browser_ui.widget.RadioButtonWithDescription;
 import org.chromium.ui.modaldialog.DialogDismissalCause;
@@ -80,11 +79,7 @@ public class ConfirmImportSyncDataDialogCoordinator {
         mKeepSeparateOption =
                 mConfirmImportSyncDataView.findViewById(R.id.sync_keep_separate_choice);
 
-        boolean isCurrentAccountManaged =
-                IdentityServicesProvider.get()
-                        .getSigninManager(Profile.getLastUsedRegularProfile())
-                        .getManagementDomain()
-                != null;
+        boolean isCurrentAccountManaged = false;
         mModel = new PropertyModel.Builder(ModalDialogProperties.ALL_KEYS)
                          .with(ModalDialogProperties.CANCEL_ON_TOUCH_OUTSIDE, true)
                          .with(ModalDialogProperties.POSITIVE_BUTTON_TEXT,

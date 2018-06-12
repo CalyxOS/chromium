@@ -20,14 +20,12 @@ import org.chromium.chrome.browser.notifications.channels.ChromeChannelDefinitio
 import org.chromium.chrome.browser.preferences.Pref;
 import org.chromium.chrome.browser.preferences.PrefChangeRegistrar;
 import org.chromium.chrome.browser.profiles.Profile;
-import org.chromium.chrome.browser.signin.services.IdentityServicesProvider;
 import org.chromium.components.browser_ui.notifications.NotificationManagerProxy;
 import org.chromium.components.browser_ui.notifications.NotificationManagerProxyImpl;
 import org.chromium.components.browser_ui.settings.ChromeSwitchPreference;
 import org.chromium.components.browser_ui.settings.SettingsUtils;
 import org.chromium.components.browser_ui.settings.TextMessagePreference;
 import org.chromium.components.prefs.PrefService;
-import org.chromium.components.signin.identitymanager.ConsentLevel;
 import org.chromium.components.user_prefs.UserPrefs;
 import org.chromium.ui.text.NoUnderlineClickableSpan;
 import org.chromium.ui.text.SpanApplier;
@@ -64,12 +62,8 @@ public class PriceNotificationPreferenceFragment extends PreferenceFragmentCompa
         mEmailNotificationsSwitch =
                 (ChromeSwitchPreference) findPreference(PREF_EMAIL_NOTIFICATIONS);
         mEmailNotificationsSwitch.setOnPreferenceChangeListener(this::onPreferenceChange);
-        String email = IdentityServicesProvider.get()
-                               .getIdentityManager(Profile.getLastUsedRegularProfile())
-                               .getPrimaryAccountInfo(ConsentLevel.SYNC)
-                               .getEmail();
         mEmailNotificationsSwitch.setSummary(
-                getString(R.string.price_notifications_settings_email_description, email));
+                getString(R.string.price_notifications_settings_email_description, "nobody@example.com"));
         mPrefChangeRegistrar.addObserver(
                 Pref.PRICE_EMAIL_NOTIFICATIONS_ENABLED, this::updateEmailNotificationSwitch);
         updateEmailNotificationSwitch();

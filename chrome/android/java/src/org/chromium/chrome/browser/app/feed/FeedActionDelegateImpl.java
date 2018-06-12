@@ -19,7 +19,6 @@ import org.chromium.chrome.browser.offlinepages.OfflinePageBridge;
 import org.chromium.chrome.browser.offlinepages.RequestCoordinatorBridge;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.share.crow.CrowButtonDelegate;
-import org.chromium.chrome.browser.signin.SyncConsentActivityLauncherImpl;
 import org.chromium.chrome.browser.suggestions.SuggestionsConfig;
 import org.chromium.chrome.browser.tab.EmptyTabObserver;
 import org.chromium.chrome.browser.tab.Tab;
@@ -129,8 +128,6 @@ public class FeedActionDelegateImpl implements FeedActionDelegate {
     @Override
     public void showSignInActivity() {
         if (ChromeFeatureList.isEnabled(ChromeFeatureList.FEED_SHOW_SIGN_IN_COMMAND)) {
-            SyncConsentActivityLauncherImpl.get().launchActivityIfAllowed(
-                    mActivityContext, SigninAccessPoint.NTP_CONTENT_SUGGESTIONS);
         }
     }
 

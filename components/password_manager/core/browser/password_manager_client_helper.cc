@@ -13,28 +13,9 @@
 #include "components/password_manager/core/browser/password_sync_util.h"
 #include "components/password_manager/core/common/password_manager_pref_names.h"
 #include "components/prefs/pref_service.h"
-#include "components/signin/public/identity_manager/account_info.h"
-#include "components/signin/public/identity_manager/identity_manager.h"
 #include "google_apis/gaia/gaia_auth_util.h"
 
 namespace password_manager {
-
-namespace {
-
-constexpr int kMaxMoveToAccountOffersForNonOptedInUser = 5;
-
-bool IsPrimaryAccountSignIn(const signin::IdentityManager& identity_manager,
-                            const std::u16string& username,
-                            const std::string& signon_realm) {
-  CoreAccountInfo primary_account =
-      identity_manager.GetPrimaryAccountInfo(signin::ConsentLevel::kSignin);
-  return sync_util::IsGaiaCredentialPage(signon_realm) &&
-         !primary_account.IsEmpty() &&
-         gaia::AreEmailsSame(base::UTF16ToUTF8(username),
-                             primary_account.email);
-}
-
-}  // namespace
 
 PasswordManagerClientHelper::PasswordManagerClientHelper(
     PasswordManagerClient* delegate)
@@ -104,29 +85,7 @@ bool PasswordManagerClientHelper::ShouldPromptToEnableAutoSignIn() const {
 
 bool PasswordManagerClientHelper::ShouldPromptToMovePasswordToAccount(
     const PasswordFormManagerForUI& submitted_manager) const {
-  PasswordFeatureManager* feature_manager =
-      delegate_->GetPasswordFeatureManager();
-  if (!feature_manager->ShouldShowAccountStorageBubbleUi())
-    return false;
-  if (feature_manager->GetDefaultPasswordStore() ==
-      PasswordForm::Store::kProfileStore) {
-    return false;
-  }
-  if (!submitted_manager.IsMovableToAccountStore())
-    return false;
-  if (delegate_->IsIncognito())
-    return false;
-  // It's not useful to store the password for the primary account inside
-  // that same account.
-  if (IsPrimaryAccountSignIn(
-          *delegate_->GetIdentityManager(),
-          submitted_manager.GetPendingCredentials().username_value,
-          submitted_manager.GetPendingCredentials().signon_realm)) {
-    return false;
-  }
-  return feature_manager->IsOptedInForAccountStorage() ||
-         feature_manager->GetMoveOfferedToNonOptedInUserCount() <
-             kMaxMoveToAccountOffersForNonOptedInUser;
+  return false;
 }
 
 }  // namespace password_manager
