@@ -59,6 +59,7 @@ ui::ElementContext BrowserFeaturePromoController20::GetAnchorContext() const {
 
 bool BrowserFeaturePromoController20::CanShowPromoForElement(
     ui::TrackedElement* anchor_element) const {
+  if ((true)) return false;
   // Trying to show an IPH while the browser is closing can cause problems;
   // see crbug.com/346461762 for an example.
   if (browser_view_->browser()->IsBrowserClosing()) {
