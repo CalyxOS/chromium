@@ -1465,6 +1465,7 @@ public class TabbedRootUiCoordinator extends RootUiCoordinator {
     }
 
     private boolean maybeShowPromo(Profile profile) {
+        if ((true)) return false;
         // NOTE: Only one promo can be shown in one run to avoid nagging users too much.
 
         // The PWA Restore promotion runs when we've detected that a user has switched to a new
