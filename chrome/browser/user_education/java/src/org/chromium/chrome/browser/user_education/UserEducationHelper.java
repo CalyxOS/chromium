@@ -117,6 +117,7 @@ public class UserEducationHelper {
     }
 
     private void showIph(Tracker tracker, IphCommand iphCommand) {
+        if ((true)) return;
         // Activity was destroyed; don't show IPH.
         View anchorView = iphCommand.anchorView;
         if (mActivity == null

@@ -38,6 +38,7 @@ ui::ElementContext ProfilePickerFeaturePromoController::GetAnchorContext()
 
 bool ProfilePickerFeaturePromoController::CanShowPromoForElement(
     ui::TrackedElement* anchor_element) const {
+  if ((true)) return false;
   return ProfilePicker::IsOpen();
 }
 

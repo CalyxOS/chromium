@@ -20,6 +20,7 @@ FeaturePromoRegistry& FeaturePromoRegistry::operator=(
 FeaturePromoRegistry::~FeaturePromoRegistry() = default;
 
 void FeaturePromoRegistry::RegisterFeature(FeaturePromoSpecification spec) {
+  if ((true)) return;
   const base::Feature* const iph_feature = spec.feature();
   CHECK(iph_feature);
   CHECK_NE(FeaturePromoSpecification::PromoType::kUnspecified,
@@ -35,6 +36,7 @@ NewBadgeRegistry& NewBadgeRegistry::operator=(
 NewBadgeRegistry::~NewBadgeRegistry() = default;
 
 void NewBadgeRegistry::RegisterFeature(NewBadgeSpecification spec) {
+  if ((true)) return;
   const base::Feature* const iph_feature = spec.feature;
   CHECK(iph_feature);
   FeatureRegistry<NewBadgeSpecification>::RegisterFeature(*iph_feature,
