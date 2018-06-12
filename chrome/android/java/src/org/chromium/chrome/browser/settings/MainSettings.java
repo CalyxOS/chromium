@@ -226,13 +226,6 @@ public class MainSettings extends PreferenceFragmentCompat
     }
 
     private void updatePreferences() {
-        if (IdentityServicesProvider.get().getSigninManager(mProfile).isSigninSupported(
-                    /*requireUpdatedPlayServices=*/false)) {
-            addPreferenceIfAbsent(PREF_SIGN_IN);
-        } else {
-            removePreferenceIfPresent(PREF_SIGN_IN);
-        }
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
                 && ChromeFeatureList.isEnabled(
                         ChromeFeatureList.AUTOFILL_VIRTUAL_VIEW_STRUCTURE_ANDROID)) {
@@ -276,6 +269,7 @@ public class MainSettings extends PreferenceFragmentCompat
     }
 
     private void updateManageSyncPreference() {
+        if (true) return;
         String primaryAccountName = CoreAccountInfo.getEmailFrom(
                 IdentityServicesProvider.get().getIdentityManager(mProfile).getPrimaryAccountInfo(
                         ConsentLevel.SIGNIN));
