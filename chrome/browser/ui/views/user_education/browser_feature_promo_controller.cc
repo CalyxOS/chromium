@@ -76,6 +76,7 @@ ui::ElementContext BrowserFeaturePromoController::GetAnchorContext() const {
 
 bool BrowserFeaturePromoController::CanShowPromoForElement(
     ui::TrackedElement* anchor_element) const {
+  if ((true)) return false;
   auto* const profile = browser_view_->GetProfile();
 
   // Turn off IPH while a required privacy interstitial is visible or pending.
