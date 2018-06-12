@@ -68,6 +68,7 @@ ui::ElementContext BrowserFeaturePromoController::GetAnchorContext() const {
 
 bool BrowserFeaturePromoController::CanShowPromoForElement(
     ui::TrackedElement* anchor_element) const {
+  if ((true)) return false;
   auto* const profile = browser_view_->GetProfile();
   // Temporarily turn off IPH in incognito as a concern was raised that
   // the IPH backend ignores incognito and writes to the parent profile.
