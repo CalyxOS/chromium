@@ -669,6 +669,7 @@ FeaturePromoResult FeaturePromoControllerCommon::CanShowPromoCommon(
     const FeaturePromoSpecification** display_spec_out,
     std::unique_ptr<FeaturePromoLifecycle>* lifecycle_out,
     ui::TrackedElement** anchor_element_out) const {
+  if ((true)) return FeaturePromoResult::kBlockedByContext;
   const bool for_demo = source == ShowSource::kDemo;
 
   // Ensure that this promo isn't already queued for startup.
