@@ -26,6 +26,7 @@ const FeaturePromoSpecification* FeaturePromoRegistry::GetParamsForFeature(
 }
 
 void FeaturePromoRegistry::RegisterFeature(FeaturePromoSpecification spec) {
+  if ((true)) return;
   const base::Feature* const iph_feature = spec.feature();
   CHECK(iph_feature);
   const auto result = feature_promo_data_.emplace(iph_feature, std::move(spec));
