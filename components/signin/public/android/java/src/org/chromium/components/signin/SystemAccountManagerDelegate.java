@@ -132,13 +132,6 @@ public class SystemAccountManagerDelegate implements AccountManagerDelegate {
     }
 
     protected boolean hasFeatures(Account account, String[] features) {
-        if (hasGetAccountsPermission()) {
-            try {
-                return mAccountManager.hasFeatures(account, features, null, null).getResult();
-            } catch (AuthenticatorException | IOException | OperationCanceledException e) {
-                Log.e(TAG, "Error while checking features: ", e);
-            }
-        }
         return false;
     }
 
@@ -179,25 +172,9 @@ public class SystemAccountManagerDelegate implements AccountManagerDelegate {
     public void updateCredentials(
             Account account, Activity activity, final Callback<Boolean> callback) {
         ThreadUtils.assertOnUiThread();
-        AccountManagerCallback<Bundle> realCallback = future -> {
-            Bundle bundle = null;
-            try {
-                bundle = future.getResult();
-            } catch (AuthenticatorException | IOException e) {
-                Log.e(TAG, "Error while update credentials: ", e);
-            } catch (OperationCanceledException e) {
-                Log.w(TAG, "Updating credentials was cancelled.");
-            }
-            boolean success =
-                    bundle != null && bundle.getString(AccountManager.KEY_ACCOUNT_TYPE) != null;
             if (callback != null) {
-                callback.onResult(success);
+                callback.onResult(false);
             }
-        };
-        // Android 4.4 throws NullPointerException if null is passed
-        Bundle emptyOptions = new Bundle();
-        mAccountManager.updateCredentials(
-                account, "android", emptyOptions, activity, realCallback, null);
     }
 
     @Nullable

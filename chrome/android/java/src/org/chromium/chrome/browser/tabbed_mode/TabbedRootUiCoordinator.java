@@ -83,7 +83,6 @@ import org.chromium.chrome.browser.share.ShareDelegate;
 import org.chromium.chrome.browser.share.crow.CrowButtonDelegateImpl;
 import org.chromium.chrome.browser.share.crow.CrowIphController;
 import org.chromium.chrome.browser.share.link_to_text.LinkToTextIPHController;
-import org.chromium.chrome.browser.signin.SyncConsentActivityLauncherImpl;
 import org.chromium.chrome.browser.status_indicator.StatusIndicatorCoordinator;
 import org.chromium.chrome.browser.subscriptions.CommerceSubscriptionsService;
 import org.chromium.chrome.browser.subscriptions.CommerceSubscriptionsServiceFactory;
@@ -105,7 +104,6 @@ import org.chromium.chrome.browser.ui.appmenu.AppMenuDelegate;
 import org.chromium.chrome.browser.ui.appmenu.AppMenuHandler;
 import org.chromium.chrome.browser.ui.default_browser_promo.DefaultBrowserPromoUtils;
 import org.chromium.chrome.browser.ui.messages.snackbar.SnackbarManager;
-import org.chromium.chrome.browser.ui.signin.FullScreenSyncPromoUtil;
 import org.chromium.chrome.browser.ui.system.StatusBarColorController.StatusBarColorProvider;
 import org.chromium.chrome.browser.ui.tablet.emptybackground.EmptyBackgroundViewWrapper;
 import org.chromium.chrome.browser.vr.VrModuleProvider;
@@ -937,23 +935,6 @@ public class TabbedRootUiCoordinator extends RootUiCoordinator {
             }
             return isShowingPromo;
         }
-    }
-
-    private boolean maybeShowPromo() {
-        // Only one promo can be shown in one run to avoid nagging users too much.
-        if (FullScreenSyncPromoUtil.launchPromoIfNeeded(mActivity,
-                    SyncConsentActivityLauncherImpl.get(), VersionInfo.getProductMajorVersion())) {
-            return true;
-        }
-        if (DefaultBrowserPromoUtils.prepareLaunchPromoIfNeeded(
-                    mActivity, mWindowAndroid, false /* ignoreMaxCount */)) {
-            return true;
-        }
-        if (AppLanguagePromoDialog.maybeShowPrompt(mActivity, mModalDialogManagerSupplier,
-                    () -> ApplicationLifetime.terminate(true))) {
-            return true;
-        }
-        return LanguageAskPrompt.maybeShowLanguageAskPrompt(mActivity, mModalDialogManagerSupplier);
     }
 
     @VisibleForTesting

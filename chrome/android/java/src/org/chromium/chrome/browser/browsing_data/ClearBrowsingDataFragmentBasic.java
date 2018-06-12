@@ -23,16 +23,12 @@ import org.chromium.base.metrics.RecordUserAction;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.search_engines.TemplateUrlServiceFactory;
-import org.chromium.chrome.browser.signin.services.IdentityServicesProvider;
-import org.chromium.chrome.browser.sync.SyncService;
 import org.chromium.chrome.browser.tab.TabLaunchType;
 import org.chromium.chrome.browser.tabmodel.document.TabDelegate;
 import org.chromium.components.browser_ui.settings.ClickableSpansTextMessagePreference;
 import org.chromium.components.embedder_support.util.UrlConstants;
 import org.chromium.components.search_engines.TemplateUrl;
 import org.chromium.components.search_engines.TemplateUrlService;
-import org.chromium.components.signin.identitymanager.ConsentLevel;
-import org.chromium.components.signin.identitymanager.IdentityManager;
 import org.chromium.components.sync.ModelType;
 import org.chromium.ui.text.NoUnderlineClickableSpan;
 import org.chromium.ui.text.SpanApplier;
@@ -89,27 +85,11 @@ public class ClearBrowsingDataFragmentBasic extends ClearBrowsingDataFragment {
             new TabDelegate(false /* incognito */)
                     .launchUrl(UrlConstants.MY_ACTIVITY_URL_IN_CBD, TabLaunchType.FROM_CHROME_UI);
         });
-
-        IdentityManager identityManager = IdentityServicesProvider.get().getIdentityManager(
-                Profile.getLastUsedRegularProfile());
-        if (identityManager.hasPrimaryAccount(ConsentLevel.SIGNIN)) {
-            // Update the Clear Browsing History text based on the sign-in/sync state and whether
-            // the link to MyActivity is displayed inline or at the bottom of the page.
-            // Note: when  sync is disabled, the default string is used.
-            if (isHistorySyncEnabled()) {
-                // The text is different only for users with history sync.
-                historyCheckbox.setSummary(R.string.clear_browsing_history_summary_synced_no_link);
-            }
-            cookiesCheckbox.setSummary(
-                    R.string.clear_cookies_and_site_data_summary_basic_signed_in);
-        }
     }
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         super.onCreatePreferences(savedInstanceState, rootKey);
-        IdentityManager identityManager = IdentityServicesProvider.get().getIdentityManager(
-                Profile.getLastUsedRegularProfile());
         ClickableSpansTextMessagePreference googleDataTextPref =
                 (ClickableSpansTextMessagePreference) findPreference(
                         ClearBrowsingDataFragment.PREF_GOOGLE_DATA_TEXT);
@@ -120,8 +100,7 @@ public class ClearBrowsingDataFragmentBasic extends ClearBrowsingDataFragment {
         boolean isDefaultSearchEngineGoogle = templateUrlService.isDefaultSearchEngineGoogle();
 
         // Google-related links to delete search history and other browsing activity.
-        if (defaultSearchEngine == null
-                || !identityManager.hasPrimaryAccount(ConsentLevel.SIGNIN)) {
+        if (defaultSearchEngine == null) {
             // One of two cases:
             // 1. The default search engine is disabled.
             // 2. The user is not signed into Chrome.
@@ -224,9 +203,7 @@ public class ClearBrowsingDataFragmentBasic extends ClearBrowsingDataFragment {
     }
 
     private boolean isHistorySyncEnabled() {
-        SyncService syncService = SyncService.get();
-        return syncService != null && syncService.isSyncFeatureEnabled()
-                && syncService.getActiveDataTypes().contains(ModelType.HISTORY_DELETE_DIRECTIVES);
+        return false;
     }
 
     @Override

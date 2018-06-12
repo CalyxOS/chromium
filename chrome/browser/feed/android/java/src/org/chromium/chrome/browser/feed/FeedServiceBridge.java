@@ -188,7 +188,7 @@ public final class FeedServiceBridge {
      *         requested).
      */
     public static boolean isSignedIn() {
-        return FeedServiceBridgeJni.get().isSignedIn();
+        return false;
     }
 
     /** Observes whether or not the Feed stream contains unread content */

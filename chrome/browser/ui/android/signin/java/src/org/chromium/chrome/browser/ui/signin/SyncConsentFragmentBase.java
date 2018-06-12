@@ -266,35 +266,8 @@ public abstract class SyncConsentFragmentBase
     // this method replaces onSyncAccepted(), the field can be set directly.
     protected void signinAndEnableSync(
             String accountName, boolean settingsClicked, Runnable callback) {
-        AccountManagerFacadeProvider.getInstance().getAccounts().then(accounts -> {
-            @Nullable
-            Account account = AccountUtils.findAccountByName(accounts, accountName);
-            if (account == null) {
-                callback.run();
-                return;
-            }
-            SigninManager signinManager = IdentityServicesProvider.get().getSigninManager(
-                    Profile.getLastUsedRegularProfile());
-            signinManager.signinAndEnableSync(
-                    mSigninAccessPoint, account, new SigninManager.SignInCallback() {
-                        @Override
-                        public void onSignInComplete() {
-                            UnifiedConsentServiceBridge.setUrlKeyedAnonymizedDataCollectionEnabled(
-                                    Profile.getLastUsedRegularProfile(), true);
-                            if (!settingsClicked) {
-                                SyncService.get().setFirstSetupComplete(
-                                        SyncFirstSetupCompleteSource.BASIC_FLOW);
-                            }
-                            closeAndMaybeOpenSyncSettings(settingsClicked);
-                            callback.run();
-                        }
-
-                        @Override
-                        public void onSignInAborted() {
-                            callback.run();
-                        }
-                    });
-        });
+        // do nothing
+        callback.run();
     }
 
     @Override
@@ -347,10 +320,6 @@ public abstract class SyncConsentFragmentBase
                 : ProfileDataCache.createWithDefaultImageSizeAndNoBadge(requireContext());
         mProfileDataCache.addObserver(mProfileDataCacheObserver);
 
-        IdentityServicesProvider.get()
-                .getSigninManager(Profile.getLastUsedRegularProfile())
-                .addSignInStateObserver(this);
-
         // By default this is set to true so that when system back button is pressed user action
         // is recorded in onDestroy().
         mRecordUndoSignin = true;
@@ -361,9 +330,6 @@ public abstract class SyncConsentFragmentBase
     @Override
     public void onDestroy() {
         super.onDestroy();
-        IdentityServicesProvider.get()
-                .getSigninManager(Profile.getLastUsedRegularProfile())
-                .removeSignInStateObserver(this);
         mProfileDataCache.removeObserver(mProfileDataCacheObserver);
         if (mConfirmSyncDataStateMachine != null) {
             mConfirmSyncDataStateMachine.cancel(/* isBeingDestroyed = */ true);
@@ -749,21 +715,6 @@ public abstract class SyncConsentFragmentBase
 
                         // Don't start sign-in if this fragment has been destroyed.
                         if (getActivity().isDestroyed()) return;
-
-                        SigninManager signinManager =
-                                IdentityServicesProvider.get().getSigninManager(
-                                        Profile.getLastUsedRegularProfile());
-                        signinManager.runAfterOperationInProgress(() -> {
-                            if (wipeData) {
-                                signinManager.wipeSyncUserData(() -> {
-                                    onSyncAccepted(mSelectedAccountName, settingsClicked,
-                                            () -> mIsSigninInProgress = false);
-                                });
-                            } else {
-                                onSyncAccepted(mSelectedAccountName, settingsClicked,
-                                        () -> mIsSigninInProgress = false);
-                            }
-                        });
                     }
 
                     @Override

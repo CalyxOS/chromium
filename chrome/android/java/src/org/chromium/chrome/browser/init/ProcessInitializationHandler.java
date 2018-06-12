@@ -79,7 +79,6 @@ import org.chromium.chrome.browser.query_tiles.QueryTileUtils;
 import org.chromium.chrome.browser.quickactionsearchwidget.QuickActionSearchWidgetProvider;
 import org.chromium.chrome.browser.rlz.RevenueStats;
 import org.chromium.chrome.browser.searchwidget.SearchWidgetProvider;
-import org.chromium.chrome.browser.signin.SigninCheckerProvider;
 import org.chromium.chrome.browser.tab.state.PersistedTabData;
 import org.chromium.chrome.browser.tab.state.ShoppingPersistedTabData;
 import org.chromium.chrome.browser.ui.searchactivityutils.SearchActivityPreferencesManager;
@@ -98,8 +97,6 @@ import org.chromium.components.crash.anr.AnrCollector;
 import org.chromium.components.embedder_support.util.UrlUtilities;
 import org.chromium.components.minidump_uploader.CrashFileManager;
 import org.chromium.components.optimization_guide.proto.HintsProto;
-import org.chromium.components.signin.AccountManagerFacadeImpl;
-import org.chromium.components.signin.AccountManagerFacadeProvider;
 import org.chromium.components.version_info.Channel;
 import org.chromium.components.version_info.VersionConstants;
 import org.chromium.components.version_info.VersionInfo;
@@ -178,11 +175,6 @@ public class ProcessInitializationHandler {
         BrowserTaskExecutor.register();
 
         Context application = ContextUtils.getApplicationContext();
-
-        // Initialize the AccountManagerFacade with the correct AccountManagerDelegate. Must be done
-        // only once and before AccountManagerFacadeProvider.getInstance() is invoked.
-        AccountManagerFacadeProvider.setInstance(
-                new AccountManagerFacadeImpl(AppHooks.get().createAccountManagerDelegate()));
 
         setProcessStateSummaryForAnrs(false);
     }
@@ -388,7 +380,6 @@ public class ProcessInitializationHandler {
         deferredStartupHandler.addDeferredTask(new Runnable() {
             @Override
             public void run() {
-                SigninCheckerProvider.get().onMainActivityStart();
                 RevenueStats.getInstance();
             }
         });

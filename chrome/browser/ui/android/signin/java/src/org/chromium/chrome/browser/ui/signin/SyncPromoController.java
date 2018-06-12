@@ -114,20 +114,7 @@ public class SyncPromoController {
      * @param accessPoint The access point for which the impression limit is being checked.
      */
     public static boolean canShowSyncPromo(@AccessPoint int accessPoint) {
-        switch (accessPoint) {
-            case SigninAccessPoint.BOOKMARK_MANAGER:
-                return canShowBookmarkPromo();
-            case SigninAccessPoint.NTP_CONTENT_SUGGESTIONS:
-                return canShowNTPPromo();
-            case SigninAccessPoint.RECENT_TABS:
-                // There is no impression limit or dismiss button in Recent Tabs promo.
-                return true;
-            case SigninAccessPoint.SETTINGS:
-                return canShowSettingsPromo();
-            default:
-                assert false : "Unexpected value for access point: " + accessPoint;
-                return false;
-        }
+        return false;
     }
 
     private static long getNTPSyncPromoResetAfterMillis() {

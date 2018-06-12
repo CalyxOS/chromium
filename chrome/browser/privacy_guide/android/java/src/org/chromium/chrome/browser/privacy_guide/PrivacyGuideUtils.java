@@ -7,8 +7,6 @@ package org.chromium.chrome.browser.privacy_guide;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.safe_browsing.SafeBrowsingBridge;
 import org.chromium.chrome.browser.safe_browsing.SafeBrowsingState;
-import org.chromium.chrome.browser.signin.services.UnifiedConsentServiceBridge;
-import org.chromium.chrome.browser.sync.SyncService;
 import org.chromium.components.content_settings.CookieControlsMode;
 import org.chromium.components.content_settings.PrefNames;
 import org.chromium.components.sync.UserSelectableType;
@@ -24,15 +22,13 @@ import java.util.Set;
  */
 class PrivacyGuideUtils {
     public static boolean isMsbbEnabled() {
-        return UnifiedConsentServiceBridge.isUrlKeyedAnonymizedDataCollectionEnabled(
-                Profile.getLastUsedRegularProfile());
+        return false;
     }
     public static boolean isHistorySyncEnabled() {
-        Set<Integer> syncTypes = SyncService.get().getSelectedTypes();
-        return syncTypes.contains(UserSelectableType.HISTORY);
+        return false;
     }
     public static @SafeBrowsingState int getSafeBrowsingState() {
-        return SafeBrowsingBridge.getSafeBrowsingState();
+        return SafeBrowsingState.NO_SAFE_BROWSING;
     }
     public static @CookieControlsMode int getCookieControlsMode() {
         return UserPrefs.get(Profile.getLastUsedRegularProfile())

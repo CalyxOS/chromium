@@ -82,31 +82,6 @@ final class ProfileOAuth2TokenServiceDelegate {
     private void getAccessTokenFromNative(
             String accountEmail, String scope, final long nativeCallback) {
         assert accountEmail != null : "Account email cannot be null!";
-        mAccountManagerFacade.getAccounts().then(accounts -> {
-            final Account account = AccountUtils.findAccountByName(accounts, accountEmail);
-            if (account == null) {
-                ThreadUtils.postOnUiThread(() -> {
-                    ProfileOAuth2TokenServiceDelegateJni.get().onOAuth2TokenFetched(
-                            null, AccessTokenData.NO_KNOWN_EXPIRATION_TIME, false, nativeCallback);
-                });
-                return;
-            }
-            String oauth2Scope = OAUTH2_SCOPE_PREFIX + scope;
-            getAccessToken(account, oauth2Scope, new GetAccessTokenCallback() {
-                @Override
-                public void onGetTokenSuccess(AccessTokenData token) {
-                    ProfileOAuth2TokenServiceDelegateJni.get().onOAuth2TokenFetched(
-                            token.getToken(), token.getExpirationTimeSecs(), false, nativeCallback);
-                }
-
-                @Override
-                public void onGetTokenFailure(boolean isTransientError) {
-                    ProfileOAuth2TokenServiceDelegateJni.get().onOAuth2TokenFetched(null,
-                            AccessTokenData.NO_KNOWN_EXPIRATION_TIME, isTransientError,
-                            nativeCallback);
-                }
-            });
-        });
     }
 
     /**
@@ -161,32 +136,5 @@ final class ProfileOAuth2TokenServiceDelegate {
     @CalledByNative
     void seedAndReloadAccountsWithPrimaryAccount(@Nullable String primaryAccountId) {
         ThreadUtils.assertOnUiThread();
-        mAccountTrackerService.seedAccountsIfNeeded(() -> {
-            final List<Account> accounts = AccountUtils.getAccountsIfFulfilledOrEmpty(
-                    AccountManagerFacadeProvider.getInstance().getAccounts());
-            ProfileOAuth2TokenServiceDelegateJni.get()
-                    .reloadAllAccountsWithPrimaryAccountAfterSeeding(
-                            mNativeProfileOAuth2TokenServiceDelegate, primaryAccountId,
-                            AccountUtils.toAccountNames(accounts).toArray(new String[0]));
-        });
-    }
-
-    @NativeMethods
-    interface Natives {
-        /**
-         * Called to C++ when fetching of an OAuth2 token is finished.
-         * @param authToken The string value of the OAuth2 token.
-         * @param expirationTimeSecs The number of seconds after the Unix epoch when the token is
-         *         scheduled to expire. It is set to 0 if there's no known expiration time.
-         * @param isTransientError Indicates if the error is transient (network timeout or
-         *          * unavailable, etc) or persistent (bad credentials, permission denied, etc).
-         * @param nativeCallback the pointer to the native callback that should be run upon
-         *         completion.
-         */
-        void onOAuth2TokenFetched(String authToken, long expirationTimeSecs,
-                boolean isTransientError, long nativeCallback);
-        void reloadAllAccountsWithPrimaryAccountAfterSeeding(
-                long nativeProfileOAuth2TokenServiceDelegateAndroid, @Nullable String accountId,
-                String[] deviceAccountNames);
     }
 }

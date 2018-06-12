@@ -98,54 +98,8 @@ public class HttpNegotiateAuthenticator {
 
         @Override
         public void run(AccountManagerFuture<Account[]> future) {
-            Account[] accounts;
-            try {
-                accounts = future.getResult();
-            } catch (OperationCanceledException | AuthenticatorException | IOException e) {
-                Log.w(TAG, "ERR_UNEXPECTED: Error while attempting to retrieve accounts.", e);
-                HttpNegotiateAuthenticatorJni.get().setResult(mRequestData.nativeResultObject,
-                        HttpNegotiateAuthenticator.this, NetError.ERR_UNEXPECTED, null);
-                return;
-            }
-
-            if (accounts.length == 0) {
-                Log.w(TAG, "ERR_MISSING_AUTH_CREDENTIALS: No account provided for the kerberos "
-                                + "authentication. Please verify the configuration policies and "
-                                + "that the CONTACTS runtime permission is granted. ");
-                HttpNegotiateAuthenticatorJni.get().setResult(mRequestData.nativeResultObject,
-                        HttpNegotiateAuthenticator.this, NetError.ERR_MISSING_AUTH_CREDENTIALS,
-                        null);
-                return;
-            }
-
-            if (accounts.length > 1) {
-                Log.w(TAG, "ERR_MISSING_AUTH_CREDENTIALS: Found %d accounts eligible for the "
-                                + "kerberos authentication. Please fix the configuration by "
-                                + "providing a single account.",
-                        accounts.length);
-                HttpNegotiateAuthenticatorJni.get().setResult(mRequestData.nativeResultObject,
-                        HttpNegotiateAuthenticator.this, NetError.ERR_MISSING_AUTH_CREDENTIALS,
-                        null);
-                return;
-            }
-
-            if (lacksPermission(ContextUtils.getApplicationContext(),
-                        "android.permission.USE_CREDENTIALS", true)) {
-                // Protecting the AccountManager#getAuthToken call.
-                // API  < 23 Requires the USE_CREDENTIALS permission or throws an exception.
-                // API >= 23 USE_CREDENTIALS permission is removed
-                Log.e(TAG, "ERR_MISCONFIGURED_AUTH_ENVIRONMENT: USE_CREDENTIALS permission not "
-                                + "granted. Aborting authentication.");
-                HttpNegotiateAuthenticatorJni.get().setResult(mRequestData.nativeResultObject,
-                        HttpNegotiateAuthenticator.this,
-                        NetError.ERR_MISCONFIGURED_AUTH_ENVIRONMENT, null);
-                return;
-            }
-            mRequestData.account = accounts[0];
-            mRequestData.accountManager.getAuthToken(mRequestData.account,
-                    mRequestData.authTokenType, mRequestData.options, true /* notifyAuthFailure */,
-                    new GetTokenCallback(mRequestData),
-                    new Handler(ThreadUtils.getUiThreadLooper()));
+            // account-based authentication removed for privacy-violations concerns
+            return;
         }
     }
 
@@ -158,42 +112,8 @@ public class HttpNegotiateAuthenticator {
 
         @Override
         public void run(AccountManagerFuture<Bundle> future) {
-            Bundle result;
-            try {
-                result = future.getResult();
-            } catch (OperationCanceledException | AuthenticatorException | IOException e) {
-                Log.w(TAG, "ERR_UNEXPECTED: Error while attempting to obtain a token.", e);
-                HttpNegotiateAuthenticatorJni.get().setResult(mRequestData.nativeResultObject,
-                        HttpNegotiateAuthenticator.this, NetError.ERR_UNEXPECTED, null);
-                return;
-            }
-
-            if (result.containsKey(AccountManager.KEY_INTENT)) {
-                final Context appContext = ContextUtils.getApplicationContext();
-
-                // We wait for a broadcast that should be sent once the user is done interacting
-                // with the notification
-                // TODO(dgn) We currently hang around if the notification is swiped away, until
-                // a LOGIN_ACCOUNTS_CHANGED_ACTION filter is received. It might be for something
-                // unrelated then we would wait again here. Maybe we should limit the number of
-                // retries in some way?
-                BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-
-                    @Override
-                    public void onReceive(Context context, Intent intent) {
-                        appContext.unregisterReceiver(this);
-                        mRequestData.accountManager.getAuthToken(mRequestData.account,
-                                mRequestData.authTokenType, mRequestData.options,
-                                true /* notifyAuthFailure */, new GetTokenCallback(mRequestData),
-                                null);
-                    }
-
-                };
-                ContextUtils.registerProtectedBroadcastReceiver(appContext, broadcastReceiver,
-                        new IntentFilter(AccountManager.LOGIN_ACCOUNTS_CHANGED_ACTION));
-            } else {
-                processResult(result, mRequestData);
-            }
+            // account-based authentication removed for privacy-violations concerns
+            return;
         }
     }
 

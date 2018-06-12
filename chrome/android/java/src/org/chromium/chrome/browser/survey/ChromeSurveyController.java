@@ -275,7 +275,7 @@ public class ChromeSurveyController implements InfoBarAnimationListener {
                             .with(MessageBannerProperties.TITLE,
                                     resources.getString(R.string.chrome_survey_message_title))
                             .with(MessageBannerProperties.ICON_RESOURCE_ID,
-                                    R.drawable.chrome_sync_logo)
+                                    R.drawable.ic_help_and_feedback)
                             .with(MessageBannerProperties.ICON_TINT_COLOR,
                                     MessageBannerProperties.TINT_NONE)
                             .with(MessageBannerProperties.PRIMARY_BUTTON_TEXT,
@@ -350,7 +350,7 @@ public class ChromeSurveyController implements InfoBarAnimationListener {
             InfoBarContainer.get(tab).addAnimationListener(this);
 
             SurveyInfoBar.showSurveyInfoBar(
-                    tab.getWebContents(), R.drawable.chrome_sync_logo, getSurveyInfoBarDelegate());
+                    tab.getWebContents(), R.drawable.ic_help_and_feedback, getSurveyInfoBarDelegate());
 
             RecordUserAction.record("Android.Survey.ShowSurveyInfoBar");
         }
@@ -363,7 +363,7 @@ public class ChromeSurveyController implements InfoBarAnimationListener {
      */
     private void showSurvey(String siteId) {
         SurveyController.getInstance().showSurveyIfAvailable(
-                mActivity, siteId, true, R.drawable.chrome_sync_logo, mLifecycleDispatcher);
+                mActivity, siteId, true, R.drawable.ic_help_and_feedback, mLifecycleDispatcher);
     }
 
     /**

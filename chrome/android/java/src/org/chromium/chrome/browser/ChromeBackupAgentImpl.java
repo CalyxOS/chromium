@@ -27,7 +27,6 @@ import org.chromium.chrome.browser.init.AsyncInitTaskRunner;
 import org.chromium.chrome.browser.init.ChromeBrowserInitializer;
 import org.chromium.chrome.browser.preferences.ChromePreferenceKeys;
 import org.chromium.chrome.browser.profiles.Profile;
-import org.chromium.chrome.browser.signin.services.IdentityServicesProvider;
 import org.chromium.components.signin.AccountManagerFacadeProvider;
 import org.chromium.components.signin.AccountUtils;
 import org.chromium.components.signin.base.CoreAccountInfo;
@@ -179,7 +178,6 @@ public class ChromeBackupAgentImpl extends ChromeBackupAgent.Impl {
             ParcelFileDescriptor newState) throws IOException {
         final ArrayList<String> backupNames = new ArrayList<>();
         final ArrayList<byte[]> backupValues = new ArrayList<>();
-        final AtomicReference<CoreAccountInfo> syncAccount = new AtomicReference<>();
 
         // The native preferences can only be read on the UI thread.
         Boolean nativePrefsRead = PostTask.runSynchronously(UiThreadTaskTraits.DEFAULT, () -> {
@@ -187,10 +185,6 @@ public class ChromeBackupAgentImpl extends ChromeBackupAgent.Impl {
             // preferences. Although Chrome requests the backup, it doesn't happen
             // immediately, so by the time it does Chrome may not be running.
             if (!initializeBrowser()) return false;
-
-            syncAccount.set(IdentityServicesProvider.get()
-                                    .getIdentityManager(Profile.getLastUsedRegularProfile())
-                                    .getPrimaryAccountInfo(ConsentLevel.SYNC));
 
             String[] nativeBackupNames = ChromeBackupAgentImplJni.get().getBoolBackupNames(this);
             boolean[] nativeBackupValues = ChromeBackupAgentImplJni.get().getBoolBackupValues(this);
@@ -245,8 +239,7 @@ public class ChromeBackupAgentImpl extends ChromeBackupAgent.Impl {
 
         // Finally add the user id.
         backupNames.add(ANDROID_DEFAULT_PREFIX + SIGNED_IN_ACCOUNT_KEY);
-        backupValues.add(ApiCompatibilityUtils.getBytesUtf8(
-                syncAccount.get() == null ? "" : syncAccount.get().getEmail()));
+        backupValues.add(ApiCompatibilityUtils.getBytesUtf8(""));
 
         BackupState newBackupState = new BackupState(backupNames, backupValues);
 

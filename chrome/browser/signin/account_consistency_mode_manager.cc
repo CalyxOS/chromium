@@ -31,9 +31,9 @@
 #error "Dice and Mirror cannot be both enabled."
 #endif
 
-#if !BUILDFLAG(ENABLE_DICE_SUPPORT) && !BUILDFLAG(ENABLE_MIRROR)
-#error "Either Dice or Mirror should be enabled."
-#endif
+// #if !BUILDFLAG(ENABLE_DICE_SUPPORT) && !BUILDFLAG(ENABLE_MIRROR)
+// #error "Either Dice or Mirror should be enabled."
+// #endif
 
 using signin::AccountConsistencyMethod;
 
@@ -202,6 +202,5 @@ AccountConsistencyModeManager::ComputeAccountConsistencyMethod(
   return AccountConsistencyMethod::kDice;
 #endif
 
-  NOTREACHED();
   return AccountConsistencyMethod::kDisabled;
 }

@@ -20,7 +20,6 @@ import org.chromium.chrome.browser.language.AppLocaleUtils;
 import org.chromium.chrome.browser.optimization_guide.OptimizationGuideBridgeFactory;
 import org.chromium.chrome.browser.privacy.settings.PrivacyPreferencesManagerImpl;
 import org.chromium.chrome.browser.profiles.Profile;
-import org.chromium.chrome.browser.signin.services.UnifiedConsentServiceBridge;
 import org.chromium.chrome.browser.tab.Tab;
 import org.chromium.chrome.browser.tab.TabLaunchType;
 import org.chromium.chrome.browser.tabmodel.document.TabDelegate;
@@ -220,9 +219,7 @@ public class CrowButtonDelegateImpl implements CrowButtonDelegate {
 
     private boolean areMetricsEnabled() {
         // Require UMA and "Make searches and browsing better" to be enabled.
-        return (PrivacyPreferencesManagerImpl.getInstance().isUsageAndCrashReportingPermitted()
-                && UnifiedConsentServiceBridge.isUrlKeyedAnonymizedDataCollectionEnabled(
-                        Profile.getLastUsedRegularProfile()));
+        return false;
     }
 
     @Override

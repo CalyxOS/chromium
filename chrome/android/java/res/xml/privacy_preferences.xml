@@ -54,8 +54,4 @@ found in the LICENSE file.
         android:title="@string/cablev2_paask_title"
         android:summary="@string/cablev2_paask_body"
         android:fragment="org.chromium.chrome.browser.webauthn.PrivacySettingsFragment"/>
-    <org.chromium.components.browser_ui.settings.TextMessagePreference
-        android:key="sync_and_services_link"
-        android:summary="@string/privacy_sync_and_services_link_legacy"
-        app:allowDividerBelow="false"/>
 </PreferenceScreen>
