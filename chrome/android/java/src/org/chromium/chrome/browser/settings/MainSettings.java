@@ -229,7 +229,6 @@ public class MainSettings extends PreferenceFragmentCompat
             Preference preference = getPreferenceScreen().getPreference(index);
             mAllPreferences.put(preference.getKey(), preference);
         }
-        mSignInPreference = (SignInPreference) mAllPreferences.get(PREF_SIGN_IN);
         mManageSync = (ChromeBasePreference) findPreference(PREF_MANAGE_SYNC);
     }
 
@@ -239,14 +238,6 @@ public class MainSettings extends PreferenceFragmentCompat
     }
 
     private void updatePreferences() {
-        if (IdentityServicesProvider.get()
-                        .getSigninManager(Profile.getLastUsedRegularProfile())
-                        .isSigninSupported()) {
-            addPreferenceIfAbsent(PREF_SIGN_IN);
-        } else {
-            removePreferenceIfPresent(PREF_SIGN_IN);
-        }
-
         updateManageSyncPreference();
         updateSearchEnginePreference();
         updatePasswordsPreference();
@@ -282,6 +273,7 @@ public class MainSettings extends PreferenceFragmentCompat
     }
 
     private void updateManageSyncPreference() {
+        if (true) return;
         String primaryAccountName = CoreAccountInfo.getEmailFrom(
                 IdentityServicesProvider.get()
                         .getIdentityManager(Profile.getLastUsedRegularProfile())
