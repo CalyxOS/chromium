@@ -193,29 +193,6 @@ public class MainSettings extends ChromeBaseSettingsFragment
         ProfileDataCache profileDataCache =
                 ProfileDataCache.createWithDefaultImageSizeAndNoBadge(getContext());
         AccountManagerFacade accountManagerFacade = AccountManagerFacadeProvider.getInstance();
-        SigninManager signinManager = IdentityServicesProvider.get().getSigninManager(getProfile());
-        IdentityManager identityManager =
-                IdentityServicesProvider.get().getIdentityManager(getProfile());
-
-        SyncPromoPreference syncPromoPreference = findPreference(PREF_SYNC_PROMO);
-        AccountPickerBottomSheetStrings bottomSheetStrings =
-                new AccountPickerBottomSheetStrings.Builder(
-                                R.string.signin_account_picker_bottom_sheet_title)
-                        .build();
-        syncPromoPreference.initialize(
-                profileDataCache,
-                accountManagerFacade,
-                signinManager,
-                identityManager,
-                new SyncPromoController(
-                        getProfile(),
-                        bottomSheetStrings,
-                        SigninAccessPoint.SETTINGS,
-                        SyncConsentActivityLauncherImpl.get(),
-                        SigninAndHistoryOptInActivityLauncherImpl.get()));
-
-        SignInPreference signInPreference = findPreference(PREF_SIGN_IN);
-        signInPreference.initialize(getProfile(), profileDataCache, accountManagerFacade);
 
         if (ChromeFeatureList.isEnabled(
                 ChromeFeatureList.REPLACE_SYNC_PROMOS_WITH_SIGN_IN_PROMOS)) {
@@ -306,14 +283,6 @@ public class MainSettings extends ChromeBaseSettingsFragment
     }
 
     private void updatePreferences() {
-        if (IdentityServicesProvider.get()
-                .getSigninManager(getProfile())
-                .isSigninSupported(/* requireUpdatedPlayServices= */ false)) {
-            addPreferenceIfAbsent(PREF_SIGN_IN);
-        } else {
-            removePreferenceIfPresent(PREF_SIGN_IN);
-        }
-
         updateManageSyncPreference();
         updateSearchEnginePreference();
         updateAutofillPreferences();
@@ -367,6 +336,7 @@ public class MainSettings extends ChromeBaseSettingsFragment
     }
 
     private void updateManageSyncPreference() {
+        if (true) return;
         String primaryAccountName =
                 CoreAccountInfo.getEmailFrom(
                         IdentityServicesProvider.get()
