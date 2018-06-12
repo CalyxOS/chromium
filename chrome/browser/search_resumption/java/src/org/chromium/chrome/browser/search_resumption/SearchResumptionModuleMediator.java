@@ -19,10 +19,6 @@ import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.search_engines.TemplateUrlServiceFactory;
 import org.chromium.chrome.browser.search_resumption.SearchResumptionModuleUtils.ModuleNotShownReason;
 import org.chromium.chrome.browser.search_resumption.SearchResumptionUserData.SuggestionResult;
-import org.chromium.chrome.browser.signin.services.IdentityServicesProvider;
-import org.chromium.chrome.browser.signin.services.SigninManager;
-import org.chromium.chrome.browser.signin.services.SigninManager.SignInStateObserver;
-import org.chromium.chrome.browser.sync.SyncService;
 import org.chromium.chrome.browser.tab.Tab;
 import org.chromium.components.metrics.OmniboxEventProtos.OmniboxEventProto.PageClassification;
 import org.chromium.components.omnibox.AutocompleteMatch;
@@ -36,15 +32,11 @@ import java.util.List;
 /**
  * This class holds querying search suggestions related business logic.
  */
-public class SearchResumptionModuleMediator implements OnSuggestionsReceivedListener,
-                                                       SignInStateObserver,
-                                                       SyncService.SyncStateChangedListener {
+public class SearchResumptionModuleMediator implements OnSuggestionsReceivedListener {
     private final ViewStub mStub;
     private final Tab mTabToTrackSuggestion;
     private final Tab mCurrentTab;
     private final SearchResumptionTileBuilder mTileBuilder;
-    private final SigninManager mSignInManager;
-    private final SyncService mSyncService;
     private AutocompleteController mAutoComplete;
     private PropertyModel mModel;
     // Set the default values of these variable true since all of them have been checked before
@@ -73,10 +65,6 @@ public class SearchResumptionModuleMediator implements OnSuggestionsReceivedList
         } else {
             start(profile);
         }
-        mSignInManager = IdentityServicesProvider.get().getSigninManager(profile);
-        mSignInManager.addSignInStateObserver(this);
-        mSyncService = SyncService.get();
-        mSyncService.addSyncStateChangedListener(this);
         TemplateUrlServiceFactory.get().addObserver(this::onTemplateURLServiceChanged);
     }
 
@@ -93,27 +81,6 @@ public class SearchResumptionModuleMediator implements OnSuggestionsReceivedList
 
         showSearchSuggestionModule(
                 autocompleteResult.getSuggestionsList(), false /* useCachedResults */);
-    }
-
-    /**
-     * SyncService.SyncStateChangedListener implementation, listens to sync state changes.
-     */
-    @Override
-    public void syncStateChanged() {
-        mHasKeepEverythingSynced = mSyncService.hasKeepEverythingSynced();
-        updateVisibility();
-    }
-
-    @Override
-    public void onSignedIn() {
-        mIsSignedIn = true;
-        updateVisibility();
-    }
-
-    @Override
-    public void onSignedOut() {
-        mIsSignedIn = false;
-        updateVisibility();
     }
 
     /**
@@ -176,8 +143,6 @@ public class SearchResumptionModuleMediator implements OnSuggestionsReceivedList
             mSearchResumptionModuleBridge.destroy();
         }
         TemplateUrlServiceFactory.get().removeObserver(this::onTemplateURLServiceChanged);
-        mSignInManager.removeSignInStateObserver(this);
-        mSyncService.removeSyncStateChangedListener(this);
     }
 
     /**

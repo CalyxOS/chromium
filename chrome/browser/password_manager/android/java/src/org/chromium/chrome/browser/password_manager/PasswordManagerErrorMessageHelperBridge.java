@@ -16,11 +16,7 @@ import org.chromium.chrome.browser.preferences.ChromePreferenceKeys;
 import org.chromium.chrome.browser.preferences.Pref;
 import org.chromium.chrome.browser.preferences.SharedPreferencesManager;
 import org.chromium.chrome.browser.profiles.Profile;
-import org.chromium.chrome.browser.signin.services.IdentityServicesProvider;
 import org.chromium.components.prefs.PrefService;
-import org.chromium.components.signin.AccountManagerFacadeProvider;
-import org.chromium.components.signin.base.CoreAccountInfo;
-import org.chromium.components.signin.identitymanager.ConsentLevel;
 import org.chromium.components.user_prefs.UserPrefs;
 import org.chromium.ui.base.WindowAndroid;
 
@@ -49,15 +45,6 @@ public class PasswordManagerErrorMessageHelperBridge {
      */
     @CalledByNative
     static boolean shouldShowErrorUi() {
-        Profile profile = Profile.getLastUsedRegularProfile();
-        final CoreAccountInfo primaryAccountInfo =
-                IdentityServicesProvider.get().getIdentityManager(profile).getPrimaryAccountInfo(
-                        ConsentLevel.SIGNIN);
-        // It is possible that the account is removed from Chrome between the password manager
-        // calling the Google Play Services backend and Chrome receiving the reply. In that
-        // case, the error is no longer relevant/fixable.
-        if (primaryAccountInfo == null) return false;
-
         if (ChromeFeatureList.getFieldTrialParamByFeatureAsBoolean(
                     ChromeFeatureList.UNIFIED_PASSWORD_MANAGER_ERROR_MESSAGES,
                     "ignore_auth_error_message_timeouts", false)) {
@@ -91,18 +78,5 @@ public class PasswordManagerErrorMessageHelperBridge {
      */
     @CalledByNative
     static void startUpdateAccountCredentialsFlow(WindowAndroid windowAndroid) {
-        Profile profile = Profile.getLastUsedRegularProfile();
-        final CoreAccountInfo primaryAccountInfo =
-                IdentityServicesProvider.get().getIdentityManager(profile).getPrimaryAccountInfo(
-                        ConsentLevel.SIGNIN);
-        // If the account has been removed before calling this method, there are no credentials to
-        // update.
-        if (primaryAccountInfo == null) return;
-        final Activity activity = windowAndroid.getActivity().get();
-        AccountManagerFacadeProvider.getInstance().updateCredentials(
-                CoreAccountInfo.getAndroidAccountFrom(primaryAccountInfo), activity, (success) -> {
-                    RecordHistogram.recordBooleanHistogram(
-                            "PasswordManager.UPMUpdateSignInCredentialsSucces", success);
-                });
     }
 }

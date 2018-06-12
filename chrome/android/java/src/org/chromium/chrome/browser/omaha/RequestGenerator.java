@@ -46,9 +46,7 @@ public abstract class RequestGenerator {
     }
 
     protected RequestGenerator() {
-        UniqueIdentificationGeneratorFactory.registerGenerator(
-                SettingsSecureBasedIdentificationGenerator.GENERATOR_ID,
-                new SettingsSecureBasedIdentificationGenerator(), false);
+        
     }
 
     /**

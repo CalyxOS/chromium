@@ -81,14 +81,11 @@ public class PriceTrackingFeatures {
     }
 
     private static boolean isSignedIn() {
-        return IdentityServicesProvider.get()
-                .getIdentityManager(Profile.getLastUsedRegularProfile())
-                .hasPrimaryAccount(ConsentLevel.SYNC);
+        return false;
     }
 
     private static boolean isAnonymizedUrlDataCollectionEnabled() {
-        return UnifiedConsentServiceBridge.isUrlKeyedAnonymizedDataCollectionEnabled(
-                Profile.getLastUsedRegularProfile());
+        return false;
     }
 
     @VisibleForTesting

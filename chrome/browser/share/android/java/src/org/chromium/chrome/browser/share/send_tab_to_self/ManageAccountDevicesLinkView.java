@@ -23,7 +23,6 @@ import org.chromium.chrome.R;
 import org.chromium.chrome.browser.browserservices.intents.WebappConstants;
 import org.chromium.chrome.browser.document.ChromeLauncherActivity;
 import org.chromium.chrome.browser.profiles.Profile;
-import org.chromium.chrome.browser.signin.services.IdentityServicesProvider;
 import org.chromium.components.browser_ui.widget.RoundedCornerImageView;
 import org.chromium.components.embedder_support.util.UrlConstants;
 import org.chromium.components.signin.base.AccountInfo;
@@ -73,32 +72,18 @@ public class ManageAccountDevicesLinkView extends LinearLayout {
         LayoutInflater.from(getContext())
                 .inflate(R.layout.send_tab_to_self_manage_devices_link, this);
 
-        AccountInfo account = getSharingAccountInfo();
-        assert account != null;
-
-        // The avatar can be null in tests.
-        if (account.getAccountImage() != null) {
-            RoundedCornerImageView avatarView = findViewById(R.id.account_avatar);
-            int accountAvatarSizePx =
-                    Math.round(ACCOUNT_AVATAR_SIZE_DP * getResources().getDisplayMetrics().density);
-            avatarView.setImageBitmap(Bitmap.createScaledBitmap(
-                    account.getAccountImage(), accountAvatarSizePx, accountAvatarSizePx, false));
-            avatarView.setRoundedCorners(accountAvatarSizePx / 2, accountAvatarSizePx / 2,
-                    accountAvatarSizePx / 2, accountAvatarSizePx / 2);
-        }
-
         TextView linkView = findViewById(R.id.manage_devices_link);
         if (mShowLink) {
             SpannableString linkText = SpanApplier.applySpans(
                     getResources().getString(
-                            R.string.send_tab_to_self_manage_devices_link, account.getEmail()),
+                            R.string.send_tab_to_self_manage_devices_link, "nobody@example.com"),
                     new SpanApplier.SpanInfo("<link>", "</link>",
                             new NoUnderlineClickableSpan(
                                     getContext(), this::openManageDevicesPageInNewTab)));
             linkView.setText(linkText);
             linkView.setMovementMethod(LinkMovementMethod.getInstance());
         } else {
-            linkView.setText(account.getEmail());
+            linkView.setText("nobody@example.com");
         }
     }
 
@@ -115,12 +100,5 @@ public class ManageAccountDevicesLinkView extends LinearLayout {
                         .putExtra(WebappConstants.REUSE_URL_MATCHING_TAB_ELSE_NEW_TAB, true);
         IntentUtils.addTrustedIntentExtras(intent);
         getContext().startActivity(intent);
-    }
-
-    private static AccountInfo getSharingAccountInfo() {
-        IdentityManager identityManager = IdentityServicesProvider.get().getIdentityManager(
-                Profile.getLastUsedRegularProfile());
-        return identityManager.findExtendedAccountInfoByEmailAddress(
-                identityManager.getPrimaryAccountInfo(ConsentLevel.SIGNIN).getEmail());
     }
 }

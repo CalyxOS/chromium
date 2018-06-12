@@ -33,9 +33,6 @@ import org.chromium.chrome.browser.privacy_sandbox.PrivacySandboxSettingsBaseFra
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.settings.ChromeManagedPreferenceDelegate;
 import org.chromium.chrome.browser.settings.SettingsLauncherImpl;
-import org.chromium.chrome.browser.signin.services.IdentityServicesProvider;
-import org.chromium.chrome.browser.sync.settings.GoogleServicesSettings;
-import org.chromium.chrome.browser.sync.settings.ManageSyncSettings;
 import org.chromium.components.browser_ui.settings.ChromeSwitchPreference;
 import org.chromium.components.browser_ui.settings.ManagedPreferenceDelegate;
 import org.chromium.components.browser_ui.settings.SettingsLauncher;
@@ -58,7 +55,6 @@ public class PrivacySettings
     private static final String PREF_HTTPS_FIRST_MODE = "https_first_mode";
     private static final String PREF_SECURE_DNS = "secure_dns";
     private static final String PREF_DO_NOT_TRACK = "do_not_track";
-    private static final String PREF_SYNC_AND_SERVICES_LINK = "sync_and_services_link";
     private static final String PREF_CLEAR_BROWSING_DATA = "clear_browsing_data";
     private static final String PREF_PRIVACY_SANDBOX = "privacy_sandbox";
     private static final String PREF_PRIVACY_GUIDE = "privacy_guide";
@@ -131,9 +127,6 @@ public class PrivacySettings
         Preference secureDnsPref = findPreference(PREF_SECURE_DNS);
         secureDnsPref.setVisible(SecureDnsSettings.isUiEnabled());
 
-        Preference syncAndServicesLink = findPreference(PREF_SYNC_AND_SERVICES_LINK);
-        syncAndServicesLink.setSummary(buildSyncAndServicesLink());
-
         Preference thirdPartyCookies = findPreference(PREF_THIRD_PARTY_COOKIES);
         if (thirdPartyCookies != null) {
             thirdPartyCookies.getExtras().putString(
@@ -143,30 +136,6 @@ public class PrivacySettings
         }
 
         updatePreferences();
-    }
-
-    private SpannableString buildSyncAndServicesLink() {
-        SettingsLauncher settingsLauncher = new SettingsLauncherImpl();
-        NoUnderlineClickableSpan servicesLink = new NoUnderlineClickableSpan(getContext(), v -> {
-            settingsLauncher.launchSettingsActivity(getActivity(), GoogleServicesSettings.class);
-        });
-        if (IdentityServicesProvider.get()
-                        .getIdentityManager(Profile.getLastUsedRegularProfile())
-                        .getPrimaryAccountInfo(ConsentLevel.SYNC)
-                == null) {
-            // Sync is off, show the string with one link to "Google Services".
-            return SpanApplier.applySpans(
-                    getString(R.string.privacy_sync_and_services_link_sync_off),
-                    new SpanApplier.SpanInfo("<link>", "</link>", servicesLink));
-        }
-        // Otherwise, show the string with both links to "Sync" and "Google Services".
-        NoUnderlineClickableSpan syncLink = new NoUnderlineClickableSpan(getContext(), v -> {
-            settingsLauncher.launchSettingsActivity(getActivity(), ManageSyncSettings.class,
-                    ManageSyncSettings.createArguments(false));
-        });
-        return SpanApplier.applySpans(getString(R.string.privacy_sync_and_services_link_sync_on),
-                new SpanApplier.SpanInfo("<link1>", "</link1>", syncLink),
-                new SpanApplier.SpanInfo("<link2>", "</link2>", servicesLink));
     }
 
     @Override

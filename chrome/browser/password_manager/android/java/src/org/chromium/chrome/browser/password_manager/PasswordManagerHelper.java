@@ -33,7 +33,6 @@ import org.chromium.chrome.browser.password_manager.CredentialManagerLauncher.Cr
 import org.chromium.chrome.browser.password_manager.PasswordCheckupClientHelper.PasswordCheckBackendException;
 import org.chromium.chrome.browser.preferences.Pref;
 import org.chromium.chrome.browser.profiles.Profile;
-import org.chromium.chrome.browser.sync.SyncService;
 import org.chromium.components.browser_ui.settings.SettingsLauncher;
 import org.chromium.components.prefs.PrefService;
 import org.chromium.components.signin.base.CoreAccountInfo;
@@ -149,19 +148,8 @@ public class PasswordManagerHelper {
      * @param context used to show the UI to manage passwords.
      */
     public static void showPasswordSettings(Context context, @ManagePasswordsReferrer int referrer,
-            SettingsLauncher settingsLauncher, SyncService syncService,
+            SettingsLauncher settingsLauncher,
             ObservableSupplier<ModalDialogManager> modalDialogManagerSupplier) {
-        RecordHistogram.recordEnumeratedHistogram("PasswordManager.ManagePasswordsReferrer",
-                referrer, ManagePasswordsReferrer.MAX_VALUE + 1);
-
-        if (canUseUpm()) {
-            LoadingModalDialogCoordinator loadingDialogCoordinator =
-                    LoadingModalDialogCoordinator.create(modalDialogManagerSupplier, context);
-            launchTheCredentialManager(referrer, syncService, loadingDialogCoordinator,
-                    modalDialogManagerSupplier, context);
-            return;
-        }
-
         Bundle fragmentArgs = new Bundle();
         fragmentArgs.putInt(MANAGE_PASSWORDS_REFERRER, referrer);
         context.startActivity(settingsLauncher.createSettingsActivityIntent(
@@ -182,13 +170,7 @@ public class PasswordManagerHelper {
      * @return True if Unified Password Manager can be used, false otherwise.
      */
     public static boolean canUseUpm() {
-        SyncService syncService = SyncService.get();
-        PrefService prefService = UserPrefs.get(Profile.getLastUsedRegularProfile());
-        return PasswordManagerHelper.usesUnifiedPasswordManagerUI() && syncService != null
-                && hasChosenToSyncPasswords(syncService)
-                && !prefService.getBoolean(
-                        Pref.UNENROLLED_FROM_GOOGLE_MOBILE_SERVICES_DUE_TO_ERRORS)
-                && PasswordManagerBackendSupportHelper.getInstance().isBackendPresent();
+        return false;
     }
 
     /**
@@ -201,19 +183,7 @@ public class PasswordManagerHelper {
      *         loading dialog.
      */
     public static void showPasswordCheckup(Context context, @PasswordCheckReferrer int referrer,
-            SyncService syncService,
             ObservableSupplier<ModalDialogManager> modalDialogManagerSupplier) {
-        assert canUseUpm();
-
-        Optional<String> account = hasChosenToSyncPasswords(syncService)
-                ? Optional.of(CoreAccountInfo.getEmailFrom(syncService.getAccountInfo()))
-                : Optional.empty();
-
-        LoadingModalDialogCoordinator loadingDialogCoordinator =
-                LoadingModalDialogCoordinator.create(modalDialogManagerSupplier, context);
-
-        launchPasswordCheckup(
-                referrer, account, loadingDialogCoordinator, modalDialogManagerSupplier, context);
     }
 
     /**
@@ -293,51 +263,6 @@ public class PasswordManagerHelper {
                 });
     }
 
-    /**
-     * Checks whether the sync feature is enabled and the user has chosen to sync passwords.
-     * Note that this doesn't mean that passwords are actively syncing.
-     *
-     * @param syncService the service to query about the sync status.
-     * @return true if syncing passwords is enabled
-     */
-    public static boolean hasChosenToSyncPasswords(SyncService syncService) {
-        return syncService != null && syncService.isSyncFeatureEnabled()
-                && syncService.getSelectedTypes().contains(UserSelectableType.PASSWORDS);
-    }
-
-    /**
-     * Checks whether the sync feature is enabled, the user has chosen to sync passwords and
-     * they haven't set up a custom passphrase.
-     * The caller should make sure that the sync engine is initialized before calling this
-     * method.
-     *
-     *  Note that this doesn't mean that passwords are actively syncing.
-     *
-     * @param syncService the service to query about the sync status.
-     * @return true if syncing passwords is enabled without custom passphrase.
-     */
-    public static boolean hasChosenToSyncPasswordsWithNoCustomPassphrase(SyncService syncService) {
-        assert syncService.isEngineInitialized();
-        return PasswordManagerHelper.hasChosenToSyncPasswords(syncService)
-                && !syncService.isUsingExplicitPassphrase();
-    }
-
-    /**
-     * Checks whether the user is actively syncing passwords without a custom passphrase.
-     * The caller should make sure that the sync engine is initialized before calling this
-     * method.
-     *
-     * @param syncService the service to query about the sync status.
-     * @return true if actively syncing passwords and no custom passphrase was set.
-     */
-    public static boolean isSyncingPasswordsWithNoCustomPassphrase(SyncService syncService) {
-        assert syncService.isEngineInitialized();
-        if (syncService == null || !syncService.hasSyncConsent()) return false;
-        if (!syncService.getActiveDataTypes().contains(ModelType.PASSWORDS)) return false;
-        if (syncService.isUsingExplicitPassphrase()) return false;
-        return true;
-    }
-
     public static boolean usesUnifiedPasswordManagerUI() {
         if (!ChromeFeatureList.isEnabled(UNIFIED_PASSWORD_MANAGER_ANDROID)) return false;
         @UpmExperimentVariation
@@ -378,53 +303,12 @@ public class PasswordManagerHelper {
     }
 
     public static void launchGmsUpdate(Context context) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        String deepLinkUrl = "market://details?id="
-                + GoogleApiAvailability.GOOGLE_PLAY_SERVICES_PACKAGE + "&referrer=" + STORE_REFERER;
-
-        intent.setPackage("com.android.vending");
-        intent.setData(Uri.parse(deepLinkUrl));
-        intent.putExtra("callerId", context.getPackageName());
-
-        // Request for overlay flow, Play Store will fallback to the default
-        // behaviour if overlay is not available.
-        // TODO(crbug.com/1348506): Use AlleyOop v3 overlay UI after fixing Chrome restart
-        // during the GMS Core installation.
-        // intent.putExtra("overlay", true);
-
-        context.startActivity(intent);
     }
 
     @VisibleForTesting
     static void launchTheCredentialManager(@ManagePasswordsReferrer int referrer,
-            SyncService syncService, LoadingModalDialogCoordinator loadingDialogCoordinator,
+            LoadingModalDialogCoordinator loadingDialogCoordinator,
             ObservableSupplier<ModalDialogManager> modalDialogManagerSupplier, Context context) {
-        assert canUseUpm();
-
-        CredentialManagerLauncher credentialManagerLauncher;
-        try {
-            credentialManagerLauncher = getCredentialManagerLauncher();
-        } catch (CredentialManagerBackendException exception) {
-            if (exception.errorCode != CredentialManagerError.BACKEND_VERSION_NOT_SUPPORTED) return;
-
-            showGmsUpdateDialog(modalDialogManagerSupplier, context);
-            return;
-        }
-
-        loadingDialogCoordinator.show();
-
-        long startTimeMs = SystemClock.elapsedRealtime();
-        credentialManagerLauncher.getAccountCredentialManagerIntent(referrer,
-                CoreAccountInfo.getEmailFrom(syncService.getAccountInfo()),
-                (intent)
-                        -> PasswordManagerHelper.launchCredentialManagerIntent(
-                                intent, startTimeMs, true, loadingDialogCoordinator),
-                (exception) -> {
-                    PasswordManagerHelper.recordFailureMetrics(exception, true);
-                    recordLoadingDialogMetrics(LOADING_DIALOG_CREDENTIAL_MANAGER_HISTOGRAM,
-                            loadingDialogCoordinator.getState());
-                    loadingDialogCoordinator.dismiss();
-                });
     }
 
     @VisibleForTesting

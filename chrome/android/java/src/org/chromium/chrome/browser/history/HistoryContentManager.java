@@ -35,8 +35,6 @@ import org.chromium.chrome.browser.preferences.Pref;
 import org.chromium.chrome.browser.preferences.PrefChangeRegistrar;
 import org.chromium.chrome.browser.preferences.PrefChangeRegistrar.PrefObserver;
 import org.chromium.chrome.browser.profiles.Profile;
-import org.chromium.chrome.browser.signin.services.IdentityServicesProvider;
-import org.chromium.chrome.browser.signin.services.SigninManager.SignInStateObserver;
 import org.chromium.chrome.browser.tab.Tab;
 import org.chromium.chrome.browser.tab.TabLaunchType;
 import org.chromium.chrome.browser.tabmodel.document.TabDelegate;
@@ -58,7 +56,7 @@ import java.util.function.Function;
 /**
  * Displays and manages the content view / list UI for browsing history.
  */
-public class HistoryContentManager implements SignInStateObserver, PrefObserver {
+public class HistoryContentManager implements PrefObserver {
     /**
      * Interface for a class that wants to receive updates from this Manager.
      */
@@ -229,11 +227,6 @@ public class HistoryContentManager implements SignInStateObserver, PrefObserver 
         mHistoryAdapter.generateHeaderItems();
         mHistoryAdapter.generateFooterItems();
 
-        // Listen to changes in sign in state.
-        IdentityServicesProvider.get()
-                .getSigninManager(Profile.getLastUsedRegularProfile())
-                .addSignInStateObserver(this);
-
         // Create PrefChangeRegistrar to receive notifications on preference changes.
         mPrefChangeRegistrar = new PrefChangeRegistrar();
         mPrefChangeRegistrar.addObserver(Pref.ALLOW_DELETING_BROWSER_HISTORY, this);
@@ -267,9 +260,6 @@ public class HistoryContentManager implements SignInStateObserver, PrefObserver 
         mHistoryAdapter.onDestroyed();
         mLargeIconBridge.destroy();
         mLargeIconBridge = null;
-        IdentityServicesProvider.get()
-                .getSigninManager(Profile.getLastUsedRegularProfile())
-                .removeSignInStateObserver(this);
         mPrefChangeRegistrar.destroy();
     }
 
@@ -500,21 +490,8 @@ public class HistoryContentManager implements SignInStateObserver, PrefObserver 
     }
 
     @Override
-    public void onSignedIn() {
-        mObserver.onUserAccountStateChanged();
-        mHistoryAdapter.onSignInStateChange();
-    }
-
-    @Override
-    public void onSignedOut() {
-        mObserver.onUserAccountStateChanged();
-        mHistoryAdapter.onSignInStateChange();
-    }
-
-    @Override
     public void onPreferenceChange() {
         mObserver.onUserAccountStateChanged();
-        mHistoryAdapter.onSignInStateChange();
     }
 
     /**

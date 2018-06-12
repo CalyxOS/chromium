@@ -23,8 +23,6 @@ import org.chromium.chrome.browser.ntp.NewTabPage;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.settings.MainSettings;
 import org.chromium.chrome.browser.settings.SettingsLauncherImpl;
-import org.chromium.chrome.browser.signin.services.IdentityServicesProvider;
-import org.chromium.chrome.browser.signin.services.ProfileDataCache;
 import org.chromium.chrome.browser.tab.Tab;
 import org.chromium.chrome.browser.tasks.ReturnToChromeUtil;
 import org.chromium.chrome.browser.toolbar.ButtonData;
@@ -39,9 +37,6 @@ import org.chromium.components.feature_engagement.EventConstants;
 import org.chromium.components.feature_engagement.FeatureConstants;
 import org.chromium.components.feature_engagement.Tracker;
 import org.chromium.components.signin.base.CoreAccountInfo;
-import org.chromium.components.signin.identitymanager.ConsentLevel;
-import org.chromium.components.signin.identitymanager.IdentityManager;
-import org.chromium.components.signin.identitymanager.PrimaryAccountChangeEvent;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -50,8 +45,7 @@ import java.lang.annotation.RetentionPolicy;
  * Handles displaying IdentityDisc on toolbar depending on several conditions
  * (user sign-in state, whether NTP is shown)
  */
-public class IdentityDiscController implements NativeInitObserver, ProfileDataCache.Observer,
-                                               IdentityManager.Observer, ButtonDataProvider {
+public class IdentityDiscController implements NativeInitObserver, ButtonDataProvider {
     // Visual state of Identity Disc.
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({IdentityDiscState.NONE, IdentityDiscState.SMALL, IdentityDiscState.LARGE})
@@ -72,15 +66,6 @@ public class IdentityDiscController implements NativeInitObserver, ProfileDataCa
     private ActivityLifecycleDispatcher mActivityLifecycleDispatcher;
     private final ObservableSupplier<Profile> mProfileSupplier;
     private final Callback<Profile> mProfileSupplierObserver = this::setProfile;
-
-    // We observe IdentityManager to receive primary account state change notifications.
-    private IdentityManager mIdentityManager;
-
-    // ProfileDataCache facilitates retrieving profile picture. Separate objects are maintained
-    // for different visual states to cache profile pictures of different size.
-    // mProfileDataCache[IdentityDiscState.NONE] should always be null since in this state
-    // Identity Disc is not visible.
-    private ProfileDataCache mProfileDataCache[] = new ProfileDataCache[IdentityDiscState.MAX];
 
     // Identity disc visibility state.
     @IdentityDiscState
@@ -201,16 +186,6 @@ public class IdentityDiscController implements NativeInitObserver, ProfileDataCa
      * IdentityDiscController for profile data updates.
      */
     private void ensureProfileDataCache(String accountName, @IdentityDiscState int state) {
-        if (state == IdentityDiscState.NONE || mProfileDataCache[state] != null) return;
-
-        @DimenRes
-        int dimension_id =
-                (state == IdentityDiscState.SMALL) ? R.dimen.toolbar_identity_disc_size
-                                                   : R.dimen.toolbar_identity_disc_size_duet;
-        ProfileDataCache profileDataCache =
-                ProfileDataCache.createWithoutBadge(mContext, dimension_id);
-        profileDataCache.addObserver(this);
-        mProfileDataCache[state] = profileDataCache;
     }
 
     /**
@@ -218,7 +193,7 @@ public class IdentityDiscController implements NativeInitObserver, ProfileDataCa
      */
     private Drawable getProfileImage(String accountName) {
         assert mState != IdentityDiscState.NONE;
-        return mProfileDataCache[mState].getProfileDataOrDefault(accountName).getImage();
+        return null;
     }
 
     /**
@@ -226,59 +201,11 @@ public class IdentityDiscController implements NativeInitObserver, ProfileDataCa
      * when sign-in state changes.
      */
     private void resetIdentityDiscCache() {
-        for (int i = 0; i < IdentityDiscState.MAX; i++) {
-            if (mProfileDataCache[i] != null) {
-                assert i != IdentityDiscState.NONE;
-                mProfileDataCache[i].removeObserver(this);
-                mProfileDataCache[i] = null;
-            }
-        }
     }
 
     private void notifyObservers(boolean hint) {
         for (ButtonDataObserver observer : mObservers) {
             observer.buttonDataChanged(hint);
-        }
-    }
-
-    /**
-     * Called after profile image becomes available. Updates the image on toolbar button.
-     */
-    @Override
-    public void onProfileDataUpdated(String accountEmail) {
-        if (mState == IdentityDiscState.NONE) return;
-        assert mProfileDataCache[mState] != null;
-
-        if (accountEmail.equals(CoreAccountInfo.getEmailFrom(getSignedInAccountInfo()))) {
-            /**
-             * We need to call {@link notifyObservers(false)} before caling
-             * {@link notifyObservers(true)}. This is because {@link notifyObservers(true)} has been
-             * called in {@link setProfile()}, and without calling {@link notifyObservers(false)},
-             * the ObservableSupplierImpl doesn't propagate the call. See https://cubug.com/1137535.
-             */
-            notifyObservers(false);
-            notifyObservers(true);
-        }
-    }
-
-    /**
-     * Implements {@link IdentityManager.Observer}.
-     *
-     * IdentityDisc should be shown as long as the user is signed in. Whether the user is syncing
-     * or not should not matter.
-     */
-    @Override
-    public void onPrimaryAccountChanged(PrimaryAccountChangeEvent eventDetails) {
-        switch (eventDetails.getEventTypeFor(ConsentLevel.SIGNIN)) {
-            case PrimaryAccountChangeEvent.Type.SET:
-                resetIdentityDiscCache();
-                notifyObservers(true);
-                break;
-            case PrimaryAccountChangeEvent.Type.CLEARED:
-                notifyObservers(false);
-                break;
-            case PrimaryAccountChangeEvent.Type.NONE:
-                break;
         }
     }
 
@@ -290,18 +217,6 @@ public class IdentityDiscController implements NativeInitObserver, ProfileDataCa
         if (mActivityLifecycleDispatcher != null) {
             mActivityLifecycleDispatcher.unregister(this);
             mActivityLifecycleDispatcher = null;
-        }
-
-        for (int i = 0; i < IdentityDiscState.MAX; i++) {
-            if (mProfileDataCache[i] != null) {
-                mProfileDataCache[i].removeObserver(this);
-                mProfileDataCache[i] = null;
-            }
-        }
-
-        if (mIdentityManager != null) {
-            mIdentityManager.removeObserver(this);
-            mIdentityManager = null;
         }
 
         if (mNativeIsInitialized) {
@@ -326,9 +241,7 @@ public class IdentityDiscController implements NativeInitObserver, ProfileDataCa
      * @return account info for the current profile. Returns null for OTR profile.
      */
     private CoreAccountInfo getSignedInAccountInfo() {
-        return mIdentityManager != null
-                ? mIdentityManager.getPrimaryAccountInfo(ConsentLevel.SIGNIN)
-                : null;
+        return null;
     }
 
     /**
@@ -336,16 +249,5 @@ public class IdentityDiscController implements NativeInitObserver, ProfileDataCa
      * mIdentityManager is updated with the profile, as set to null if profile is off-the-record.
      */
     private void setProfile(Profile profile) {
-        if (mIdentityManager != null) {
-            mIdentityManager.removeObserver(this);
-        }
-
-        if (profile.isOffTheRecord()) {
-            mIdentityManager = null;
-        } else {
-            mIdentityManager = IdentityServicesProvider.get().getIdentityManager(profile);
-            mIdentityManager.addObserver(this);
-            notifyObservers(true);
-        }
     }
 }

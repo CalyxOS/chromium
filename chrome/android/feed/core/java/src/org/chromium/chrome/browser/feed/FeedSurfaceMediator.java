@@ -36,17 +36,12 @@ import org.chromium.chrome.browser.feed.v2.ContentOrder;
 import org.chromium.chrome.browser.feed.v2.FeedUserActionType;
 import org.chromium.chrome.browser.flags.ChromeFeatureList;
 import org.chromium.chrome.browser.ntp.NewTabPageLaunchOrigin;
-import org.chromium.chrome.browser.ntp.cards.SignInPromo;
 import org.chromium.chrome.browser.preferences.Pref;
 import org.chromium.chrome.browser.preferences.PrefChangeRegistrar;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.search_engines.TemplateUrlServiceFactory;
-import org.chromium.chrome.browser.signin.services.IdentityServicesProvider;
-import org.chromium.chrome.browser.signin.services.SigninManager;
 import org.chromium.chrome.browser.suggestions.SuggestionsMetrics;
 import org.chromium.chrome.browser.ui.native_page.TouchEnabledDelegate;
-import org.chromium.chrome.browser.ui.signin.PersonalizedSigninPromoView;
-import org.chromium.chrome.browser.ui.signin.SyncPromoController;
 import org.chromium.chrome.browser.xsurface.FeedLaunchReliabilityLogger;
 import org.chromium.chrome.browser.xsurface.FeedLaunchReliabilityLogger.StreamType;
 import org.chromium.chrome.browser.xsurface.ListLayoutHelper;
@@ -119,7 +114,6 @@ public class FeedSurfaceMediator
     /**
      * The {@link SignInPromo} for the Feed.
      * TODO(huayinz): Update content and visibility through a ModelChangeProcessor.
-     */
     private class FeedSignInPromo extends SignInPromo {
         FeedSignInPromo(SigninManager signinManager) {
             super(signinManager);
@@ -140,7 +134,7 @@ public class FeedSurfaceMediator
             maybeUpdateSignInPromo();
         }
 
-        /** Update the content displayed in {@link PersonalizedSigninPromoView}. */
+        ** Update the content displayed in {@link PersonalizedSigninPromoView}. *
         private void maybeUpdateSignInPromo() {
             // Only call #setupPromoViewFromCache() if SignInPromo is visible to avoid potentially
             // blocking the UI thread for several seconds if the accounts cache is not populated
@@ -158,7 +152,7 @@ public class FeedSurfaceMediator
             super.onDismissPromo();
             mCoordinator.updateHeaderViews(false);
         }
-    }
+    } */
 
     /**
      * Internal implementation of Stream.StreamsMediator.
@@ -197,7 +191,6 @@ public class FeedSurfaceMediator
     private final Context mContext;
     private final @Nullable SnapScrollHelper mSnapScrollHelper;
     private final PrefChangeRegistrar mPrefChangeRegistrar;
-    private final SigninManager mSigninManager;
     private final PropertyModel mSectionHeaderModel;
     private final FeedActionDelegate mActionDelegate;
     private final FeedOptionsCoordinator mOptionsCoordinator;
@@ -207,7 +200,6 @@ public class FeedSurfaceMediator
     private HasContentListener mHasContentListener;
     private ContentChangedListener mStreamContentChangedListener;
     private MemoryPressureCallback mMemoryPressureCallback;
-    private @Nullable SignInPromo mSignInPromo;
     private RecyclerViewAnimationFinishDetector mRecyclerViewAnimationFinishDetector =
             new RecyclerViewAnimationFinishDetector();
 
@@ -250,8 +242,6 @@ public class FeedSurfaceMediator
         mHasContentListener = coordinator;
         mContext = context;
         mSnapScrollHelper = snapScrollHelper;
-        mSigninManager = IdentityServicesProvider.get().getSigninManager(
-                Profile.getLastUsedRegularProfile());
         mActionDelegate = actionDelegate;
         mOptionsCoordinator = optionsCoordinator;
         mOptionsCoordinator.setOptionsListener(this);
@@ -473,7 +463,6 @@ public class FeedSurfaceMediator
         mFeedMenuModel = buildMenuItems();
 
         mCoordinator.initializeBubbleTriggering();
-        mSigninManager.getIdentityManager().addObserver(this);
 
         mSectionHeaderModel.set(SectionHeaderListProperties.MENU_MODEL_LIST_KEY, mFeedMenuModel);
         mSectionHeaderModel.set(
@@ -515,8 +504,6 @@ public class FeedSurfaceMediator
             }
         };
         mCoordinator.getRecyclerView().addOnScrollListener(mStreamScrollListener);
-
-        initStreamHeaderViews();
 
         mMemoryPressureCallback =
                 pressure -> mCoordinator.getRecyclerView().getRecycledViewPool().clear();
@@ -746,27 +733,12 @@ public class FeedSurfaceMediator
         }
     }
 
-    private void initStreamHeaderViews() {
-        boolean signInPromoVisible = shouldShowSigninPromo();
-        mCoordinator.updateHeaderViews(signInPromoVisible);
-    }
-
     /**
      * Determines whether a signin promo should be shown.
      * @return Whether the SignPromo should be visible.
      */
     private boolean shouldShowSigninPromo() {
-        SyncPromoController.resetNTPSyncPromoLimitsIfHiddenForTooLong();
-        if (!SignInPromo.shouldCreatePromo()
-                || !SyncPromoController.canShowSyncPromo(
-                        SigninAccessPoint.NTP_CONTENT_SUGGESTIONS)) {
-            return false;
-        }
-        if (mSignInPromo == null) {
-            mSignInPromo = new FeedSignInPromo(mSigninManager);
-            mSignInPromo.setCanShowPersonalizedSuggestions(isSuggestionsVisible());
-        }
-        return mSignInPromo.isVisible();
+        return false;
     }
 
     /** Clear any dependencies related to the {@link Stream}. */
@@ -781,11 +753,6 @@ public class FeedSurfaceMediator
         MemoryPressureListener.removeCallback(mMemoryPressureCallback);
         mMemoryPressureCallback = null;
 
-        if (mSignInPromo != null) {
-            mSignInPromo.destroy();
-            mSignInPromo = null;
-        }
-
         unbindStream();
         for (Stream s : mTabToStreamMap.values()) {
             s.removeOnContentChangedListener(mStreamContentChangedListener);
@@ -796,7 +763,6 @@ public class FeedSurfaceMediator
 
         mPrefChangeRegistrar.removeObserver(Pref.ARTICLES_LIST_VISIBLE);
         TemplateUrlServiceFactory.get().removeObserver(this);
-        mSigninManager.getIdentityManager().removeObserver(this);
 
         mSectionHeaderModel.get(SectionHeaderListProperties.SECTION_HEADERS_KEY).clear();
 
@@ -867,9 +833,6 @@ public class FeedSurfaceMediator
         // Update toggleswitch item, which is last item in list.
         mSectionHeaderModel.set(SectionHeaderListProperties.MENU_MODEL_LIST_KEY, buildMenuItems());
 
-        if (mSignInPromo != null) {
-            mSignInPromo.setCanShowPersonalizedSuggestions(suggestionsVisible);
-        }
         if (suggestionsVisible) mCoordinator.getSurfaceLifecycleManager().show();
         mStreamContentChanged = true;
 
@@ -947,35 +910,6 @@ public class FeedSurfaceMediator
 
     private ModelList buildMenuItems() {
         ModelList itemList = new ModelList();
-        int iconId = 0;
-        if (FeedServiceBridge.isSignedIn()) {
-            if (ChromeFeatureList.isEnabled(ChromeFeatureList.WEB_FEED)) {
-                itemList.add(buildMenuListItem(
-                        R.string.ntp_manage_feed, R.id.ntp_feed_header_menu_item_manage, iconId));
-            } else {
-                itemList.add(buildMenuListItem(R.string.ntp_manage_my_activity,
-                        R.id.ntp_feed_header_menu_item_activity, iconId));
-                itemList.add(buildMenuListItem(R.string.ntp_manage_interests,
-                        R.id.ntp_feed_header_menu_item_interest, iconId));
-                if (FeedServiceBridge.isAutoplayEnabled()) {
-                    itemList.add(buildMenuListItem(R.string.ntp_manage_autoplay,
-                            R.id.ntp_feed_header_menu_item_autoplay, iconId));
-                }
-                if (ChromeFeatureList.isEnabled(ChromeFeatureList.INTEREST_FEED_V2_HEARTS)) {
-                    itemList.add(buildMenuListItem(R.string.ntp_manage_reactions,
-                            R.id.ntp_feed_header_menu_item_reactions, iconId));
-                }
-            }
-        } else if (FeedServiceBridge.isAutoplayEnabled()) {
-            // Show manage autoplay if not signed in.
-            itemList.add(buildMenuListItem(
-                    R.string.ntp_manage_autoplay, R.id.ntp_feed_header_menu_item_autoplay, iconId));
-        }
-        itemList.add(buildMenuListItem(
-                R.string.learn_more, R.id.ntp_feed_header_menu_item_learn, iconId));
-        itemList.add(getMenuToggleSwitch(
-                mSectionHeaderModel.get(SectionHeaderListProperties.IS_SECTION_ENABLED_KEY),
-                iconId));
         return itemList;
     }
 
@@ -1159,11 +1093,6 @@ public class FeedSurfaceMediator
     @Override
     public void onPrimaryAccountChanged(PrimaryAccountChangeEvent eventDetails) {
         updateSectionHeader();
-    }
-
-    @VisibleForTesting
-    public SignInPromo getSignInPromoForTesting() {
-        return mSignInPromo;
     }
 
     void manualRefresh(Callback<Boolean> callback) {

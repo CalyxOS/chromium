@@ -5,7 +5,6 @@
 package org.chromium.chrome.browser.supervised_user.website_approval;
 
 import org.chromium.chrome.browser.profiles.Profile;
-import org.chromium.chrome.browser.signin.services.IdentityServicesProvider;
 import org.chromium.components.browser_ui.bottomsheet.BottomSheetController;
 import org.chromium.components.signin.base.AccountInfo;
 import org.chromium.components.signin.base.CoreAccountInfo;
@@ -43,28 +42,5 @@ class WebsiteApprovalMediator {
                     BottomSheetController.StateChangeReason.INTERACTION_COMPLETE);
             mCompletionCallback.onWebsiteDenied();
         });
-
-        // Set the child name.  We use the given name if there is one for this account, otherwise we
-        // use the full account email address.
-        IdentityManager identityManager = IdentityServicesProvider.get().getIdentityManager(
-                Profile.getLastUsedRegularProfile());
-        String childEmail = CoreAccountInfo.getEmailFrom(
-                identityManager.getPrimaryAccountInfo(ConsentLevel.SIGNIN));
-        if (childEmail == null) {
-            // This is an unexpected window condition: there is no signed in account.
-            // TODO(crbug.com/1330900): dismiss the bottom sheet.
-            return;
-        }
-        AccountInfo childAccountInfo =
-                identityManager.findExtendedAccountInfoByEmailAddress(childEmail);
-
-        String childNameProperty = childEmail;
-        if (childAccountInfo != null && !childAccountInfo.getGivenName().isEmpty()) {
-            childNameProperty = childAccountInfo.getGivenName();
-        }
-        mModel.set(WebsiteApprovalProperties.CHILD_NAME, childNameProperty);
-
-        // Now show the actual content.
-        mBottomSheetController.requestShowContent(mSheetContent, true);
     }
 }
