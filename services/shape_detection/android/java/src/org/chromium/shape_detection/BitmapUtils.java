@@ -6,8 +6,6 @@ package org.chromium.shape_detection;
 
 import android.graphics.Bitmap;
 
-import com.google.android.gms.vision.Frame;
-
 import org.chromium.mojo_base.BigBufferUtil;
 
 import java.nio.ByteBuffer;
@@ -42,15 +40,5 @@ public class BitmapUtils {
             bitmap.copyPixelsFromBuffer(imageBuffer);
             return bitmap;
         }
-    }
-
-    public static Frame convertToFrame(org.chromium.skia.mojom.BitmapN32 bitmapData) {
-        Bitmap bitmap = convertToBitmap(bitmapData);
-        if (bitmap == null) {
-            return null;
-        }
-
-        // This constructor implies a pixel format conversion to YUV.
-        return new Frame.Builder().setBitmap(bitmap).build();
     }
 }
