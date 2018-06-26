@@ -635,9 +635,6 @@ public class KeyboardShortcuts {
                 case KeyboardShortcutsSemanticMeaning.GO_FORWARD:
                     if (currentTab != null && currentTab.canGoForward()) currentTab.goForward();
                     return true;
-                case KeyboardShortcutsSemanticMeaning.OPEN_HELP:
-                    menuOrKeyboardActionController.onMenuOrKeyboardAction(R.id.help_id, false);
-                    return true;
             }
         }
 
