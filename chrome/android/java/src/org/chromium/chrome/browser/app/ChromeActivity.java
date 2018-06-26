@@ -2389,15 +2389,6 @@ public abstract class ChromeActivity extends AsyncInitializationActivity
 
         final Tab currentTab = getActivityTab();
 
-        if (id == R.id.help_id) {
-            String url = currentTab != null ? currentTab.getUrl().getSpec() : "";
-            startHelpAndFeedback(
-                    url,
-                    "MobileMenuFeedback",
-                    getTabModelSelector().getCurrentModel().getProfile());
-            return true;
-        }
-
         if (id == R.id.open_history_menu_id) {
             if (currentTab != null && UrlUtilities.isNtpUrl(currentTab.getUrl())) {
                 NewTabPageUma.recordAction(NewTabPageUma.ACTION_OPENED_HISTORY_MANAGER);
