@@ -42,6 +42,7 @@ public abstract class PreloadPagesSettingsFragmentBase extends ChromeBaseSetting
         help.setIcon(
                 TraceEventVectorDrawableCompat.create(
                         getResources(), R.drawable.ic_help_and_feedback, getActivity().getTheme()));
+        help.setVisible(false);
     }
 
     @Override
