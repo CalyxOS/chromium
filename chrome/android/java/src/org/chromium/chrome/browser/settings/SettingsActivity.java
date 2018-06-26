@@ -413,6 +413,7 @@ public class SettingsActivity extends ChromeBaseAppCompatActivity
         help.setIcon(
                 TraceEventVectorDrawableCompat.create(
                         getResources(), R.drawable.ic_help_and_feedback, getTheme()));
+        help.setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }
 
