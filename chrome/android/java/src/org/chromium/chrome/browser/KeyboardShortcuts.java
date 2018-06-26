@@ -463,9 +463,6 @@ public class KeyboardShortcuts {
                 case KeyEvent.KEYCODE_BUTTON_START:
                     if (currentTab != null && currentTab.canGoForward()) currentTab.goForward();
                     return true;
-                case CTRL | SHIFT | KeyEvent.KEYCODE_SLASH: // i.e. Ctrl+?
-                    menuOrKeyboardActionController.onMenuOrKeyboardAction(R.id.help_id, false);
-                    return true;
             }
         }
 
