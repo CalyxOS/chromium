@@ -909,9 +909,6 @@ public class KeyboardShortcuts {
                 case KeyboardShortcutsSemanticMeaning.HISTORY_GO_FORWARD:
                     if (currentTab != null && currentTab.canGoForward()) currentTab.goForward();
                     return true;
-                case KeyboardShortcutsSemanticMeaning.OPEN_HELP:
-                    menuOrKeyboardActionController.onMenuOrKeyboardAction(R.id.help_id, false);
-                    return true;
                 case KeyboardShortcutsSemanticMeaning
                         .NOT_IMPLEMENTED_KEYBOARD_FOCUS_SWITCH_ROW_OF_TOP_ELEMENTS:
                     if (ChromeFeatureList.isEnabled(ChromeFeatureList.ANDROID_KEYBOARD_A11Y)) {
