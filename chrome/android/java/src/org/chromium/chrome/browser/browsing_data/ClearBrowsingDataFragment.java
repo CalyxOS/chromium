@@ -916,6 +916,7 @@ public abstract class ClearBrowsingDataFragment extends ChromeBaseSettingsFragme
                 TraceEventVectorDrawableCompat.create(
                         getResources(), R.drawable.ic_help_and_feedback, getActivity().getTheme()));
         help.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        help.setVisible(false);
     }
 
     @Override
