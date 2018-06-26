@@ -137,6 +137,15 @@ void LaunchReleaseNotesImpl(Profile* profile, apps::LaunchSource source) {
 // shown in the last active browser. If there is no such browser, a new browser
 // is created.
 void ShowHelpImpl(Browser* browser, Profile* profile, HelpSource source) {
+  if (source == chrome::HELP_SOURCE_WEBUI) {
+    GURL url = GURL("https://github.com/uazo/cromite/issues");
+    if (browser) {
+      ShowSingletonTab(browser, url);
+    } else {
+      ShowSingletonTab(profile, url);
+    }
+  }
+  if ((true)) return;
   base::RecordAction(UserMetricsAction("ShowHelpTab"));
 #if BUILDFLAG(IS_CHROMEOS) && BUILDFLAG(GOOGLE_CHROME_BRANDING)
   auto app_launch_source = apps::LaunchSource::kUnknown;
