@@ -228,6 +228,7 @@ public class PasswordSettings extends ChromeBaseSettingsFragment
         mSearchItem = menu.findItem(R.id.menu_id_search);
         mSearchItem.setVisible(true);
         mHelpItem = menu.findItem(R.id.menu_id_targeted_help);
+        mHelpItem.setVisible(false);
         SearchUtils.initializeSearchView(
                 mSearchItem, mSearchQuery, getActivity(), this::filterPasswords);
     }
