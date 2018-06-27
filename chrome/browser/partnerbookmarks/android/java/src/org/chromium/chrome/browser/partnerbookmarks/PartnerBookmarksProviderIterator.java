@@ -68,6 +68,7 @@ public class PartnerBookmarksProviderIterator implements PartnerBookmark.Bookmar
         new AsyncTask<@Nullable Cursor>() {
             @Override
             protected @Nullable Cursor doInBackground() {
+                if ((true)) return null;
                 try {
                     return ContextUtils.getApplicationContext()
                             .getContentResolver()
