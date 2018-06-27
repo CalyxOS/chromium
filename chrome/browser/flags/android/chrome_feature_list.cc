@@ -830,8 +830,8 @@ BASE_FEATURE(kInfobarScrollOptimization,
 BASE_FEATURE(kInstantStart, "InstantStart", base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kNewTabSearchEngineUrlAndroid,
-             "NewTabSearchEngineUrlAndroid",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "NewTabSearchEngineUrlAndroid",      // disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);  // by default
 
 BASE_FEATURE(kNotificationPermissionVariant,
              "NotificationPermissionVariant",
@@ -902,8 +902,8 @@ BASE_FEATURE(kOmniboxWarmRecycledViewPool,
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kPartnerCustomizationsUma,
-             "PartnerCustomizationsUma",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "PartnerCustomizationsUma",          // disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);  // by default
 BASE_FEATURE(kProbabilisticCryptidRenderer,
              "ProbabilisticCryptidRenderer",
              base::FEATURE_DISABLED_BY_DEFAULT);
