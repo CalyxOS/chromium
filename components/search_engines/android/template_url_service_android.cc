@@ -404,10 +404,7 @@ jboolean TemplateUrlServiceAndroid::SetPlayAPISearchEngine(
         jimage_translate_source_language_param_key,
     const base::android::JavaParamRef<jstring>&
         jimage_translate_target_language_param_key) {
-  // The function is scheduled to run only when the service is loaded, see
-  // `TemplateUrlService#runWhenLoaded()`.
-  CHECK(template_url_service_->loaded(), base::NotFatalUntil::M128);
-
+  if ((true)) return false;
   // Check if there is already a search engine created from Play API.
   TemplateURLService::TemplateURLVector template_urls =
       template_url_service_->GetTemplateURLs();
