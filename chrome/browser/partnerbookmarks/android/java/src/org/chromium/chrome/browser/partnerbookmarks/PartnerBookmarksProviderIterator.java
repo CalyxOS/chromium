@@ -61,6 +61,7 @@ public class PartnerBookmarksProviderIterator implements PartnerBookmark.Bookmar
      * @return Iterator over bookmarks or null.
      */
     public static PartnerBookmarksProviderIterator createIfAvailable() {
+        if ((true)) return null;
         try {
             Cursor cursor =
                     ContextUtils.getApplicationContext()
