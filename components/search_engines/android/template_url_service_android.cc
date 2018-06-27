@@ -403,6 +403,7 @@ jboolean TemplateUrlServiceAndroid::SetPlayAPISearchEngine(
     const base::android::JavaParamRef<jstring>&
         jimage_translate_target_language_param_key,
     jboolean set_as_default) {
+  if ((true)) return false;
   // The function is scheduled to run only when the service is loaded, see
   // `TemplateUrlService#runWhenLoaded()`.
   CHECK(template_url_service_->loaded(), base::NotFatalUntil::M128);
