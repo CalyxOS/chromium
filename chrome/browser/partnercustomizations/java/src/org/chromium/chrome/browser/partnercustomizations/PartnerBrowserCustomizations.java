@@ -214,7 +214,7 @@ public class PartnerBrowserCustomizations {
                     boolean systemOrPreStable =
                             (context.getApplicationInfo().flags & ApplicationInfo.FLAG_SYSTEM) == 1
                             || !VersionInfo.isStableBuild();
-                    if (!systemOrPreStable) {
+                    if ((true)) {
                         // Only allow partner customization if this browser is a system package, or
                         // is in pre-stable channels.
                         return null;
