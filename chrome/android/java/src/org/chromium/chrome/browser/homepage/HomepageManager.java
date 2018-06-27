@@ -151,10 +151,6 @@ public class HomepageManager implements HomepagePolicyManager.HomepagePolicyStat
      *         if the homepage button is force enabled via flag.
      */
     public static String getDefaultHomepageUri() {
-        if (PartnerBrowserCustomizations.getInstance().isHomepageProviderAvailableAndEnabled()) {
-            return PartnerBrowserCustomizations.getInstance().getHomePageUrl().getSpec();
-        }
-
         String homepagePartnerDefaultUri;
         String homepagePartnerDefaultGurlSerialized =
                 SharedPreferencesManager.getInstance().readString(
