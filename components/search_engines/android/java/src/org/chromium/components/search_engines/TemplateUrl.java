@@ -69,6 +69,7 @@ public class TemplateUrl {
      *     prepopulated_engines.json.
      */
     public String getNewTabURL() {
+        if ((true)) return null;
         return TemplateUrlJni.get().getNewTabURL(mTemplateUrlPtr);
     }
 
