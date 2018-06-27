@@ -152,10 +152,6 @@ public class HomepageManager
      *         tab page if the homepage button is force enabled via flag.
      */
     public static GURL getDefaultHomepageGurl() {
-        if (PartnerBrowserCustomizations.getInstance().isHomepageProviderAvailableAndEnabled()) {
-            return PartnerBrowserCustomizations.getInstance().getHomePageUrl();
-        }
-
         String homepagePartnerDefaultGurlSerialized =
                 ChromeSharedPreferences.getInstance()
                         .readString(
