@@ -14,6 +14,7 @@ namespace android_webview {
 
 void LoadOriginTrialsComponent(
     component_updater::ComponentLoaderPolicyVector& policies) {
+  if ((true)) return;
   policies.push_back(std::make_unique<OriginTrialsComponentLoaderPolicy>());
 }
 
