@@ -553,7 +553,6 @@ class PLATFORM_EXPORT ResourceRequestHead {
   }
   void SetTrustTokenParams(
       std::optional<network::mojom::blink::TrustTokenParams> params) {
-    trust_token_params_ = std::move(params);
   }
 
   // Whether either RequestorOrigin or IsolatedWorldOrigin can display the
