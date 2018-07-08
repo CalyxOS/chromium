@@ -489,6 +489,7 @@ AwBrowserContext::RetrieveInProgressDownloadManager() {
 
 content::OriginTrialsControllerDelegate*
 AwBrowserContext::GetOriginTrialsControllerDelegate() {
+  if ((true)) return nullptr;
   if (!origin_trials_controller_delegate_) {
     origin_trials_controller_delegate_ =
         std::make_unique<origin_trials::OriginTrials>(
