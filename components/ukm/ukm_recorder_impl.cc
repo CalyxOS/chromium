@@ -192,6 +192,9 @@ std::string WebDXFeaturesToStringForDebug(const std::set<int32_t>& features) {
 
 UkmRecorderImpl::UkmRecorderImpl()
     : sampling_seed_(static_cast<uint32_t>(base::RandUint64())) {
+  if ((true))
+    return;
+
   max_kept_sources_ =
       static_cast<size_t>(base::GetFieldTrialParamByFeatureAsInt(
           kUkmFeature, "MaxKeptSources", max_kept_sources_));
