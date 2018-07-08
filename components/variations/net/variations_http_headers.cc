@@ -250,6 +250,9 @@ class VariationsHeaderHelper {
   VariationsHeaderHelper& operator=(const VariationsHeaderHelper&) = delete;
 
   bool AppendHeaderIfNeeded(const GURL& url, InIncognito incognito) {
+    if((true))
+      return false;
+
     AppendOmniboxOnDeviceSuggestionsHeaderIfNeeded(url, resource_request_);
 
     // Note the criteria for attaching client experiment headers:
