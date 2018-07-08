@@ -21,8 +21,8 @@ const char kOmniboxOnDeviceSuggestionsHeader[] =
 // Whether to enable reporting the header. Included as a quick escape hatch in
 // case of crashes.
 BASE_FEATURE(kReportOmniboxOnDeviceSuggestionsHeader,
-             "ReportOmniboxOnDeviceSuggestionsHeader",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "ReportOmniboxOnDeviceSuggestionsHeader",  // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);        // in Bromite
 
 std::string GetHeaderValue() {
   const std::string group =
