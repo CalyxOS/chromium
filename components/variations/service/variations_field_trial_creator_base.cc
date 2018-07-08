@@ -128,7 +128,8 @@ Study::CpuArchitecture GetCurrentCpuArchitecture() {
 // "--disable-field-trial-config" and/or "--variations-server-url" switches are
 // passed. It is however possible to apply the testing config by using the
 // "--enable-field-trial-config" switch.
-bool ShouldUseFieldTrialTestingConfig(const base::CommandLine* command_line) {
+bool ShouldUseFieldTrialTestingConfig(const base::CommandLine* command_line) { // disabled in Bromite
+  if ((true)) return false;
 #if BUILDFLAG(GOOGLE_CHROME_BRANDING)
   return command_line->HasSwitch(switches::kEnableFieldTrialTestingConfig);
 #else
