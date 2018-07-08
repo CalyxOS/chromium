@@ -335,29 +335,13 @@ public class VariationsSeedFetcher {
      */
     public void fetchSeed(String restrictMode, String milestone, String channel) {
         assert !ThreadUtils.runningOnUiThread();
-        // Prevent multiple simultaneous fetches
-        synchronized (sLock) {
-            SharedPreferences prefs = ContextUtils.getAppSharedPreferences();
-            // Early return if an attempt has already been made to fetch the seed, even if it
-            // failed. Only attempt to get the initial Java seed once, since a failure probably
-            // indicates a network problem that is unlikely to be resolved by a second attempt.
-            // Note that VariationsSeedBridge.hasNativePref() is a pure Java function, reading an
-            // Android preference that is set when the seed is fetched by the native code.
-            if (prefs.getBoolean(VARIATIONS_INITIALIZED_PREF, false)
-                    || VariationsSeedBridge.hasNativePref()) {
-                return;
-            }
+         synchronized (sLock) {
+            VariationsSeedBridge.clearFirstRunPrefs();
 
-            SeedFetchInfo fetchInfo = downloadContent(
-                    VariationsPlatform.ANDROID, restrictMode, milestone, channel, null);
-            if (fetchInfo.seedInfo != null) {
-                SeedInfo info = fetchInfo.seedInfo;
-                VariationsSeedBridge.setVariationsFirstRunSeed(info.seedData, info.signature,
-                        info.country, info.date, info.isGzipCompressed);
-            }
+            SharedPreferences prefs = ContextUtils.getAppSharedPreferences();
             // VARIATIONS_INITIALIZED_PREF should still be set to true when exceptions occur
             prefs.edit().putBoolean(VARIATIONS_INITIALIZED_PREF, true).apply();
-        }
+         }
     }
 
     private void recordFetchResultOrCode(int resultOrCode) {
@@ -401,7 +385,7 @@ public class VariationsSeedFetcher {
      * @param curSeedInfo optional currently saved seed info to set the `If-None-Match` header.
      * @return the object holds the request result and seed data with its related header fields.
      */
-    public SeedFetchInfo downloadContent(@VariationsPlatform int platform, String restrictMode,
+    private SeedFetchInfo downloadContent(@VariationsPlatform int platform, String restrictMode,
             String milestone, String channel, @Nullable SeedInfo curSeedInfo) {
         SeedFetchInfo fetchInfo = new SeedFetchInfo();
         HttpURLConnection connection = null;
