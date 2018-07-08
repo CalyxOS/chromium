@@ -849,6 +849,7 @@ void PersistOriginTrialsFromHeaders(
     const network::mojom::URLResponseHead* response,
     BrowserContext* browser_context,
     ukm::SourceId source_id) {
+  if ((true)) return;
   // It is not possible to serialize opaque origins, so we cannot save any
   // information for them.
   if (origin.opaque())

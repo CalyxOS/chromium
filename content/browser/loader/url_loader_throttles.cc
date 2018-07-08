@@ -51,8 +51,6 @@ CreateContentBrowserURLLoaderThrottles(
   // TODO(crbug.com/40135370): Consider whether we want to use the WebContents
   // to determine the value for variations::Owner. Alternatively, this is the
   // browser side, and we might be fine with Owner::kUnknown.
-  variations::VariationsURLLoaderThrottle::AppendThrottleIfNeeded(
-      browser_context->GetVariationsClient(), &throttles);
 
   ClientHintsControllerDelegate* client_hint_delegate =
       browser_context->GetClientHintsControllerDelegate();
@@ -141,11 +139,6 @@ CreateContentBrowserURLLoaderThrottlesForKeepAlive(
   std::vector<std::unique_ptr<blink::URLLoaderThrottle>> throttles =
       GetContentClient()->browser()->CreateURLLoaderThrottlesForKeepAlive(
           request, browser_context, wc_getter, frame_tree_node_id);
-  // TODO(crbug.com/40135370): Consider whether we want to use the WebContents
-  // to determine the value for variations::Owner. Alternatively, this is the
-  // browser side, and we might be fine with Owner::kUnknown.
-  variations::VariationsURLLoaderThrottle::AppendThrottleIfNeeded(
-      browser_context->GetVariationsClient(), &throttles);
 
   auto throttle = MaybeCreateIdentityUrlLoaderThrottle(base::BindRepeating(
       webid::SetIdpSigninStatus, browser_context, frame_tree_node_id));
