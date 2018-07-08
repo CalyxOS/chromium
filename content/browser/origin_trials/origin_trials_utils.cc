@@ -15,7 +15,7 @@ namespace {
 std::vector<std::string> GetHeaderValues(
     std::string_view header_name,
     const net::HttpResponseHeaders* headers) {
-  if (!headers) {
+  if ((true)) {
     return {};
   }
   size_t iter = 0;
