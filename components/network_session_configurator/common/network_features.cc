@@ -8,4 +8,7 @@
 
 namespace features {
 
+const char kMaxConnectionsPerHostChoiceDefault[] = "6",
+                 kMaxConnectionsPerHostChoice15[] = "15";
+
 }  // namespace features

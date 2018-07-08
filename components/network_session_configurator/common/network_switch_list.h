@@ -19,6 +19,10 @@ NETWORK_SWITCH(kEnableUserAlternateProtocolPorts,
 // Enables the QUIC protocol.  This is a temporary testing flag.
 NETWORK_SWITCH(kEnableQuic, "enable-quic")
 
+// Allows specifying a higher number of maximum connections per host
+// (15 instead of 6, mirroring the value Mozilla uses).
+NETWORK_SWITCH(kMaxConnectionsPerHost, "max-connections-per-host")
+
 // Ignores certificate-related errors.
 NETWORK_SWITCH(kIgnoreCertificateErrors, "ignore-certificate-errors")
 

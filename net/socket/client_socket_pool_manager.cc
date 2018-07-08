@@ -19,6 +19,10 @@
 #include "net/socket/client_socket_handle.h"
 #include "net/socket/client_socket_pool.h"
 #include "net/socket/connect_job.h"
+#include "components/network_session_configurator/common/network_switches.h"
+
+#include "base/command_line.h"
+#include "base/strings/string_number_conversions.h"
 #include "net/ssl/ssl_config.h"
 #include "third_party/abseil-cpp/absl/types/optional.h"
 #include "url/gurl.h"
@@ -172,6 +176,19 @@ void ClientSocketPoolManager::set_max_sockets_per_pool(
 int ClientSocketPoolManager::max_sockets_per_group(
     HttpNetworkSession::SocketPoolType pool_type) {
   DCHECK_LT(pool_type, HttpNetworkSession::NUM_SOCKET_POOL_TYPES);
+
+  if (pool_type == HttpNetworkSession::NORMAL_SOCKET_POOL) {
+      int maxConnectionsPerHost = 0;
+      auto value = base::CommandLine::ForCurrentProcess()->GetSwitchValueASCII(switches::kMaxConnectionsPerHost);
+      if (!value.empty() && !base::StringToInt(value, &maxConnectionsPerHost)) {
+        LOG(DFATAL) << "--" << switches::kMaxConnectionsPerHost << " only accepts integers as arguments (\"" << value << "\" is invalid)";
+      }
+      if (maxConnectionsPerHost != 0) {
+        return maxConnectionsPerHost;
+      }
+      // fallthrough for default value
+  }
+
   return g_max_sockets_per_group[pool_type];
 }
 

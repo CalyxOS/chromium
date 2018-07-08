@@ -1050,6 +1050,9 @@ extern const char kLogJsConsoleMessagesDescription[];
 extern const char kUnthrottledNestedTimeoutName[];
 extern const char kUnthrottledNestedTimeoutDescription[];
 
+extern const char kMaxConnectionsPerHostName[];
+extern const char kMaxConnectionsPerHostDescription[];
+
 extern const char kMediaRouterCastAllowAllIPsName[];
 extern const char kMediaRouterCastAllowAllIPsDescription[];
 

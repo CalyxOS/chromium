@@ -1040,6 +1040,11 @@ const FeatureEntry::Choice kForceColorProfileChoices[] = {
      switches::kForceDisplayColorProfile, "hdr10"},
 };
 
+const FeatureEntry::Choice kMaxConnectionsPerHostChoices[] = {
+    {features::kMaxConnectionsPerHostChoiceDefault, "", ""},
+    {features::kMaxConnectionsPerHostChoice15, switches::kMaxConnectionsPerHost, "15"},
+};
+
 const FeatureEntry::Choice kMemlogModeChoices[] = {
     {flags_ui::kGenericExperimentChoiceDisabled, "", ""},
     {flag_descriptions::kMemlogModeMinimal, heap_profiling::kMemlogMode,
@@ -4884,6 +4889,9 @@ const FeatureEntry kFeatureEntries[] = {
      flag_descriptions::kAndroidPictureInPictureAPIName,
      flag_descriptions::kAndroidPictureInPictureAPIDescription, kOsAndroid,
      FEATURE_VALUE_TYPE(media::kPictureInPictureAPI)},
+    {"max-connections-per-host", flag_descriptions::kMaxConnectionsPerHostName,
+     flag_descriptions::kMaxConnectionsPerHostDescription, kOsAll,
+     MULTI_VALUE_TYPE(kMaxConnectionsPerHostChoices)},
     {"reengagement-notification",
      flag_descriptions::kReengagementNotificationName,
      flag_descriptions::kReengagementNotificationDescription, kOsAndroid,

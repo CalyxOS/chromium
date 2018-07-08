@@ -10,6 +10,10 @@
 
 namespace features {
 
+NETWORK_SESSION_CONFIGURATOR_EXPORT extern const char kMaxConnectionsPerHostChoiceDefault[],
+                 kMaxConnectionsPerHostChoice6[],
+                 kMaxConnectionsPerHostChoice15[];
+
 }  // namespace features
 
 #endif  // COMPONENTS_NETWORK_SESSION_CONFIGURATOR_COMMON_NETWORK_FEATURES_H_

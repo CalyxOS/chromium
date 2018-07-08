@@ -1875,6 +1875,10 @@ const char kUnthrottledNestedTimeoutDescription[] =
     "websites abusing the API will still eventually have their setTimeouts "
     "clamped.";
 
+const char kMaxConnectionsPerHostName[] = "Maximum connections per host";
+const char kMaxConnectionsPerHostDescription[] =
+     "Customize maximum allowed connections per host.";
+
 const char kMediaRouterCastAllowAllIPsName[] =
     "Connect to Cast devices on all IP addresses";
 const char kMediaRouterCastAllowAllIPsDescription[] =
