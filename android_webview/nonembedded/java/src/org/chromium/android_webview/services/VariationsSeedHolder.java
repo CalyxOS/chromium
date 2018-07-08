@@ -145,7 +145,7 @@ public class VariationsSeedHolder {
 
     @VisibleForTesting
     public void scheduleFetchIfNeeded() {
-        AwVariationsSeedFetcher.scheduleIfNeeded();
+        //AwVariationsSeedFetcher.scheduleIfNeeded();
     }
 
     // overridden by tests
