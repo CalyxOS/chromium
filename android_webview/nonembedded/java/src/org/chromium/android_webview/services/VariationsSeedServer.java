@@ -33,8 +33,6 @@ public class VariationsSeedServer extends Service {
                         ParcelFileDescriptor newSeedFile,
                         long oldSeedDate,
                         IVariationsSeedServerCallback callback) {
-                    maybeReportMetrics(callback);
-                    VariationsSeedHolder.getInstance().writeSeedIfNewer(newSeedFile, oldSeedDate);
                 }
             };
 

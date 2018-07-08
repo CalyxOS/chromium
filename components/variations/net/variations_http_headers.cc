@@ -248,6 +248,8 @@ class VariationsHeaderHelper {
   VariationsHeaderHelper& operator=(const VariationsHeaderHelper&) = delete;
 
   bool AppendHeaderIfNeeded(const GURL& url, InIncognito incognito) {
+    if((true)) return false;
+
     // Note the criteria for attaching client experiment headers:
     // 1. We only transmit to Google owned domains which can evaluate
     // experiments.
