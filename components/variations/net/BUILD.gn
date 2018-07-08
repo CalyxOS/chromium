@@ -36,8 +36,6 @@ static_library("net") {
 
   if (use_blink) {
     sources += [
-      "variations_url_loader_throttle.cc",
-      "variations_url_loader_throttle.h",
     ]
     deps += [
       "//components/variations:variations_mojom",
