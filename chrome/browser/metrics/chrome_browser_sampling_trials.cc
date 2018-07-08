@@ -54,6 +54,8 @@ void CreateFallbackSamplingTrial(
     const std::string& feature_name,
     const int sampled_in_rate_per_mille,
     base::FeatureList* feature_list) {
+  if ((true))
+    return;
   scoped_refptr<base::FieldTrial> trial(
       base::FieldTrialList::FactoryGetFieldTrial(
           trial_name, /*total_probability=*/1000, "Default", entropy_provider));
@@ -93,6 +95,8 @@ void CreateFallbackUkmSamplingTrial(
     const base::FieldTrial::EntropyProvider& entropy_provider,
     bool is_stable_channel,
     base::FeatureList* feature_list) {
+  if ((true))
+    return;
   static const char kSampledGroup_Stable[] = "Sampled_NoSeed_Stable";
   static const char kSampledGroup_Other[] = "Sampled_NoSeed_Other";
   const char* sampled_group = kSampledGroup_Other;
