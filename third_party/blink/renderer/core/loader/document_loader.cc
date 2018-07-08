@@ -185,13 +185,6 @@ Vector<OriginTrialFeature> CopyInitiatorOriginTrials(
 WebVector<int> CopyInitiatorOriginTrials(
     const Vector<OriginTrialFeature>& initiator_origin_trial_features) {
   WebVector<int> result;
-  for (auto feature : initiator_origin_trial_features) {
-    // Convert from OriginTrialFeature to int. These values are passed between
-    // blink navigations. OriginTrialFeature isn't visible outside of blink (and
-    // doesn't need to be) so the values are transferred outside of blink as
-    // ints and casted to OriginTrialFeature once being processed in blink.
-    result.emplace_back(static_cast<int>(feature));
-  }
   return result;
 }
 
