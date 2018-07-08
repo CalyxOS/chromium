@@ -664,8 +664,8 @@ BASE_FEATURE(kPepperCrossOriginRedirectRestriction,
 // things before receiving the response, for instance it can affect the next
 // navigation's network request.
 BASE_FEATURE(kPersistentOriginTrials,
-             "PersistentOriginTrials",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "PersistentOriginTrials",            // always disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);  // in bromite
 
 // If enabled, then an updated prefetch request limit policy will be used that
 // separates eager and non-eager prefetches, and allows for evictions.
