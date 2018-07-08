@@ -31,8 +31,6 @@ public class VariationsSeedServer extends Service {
         @Override
         public void getSeed(ParcelFileDescriptor newSeedFile, long oldSeedDate,
                 IVariationsSeedServerCallback callback) {
-            maybeReportMetrics(callback);
-            VariationsSeedHolder.getInstance().writeSeedIfNewer(newSeedFile, oldSeedDate);
         }
     };
 
