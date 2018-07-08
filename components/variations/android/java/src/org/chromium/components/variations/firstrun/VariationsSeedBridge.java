@@ -51,7 +51,7 @@ public class VariationsSeedBridge {
     }
 
     @CalledByNative
-    private static void clearFirstRunPrefs() {
+    public static void clearFirstRunPrefs() {
         ContextUtils.getAppSharedPreferences()
                 .edit()
                 .remove(VARIATIONS_FIRST_RUN_SEED_BASE64)
