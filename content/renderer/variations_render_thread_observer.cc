@@ -56,15 +56,6 @@ void VariationsRenderThreadObserver::AppendThrottleIfNeeded(
     const url::Origin& top_frame_origin,
     std::vector<std::unique_ptr<blink::URLLoaderThrottle>>* throttles) {
   variations::OmniboxURLLoaderThrottle::AppendThrottleIfNeeded(throttles);
-
-  variations::mojom::VariationsHeadersPtr variations_headers =
-      GetVariationsData()->GetVariationsHeaders();
-
-  if (!variations_headers.is_null()) {
-    throttles->push_back(
-        std::make_unique<variations::VariationsURLLoaderThrottle>(
-            std::move(variations_headers), top_frame_origin));
-  }
 }
 
 void VariationsRenderThreadObserver::RegisterMojoInterfaces(
