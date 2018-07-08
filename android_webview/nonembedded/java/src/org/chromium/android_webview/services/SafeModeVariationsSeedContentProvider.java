@@ -88,11 +88,6 @@ public class SafeModeVariationsSeedContentProvider extends ContentProvider {
 
     private Boolean awaitSeedResults() {
         CountDownLatch countDownLatch = new CountDownLatch(1);
-        VariationsSeedHolder.getInstance()
-                .hasSeedUpdateCompletedAsync(
-                        () -> {
-                            countDownLatch.countDown();
-                        });
         try {
             return countDownLatch.await(TIMEOUT_IN_MILLIS, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
