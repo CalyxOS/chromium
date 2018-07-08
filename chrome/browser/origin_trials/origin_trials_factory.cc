@@ -23,6 +23,7 @@ base::LazyInstance<OriginTrialsFactory>::DestructorAtExit
 // static
 content::OriginTrialsControllerDelegate*
 OriginTrialsFactory::GetForBrowserContext(content::BrowserContext* context) {
+  if ((true)) return nullptr;
   return static_cast<origin_trials::OriginTrials*>(
       GetInstance()->GetServiceForBrowserContext(context, true));
 }
