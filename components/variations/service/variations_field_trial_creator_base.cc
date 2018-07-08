@@ -118,6 +118,7 @@ Study::CpuArchitecture GetCurrentCpuArchitecture() {
 }
 
 #if BUILDFLAG(FIELDTRIAL_TESTING_ENABLED)
+#error FIELDTRIAL_TESTING_ENABLED should be disabled.
 // Determines whether the field trial testing config defined in
 // testing/variations/fieldtrial_testing_config.json should be applied. If the
 // "disable_fieldtrial_testing_config" GN flag is set to true, then the testing
@@ -299,11 +300,6 @@ bool VariationsFieldTrialCreatorBase::SetUpFieldTrials(
     used_seed = CreateTrialsFromSeed(*entropy_providers, feature_list.get(),
                                      safe_seed_manager);
   }
-
-  platform_field_trials->SetUpClientSideFieldTrials(
-      used_seed, *entropy_providers, feature_list.get());
-
-  platform_field_trials->RegisterFeatureOverrides(feature_list.get());
 
   base::FeatureList::SetInstance(std::move(feature_list));
 
@@ -581,6 +577,7 @@ bool VariationsFieldTrialCreatorBase::CreateTrialsFromSeed(
     const EntropyProviders& entropy_providers,
     base::FeatureList* feature_list,
     SafeSeedManagerBase* safe_seed_manager) {
+  if ((true)) return false;
   // This histogram name uses "VariationsFieldTrialCreator" rather than
   // "VariationsFieldTrialCreatorBase" for consistency with historical data
   TRACE_EVENT0("startup", "VariationsFieldTrialCreator::CreateTrialsFromSeed");
@@ -674,6 +671,7 @@ bool VariationsFieldTrialCreatorBase::CreateTrialsFromSeed(
 
 void VariationsFieldTrialCreatorBase::LoadSeedFromJsonFile(
     const base::FilePath& json_seed_path) {
+  if ((true)) return;
   VLOG(1) << "Loading seed from JSON file:" << json_seed_path;
   JSONFileValueDeserializer file_deserializer(json_seed_path);
   int error_code;
