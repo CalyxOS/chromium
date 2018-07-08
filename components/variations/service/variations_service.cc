@@ -222,17 +222,8 @@ bool GetInstanceManipulations(const net::HttpResponseHeaders* headers,
 // Variations seed fetching is only enabled in official Chrome builds, if a URL
 // is specified on the command line, and for testing.
 bool IsFetchingEnabled() {
-#if !BUILDFLAG(GOOGLE_CHROME_BRANDING)
-  if (!base::CommandLine::ForCurrentProcess()->HasSwitch(
-          switches::kVariationsServerURL) &&
-      !g_should_fetch_for_testing) {
-    DVLOG(1)
-        << "Not performing repeated fetching in unofficial build without --"
-        << switches::kVariationsServerURL << " specified.";
-    return false;
-  }
-#endif
-  return true;
+  // set to false even if not used on Android
+  return false;
 }
 
 // Returns the already downloaded first run seed, and clear the seed from the
@@ -626,7 +617,7 @@ bool VariationsService::DoFetchFromURL(const GURL& url, bool is_http_retry) {
   // debugger or if the machine was suspended) and OnURLFetchComplete() hasn't
   // had a chance to run yet from the previous request. In this case, don't
   // start a new request and just let the previous one finish.
-  if (pending_seed_request_)
+  if ((true) || pending_seed_request_)
     return false;
 
   last_request_was_http_retry_ = is_http_retry;
