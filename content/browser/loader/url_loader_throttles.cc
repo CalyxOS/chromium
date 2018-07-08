@@ -49,8 +49,6 @@ CreateContentBrowserURLLoaderThrottles(
   // TODO(crbug.com/1094303): Consider whether we want to use the WebContents to
   // determine the value for variations::Owner. Alternatively, this is the
   // browser side, and we might be fine with Owner::kUnknown.
-  variations::VariationsURLLoaderThrottle::AppendThrottleIfNeeded(
-      browser_context->GetVariationsClient(), &throttles);
 
   ClientHintsControllerDelegate* client_hint_delegate =
       browser_context->GetClientHintsControllerDelegate();
@@ -128,11 +126,6 @@ CreateContentBrowserURLLoaderThrottlesForKeepAlive(
       GetContentClient()->browser()->CreateURLLoaderThrottlesForKeepAlive(
           request, browser_context, wc_getter, frame_tree_node_id);
   variations::OmniboxURLLoaderThrottle::AppendThrottleIfNeeded(&throttles);
-  // TODO(crbug.com/1094303): Consider whether we want to use the WebContents to
-  // determine the value for variations::Owner. Alternatively, this is the
-  // browser side, and we might be fine with Owner::kUnknown.
-  variations::VariationsURLLoaderThrottle::AppendThrottleIfNeeded(
-      browser_context->GetVariationsClient(), &throttles);
 
   return throttles;
 }
