@@ -753,8 +753,8 @@ BASE_FEATURE(kPepperCrossOriginRedirectRestriction,
 // things before receiving the response, for instance it can affect the next
 // navigation's network request.
 BASE_FEATURE(kPersistentOriginTrials,
-             "PersistentOriginTrials",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "PersistentOriginTrials",            // always disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);  // in bromite
 
 // Enables process sharing for sites that do not require a dedicated process
 // by using a default SiteInstance. Default SiteInstances will only be used
