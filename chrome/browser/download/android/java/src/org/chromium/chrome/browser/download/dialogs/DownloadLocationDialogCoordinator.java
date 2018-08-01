@@ -38,18 +38,18 @@ import java.util.ArrayList;
  */
 public class DownloadLocationDialogCoordinator implements ModalDialogProperties.Controller {
     @NonNull private DownloadLocationDialogController mController;
-    private PropertyModel mDialogModel;
+    protected PropertyModel mDialogModel;
     private PropertyModel mDownloadLocationDialogModel;
     private PropertyModelChangeProcessor<PropertyModel, DownloadLocationCustomView, PropertyKey>
             mPropertyModelChangeProcessor;
-    private DownloadLocationCustomView mCustomView;
-    private ModalDialogManager mModalDialogManager;
+    protected DownloadLocationCustomView mCustomView;
+    protected ModalDialogManager mModalDialogManager;
     private long mTotalBytes;
     private @DownloadLocationDialogType int mDialogType;
     private String mSuggestedPath;
     private Context mContext;
     private boolean mHasMultipleDownloadLocations;
-    private Profile mProfile;
+    protected Profile mProfile;
     private boolean mLocationDialogManaged;
 
     /**
@@ -141,7 +141,7 @@ public class DownloadLocationDialogCoordinator implements ModalDialogProperties.
      * Called after retrieved the download directory options.
      * @param dirs An list of available download directories.
      */
-    private void onDirectoryOptionsRetrieved(ArrayList<DirectoryOption> dirs) {
+    protected void onDirectoryOptionsRetrieved(ArrayList<DirectoryOption> dirs) {
         // Already showing the dialog.
         if (mDialogModel != null) return;
 
