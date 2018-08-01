@@ -213,6 +213,7 @@ const base::Feature* const kFeaturesExposedToJava[] = {
     &kCCTAuthTab,
     &kCCTAuthTabDisableAllExternalIntents,
     &kCCTAuthTabEnableHttpsRedirects,
+    &kBookmarksExportUseSaf,
     &kCCTBeforeUnload,
     &kCCTBlockTouchesDuringEnterAnimation,
     &kCCTClientDataHeader,
