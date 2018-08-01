@@ -55,6 +55,8 @@ import org.chromium.components.commerce.core.SubscriptionsObserver;
 import org.chromium.components.embedder_support.util.UrlConstants;
 import org.chromium.components.power_bookmarks.PowerBookmarkMeta;
 import org.chromium.components.power_bookmarks.PowerBookmarkType;
+import org.chromium.ui.base.ActivityWindowAndroid;
+import org.chromium.ui.modaldialog.ModalDialogManager;
 import org.chromium.ui.accessibility.AccessibilityState;
 import org.chromium.ui.listmenu.ListMenu;
 import org.chromium.ui.listmenu.ListMenuItemProperties;
@@ -78,6 +80,9 @@ class BookmarkManagerMediator
     private static final int SEARCH_BOX_MAX_INDEX = 0;
 
     private static boolean sPreventLoadingForTesting;
+
+    private ActivityWindowAndroid mWindowAndroid;
+    private ModalDialogManager mModalDialogManager;
 
     /** Keeps track of whether drag is enabled / active for bookmark lists. */
     private class BookmarkDragStateDelegate implements DragStateDelegate {
@@ -534,6 +539,14 @@ class BookmarkManagerMediator
         mNativePage = nativePage;
     }
 
+    /**
+     * Sets the Android window that is used by further intents created by the bookmark activity.
+     */
+    public void setWindow(ActivityWindowAndroid window, ModalDialogManager modalDialogManager) {
+        mWindowAndroid = window;
+        mModalDialogManager = modalDialogManager;
+    }
+
     /** See BookmarkManager(Coordinator)#updateForUrl */
     void updateForUrl(String url) {
         // Bookmark model is null if the manager has been destroyed.
@@ -712,6 +725,16 @@ class BookmarkManagerMediator
         if (mBookmarkOpener.openBookmarksInNewTabs(bookmarks, incognito)) {
             BookmarkUtils.finishActivityOnPhone(mContext);
         }
+    }
+
+    @Override
+    public void importBookmarks() {
+        mBookmarkModel.importBookmarks(mWindowAndroid);
+    }
+
+    @Override
+    public void exportBookmarks() {
+        mBookmarkModel.exportBookmarks(mWindowAndroid, mModalDialogManager);
     }
 
     @Override
