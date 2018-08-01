@@ -58,6 +58,8 @@ class SelectFileDialogImpl : public SelectFileDialog {
                       void* params,
                       const GURL* caller) override;
 
+  void ShowToast(const std::string& message) override;
+
  protected:
   ~SelectFileDialogImpl() override;
 

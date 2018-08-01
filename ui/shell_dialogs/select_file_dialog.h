@@ -209,6 +209,8 @@ class SHELL_DIALOGS_EXPORT SelectFileDialog
                   const GURL* caller = nullptr);
   bool HasMultipleFileTypeChoices();
 
+  virtual void ShowToast(const std::string& message) = 0;
+
  protected:
   friend class base::RefCountedThreadSafe<SelectFileDialog>;
 

@@ -195,6 +195,7 @@ class SelectFileDialogImpl : public ui::SelectFileDialog,
                             int index);
 
   bool HasMultipleFileTypeChoicesImpl() override;
+  void ShowToast(const std::string& message) override;
 
   // Returns the filter to be used while displaying the open/save file dialog.
   // This is computed from the extensions for the file types being opened.
@@ -271,6 +272,10 @@ void SelectFileDialogImpl::SelectFileImpl(
 
 bool SelectFileDialogImpl::HasMultipleFileTypeChoicesImpl() {
   return has_multiple_file_type_choices_;
+}
+
+void SelectFileDialogImpl::ShowToast(const std::string& message) {
+  // nothing to do, used only on android
 }
 
 bool SelectFileDialogImpl::IsRunning(gfx::NativeWindow owning_window) const {
