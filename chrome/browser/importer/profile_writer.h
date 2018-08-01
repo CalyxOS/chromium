@@ -11,6 +11,7 @@
 #include "base/memory/raw_ptr.h"
 #include "base/memory/ref_counted.h"
 #include "build/build_config.h"
+#include "components/bookmarks/browser/bookmark_model.h"
 #include "components/favicon_base/favicon_usage_data.h"
 #include "components/history/core/browser/history_types.h"
 #include "components/search_engines/template_url_service.h"
@@ -70,6 +71,11 @@ class ProfileWriter : public base::RefCountedThreadSafe<ProfileWriter> {
   // we will instead create a subfolder named 'Imported from IE (1)'.
   virtual void AddBookmarks(const std::vector<ImportedBookmarkEntry>& bookmarks,
                             const std::u16string& top_level_folder_name);
+
+  virtual void AddBookmarksWithModel(
+      bookmarks::BookmarkModel* model,
+      const std::vector<ImportedBookmarkEntry>& bookmarks,
+      const std::u16string& top_level_folder_name);
 
   virtual void AddFavicons(const favicon_base::FaviconUsageDataList& favicons);
 
