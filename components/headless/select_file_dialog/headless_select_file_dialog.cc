@@ -57,6 +57,10 @@ class HeadlessSelectFileDialog : public ui::SelectFileDialog {
   // ui::SelectFileDialog:
   bool HasMultipleFileTypeChoicesImpl() override { return false; }
 
+  void ShowToast(const std::string& message) override {
+    // nothing to do, used only on android
+  }
+
   SelectFileDialogCallback callback_;
 };
 
