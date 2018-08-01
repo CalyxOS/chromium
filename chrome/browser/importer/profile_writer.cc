@@ -124,6 +124,16 @@ void ProfileWriter::AddBookmarks(
     return;
 
   BookmarkModel* model = BookmarkModelFactory::GetForBrowserContext(profile_);
+  AddBookmarksWithModel(model, bookmarks, top_level_folder_name);
+}
+
+void ProfileWriter::AddBookmarksWithModel(
+    BookmarkModel* model,
+    const std::vector<ImportedBookmarkEntry>& bookmarks,
+    const std::u16string& top_level_folder_name) {
+  if (bookmarks.empty())
+    return;
+
   DCHECK(model->loaded());
 
   // If the bookmark bar is currently empty, we should import directly to it.
