@@ -127,6 +127,8 @@ public final class ChromePreferenceKeys {
             "enhanced_bookmark_last_used_parent_folder";
     public static final String BOOKMARKS_SORT_ORDER = "Chrome.Bookmarks.BookmarkRowSortOrder";
     public static final String BOOKMARKS_VISUALS_PREF = "Chrome.Bookmarks.BookmarkRowDisplay";
+    public static final String BOOKMARKS_LAST_EXPORT_URI =
+            "Chrome.Bookmarks.Last_Export_Uri";
 
     /** Whether Chrome is set as the default browser. Default value is false. */
     public static final String CHROME_DEFAULT_BROWSER = "applink.chrome_default_browser";
@@ -957,6 +959,7 @@ public final class ChromePreferenceKeys {
                 AUXILIARY_SEARCH_IS_SCHEMA_V2_SET,
                 APP_LAUNCH_LAST_KNOWN_ACTIVE_TAB_STATE,
                 APP_LAUNCH_SEARCH_ENGINE_HAD_LOGO,
+                BOOKMARKS_LAST_EXPORT_URI,
                 APPLICATION_OVERRIDE_LANGUAGE,
                 BLUETOOTH_NOTIFICATION_IDS,
                 BOOKMARKS_SORT_ORDER,

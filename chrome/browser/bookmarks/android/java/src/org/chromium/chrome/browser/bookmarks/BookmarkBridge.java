@@ -36,6 +36,9 @@ import org.chromium.url.GURL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.chromium.ui.base.WindowAndroid;
+import java.util.function.BiConsumer;
+
 /**
  * Provides the communication channel for Android to fetch and manipulate the bookmark model stored
  * in native.
@@ -51,6 +54,9 @@ class BookmarkBridge {
     private boolean mIsDoingExtensiveChanges;
     private boolean mIsNativeBookmarkModelLoaded;
     private boolean mInitializedPartnerBookmarks;
+
+    private static final BiConsumer<Boolean, String> NOOP = (success, bookmarksPath) -> {};
+    private BiConsumer<Boolean, String> mOnExportedFunction = NOOP;
 
     // Lazily set pseudo-constants. These should never change at runtime. Used to avoid crossing
     // JNI to fetch information.
@@ -496,6 +502,35 @@ class BookmarkBridge {
         assert mIsNativeBookmarkModelLoaded;
         return BookmarkBridgeJni.get()
                 .getTotalBookmarkCount(mNativeBookmarkBridge, id.getId(), id.getType());
+    }
+
+    /**
+     * Import bookmarks from a selected file.
+     * @param window The current window of the bookmarks activity or page.
+     */
+    public void importBookmarks(WindowAndroid window) {
+        assert mIsNativeBookmarkModelLoaded;
+        BookmarkBridgeJni.get().importBookmarks(mNativeBookmarkBridge,
+            BookmarkBridge.this, window);
+    }
+
+    /**
+     * Export bookmarks to a path selected by the user.
+     * @param window The current window of the bookmarks activity or page.
+     */
+    public void exportBookmarks(WindowAndroid window, String exportPath,
+                                BiConsumer<Boolean, String> onExportedFunction) {
+        assert mIsNativeBookmarkModelLoaded;
+        mOnExportedFunction = onExportedFunction;
+        BookmarkBridgeJni.get().exportBookmarks(mNativeBookmarkBridge,
+            BookmarkBridge.this, window, exportPath);
+    }
+
+    @CalledByNative
+    public void bookmarksExported(WindowAndroid window, String bookmarksPath, boolean success) {
+        BiConsumer<Boolean, String> action = mOnExportedFunction
+            .andThen((x, y) -> mOnExportedFunction = NOOP);
+        action.accept(success, bookmarksPath);
     }
 
     /**
@@ -1119,6 +1154,10 @@ class BookmarkBridge {
 
         void getChildIds(
                 long nativeBookmarkBridge, long id, int type, List<BookmarkId> bookmarksList);
+
+        void importBookmarks(long nativeBookmarkBridge, BookmarkBridge caller, WindowAndroid window);
+        void exportBookmarks(long nativeBookmarkBridge, BookmarkBridge caller, WindowAndroid window,
+                String export_path);
 
         BookmarkId getChildAt(long nativeBookmarkBridge, long id, int type, int index);
 
