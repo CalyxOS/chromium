@@ -81,6 +81,10 @@ class BookmarkToolbarProperties {
 
     static final WritableObjectPropertyKey<Runnable> NAVIGATE_BACK_RUNNABLE =
             new WritableObjectPropertyKey<>();
+    static final WritableObjectPropertyKey<Runnable> IMPORT_BOOKMARK_RUNNABLE =
+            new WritableObjectPropertyKey<>();
+    static final WritableObjectPropertyKey<Runnable> EXPORT_BOOKMARK_RUNNABLE =
+            new WritableObjectPropertyKey<>();
 
     static final PropertyKey[] ALL_KEYS = {
         BOOKMARK_OPENER,
@@ -109,6 +113,8 @@ class BookmarkToolbarProperties {
         SELECTION_MODE_SHOW_OPEN_IN_INCOGNITO,
         SELECTION_MODE_SHOW_MOVE,
         SELECTION_MODE_SHOW_MARK_READ,
-        SELECTION_MODE_SHOW_MARK_UNREAD
+        SELECTION_MODE_SHOW_MARK_UNREAD,
+        IMPORT_BOOKMARK_RUNNABLE,
+        EXPORT_BOOKMARK_RUNNABLE
     };
 }
