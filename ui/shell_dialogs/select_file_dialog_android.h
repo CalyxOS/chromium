@@ -52,6 +52,8 @@ class SelectFileDialogImpl : public SelectFileDialog {
                       gfx::NativeWindow owning_window,
                       const GURL* caller) override;
 
+  void ShowToast(const std::string& message) override;
+
  protected:
   ~SelectFileDialogImpl() override;
 
