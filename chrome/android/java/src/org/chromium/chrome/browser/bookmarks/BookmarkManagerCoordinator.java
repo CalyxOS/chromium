@@ -54,6 +54,8 @@ import org.chromium.components.image_fetcher.ImageFetcher;
 import org.chromium.components.image_fetcher.ImageFetcherConfig;
 import org.chromium.components.image_fetcher.ImageFetcherFactory;
 import org.chromium.ui.KeyboardVisibilityDelegate;
+import org.chromium.ui.base.ActivityWindowAndroid;
+import org.chromium.ui.modaldialog.ModalDialogManager;
 import org.chromium.ui.modaldialog.ModalDialogManager;
 import org.chromium.ui.modaldialog.ModalDialogManager.ModalDialogType;
 import org.chromium.ui.modelutil.MVCListAdapter.ModelList;
@@ -333,6 +335,13 @@ public class BookmarkManagerCoordinator
     }
 
     // Public API implementation.
+
+    /**
+     * Sets the Android window that is used by further intents created by the bookmark activity.
+     */
+    public void setWindow(ActivityWindowAndroid window, ModalDialogManager modalDialogManager) {
+        mMediator.setWindow(window, modalDialogManager);
+    }
 
     /** Destroys and cleans up itself. This must be called after done using this class. */
     public void onDestroyed() {

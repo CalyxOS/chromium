@@ -17,7 +17,9 @@
 #include "base/strings/utf_string_conversions.h"
 #include "base/time/time.h"
 #include "chrome/common/importer/imported_bookmark_entry.h"
+#if !BUILDFLAG(IS_ANDROID)
 #include "chrome/utility/importer/favicon_reencode.h"
+#endif
 #include "components/search_engines/search_terms_data.h"
 #include "components/search_engines/template_url.h"
 #include "net/base/data_url.h"
@@ -55,6 +57,7 @@ bool GetAttribute(const std::string& attribute_list,
   return true;
 }
 
+#if !BUILDFLAG(IS_ANDROID)
 // Given the URL of a page and a favicon data URL, adds an appropriate record
 // to the given favicon usage vector.
 void DataURLToFaviconUsage(const GURL& link_url,
@@ -88,6 +91,7 @@ void DataURLToFaviconUsage(const GURL& link_url,
 
   favicons->push_back(usage);
 }
+#endif
 
 }  // namespace
 
@@ -108,14 +112,29 @@ static std::string stripDt(const std::string& lineDt) {
 }
 
 void ImportBookmarksFile(
-    base::RepeatingCallback<bool(void)> cancellation_callback,
-    base::RepeatingCallback<bool(const GURL&)> valid_url_callback,
+    const base::RepeatingCallback<bool(void)> cancellation_callback,
+    const base::RepeatingCallback<bool(const GURL&)> valid_url_callback,
     const base::FilePath& file_path,
     std::vector<ImportedBookmarkEntry>* bookmarks,
     std::vector<importer::SearchEngineInfo>* search_engines,
     favicon_base::FaviconUsageDataList* favicons) {
   std::string content;
-  base::ReadFileToString(file_path, &content);
+  if (!base::ReadFileToString(file_path, &content)) {
+     LOG(ERROR) << "Could not directly read bookmarks import file";
+     return;
+  }
+
+  ImportBookmarksFile(cancellation_callback, valid_url_callback,
+    content, bookmarks, search_engines, favicons);
+}
+
+void ImportBookmarksFile(
+    base::RepeatingCallback<bool(void)> cancellation_callback,
+    base::RepeatingCallback<bool(const GURL&)> valid_url_callback,
+    const std::string& content,
+    std::vector<ImportedBookmarkEntry>* bookmarks,
+    std::vector<importer::SearchEngineInfo>* search_engines,
+    favicon_base::FaviconUsageDataList* favicons) {
   std::vector<std::string> lines = base::SplitString(
       content, "\n", base::TRIM_WHITESPACE, base::SPLIT_WANT_ALL);
 
@@ -128,6 +147,7 @@ void ImportBookmarksFile(
   std::vector<std::u16string> path;
   size_t toolbar_folder_index = 0;
   std::string charset = "UTF-8";  // If no charset is specified, assume utf-8.
+
   for (size_t i = 0;
        i < lines.size() &&
            (cancellation_callback.is_null() || !cancellation_callback.Run());
@@ -219,10 +239,12 @@ void ImportBookmarksFile(
       }
       bookmarks->push_back(entry);
 
+#if !BUILDFLAG(IS_ANDROID)
       // Save the favicon. DataURLToFaviconUsage will handle the case where
       // there is no favicon.
       if (favicons)
         DataURLToFaviconUsage(url, favicon, favicons);
+#endif
 
       continue;
     }
