@@ -33,6 +33,8 @@ class SHELL_DIALOGS_EXPORT SelectFileDialogLinux : public SelectFileDialog {
   // BaseShellDialog implementation.
   void ListenerDestroyed() override;
 
+  void ShowToast(const std::string& message) override;
+
  protected:
   explicit SelectFileDialogLinux(Listener* listener,
                                  std::unique_ptr<ui::SelectFilePolicy> policy);
