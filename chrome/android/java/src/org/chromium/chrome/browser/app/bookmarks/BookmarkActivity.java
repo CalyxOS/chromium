@@ -25,6 +25,9 @@ import org.chromium.components.embedder_support.util.UrlConstants;
 import org.chromium.ui.modaldialog.ModalDialogManager;
 import org.chromium.ui.modaldialog.ModalDialogManager.ModalDialogType;
 
+import org.chromium.ui.base.ActivityWindowAndroid;
+import org.chromium.ui.base.IntentRequestTracker;
+
 /**
  * The activity that displays the bookmark UI on the phone. It keeps a {@link
  * BookmarkManagerCoordinator} inside of it and creates a snackbar manager. This activity should
@@ -35,6 +38,9 @@ public class BookmarkActivity extends SnackbarActivity {
     private BookmarkManagerCoordinator mBookmarkManagerCoordinator;
     public static final int EDIT_BOOKMARK_REQUEST_CODE = 14;
     public static final String INTENT_VISIT_BOOKMARK_ID = "BookmarkEditActivity.VisitBookmarkId";
+
+    private ActivityWindowAndroid mWindowAndroid;
+    private IntentRequestTracker mIntentRequestTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +67,22 @@ public class BookmarkActivity extends SnackbarActivity {
                 getOnBackPressedDispatcher(),
                 mBookmarkManagerCoordinator,
                 SecondaryActivity.BOOKMARK);
+
+        final boolean listenToActivityState = true;
+        mIntentRequestTracker = IntentRequestTracker.createFromActivity(this);
+        mWindowAndroid = new ActivityWindowAndroid(this, listenToActivityState, mIntentRequestTracker, /*InsetObserver*/ null);
+        mWindowAndroid.getIntentRequestTracker().restoreInstanceState(savedInstanceState);
+        mBookmarkManagerCoordinator.setWindow(mWindowAndroid,
+                            new ModalDialogManager(
+                                new AppModalPresenter(this), ModalDialogManager.ModalDialogType.APP));
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        mWindowAndroid.getIntentRequestTracker().saveInstanceState(outState);
+     }
 
     @Override
     protected void onDestroy() {
@@ -72,6 +93,7 @@ public class BookmarkActivity extends SnackbarActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        mWindowAndroid.getIntentRequestTracker().onActivityResult(requestCode, resultCode, data);
         if (requestCode == EDIT_BOOKMARK_REQUEST_CODE && resultCode == RESULT_OK) {
             BookmarkId bookmarkId =
                     BookmarkId.getBookmarkIdFromString(
@@ -83,6 +105,14 @@ public class BookmarkActivity extends SnackbarActivity {
     @Override
     protected ModalDialogManager createModalDialogManager() {
         return new ModalDialogManager(new AppModalPresenter(this), ModalDialogType.APP);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode, String[] permissions, int[] grantResults) {
+        if (mWindowAndroid.handlePermissionResult(requestCode, permissions, grantResults))
+            return;
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     /**

@@ -546,6 +546,7 @@ public abstract class ChromeFeatureList {
     public static final String USE_LIBUNWINDSTACK_NATIVE_UNWINDER_ANDROID =
             "UseLibunwindstackNativeUnwinderAndroid";
     public static final String VISITED_URL_RANKING_SERVICE = "VisitedURLRankingService";
+    public static final String BOOKMARKS_EXPORT_USESAF = "BookmarksExportUseSaf";
     public static final String VOICE_SEARCH_AUDIO_CAPTURE_POLICY = "VoiceSearchAudioCapturePolicy";
     public static final String WEB_APK_BACKUP_AND_RESTORE_BACKEND = "WebApkBackupAndRestoreBackend";
     public static final String WEB_APK_INSTALL_FAILURE_NOTIFICATION =
