@@ -132,6 +132,10 @@ class BookmarkToolbarMediator
                     mBookmarkDelegate = bookmarkDelegate;
                     mModel.set(
                             BookmarkToolbarProperties.NAVIGATE_BACK_RUNNABLE, this::onNavigateBack);
+                    mModel.set(
+                            BookmarkToolbarProperties.IMPORT_BOOKMARK_RUNNABLE, mBookmarkDelegate::importBookmarks);
+                    mModel.set(
+                            BookmarkToolbarProperties.EXPORT_BOOKMARK_RUNNABLE, mBookmarkDelegate::exportBookmarks);
                     mBookmarkDelegate.addUiObserver(this);
                     mBookmarkDelegate.notifyStateChange(this);
                 });

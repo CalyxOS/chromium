@@ -20,6 +20,7 @@
 #include "base/strings/utf_string_conversions.h"
 #include "base/supports_user_data.h"
 #include "chrome/browser/android/bookmarks/partner_bookmarks_shim.h"
+#include "chrome/browser/bookmarks/bookmark_html_writer.h"
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/profiles/profile_observer.h"
 #include "chrome/browser/reading_list/android/reading_list_manager.h"
@@ -37,6 +38,9 @@
 #include "components/signin/public/identity_manager/identity_manager.h"
 #include "url/android/gurl_android.h"
 
+#include "components/search_engines/template_url.h"
+#include "ui/shell_dialogs/select_file_dialog.h"
+
 class BookmarkBridgeTest;
 
 // The delegate to fetch bookmarks information for the Android native
@@ -50,7 +54,8 @@ class BookmarkBridge : public ProfileObserver,
                        public ReadingListManager::Observer,
                        public ReadingListModelObserver,
                        public signin::IdentityManager::Observer,
-                       public base::SupportsUserData::Data {
+                       public base::SupportsUserData::Data,
+                       public ui::SelectFileDialog::Listener {
  public:
   // All of the injected pointers must be non-null and must outlive `this`.
   BookmarkBridge(Profile* profile,
@@ -81,6 +86,11 @@ class BookmarkBridge : public ProfileObserver,
 
   bool IsDoingExtensiveChanges(JNIEnv* env);
 
+  // SelectFileDialog::Listener implementation.
+  void FileSelected(const ui::SelectedFileInfo& file,
+                    int index) override;
+  void FileSelectionCanceled() override;
+
   jboolean IsEditBookmarksEnabled(JNIEnv* env);
 
   void LoadEmptyPartnerBookmarkShimForTesting(JNIEnv* env);
@@ -92,6 +102,15 @@ class BookmarkBridge : public ProfileObserver,
   base::android::ScopedJavaLocalRef<jobject> GetBookmarkById(JNIEnv* env,
                                                              jlong id,
                                                              jint type);
+
+  void ImportBookmarks(JNIEnv* env,
+                        const base::android::JavaParamRef<jobject>& obj,
+                        const base::android::JavaParamRef<jobject>& java_window);
+
+  void ExportBookmarks(JNIEnv* env,
+                        const base::android::JavaParamRef<jobject>& obj,
+                        const base::android::JavaParamRef<jobject>& java_window,
+                        const base::android::JavaParamRef<jstring>& j_export_path);
 
   void GetAllFoldersWithDepths(
       JNIEnv* env,
@@ -363,6 +382,9 @@ class BookmarkBridge : public ProfileObserver,
   void CreateOrDestroyAccountReadingListManagerIfNeeded();
 
   const raw_ptr<Profile> profile_;  // weak
+  base::FilePath export_path_;
+  raw_ptr<BookmarksExportObserver> observer_; // weak
+
   base::android::ScopedJavaGlobalRef<jobject> java_bookmark_model_;
   const raw_ptr<bookmarks::BookmarkModel> bookmark_model_;  // weak
   const raw_ptr<bookmarks::ManagedBookmarkService>
@@ -377,6 +399,7 @@ class BookmarkBridge : public ProfileObserver,
   std::unique_ptr<bookmarks::ScopedGroupBookmarkActions>
       grouped_bookmark_actions_;
   PrefChangeRegistrar pref_change_registrar_;
+  scoped_refptr<ui::SelectFileDialog> select_file_dialog_;
 
   // Information about the Partner bookmarks (must check for IsLoaded()).
   // This is owned by profile.
@@ -407,6 +430,10 @@ class BookmarkBridge : public ProfileObserver,
       identity_manager_observation_{this};
 
   bool suppress_observer_notifications_ = false;
+
+  const std::string FileSelectedImpl(const base::FilePath& path);
+  void FileSelectedImplOnUIThread(const base::FilePath& path,
+                                  const std::string& contents);
 
   // Weak pointers for creating callbacks that won't call into a destroyed
   // object.
