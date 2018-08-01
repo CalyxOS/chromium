@@ -205,6 +205,7 @@ const base::Feature* const kFeaturesExposedToJava[] = {
     &kCastDeviceFilter,
     &kCCTAuthTab,
     &kCCTAuthTabDisableAllExternalIntents,
+    &kBookmarksExportUseSaf,
     &kCCTBeforeUnload,
     &kCCTClientDataHeader,
     &kCCTExtendTrustedCdnPublisher,
