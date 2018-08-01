@@ -54,6 +54,12 @@ class BookmarkToolbarViewBinder {
                     model.get(BookmarkToolbarProperties.CHECKED_VIEW_MENU_ID));
         } else if (key == BookmarkToolbarProperties.CURRENT_FOLDER) {
             bookmarkToolbar.setCurrentFolder(model.get(BookmarkToolbarProperties.CURRENT_FOLDER));
+        } else if (key == BookmarkToolbarProperties.IMPORT_BOOKMARK_RUNNABLE) {
+            bookmarkToolbar.setImportBookmarkRunnable(
+                    model.get(BookmarkToolbarProperties.IMPORT_BOOKMARK_RUNNABLE));
+        } else if (key == BookmarkToolbarProperties.EXPORT_BOOKMARK_RUNNABLE) {
+            bookmarkToolbar.setExportBookmarkRunnable(
+                    model.get(BookmarkToolbarProperties.EXPORT_BOOKMARK_RUNNABLE));
         } else if (key == BookmarkToolbarProperties.NAVIGATE_BACK_RUNNABLE) {
             bookmarkToolbar.setNavigateBackRunnable(
                     model.get(BookmarkToolbarProperties.NAVIGATE_BACK_RUNNABLE));
