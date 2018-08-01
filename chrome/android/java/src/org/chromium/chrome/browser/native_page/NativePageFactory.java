@@ -18,6 +18,7 @@ import org.chromium.base.supplier.ObservableSupplier;
 import org.chromium.base.supplier.OneshotSupplier;
 import org.chromium.base.supplier.Supplier;
 import org.chromium.chrome.R;
+import org.chromium.chrome.browser.app.ChromeActivity;
 import org.chromium.chrome.browser.app.download.home.DownloadPage;
 import org.chromium.chrome.browser.bookmarks.BookmarkPage;
 import org.chromium.chrome.browser.browser_controls.BrowserControlsMarginSupplier;
@@ -57,7 +58,7 @@ import org.chromium.ui.util.ColorUtils;
  * Creates NativePage objects to show chrome-native:// URLs using the native Android view system.
  */
 public class NativePageFactory {
-    private final Activity mActivity;
+    private final ChromeActivity mActivity;
     private final BottomSheetController mBottomSheetController;
     private final BrowserControlsManager mBrowserControlsManager;
     private final Supplier<Tab> mCurrentTabSupplier;
@@ -78,7 +79,7 @@ public class NativePageFactory {
     private static NativePage sTestPage;
 
     public NativePageFactory(
-            @NonNull Activity activity,
+            @NonNull ChromeActivity activity,
             @NonNull BottomSheetController sheetController,
             @NonNull BrowserControlsManager browserControlsManager,
             @NonNull Supplier<Tab> currentTabSupplier,
@@ -144,7 +145,7 @@ public class NativePageFactory {
 
     @VisibleForTesting
     static class NativePageBuilder {
-        private final Activity mActivity;
+        private final ChromeActivity mActivity;
         private final BottomSheetController mBottomSheetController;
         private final Supplier<NewTabPageUma> mUma;
         private final BrowserControlsManager mBrowserControlsManager;
@@ -162,7 +163,7 @@ public class NativePageFactory {
         private final OneshotSupplier<ModuleRegistry> mModuleRegistrySupplier;
 
         public NativePageBuilder(
-                Activity activity,
+                ChromeActivity activity,
                 Supplier<NewTabPageUma> uma,
                 BottomSheetController sheetController,
                 BrowserControlsManager browserControlsManager,
@@ -233,7 +234,7 @@ public class NativePageFactory {
                     mActivity.getComponentName(),
                     mSnackbarManagerSupplier.get(),
                     tab.getProfile(),
-                    new TabShim(tab, mBrowserControlsManager, mTabModelSelector));
+                    new TabShim(tab, mBrowserControlsManager, mTabModelSelector), mActivity);
         }
 
         protected NativePage buildDownloadsPage(Tab tab) {

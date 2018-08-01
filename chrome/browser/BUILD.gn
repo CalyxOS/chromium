@@ -203,6 +203,8 @@ static_library("browser") {
     "bluetooth/chrome_bluetooth_delegate_impl_client.h",
     "bookmarks/bookmark_model_factory.cc",
     "bookmarks/bookmark_model_factory.h",
+    "bookmarks/bookmark_html_writer.cc",
+    "bookmarks/bookmark_html_writer.h",
     "bookmarks/chrome_bookmark_client.cc",
     "bookmarks/chrome_bookmark_client.h",
     "bookmarks/managed_bookmark_service_factory.cc",
@@ -1932,6 +1934,13 @@ static_library("browser") {
       "webapps/webapps_client_desktop.h",
       "webid/digital_identity_provider_desktop.cc",
       "webid/digital_identity_provider_desktop.h",
+    ]
+  }
+
+  if (is_android) {
+    sources += [
+      "importer/profile_writer.cc",
+      "importer/profile_writer.h",
     ]
   }
 
@@ -3746,8 +3755,6 @@ static_library("browser") {
       "badging/badge_manager_factory.h",
       "banners/app_banner_manager_desktop.cc",
       "banners/app_banner_manager_desktop.h",
-      "bookmarks/bookmark_html_writer.cc",
-      "bookmarks/bookmark_html_writer.h",
       "bookmarks/url_and_id.h",
       "cart/cart_db.cc",
       "cart/cart_db.h",

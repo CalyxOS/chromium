@@ -139,6 +139,12 @@ void SelectFileDialogImpl::SelectFileImpl(
                                    owning_window->GetJavaObject());
 }
 
+void SelectFileDialogImpl::ShowToast(const std::string& message) {
+  JNIEnv* env = base::android::AttachCurrentThread();
+
+  Java_SelectFileDialog_showToast(env, java_object_, base::android::ConvertUTF8ToJavaString(env, message));
+}
+
 SelectFileDialogImpl::~SelectFileDialogImpl() {
   JNIEnv* env = base::android::AttachCurrentThread();
   Java_SelectFileDialog_nativeDestroyed(env, java_object_);

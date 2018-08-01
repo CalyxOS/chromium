@@ -245,6 +245,24 @@ CHAR_LIMIT guidelines:
       <message name="IDS_NOTIFICATION_CATEGORY_SITES" desc="Label for notifications from websites, within a list of notification categories. [CHAR_LIMIT=32]">
         Sites
       </message>
+      <message name="IDS_IMPORT_BOOKMARKS" desc="The label for the import bookmarks button.">
+        Import
+      </message>
+      <message name="IDS_EXPORT_BOOKMARKS" desc="The label for an export bookmarks button.">
+        Export
+      </message>
+      <message name="IDS_EXPORT_BOOKMARKS_ALERT_TITLE" desc="The message for the alert title asking to overwrite the file.">
+        Export bookmarks to file
+      </message>
+      <message name="IDS_EXPORT_BOOKMARKS_ALERT_MESSAGE" desc="The message asking user to overwrite the file.">
+        Do you want to overwrite <ph name="APPLICATION">%s</ph>?
+      </message>
+      <message name="IDS_EXPORT_BOOKMARKS_ALERT_MESSAGE_YES" desc="Label for yes button.">
+        Yes
+      </message>
+      <message name="IDS_EXPORT_BOOKMARKS_ALERT_MESSAGE_NO" desc="Label for no button.">
+        Choose another file
+      </message>
       <message name="IDS_NOTIFICATION_CATEGORY_VR" desc="Label for notifications in VR, within a list of notification categories. [CHAR_LIMIT=32]">
         Virtual Reality
       </message>
