@@ -41,6 +41,7 @@ import org.chromium.base.task.AsyncTask;
 import org.chromium.base.task.PostTask;
 import org.chromium.base.task.TaskTraits;
 import org.chromium.ui.R;
+import org.chromium.ui.widget.Toast;
 import org.chromium.ui.UiUtils;
 import org.chromium.ui.permissions.PermissionConstants;
 
@@ -64,6 +65,7 @@ public class SelectFileDialog implements WindowAndroid.IntentCallback, PhotoPick
     private static final String TAG = "SelectFileDialog";
     private static final String IMAGE_TYPE = "image";
     private static final String VIDEO_TYPE = "video";
+    private static final String HTML_TYPE = "html";
     private static final String AUDIO_TYPE = "audio";
     private static final String ALL_TYPES = "*/*";
 
@@ -258,6 +260,11 @@ public class SelectFileDialog implements WindowAndroid.IntentCallback, PhotoPick
         mFileTypes = fileTypes;
     }
 
+    @CalledByNative
+    private void showToast(String message) {
+        Toast.makeText(ContextUtils.getApplicationContext(), message, Toast.LENGTH_LONG).show();
+    }
+
     /**
      * Creates and starts an intent based on the passed fileTypes and capture value.
      * @param fileTypes MIME types requested (i.e. "image/*")
@@ -284,7 +291,7 @@ public class SelectFileDialog implements WindowAndroid.IntentCallback, PhotoPick
         List<String> missingPermissions = new ArrayList<>();
         String storagePermission = Manifest.permission.READ_EXTERNAL_STORAGE;
         boolean shouldUsePhotoPicker = shouldUsePhotoPicker();
-        if (shouldUsePhotoPicker) {
+        if (shouldUsePhotoPicker || shouldShowHtmlTypes()) {
             if (BuildInfo.isAtLeastT()) {
                 if (!window.hasPermission(PermissionConstants.READ_MEDIA_IMAGES)
                         && shouldShowImageTypes()) {
@@ -325,7 +332,7 @@ public class SelectFileDialog implements WindowAndroid.IntentCallback, PhotoPick
                         }
 
                         // TODO(finnur): Remove once we figure out the cause of crbug.com/950024.
-                        if (shouldUsePhotoPicker) {
+                        if (shouldUsePhotoPicker || shouldShowHtmlTypes()) {
                             if (permissions.length != requestPermissions.length) {
                                 throw new RuntimeException(
                                         String.format("Permissions arrays misaligned: %d != %d",
@@ -339,7 +346,7 @@ public class SelectFileDialog implements WindowAndroid.IntentCallback, PhotoPick
                             }
                         }
 
-                        if (shouldUsePhotoPicker) {
+                        if (shouldUsePhotoPicker || shouldShowHtmlTypes()) {
                             if (permissions[i].equals(storagePermission)
                                     || permissions[i].equals(PermissionConstants.READ_MEDIA_IMAGES)
                                     || permissions[i].equals(
@@ -544,6 +551,7 @@ public class SelectFileDialog implements WindowAndroid.IntentCallback, PhotoPick
             }
             if (!mimeTypes.contains(mimeType)) mimeTypes.add(mimeType);
         }
+        if (mimeTypes.size() == 0) return null;
         return mimeTypes;
     }
 
@@ -870,6 +878,10 @@ public class SelectFileDialog implements WindowAndroid.IntentCallback, PhotoPick
      */
     private boolean acceptsOnlyType(String superType) {
         return countAcceptTypesFor(superType) == mFileTypes.size();
+    }
+
+    private boolean shouldShowHtmlTypes() {
+        return countAcceptTypesFor(HTML_TYPE) > 0;
     }
 
     /**

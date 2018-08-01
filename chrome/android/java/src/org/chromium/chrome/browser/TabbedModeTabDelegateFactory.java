@@ -9,6 +9,7 @@ import android.app.Activity;
 import org.chromium.base.jank_tracker.JankTracker;
 import org.chromium.base.supplier.BooleanSupplier;
 import org.chromium.base.supplier.Supplier;
+import org.chromium.chrome.browser.app.ChromeActivity;
 import org.chromium.chrome.browser.app.tab_activity_glue.ActivityTabWebContentsDelegateAndroid;
 import org.chromium.chrome.browser.browser_controls.BrowserControlsStateProvider;
 import org.chromium.chrome.browser.compositor.CompositorViewHolder;
@@ -47,7 +48,7 @@ import org.chromium.ui.modaldialog.ModalDialogManager;
  * {@link ChromeTabbedActivity}.
  */
 public class TabbedModeTabDelegateFactory implements TabDelegateFactory {
-    private final Activity mActivity;
+    private final ChromeActivity mActivity;
     private final BrowserControlsVisibilityDelegate mAppBrowserControlsVisibilityDelegate;
     private final Supplier<ShareDelegate> mShareDelegateSupplier;
     private final Supplier<EphemeralTabCoordinator> mEphemeralTabCoordinatorSupplier;
@@ -74,7 +75,7 @@ public class TabbedModeTabDelegateFactory implements TabDelegateFactory {
 
     private NativePageFactory mNativePageFactory;
 
-    public TabbedModeTabDelegateFactory(Activity activity,
+    public TabbedModeTabDelegateFactory(ChromeActivity activity,
             BrowserControlsVisibilityDelegate appBrowserControlsVisibilityDelegate,
             Supplier<ShareDelegate> shareDelegateSupplier,
             Supplier<EphemeralTabCoordinator> ephemeralTabCoordinatorSupplier,

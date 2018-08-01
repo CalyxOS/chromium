@@ -36,6 +36,8 @@ import org.chromium.components.browser_ui.util.ConversionUtils;
 import org.chromium.components.browser_ui.widget.dragreorder.DragStateDelegate;
 import org.chromium.components.browser_ui.widget.selectable_list.SelectableListLayout;
 import org.chromium.components.browser_ui.widget.selectable_list.SelectableListToolbar.SearchDelegate;
+import org.chromium.ui.base.ActivityWindowAndroid;
+import org.chromium.ui.modaldialog.ModalDialogManager;
 import org.chromium.components.browser_ui.widget.selectable_list.SelectionDelegate;
 import org.chromium.components.favicon.LargeIconBridge;
 import org.chromium.url.GURL;
@@ -59,6 +61,8 @@ public class BookmarkManager
     private ComponentName mOpenBookmarkComponentName;
     private ViewGroup mMainView;
     private BookmarkModel mBookmarkModel;
+    private ActivityWindowAndroid mWindowAndroid;
+    private ModalDialogManager mModalDialogManager;
     private BookmarkUndoController mUndoController;
     private final ObserverList<BookmarkUIObserver> mUIObservers = new ObserverList<>();
     private BasicNativePage mNativePage;
@@ -345,6 +349,14 @@ public class BookmarkManager
     }
 
     /**
+     * Sets the Android window that is used by further intents created by the bookmark activity.
+     */
+    public void setWindow(ActivityWindowAndroid window, ModalDialogManager modalDialogManager) {
+        mWindowAndroid = window;
+        mModalDialogManager = modalDialogManager;
+    }
+
+    /**
      * @return Current URL representing the UI state of bookmark manager. If no state has been shown
      *         yet in this session, on phone return last used state stored in preference; on tablet
      *         return the url previously set by {@link #updateForUrl(String)}.
@@ -538,6 +550,16 @@ public class BookmarkManager
                 && bookmarks.get(0).getType() != BookmarkType.READING_LIST) {
             BookmarkUtils.finishActivityOnPhone(mContext);
         }
+    }
+
+    @Override
+    public void importBookmarks() {
+        mBookmarkModel.importBookmarks(mWindowAndroid);
+    }
+
+    @Override
+    public void exportBookmarks() {
+        mBookmarkModel.exportBookmarks(mWindowAndroid, mModalDialogManager);
     }
 
     @Override

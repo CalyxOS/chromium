@@ -113,6 +113,8 @@ public final class ChromePreferenceKeys {
     public static final String BOOKMARKS_LAST_USED_URL = "enhanced_bookmark_last_used_url";
     public static final String BOOKMARKS_LAST_USED_PARENT =
             "enhanced_bookmark_last_used_parent_folder";
+    public static final String BOOKMARKS_LAST_EXPORT_URI =
+            "Chrome.Bookmarks.Last_Export_Uri";
 
     /**
      * Whether Chrome is set as the default browser.
@@ -1049,6 +1051,7 @@ public final class ChromePreferenceKeys {
                 AUTOFILL_ASSISTANT_PROACTIVE_HELP_ENABLED,
                 APP_LAUNCH_LAST_KNOWN_ACTIVE_TAB_STATE,
                 APP_LAUNCH_SEARCH_ENGINE_HAD_LOGO,
+                BOOKMARKS_LAST_EXPORT_URI,
                 APPLICATION_OVERRIDE_LANGUAGE,
                 BLUETOOTH_NOTIFICATION_IDS,
                 CHROME_SURVEY_DOWNLOAD_ATTEMPTS.pattern(),

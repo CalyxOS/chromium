@@ -6836,6 +6836,11 @@ const char kVcControlsUiDescription[] =
 
 #endif  // BUILDFLAG(IS_CHROMEOS_ASH)
 
+const char kBookmarksExportUseSafName[] = "Use saf for bookmarks export";
+const char kBookmarksExportUseSafDescription[] =
+    "When enabled user can choose where save the exported bookmarks "
+    "file.";
+
 // ============================================================================
 // Don't just add flags to the end, put them in the right section in
 // alphabetical order just like the header file.

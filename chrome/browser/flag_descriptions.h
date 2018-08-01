@@ -3942,6 +3942,9 @@ extern const char kDisableLacrosTtsSupportDescription[];
 extern const char kVcControlsUiName[];
 extern const char kVcControlsUiDescription[];
 
+extern const char kBookmarksExportUseSafName[];
+extern const char kBookmarksExportUseSafDescription[];
+
 // ============================================================================
 // Don't just add flags to the end, put them in the right section in
 // alphabetical order. See top instructions for more.

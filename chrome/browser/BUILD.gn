@@ -1887,6 +1887,13 @@ static_library("browser") {
     ]
   }
 
+  if (is_android) {
+    sources += [
+      "importer/profile_writer.cc",
+      "importer/profile_writer.h",
+    ]
+  }
+
   configs += [
     "//build/config/compiler:wexit_time_destructors",
     "//build/config:precompiled_headers",
@@ -2904,6 +2911,8 @@ static_library("browser") {
       "autofill/manual_filling_controller.h",
       "autofill/manual_filling_controller_impl.cc",
       "autofill/manual_filling_controller_impl.h",
+      "bookmarks/bookmark_html_writer.cc",
+      "bookmarks/bookmark_html_writer.h",
       "autofill/manual_filling_utils.cc",
       "autofill/manual_filling_utils.h",
       "autofill/manual_filling_view_interface.h",
@@ -3583,8 +3592,6 @@ static_library("browser") {
       "badging/badge_manager_factory.h",
       "banners/app_banner_manager_desktop.cc",
       "banners/app_banner_manager_desktop.h",
-      "bookmarks/bookmark_html_writer.cc",
-      "bookmarks/bookmark_html_writer.h",
       "bookmarks/url_and_id.h",
       "cart/cart_db.cc",
       "cart/cart_db.h",

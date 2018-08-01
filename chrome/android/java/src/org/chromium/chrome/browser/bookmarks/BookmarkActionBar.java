@@ -84,6 +84,12 @@ public class BookmarkActionBar extends SelectableListToolbar<BookmarkId>
         } else if (menuItem.getItemId() == R.id.search_menu_id) {
             mDelegate.openSearchUI();
             return true;
+        } else if (menuItem.getItemId() == R.id.import_menu_id) {
+            mDelegate.importBookmarks();
+            return true;
+        } else if (menuItem.getItemId() == R.id.export_menu_id) {
+            mDelegate.exportBookmarks();
+            return true;
         }
 
         SelectionDelegate<BookmarkId> selectionDelegate = mDelegate.getSelectionDelegate();
@@ -135,6 +141,8 @@ public class BookmarkActionBar extends SelectableListToolbar<BookmarkId>
     void showLoadingUi() {
         setTitle(null);
         setNavigationButton(NAVIGATION_BUTTON_NONE);
+        getMenu().findItem(R.id.import_menu_id).setVisible(false);
+        getMenu().findItem(R.id.export_menu_id).setVisible(false);
         getMenu().findItem(R.id.search_menu_id).setVisible(false);
         getMenu().findItem(R.id.edit_menu_id).setVisible(false);
     }
@@ -144,6 +152,8 @@ public class BookmarkActionBar extends SelectableListToolbar<BookmarkId>
         super.showNormalView();
 
         if (mDelegate == null) {
+            getMenu().findItem(R.id.import_menu_id).setVisible(false);
+            getMenu().findItem(R.id.export_menu_id).setVisible(false);
             getMenu().findItem(R.id.search_menu_id).setVisible(false);
             getMenu().findItem(R.id.edit_menu_id).setVisible(false);
         }
@@ -173,6 +183,8 @@ public class BookmarkActionBar extends SelectableListToolbar<BookmarkId>
     @Override
     public void onFolderStateSet(BookmarkId folder) {
         mCurrentFolder = mDelegate.getModel().getBookmarkById(folder);
+        getMenu().findItem(R.id.import_menu_id).setVisible(true);
+        getMenu().findItem(R.id.export_menu_id).setVisible(true);
         getMenu().findItem(R.id.search_menu_id).setVisible(true);
         getMenu().findItem(R.id.edit_menu_id).setVisible(mCurrentFolder.isEditable());
 

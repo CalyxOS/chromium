@@ -181,6 +181,9 @@
       <message name="IDS_OPENING_ANDROID_MEDIA_PICKER" desc="Toast when the browser is unable to open the Android Media picker (when uploading files). [CHAR_LIMIT=32]">
         Unable to open the photo picker
       </message>
+      <message name="IDS_SAVING_FILE_ERROR" desc="Toast when the browser is unable to save a file. [CHAR-LIMIT=32]">
+        Failed to save selected file
+      </message>
 
       <!-- Clipboard -->
       <message name="IDS_COPY_TO_CLIPBOARD_FAILURE_MESSAGE" desc="Notification for when copying to the clipboard fails. [CHAR_LIMIT=64]">

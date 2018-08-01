@@ -13,6 +13,9 @@ import org.chromium.chrome.browser.ui.messages.snackbar.SnackbarManager;
 import org.chromium.chrome.browser.ui.native_page.BasicNativePage;
 import org.chromium.chrome.browser.ui.native_page.NativePageHost;
 import org.chromium.components.embedder_support.util.UrlConstants;
+import org.chromium.chrome.browser.app.ChromeActivity;
+import org.chromium.ui.modaldialog.ModalDialogManager;
+import org.chromium.components.browser_ui.modaldialog.AppModalPresenter;
 
 /**
  * A native page holding a {@link BookmarkManager} on _tablet_.
@@ -29,12 +32,15 @@ public class BookmarkPage extends BasicNativePage {
      * @param host A NativePageHost to load urls.
      */
     public BookmarkPage(ComponentName componentName, SnackbarManager snackbarManager,
-            boolean isIncognito, NativePageHost host) {
+            boolean isIncognito, NativePageHost host, ChromeActivity activity) {
         super(host);
 
         mManager = new BookmarkManager(
                 host.getContext(), componentName, false, isIncognito, snackbarManager);
         mManager.setBasicNativePage(this);
+        mManager.setWindow(activity.getWindowAndroid(),
+                           new ModalDialogManager(
+                                new AppModalPresenter(activity), ModalDialogManager.ModalDialogType.APP));
         mTitle = host.getContext().getResources().getString(R.string.bookmarks);
 
         initWithView(mManager.getView());

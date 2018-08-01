@@ -161,6 +161,7 @@ BASE_DECLARE_FEATURE(kDiscoverFeedMultiColumn);
 BASE_DECLARE_FEATURE(kTabStripRedesign);
 BASE_DECLARE_FEATURE(kTabSwitcherOnReturn);
 BASE_DECLARE_FEATURE(kTabToGTSAnimation);
+extern const base::Feature kBookmarksExportUseSaf;
 BASE_DECLARE_FEATURE(kTestDefaultDisabled);
 BASE_DECLARE_FEATURE(kTestDefaultEnabled);
 BASE_DECLARE_FEATURE(kToolbarMicIphAndroid);

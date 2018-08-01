@@ -27,6 +27,7 @@
 #include "base/task/thread_pool.h"
 #include "base/time/time.h"
 #include "base/values.h"
+#include "base/android/content_uri_utils.h"
 #include "chrome/browser/bookmarks/bookmark_model_factory.h"
 #include "chrome/browser/favicon/favicon_service_factory.h"
 #include "chrome/browser/profiles/profile.h"
@@ -234,7 +235,12 @@ class Writer : public base::RefCountedThreadSafe<Writer> {
   // Opens the file, returning true on success.
   bool OpenFile() {
     int flags = base::File::FLAG_CREATE_ALWAYS | base::File::FLAG_WRITE;
-    file_ = std::make_unique<base::File>(path_, flags);
+    if (path_.IsContentUri()) {
+      file_ = std::make_unique<base::File>(base::OpenContentUriForWrite(path_));
+    } else {
+      file_ = std::make_unique<base::File>(path_, flags);
+    }
+
     if (!file_->IsValid()) {
       PLOG(ERROR) << "Could not create " << path_;
       return false;

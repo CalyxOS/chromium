@@ -80,6 +80,16 @@ public interface BookmarkDelegate {
     void openSearchUI();
 
     /**
+     * Imports bookmarks from user-selected file.
+     */
+    void importBookmarks();
+
+    /**
+     * Exports bookmarks to downloads directory.
+     */
+    void exportBookmarks();
+
+    /**
      * Dismisses the search UI.
      */
     void closeSearchUI();

@@ -181,6 +181,7 @@ const base::Feature* const kFeaturesExposedToJava[] = {
     &kCastDeviceFilter,
     &kClearOmniboxFocusAfterNavigation,
     &kCloseTabSuggestions,
+    &kBookmarksExportUseSaf,
     &kCriticalPersistedTabData,
     &kCommerceCoupons,
     &kCCTBackgroundTab,
@@ -1113,6 +1114,11 @@ BASE_FEATURE(kWebApkInstallService,
 BASE_FEATURE(kWebApkTrampolineOnInitialIntent,
              "WebApkTrampolineOnInitialIntent",
              base::FEATURE_ENABLED_BY_DEFAULT);
+
+// disabled by default because of an issue on Android 6.0
+BASE_FEATURE(kBookmarksExportUseSaf,
+             "BookmarksExportUseSaf",
+             base::FEATURE_DISABLED_BY_DEFAULT);
 
 static jboolean JNI_ChromeFeatureList_IsEnabled(
     JNIEnv* env,

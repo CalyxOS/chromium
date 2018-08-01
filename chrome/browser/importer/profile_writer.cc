@@ -106,12 +106,14 @@ void ProfileWriter::AddHistoryPage(const history::URLRows& page,
     HistoryServiceFactory::GetForProfile(profile_,
                                          ServiceAccessType::EXPLICIT_ACCESS)
         ->AddPagesWithDetails(page, visit_source);
+#if !BUILDFLAG(IS_ANDROID)
   // Measure the size of the history page after Auto Import on first run.
   if (first_run::IsChromeFirstRun() &&
       visit_source == history::SOURCE_IE_IMPORTED) {
     UMA_HISTOGRAM_COUNTS_1M("Import.ImportedHistorySize.AutoImportFromIE",
                             page.size());
   }
+#endif
 }
 
 void ProfileWriter::AddHomepage(const GURL& home_page) {
@@ -132,6 +134,16 @@ void ProfileWriter::AddBookmarks(
     return;
 
   BookmarkModel* model = BookmarkModelFactory::GetForBrowserContext(profile_);
+  AddBookmarksWithModel(model, bookmarks, top_level_folder_name);
+}
+
+void ProfileWriter::AddBookmarksWithModel(
+    BookmarkModel* model,
+    const std::vector<ImportedBookmarkEntry>& bookmarks,
+    const std::u16string& top_level_folder_name) {
+  if (bookmarks.empty())
+    return;
+
   DCHECK(model->loaded());
 
   // If the bookmark bar is currently empty, we should import directly to it.
