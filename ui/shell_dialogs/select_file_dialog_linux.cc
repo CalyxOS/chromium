@@ -31,6 +31,10 @@ void SelectFileDialogLinux::ListenerDestroyed() {
   listener_ = nullptr;
 }
 
+void SelectFileDialogLinux::ShowToast(const std::string& message) {
+  // nothing to do, used only on android
+}
+
 bool SelectFileDialogLinux::CallDirectoryExistsOnUIThread(
     const base::FilePath& path) {
   base::ScopedAllowBlocking scoped_allow_blocking;

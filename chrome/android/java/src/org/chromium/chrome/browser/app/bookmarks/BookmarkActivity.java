@@ -7,6 +7,7 @@ package org.chromium.chrome.browser.app.bookmarks;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.os.Bundle;
 
 import org.chromium.base.IntentUtils;
 import org.chromium.build.annotations.Nullable;
@@ -29,6 +30,9 @@ import org.chromium.components.embedder_support.util.UrlConstants;
 import org.chromium.ui.modaldialog.ModalDialogManager;
 import org.chromium.ui.modaldialog.ModalDialogManager.ModalDialogType;
 
+import org.chromium.ui.base.ActivityWindowAndroid;
+import org.chromium.ui.base.IntentRequestTracker;
+
 /**
  * The activity that displays the bookmark UI on the phone. It keeps a {@link
  * BookmarkManagerCoordinator} inside of it and creates a snackbar manager. This activity should
@@ -41,6 +45,9 @@ public class BookmarkActivity extends SnackbarActivity {
 
     private @Nullable BookmarkManagerCoordinator mBookmarkManagerCoordinator;
     private @Nullable BookmarkOpener mBookmarkOpener;
+
+    private ActivityWindowAndroid mWindowAndroid;
+    private IntentRequestTracker mIntentRequestTracker;
 
     @Override
     protected void onProfileAvailable(Profile profile) {
@@ -68,6 +75,14 @@ public class BookmarkActivity extends SnackbarActivity {
         mBookmarkManagerCoordinator.updateForUrl(url);
         setContentView(mBookmarkManagerCoordinator.getView());
         BackPressHelper.create(this, getOnBackPressedDispatcher(), mBookmarkManagerCoordinator);
+
+        final boolean listenToActivityState = true;
+        mIntentRequestTracker = IntentRequestTracker.createFromActivity(this);
+        mWindowAndroid = new ActivityWindowAndroid(this, listenToActivityState,
+                                                   mIntentRequestTracker, /*InsetObserver*/ null,
+                                                   /* trackOcclusion= */ true);
+        mBookmarkManagerCoordinator.setWindow(mWindowAndroid,
+            getModalDialogManagerSupplier().get());
     }
 
     @Override
@@ -87,12 +102,28 @@ public class BookmarkActivity extends SnackbarActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        mWindowAndroid.getIntentRequestTracker().onActivityResult(requestCode, resultCode, data);
         if (requestCode == EDIT_BOOKMARK_REQUEST_CODE && resultCode == RESULT_OK) {
             BookmarkId bookmarkId =
                     BookmarkId.getBookmarkIdFromString(
                             data.getStringExtra(INTENT_VISIT_BOOKMARK_ID));
             mBookmarkManagerCoordinator.openBookmark(bookmarkId);
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        mWindowAndroid.getIntentRequestTracker().saveInstanceState(outState);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode, String[] permissions, int[] grantResults) {
+        if (mWindowAndroid.handlePermissionResult(requestCode, permissions, grantResults))
+            return;
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
