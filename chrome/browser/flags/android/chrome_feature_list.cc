@@ -209,6 +209,7 @@ const base::Feature* const kFeaturesExposedToJava[] = {
     &kBackgroundThreadPool,
     &kBlockIntentsWhileLocked,
     &kBookmarkPaneAndroid,
+    &kBookmarksExportUseSaf,
     &kBottomBrowserControlsRefactor,
     &kTabClosureMethodRefactor,
     &kBrowserControlsEarlyResize,

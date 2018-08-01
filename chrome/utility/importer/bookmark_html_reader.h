@@ -50,6 +50,14 @@ void ImportBookmarksFile(
     std::vector<importer::SearchEngineInfo>* search_engines,
     favicon_base::FaviconUsageDataList* favicons);
 
+void ImportBookmarksFile(
+    const base::RepeatingCallback<bool(void)> cancellation_callback,
+    const base::RepeatingCallback<bool(const GURL&)> valid_url_callback,
+    const std::string& content,
+    std::vector<ImportedBookmarkEntry>* bookmarks,
+    std::vector<importer::SearchEngineInfo>* search_engines,
+    favicon_base::FaviconUsageDataList* favicons);
+
 // Returns true if |url| should be imported as a search engine, i.e. because it
 // has replacement terms. Chrome treats such bookmarks as search engines rather
 // than true bookmarks.
