@@ -43,13 +43,13 @@ import java.util.ArrayList;
 @NullMarked
 public class DownloadLocationDialogCoordinator implements ModalDialogProperties.Controller {
     private DownloadLocationDialogController mController;
-    private @Nullable PropertyModel mDialogModel;
+    protected @Nullable PropertyModel mDialogModel;
     private @Nullable PropertyModel mDownloadLocationDialogModel;
     private @Nullable
             PropertyModelChangeProcessor<PropertyModel, DownloadLocationCustomView, PropertyKey>
             mPropertyModelChangeProcessor;
-    private @Nullable DownloadLocationCustomView mCustomView;
-    private @Nullable ModalDialogManager mModalDialogManager;
+    protected @Nullable DownloadLocationCustomView mCustomView;
+    protected @Nullable ModalDialogManager mModalDialogManager;
 
     private long mTotalBytes;
     private @DownloadLocationDialogType int mDialogType;
@@ -57,7 +57,7 @@ public class DownloadLocationDialogCoordinator implements ModalDialogProperties.
     private @Nullable Context mContext;
 
     private boolean mHasMultipleDownloadLocations;
-    private @Nullable Profile mProfile;
+    protected @Nullable Profile mProfile;
 
     private boolean mLocationDialogManaged;
 
@@ -153,7 +153,7 @@ public class DownloadLocationDialogCoordinator implements ModalDialogProperties.
      * Called after retrieved the download directory options.
      * @param dirs An list of available download directories.
      */
-    private void onDirectoryOptionsRetrieved(ArrayList<DirectoryOption> dirs) {
+    protected void onDirectoryOptionsRetrieved(ArrayList<DirectoryOption> dirs) {
         assertNonNull(mContext);
         assertNonNull(mModalDialogManager);
         assertNonNull(mSuggestedPath);

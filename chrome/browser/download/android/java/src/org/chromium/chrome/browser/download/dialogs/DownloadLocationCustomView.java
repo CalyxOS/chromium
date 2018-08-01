@@ -50,7 +50,7 @@ public class DownloadLocationCustomView extends ScrollView
     private TextView mFileSize;
     private Spinner mFileLocation;
     private TextView mLocationAvailableSpace;
-    private CheckBox mDontShowAgain;
+    public CheckBox mDontShowAgain;
     private @DownloadLocationDialogType int mDialogType;
     private long mTotalBytes;
     private @Nullable Callback<Boolean> mOnClickedCallback;
@@ -75,7 +75,7 @@ public class DownloadLocationCustomView extends ScrollView
         mDontShowAgain = findViewById(R.id.show_again_checkbox);
     }
 
-    void initialize(
+    public void initialize(
             @DownloadLocationDialogType int dialogType,
             long totalBytes,
             Callback<Boolean> onClickedCallback,
@@ -133,7 +133,7 @@ public class DownloadLocationCustomView extends ScrollView
     /**
      * @return The text that the user inputted as the name of the file.
      */
-    @Nullable String getFileName() {
+    @Nullable public String getFileName() {
         if (mFileName == null || mFileName.getText() == null) return null;
         return mFileName.getText().toString();
     }
@@ -141,7 +141,7 @@ public class DownloadLocationCustomView extends ScrollView
     /**
      * @return The file path based on what the user selected as the location of the file.
      */
-    @Nullable DirectoryOption getDirectoryOption() {
+    @Nullable public DirectoryOption getDirectoryOption() {
         if (mFileLocation == null) return null;
         DirectoryOption selected = (DirectoryOption) mFileLocation.getSelectedItem();
         return selected;
