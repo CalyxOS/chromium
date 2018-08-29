@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grit-part>
+    <!-- Allow custom tab intents -->
+    <message name="IDS_ALLOW_CUSTOM_TAB_INTENTS_TITLE" desc="Text for 'Allow custom tab intents' settings-privacy option.">
+        Allow custom tab intents.
+    </message>
+    <message name="IDS_ALLOW_CUSTOM_TAB_INTENTS_SUMMARY" desc="Summary text for 'Allow custom tab intents' settings-privacy option.">
+        Allow applications to open custom tab intents, similar to webview. To work, Cromite must be set as the default browser.
+    </message>
+
+    <message name="IDS_USES_SEPARATE_STORAGEPARTITION_FOR_CCT_TITLE" desc="Text for 'Use ephemeral mode for CCT' settings-privacy option.">
+        Use ephemeral mode for CCT
+    </message>
+    <message name="IDS_USES_SEPARATE_STORAGEPARTITION_FOR_CCT_SUMMARY" desc="Summary text for 'Use ephemeral mode for CCT' settings-privacy option.">
+        Use a separate storage partition when opening custom tab intents
+    </message>
+
+    <!-- Open External Links in Incognito -->
+    <message name="IDS_OPEN_EXTERNAL_LINKS_INCOGNITO_TITLE" desc="Text for 'Open external links in incognito' settings-privacy option.">
+        Open external links in incognito
+    </message>
+    <message name="IDS_OPEN_EXTERNAL_LINKS_INCOGNITO_SUMMARY" desc="Summary text for 'Open external links in incognito' settings-privacy option.">
+        Force the opening of all external links in incognito mode and uses the CCT ephemeral mode. Caution: there is only one incognito profile.
+    </message>
+</grit-part>
