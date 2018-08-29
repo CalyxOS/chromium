@@ -87,7 +87,11 @@ public final class TabAssociatedApp extends TabWebContentsUserData implements Im
     public static boolean isOpenedFromExternalApp(Tab tab) {
         TabAssociatedApp app = get(tab);
         if (app == null) return false;
-
+        if (ContextUtils.getAppSharedPreferences()
+                        .getBoolean("open_external_links_incognito", false) &&
+                tab.isIncognito() &&
+                tab.getLaunchType() == TabLaunchType.FROM_EXTERNAL_APP)
+            return true;
         String packageName = ContextUtils.getApplicationContext().getPackageName();
         return tab.getLaunchType() == TabLaunchType.FROM_EXTERNAL_APP
                 && !TextUtils.equals(app.getAppId(), packageName);
