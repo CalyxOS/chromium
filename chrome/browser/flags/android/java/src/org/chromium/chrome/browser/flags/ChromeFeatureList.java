@@ -773,6 +773,8 @@ public abstract class ChromeFeatureList {
     public static final CachedFlag sMiniOriginBar = newCachedFlag(MINI_ORIGIN_BAR, false);
     public static final CachedFlag sMostVisitedTilesCustomization =
             newCachedFlag(MOST_VISITED_TILES_CUSTOMIZATION, false);
+    public static final CachedFlag sMayLaunchurlUsesSeparateStoragePartition =
+            newCachedFlag(MAYLAUNCHURL_USES_SEPARATE_STORAGE_PARTITION, false);
     public static final CachedFlag sMostVisitedTilesReselect =
             newCachedFlag(MOST_VISITED_TILES_RESELECT, false);
     public static final CachedFlag sMultiInstanceApplicationStatusCleanup =
@@ -925,6 +927,7 @@ public abstract class ChromeFeatureList {
                     sMagicStackAndroid,
                     sMiniOriginBar,
                     sMostVisitedTilesCustomization,
+                    sMayLaunchurlUsesSeparateStoragePartition,
                     sMostVisitedTilesReselect,
                     sMultiInstanceApplicationStatusCleanup,
                     sNavBarColorAnimation,

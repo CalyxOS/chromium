@@ -76,6 +76,15 @@ import org.chromium.ui.text.SpanApplier;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
+import android.app.role.RoleManager;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ResolveInfo;
+import android.provider.Settings;
+import android.text.TextUtils;
+import org.chromium.base.IntentUtils;
+import org.chromium.base.PackageManagerUtils;
+
 import androidx.preference.PreferenceCategory;
 import org.chromium.chrome.browser.contextualsearch.ContextualSearchManager;
 import org.chromium.base.shared_preferences.SharedPreferencesManager;
@@ -141,6 +150,9 @@ public class PrivacySettings extends ChromeBaseSettingsFragment
         return new SpanApplier.SpanInfo(
                 startTag, endTag, new ChromeClickableSpan(context, onClickCallback));
     }
+
+    private ChromeSwitchPreference allowCustomTabIntentsPref;
+    private ChromeSwitchPreference openExternalLinksPref;
 
     @Override
     public void onCreatePreferencesCromite(Bundle savedInstanceState, String rootKey) {
@@ -373,6 +385,9 @@ public class PrivacySettings extends ChromeBaseSettingsFragment
                 new SpanApplier.SpanInfo("<link2>", "</link2>", servicesLink));
     }
 
+    public static final String PREF_ALLOW_CUSTOM_TAB_INTENTS = "allow_custom_tab_intents";
+    public static final String PREF_OPEN_EXTERNAL_LINKS_INCOGNITO = "open_external_links_incognito";
+
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         String key = preference.getKey();
@@ -389,6 +404,31 @@ public class PrivacySettings extends ChromeBaseSettingsFragment
         } else if (PREF_SEARCH_SUGGESTIONS.equals(key)) {
             UserPrefs.get(getProfile())
                     .setBoolean(Pref.SEARCH_SUGGEST_ENABLED, (boolean) newValue);
+        } else if (PREF_ALLOW_CUSTOM_TAB_INTENTS.equals(key)) {
+            SharedPreferences.Editor sharedPreferencesEditor = ContextUtils.getAppSharedPreferences().edit();
+            sharedPreferencesEditor.putBoolean(PREF_ALLOW_CUSTOM_TAB_INTENTS, (boolean)newValue);
+            sharedPreferencesEditor.apply();
+            // check default browser
+            if ((boolean)newValue) {
+                ResolveInfo info = PackageManagerUtils.resolveDefaultWebBrowserActivity();
+                if (info == null || info.match == 0 ||
+                    !TextUtils.equals(ContextUtils.getApplicationContext().getPackageName(),
+                                      info.activityInfo.packageName)) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                                RoleManager roleManager = (RoleManager) getContext().getSystemService(Context.ROLE_SERVICE);
+                                Intent intent = roleManager.createRequestRoleIntent(RoleManager.ROLE_BROWSER);
+                                startActivityForResult(intent, 0);
+                        } else {
+                                Intent intent = new Intent(Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                IntentUtils.safeStartActivity(getContext(), intent);
+                        }
+                }
+            }
+        } else if (PREF_OPEN_EXTERNAL_LINKS_INCOGNITO.equals(key)) {
+            SharedPreferences.Editor sharedPreferencesEditor = ContextUtils.getAppSharedPreferences().edit();
+            sharedPreferencesEditor.putBoolean(PREF_OPEN_EXTERNAL_LINKS_INCOGNITO, (boolean)newValue);
+            sharedPreferencesEditor.apply();
         }
         return true;
     }
@@ -420,6 +460,16 @@ public class PrivacySettings extends ChromeBaseSettingsFragment
             canMakePaymentPref.setChecked(
                     UserPrefs.get(getProfile()).getBoolean(Pref.CAN_MAKE_PAYMENT_ENABLED));
         }
+
+        allowCustomTabIntentsPref =
+                (ChromeSwitchPreference) findPreference(PREF_ALLOW_CUSTOM_TAB_INTENTS);
+        allowCustomTabIntentsPref.setOnPreferenceChangeListener(this);
+        allowCustomTabIntentsPref.setManagedPreferenceDelegate(mManagedPreferenceDelegate);
+
+        openExternalLinksPref =
+                (ChromeSwitchPreference) findPreference(PREF_OPEN_EXTERNAL_LINKS_INCOGNITO);
+        openExternalLinksPref.setOnPreferenceChangeListener(this);
+        openExternalLinksPref.setManagedPreferenceDelegate(mManagedPreferenceDelegate);
 
         Preference doNotTrackPref = findPreference(PREF_DO_NOT_TRACK);
         if (doNotTrackPref != null) {
