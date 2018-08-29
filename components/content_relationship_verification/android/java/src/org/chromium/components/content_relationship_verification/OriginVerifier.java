@@ -176,6 +176,11 @@ public abstract class OriginVerifier {
         assert mNativeOriginVerifier != 0
                 : "Either provide a browserContextHandle to "
                         + "OriginVerifier#ctor or call initNativeOriginVerifier.";
+        if ((true)) {
+            PostTask.runOrPostTask(
+                    TaskTraits.UI_DEFAULT, new VerifiedCallback(origin, false, null));
+            return;
+        }
 
         String scheme = origin.uri().getScheme();
         String host = origin.uri().getHost();

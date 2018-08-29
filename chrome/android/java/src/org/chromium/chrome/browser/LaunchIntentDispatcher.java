@@ -58,6 +58,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.Set;
 
+import org.chromium.chrome.browser.privacy.settings.PrivacySettings;
+import org.chromium.chrome.browser.tab.TabLaunchType;
+
 /**
  * Dispatches incoming intents to the appropriate activity based on the current configuration and
  * Intent fired.
@@ -244,6 +247,9 @@ public class LaunchIntentDispatcher {
     @OptIn(markerClass = ExperimentalAuthTab.class)
     public static boolean isCustomTabIntent(Intent intent) {
         if (intent == null) return false;
+        if (!ContextUtils.getAppSharedPreferences()
+                .getBoolean(PrivacySettings.PREF_ALLOW_CUSTOM_TAB_INTENTS, false))
+            return false;
         Log.w(
                 TAG,
                 "CustomTabsIntent#shouldAlwaysUseBrowserUI() = "
@@ -271,6 +277,10 @@ public class LaunchIntentDispatcher {
         newIntent.setClassName(context, CustomTabActivity.class.getName());
         // Make sure the result of the CustomTabActivity is forwarded to the client.
         newIntent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+
+        if (ContextUtils.getAppSharedPreferences()
+                .getBoolean(PrivacySettings.PREF_OPEN_EXTERNAL_LINKS_INCOGNITO, false))
+            newIntent.putExtra(IntentHandler.EXTRA_OPEN_NEW_INCOGNITO_TAB, true);
 
         // Since configureIntentForResizableCustomTab() might change the componenet/class
         // associated with the passed intent, it needs to be called after #setClassName(context,
@@ -445,6 +455,17 @@ public class LaunchIntentDispatcher {
 
         if (Intent.ACTION_VIEW.equals(newIntent.getAction())
                 && !IntentHandler.wasIntentSenderChrome(newIntent)) {
+
+            if (ContextUtils.getAppSharedPreferences().getBoolean(
+                    PrivacySettings.PREF_OPEN_EXTERNAL_LINKS_INCOGNITO, false)) {
+                Context applicationContext = ContextUtils.getApplicationContext();
+                newIntent = IntentHandler.createTrustedOpenNewTabIntent(applicationContext,
+                    /*incognito*/true);
+                newIntent.setData(mIntent.getData());
+                newIntent.setPackage(applicationContext.getPackageName());
+                IntentHandler.setTabLaunchType(newIntent, TabLaunchType.FROM_EXTERNAL_APP);
+                newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }
             if (!chromeTabbedTaskExists()) {
                 newIntent.putExtra(IntentHandler.EXTRA_STARTED_TABBED_CHROME_TASK, true);
             }
