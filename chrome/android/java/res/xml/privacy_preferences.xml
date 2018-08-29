@@ -55,6 +55,16 @@ found in the LICENSE file.
         android:key="do_not_track"
         android:title="@string/do_not_track_title"
         android:fragment="org.chromium.chrome.browser.privacy.settings.DoNotTrackSettings" />
+    <org.chromium.components.browser_ui.settings.ChromeSwitchPreference
+        android:key="allow_custom_tab_intents"
+        android:title="@string/allow_custom_tab_intents_title"
+        android:summary="@string/allow_custom_tab_intents_summary"
+        android:defaultValue="false" />
+    <org.chromium.components.browser_ui.settings.ChromeSwitchPreference
+        android:key="open_external_links_incognito"
+        android:title="@string/open_external_links_incognito_title"
+        android:summary="@string/open_external_links_incognito_summary"
+        android:defaultValue="false" />
     <Preference
         android:key="preload_pages"
         android:title="@string/preload_pages_title"
