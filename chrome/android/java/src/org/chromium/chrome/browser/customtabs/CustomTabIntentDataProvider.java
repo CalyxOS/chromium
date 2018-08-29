@@ -1238,7 +1238,9 @@ public class CustomTabIntentDataProvider extends BrowserServicesIntentDataProvid
     public @CustomTabProfileType int getCustomTabMode() {
         return AlwaysIncognitoLinkInterceptor.isAlwaysIncognito()
                 ? CustomTabProfileType.INCOGNITO
-                : CustomTabProfileType.REGULAR;
+                : (ChromeFeatureList.sMayLaunchurlUsesSeparateStoragePartition.isEnabled()
+                    ? CustomTabProfileType.EPHEMERAL
+                    : CustomTabProfileType.REGULAR);
     }
 
     @Override
