@@ -58,6 +58,21 @@ found in the LICENSE file.
         android:key="cromite_flags"
         android:title="@string/cromite_flags_title"
         app:url="@string/cromite_flags_url" />
+    <org.chromium.components.browser_ui.settings.ChromeSwitchPreference
+        android:key="allow_custom_tab_intents"
+        android:title="@string/allow_custom_tab_intents_title"
+        android:summary="@string/allow_custom_tab_intents_summary"
+        android:defaultValue="false" />
+    <org.chromium.components.browser_ui.settings.ChromeSwitchPreference
+        android:title="@string/uses_separate_storagepartition_for_cct_title"
+        android:summary="@string/uses_separate_storagepartition_for_cct_summary"
+        app:featureName="maylaunchurl-uses-separate-storage-partition"
+        app:needRestart="true" />
+    <org.chromium.components.browser_ui.settings.ChromeSwitchPreference
+        android:key="open_external_links_incognito"
+        android:title="@string/open_external_links_incognito_title"
+        android:summary="@string/open_external_links_incognito_summary"
+        android:defaultValue="false" />
     <Preference
         android:key="preload_pages"
         android:title="@string/preload_pages_title"
