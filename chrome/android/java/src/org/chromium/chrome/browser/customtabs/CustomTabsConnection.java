@@ -980,6 +980,7 @@ public class CustomTabsConnection {
         PostTask.postTask(
                 TaskTraits.UI_DEFAULT,
                 () -> {
+                    if ((true)) return; // Disable CCTPostMessageAPI
                     // Attempt to verify origin synchronously. If successful directly initialize
                     // postMessage channel for session.
                     Uri verifiedOrigin = verifyOriginForSession(session, uid, postMessageOrigin);
