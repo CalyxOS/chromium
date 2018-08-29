@@ -28,4 +28,5 @@ BASE_FEATURE(kTranslateOpenSettings,
 // Params:
 const char kContentLanguagesDisableObserversParam[] = "disable_observers";
 
+SET_CROMITE_FEATURE_DISABLED(kCctAutoTranslate);
 }  // namespace language
