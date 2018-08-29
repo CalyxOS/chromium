@@ -39,6 +39,9 @@ import org.chromium.components.browser_ui.widget.TintedDrawable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.chromium.base.ContextUtils;
+import org.chromium.chrome.browser.privacy.settings.PrivacySettings;
+
 /**
  * A model class that parses the incoming intent for incognito Custom Tabs specific customization
  * data.
@@ -116,6 +119,9 @@ public class IncognitoCustomTabIntentDataProvider extends BrowserServicesIntentD
     }
 
     private static boolean isIntentFromThirdPartyAllowed() {
+        if (ContextUtils.getAppSharedPreferences()
+                        .getBoolean(PrivacySettings.PREF_OPEN_EXTERNAL_LINKS_INCOGNITO, false))
+            return true;
         return ChromeFeatureList.sCctIncognitoAvailableToThirdParty.isEnabled();
     }
 
