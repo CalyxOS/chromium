@@ -39,6 +39,9 @@ import org.chromium.components.browser_ui.widget.TintedDrawable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.chromium.base.ContextUtils;
+import org.chromium.chrome.browser.privacy.settings.PrivacySettings;
+
 /**
  * A model class that parses the incoming intent for incognito Custom Tabs specific customization
  * data.
@@ -116,6 +119,9 @@ public class IncognitoCustomTabIntentDataProvider extends BrowserServicesIntentD
     }
 
     private static boolean isIntentFromThirdPartyAllowed() {
+        if (ContextUtils.getAppSharedPreferences()
+                        .getBoolean(PrivacySettings.PREF_OPEN_EXTERNAL_LINKS_INCOGNITO, false))
+            return true;
         return ChromeFeatureList.sCctIncognitoAvailableToThirdParty.isEnabled();
     }
 
@@ -216,6 +222,10 @@ public class IncognitoCustomTabIntentDataProvider extends BrowserServicesIntentD
     }
 
     public static boolean isValidIncognitoIntent(Intent intent, boolean recordMetrics) {
+        if (ContextUtils.getAppSharedPreferences()
+                .getBoolean(PrivacySettings.PREF_OPEN_EXTERNAL_LINKS_INCOGNITO, false)) {
+            return true;
+        }
         if (!isIncognitoRequested(intent)) return false;
         var session = CustomTabsSessionToken.getSessionTokenFromIntent(intent);
         if (isIntentFromThirdPartyAllowed()
@@ -329,6 +339,10 @@ public class IncognitoCustomTabIntentDataProvider extends BrowserServicesIntentD
 
     @Override
     public @CustomTabProfileType int getCustomTabMode() {
+        if (ContextUtils.getAppSharedPreferences()
+                .getBoolean(PrivacySettings.PREF_OPEN_EXTERNAL_LINKS_INCOGNITO, false)) {
+            return CustomTabProfileType.EPHEMERAL;
+        }
         return CustomTabProfileType.INCOGNITO;
     }
 
