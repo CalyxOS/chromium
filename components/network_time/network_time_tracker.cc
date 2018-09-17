@@ -67,6 +67,7 @@ BASE_FEATURE(kNetworkTimeServiceQuerying,
              "NetworkTimeServiceQuerying",
              base::FEATURE_ENABLED_BY_DEFAULT);
 #endif
+SET_CROMITE_FEATURE_DISABLED(kNetworkTimeServiceQuerying);
 
 namespace {
 
@@ -282,7 +283,7 @@ void NetworkTimeTracker::UpdateNetworkTime(base::Time network_time,
 }
 
 bool NetworkTimeTracker::AreTimeFetchesEnabled() const {
-  return base::FeatureList::IsEnabled(kNetworkTimeServiceQuerying);
+  return false;
 }
 
 NetworkTimeTracker::FetchBehavior NetworkTimeTracker::GetFetchBehavior() const {
