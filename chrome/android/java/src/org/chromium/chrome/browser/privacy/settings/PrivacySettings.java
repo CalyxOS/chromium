@@ -31,14 +31,11 @@ import org.chromium.chrome.browser.privacy_sandbox.PrivacySandboxBridge;
 import org.chromium.chrome.browser.privacy_sandbox.PrivacySandboxReferrer;
 import org.chromium.chrome.browser.privacy_sandbox.PrivacySandboxSettingsBaseFragment;
 import org.chromium.chrome.browser.profiles.Profile;
-import org.chromium.chrome.browser.safe_browsing.metrics.SettingsAccessPoint;
-import org.chromium.chrome.browser.safe_browsing.settings.SafeBrowsingSettingsFragment;
 import org.chromium.chrome.browser.settings.ChromeManagedPreferenceDelegate;
 import org.chromium.chrome.browser.settings.SettingsLauncherImpl;
 import org.chromium.chrome.browser.signin.services.IdentityServicesProvider;
 import org.chromium.chrome.browser.sync.settings.GoogleServicesSettings;
 import org.chromium.chrome.browser.sync.settings.ManageSyncSettings;
-import org.chromium.chrome.browser.usage_stats.UsageStatsConsentDialog;
 import org.chromium.components.browser_ui.settings.ChromeSwitchPreference;
 import org.chromium.components.browser_ui.settings.ManagedPreferenceDelegate;
 import org.chromium.components.browser_ui.settings.SettingsLauncher;
@@ -60,9 +57,7 @@ public class PrivacySettings
     private static final String PREF_PRELOAD_PAGES = "preload_pages";
     private static final String PREF_HTTPS_FIRST_MODE = "https_first_mode";
     private static final String PREF_SECURE_DNS = "secure_dns";
-    private static final String PREF_USAGE_STATS = "usage_stats_reporting";
     private static final String PREF_DO_NOT_TRACK = "do_not_track";
-    private static final String PREF_SAFE_BROWSING = "safe_browsing";
     private static final String PREF_SYNC_AND_SERVICES_LINK = "sync_and_services_link";
     private static final String PREF_CLEAR_BROWSING_DATA = "clear_browsing_data";
     private static final String PREF_PRIVACY_SANDBOX = "privacy_sandbox";
@@ -115,15 +110,6 @@ public class PrivacySettings
                 (IncognitoReauthSettingSwitchPreference) findPreference(PREF_INCOGNITO_LOCK);
         mIncognitoLockSettings = new IncognitoLockSettings(incognitoReauthPreference);
         mIncognitoLockSettings.setUpIncognitoReauthPreference(getActivity());
-
-        Preference safeBrowsingPreference = findPreference(PREF_SAFE_BROWSING);
-        safeBrowsingPreference.setSummary(
-                SafeBrowsingSettingsFragment.getSafeBrowsingSummaryString(getContext()));
-        safeBrowsingPreference.setOnPreferenceClickListener((preference) -> {
-            preference.getExtras().putInt(
-                    SafeBrowsingSettingsFragment.ACCESS_POINT, SettingsAccessPoint.PARENT_SETTINGS);
-            return false;
-        });
 
         setHasOptionsMenu(true);
 
@@ -230,32 +216,6 @@ public class PrivacySettings
         Preference secureDnsPref = findPreference(PREF_SECURE_DNS);
         if (secureDnsPref != null && secureDnsPref.isVisible()) {
             secureDnsPref.setSummary(SecureDnsSettings.getSummary(getContext()));
-        }
-
-        Preference safeBrowsingPreference = findPreference(PREF_SAFE_BROWSING);
-        if (safeBrowsingPreference != null && safeBrowsingPreference.isVisible()) {
-            safeBrowsingPreference.setSummary(
-                    SafeBrowsingSettingsFragment.getSafeBrowsingSummaryString(getContext()));
-        }
-
-        Preference usageStatsPref = findPreference(PREF_USAGE_STATS);
-        if (usageStatsPref != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
-                    && prefService.getBoolean(Pref.USAGE_STATS_ENABLED)) {
-                usageStatsPref.setOnPreferenceClickListener(preference -> {
-                    UsageStatsConsentDialog
-                            .create(getActivity(), true,
-                                    (didConfirm) -> {
-                                        if (didConfirm) {
-                                            updatePreferences();
-                                        }
-                                    })
-                            .show();
-                    return true;
-                });
-            } else {
-                getPreferenceScreen().removePreference(usageStatsPref);
-            }
         }
 
         Preference privacySandboxPreference = findPreference(PREF_PRIVACY_SANDBOX);

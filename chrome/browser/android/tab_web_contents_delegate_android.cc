@@ -35,7 +35,9 @@
 #include "chrome/browser/prefetch/prefetch_prefs.h"
 #include "chrome/browser/preloading/prefetch/no_state_prefetch/no_state_prefetch_manager_factory.h"
 #include "chrome/browser/profiles/profile.h"
+#if BUILDFLAG(FULL_SAFE_BROWSING)
 #include "chrome/browser/safe_browsing/safe_browsing_navigation_observer_manager_factory.h"
+#endif
 #include "chrome/browser/safe_browsing/safe_browsing_service.h"
 #include "chrome/browser/ui/android/tab_model/tab_model_list.h"
 #include "chrome/browser/ui/autofill/chrome_autofill_client.h"
@@ -60,7 +62,9 @@
 #include "components/navigation_interception/intercept_navigation_delegate.h"
 #include "components/no_state_prefetch/browser/no_state_prefetch_manager.h"
 #include "components/paint_preview/buildflags/buildflags.h"
+#if BUILDFLAG(FULL_SAFE_BROWSING)
 #include "components/safe_browsing/content/browser/safe_browsing_navigation_observer.h"
+#endif
 #include "content/public/browser/file_select_listener.h"
 #include "content/public/browser/navigation_entry.h"
 #include "content/public/browser/render_frame_host.h"
@@ -145,8 +149,10 @@ void TabWebContentsDelegateAndroid::PortalWebContentsCreated(
     content::WebContents* portal_contents) {
   WebContentsDelegateAndroid::PortalWebContentsCreated(portal_contents);
 
+#if BUILDFLAG(FULL_SAFE_BROWSING)
   Profile* profile =
       Profile::FromBrowserContext(portal_contents->GetBrowserContext());
+#endif
 
   // This is a subset of the tab helpers that would be attached by
   // TabAndroid::AttachTabHelpers.
@@ -169,11 +175,13 @@ void TabWebContentsDelegateAndroid::PortalWebContentsCreated(
   HistoryTabHelper::CreateForWebContents(portal_contents);
   infobars::ContentInfoBarManager::CreateForWebContents(portal_contents);
   PrefsTabHelper::CreateForWebContents(portal_contents);
+#if BUILDFLAG(FULL_SAFE_BROWSING)
   safe_browsing::SafeBrowsingNavigationObserver::MaybeCreateForWebContents(
       portal_contents, HostContentSettingsMapFactory::GetForProfile(profile),
       safe_browsing::SafeBrowsingNavigationObserverManagerFactory::
           GetForBrowserContext(profile),
       profile->GetPrefs(), g_browser_process->safe_browsing_service());
+#endif
 }
 
 void TabWebContentsDelegateAndroid::RunFileChooser(

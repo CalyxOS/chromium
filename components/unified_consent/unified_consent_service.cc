@@ -57,7 +57,7 @@ void UnifiedConsentService::SetUrlKeyedAnonymizedDataCollectionEnabled(
     SetMigrationState(MigrationState::kCompleted);
 
   pref_service_->SetBoolean(prefs::kUrlKeyedAnonymizedDataCollectionEnabled,
-                            enabled);
+                            false);
 }
 
 void UnifiedConsentService::Shutdown() {

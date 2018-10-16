@@ -43,15 +43,19 @@
 #include "chrome/browser/download/insecure_download_blocking.h"
 #include "chrome/browser/download/save_package_file_picker.h"
 #include "chrome/browser/enterprise/connectors/common.h"
+#if defined(FULL_SAFE_BROWSING)
 #include "chrome/browser/extensions/api/safe_browsing_private/safe_browsing_private_event_router.h"
 #include "chrome/browser/extensions/api/safe_browsing_private/safe_browsing_private_event_router_factory.h"
+#endif
 #include "chrome/browser/platform_util.h"
 #include "chrome/browser/profiles/profile.h"
+#if defined(FULL_SAFE_BROWSING)
 #include "chrome/browser/safe_browsing/cloud_content_scanning/binary_upload_service.h"
 #include "chrome/browser/safe_browsing/download_protection/deep_scanning_request.h"
 #include "chrome/browser/safe_browsing/download_protection/download_protection_service.h"
 #include "chrome/browser/safe_browsing/download_protection/download_protection_util.h"
 #include "chrome/browser/safe_browsing/safe_browsing_service.h"
+#endif
 #include "chrome/browser/ui/chrome_pages.h"
 #include "chrome/browser/ui/scoped_tabbed_browser_displayer.h"
 #include "chrome/common/buildflags.h"
@@ -72,9 +76,11 @@
 #include "components/prefs/pref_member.h"
 #include "components/prefs/pref_service.h"
 #include "components/safe_browsing/buildflags.h"
+#if defined(FULL_SAFE_BROWSING)
 #include "components/safe_browsing/content/browser/download/download_stats.h"
 #include "components/safe_browsing/content/browser/web_ui/safe_browsing_ui.h"
 #include "components/safe_browsing/content/common/file_type_policies.h"
+#endif
 #include "components/services/quarantine/public/mojom/quarantine.mojom.h"
 #include "components/services/quarantine/quarantine_impl.h"
 #include "content/public/browser/browser_task_traits.h"
@@ -133,8 +139,10 @@ using content::DownloadManager;
 using download::DownloadItem;
 using download::DownloadPathReservationTracker;
 using download::PathValidationResult;
+#if defined(FULL_SAFE_BROWSING)
 using safe_browsing::DownloadFileType;
 using safe_browsing::DownloadProtectionService;
+#endif
 using ConnectionType = net::NetworkChangeNotifier::ConnectionType;
 
 #if BUILDFLAG(ENABLE_EXTENSIONS)
@@ -354,12 +362,12 @@ void HandleInsecureDownloadInfoBarResult(
 }
 #endif
 
+#if BUILDFLAG(FULL_SAFE_BROWSING)
 void MaybeReportDangerousDownloadBlocked(
     DownloadPrefs::DownloadRestriction download_restriction,
     std::string danger_type,
     std::string download_path,
     download::DownloadItem* download) {
-#if BUILDFLAG(FULL_SAFE_BROWSING)
   if (download_restriction !=
           DownloadPrefs::DownloadRestriction::POTENTIALLY_DANGEROUS_FILES &&
       download_restriction !=
@@ -396,8 +404,8 @@ void MaybeReportDangerousDownloadBlocked(
         danger_type, download->GetMimeType(), /*scan_id*/ "",
         download->GetTotalBytes(), safe_browsing::EventResult::BLOCKED);
   }
-#endif
 }
+#endif
 
 #if BUILDFLAG(FULL_SAFE_BROWSING)
 download::DownloadDangerType SavePackageDangerType(
@@ -454,13 +462,6 @@ void ChromeDownloadManagerDelegate::SetDownloadManager(DownloadManager* dm) {
   }
 
   download_manager_ = dm;
-
-  safe_browsing::SafeBrowsingService* sb_service =
-      g_browser_process->safe_browsing_service();
-  if (sb_service && !profile_->IsOffTheRecord()) {
-    // Include this download manager in the set monitored by safe browsing.
-    sb_service->AddDownloadManager(dm);
-  }
 
   if (download_manager_) {
     download_manager_->AddObserver(this);
@@ -826,17 +827,6 @@ void ChromeDownloadManagerDelegate::ChooseSavePath(
 void ChromeDownloadManagerDelegate::SanitizeSavePackageResourceName(
     base::FilePath* filename,
     const GURL& source_url) {
-  safe_browsing::FileTypePolicies* file_type_policies =
-      safe_browsing::FileTypePolicies::GetInstance();
-
-  const PrefService* prefs = profile_->GetPrefs();
-  if (file_type_policies->GetFileDangerLevel(*filename, source_url, prefs) ==
-      safe_browsing::DownloadFileType::NOT_DANGEROUS)
-    return;
-
-  base::FilePath default_filename = base::FilePath::FromUTF8Unsafe(
-      l10n_util::GetStringUTF8(IDS_DEFAULT_DOWNLOAD_FILENAME));
-  *filename = filename->AddExtension(default_filename.BaseName().value());
 }
 
 void ChromeDownloadManagerDelegate::SanitizeDownloadParameters(
@@ -908,9 +898,6 @@ void ChromeDownloadManagerDelegate::OpenDownload(DownloadItem* download) {
     chrome::ShowSettingsSubPage(browser, "certificates");
   else
     browser->OpenURL(params);
-
-  RecordDownloadOpen(DOWNLOAD_OPEN_METHOD_DEFAULT_BROWSER,
-                     download->GetMimeType());
 #endif  // BUILDFLAG(IS_ANDROID)
 }
 
@@ -966,18 +953,18 @@ ChromeDownloadManagerDelegate::ApplicationClientIdForFileScanning() {
   return std::string(chrome::kApplicationClientIDStringForAVScanning);
 }
 
+#if BUILDFLAG(FULL_SAFE_BROWSING)
 DownloadProtectionService*
 ChromeDownloadManagerDelegate::GetDownloadProtectionService() {
   DCHECK_CURRENTLY_ON(BrowserThread::UI);
-#if BUILDFLAG(FULL_SAFE_BROWSING)
   safe_browsing::SafeBrowsingService* sb_service =
       g_browser_process->safe_browsing_service();
   if (sb_service && sb_service->download_protection_service()) {
     return sb_service->download_protection_service();
   }
-#endif
   return nullptr;
 }
+#endif
 
 void ChromeDownloadManagerDelegate::GetInsecureDownloadStatus(
     download::DownloadItem* download,
@@ -1521,8 +1508,11 @@ void ChromeDownloadManagerDelegate::OnDownloadTargetDetermined(
     DownloadItemModel model(item);
     model.DetermineAndSetShouldPreferOpeningInBrowser(
         target_info->target_path, target_info->is_filetype_handled_safely);
+#if BUILDFLAG(FULL_SAFE_BROWSING)
     model.SetDangerLevel(target_info->danger_level);
+#endif
   }
+#if BUILDFLAG(FULL_SAFE_BROWSING)
   if (ShouldBlockFile(item, target_info->danger_type)) {
     MaybeReportDangerousDownloadBlocked(
         download_prefs_->download_restriction(), "DANGEROUS_FILE_TYPE",
@@ -1531,6 +1521,7 @@ void ChromeDownloadManagerDelegate::OnDownloadTargetDetermined(
     // A dangerous type would take precedence over the blocking of the file.
     target_info->danger_type = download::DOWNLOAD_DANGER_TYPE_NOT_DANGEROUS;
   }
+#endif
 
   base::FilePath target_path = target_info->target_path;
 
@@ -1600,6 +1591,7 @@ bool ChromeDownloadManagerDelegate::IsOpenInBrowserPreferreredForFile(
 bool ChromeDownloadManagerDelegate::ShouldBlockFile(
     download::DownloadItem* item,
     download::DownloadDangerType danger_type) const {
+#if BUILDFLAG(FULL_SAFE_BROWSING)
   DownloadPrefs::DownloadRestriction download_restriction =
       download_prefs_->download_restriction();
 
@@ -1650,7 +1642,7 @@ bool ChromeDownloadManagerDelegate::ShouldBlockFile(
       LOG(ERROR) << "Invalid download restruction value: "
                  << static_cast<int>(download_restriction);
   }
-
+#endif
   return false;
 }
 
@@ -1664,7 +1656,6 @@ void ChromeDownloadManagerDelegate::MaybeSendDangerousDownloadOpenedReport(
     service->MaybeSendDangerousDownloadOpenedReport(download,
                                                     show_download_in_folder);
   }
-#endif
   if (!download->GetAutoOpened()) {
     download::DownloadContent download_content =
         download::DownloadContentFromMimeType(download->GetMimeType(), false);
@@ -1672,6 +1663,7 @@ void ChromeDownloadManagerDelegate::MaybeSendDangerousDownloadOpenedReport(
         download->GetDangerType(), download_content, base::Time::Now(),
         download->GetEndTime(), show_download_in_folder);
   }
+#endif
 }
 
 void ChromeDownloadManagerDelegate::CheckDownloadAllowed(

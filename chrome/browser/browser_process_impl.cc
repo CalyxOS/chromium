@@ -71,7 +71,6 @@
 #include "chrome/browser/printing/print_preview_dialog_controller.h"
 #include "chrome/browser/profiles/profile_manager.h"
 #include "chrome/browser/resource_coordinator/resource_coordinator_parts.h"
-#include "chrome/browser/safe_browsing/safe_browsing_service.h"
 #include "chrome/browser/shell_integration.h"
 #include "chrome/browser/site_isolation/prefs_observer.h"
 #include "chrome/browser/ssl/secure_origin_prefs_observer.h"
@@ -110,7 +109,6 @@
 #include "components/prefs/json_pref_store.h"
 #include "components/prefs/pref_registry_simple.h"
 #include "components/prefs/pref_service.h"
-#include "components/safe_browsing/content/browser/safe_browsing_service_interface.h"
 #include "components/sessions/core/session_id_generator.h"
 #include "components/subresource_filter/content/browser/ruleset_service.h"
 #include "components/translate/core/browser/translate_download_manager.h"
@@ -419,8 +417,6 @@ void BrowserProcessImpl::StartTearDown() {
 
   metrics_services_manager_.reset();
   intranet_redirect_detector_.reset();
-  if (safe_browsing_service_.get())
-    safe_browsing_service()->ShutDown();
   network_time_tracker_.reset();
 
 #if !BUILDFLAG(IS_ANDROID) && !BUILDFLAG(IS_CHROMEOS_ASH)
@@ -1055,14 +1051,6 @@ StatusTray* BrowserProcessImpl::status_tray() {
   return status_tray_.get();
 }
 
-safe_browsing::SafeBrowsingService*
-BrowserProcessImpl::safe_browsing_service() {
-  DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
-  if (!created_safe_browsing_service_)
-    CreateSafeBrowsingService();
-  return safe_browsing_service_.get();
-}
-
 subresource_filter::RulesetService*
 BrowserProcessImpl::subresource_filter_ruleset_service() {
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
@@ -1302,23 +1290,6 @@ void BrowserProcessImpl::CreateBackgroundPrintingManager() {
 }
 
 void BrowserProcessImpl::CreateSafeBrowsingService() {
-  DCHECK(!safe_browsing_service_);
-  // Set this flag to true so that we don't retry indefinitely to
-  // create the service class if there was an error.
-  created_safe_browsing_service_ = true;
-
-  // The factory can be overridden in tests.
-  if (!safe_browsing::SafeBrowsingServiceInterface::HasFactory()) {
-    safe_browsing::SafeBrowsingServiceInterface::RegisterFactory(
-        safe_browsing::GetSafeBrowsingServiceFactory());
-  }
-
-  // TODO(crbug/925153): Port consumers of the |safe_browsing_service_| to use
-  // the interface in components/safe_browsing, and remove this cast.
-  safe_browsing_service_ = static_cast<safe_browsing::SafeBrowsingService*>(
-      safe_browsing::SafeBrowsingServiceInterface::CreateSafeBrowsingService());
-  if (safe_browsing_service_)
-    safe_browsing_service_->Initialize();
 }
 
 void BrowserProcessImpl::CreateSubresourceFilterRulesetService() {

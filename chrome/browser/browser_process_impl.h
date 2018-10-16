@@ -180,7 +180,6 @@ class BrowserProcessImpl : public BrowserProcess,
       std::unique_ptr<BackgroundModeManager> manager) override;
 #endif
   StatusTray* status_tray() override;
-  safe_browsing::SafeBrowsingService* safe_browsing_service() override;
   subresource_filter::RulesetService* subresource_filter_ruleset_service()
       override;
 
@@ -330,9 +329,6 @@ class BrowserProcessImpl : public BrowserProcess,
   // itself as a profile attributes storage observer on destruction.
   std::unique_ptr<BackgroundModeManager> background_mode_manager_;
 #endif
-
-  bool created_safe_browsing_service_ = false;
-  scoped_refptr<safe_browsing::SafeBrowsingService> safe_browsing_service_;
 
   bool created_subresource_filter_ruleset_service_ = false;
   std::unique_ptr<subresource_filter::RulesetService>

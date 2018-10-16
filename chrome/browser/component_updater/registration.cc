@@ -15,7 +15,6 @@
 #include "chrome/browser/browser_process.h"
 #include "chrome/browser/buildflags.h"
 #include "chrome/browser/component_updater/app_provisioning_component_installer.h"
-#include "chrome/browser/component_updater/chrome_client_side_phishing_component_installer.h"
 #include "chrome/browser/component_updater/chrome_origin_trials_component_installer.h"
 #include "chrome/browser/component_updater/commerce_heuristics_component_installer.h"
 #include "chrome/browser/component_updater/crl_set_component_installer.h"
@@ -35,7 +34,6 @@
 #include "components/component_updater/installer_policies/autofill_states_component_installer.h"
 #include "components/component_updater/installer_policies/on_device_head_suggest_component_installer.h"
 #include "components/component_updater/installer_policies/optimization_hints_component_installer.h"
-#include "components/component_updater/installer_policies/safety_tips_component_installer.h"
 #include "components/component_updater/url_param_filter_remover.h"
 #include "components/nacl/common/buildflags.h"
 #include "components/services/screen_ai/buildflags/buildflags.h"
@@ -192,9 +190,6 @@ void RegisterComponentsForUpdate() {
 
   MaybeRegisterPKIMetadataComponent(cus);
 
-  RegisterSafetyTipsComponent(cus);
-  RegisterCrowdDenyComponent(cus);
-
 #if BUILDFLAG(IS_CHROMEOS_ASH)
   RegisterSmartDimComponent(cus);
   RegisterAppProvisioningComponent(cus);
@@ -215,8 +210,6 @@ void RegisterComponentsForUpdate() {
 #endif  // BUIDLFLAG(IS_ANDROID)
 
   RegisterAutofillStatesComponent(cus, g_browser_process->local_state());
-
-  RegisterClientSidePhishingComponent(cus);
 
 #if BUILDFLAG(ENABLE_SCREEN_AI_SERVICE) && !BUILDFLAG(IS_CHROMEOS)
   RegisterScreenAIComponent(cus, g_browser_process->local_state());

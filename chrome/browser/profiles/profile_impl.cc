@@ -94,7 +94,6 @@
 #include "chrome/browser/push_messaging/push_messaging_service_factory.h"
 #include "chrome/browser/push_messaging/push_messaging_service_impl.h"
 #include "chrome/browser/reduce_accept_language/reduce_accept_language_factory.h"
-#include "chrome/browser/safe_browsing/safe_browsing_service.h"
 #include "chrome/browser/sessions/exit_type_service.h"
 #include "chrome/browser/sharing/sharing_service_factory.h"
 #include "chrome/browser/signin/identity_manager_factory.h"
@@ -628,6 +627,7 @@ void ProfileImpl::LoadPrefsForNormalStartup(bool async_prefs) {
 
   mojo::PendingRemote<prefs::mojom::TrackedPreferenceValidationDelegate>
       pref_validation_delegate;
+#if defined(FULL_SAFE_BROWSING)
   scoped_refptr<safe_browsing::SafeBrowsingService> safe_browsing_service(
       g_browser_process->safe_browsing_service());
   if (safe_browsing_service.get()) {
@@ -639,7 +639,7 @@ void ProfileImpl::LoadPrefsForNormalStartup(bool async_prefs) {
           pref_validation_delegate.InitWithNewPipeAndPassReceiver());
     }
   }
-
+#endif
   prefs_ =
       CreatePrefService(pref_registry_, CreateExtensionPrefStore(this, false),
                         profile_policy_connector_->policy_service(),

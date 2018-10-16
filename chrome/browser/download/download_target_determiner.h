@@ -19,7 +19,9 @@
 #include "components/download/public/common/download_danger_type.h"
 #include "components/download/public/common/download_item.h"
 #include "components/download/public/common/download_path_reservation_tracker.h"
+#if defined(FULL_SAFE_BROWSING)
 #include "components/safe_browsing/content/common/proto/download_file_types.pb.h"
+#endif
 #include "content/public/browser/download_manager_delegate.h"
 #include "ppapi/buildflags/buildflags.h"
 
@@ -345,6 +347,7 @@ class DownloadTargetDeterminer : public download::DownloadItem::Observer {
   // operation.
   bool HasPromptedForPath() const;
 
+#if defined(FULL_SAFE_BROWSING)
   // Returns true if this download should show the "dangerous file" warning.
   // Various factors are considered, such as the type of the file, whether a
   // user action initiated the download, and whether the user has explicitly
@@ -354,6 +357,7 @@ class DownloadTargetDeterminer : public download::DownloadItem::Observer {
   // to true if the download requires explicit user consent.
   safe_browsing::DownloadFileType::DangerLevel GetDangerLevel(
       PriorVisitsToReferrer visits) const;
+#endif
 
   // Returns the timestamp of the last download bypass.
   absl::optional<base::Time> GetLastDownloadBypassTimestamp() const;
@@ -373,7 +377,9 @@ class DownloadTargetDeterminer : public download::DownloadItem::Observer {
   download::DownloadPathReservationTracker::FilenameConflictAction
       conflict_action_;
   download::DownloadDangerType danger_type_;
+#if defined(FULL_SAFE_BROWSING)
   safe_browsing::DownloadFileType::DangerLevel danger_level_;
+#endif
   base::FilePath virtual_path_;
   base::FilePath local_path_;
   base::FilePath intermediate_path_;

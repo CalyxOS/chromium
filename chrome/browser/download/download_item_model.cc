@@ -35,7 +35,9 @@
 #include "chrome/browser/enterprise/connectors/connectors_manager.h"
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/safe_browsing/download_protection/deep_scanning_request.h"
+#if BUILDFLAG(FULL_SAFE_BROWSING)
 #include "chrome/browser/safe_browsing/download_protection/download_feedback_service.h"
+#endif
 #include "chrome/browser/safe_browsing/download_protection/download_protection_util.h"
 #include "chrome/browser/safe_browsing/safe_browsing_service.h"
 #include "chrome/browser/signin/identity_manager_factory.h"
@@ -46,8 +48,10 @@
 #include "components/download/public/common/download_item.h"
 #include "components/safe_browsing/buildflags.h"
 #include "components/safe_browsing/content/browser/web_ui/safe_browsing_ui.h"
+#if BUILDFLAG(FULL_SAFE_BROWSING)
 #include "components/safe_browsing/content/common/file_type_policies.h"
 #include "components/safe_browsing/content/common/proto/download_file_types.pb.h"
+#endif
 #include "components/safe_browsing/core/common/features.h"
 #include "components/signin/public/base/consent_level.h"
 #include "components/signin/public/identity_manager/account_info.h"
@@ -67,7 +71,9 @@
 
 using download::DownloadItem;
 using InsecureDownloadStatus = download::DownloadItem::InsecureDownloadStatus;
+#if defined(FULL_SAFE_BROWSING)
 using safe_browsing::DownloadFileType;
+#endif
 using ReportThreatDetailsResult =
     safe_browsing::PingManager::ReportThreatDetailsResult;
 using TailoredVerdict = safe_browsing::ClientDownloadResponse::TailoredVerdict;
@@ -105,9 +111,11 @@ class DownloadItemModelData : public base::SupportsUserData::Data {
   // for the file type.
   absl::optional<bool> should_prefer_opening_in_browser_;
 
+#if defined(FULL_SAFE_BROWSING)
   // Danger level of the file determined based on the file type and whether
   // there was a user action associated with the download.
   DownloadFileType::DangerLevel danger_level_;
+#endif
 
   // Whether the download is currently being revived.
   bool is_being_revived_;
@@ -155,7 +163,9 @@ DownloadItemModelData* DownloadItemModelData::GetOrCreate(
 DownloadItemModelData::DownloadItemModelData()
     : should_show_in_shelf_(true),
       was_ui_notified_(false),
+#if defined(FULL_SAFE_BROWSING)
       danger_level_(DownloadFileType::NOT_DANGEROUS),
+#endif
       is_being_revived_(false) {}
 
 #if BUILDFLAG(FULL_SAFE_BROWSING)
@@ -535,6 +545,7 @@ void DownloadItemModel::SetShouldPreferOpeningInBrowser(bool preference) {
   data->should_prefer_opening_in_browser_ = preference;
 }
 
+#if defined(FULL_SAFE_BROWSING)
 DownloadFileType::DangerLevel DownloadItemModel::GetDangerLevel() const {
   const DownloadItemModelData* data = DownloadItemModelData::Get(download_);
   return data ? data->danger_level_ : DownloadFileType::NOT_DANGEROUS;
@@ -545,6 +556,7 @@ void DownloadItemModel::SetDangerLevel(
   DownloadItemModelData* data = DownloadItemModelData::GetOrCreate(download_);
   data->danger_level_ = danger_level;
 }
+#endif
 
 download::DownloadItem::InsecureDownloadStatus
 DownloadItemModel::GetInsecureDownloadStatus() const {
@@ -764,9 +776,6 @@ bool DownloadItemModel::IsCommandEnabled(
       // filename. Don't base an "Always open" decision based on it. Also
       // exclude extensions.
       return download_->CanOpenDownload() &&
-             safe_browsing::FileTypePolicies::GetInstance()
-                 ->IsAllowedToOpenAutomatically(
-                     download_->GetTargetFilePath()) &&
              !download_crx_util::IsExtensionDownload(*download_);
     case DownloadCommands::PAUSE:
       return !download_->IsSavePackageDownload() &&

@@ -32,8 +32,11 @@
 #include "chrome/browser/download/download_prefs.h"
 #include "chrome/browser/file_system_access/file_system_access_permission_request_manager.h"
 #include "chrome/browser/profiles/profile.h"
+#if defined(FULL_SAFE_BROWSING)
 #include "chrome/browser/safe_browsing/download_protection/download_protection_service.h"
 #include "chrome/browser/safe_browsing/safe_browsing_service.h"
+#include "components/safe_browsing/content/common/file_type_policies.h"
+#endif
 #include "chrome/browser/ui/file_system_access_dialogs.h"
 #include "chrome/common/chrome_paths.h"
 #include "chrome/common/pdf_util.h"
@@ -42,7 +45,6 @@
 #include "components/content_settings/core/common/content_settings.h"
 #include "components/permissions/permission_util.h"
 #include "components/safe_browsing/buildflags.h"
-#include "components/safe_browsing/content/common/file_type_policies.h"
 #include "content/public/browser/browser_task_traits.h"
 #include "content/public/browser/browser_thread.h"
 #include "content/public/browser/disallow_activation_reason.h"
@@ -113,6 +115,7 @@ const char kPathKey[] = "path";
 const char kPathTypeKey[] = "path-type";
 const char kTimestampKey[] = "timestamp";
 
+#if defined(FULL_SAFE_BROWSING)
 void ShowFileSystemAccessRestrictedDirectoryDialogOnUIThread(
     content::GlobalRenderFrameHostId frame_id,
     const url::Origin& origin,
@@ -170,6 +173,7 @@ void ShowFileSystemAccessDangerousFileDialogOnUIThread(
   ShowFileSystemAccessDangerousFileDialog(origin, path, std::move(callback),
                                           web_contents);
 }
+#endif
 
 // Sentinel used to indicate that no PathService key is specified for a path in
 // the struct below.
@@ -336,6 +340,7 @@ bool ShouldBlockAccessToPath(const base::FilePath& check_path,
   return true;
 }
 
+#if defined(FULL_SAFE_BROWSING)
 void DoSafeBrowsingCheckOnUIThread(
     content::GlobalRenderFrameHostId frame_id,
     std::unique_ptr<content::FileSystemAccessWriteItem> item,
@@ -414,6 +419,7 @@ InterpretSafeBrowsingResult(safe_browsing::DownloadCheckResult result) {
   NOTREACHED();
   return ChromeFileSystemAccessPermissionContext::AfterWriteCheckResult::kBlock;
 }
+#endif
 
 std::string GenerateLastPickedDirectoryKey(const std::string& id) {
   return id.empty() ? kDefaultLastPickedDirectoryKey
@@ -431,6 +437,7 @@ base::StringPiece GetGrantKeyFromGrantType(GrantType type) {
                                    : kPermissionReadableKey;
 }
 
+#if defined(FULL_SAFE_BROWSING)
 bool FileHasDangerousExtension(const url::Origin& origin,
                                const base::FilePath& path,
                                Profile* profile) {
@@ -442,6 +449,7 @@ bool FileHasDangerousExtension(const url::Origin& origin,
   return danger_level == safe_browsing::DownloadFileType::DANGEROUS ||
          danger_level == safe_browsing::DownloadFileType::ALLOW_ON_USER_GESTURE;
 }
+#endif
 
 }  // namespace
 
@@ -1257,6 +1265,7 @@ void ChromeFileSystemAccessPermissionContext::CheckPathAgainstBlocklist(
       std::move(callback));
 }
 
+#if defined(FULL_SAFE_BROWSING)
 void ChromeFileSystemAccessPermissionContext::PerformAfterWriteChecks(
     std::unique_ptr<content::FileSystemAccessWriteItem> item,
     content::GlobalRenderFrameHostId frame_id,
@@ -1279,6 +1288,7 @@ void ChromeFileSystemAccessPermissionContext::PerformAfterWriteChecks(
               base::SequencedTaskRunner::GetCurrentDefault(),
               std::move(callback))));
 }
+#endif
 
 void ChromeFileSystemAccessPermissionContext::DidCheckPathAgainstBlocklist(
     const url::Origin& origin,
@@ -1290,6 +1300,7 @@ void ChromeFileSystemAccessPermissionContext::DidCheckPathAgainstBlocklist(
     bool should_block) {
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
 
+#if defined(FULL_SAFE_BROWSING)
   if (user_action == UserAction::kNone) {
     std::move(callback).Run(should_block ? SensitiveEntryResult::kAbort
                                          : SensitiveEntryResult::kAllowed);
@@ -1320,6 +1331,7 @@ void ChromeFileSystemAccessPermissionContext::DidCheckPathAgainstBlocklist(
                        frame_id, origin, path, std::move(result_callback)));
     return;
   }
+#endif
 
   std::move(callback).Run(SensitiveEntryResult::kAllowed);
 }

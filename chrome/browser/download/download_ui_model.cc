@@ -39,7 +39,9 @@
 
 using download::DownloadItem;
 using offline_items_collection::FailState;
+#if defined(FULL_SAFE_BROWSING)
 using safe_browsing::DownloadFileType;
+#endif
 
 namespace {
 
@@ -461,12 +463,14 @@ bool DownloadUIModel::ShouldPreferOpeningInBrowser() {
 
 void DownloadUIModel::SetShouldPreferOpeningInBrowser(bool preference) {}
 
+#if defined(FULL_SAFE_BROWSING)
 DownloadFileType::DangerLevel DownloadUIModel::GetDangerLevel() const {
   return DownloadFileType::NOT_DANGEROUS;
 }
 
 void DownloadUIModel::SetDangerLevel(
     DownloadFileType::DangerLevel danger_level) {}
+#endif
 
 download::DownloadItem::InsecureDownloadStatus
 DownloadUIModel::GetInsecureDownloadStatus() const {

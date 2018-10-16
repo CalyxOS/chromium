@@ -655,7 +655,6 @@ test("components_unittests") {
   if (safe_browsing_mode == 1) {
     deps += [
       "//components/safe_browsing/content/browser:unit_tests",
-      "//components/safe_browsing/content/renderer/phishing_classifier:unit_tests",
     ]
   } else if (safe_browsing_mode == 2) {
     deps += [ "//components/safe_browsing/content/browser:unit_tests" ]

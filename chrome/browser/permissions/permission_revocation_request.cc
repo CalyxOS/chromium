@@ -144,6 +144,7 @@ void PermissionRevocationRequest::CheckAndRevokeIfBlocklisted() {
     return;
   }
 
+#if BUILDFLAG(FULL_SAFE_BROWSING)
   CrowdDenyPreloadData* crowd_deny = CrowdDenyPreloadData::GetInstance();
   permissions::PermissionUmaUtil::RecordCrowdDenyVersionAtAbuseCheckTime(
       crowd_deny->version_on_disk());
@@ -155,10 +156,14 @@ void PermissionRevocationRequest::CheckAndRevokeIfBlocklisted() {
       url::Origin::Create(origin_),
       base::BindOnce(&PermissionRevocationRequest::OnSiteReputationReady,
                      weak_factory_.GetWeakPtr()));
+#else
+    NotifyCallback(Outcome::PERMISSION_NOT_REVOKED);
+#endif
 }
 
 void PermissionRevocationRequest::OnSiteReputationReady(
     const CrowdDenyPreloadData::SiteReputation* site_reputation) {
+#if BUILDFLAG(FULL_SAFE_BROWSING)
   if (crowd_deny_request_start_time_.has_value()) {
     crowd_deny_request_duration_ =
         base::TimeTicks::Now() - crowd_deny_request_start_time_.value();
@@ -191,6 +196,7 @@ void PermissionRevocationRequest::OnSiteReputationReady(
       return;
     }
   }
+#endif
   NotifyCallback(Outcome::PERMISSION_NOT_REVOKED);
 }
 

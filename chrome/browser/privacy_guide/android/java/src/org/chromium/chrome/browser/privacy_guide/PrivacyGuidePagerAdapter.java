@@ -40,8 +40,6 @@ public class PrivacyGuidePagerAdapter extends FragmentStateAdapter {
                 return new MSBBFragment();
             case PrivacyGuideFragment.FragmentType.SYNC:
                 return new SyncFragment();
-            case PrivacyGuideFragment.FragmentType.SAFE_BROWSING:
-                return new SafeBrowsingFragment();
             case PrivacyGuideFragment.FragmentType.COOKIES:
                 return new CookiesFragment();
         }

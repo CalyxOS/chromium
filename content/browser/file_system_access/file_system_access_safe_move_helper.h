@@ -60,9 +60,6 @@ class CONTENT_EXPORT FileSystemAccessSafeMoveHelper {
  private:
   SEQUENCE_CHECKER(sequence_checker_);
 
-  void DoAfterWriteCheck(base::File::Error hash_result,
-                         const std::string& hash,
-                         int64_t size);
   void DidAfterWriteCheck(
       FileSystemAccessPermissionContext::AfterWriteCheckResult result);
   void DidFileSkipQuarantine(base::File::Error result);
@@ -80,10 +77,14 @@ class CONTENT_EXPORT FileSystemAccessSafeMoveHelper {
   // Safe browsing should apply to paths on all filesystems
   // except temporary file systems, or for same-file-system moves in which the
   // extension does not change.
-  bool RequireAfterWriteChecks() const;
+  bool RequireAfterWriteChecks() const {
+    return false;
+  }
   // Quarantine checks should apply to paths on all filesystems except temporary
   // file systems.
-  bool RequireQuarantine() const;
+  bool RequireQuarantine() const {
+    return false;
+  }
 
   base::WeakPtr<FileSystemAccessManagerImpl> manager_
       GUARDED_BY_CONTEXT(sequence_checker_);
@@ -97,9 +98,6 @@ class CONTENT_EXPORT FileSystemAccessSafeMoveHelper {
 
   download::QuarantineConnectionCallback quarantine_connection_callback_
       GUARDED_BY_CONTEXT(sequence_checker_);
-
-  bool has_transient_user_activation_ GUARDED_BY_CONTEXT(sequence_checker_) =
-      false;
 
   FileSystemAccessSafeMoveHelperCallback callback_
       GUARDED_BY_CONTEXT(sequence_checker_);

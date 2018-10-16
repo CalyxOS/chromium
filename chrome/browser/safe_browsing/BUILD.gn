@@ -7,6 +7,7 @@ import("//components/safe_browsing/buildflags.gni")
 import("//extensions/buildflags/buildflags.gni")
 
 static_library("safe_browsing") {
+  if (false) {
   sources = [
     "chrome_controller_client.cc",
     "chrome_controller_client.h",
@@ -41,7 +42,6 @@ static_library("safe_browsing") {
     "//components/resources:components_resources_grit",
     "//components/safe_browsing:buildflags",
     "//components/safe_browsing/content/browser",
-    "//components/safe_browsing/content/browser:client_side_detection",
     "//components/safe_browsing/content/browser/triggers:suspicious_site_trigger",
     "//components/safe_browsing/content/browser/web_ui",
     "//components/safe_browsing/core/browser",
@@ -93,6 +93,7 @@ static_library("safe_browsing") {
       "//components/paint_preview/buildflags",
       "//extensions/browser",
     ]
+  }
   }
 
   if (safe_browsing_mode != 0) {
@@ -178,7 +179,6 @@ static_library("safe_browsing") {
       "//components/safe_browsing/content/browser/triggers:ad_sampler_trigger",
       "//components/safe_browsing/content/browser/triggers:suspicious_site_trigger",
       "//components/safe_browsing/content/browser/triggers:trigger_throttler",
-      "//components/safe_browsing/content/common:file_type_policies",
       "//components/safe_browsing/core/browser",
       "//components/safe_browsing/core/browser:token_fetcher",
       "//components/safe_browsing/core/browser:verdict_cache_manager",
