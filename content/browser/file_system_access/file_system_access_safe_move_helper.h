@@ -55,9 +55,6 @@ class CONTENT_EXPORT FileSystemAccessSafeMoveHelper {
  private:
   SEQUENCE_CHECKER(sequence_checker_);
 
-  void DoAfterWriteCheck(base::File::Error hash_result,
-                         const std::string& hash,
-                         int64_t size);
   void DidAfterWriteCheck(
       FileSystemAccessPermissionContext::AfterWriteCheckResult result);
   void DidFileSkipQuarantine(base::File::Error result);
@@ -76,7 +73,7 @@ class CONTENT_EXPORT FileSystemAccessSafeMoveHelper {
   // except temporary file systems.
   // TOOD(crbug.com/1103076): Extend this check to non-native paths.
   bool RequireSecurityChecks() const {
-    return dest_url().type() != storage::kFileSystemTypeTemporary;
+    return false;
   }
 
   base::WeakPtr<FileSystemAccessManagerImpl> manager_
@@ -91,9 +88,6 @@ class CONTENT_EXPORT FileSystemAccessSafeMoveHelper {
 
   download::QuarantineConnectionCallback quarantine_connection_callback_
       GUARDED_BY_CONTEXT(sequence_checker_);
-
-  bool has_transient_user_activation_ GUARDED_BY_CONTEXT(sequence_checker_) =
-      false;
 
   FileSystemAccessSafeMoveHelperCallback callback_
       GUARDED_BY_CONTEXT(sequence_checker_);

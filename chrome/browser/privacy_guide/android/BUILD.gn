@@ -13,7 +13,6 @@ android_library("java") {
     "java/src/org/chromium/chrome/browser/privacy_guide/PrivacyGuideExplanationItem.java",
     "java/src/org/chromium/chrome/browser/privacy_guide/PrivacyGuideFragment.java",
     "java/src/org/chromium/chrome/browser/privacy_guide/PrivacyGuidePagerAdapter.java",
-    "java/src/org/chromium/chrome/browser/privacy_guide/SafeBrowsingFragment.java",
     "java/src/org/chromium/chrome/browser/privacy_guide/StepDisplayHandler.java",
     "java/src/org/chromium/chrome/browser/privacy_guide/StepDisplayHandlerImpl.java",
     "java/src/org/chromium/chrome/browser/privacy_guide/SyncFragment.java",
@@ -47,7 +46,6 @@ robolectric_library("junit") {
     "junit/src/org/chromium/chrome/browser/privacy_guide/CookiesFragmentTest.java",
     "junit/src/org/chromium/chrome/browser/privacy_guide/MSBBFragmentTest.java",
     "junit/src/org/chromium/chrome/browser/privacy_guide/PrivacyGuidePagerAdapterTest.java",
-    "junit/src/org/chromium/chrome/browser/privacy_guide/SafeBrowsingFragmentTest.java",
     "junit/src/org/chromium/chrome/browser/privacy_guide/StepDisplayHandlerImplTest.java",
     "junit/src/org/chromium/chrome/browser/privacy_guide/SyncFragmentTest.java",
   ]

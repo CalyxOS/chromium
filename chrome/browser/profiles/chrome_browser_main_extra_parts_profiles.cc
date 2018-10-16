@@ -83,7 +83,6 @@
 #include "chrome/browser/privacy_sandbox/privacy_sandbox_settings_factory.h"
 #include "chrome/browser/profiles/renderer_updater_factory.h"
 #include "chrome/browser/reduce_accept_language/reduce_accept_language_factory.h"
-#include "chrome/browser/safe_browsing/certificate_reporting_service_factory.h"
 #include "chrome/browser/safe_browsing/tailored_security/tailored_security_service_factory.h"
 #include "chrome/browser/search_engines/template_url_fetcher_factory.h"
 #include "chrome/browser/search_engines/template_url_service_factory.h"
@@ -362,7 +361,6 @@ void ChromeBrowserMainExtraPartsProfiles::
   CertDbInitializerFactory::GetInstance();
 #endif
 #if BUILDFLAG(SAFE_BROWSING_AVAILABLE)
-  CertificateReportingServiceFactory::GetInstance();
 #endif
 #if !BUILDFLAG(IS_ANDROID)
   ChromeBrowsingDataLifetimeManagerFactory::GetInstance();
@@ -598,7 +596,9 @@ void ChromeBrowserMainExtraPartsProfiles::
   }
 #endif
   TabRestoreServiceFactory::GetInstance();
+#if BUILDFLAG(FULL_SAFE_BROWSING)
   safe_browsing::TailoredSecurityServiceFactory::GetInstance();
+#endif
   TemplateURLFetcherFactory::GetInstance();
   TemplateURLServiceFactory::GetInstance();
 #if !BUILDFLAG(IS_ANDROID)

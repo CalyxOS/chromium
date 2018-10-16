@@ -127,10 +127,10 @@
 #include "ui/base/data_transfer_policy/data_transfer_endpoint.h"
 #include "url/url_constants.h"
 
+#include "third_party/blink/public/mojom/clipboard/clipboard.mojom.h"
 #if BUILDFLAG(SAFE_BROWSING_AVAILABLE)
 #include "chrome/browser/safe_browsing/advanced_protection_status_manager.h"
 #include "chrome/browser/safe_browsing/advanced_protection_status_manager_factory.h"
-#include "third_party/blink/public/mojom/clipboard/clipboard.mojom.h"
 #endif
 
 #if BUILDFLAG(IS_ANDROID)
@@ -963,21 +963,13 @@ autofill::LanguageCode ChromePasswordManagerClient::GetPageLanguage() const {
 
 safe_browsing::PasswordProtectionService*
 ChromePasswordManagerClient::GetPasswordProtectionService() const {
-  return safe_browsing::ChromePasswordProtectionService::
-      GetPasswordProtectionService(profile_);
+  return nullptr;
 }
 
 #if defined(ON_FOCUS_PING_ENABLED)
 void ChromePasswordManagerClient::CheckSafeBrowsingReputation(
     const GURL& form_action,
     const GURL& frame_url) {
-  safe_browsing::PasswordProtectionService* pps =
-      GetPasswordProtectionService();
-  if (pps) {
-    pps->MaybeStartPasswordFieldOnFocusRequest(
-        web_contents(), web_contents()->GetLastCommittedURL(), form_action,
-        frame_url, pps->GetAccountInfo().hosted_domain);
-  }
 }
 #endif  // defined(ON_FOCUS_PING_ENABLED)
 
@@ -989,15 +981,6 @@ void ChromePasswordManagerClient::CheckProtectedPasswordEntry(
     bool password_field_exists,
     uint64_t reused_password_hash,
     const std::string& domain) {
-  safe_browsing::PasswordProtectionService* pps =
-      GetPasswordProtectionService();
-  if (!pps)
-    return;
-
-  pps->MaybeStartProtectedPasswordEntryRequest(
-      web_contents(), web_contents()->GetLastCommittedURL(), username,
-      password_type, matching_reused_credentials, password_field_exists);
-
 #if !BUILDFLAG(IS_ANDROID)
   // If the webpage is not an extension page, do nothing.
   if (!GURL(domain).SchemeIs(kExtensionScheme)) {
@@ -1036,11 +1019,6 @@ void ChromePasswordManagerClient::CheckProtectedPasswordEntry(
 }
 
 void ChromePasswordManagerClient::LogPasswordReuseDetectedEvent() {
-  safe_browsing::PasswordProtectionService* pps =
-      GetPasswordProtectionService();
-  if (pps) {
-    pps->MaybeLogPasswordReuseDetectedEvent(web_contents());
-  }
 }
 
 #if !BUILDFLAG(IS_ANDROID)
@@ -1671,6 +1649,7 @@ bool ChromePasswordManagerClient::IsPasswordManagementEnabledForCurrentPage(
     is_enabled = false;
   }
 
+#if BUILDFLAG(FULL_SAFE_BROWSING)
   // SafeBrowsing Delayed Warnings experiment can delay some SafeBrowsing
   // warnings until user interaction. If the current page has a delayed warning,
   // it'll have a user interaction observer attached. Disable password
@@ -1681,6 +1660,7 @@ bool ChromePasswordManagerClient::IsPasswordManagementEnabledForCurrentPage(
     observer->OnPasswordSaveOrAutofillDenied();
     is_enabled = false;
   }
+#endif
 
   if (log_manager_->IsLoggingActive()) {
     password_manager::BrowserSavePasswordProgressLogger logger(

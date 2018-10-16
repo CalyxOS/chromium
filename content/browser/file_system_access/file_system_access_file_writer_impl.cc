@@ -44,7 +44,6 @@ FileSystemAccessFileWriterImpl::FileSystemAccessFileWriterImpl(
       lock_(std::move(lock)),
       quarantine_connection_callback_(
           std::move(quarantine_connection_callback)),
-      has_transient_user_activation_(has_transient_user_activation),
       auto_close_(auto_close) {
   DCHECK_EQ(swap_url.type(), url.type());
   DCHECK_EQ(lock_->type(),
@@ -253,7 +252,7 @@ void FileSystemAccessFileWriterImpl::CloseImpl(CloseCallback callback) {
               FileSystemOperation::CopyOrMoveOption::
                   kPreserveDestinationPermissions),
           std::move(quarantine_connection_callback_),
-          has_transient_user_activation_);
+          false);
   // Allows the unique pointer to be bound to the callback so the helper stays
   // alive until the operation completes.
   FileSystemAccessSafeMoveHelper* raw_helper =

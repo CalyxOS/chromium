@@ -396,26 +396,8 @@ CHAR_LIMIT guidelines:
       <message name="IDS_PRELOAD_PAGES_EXTENDED_PRELOADING_BULLET_FOUR" desc="Fourth bullet point under the Preload Pages extended preloading mode. Informs the user about what the extended preloading setting does.">
         Because the preloaded pages are encrypted, Google will not learn anything about the preloaded page content. Google servers will learn which sites are privately preloaded. This information is only used to preload the pages, and is not linked to other information from your Google Account.
       </message>
-      <message name="IDS_URL_KEYED_ANONYMIZED_DATA_TITLE" desc="Title for a checkbox in Settings that controls non-personalized URL collection and informs the user about the data shared by this feature.">
-        Make searches and browsing better
-      </message>
-      <message name="IDS_URL_KEYED_ANONYMIZED_DATA_SUMMARY" desc="Summary for a checkbox in Settings that controls non-personalized URL collection and informs the user about the data shared by this feature.">
-        Sends URLs of pages you visit to Google
-      </message>
-      <message name="IDS_PRIVACY_SYNC_AND_SERVICES_LINK_LEGACY" desc="The text for Privacy preferences that is shown after all preference rows.">
-        For more settings that relate to privacy, security, and data collection, see <ph name="BEGIN_LINK">&lt;link&gt;</ph>Sync and Google services<ph name="END_LINK">&lt;/link&gt;</ph>
-      </message>
-      <message name="IDS_PRIVACY_SYNC_AND_SERVICES_LINK_SYNC_ON" desc="The text for Privacy preferences that is shown after all preference rows. This version of the text is shown if Sync has been turned on.">
-        For more settings that relate to privacy, security, and data collection, see <ph name="BEGIN_LINK1">&lt;link1&gt;</ph>Sync<ph name="END_LINK1">&lt;/link1&gt;</ph> and <ph name="BEGIN_LINK2">&lt;link2&gt;</ph>Google services<ph name="END_LINK2">&lt;/link2&gt;</ph>
-      </message>
-      <message name="IDS_PRIVACY_SYNC_AND_SERVICES_LINK_SYNC_OFF" desc="The text for Privacy preferences that is shown after all preference rows. This version of the text is shown if Sync hasn't been turned on.">
-        For more settings that relate to privacy, security, and data collection, see <ph name="BEGIN_LINK">&lt;link&gt;</ph>Google services<ph name="END_LINK">&lt;/link&gt;</ph>
-      </message>
       <message name="IDS_USAGE_AND_CRASH_REPORTS_TITLE" desc="Title for a preference that enables sending usage statistics and crash reports.">
         Help improve Chrome\u2019s features and performance
-      </message>
-      <message name="IDS_USAGE_AND_CRASH_REPORTS_SUMMARY" desc="Description for 'Help improve Chrome's features and performance' preference.">
-        Automatically sends usage statistics and crash reports to Google
       </message>
 
       <!-- Metrics settings -->
@@ -4832,9 +4814,6 @@ To change this setting, <ph name="BEGIN_LINK">&lt;resetlink&gt;</ph>reset sync<p
         To use this setting <ph name="BEGIN_LINK">&lt;link&gt;</ph>Make searches and browsing better<ph name="END_LINK">&lt;/link&gt;</ph> must be turned on
       </message>
       <!-- Usage Stats strings -->
-      <message name="IDS_USAGE_STATS_CONSENT_TITLE" desc="Title for activity authorizing Digital Wellbeing to access Chrome usage data">
-        Show your Chrome activity in Digital Wellbeing?
-      </message>
       <message name="IDS_USAGE_STATS_CONSENT_PROMPT" desc="Consent prompt when authorizing Digital Wellbeing to access Chrome usage data">
        You can see sites you visit in Chrome and set timers for them.\n\nGoogle gets info about the sites you set timers for and how long you visit them. This info is used to make Digital Wellbeing better.
       </message>
