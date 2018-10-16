@@ -117,6 +117,7 @@
 #include "chrome/browser/profiling_host/chrome_browser_main_extra_parts_profiling.h"
 #include "chrome/browser/renderer_host/chrome_navigation_ui_data.h"
 #include "chrome/browser/renderer_preferences_util.h"
+#if defined(FULL_SAFE_BROWSING)
 #include "chrome/browser/safe_browsing/certificate_reporting_service.h"
 #include "chrome/browser/safe_browsing/certificate_reporting_service_factory.h"
 #include "chrome/browser/safe_browsing/cloud_content_scanning/deep_scanning_utils.h"
@@ -124,6 +125,7 @@
 #include "chrome/browser/safe_browsing/safe_browsing_service.h"
 #include "chrome/browser/safe_browsing/url_checker_delegate_impl.h"
 #include "chrome/browser/safe_browsing/url_lookup_service_factory.h"
+#endif
 #include "chrome/browser/search/search.h"
 #include "chrome/browser/segmentation_platform/chrome_browser_main_extra_parts_segmentation_platform.h"
 #include "chrome/browser/sharing/sms/sms_remote_fetcher.h"
@@ -1036,9 +1038,7 @@ void SetApplicationLocaleOnIOThread(const std::string& locale) {
 class CertificateReportingServiceCertReporter : public SSLCertReporter {
  public:
   explicit CertificateReportingServiceCertReporter(
-      content::WebContents* web_contents)
-      : service_(CertificateReportingServiceFactory::GetForBrowserContext(
-            web_contents->GetBrowserContext())) {}
+      content::WebContents* web_contents) {}
 
   CertificateReportingServiceCertReporter(
       const CertificateReportingServiceCertReporter&) = delete;
@@ -1050,11 +1050,9 @@ class CertificateReportingServiceCertReporter : public SSLCertReporter {
   // SSLCertReporter implementation
   void ReportInvalidCertificateChain(
       const std::string& serialized_report) override {
-    service_->Send(serialized_report);
   }
 
  private:
-  raw_ptr<CertificateReportingService> service_;
 };
 
 #if BUILDFLAG(ENABLE_EXTENSIONS)
@@ -1304,14 +1302,6 @@ void MaybeAddThrottle(
     std::vector<std::unique_ptr<content::NavigationThrottle>>* throttles) {
   if (maybe_throttle)
     throttles->push_back(std::move(maybe_throttle));
-}
-
-void MaybeAddCondition(
-    std::unique_ptr<content::CommitDeferringCondition> maybe_condition,
-    std::vector<std::unique_ptr<content::CommitDeferringCondition>>*
-        conditions) {
-  if (maybe_condition)
-    conditions->push_back(std::move(maybe_condition));
 }
 
 void MaybeAddThrottles(
@@ -2506,7 +2496,7 @@ void ChromeContentBrowserClient::AppendExtraCommandLineSwitches(
   }
 #elif BUILDFLAG(IS_POSIX)
 #if BUILDFLAG(IS_ANDROID)
-  bool enable_crash_reporter = true;
+  bool enable_crash_reporter = false;
 #elif BUILDFLAG(IS_CHROMEOS)
   bool enable_crash_reporter = false;
   if (crash_reporter::IsCrashpadEnabled()) {
@@ -4898,6 +4888,7 @@ ChromeContentBrowserClient::CreateThrottlesForNavigation(
       &throttles);
 #endif
 
+#if defined(FULL_SAFE_BROWSING)
   // g_browser_process->safe_browsing_service() may be null in unittests.
   safe_browsing::SafeBrowsingUIManager* ui_manager =
       g_browser_process->safe_browsing_service()
@@ -4913,6 +4904,7 @@ ChromeContentBrowserClient::CreateThrottlesForNavigation(
         std::make_unique<safe_browsing::DelayedWarningNavigationThrottle>(
             handle));
   }
+#endif
 
 #if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX)
   MaybeAddThrottle(browser_switcher::BrowserSwitcherNavigationThrottle::
@@ -5153,7 +5145,9 @@ void ChromeContentBrowserClient::OverridePageVisibilityState(
 void ChromeContentBrowserClient::InitOnUIThread() {
   DCHECK_CURRENTLY_ON(BrowserThread::UI);
 
+#if defined(FULL_SAFE_BROWSING)
   safe_browsing_service_ = g_browser_process->safe_browsing_service();
+#endif
 
   // Initialize `network_contexts_parent_directory_`.
   base::FilePath user_data_dir;
@@ -6332,6 +6326,7 @@ ChromeContentBrowserClient::GetSafeBrowsingUrlCheckerDelegate(
     const std::vector<std::string>& allowlist_domains) {
   DCHECK_CURRENTLY_ON(BrowserThread::IO);
 
+#if defined(FULL_SAFE_BROWSING)
   // Should not bypass safe browsing check if the check is for enterprise
   // lookup.
   if (!safe_browsing_enabled_for_profile && !should_check_on_sb_disabled)
@@ -6352,6 +6347,9 @@ ChromeContentBrowserClient::GetSafeBrowsingUrlCheckerDelegate(
   }
 
   return safe_browsing_url_checker_delegate_;
+#else
+  return nullptr;
+#endif
 }
 
 safe_browsing::RealTimeUrlLookupServiceBase*
@@ -6359,24 +6357,28 @@ ChromeContentBrowserClient::GetUrlLookupService(
     content::BrowserContext* browser_context,
     bool is_enterprise_lookup_enabled,
     bool is_consumer_lookup_enabled) {
+#if defined(FULL_SAFE_BROWSING)
   // |safe_browsing_service_| may be unavailable in tests.
   if (!safe_browsing_service_) {
     return nullptr;
   }
-
-  Profile* profile = Profile::FromBrowserContext(browser_context);
+#endif
 
 #if BUILDFLAG(SAFE_BROWSING_DB_LOCAL)
+  Profile* profile = Profile::FromBrowserContext(browser_context);
+
   if (is_enterprise_lookup_enabled) {
     return safe_browsing::ChromeEnterpriseRealTimeUrlLookupServiceFactory::
         GetForProfile(profile);
   }
 #endif
 
+#if defined(FULL_SAFE_BROWSING)
   if (is_consumer_lookup_enabled) {
     return safe_browsing::RealTimeUrlLookupServiceFactory::GetForProfile(
         profile);
   }
+#endif
   return nullptr;
 }
 

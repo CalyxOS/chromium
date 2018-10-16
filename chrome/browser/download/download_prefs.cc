@@ -42,7 +42,9 @@
 #include "components/policy/core/browser/url_blocklist_manager.h"
 #include "components/pref_registry/pref_registry_syncable.h"
 #include "components/prefs/pref_service.h"
+#if defined(FULL_SAFE_BROWSING)
 #include "components/safe_browsing/content/common/file_type_policies.h"
+#endif
 #include "content/public/browser/browser_thread.h"
 #include "content/public/browser/download_manager.h"
 #include "content/public/browser/save_page_type.h"
@@ -64,7 +66,9 @@
 using content::BrowserContext;
 using content::BrowserThread;
 using content::DownloadManager;
+#if defined(FULL_SAFE_BROWSING)
 using safe_browsing::FileTypePolicies;
+#endif
 
 namespace {
 
@@ -263,14 +267,7 @@ DownloadPrefs::DownloadPrefs(Profile* profile) : profile_(profile) {
         base::FilePath::StringType(1, base::FilePath::kExtensionSeparator) +
         extension);
 
-    // Note that the list of file types that are not allowed to open
-    // automatically can change in the future. When the list is tightened, it is
-    // expected that some entries in the users' auto open list will get dropped
-    // permanently as a result.
-    if (FileTypePolicies::GetInstance()->IsAllowedToOpenAutomatically(
-            filename_with_extension)) {
-      auto_open_by_user_.insert(extension);
-    }
+    auto_open_by_user_.insert(extension);
   }
 }
 
@@ -450,10 +447,6 @@ bool DownloadPrefs::IsAutoOpenByPolicy(const GURL& url,
 bool DownloadPrefs::EnableAutoOpenByUserBasedOnExtension(
     const base::FilePath& file_name) {
   base::FilePath::StringType extension = file_name.Extension();
-  if (!FileTypePolicies::GetInstance()->IsAllowedToOpenAutomatically(
-          file_name)) {
-    return false;
-  }
 
   DCHECK(extension[0] == base::FilePath::kExtensionSeparator);
   extension.erase(0, 1);

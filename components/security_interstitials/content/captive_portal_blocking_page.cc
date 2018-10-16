@@ -15,6 +15,7 @@
 #include "build/build_config.h"
 #include "components/captive_portal/core/captive_portal_detector.h"
 #include "components/captive_portal/core/captive_portal_metrics.h"
+#include "components/safe_browsing/buildflags.h"
 #include "components/safe_browsing/core/common/safe_browsing_prefs.h"
 #include "components/security_interstitials/content/cert_report_helper.h"
 #include "components/security_interstitials/content/security_interstitial_controller_client.h"
@@ -192,6 +193,7 @@ void CaptivePortalBlockingPage::PopulateInterstitialStrings(
   load_time_data.Set("recurrentErrorParagraph", "");
   load_time_data.Set("show_recurrent_error_paragraph", false);
 
+#if BUILDFLAG(FULL_SAFE_BROWSING)
   if (cert_report_helper()) {
     cert_report_helper()->PopulateExtendedReportingOption(load_time_data);
     cert_report_helper()->PopulateEnhancedProtectionMessage(load_time_data);
@@ -200,6 +202,11 @@ void CaptivePortalBlockingPage::PopulateInterstitialStrings(
     load_time_data.Set(
         security_interstitials::kDisplayEnhancedProtectionMessage, false);
   }
+#else
+    load_time_data.Set(security_interstitials::kDisplayCheckBox, false);
+    load_time_data.Set(
+        security_interstitials::kDisplayEnhancedProtectionMessage, false);
+#endif
 }
 
 void CaptivePortalBlockingPage::CommandReceived(const std::string& command) {
@@ -214,8 +221,6 @@ void CaptivePortalBlockingPage::CommandReceived(const std::string& command) {
   security_interstitials::SecurityInterstitialCommand cmd =
       static_cast<security_interstitials::SecurityInterstitialCommand>(
           command_num);
-  cert_report_helper()->HandleReportingCommands(cmd,
-                                                controller()->GetPrefService());
   switch (cmd) {
     case security_interstitials::CMD_OPEN_LOGIN:
       captive_portal::CaptivePortalMetrics::LogCaptivePortalBlockingPageEvent(

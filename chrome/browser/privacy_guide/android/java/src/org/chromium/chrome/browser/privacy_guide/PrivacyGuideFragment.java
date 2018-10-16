@@ -130,9 +130,6 @@ public class PrivacyGuideFragment extends Fragment {
 
     @Override
     public void onAttachFragment(@NonNull Fragment childFragment) {
-        if (childFragment instanceof SafeBrowsingFragment) {
-            ((SafeBrowsingFragment) childFragment).setBottomSheetController(mBottomSheetController);
-        }
     }
 
     @Override

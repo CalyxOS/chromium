@@ -19,7 +19,9 @@
 #include "base/task/thread_pool.h"
 #include "base/version.h"
 #include "components/component_updater/component_updater_paths.h"
+#if defined(FULL_SAFE_BROWSING)
 #include "components/safe_browsing/content/common/file_type_policies.h"
+#endif
 #include "components/safe_browsing/core/common/features.h"
 
 using component_updater::ComponentUpdateService;
@@ -39,20 +41,6 @@ const uint8_t kFileTypePoliciesPublicKeySHA256[32] = {
 const char kFileTypePoliciesManifestName[] = "File Type Policies";
 
 void LoadFileTypesFromDisk(const base::FilePath& pb_path) {
-  if (pb_path.empty())
-    return;
-
-  VLOG(1) << "Reading Download File Types from file: " << pb_path.value();
-  std::string binary_pb;
-  if (!base::ReadFileToString(pb_path, &binary_pb)) {
-    // The file won't exist on new installations, so this is not always an
-    // error.
-    VLOG(1) << "Failed reading from " << pb_path.value();
-    return;
-  }
-
-  safe_browsing::FileTypePolicies::GetInstance()->PopulateFromDynamicUpdate(
-      binary_pb);
 }
 
 }  // namespace

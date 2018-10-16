@@ -25,7 +25,6 @@
 #include "base/supports_user_data.h"
 #include "chrome/browser/download/download_commands.h"
 #include "chrome/browser/enterprise/connectors/common.h"
-#include "chrome/browser/safe_browsing/cloud_content_scanning/binary_upload_service.h"
 #include "chrome/browser/safe_browsing/download_protection/deep_scanning_request.h"
 #include "chrome/browser/safe_browsing/download_protection/download_protection_observer.h"
 #include "chrome/browser/safe_browsing/download_protection/download_protection_util.h"
@@ -334,11 +333,13 @@ class DownloadProtectionService {
   void OnDangerousDownloadOpened(const download::DownloadItem* item,
                                  Profile* profile);
 
+#if BUILDFLAG(FULL_SAFE_BROWSING)
   // Get the BinaryUploadService for the given |profile|. Virtual so it can be
   // overridden in tests.
   virtual BinaryUploadService* GetBinaryUploadService(
       Profile* profile,
       const enterprise_connectors::AnalysisSettings& settings);
+#endif
 
   // Get the SafeBrowsingNavigationObserverManager for the given |web_contents|.
   SafeBrowsingNavigationObserverManager* GetNavigationObserverManager(
