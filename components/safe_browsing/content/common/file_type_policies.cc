@@ -87,8 +87,7 @@ FileTypePolicies::~FileTypePolicies() {
 }
 
 std::string FileTypePolicies::ReadResourceBundle() {
-  ui::ResourceBundle& bundle = ui::ResourceBundle::GetSharedInstance();
-  return bundle.LoadDataResourceString(IDR_DOWNLOAD_FILE_TYPES_PB);
+  return nullptr;
 }
 
 void FileTypePolicies::RecordUpdateMetrics(UpdateResult result,

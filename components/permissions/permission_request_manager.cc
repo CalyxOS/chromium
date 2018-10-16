@@ -680,10 +680,7 @@ PermissionRequestManager::PermissionRequestManager(
       view_(nullptr),
       tab_is_hidden_(web_contents->GetVisibility() ==
                      content::Visibility::HIDDEN),
-      auto_response_for_test_(NONE),
-      permission_ui_selectors_(
-          PermissionsClient::Get()->CreatePermissionUiSelectors(
-              web_contents->GetBrowserContext())) {}
+      auto_response_for_test_(NONE) {}
 
 void PermissionRequestManager::DequeueRequestIfNeeded() {
   // TODO(olesiamarukhno): Media requests block other media requests from

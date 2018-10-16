@@ -56,6 +56,7 @@ RealTimeUrlLookupServiceFactory::RealTimeUrlLookupServiceFactory()
 
 KeyedService* RealTimeUrlLookupServiceFactory::BuildServiceInstanceFor(
     content::BrowserContext* context) const {
+#if BUILDFLAG(FULL_SAFE_BROWSING)
   if (!g_browser_process->safe_browsing_service()) {
     return nullptr;
   }
@@ -78,6 +79,9 @@ KeyedService* RealTimeUrlLookupServiceFactory::BuildServiceInstanceFor(
       profile->IsOffTheRecord(), g_browser_process->variations_service(),
       SafeBrowsingNavigationObserverManagerFactory::GetForBrowserContext(
           profile));
+#else
+  return nullptr;
+#endif
 }
 
 }  // namespace safe_browsing

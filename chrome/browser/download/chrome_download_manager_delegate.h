@@ -21,8 +21,10 @@
 #include "chrome/browser/download/download_completion_blocker.h"
 #include "chrome/browser/download/download_target_determiner_delegate.h"
 #include "chrome/browser/download/download_target_info.h"
+#if defined(FULL_SAFE_BROWSING)
 #include "chrome/browser/safe_browsing/download_protection/download_protection_service.h"
 #include "chrome/browser/safe_browsing/download_protection/download_protection_util.h"
+#endif
 #include "components/download/public/common/download_danger_type.h"
 #include "components/download/public/common/download_item.h"
 #include "components/download/public/common/download_path_reservation_tracker.h"
@@ -150,7 +152,7 @@ class ChromeDownloadManagerDelegate
 
   DownloadPrefs* download_prefs() { return download_prefs_.get(); }
 
-#if BUILDFLAG(FULL_SAFE_BROWSING)
+#if defined(FULL_SAFE_BROWSING)
   // The state of a safebrowsing check.
   class SafeBrowsingState : public DownloadCompletionBlocker {
    public:
@@ -165,7 +167,6 @@ class ChromeDownloadManagerDelegate
     // a download item.
     static const char kSafeBrowsingUserDataKey[];
   };
-#endif  // FULL_SAFE_BROWSING
 
   // Callback function after the DownloadProtectionService completes.
   void CheckClientDownloadDone(uint32_t download_id,
@@ -174,6 +175,7 @@ class ChromeDownloadManagerDelegate
   // Callback function after scanning completes for a save package.
   void CheckSavePackageScanningDone(uint32_t download_id,
                                     safe_browsing::DownloadCheckResult result);
+#endif  // FULL_SAFE_BROWSING
 
   base::WeakPtr<ChromeDownloadManagerDelegate> GetWeakPtr();
 
@@ -196,8 +198,10 @@ class ChromeDownloadManagerDelegate
   virtual bool IsOpenInBrowserPreferreredForFile(const base::FilePath& path);
 
  protected:
+#if defined(FULL_SAFE_BROWSING)
   virtual safe_browsing::DownloadProtectionService*
       GetDownloadProtectionService();
+#endif
 
   // Show file picker for |download|.
   virtual void ShowFilePickerForDownload(

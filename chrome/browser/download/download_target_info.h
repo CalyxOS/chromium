@@ -11,7 +11,9 @@
 #include "components/download/public/common/download_danger_type.h"
 #include "components/download/public/common/download_interrupt_reasons.h"
 #include "components/download/public/common/download_item.h"
+#if defined(FULL_SAFE_BROWSING)
 #include "components/safe_browsing/content/common/proto/download_file_types.pb.h"
+#endif
 #include "third_party/abseil-cpp/absl/types/optional.h"
 
 struct DownloadTargetInfo {
@@ -33,6 +35,7 @@ struct DownloadTargetInfo {
   // Danger type of the download.
   download::DownloadDangerType danger_type;
 
+#if defined(FULL_SAFE_BROWSING)
   // The danger type of the download could be set to MAYBE_DANGEROUS_CONTENT if
   // the file type is handled by SafeBrowsing. However, if the SafeBrowsing
   // service is unable to verify whether the file is safe or not, we are on our
@@ -58,6 +61,7 @@ struct DownloadTargetInfo {
   //       SafeBrowsing may flag the file as being malicious, in which case the
   //       malicious classification should take precedence.
   safe_browsing::DownloadFileType::DangerLevel danger_level;
+#endif
 
   // Suggested intermediate path. The downloaded bytes should be written to this
   // path until all the bytes are available and the user has accepted a
