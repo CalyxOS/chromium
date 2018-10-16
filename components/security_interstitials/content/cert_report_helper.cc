@@ -62,8 +62,7 @@ CertReportHelper::CertReportHelper(
       interstitial_reason_(interstitial_reason),
       overridable_(overridable),
       interstitial_time_(interstitial_time),
-      can_show_enhanced_protection_message_(
-          can_show_enhanced_protection_message),
+      can_show_enhanced_protection_message_(false), // always disabled in Bromite
       metrics_helper_(metrics_helper) {}
 
 CertReportHelper::~CertReportHelper() = default;
@@ -176,8 +175,6 @@ void CertReportHelper::FinishCertCollection() {
     LOG(ERROR) << "Failed to serialize certificate report.";
     return;
   }
-
-  ssl_cert_reporter_->ReportInvalidCertificateChain(serialized_report);
 }
 
 bool CertReportHelper::ShouldShowCertificateReporterCheckbox() {

@@ -65,23 +65,9 @@ void SavePasswordLeakDetectionDelegate::StartLeakCheck(
     return;
   }
 
-  leak_check_ = leak_factory_->TryCreateLeakCheck(
-      this, client_->GetIdentityManager(), client_->GetURLLoaderFactory(),
-      client_->GetChannel());
-  if (!leak_check_) {
     std::move(callback).Run(LeakDetectionStatus(LeakDetectionStatusCode::OTHER),
                             false);
     return;
-  }
-
-  callback_ = std::move(callback);
-  // TODO (crbug.com/1310169): Add a metric that measures turn-around time.
-  leak_detection_timer_.Start(
-      FROM_HERE, timeout,
-      base::BindOnce(&SavePasswordLeakDetectionDelegate::OnLeakDetectionTimeout,
-                     base::Unretained(this)));
-  leak_check_->Start(credential.url, credential.username_value,
-                     credential.password_value);
 }
 
 // Url, username and password parameters from the interface are not used.

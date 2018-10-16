@@ -10,7 +10,9 @@
 #include "build/build_config.h"
 #include "components/download/public/common/download_content.h"
 #include "components/profile_metrics/browser_profile_type.h"
+#if defined(FULL_SAFE_BROWSING)
 #include "components/safe_browsing/content/browser/download/download_stats.h"
+#endif
 
 void RecordDownloadCount(ChromeDownloadCountTypes type) {
   base::UmaHistogramEnumeration("Download.CountsChrome", type,
@@ -29,8 +31,10 @@ void RecordDangerousDownloadWarningShown(
     bool has_user_gesture) {
   base::UmaHistogramEnumeration("Download.ShowedDownloadWarning", danger_type,
                                 download::DOWNLOAD_DANGER_TYPE_MAX);
+#if defined(FULL_SAFE_BROWSING)
   safe_browsing::RecordDangerousDownloadWarningShown(
       danger_type, file_path, is_https, has_user_gesture);
+#endif
 }
 
 void RecordOpenedDangerousConfirmDialog(
@@ -45,6 +49,7 @@ void RecordDownloadOpen(ChromeDownloadOpenMethod open_method,
   base::RecordAction(base::UserMetricsAction("Download.Open"));
   base::UmaHistogramEnumeration("Download.OpenMethod", open_method,
                                 DOWNLOAD_OPEN_METHOD_LAST_ENTRY);
+#if defined(FULL_SAFE_BROWSING)
   download::DownloadContent download_content =
       download::DownloadContentFromMimeType(
           mime_type_string, /*record_content_subcategory=*/false);
@@ -61,6 +66,7 @@ void RecordDownloadOpen(ChromeDownloadOpenMethod open_method,
   }
   base::UmaHistogramEnumeration("Download.Open.ContentType", download_content,
                                 download::DownloadContent::MAX);
+#endif
 }
 
 void RecordDownloadOpenButtonPressed(bool is_download_completed) {

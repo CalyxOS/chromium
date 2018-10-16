@@ -26,7 +26,7 @@ class StepDisplayHandlerImpl implements StepDisplayHandler {
 
     @Override
     public boolean shouldDisplaySafeBrowsing() {
-        return SafeBrowsingBridge.getSafeBrowsingState() != SafeBrowsingState.NO_SAFE_BROWSING;
+        return false;
     }
 
     @Override

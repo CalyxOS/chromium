@@ -16,6 +16,7 @@
 #include "base/time/default_clock.h"
 #include "base/timer/timer.h"
 #include "components/permissions/object_permission_context_base.h"
+#include "components/safe_browsing/buildflags.h"
 #include "content/public/browser/file_system_access_permission_context.h"
 #include "third_party/blink/public/mojom/file_system_access/file_system_access_manager.mojom-forward.h"
 #include "third_party/blink/public/mojom/permissions/permission_status.mojom.h"
@@ -85,10 +86,6 @@ class ChromeFileSystemAccessPermissionContext
       UserAction user_action,
       content::GlobalRenderFrameHostId frame_id,
       base::OnceCallback<void(SensitiveEntryResult)> callback) override;
-  void PerformAfterWriteChecks(
-      std::unique_ptr<content::FileSystemAccessWriteItem> item,
-      content::GlobalRenderFrameHostId frame_id,
-      base::OnceCallback<void(AfterWriteCheckResult)> callback) override;
   bool CanObtainReadPermission(const url::Origin& origin) override;
   bool CanObtainWritePermission(const url::Origin& origin) override;
 
