@@ -207,7 +207,7 @@ void UnifiedConsentService::SetUrlKeyedAnonymizedDataCollectionEnabled(
 #endif
 
   pref_service_->SetBoolean(prefs::kUrlKeyedAnonymizedDataCollectionEnabled,
-                            enabled);
+                            false);
 }
 
 void UnifiedConsentService::Shutdown() {
