@@ -89,8 +89,8 @@ bool QuietNotificationPermissionUiConfig::IsCrowdDenyTriggeringEnabled() {
     return false;
 
   return base::GetFieldTrialParamByFeatureAsBool(
-      features::kQuietNotificationPrompts, kEnableCrowdDenyTriggering,
-      true /* default */);
+      features::kQuietNotificationPrompts, kEnableCrowdDenyTriggering, // disabled by default in Bromite
+      false /* default */);
 }
 
 // static

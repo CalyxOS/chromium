@@ -141,7 +141,6 @@ source_set("unit_tests") {
   ]
 
   deps = [
-    ":client_side_detection",
     "//base:base",
     "//base/test:test_support",
     "//components/safe_browsing:buildflags",

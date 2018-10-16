@@ -19,7 +19,9 @@
 #include "components/download/public/common/download_item.h"
 #include "components/offline_items_collection/core/offline_item.h"
 #include "components/safe_browsing/buildflags.h"
+#if defined(FULL_SAFE_BROWSING)
 #include "components/safe_browsing/content/common/proto/download_file_types.pb.h"
+#endif
 #include "ui/base/models/image_model.h"
 #include "ui/color/color_id.h"
 #include "ui/gfx/vector_icon_types.h"
@@ -346,6 +348,7 @@ class DownloadUIModel {
   // Change what's returned by ShouldPreferOpeningInBrowser to |preference|.
   virtual void SetShouldPreferOpeningInBrowser(bool preference);
 
+#if defined(FULL_SAFE_BROWSING)
   // Return the danger level determined during download target determination.
   // The value returned here is independent of the danger level as determined by
   // the Safe Browsing.
@@ -354,6 +357,7 @@ class DownloadUIModel {
   // Change what's returned by GetDangerLevel().
   virtual void SetDangerLevel(
       safe_browsing::DownloadFileType::DangerLevel danger_level);
+#endif
 
   // Return the mixed content status determined during download target
   // determination.

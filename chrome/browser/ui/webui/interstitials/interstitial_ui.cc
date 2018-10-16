@@ -276,6 +276,7 @@ CreateHttpsOnlyModePage(content::WebContents* web_contents) {
                                                       request_url));
 }
 
+#if 0
 std::unique_ptr<safe_browsing::SafeBrowsingBlockingPage>
 CreateSafeBrowsingBlockingPage(content::WebContents* web_contents) {
   safe_browsing::SBThreatType threat_type =
@@ -370,7 +371,9 @@ std::unique_ptr<EnterpriseWarnPage> CreateEnterpriseWarnPage(
       std::make_unique<EnterpriseWarnControllerClient>(web_contents,
                                                        kRequestUrl));
 }
+#endif
 
+#if 0
 std::unique_ptr<TestSafeBrowsingBlockingPageQuiet>
 CreateSafeBrowsingQuietBlockingPage(content::WebContents* web_contents) {
   safe_browsing::SBThreatType threat_type =
@@ -425,6 +428,7 @@ CreateSafeBrowsingQuietBlockingPage(content::WebContents* web_contents) {
           g_browser_process->safe_browsing_service()->ui_manager().get(),
           web_contents, main_frame_url, resource, is_giant_webview));
 }
+#endif
 
 #if BUILDFLAG(ENABLE_CAPTIVE_PORTAL_DETECTION)
 std::unique_ptr<CaptivePortalBlockingPage> CreateCaptivePortalBlockingPage(
@@ -532,12 +536,6 @@ void InterstitialHTMLSource::StartDataRequest(
     interstitial_delegate = CreateMITMSoftwareBlockingPage(web_contents);
   } else if (path_without_query == "/blocked-interception") {
     interstitial_delegate = CreateBlockedInterceptionBlockingPage(web_contents);
-  } else if (path_without_query == "/safebrowsing") {
-    interstitial_delegate = CreateSafeBrowsingBlockingPage(web_contents);
-  } else if (path_without_query == "/enterprise-block") {
-    interstitial_delegate = CreateEnterpriseBlockPage(web_contents);
-  } else if (path_without_query == "/enterprise-warn") {
-    interstitial_delegate = CreateEnterpriseWarnPage(web_contents);
   } else if (path_without_query == "/clock") {
     interstitial_delegate = CreateBadClockBlockingPage(web_contents);
   } else if (path_without_query == "/lookalike") {
@@ -550,13 +548,7 @@ void InterstitialHTMLSource::StartDataRequest(
     interstitial_delegate = CreateInsecureFormPage(web_contents);
   } else if (path_without_query == "/https_only") {
     interstitial_delegate = CreateHttpsOnlyModePage(web_contents);
-  }
 
-  if (path_without_query == "/quietsafebrowsing") {
-    std::unique_ptr<TestSafeBrowsingBlockingPageQuiet> blocking_page =
-        CreateSafeBrowsingQuietBlockingPage(web_contents);
-    html = blocking_page->GetHTML();
-    interstitial_delegate = std::move(blocking_page);
 #if BUILDFLAG(ENABLE_SUPERVISED_USERS)
   } else if (path_without_query == "/supervised_user") {
     html = GetSupervisedUserInterstitialHTML(path);

@@ -9,6 +9,7 @@
 #include "base/trace_event/trace_event.h"
 #include "build/branding_buildflags.h"
 #include "build/build_config.h"
+#include "components/safe_browsing/buildflags.h"
 #include "build/chromecast_buildflags.h"
 #include "build/chromeos_buildflags.h"
 #include "chrome/browser/about_flags.h"
@@ -1378,7 +1379,9 @@ void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry,
   PushMessagingAppIdentifier::RegisterProfilePrefs(registry);
   QuietNotificationPermissionUiState::RegisterProfilePrefs(registry);
   RegisterBrowserUserPrefs(registry);
+#if BUILDFLAG(SAFE_BROWSING_AVAILABLE)
   safe_browsing::file_type::RegisterProfilePrefs(registry);
+#endif
   safe_browsing::RegisterProfilePrefs(registry);
   SearchPrefetchService::RegisterProfilePrefs(registry);
   blocked_content::SafeBrowsingTriggeredPopupBlocker::RegisterProfilePrefs(

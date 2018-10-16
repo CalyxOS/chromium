@@ -123,11 +123,6 @@ class CONTENT_EXPORT FileSystemAccessFileWriterImpl
   download::QuarantineConnectionCallback quarantine_connection_callback_
       GUARDED_BY_CONTEXT(sequence_checker_);
 
-  // Keeps track of user activation state at creation time for after write
-  // checks.
-  bool has_transient_user_activation_ GUARDED_BY_CONTEXT(sequence_checker_) =
-      false;
-
   // Changes will be written to the target file even if the stream isn't
   // explicitly closed.
   bool auto_close_ GUARDED_BY_CONTEXT(sequence_checker_) = false;

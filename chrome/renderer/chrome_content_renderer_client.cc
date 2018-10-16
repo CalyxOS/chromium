@@ -98,7 +98,9 @@
 #include "components/paint_preview/buildflags/buildflags.h"
 #include "components/password_manager/core/common/password_manager_features.h"
 #include "components/safe_browsing/buildflags.h"
+#if defined(FULL_SAFE_BROWSING)
 #include "components/safe_browsing/content/renderer/threat_dom_details.h"
+#endif
 #include "components/spellcheck/spellcheck_buildflags.h"
 #include "components/subresource_filter/content/renderer/subresource_filter_agent.h"
 #include "components/subresource_filter/content/renderer/unverified_ruleset_dealer.h"
@@ -436,12 +438,8 @@ void ChromeContentRendererClient::RenderThreadStarted() {
   subresource_filter_ruleset_dealer_ =
       std::make_unique<subresource_filter::UnverifiedRulesetDealer>();
 
-  phishing_model_setter_ =
-      std::make_unique<safe_browsing::PhishingModelSetterImpl>();
-
   thread->AddObserver(chrome_observer_.get());
   thread->AddObserver(subresource_filter_ruleset_dealer_.get());
-  thread->AddObserver(phishing_model_setter_.get());
 
   blink::WebScriptController::RegisterExtension(
       extensions_v8::LoadTimesExtension::Get());

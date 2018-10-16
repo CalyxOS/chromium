@@ -411,12 +411,6 @@ CHAR_LIMIT guidelines:
       <message name="IDS_PRIVACY_SYNC_AND_SERVICES_LINK_SYNC_OFF" desc="The text for Privacy preferences that is shown after all preference rows. This version of the text is shown if Sync hasn't been turned on.">
         For more settings that relate to privacy, security, and data collection, see <ph name="BEGIN_LINK">&lt;link&gt;</ph>Google services<ph name="END_LINK">&lt;/link&gt;</ph>
       </message>
-      <message name="IDS_USAGE_AND_CRASH_REPORTS_TITLE" desc="Title for a preference that enables sending usage statistics and crash reports.">
-        Help improve Chrome\u2019s features and performance
-      </message>
-      <message name="IDS_USAGE_AND_CRASH_REPORTS_SUMMARY" desc="Description for 'Help improve Chrome's features and performance' preference.">
-        Automatically sends usage statistics and crash reports to Google
-      </message>
 
       <!-- Metrics settings -->
       <message name="IDS_PREFS_METRICS_SETTINGS" desc="Title for the page that allows the user to control how much usage data Chrome uploads. [CHAR_LIMIT=32]">
@@ -5122,9 +5116,6 @@ To change this setting, <ph name="BEGIN_LINK">&lt;resetlink&gt;</ph>reset sync<p
         Helps you complete tasks, such as checkout, throughout the web
       </message>
       <!-- Usage Stats strings -->
-      <message name="IDS_USAGE_STATS_CONSENT_TITLE" desc="Title for activity authorizing Digital Wellbeing to access Chrome usage data">
-        Show your Chrome activity in Digital Wellbeing?
-      </message>
       <message name="IDS_USAGE_STATS_CONSENT_PROMPT" desc="Consent prompt when authorizing Digital Wellbeing to access Chrome usage data">
        You can see sites you visit in Chrome and set timers for them.\n\nGoogle gets info about the sites you set timers for and how long you visit them. This info is used to make Digital Wellbeing better.
       </message>

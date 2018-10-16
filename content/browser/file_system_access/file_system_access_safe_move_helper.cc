@@ -152,8 +152,7 @@ FileSystemAccessSafeMoveHelper::FileSystemAccessSafeMoveHelper(
       dest_url_(dest_url),
       options_(options),
       quarantine_connection_callback_(
-          std::move(quarantine_connection_callback)),
-      has_transient_user_activation_(has_transient_user_activation) {}
+          std::move(quarantine_connection_callback)) {}
 
 FileSystemAccessSafeMoveHelper::~FileSystemAccessSafeMoveHelper() = default;
 
@@ -168,15 +167,8 @@ void FileSystemAccessSafeMoveHelper::Start(
     return;
   }
 
-  if (!RequireAfterWriteChecks() || !manager_->permission_context()) {
-    DidAfterWriteCheck(
-        FileSystemAccessPermissionContext::AfterWriteCheckResult::kAllow);
-    return;
-  }
-
-  ComputeHashForSourceFile(
-      base::BindOnce(&FileSystemAccessSafeMoveHelper::DoAfterWriteCheck,
-                     weak_factory_.GetWeakPtr()));
+  DidAfterWriteCheck(
+      FileSystemAccessPermissionContext::AfterWriteCheckResult::kAllow);
 }
 
 void FileSystemAccessSafeMoveHelper::ComputeHashForSourceFile(
@@ -197,7 +189,7 @@ void FileSystemAccessSafeMoveHelper::ComputeHashForSourceFile(
                      std::move(wrapped_callback), source_url()));
 }
 
-bool FileSystemAccessSafeMoveHelper::RequireAfterWriteChecks() const {
+/*bool FileSystemAccessSafeMoveHelper::RequireAfterWriteChecks() const {
   if (dest_url().type() == storage::kFileSystemTypeTemporary)
     return false;
 
@@ -264,7 +256,7 @@ void FileSystemAccessSafeMoveHelper::DoAfterWriteCheck(
       std::move(item), context_.frame_id,
       base::BindOnce(&FileSystemAccessSafeMoveHelper::DidAfterWriteCheck,
                      weak_factory_.GetWeakPtr()));
-}
+}*/
 
 void FileSystemAccessSafeMoveHelper::DidAfterWriteCheck(
     FileSystemAccessPermissionContext::AfterWriteCheckResult result) {

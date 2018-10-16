@@ -799,11 +799,13 @@ void DownloadProtectionService::RequestFinished(DeepScanningRequest* request) {
   deep_scanning_requests_.erase(it);
 }
 
+#if BUILDFLAG(FULL_SAFE_BROWSING)
 BinaryUploadService* DownloadProtectionService::GetBinaryUploadService(
     Profile* profile,
     const enterprise_connectors::AnalysisSettings& settings) {
   return BinaryUploadService::GetForProfile(profile, settings);
 }
+#endif
 
 SafeBrowsingNavigationObserverManager*
 DownloadProtectionService::GetNavigationObserverManager(

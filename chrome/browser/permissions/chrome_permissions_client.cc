@@ -19,7 +19,6 @@
 #include "chrome/browser/engagement/important_sites_util.h"
 #include "chrome/browser/metrics/ukm_background_recorder_service.h"
 #include "chrome/browser/permissions/adaptive_quiet_notification_permission_ui_enabler.h"
-#include "chrome/browser/permissions/contextual_notification_permission_ui_selector.h"
 #include "chrome/browser/permissions/origin_keyed_permission_action_service_factory.h"
 #include "chrome/browser/permissions/permission_actions_history_factory.h"
 #include "chrome/browser/permissions/permission_decision_auto_blocker_factory.h"
@@ -293,19 +292,6 @@ permissions::IconId ChromePermissionsClient::GetOverrideIconId(
     return vector_icons::kProductIcon;
 #endif
   return PermissionsClient::GetOverrideIconId(request_type);
-}
-
-std::vector<std::unique_ptr<permissions::PermissionUiSelector>>
-ChromePermissionsClient::CreatePermissionUiSelectors(
-    content::BrowserContext* browser_context) {
-  std::vector<std::unique_ptr<permissions::PermissionUiSelector>> selectors;
-  selectors.emplace_back(
-      std::make_unique<ContextualNotificationPermissionUiSelector>());
-  selectors.emplace_back(std::make_unique<PrefNotificationPermissionUiSelector>(
-      Profile::FromBrowserContext(browser_context)));
-  selectors.emplace_back(std::make_unique<PredictionBasedPermissionUiSelector>(
-      Profile::FromBrowserContext(browser_context)));
-  return selectors;
 }
 
 void ChromePermissionsClient::OnPromptResolved(

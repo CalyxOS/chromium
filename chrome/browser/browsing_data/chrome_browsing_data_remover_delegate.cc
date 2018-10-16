@@ -633,10 +633,12 @@ void ChromeBrowsingDataRemoverDelegate::RemoveEmbedderData(
     base::RecordAction(UserMetricsAction("ClearBrowsingData_Cookies"));
 
     network::mojom::NetworkContext* safe_browsing_context = nullptr;
+#if BUILDFLAG(FULL_SAFE_BROWSING)
     safe_browsing::SafeBrowsingService* sb_service =
         g_browser_process->safe_browsing_service();
     if (sb_service)
       safe_browsing_context = sb_service->GetNetworkContext(profile_);
+#endif
 
     // Cleared for DATA_TYPE_HISTORY, DATA_TYPE_COOKIES and DATA_TYPE_PASSWORDS.
     browsing_data::RemoveFederatedSiteSettingsData(delete_begin_, delete_end_,

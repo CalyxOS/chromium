@@ -16,7 +16,6 @@
 #include "build/chromeos_buildflags.h"
 #include "chrome/browser/browser_process.h"
 #include "chrome/browser/profiles/profile.h"
-#include "chrome/browser/reputation/reputation_web_contents_observer.h"
 #include "chrome/browser/safe_browsing/safe_browsing_service.h"
 #include "chrome/browser/ssl/https_only_mode_tab_helper.h"
 #include "chrome/browser/ssl/known_interception_disclosure_infobar_delegate.h"
@@ -86,13 +85,8 @@ SecurityStateTabHelper::GetVisibleSecurityState() {
   // information is still being initialized, thus no need to check for that.
   state->malicious_content_status = GetMaliciousContentStatus();
 
-  ReputationWebContentsObserver* reputation_web_contents_observer =
-      ReputationWebContentsObserver::FromWebContents(web_contents());
   state->safety_tip_info =
-      reputation_web_contents_observer
-          ? reputation_web_contents_observer
-                ->GetSafetyTipInfoForVisibleNavigation()
-          : security_state::SafetyTipInfo(
+          security_state::SafetyTipInfo(
                 {security_state::SafetyTipStatus::kUnknown, GURL()});
 
   // If both the mixed form warnings are not disabled by policy we don't degrade
@@ -168,6 +162,7 @@ bool SecurityStateTabHelper::UsedPolicyInstalledCertificate() const {
 
 security_state::MaliciousContentStatus
 SecurityStateTabHelper::GetMaliciousContentStatus() const {
+#if defined(FULL_SAFE_BROWSING)
   content::NavigationEntry* entry =
       web_contents()->GetController().GetVisibleEntry();
   if (!entry)
@@ -254,6 +249,7 @@ SecurityStateTabHelper::GetMaliciousContentStatus() const {
         break;
     }
   }
+#endif
   return security_state::MALICIOUS_CONTENT_STATUS_NONE;
 }
 

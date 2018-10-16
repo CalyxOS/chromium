@@ -60,14 +60,18 @@
 #include "chrome/browser/preloading/prefetch/prefetch_proxy/prefetch_proxy_tab_helper.h"
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/profiles/profile_key.h"
+#if defined(FULL_SAFE_BROWSING)
 #include "chrome/browser/reputation/reputation_web_contents_observer.h"
+#endif
 #include "chrome/browser/resource_coordinator/tab_helper.h"
+#if defined(FULL_SAFE_BROWSING)
 #include "chrome/browser/safe_browsing/chrome_safe_browsing_tab_observer_delegate.h"
 #include "chrome/browser/safe_browsing/safe_browsing_navigation_observer_manager_factory.h"
 #include "chrome/browser/safe_browsing/safe_browsing_service.h"
 #include "chrome/browser/safe_browsing/tailored_security/tailored_security_service_factory.h"
 #include "chrome/browser/safe_browsing/tailored_security/tailored_security_url_observer.h"
 #include "chrome/browser/safe_browsing/trigger_creator.h"
+#endif
 #include "chrome/browser/search_engines/template_url_service_factory.h"
 #include "chrome/browser/sessions/session_tab_helper_factory.h"
 #include "chrome/browser/ssl/chrome_security_blocking_page_factory.h"
@@ -130,9 +134,11 @@
 #include "components/permissions/features.h"
 #include "components/permissions/permission_request_manager.h"
 #include "components/permissions/unused_site_permissions_service.h"
+#if defined(FULL_SAFE_BROWSING)
 #include "components/safe_browsing/content/browser/safe_browsing_navigation_observer.h"
 #include "components/safe_browsing/content/browser/safe_browsing_tab_observer.h"
 #include "components/safe_browsing/core/common/features.h"
+#endif
 #include "components/search/ntp_features.h"
 #include "components/site_engagement/content/site_engagement_helper.h"
 #include "components/site_engagement/content/site_engagement_service.h"
@@ -403,6 +409,7 @@ void TabHelpers::AttachTabHelpers(WebContents* web_contents) {
   //     See https://crbug.com/910288.
   resource_coordinator::ResourceCoordinatorTabHelper::CreateForWebContents(
       web_contents);
+#if defined(FULL_SAFE_BROWSING)
   safe_browsing::SafeBrowsingNavigationObserver::MaybeCreateForWebContents(
       web_contents, HostContentSettingsMapFactory::GetForProfile(profile),
       safe_browsing::SafeBrowsingNavigationObserverManagerFactory::
@@ -420,6 +427,7 @@ void TabHelpers::AttachTabHelpers(WebContents* web_contents) {
   safe_browsing::TriggerCreator::MaybeCreateTriggersForWebContents(
       profile, web_contents);
   ReputationWebContentsObserver::CreateForWebContents(web_contents);
+#endif
   SearchEngineTabHelper::CreateForWebContents(web_contents);
   SecurityStateTabHelper::CreateForWebContents(web_contents);
   if (site_engagement::SiteEngagementService::IsEnabled()) {

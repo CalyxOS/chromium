@@ -288,11 +288,6 @@ static_library("renderer") {
     deps += [ "//third_party/widevine/cdm:headers" ]
   }
 
-  if (safe_browsing_mode != 0) {
-    deps +=
-        [ "//components/safe_browsing/content/renderer/phishing_classifier" ]
-  }
-
   if (enable_feed_v2) {
     deps += [ "//components/feed/content/renderer:feed_renderer" ]
   }

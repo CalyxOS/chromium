@@ -933,9 +933,11 @@ class ChromeContentBrowserClient : public content::ContentBrowserClient {
   // Parts are deleted in the reverse order they are added.
   std::vector<ChromeContentBrowserClientParts*> extra_parts_;
 
+#if defined(FULL_SAFE_BROWSING)
   scoped_refptr<safe_browsing::SafeBrowsingService> safe_browsing_service_;
   scoped_refptr<safe_browsing::UrlCheckerDelegate>
       safe_browsing_url_checker_delegate_;
+#endif
 
   StartupData startup_data_;
 

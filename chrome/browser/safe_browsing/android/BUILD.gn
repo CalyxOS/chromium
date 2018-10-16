@@ -36,12 +36,8 @@ source_set("android") {
 android_library("java") {
   sources = [
     "java/src/org/chromium/chrome/browser/safe_browsing/SafeBrowsingBridge.java",
-    "java/src/org/chromium/chrome/browser/safe_browsing/settings/EnhancedProtectionSettingsFragment.java",
     "java/src/org/chromium/chrome/browser/safe_browsing/settings/NoProtectionConfirmationDialog.java",
     "java/src/org/chromium/chrome/browser/safe_browsing/settings/RadioButtonGroupSafeBrowsingPreference.java",
-    "java/src/org/chromium/chrome/browser/safe_browsing/settings/SafeBrowsingSettingsFragment.java",
-    "java/src/org/chromium/chrome/browser/safe_browsing/settings/SafeBrowsingSettingsFragmentBase.java",
-    "java/src/org/chromium/chrome/browser/safe_browsing/settings/StandardProtectionSettingsFragment.java",
   ]
   deps = [
     ":java_resources",

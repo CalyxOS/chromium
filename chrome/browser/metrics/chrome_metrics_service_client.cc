@@ -904,9 +904,6 @@ void ChromeMetricsServiceClient::RegisterMetricsServiceProviders() {
   metrics_service_->RegisterMetricsProvider(
       std::make_unique<HttpsEngagementMetricsProvider>());
 
-  metrics_service_->RegisterMetricsProvider(
-      std::make_unique<CertificateReportingMetricsProvider>());
-
 #if !BUILDFLAG(IS_ANDROID) && !BUILDFLAG(IS_CHROMEOS_ASH)
   metrics_service_->RegisterMetricsProvider(
       std::make_unique<UpgradeMetricsProvider>());

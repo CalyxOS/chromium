@@ -1279,21 +1279,9 @@ WebstorePrivateGetExtensionStatusFunction::Run() {
       GetExtensionStatus::Params::Create(args()));
   EXTENSION_FUNCTION_VALIDATE(params);
 
-  const ExtensionId& extension_id = params->id;
-
-  if (!crx_file::id_util::IdIsValid(extension_id)) {
-    return RespondNow(Error(kWebstoreInvalidIdError));
-  }
-
-  if (!params->manifest)
-    return RespondNow(BuildResponseWithoutManifest(extension_id));
-
-  data_decoder::DataDecoder::ParseJsonIsolated(
-      *(params->manifest),
-      base::BindOnce(
-          &WebstorePrivateGetExtensionStatusFunction::OnManifestParsed, this,
-          extension_id));
-  return RespondLater();
+  return RespondNow(ErrorWithArguments(
+      api::webstore_private::GetReferrerChain::Results::Create(""),
+      kWebstoreUserCancelledError));
 }
 
 ExtensionFunction::ResponseValue

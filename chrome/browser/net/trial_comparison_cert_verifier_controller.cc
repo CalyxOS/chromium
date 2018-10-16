@@ -132,9 +132,6 @@ void TrialComparisonCertVerifierController::SendTrialReport(
   std::string serialized_report;
   if (!report.Serialize(&serialized_report))
     return;
-
-  CertificateReportingServiceFactory::GetForBrowserContext(profile_)->Send(
-      serialized_report);
 }
 
 // static
