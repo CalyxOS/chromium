@@ -302,12 +302,8 @@ BASE_FEATURE(kPreloadMetadataLazyLoad,
 // Let videos be resumed via remote controls (for example, the notification)
 // when in background.
 BASE_FEATURE(kResumeBackgroundVideo,
-             "resume-background-video",
-#if BUILDFLAG(IS_ANDROID)
-             base::FEATURE_ENABLED_BY_DEFAULT
-#else
-             base::FEATURE_DISABLED_BY_DEFAULT
-#endif
+             "resume-background-video",           // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT    // in Bromite
 );
 
 // When enabled, MediaCapabilities will check with GPU Video Accelerator

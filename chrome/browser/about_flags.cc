@@ -3661,6 +3661,10 @@ const FeatureEntry kFeatureEntries[] = {
      SINGLE_VALUE_TYPE(extensions::switches::kExtensionsOnChromeURLs)},
 #endif  // ENABLE_EXTENSIONS
 #if BUILDFLAG(IS_ANDROID)
+    {"resume-background-video",
+     flag_descriptions::kResumeBackgroundVideoName,
+     flag_descriptions::kResumeBackgroundVideoDescription, kOsAll,
+     FEATURE_VALUE_TYPE(media::kResumeBackgroundVideo)},
     {"osk-resizes-visual-viewport-by-default",
      flag_descriptions::kEnableOskResizesVisualViewportByDefaultName,
      flag_descriptions::kEnableOskResizesVisualViewportByDefaultDescription,

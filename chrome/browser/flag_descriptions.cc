@@ -1363,6 +1363,11 @@ const char kEnablePenetratingImageSelectionDescription[] =
     "Enables image options to be surfaced in the context menu for nodes "
     "covered by transparent overlays.";
 
+const char kResumeBackgroundVideoName[] = "Resume background video.";
+const char kResumeBackgroundVideoDescription[] =
+    "Resume background video playback when tab re-gains focus; additionally, "
+    "it will pause video playback every single time you switch tabs.";
+
 const char kEnablePixelCanvasRecordingName[] = "Enable pixel canvas recording";
 const char kEnablePixelCanvasRecordingDescription[] =
     "Pixel canvas recording allows the compositor to raster contents aligned "

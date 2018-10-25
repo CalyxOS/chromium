@@ -744,6 +744,9 @@ extern const char kEnablePortalsDescription[];
 extern const char kEnablePortalsCrossOriginName[];
 extern const char kEnablePortalsCrossOriginDescription[];
 
+extern const char kResumeBackgroundVideoName[];
+extern const char kResumeBackgroundVideoDescription[];
+
 extern const char kEnablePixelCanvasRecordingName[];
 extern const char kEnablePixelCanvasRecordingDescription[];
 
