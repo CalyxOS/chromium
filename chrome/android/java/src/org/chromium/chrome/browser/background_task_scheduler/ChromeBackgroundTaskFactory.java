@@ -68,7 +68,7 @@ public class ChromeBackgroundTaskFactory implements BackgroundTaskFactory {
             case TaskIds.WEBAPK_UPDATE_JOB_ID:
                 return new WebApkUpdateTask();
             case TaskIds.COMPONENT_UPDATE_JOB_ID:
-                return new UpdateTask();
+                return null;
             case TaskIds.BACKGROUND_SYNC_ONE_SHOT_JOB_ID:
                 return new BackgroundSyncBackgroundTask();
             case TaskIds.NOTIFICATION_SCHEDULER_JOB_ID:
