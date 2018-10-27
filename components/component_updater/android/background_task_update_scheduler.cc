@@ -19,6 +19,7 @@ const base::TimeDelta kOnStartTaskDelay = base::Seconds(2);
 }  // namespace
 
 BackgroundTaskUpdateScheduler::BackgroundTaskUpdateScheduler() {
+  DCHECK(false);
   JNIEnv* env = base::android::AttachCurrentThread();
   j_update_scheduler_.Reset(Java_UpdateScheduler_getInstance(env));
   Java_UpdateScheduler_setNativeScheduler(env, j_update_scheduler_,
