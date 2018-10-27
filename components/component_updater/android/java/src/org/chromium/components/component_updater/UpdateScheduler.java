@@ -34,9 +34,7 @@ public class UpdateScheduler {
 
     @CalledByNative
     /* package */ static boolean isAvailable() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-                || ChromiumPlayServicesAvailability.isGooglePlayServicesAvailable(
-                        ContextUtils.getApplicationContext());
+        return false;
     }
 
     /* package */ void onStartTaskBeforeNativeLoaded(TaskFinishedCallback callback) {
