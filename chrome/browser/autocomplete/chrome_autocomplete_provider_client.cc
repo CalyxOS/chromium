@@ -295,6 +295,8 @@ std::vector<std::u16string>
 ChromeAutocompleteProviderClient::GetBuiltinsToProvideAsUserTypes() {
   std::vector<std::u16string> builtins_to_provide;
   builtins_to_provide.push_back(
+      base::ASCIIToUTF16(chrome::kChromeUIFlagsURL));
+  builtins_to_provide.push_back(
       base::ASCIIToUTF16(chrome::kChromeUIChromeURLsURL));
   builtins_to_provide.push_back(base::ASCIIToUTF16(chrome::kChromeUIFlagsURL));
 #if !BUILDFLAG(IS_ANDROID)
