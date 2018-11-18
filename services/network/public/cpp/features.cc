@@ -38,6 +38,10 @@ BASE_FEATURE(kThrottleDelayable,
              "ThrottleDelayable",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+// Enable IPv6 ping probes to RIPE DNS.
+const base::Feature kIPv6Probing{"IPv6Probing",
+                                       base::FEATURE_ENABLED_BY_DEFAULT};
+
 // When kPriorityRequestsDelayableOnSlowConnections is enabled, HTTP
 // requests fetched from a SPDY/QUIC/H2 proxies can be delayed by the
 // ResourceScheduler just as HTTP/1.1 resources are. However, requests from such

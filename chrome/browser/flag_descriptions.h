@@ -807,6 +807,9 @@ extern const char kEnableWasmLazyCompilationName[];
 extern const char kEnableWasmLazyCompilationDescription[];
 
 extern const char kEnableWasmTieringName[];
+extern const char kIPv6ProbingName[];
+extern const char kIPv6ProbingDescription[];
+
 extern const char kEnableWasmTieringDescription[];
 
 extern const char kEvDetailsInPageInfoName[];

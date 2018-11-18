@@ -104,6 +104,7 @@
 #include "net/log/net_log_event_type.h"
 #include "net/log/net_log_source.h"
 #include "net/log/net_log_source_type.h"
+#include "services/network/public/cpp/features.h"
 #include "net/log/net_log_with_source.h"
 #include "net/socket/client_socket_factory.h"
 #include "net/socket/datagram_client_socket.h"
@@ -3727,8 +3728,14 @@ bool HostResolverManager::IsIPv6Reachable(const NetLogWithSource& net_log) {
   if (last_ipv6_probe_time_.is_null() ||
       (tick_clock_->NowTicks() - last_ipv6_probe_time_).InMilliseconds() >
           kIPv6ProbePeriodMs) {
-    SetLastIPv6ProbeResult(
+
+    if (!base::FeatureList::IsEnabled(network::features::kIPv6Probing)) {
+      // pretend IPv6 connectivy probe is successful when probing is disabled
+      SetLastIPv6ProbeResult(true);
+    } else {
+      SetLastIPv6ProbeResult(
         IsGloballyReachable(IPAddress(kIPv6ProbeAddress), net_log));
+    }
     cached = false;
   }
   net_log.AddEvent(

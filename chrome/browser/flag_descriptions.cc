@@ -3578,6 +3578,10 @@ const char kCCTRealTimeEngagementSignalsDescription[] =
     "Enables sending real-time engagement signals (e.g. scroll) through "
     "CustomTabsCallback.";
 
+const char kIPv6ProbingName[] = "Enable IPv6 probing.";
+const char kIPv6ProbingDescription[] =
+    "Send IPv6 probes to a RIPE DNS address to verify IPv6 connectivity.";
+
 const char kChimeAlwaysShowNotificationDescription[] =
     "A debug flag to always show Chime notification after receiving a payload.";
 const char kChimeAlwaysShowNotificationName[] =

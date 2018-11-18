@@ -6036,6 +6036,10 @@ const FeatureEntry kFeatureEntries[] = {
     {"enable-reader-mode-in-cct", flag_descriptions::kReaderModeInCCTName,
      flag_descriptions::kReaderModeInCCTDescription, kOsAndroid,
      FEATURE_VALUE_TYPE(chrome::android::kReaderModeInCCT)},
+    {"ipv6-probing",
+     flag_descriptions::kIPv6ProbingName,
+     flag_descriptions::kIPv6ProbingDescription, kOsAll,
+     FEATURE_VALUE_TYPE(network::features::kIPv6Probing)},
 #endif  // BUILDFLAG(IS_ANDROID)
 
     {"shopping-list", commerce::flag_descriptions::kShoppingListName,

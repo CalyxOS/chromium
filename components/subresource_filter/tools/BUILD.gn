@@ -50,6 +50,8 @@ if (!is_ios) {
     deps = [
       ":tools_lib",
       "//base",
+      "//components/network_session_configurator/common",
+      "//services/network/public/cpp"
     ]
   }
 
@@ -61,6 +63,8 @@ if (!is_ios) {
       ":tools_lib",
       "../core/common",
       "//base",
+      "//components/network_session_configurator/common",
+      "//services/network/public/cpp",
     ]
   }
 
@@ -70,6 +74,8 @@ if (!is_ios) {
       "ruleset_converter:support",
       "//base",
       "//third_party/protobuf:protobuf_lite",
+      "//components/network_session_configurator/common",
+      "//services/network/public/cpp"
     ]
   }
 

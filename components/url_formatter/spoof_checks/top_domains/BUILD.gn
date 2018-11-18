@@ -89,7 +89,8 @@ executable("make_top_domain_list_variables") {
     "//base:i18n",
     "//components/url_formatter/spoof_checks/common_words:common",
     "//third_party/icu",
-    "//components/network_session_configurator/common"
+    "//components/network_session_configurator/common",
+    "//services/network/public/cpp",
   ]
   if (is_ios) {
     frameworks = [ "UIKit.framework" ]
