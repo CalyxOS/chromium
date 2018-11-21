@@ -6,7 +6,6 @@
 
 #include "build/build_config.h"
 #include "chrome/common/safe_browsing/archive_analyzer_results.h"
-#include "chrome/common/safe_browsing/rar_analyzer.h"
 #include "chrome/common/safe_browsing/seven_zip_analyzer.h"
 #include "chrome/common/safe_browsing/zip_analyzer.h"
 
@@ -47,9 +46,8 @@ void SafeArchiveAnalyzer::AnalyzeRarFile(base::File rar_file,
                                          AnalyzeRarFileCallback callback) {
   DCHECK(rar_file.IsValid());
 
+  LOG(FATAL) << "AnalyzeRarFile is disabled in this build";
   safe_browsing::ArchiveAnalyzerResults results;
-  safe_browsing::rar_analyzer::AnalyzeRarFile(
-      std::move(rar_file), std::move(temporary_file), &results);
   std::move(callback).Run(results);
 }
 
