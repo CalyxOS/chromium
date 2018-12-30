@@ -4087,8 +4087,13 @@ action("build_date") {
 
   args = [
     rebase_path("$target_gen_dir/generated_build_date.h", root_build_dir),
-    build_timestamp,
   ]
+
+  if (override_build_timestamp != "N/A") {
+    args += [ override_build_timestamp ]
+  } else {
+    args += [ build_timestamp ]
+  }
 }
 
 if (enable_nocompile_tests) {
