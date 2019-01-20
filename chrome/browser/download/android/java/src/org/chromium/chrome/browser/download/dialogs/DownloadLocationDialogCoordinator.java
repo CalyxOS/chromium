@@ -142,22 +142,6 @@ public class DownloadLocationDialogCoordinator implements ModalDialogProperties.
      * @param dirs An list of available download directories.
      */
     private void onDirectoryOptionsRetrieved(ArrayList<DirectoryOption> dirs) {
-        // If there is only one directory available, don't show the default dialog, and set the
-        // download directory to default. Dialog will still show for other types of dialogs, like
-        // name conflict or disk error or if Incognito download warning is needed.
-        if (dirs.size() == 1
-                && !mLocationDialogManaged
-                && mDialogType == DownloadLocationDialogType.DEFAULT
-                && !mProfile.isOffTheRecord()) {
-            final DirectoryOption dir = dirs.get(0);
-            if (dir.type == DirectoryOption.DownloadLocationDirectoryType.DEFAULT) {
-                assert (!TextUtils.isEmpty(dir.location));
-                DownloadDialogBridge.setDownloadAndSaveFileDefaultDirectory(mProfile, dir.location);
-                mController.onDownloadLocationDialogComplete(mSuggestedPath);
-            }
-            return;
-        }
-
         // Already showing the dialog.
         if (mDialogModel != null) return;
 
