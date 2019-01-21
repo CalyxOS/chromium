@@ -5,7 +5,7 @@
 *.mk
 *.ncb
 *.opensdf
-*.orig
+# *.orig
 *.pdb
 *.props
 *.pyc
