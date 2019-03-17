@@ -64,8 +64,8 @@ BASE_FEATURE(kSiteIsolationForOAuthSites,
 // kSitePerProcess won't be checked at all, and field trials won't activate
 // either the control or the experiment group.
 BASE_FEATURE(kSiteIsolationMemoryThresholds,
-             "SiteIsolationMemoryThresholds",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "SiteIsolationMemoryThresholds",     // must be enabled
+             base::FEATURE_ENABLED_BY_DEFAULT);   // in Bromite
 const char kStrictSiteIsolationMemoryThresholdParamName[] =
     "strict_site_isolation_threshold_mb";
 const char kPartialSiteIsolationMemoryThresholdParamName[] =
