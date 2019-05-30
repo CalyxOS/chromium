@@ -37,8 +37,8 @@ BASE_FEATURE(kOfflinePagesDescriptivePendingStatusFeature,
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kOfflinePagesInDownloadHomeOpenInCctFeature,
-             "OfflinePagesInDownloadHomeOpenInCct",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "OfflinePagesInDownloadHomeOpenInCct",       // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);          // in Bromite
 
 BASE_FEATURE(kOfflinePagesNetworkStateLikelyUnknown,
              "OfflinePagesNetworkStateLikelyUnknown",
