@@ -411,7 +411,7 @@ void ProfileImpl::RegisterProfilePrefs(
 #endif
 
   registry->RegisterBooleanPref(prefs::kForceEphemeralProfiles, false);
-  registry->RegisterBooleanPref(prefs::kEnableMediaRouter, true);
+  registry->RegisterBooleanPref(prefs::kEnableMediaRouter, false);
 #if !BUILDFLAG(IS_ANDROID)
   registry->RegisterBooleanPref(prefs::kShowCastIconInToolbar, false);
 #endif  // !BUILDFLAG(IS_ANDROID)

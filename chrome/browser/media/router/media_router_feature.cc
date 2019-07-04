@@ -59,26 +59,15 @@ BASE_FEATURE(kGlobalMediaControlsCastStartStop,
 
 #endif  // !BUILDFLAG(IS_ANDROID)
 
-namespace {
-const PrefService::Preference* GetMediaRouterPref(
-    content::BrowserContext* context) {
-  return user_prefs::UserPrefs::Get(context)->FindPreference(
-      ::prefs::kEnableMediaRouter);
-}
-
-base::flat_map<content::BrowserContext*, bool>& GetStoredPrefValues() {
-  static base::NoDestructor<base::flat_map<content::BrowserContext*, bool>>
-      stored_pref_values;
-
-  return *stored_pref_values;
-}
-}  // namespace
-
-void ClearMediaRouterStoredPrefsForTesting() {
+/*void ClearMediaRouterStoredPrefsForTesting() {
   GetStoredPrefValues().clear();
-}
+}*/
 
 bool MediaRouterEnabled(content::BrowserContext* context) {
+  return false;
+}
+
+/*
 #if !BUILDFLAG(IS_ANDROID)
   if (!base::FeatureList::IsEnabled(kMediaRouter))
     return false;
@@ -106,7 +95,7 @@ bool MediaRouterEnabled(content::BrowserContext* context) {
     return allowed;
   }
   return true;
-}
+}*/
 
 #if !BUILDFLAG(IS_ANDROID)
 void RegisterLocalStatePrefs(PrefRegistrySimple* registry) {
@@ -119,7 +108,7 @@ void RegisterProfilePrefs(PrefRegistrySimple* registry) {
                                PrefRegistry::PUBLIC);
 
   registry->RegisterBooleanPref(
-      media_router::prefs::kMediaRouterMediaRemotingEnabled, true);
+      media_router::prefs::kMediaRouterMediaRemotingEnabled, false); // disabled in Bromite
   registry->RegisterListPref(
       media_router::prefs::kMediaRouterTabMirroringSources);
 
