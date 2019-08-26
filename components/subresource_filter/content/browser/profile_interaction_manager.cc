@@ -129,6 +129,7 @@ mojom::ActivationLevel ProfileInteractionManager::OnPageActivationComputed(
 }
 
 void ProfileInteractionManager::MaybeShowNotification() {
+  if ((true)) return;
   // The caller should make sure this is only called from pages that are
   // currently primary.
   CHECK(page_, base::NotFatalUntil::M129);
