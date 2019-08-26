@@ -21,13 +21,6 @@
 #include "content/public/browser/render_frame_host.h"
 #include "content/public/browser/web_contents.h"
 
-#if BUILDFLAG(IS_ANDROID)
-#include "components/infobars/content/content_infobar_manager.h"  // nogncheck
-#include "components/messages/android/message_dispatcher_bridge.h"
-#include "components/messages/android/messages_feature.h"
-#include "components/subresource_filter/content/browser/ads_blocked_infobar_delegate.h"
-#endif
-
 namespace subresource_filter {
 
 ProfileInteractionManager::ProfileInteractionManager(
@@ -136,47 +129,6 @@ void ProfileInteractionManager::MaybeShowNotification() {
   // currently primary.
   CHECK(page_, base::NotFatalUntil::M129);
   CHECK(page_->IsPrimary(), base::NotFatalUntil::M129);
-
-  const GURL& top_level_url = page_->GetMainDocument().GetLastCommittedURL();
-  if (profile_context_->settings_manager()->ShouldShowUIForSite(
-          top_level_url)) {
-#if BUILDFLAG(IS_ANDROID)
-    if (messages::IsAdsBlockedMessagesUiEnabled() &&
-        messages::MessageDispatcherBridge::Get()
-            ->IsMessagesEnabledForEmbedder()) {
-      subresource_filter::AdsBlockedMessageDelegate::CreateForWebContents(
-          GetWebContents());
-      ads_blocked_message_delegate_ =
-          subresource_filter::AdsBlockedMessageDelegate::FromWebContents(
-              GetWebContents());
-      ads_blocked_message_delegate_->ShowMessage();
-    } else {
-      // NOTE: It is acceptable for the embedder to not have installed an
-      // infobar manager.
-      if (auto* infobar_manager =
-              infobars::ContentInfoBarManager::FromWebContents(
-                  GetWebContents())) {
-        subresource_filter::AdsBlockedInfobarDelegate::Create(infobar_manager);
-      }
-    }
-#endif
-
-    // TODO(crbug.com/40139135): Plumb the actual frame reference here
-    // (it comes from
-    // ContentSubresourceFilterThrottleManager::DidDisallowFirstSubresource,
-    // which comes from a specific frame).
-    content_settings::PageSpecificContentSettings* content_settings =
-        content_settings::PageSpecificContentSettings::GetForFrame(
-            &page_->GetMainDocument());
-    content_settings->OnContentBlocked(ContentSettingsType::ADS);
-
-    ContentSubresourceFilterThrottleManager::LogAction(
-        SubresourceFilterAction::kUIShown);
-    profile_context_->settings_manager()->OnDidShowUI(top_level_url);
-  } else {
-    ContentSubresourceFilterThrottleManager::LogAction(
-        SubresourceFilterAction::kUISuppressed);
-  }
 }
 
 content::WebContents* ProfileInteractionManager::GetWebContents() {
