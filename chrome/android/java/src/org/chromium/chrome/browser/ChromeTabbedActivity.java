@@ -40,6 +40,7 @@ import androidx.lifecycle.LifecycleRegistry;
 import org.chromium.base.BuildInfo;
 import org.chromium.base.CallbackController;
 import org.chromium.base.CommandLine;
+import org.chromium.base.ContextUtils;
 import org.chromium.base.IntentUtils;
 import org.chromium.base.Log;
 import org.chromium.base.MemoryPressureListener;
@@ -1322,8 +1323,10 @@ public class ChromeTabbedActivity extends ChromeActivity<ChromeActivityComponent
             boolean hadCipherData =
                     CipherFactory.getInstance().restoreFromBundle(getSavedInstanceState());
 
+            String PREF_CLOSE_TABS_ON_EXIT = "close_tabs_on_exit";
             boolean noRestoreState =
-                    CommandLine.getInstance().hasSwitch(ChromeSwitches.NO_RESTORE_STATE);
+                CommandLine.getInstance().hasSwitch(ChromeSwitches.NO_RESTORE_STATE) ||
+                ContextUtils.getAppSharedPreferences().getBoolean(PREF_CLOSE_TABS_ON_EXIT, false);
             if (noRestoreState) {
                 // Clear the state files because they are inconsistent and useless from now on.
                 mTabModelOrchestrator.clearState();

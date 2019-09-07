@@ -45,6 +45,11 @@ found in the LICENSE file.
         android:title="@string/incognito_settings_title"
         android:summary="@string/incognito_settings_summary"
         android:fragment="org.chromium.chrome.browser.privacy.settings.IncognitoSettings"/>
+    <org.chromium.components.browser_ui.settings.ChromeSwitchPreference
+        android:key="close_tabs_on_exit"
+        android:title="@string/close_tabs_on_exit_title"
+        android:summary="@string/close_tabs_on_exit_summary"
+        android:defaultValue="false" />
     <Preference
         android:fragment="org.chromium.chrome.browser.privacy.settings.DoNotTrackSettings"
         android:key="do_not_track"

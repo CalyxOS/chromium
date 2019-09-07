@@ -5,6 +5,7 @@
 package org.chromium.chrome.browser.privacy.settings;
 
 import android.os.Build;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.view.Menu;
@@ -15,6 +16,8 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
+import org.chromium.base.ContextUtils;
+import org.chromium.base.BuildInfo;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.feedback.HelpAndFeedbackLauncherImpl;
 import org.chromium.chrome.browser.flags.ChromeFeatureList;
@@ -66,6 +69,8 @@ public class PrivacySettings
     private final SharedPreferencesManager mSharedPreferencesManager =
             SharedPreferencesManager.getInstance();
     private final PrefService prefService = UserPrefs.get(Profile.getLastUsedRegularProfile());
+
+    private static final String PREF_CLOSE_TABS_ON_EXIT = "close_tabs_on_exit";
 
     private ManagedPreferenceDelegate mManagedPreferenceDelegate;
     private IncognitoLockSettings mIncognitoLockSettings;
@@ -132,7 +137,11 @@ public class PrivacySettings
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         String key = preference.getKey();
-        if (PREF_CAN_MAKE_PAYMENT.equals(key)) {
+        if (PREF_CLOSE_TABS_ON_EXIT.equals(key)) {
+            SharedPreferences.Editor sharedPreferencesEditor = ContextUtils.getAppSharedPreferences().edit();
+            sharedPreferencesEditor.putBoolean(PREF_CLOSE_TABS_ON_EXIT, (boolean)newValue);
+            sharedPreferencesEditor.apply();
+        } else if (PREF_CAN_MAKE_PAYMENT.equals(key)) {
             UserPrefs.get(Profile.getLastUsedRegularProfile())
                     .setBoolean(Pref.CAN_MAKE_PAYMENT_ENABLED, (boolean) newValue);
         } else if (PREF_HTTPS_FIRST_MODE.equals(key)) {
@@ -175,6 +184,11 @@ public class PrivacySettings
             preloadPagesPreference.setSummary(
                     PreloadPagesSettingsFragment.getPreloadPagesSummaryString(getContext()));
         }
+
+        ChromeSwitchPreference closeTabsOnExitPref =
+                (ChromeSwitchPreference) findPreference(PREF_CLOSE_TABS_ON_EXIT);
+        closeTabsOnExitPref.setOnPreferenceChangeListener(this);
+        closeTabsOnExitPref.setManagedPreferenceDelegate(mManagedPreferenceDelegate);
 
         Preference secureDnsPref = findPreference(PREF_SECURE_DNS);
         if (secureDnsPref != null && secureDnsPref.isVisible()) {
