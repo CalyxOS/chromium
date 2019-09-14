@@ -630,6 +630,10 @@ SystemNetworkContextManager::~SystemNetworkContextManager() {
 void SystemNetworkContextManager::RegisterPrefs(PrefRegistrySimple* registry) {
   StubResolverConfigReader::RegisterPrefs(registry);
 
+  registry->RegisterBooleanPref(prefs::kAdBlockEnabled, false);
+  registry->RegisterStringPref(prefs::kAdBlockFiltersURL,
+    "https://www.bromite.org/filters/filters.dat");
+
   // Static auth params
   registry->RegisterStringPref(prefs::kAuthSchemes,
                                "basic,digest,ntlm,negotiate");
