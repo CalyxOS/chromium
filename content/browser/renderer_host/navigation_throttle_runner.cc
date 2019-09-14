@@ -250,11 +250,6 @@ void NavigationThrottleRunner::
   // subframe navigations should not proceed.
   AddThrottle(
       SubframeHistoryNavigationThrottle::MaybeCreateThrottleFor(request));
-
-  // Insert all testing NavigationThrottles last.
-  throttles_.insert(throttles_.end(),
-                    std::make_move_iterator(testing_throttles.begin()),
-                    std::make_move_iterator(testing_throttles.end()));
 }
 
 NavigationThrottle* NavigationThrottleRunner::GetDeferringThrottle() const {
