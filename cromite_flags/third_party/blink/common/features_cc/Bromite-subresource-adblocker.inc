@@ -1,0 +1,3 @@
+SET_CROMITE_FEATURE_ENABLED(kAutomaticLazyFrameLoadingToAds);
+SET_CROMITE_FEATURE_DISABLED(kAutomaticLazyFrameLoadingToEmbeds);
+SET_CROMITE_FEATURE_DISABLED(kAutomaticLazyFrameLoadingToEmbedUrls);
