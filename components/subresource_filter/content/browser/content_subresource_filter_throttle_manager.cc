@@ -667,6 +667,17 @@ ContentSubresourceFilterThrottleManager::
       throttle->NotifyPageActivationWithRuleset(EnsureRulesetHandle(),
                                                 ad_tagging_state);
     }
+
+    //TODO: could use same logic as in SubresourceFilterSafeBrowsingActivationThrottle::NotifyResult()
+    {
+      subresource_filter::ActivationDecision ignored_decision;
+      mojom::ActivationState ad_filtering_state;
+      ad_filtering_state.activation_level = profile_interaction_manager_->OnPageActivationComputed(
+	      navigation_handle, mojom::ActivationLevel::kEnabled, &ignored_decision);
+      throttle->NotifyPageActivationWithRuleset(EnsureRulesetHandle(),
+                                                ad_filtering_state);
+    }
+
     return throttle;
   }
 
