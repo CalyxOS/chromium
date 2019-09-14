@@ -15905,6 +15905,16 @@ Please help our engineers fix this problem. Tell us what happened right before y
       Never show this again.
     </message>
 
+    <!-- Ad Blocking preferences -->
+    <if expr="is_android">
+      <message name="IDS_OPTIONS_ADBLOCK_TITLE" desc="The title of the Ad Blocking option on Android" formatter_data="android_java">
+        Ad Blocking
+      </message>
+      <message name="IDS_OPTIONS_ADBLOCK_SUMMARY" desc="The title of the Ad Blocking summary on Android" formatter_data="android_java">
+        Configure Ad Blocking and filters URL
+      </message>
+    </if>
+
     <!-- Ad Blocking UI strings. -->
     <message name="IDS_BLOCKED_ADS_PROMPT_TOOLTIP" desc="Explanation that Chrome blocked ads on this site. To be shown as a tooltip on the Ads blocked desktop bubble">
       Ads blocked on this site
