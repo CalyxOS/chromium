@@ -38,6 +38,9 @@ RulesetFilePtr VerifiedRulesetDealer::OpenAndSetRulesetFile(
   TRACE_EVENT1(TRACE_DISABLED_BY_DEFAULT("loading"),
                "VerifiedRulesetDealer::OpenAndSetRulesetFile", "file_valid",
                file->IsValid());
+
+  LOG(INFO) << "OpenAndSetRulesetFile: " << file_path << " is valid: " << file->IsValid();
+
   if (file->IsValid()) {
     SetRulesetFile(file->Duplicate());
     expected_checksum_ = expected_checksum;

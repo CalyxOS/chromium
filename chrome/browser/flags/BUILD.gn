@@ -8,6 +8,7 @@ import("//third_party/jni_zero/jni_zero.gni")
 android_library("java") {
   sources = [ "android/java/src/org/chromium/chrome/browser/flags/CromiteNativeUtils.java" ]
   sources += [
+    "android/java/src/org/chromium/chrome/browser/flags/AdBlockNativeGateway.java",
     "android/java/src/org/chromium/chrome/browser/flags/ChromeFeatureList.java",
     "android/java/src/org/chromium/chrome/browser/flags/ChromeFeatureMap.java",
     "android/java/src/org/chromium/chrome/browser/flags/ChromeSessionState.java",
@@ -33,6 +34,7 @@ android_library("java") {
 generate_jni("jni_headers") {
   sources = [ "android/java/src/org/chromium/chrome/browser/flags/CromiteNativeUtils.java" ]
   sources += [
+    "android/java/src/org/chromium/chrome/browser/flags/AdBlockNativeGateway.java",
     "android/java/src/org/chromium/chrome/browser/flags/ChromeFeatureMap.java",
     "android/java/src/org/chromium/chrome/browser/flags/ChromeSessionState.java",
   ]
@@ -47,6 +49,7 @@ static_library("flags_android") {
     "android/chrome_session_state.cc",
     "android/chrome_session_state.h",
   ]
+  sources += [ "android/adblock_native_gateway.cc" ]
   deps = [
     ":jni_headers",
     "//base",
@@ -70,6 +73,7 @@ robolectric_library("flags_junit_tests") {
   sources = [
     "android/java/src/org/chromium/chrome/browser/flags/CachedFeatureFlagsAnnotationUnitTest.java",
     "android/java/src/org/chromium/chrome/browser/flags/ChromeFeatureListWithProcessorUnitTest.java",
+    "android/java/src/org/chromium/chrome/browser/flags/AdBlockNativeGateway.java",
   ]
   deps = [
     ":java",
