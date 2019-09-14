@@ -386,6 +386,9 @@ StartupProfileInfo CreateInitialProfile(
   // missing code in the above test.
   CHECK(profile_info.profile) << "Cannot get default profile.";
 
+  // force AdBlock updater initialisation
+  g_browser_process->adblock_updater();
+
 #else
   profile_info =
       GetStartupProfile(/*cur_dir=*/base::FilePath(), parsed_command_line);
