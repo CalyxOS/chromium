@@ -92,6 +92,9 @@ inline constexpr char kHomePageIsNewTabPage[] = "homepage_is_newtabpage";
 // This is the URL of the page to load when opening new tabs.
 inline constexpr char kHomePage[] = "homepage";
 
+// Holds the URL to an indexed subresource filters file.
+inline constexpr char kAdBlockFiltersURL[] = "adblock.filters_url";
+
 // A boolean specifying whether HTTPS-Only Mode is enabled by the user.
 inline constexpr char kHttpsOnlyModeEnabled[] = "https_only_mode_enabled";
 
