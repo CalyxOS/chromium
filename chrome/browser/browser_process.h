@@ -32,6 +32,7 @@
 #include "chrome/common/buildflags.h"
 #include "components/safe_browsing/buildflags.h"
 #include "media/media_buildflags.h"
+#include "components/component_updater/adblock_updater_service.h"
 
 class BackgroundModeManager;
 class BrowserProcessPlatformPart;
@@ -87,6 +88,10 @@ class VariationsService;
 
 namespace component_updater {
 class ComponentUpdateService;
+}
+
+namespace adblock_updater {
+class AdBlockUpdaterService;
 }
 
 namespace gcm {
@@ -269,6 +274,7 @@ class BrowserProcess {
 #endif
 
   virtual component_updater::ComponentUpdateService* component_updater() = 0;
+  virtual adblock_updater::AdBlockUpdaterService* adblock_updater() = 0;
 
   virtual MediaFileSystemRegistry* media_file_system_registry() = 0;
 
