@@ -15,6 +15,9 @@
 #include "base/trace_event/trace_conversion_helper.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/traced_value.h"
+#include "components/content_settings/core/common/content_settings_types.h"
+#include "components/subresource_filter/content/browser/subresource_filter_content_settings_manager.h"
+#include "components/subresource_filter/content/browser/subresource_filter_profile_context.h"
 #include "components/subresource_filter/content/browser/activation_state_computing_navigation_throttle.h"
 #include "components/subresource_filter/content/browser/async_document_subresource_filter.h"
 #include "components/subresource_filter/content/browser/content_subresource_filter_web_contents_helper.h"
@@ -149,6 +152,7 @@ ContentSubresourceFilterThrottleManager::
       profile_interaction_manager_(
           std::make_unique<subresource_filter::ProfileInteractionManager>(
               profile_context)),
+      profile_context_(profile_context),
       web_contents_helper_(web_contents_helper) {}
 
 ContentSubresourceFilterThrottleManager::
@@ -668,6 +672,17 @@ ContentSubresourceFilterThrottleManager::
       throttle->NotifyPageActivationWithRuleset(EnsureRulesetHandle(),
                                                 ad_tagging_state);
     }
+
+    const GURL& url(navigation_handle->GetURL());
+    if (profile_context_->settings_manager()->GetSitePermission(url) != CONTENT_SETTING_ALLOW) {
+      subresource_filter::ActivationDecision ignored_decision;
+      mojom::ActivationState ad_filtering_state;
+      ad_filtering_state.activation_level = profile_interaction_manager_->OnPageActivationComputed(
+	      navigation_handle, mojom::ActivationLevel::kEnabled, &ignored_decision);
+      throttle->NotifyPageActivationWithRuleset(EnsureRulesetHandle(),
+                                                ad_filtering_state);
+    }
+
     return throttle;
   }
 
