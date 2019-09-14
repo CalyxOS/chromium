@@ -38,6 +38,7 @@ extern const char kDownloadDuplicateFilePromptEnabled[];
 extern const char kForceEphemeralProfiles[];
 extern const char kHomePageIsNewTabPage[];
 extern const char kHomePage[];
+extern const char kAdBlockFiltersURL[];
 extern const char kHttpsOnlyModeEnabled[];
 extern const char kImportantSitesDialogHistory[];
 extern const char kProfileCreationTime[];
