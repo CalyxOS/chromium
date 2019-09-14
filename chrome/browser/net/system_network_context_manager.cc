@@ -640,6 +640,14 @@ SystemNetworkContextManager::~SystemNetworkContextManager() {
 void SystemNetworkContextManager::RegisterPrefs(PrefRegistrySimple* registry) {
   StubResolverConfigReader::RegisterPrefs(registry);
 
+#if BUILDFLAG(IS_ANDROID)
+  registry->RegisterBooleanPref(prefs::kAdBlockEnabled, true);
+#else
+  registry->RegisterBooleanPref(prefs::kAdBlockEnabled, false);
+#endif
+  registry->RegisterStringPref(prefs::kAdBlockFiltersURL,
+    "https://www.bromite.org/filters/filters.dat");
+
   // Static auth params
   registry->RegisterStringPref(prefs::kAuthSchemes,
                                "basic,digest,ntlm,negotiate");
