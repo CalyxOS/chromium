@@ -1220,6 +1220,34 @@ BrowserProcessImpl::component_updater() {
   return component_updater_.get();
 }
 
+adblock_updater::AdBlockUpdaterService*
+BrowserProcessImpl::adblock_updater() {
+  if (adblock_updater_)
+    return adblock_updater_.get();
+
+  if (!BrowserThread::CurrentlyOn(BrowserThread::UI))
+    return nullptr;
+
+  std::unique_ptr<component_updater::UpdateScheduler> scheduler =
+      std::make_unique<component_updater::TimerUpdateScheduler>();
+
+  auto adblock_updater_url =
+    local_state()->GetString(prefs::kAdBlockFiltersURL);
+  if (base::StartsWith(adblock_updater_url,
+        "https://www.bromite.org", base::CompareCase::INSENSITIVE_ASCII)) {
+    local_state()->SetString(prefs::kAdBlockFiltersURL, "about:blank");
+  }
+
+  adblock_updater_ = std::make_unique<adblock_updater::AdBlockUpdaterService>(
+          g_browser_process->system_network_context_manager()->GetSharedURLLoaderFactory(),
+          std::move(scheduler),
+          g_browser_process->subresource_filter_ruleset_service(),
+          local_state()->GetBoolean(prefs::kAdBlockEnabled),
+          local_state()->GetString(prefs::kAdBlockFiltersURL));
+
+  return adblock_updater_.get();
+}
+
 void BrowserProcessImpl::OnKeepAliveStateChanged(bool is_keeping_alive) {
   if (is_keeping_alive)
     Pin();
