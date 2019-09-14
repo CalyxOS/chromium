@@ -13,6 +13,7 @@
 #include "third_party/protobuf/src/google/protobuf/io/zero_copy_stream_impl.h"
 #include "third_party/protobuf/src/google/protobuf/io/zero_copy_stream_impl_lite.h"
 #include "ui/base/resource/resource_bundle.h"
+#include "base/logging.h"
 
 namespace subresource_filter {
 
@@ -48,6 +49,8 @@ void UnindexedRulesetStreamGenerator::GenerateStreamFromFile(
   }
 
   ruleset_size_ = unindexed_ruleset_file.GetLength();
+
+  LOG(INFO) << "Opened " << ruleset_path << " size " << ruleset_size_;
 
   copying_stream_ = std::make_unique<CopyingFileInputStream>(
       std::move(unindexed_ruleset_file));

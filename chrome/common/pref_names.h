@@ -2840,6 +2840,11 @@ inline constexpr char kAudioCaptureAllowed[] = "hardware.audio_capture_enabled";
 inline constexpr char kAudioCaptureAllowedUrls[] =
     "hardware.audio_capture_allowed_urls";
 
+// Holds the URL to an indexed subresource filters file.
+inline constexpr char kAdBlockFiltersURL[] = "adblock.filters_url";
+
+inline constexpr char kAdBlockEnabled[] = "adblock.enabled";
+
 // A pref holding the value of the policy used to explicitly allow or deny
 // access to video capture devices.  When enabled or not set, the user is
 // prompted for device access.  When disabled, access to video capture devices
