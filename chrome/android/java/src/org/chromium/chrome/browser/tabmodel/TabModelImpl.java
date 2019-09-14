@@ -916,9 +916,7 @@ public class TabModelImpl extends TabModelJniBridge {
                 .createTabWithWebContents(
                         parent,
                         webContents,
-                        select
-                                ? TabLaunchType.FROM_RECENT_TABS_FOREGROUND
-                                : TabLaunchType.FROM_RECENT_TABS);
+                        TabLaunchType.FROM_LINK);
     }
 
     @Override
