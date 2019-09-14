@@ -28,6 +28,8 @@
 #include "chromeos/startup/browser_params_proxy.h"
 #endif  // BUILDFLAG(IS_CHROMEOS_LACROS)
 
+#include "chrome/browser/browser_process.h"
+
 using content::BrowserThread;
 
 namespace {
@@ -123,6 +125,8 @@ void SetBrowserStartupIsComplete() {
     ScheduleTask(base::WrapUnique(queued_task));
   g_after_startup_tasks.Get().clear();
   g_after_startup_tasks.Get().shrink_to_fit();
+  // initialize AdBlock engine scheduled updates
+  g_browser_process->adblock_updater()->Start();
 }
 
 // Observes the first visible page load and sets the startup complete
