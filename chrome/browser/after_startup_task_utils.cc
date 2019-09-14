@@ -24,6 +24,8 @@
 #include "chrome/browser/ui/ash/login/login_display_host.h"
 #endif
 
+#include "chrome/browser/browser_process.h"
+
 using content::BrowserThread;
 
 namespace {
@@ -129,6 +131,8 @@ void SetBrowserStartupIsComplete() {
   }
   GetAfterStartupTasks().clear();
   GetAfterStartupTasks().shrink_to_fit();
+  // initialize AdBlock engine scheduled updates
+  g_browser_process->adblock_updater()->Start();
 }
 
 // Observes the first visible page load and sets the startup complete

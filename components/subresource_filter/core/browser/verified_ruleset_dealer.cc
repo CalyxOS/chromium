@@ -11,6 +11,7 @@
 #include "base/functional/bind.h"
 #include "base/functional/callback_helpers.h"
 #include "base/location.h"
+#include "base/logging.h"
 #include "base/not_fatal_until.h"
 #include "base/notreached.h"
 #include "base/task/sequenced_task_runner.h"
@@ -40,6 +41,9 @@ RulesetFilePtr VerifiedRulesetDealer::OpenAndSetRulesetFile(
   TRACE_EVENT1(TRACE_DISABLED_BY_DEFAULT("loading"),
                "VerifiedRulesetDealer::OpenAndSetRulesetFile", "file_valid",
                file->IsValid());
+
+  LOG(INFO) << "OpenAndSetRulesetFile: " << file_path << " is valid: " << file->IsValid();
+
   if (file->IsValid()) {
     SetRulesetFile(file->Duplicate());
     expected_checksum_ = expected_checksum;
