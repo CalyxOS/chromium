@@ -6,6 +6,7 @@
 
 #include "base/check.h"
 #include "base/hash/hash.h"
+#include "base/logging.h"
 #include "base/metrics/histogram_macros.h"
 #include "base/not_fatal_until.h"
 #include "base/trace_event/trace_event.h"
@@ -37,7 +38,9 @@ VerifyStatus GetVerifyStatus(base::span<const uint8_t> buffer,
   // least once.  The verifier detects a subset of the errors detected by the
   // checksum, and is unneeded once expected_checksum is consistently nonzero.
   flatbuffers::Verifier verifier(buffer.data(), buffer.size());
-  if (expected_checksum != 0 && expected_checksum != LocalGetChecksum(buffer)) {
+  int local_checksum = LocalGetChecksum(buffer);
+  LOG(INFO) << "GetVerifyStatus: expected checksum = 0x" << std::hex << expected_checksum << ", local checksum = 0x" << std::hex << local_checksum;
+  if (expected_checksum != 0 && expected_checksum != local_checksum) {
     return flat::VerifyIndexedRulesetBuffer(verifier)
                ? VerifyStatus::kChecksumFailVerifierPass
                : VerifyStatus::kChecksumFailVerifierFail;
