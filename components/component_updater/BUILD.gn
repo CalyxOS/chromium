@@ -16,6 +16,12 @@ static_library("component_updater") {
     "component_installer.h",
     "component_updater_command_line_config_policy.cc",
     "component_updater_command_line_config_policy.h",
+
+    "adblock_updater_service.cc",
+    "adblock_updater_service.h",
+    "download_filters_task.cc",
+    "download_filters_task.h",
+
     "component_updater_service.cc",
     "component_updater_service.h",
     "component_updater_service_internal.h",
@@ -47,9 +53,11 @@ static_library("component_updater") {
     "//components/update_client",
     "//components/version_info",
     "//net",
+    "//services/network/public/mojom",
     "//third_party/boringssl",
     "//ui/base",
     "//url",
+    "//content/common:buildflags"
   ]
 }
 
