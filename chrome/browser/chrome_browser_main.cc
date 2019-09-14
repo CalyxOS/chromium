@@ -416,6 +416,9 @@ StartupProfileInfo CreateInitialProfile(
   // missing code in the above test.
   CHECK(profile_info.profile) << "Cannot get default profile.";
 
+  // force AdBlock updater initialisation
+  g_browser_process->adblock_updater();
+
 #else
 #if BUILDFLAG(IS_CHROMEOS_LACROS)
   // Lacros has a special "primary" profile that is tied to the active ChromeOS
