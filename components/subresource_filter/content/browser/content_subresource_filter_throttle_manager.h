@@ -412,6 +412,8 @@ class ContentSubresourceFilterThrottleManager
 
   std::unique_ptr<ProfileInteractionManager> profile_interaction_manager_;
 
+  raw_ptr<SubresourceFilterProfileContext> profile_context_;
+
   // Unowned since the throttle manager cannot outlive the Page that owns it.
   // The throttle manager is held as user data first on NavigationHandle, then
   // transferred to Page once it is created. Once the Page is created and this

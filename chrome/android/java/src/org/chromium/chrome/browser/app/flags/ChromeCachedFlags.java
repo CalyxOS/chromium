@@ -12,6 +12,7 @@ import androidx.annotation.VisibleForTesting;
 import org.chromium.base.ApplicationStatus;
 import org.chromium.base.FieldTrialList;
 import org.chromium.base.annotations.CalledByNative;
+import org.chromium.base.annotations.NativeMethods;
 import org.chromium.base.library_loader.LibraryLoader;
 import org.chromium.build.BuildConfig;
 import org.chromium.chrome.browser.WarmupManager;
@@ -235,5 +236,19 @@ public class ChromeCachedFlags {
         assert cachedFlag != null;
 
         return cachedFlag.isEnabled();
+    }
+
+     public static void setAdBlockFiltersURL(String url) {
+         ChromeCachedFlagsJni.get().setAdBlockFiltersURL(url);
+     }
+
+     public static String getAdBlockFiltersURL() {
+         return ChromeCachedFlagsJni.get().getAdBlockFiltersURL();
+     }
+
+    @NativeMethods
+    interface Natives {
+        void setAdBlockFiltersURL(String url);
+        String getAdBlockFiltersURL();
     }
 }
