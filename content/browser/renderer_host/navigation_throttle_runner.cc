@@ -190,11 +190,6 @@ void NavigationThrottleRunner::RegisterNavigationThrottles() {
   // wait for the JS task that starts the navigation to finish, so add it close
   // to the end to not delay running other throttles.
   AddThrottle(RendererCancellationThrottle::MaybeCreateThrottleFor(request));
-
-  // Insert all testing NavigationThrottles last.
-  throttles_.insert(throttles_.end(),
-                    std::make_move_iterator(testing_throttles.begin()),
-                    std::make_move_iterator(testing_throttles.end()));
 }
 
 NavigationThrottle* NavigationThrottleRunner::GetDeferringThrottle() const {

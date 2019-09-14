@@ -705,7 +705,7 @@ public class TabModelImpl extends TabModelJniBridge {
     protected boolean createTabWithWebContents(
             Tab parent, Profile profile, WebContents webContents) {
         return getTabCreator(profile.isOffTheRecord())
-                .createTabWithWebContents(parent, webContents, TabLaunchType.FROM_RECENT_TABS);
+                .createTabWithWebContents(parent, webContents, TabLaunchType.FROM_LINK);
     }
 
     @Override
