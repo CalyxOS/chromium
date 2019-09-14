@@ -186,6 +186,14 @@ public class CachedFeatureFlags {
                 ChromeFeatureList.isEnabled(ChromeFeatureList.BACKGROUND_THREAD_POOL));
     }
 
+     public static void setAdBlockFiltersURL(String url) {
+         CachedFeatureFlagsJni.get().setAdBlockFiltersURL(url);
+     }
+
+     public static String getAdBlockFiltersURL() {
+         return CachedFeatureFlagsJni.get().getAdBlockFiltersURL();
+     }
+
     /**
      * Caches flags that must take effect on startup but are set via native code.
      */
@@ -423,5 +431,7 @@ public class CachedFeatureFlags {
     @NativeMethods
     interface Natives {
         boolean isNetworkServiceWarmUpEnabled();
+        void setAdBlockFiltersURL(String url);
+        String getAdBlockFiltersURL();
     }
 }

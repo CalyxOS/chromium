@@ -54,10 +54,10 @@ content::WebContents* SessionRestore::RestoreForeignSessionTab(
 
   TabAndroid* current_tab = TabAndroid::FromWebContents(web_contents);
   DCHECK(current_tab);
-  // If swapped, return the current tab's most up-to-date web contents.
   if (disposition == WindowOpenDisposition::CURRENT_TAB) {
-    current_tab->SwapWebContents(std::move(new_web_contents), false, false);
-    return current_tab->web_contents();
+    int active_tab_index = tab_model->GetActiveIndex();
+    tab_model->CreateTab(current_tab, new_web_contents.release());
+    tab_model->CloseTabAt(active_tab_index);
   }
   DCHECK(disposition == WindowOpenDisposition::NEW_FOREGROUND_TAB ||
          disposition == WindowOpenDisposition::NEW_BACKGROUND_TAB);
