@@ -55,68 +55,6 @@ class CommaSeparatedStrings {
   const std::vector<std::string_view> pieces_;
 };
 
-std::string TakeVariationParamOrReturnEmpty(
-    std::map<std::string, std::string>* params,
-    const std::string& key) {
-  auto it = params->find(key);
-  if (it == params->end())
-    return std::string();
-  std::string value = std::move(it->second);
-  params->erase(it);
-  return value;
-}
-
-mojom::ActivationLevel ParseActivationLevel(std::string_view activation_level) {
-  if (base::EqualsCaseInsensitiveASCII(activation_level,
-                                       kActivationLevelEnabled))
-    return mojom::ActivationLevel::kEnabled;
-  else if (base::EqualsCaseInsensitiveASCII(activation_level,
-                                            kActivationLevelDryRun))
-    return mojom::ActivationLevel::kDryRun;
-  return mojom::ActivationLevel::kDisabled;
-}
-
-ActivationScope ParseActivationScope(std::string_view activation_scope) {
-  if (base::EqualsCaseInsensitiveASCII(activation_scope,
-                                       kActivationScopeAllSites))
-    return ActivationScope::ALL_SITES;
-  else if (base::EqualsCaseInsensitiveASCII(activation_scope,
-                                            kActivationScopeActivationList))
-    return ActivationScope::ACTIVATION_LIST;
-  return ActivationScope::NO_SITES;
-}
-
-ActivationList ParseActivationList(std::string activation_lists_string) {
-  CommaSeparatedStrings activation_lists(std::move(activation_lists_string));
-  if (activation_lists.CaseInsensitiveContains(
-          kActivationListPhishingInterstitial)) {
-    return ActivationList::PHISHING_INTERSTITIAL;
-  } else if (activation_lists.CaseInsensitiveContains(
-                 kActivationListSocialEngineeringAdsInterstitial)) {
-    return ActivationList::SOCIAL_ENG_ADS_INTERSTITIAL;
-  } else if (activation_lists.CaseInsensitiveContains(
-                 kActivationListSubresourceFilter)) {
-    return ActivationList::SUBRESOURCE_FILTER;
-  } else if (activation_lists.CaseInsensitiveContains(
-                 kActivationListBetterAds)) {
-    return ActivationList::BETTER_ADS;
-  }
-  return ActivationList::NONE;
-}
-
-// Will return a value between 0 and 1 inclusive.
-double ParsePerformanceMeasurementRate(const std::string& rate) {
-  double value = 0.0;
-  if (!base::StringToDouble(rate, &value) || value < 0)
-    return 0.0;
-  return value < 1 ? value : 1;
-}
-
-int ParseInt(std::string_view value) {
-  int result = 0;
-  base::StringToInt(value, &result);
-  return result;
-}
 
 std::vector<Configuration> FillEnabledPresetConfigurations(
     std::map<std::string, std::string>* params) {
@@ -127,23 +65,16 @@ std::vector<Configuration> FillEnabledPresetConfigurations(
     bool enabled_by_default;
     Configuration (*factory_method)();
   } kAvailablePresetConfigurations[] = {
-      {kPresetLiveRunOnPhishingSites, true,
+      {kPresetLiveRunOnPhishingSites, false,
        &Configuration::MakePresetForLiveRunOnPhishingSites},
       {kPresetPerformanceTestingDryRunOnAllSites, ad_tagging_enabled,
        &Configuration::MakePresetForPerformanceTestingDryRunOnAllSites},
       {kPresetLiveRunForBetterAds, true,
        &Configuration::MakePresetForLiveRunForBetterAds}};
 
-  CommaSeparatedStrings enabled_presets(
-      TakeVariationParamOrReturnEmpty(params, kEnablePresetsParameterName));
-  CommaSeparatedStrings disabled_presets(
-      TakeVariationParamOrReturnEmpty(params, kDisablePresetsParameterName));
-
   std::vector<Configuration> enabled_configurations;
   for (const auto& available_preset : kAvailablePresetConfigurations) {
-    if ((enabled_presets.CaseInsensitiveContains(available_preset.name) ||
-         available_preset.enabled_by_default) &&
-        !disabled_presets.CaseInsensitiveContains(available_preset.name)) {
+    if (available_preset.enabled_by_default) {
       enabled_configurations.push_back(available_preset.factory_method());
     }
   }
@@ -151,46 +82,10 @@ std::vector<Configuration> FillEnabledPresetConfigurations(
   return enabled_configurations;
 }
 
-Configuration ParseExperimentalConfiguration(
-    std::map<std::string, std::string>* params) {
-  Configuration configuration;
-
-  // ActivationConditions:
-  configuration.activation_conditions.activation_scope = ParseActivationScope(
-      TakeVariationParamOrReturnEmpty(params, kActivationScopeParameterName));
-
-  configuration.activation_conditions.activation_list = ParseActivationList(
-      TakeVariationParamOrReturnEmpty(params, kActivationListsParameterName));
-
-  configuration.activation_conditions.priority =
-      ParseInt(TakeVariationParamOrReturnEmpty(
-          params, kActivationPriorityParameterName));
-
-  // ActivationOptions:
-  configuration.activation_options.activation_level = ParseActivationLevel(
-      TakeVariationParamOrReturnEmpty(params, kActivationLevelParameterName));
-
-  configuration.activation_options.performance_measurement_rate =
-      ParsePerformanceMeasurementRate(TakeVariationParamOrReturnEmpty(
-          params, kPerformanceMeasurementRateParameterName));
-
-  // GeneralSettings:
-  configuration.general_settings.ruleset_flavor =
-      TakeVariationParamOrReturnEmpty(params, kRulesetFlavorParameterName);
-
-  return configuration;
-}
-
 std::vector<Configuration> ParseEnabledConfigurations() {
-  std::map<std::string, std::string> params;
-  base::GetFieldTrialParamsByFeature(kSafeBrowsingSubresourceFilter, &params);
-
   std::vector<Configuration> configs;
   if (base::FeatureList::IsEnabled(kSafeBrowsingSubresourceFilter))
-    configs = FillEnabledPresetConfigurations(&params);
-
-  Configuration experimental_config = ParseExperimentalConfiguration(&params);
-  configs.push_back(std::move(experimental_config));
+    configs = FillEnabledPresetConfigurations();
 
   return configs;
 }
