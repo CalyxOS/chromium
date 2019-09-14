@@ -46,9 +46,7 @@ namespace {
 
 void RecordIndexAndWriteRulesetResult(
     RulesetService::IndexAndWriteRulesetResult result) {
-  UMA_HISTOGRAM_ENUMERATION(
-      "SubresourceFilter.WriteRuleset.Result", static_cast<int>(result),
-      static_cast<int>(RulesetService::IndexAndWriteRulesetResult::MAX));
+  VLOG(1) << "SubresourceFilter.WriteRuleset.Result: " << static_cast<int>(result);
 }
 
 // Implements operations on a `sentinel file`, which is used as a safeguard to
@@ -228,10 +226,13 @@ RulesetService::RulesetService(
 RulesetService::~RulesetService() {}
 
 void RulesetService::IndexAndStoreAndPublishRulesetIfNeeded(
-    const UnindexedRulesetInfo& unindexed_ruleset_info) {
-  if (unindexed_ruleset_info.content_version.empty())
+    const UnindexedRulesetInfo& unindexed_ruleset_info, bool ignore_recent_version) {
+  if (unindexed_ruleset_info.content_version.empty()) {
+    LOG(INFO) << "RulesetService: ignoring update with empty version.";
     return;
+  }
 
+  if (!ignore_recent_version) {
   // Trying to store a ruleset with the same version for a second time would
   // not only be futile, but would fail on Windows due to "File System
   // Tunneling" as long as the previously stored copy of the rules is still
@@ -241,13 +242,16 @@ void RulesetService::IndexAndStoreAndPublishRulesetIfNeeded(
   if (most_recently_indexed_version.IsCurrentFormatVersion() &&
       most_recently_indexed_version.content_version ==
           unindexed_ruleset_info.content_version) {
+    LOG(INFO) << "RulesetService: ignoring update with equal or older version.";
     return;
+  }
   }
 
   // Before initialization, retain information about the most recently supplied
   // unindexed ruleset, to be processed during initialization.
   if (!is_initialized_) {
     queued_unindexed_ruleset_info_ = unindexed_ruleset_info;
+    LOG(INFO) << "RulesetService: ignoring update while not initialized.";
     return;
   }
 
@@ -266,6 +270,18 @@ IndexedRulesetVersion RulesetService::GetMostRecentlyIndexedVersion() const {
 IndexedRulesetVersion RulesetService::IndexAndWriteRuleset(
     const base::FilePath& indexed_ruleset_base_dir,
     const UnindexedRulesetInfo& unindexed_ruleset_info) {
+  IndexedRulesetVersion version = IndexAndWriteRulesetInternal(indexed_ruleset_base_dir, unindexed_ruleset_info);
+  // cleanup temporary file when done
+  if (unindexed_ruleset_info.delete_ruleset_path) {
+    base::DeleteFile(unindexed_ruleset_info.ruleset_path);
+  }
+  return version;
+}
+
+// static
+IndexedRulesetVersion RulesetService::IndexAndWriteRulesetInternal(
+    const base::FilePath& indexed_ruleset_base_dir,
+    const UnindexedRulesetInfo& unindexed_ruleset_info) {
   base::ScopedBlockingCall scoped_blocking_call(FROM_HERE,
                                                 base::BlockingType::MAY_BLOCK);
 
@@ -273,6 +289,7 @@ IndexedRulesetVersion RulesetService::IndexAndWriteRuleset(
       unindexed_ruleset_info);
 
   if (!unindexed_ruleset_stream_generator.ruleset_stream()) {
+    LOG(WARNING) << "RulesetService: failed to open: " << unindexed_ruleset_info.ruleset_path;
     RecordIndexAndWriteRulesetResult(
         IndexAndWriteRulesetResult::FAILED_OPENING_UNINDEXED_RULESET);
     return IndexedRulesetVersion(kSafeBrowsingFilterTag);
@@ -286,6 +303,7 @@ IndexedRulesetVersion RulesetService::IndexAndWriteRuleset(
           indexed_ruleset_base_dir, indexed_version);
 
   if (!base::CreateDirectory(indexed_ruleset_version_dir)) {
+    LOG(WARNING) << "RulesetService: failed to create version dir: " << indexed_ruleset_version_dir;
     RecordIndexAndWriteRulesetResult(
         IndexAndWriteRulesetResult::FAILED_CREATING_VERSION_DIR);
     return IndexedRulesetVersion(kSafeBrowsingFilterTag);
@@ -293,12 +311,11 @@ IndexedRulesetVersion RulesetService::IndexAndWriteRuleset(
 
   SentinelFile sentinel_file(indexed_ruleset_version_dir);
   if (sentinel_file.IsPresent()) {
-    RecordIndexAndWriteRulesetResult(
-        IndexAndWriteRulesetResult::ABORTED_BECAUSE_SENTINEL_FILE_PRESENT);
-    return IndexedRulesetVersion(kSafeBrowsingFilterTag);
+    LOG(WARNING) << "RulesetService: sentinel file is present in " << indexed_ruleset_version_dir;
   }
 
   if (!sentinel_file.Create()) {
+    LOG(WARNING) << "RulesetService: cannot create sentinel file in " << indexed_ruleset_version_dir;
     RecordIndexAndWriteRulesetResult(
         IndexAndWriteRulesetResult::FAILED_CREATING_SENTINEL_FILE);
     return IndexedRulesetVersion(kSafeBrowsingFilterTag);
@@ -311,6 +328,7 @@ IndexedRulesetVersion RulesetService::IndexAndWriteRuleset(
 
   RulesetIndexer indexer;
   if (!(*g_index_ruleset_func)(&unindexed_ruleset_stream_generator, &indexer)) {
+    LOG(WARNING) << "RulesetService: failed parsing.";
     RecordIndexAndWriteRulesetResult(
         IndexAndWriteRulesetResult::FAILED_PARSING_UNINDEXED_RULESET);
     return IndexedRulesetVersion(kSafeBrowsingFilterTag);
@@ -328,8 +346,12 @@ IndexedRulesetVersion RulesetService::IndexAndWriteRuleset(
       WriteRuleset(indexed_ruleset_version_dir,
                    unindexed_ruleset_info.license_path, indexer.data());
   RecordIndexAndWriteRulesetResult(result);
-  if (result != IndexAndWriteRulesetResult::SUCCESS)
+  if (result != IndexAndWriteRulesetResult::SUCCESS) {
+    LOG(INFO) << "RulesetService: failed to index.";
     return IndexedRulesetVersion(kSafeBrowsingFilterTag);
+  }
+
+  LOG(INFO) << "RulesetService: successful parsing.";
 
   DCHECK(indexed_version.IsValid());
   return indexed_version;
@@ -449,6 +471,7 @@ void RulesetService::IndexAndStoreRuleset(
 void RulesetService::OnWrittenRuleset(WriteRulesetCallback result_callback,
                                       const IndexedRulesetVersion& version) {
   DCHECK(!result_callback.is_null());
+  LOG(INFO) << "RulesetService: valid version: " << version.IsValid();
   if (!version.IsValid())
     return;
   version.SaveToPrefs(local_state_);
@@ -461,7 +484,6 @@ void RulesetService::OpenAndPublishRuleset(
       IndexedRulesetLocator::GetRulesetDataFilePath(
           IndexedRulesetLocator::GetSubdirectoryPathForVersion(
               indexed_ruleset_base_dir_, version));
-
   publisher_->TryOpenAndSetRulesetFile(
       file_path, version.checksum,
       base::BindOnce(&RulesetService::OnRulesetSet,
