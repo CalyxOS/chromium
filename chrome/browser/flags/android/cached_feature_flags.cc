@@ -8,6 +8,9 @@
 
 #include "base/android/jni_string.h"
 #include "base/feature_list.h"
+#include "chrome/browser/browser_process.h"
+#include "chrome/common/pref_names.h"
+#include "components/prefs/pref_service.h"
 #include "content/public/common/content_features.h"
 #include "content/public/common/network_service_util.h"
 
@@ -40,4 +43,12 @@ static jboolean JNI_CachedFeatureFlags_IsNetworkServiceWarmUpEnabled(
     JNIEnv* env) {
   return content::IsOutOfProcessNetworkService() &&
          base::FeatureList::IsEnabled(features::kWarmUpNetworkProcess);
+}
+
+static ScopedJavaLocalRef<jstring> JNI_CachedFeatureFlags_GetAdBlockFiltersURL(JNIEnv* env) {
+  return base::android::ConvertUTF8ToJavaString(env, g_browser_process->local_state()->GetString(prefs::kAdBlockFiltersURL));
+}
+
+static void JNI_CachedFeatureFlags_SetAdBlockFiltersURL(JNIEnv* env, const JavaParamRef<jstring>& url) {
+  g_browser_process->local_state()->SetString(prefs::kAdBlockFiltersURL, base::android::ConvertJavaStringToUTF8(env, url));
 }

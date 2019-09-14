@@ -2382,6 +2382,9 @@ const char kAudioCaptureAllowed[] = "hardware.audio_capture_enabled";
 // capture devices without prompt.
 const char kAudioCaptureAllowedUrls[] = "hardware.audio_capture_allowed_urls";
 
+// Holds the URL to an indexed subresource filters file.
+const char kAdBlockFiltersURL[] = "adblock.filters_url";
+
 // A pref holding the value of the policy used to explicitly allow or deny
 // access to video capture devices.  When enabled or not set, the user is
 // prompted for device access.  When disabled, access to video capture devices
