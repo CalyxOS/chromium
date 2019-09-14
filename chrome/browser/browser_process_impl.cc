@@ -1094,6 +1094,26 @@ BrowserProcessImpl::component_updater() {
   return component_updater_.get();
 }
 
+adblock_updater::AdBlockUpdaterService*
+BrowserProcessImpl::adblock_updater() {
+  if (adblock_updater_)
+    return adblock_updater_.get();
+
+  if (!BrowserThread::CurrentlyOn(BrowserThread::UI))
+    return nullptr;
+
+  std::unique_ptr<component_updater::UpdateScheduler> scheduler =
+      std::make_unique<component_updater::TimerUpdateScheduler>();
+
+  adblock_updater_ = std::make_unique<adblock_updater::AdBlockUpdaterService>(
+          g_browser_process->system_network_context_manager()->GetSharedURLLoaderFactory(),
+          std::move(scheduler),
+          g_browser_process->subresource_filter_ruleset_service(),
+          local_state()->GetString(prefs::kAdBlockFiltersURL));
+
+  return adblock_updater_.get();
+}
+
 void BrowserProcessImpl::OnKeepAliveStateChanged(bool is_keeping_alive) {
   if (is_keeping_alive)
     Pin();

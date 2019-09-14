@@ -425,6 +425,8 @@ SystemNetworkContextManager::SystemNetworkContextManager(
       ssl_config_service_manager_(local_state_),
       proxy_config_monitor_(local_state_),
       stub_resolver_config_reader_(local_state_) {
+  local_state_->SetDefaultPrefValue(prefs::kAdBlockFiltersURL,
+                                    base::Value("https://www.bromite.org/filters/filters.dat"));
 #if !BUILDFLAG(IS_ANDROID)
   // QuicAllowed was not part of Android policy.
   const base::Value* value =
@@ -502,6 +504,8 @@ SystemNetworkContextManager::~SystemNetworkContextManager() {
 // static
 void SystemNetworkContextManager::RegisterPrefs(PrefRegistrySimple* registry) {
   StubResolverConfigReader::RegisterPrefs(registry);
+
+  registry->RegisterStringPref(prefs::kAdBlockFiltersURL, std::string());
 
   // Static auth params
   registry->RegisterStringPref(prefs::kAuthSchemes,
