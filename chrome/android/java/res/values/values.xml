@@ -25,6 +25,11 @@ found in the LICENSE file.
     <!-- Compositor Tab Title Text -->
     <bool name="compositor_tab_title_fake_bold_text">true</bool>
 
+    <string name="adblock_on">Autoupdate enabled</string>
+    <string name="adblock_off">Autoupdate disabled</string>
+
+    <string name="adblock_help_url">https://www.bromite.org/custom-filters</string>
+
     <!-- Download InfoBar animation. -->
     <integer name="download_infobar_fill_in_delay">1200</integer>
     <integer name="download_infobar_fill_out_delay">200</integer>
