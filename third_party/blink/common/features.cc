@@ -152,8 +152,8 @@ BASE_FEATURE(kAutofillSendUnidentifiedKeyAfterFill,
 // Apply lazy-loading to ad frames which have embeds likely impacting Core Web
 // Vitals.
 BASE_FEATURE(kAutomaticLazyFrameLoadingToAds,
-             "AutomaticLazyFrameLoadingToAds",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "AutomaticLazyFrameLoadingToAds",       // must be enabled
+             base::FEATURE_ENABLED_BY_DEFAULT);      // in Bromite
 
 // The timeout value that forces loading iframes that are lazy loaded by
 // LazyAds. After this timeout, the frame loading is triggered even when the
@@ -173,8 +173,8 @@ const base::FeatureParam<int> kSkipFrameCountForLazyAds(
 // Apply lazy-loading to frames which have embeds likely impacting Core Web
 // Vitals.
 BASE_FEATURE(kAutomaticLazyFrameLoadingToEmbeds,
-             "AutomaticLazyFrameLoadingToEmbeds",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "AutomaticLazyFrameLoadingToEmbeds",    // must be enabled
+             base::FEATURE_ENABLED_BY_DEFAULT);      // in Bromite
 
 // The timeout value that forces loading iframes that are lazy loaded by
 // LazyEmbeds. After this timeout, the frame loading is triggered even when the
@@ -196,8 +196,8 @@ const base::FeatureParam<int> kSkipFrameCountForLazyEmbeds(
 // to gather Blink.AutomaticLazyLoadFrame.LazyEmbedFrameCount UKM data even when
 // kAutomaticLazyFrameLoadingToEmbeds is disabled.
 BASE_FEATURE(kAutomaticLazyFrameLoadingToEmbedUrls,
-             "AutomaticLazyFrameLoadingToEmbedUrls",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "AutomaticLazyFrameLoadingToEmbedUrls",    // must be disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);        // in Bromite
 
 // Define the strategy for LazyEmbeds to decide which frames we apply
 // lazy-loading or not. If the loading strategy is kAllowList, the detection
