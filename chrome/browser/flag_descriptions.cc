@@ -4122,6 +4122,11 @@ const char kSendTabToSelfV2Description[] =
     "Enables new received tab "
     "UI shown next to the profile icon instead of using system notifications.";
 
+const char kSearchReadyOmniboxName[] = "Search Ready Omnibox";
+const char kSearchReadyOmniboxDescription[] =
+    "Clears the omnibox and adds a suggestion item to share, copy, or edit the "
+    "URL.";
+
 const char kSetMarketUrlForTestingName[] = "Set market URL for testing";
 const char kSetMarketUrlForTestingDescription[] =
     "When enabled, sets the market URL for use in testing the update menu "

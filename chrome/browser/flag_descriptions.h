@@ -2350,6 +2350,9 @@ extern const char kShowScrollableMVTOnNTPAndroidDescription[];
 extern const char kSendTabToSelfV2Name[];
 extern const char kSendTabToSelfV2Description[];
 
+extern const char kSearchReadyOmniboxName[];
+extern const char kSearchReadyOmniboxDescription[];
+
 extern const char kSetMarketUrlForTestingName[];
 extern const char kSetMarketUrlForTestingDescription[];
 

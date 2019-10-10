@@ -263,6 +263,7 @@ const base::Feature* const kFeaturesExposedToJava[] = {
     &kReachedCodeProfiler,
     &kReaderModeInCCT,
     &kReengagementNotification,
+    &kSearchReadyOmniboxFeature,
     &kRelatedSearches,
     &kRelatedSearchesAlternateUx,
     &kRelatedSearchesInBar,
@@ -828,6 +829,10 @@ BASE_FEATURE(kOmahaMinSdkVersionAndroid,
 
 BASE_FEATURE(kOmniboxModernizeVisualUpdate,
              "OmniboxModernizeVisualUpdate",
+             base::FEATURE_DISABLED_BY_DEFAULT);
+
+BASE_FEATURE(kSearchReadyOmniboxFeature,
+             "SearchReadyOmnibox",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kOptimizeGeolocationHeaderGeneration,

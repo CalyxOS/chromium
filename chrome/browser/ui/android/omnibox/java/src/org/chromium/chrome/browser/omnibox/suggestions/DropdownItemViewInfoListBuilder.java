@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.Px;
 import androidx.annotation.VisibleForTesting;
 
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
 import org.chromium.base.supplier.Supplier;
 import org.chromium.chrome.browser.omnibox.OmniboxFeatures;
 import org.chromium.chrome.browser.omnibox.UrlBarEditingTextStateProvider;
@@ -64,6 +65,7 @@ class DropdownItemViewInfoListBuilder {
     @Px
     private int mDropdownHeight;
     private boolean mBuiltListHasFullyConcealedElements;
+    private EditUrlSuggestionProcessor mEditUrlSuggestionProcessor;
 
     DropdownItemViewInfoListBuilder(@NonNull Supplier<Tab> tabSupplier, BookmarkState bookmarkState,
             @NonNull OmniboxPedalDelegate omniboxPedalDelegate) {
@@ -100,8 +102,10 @@ class DropdownItemViewInfoListBuilder {
             mDividerLineProcessor = new DividerLineProcessor(context);
         }
         mHeaderProcessor = new HeaderProcessor(context, host, delegate);
-        registerSuggestionProcessor(new EditUrlSuggestionProcessor(
-                context, host, delegate, mFaviconFetcher, mActivityTabSupplier, shareSupplier));
+        mEditUrlSuggestionProcessor = new EditUrlSuggestionProcessor(
+                context, host, delegate, mFaviconFetcher, mActivityTabSupplier, shareSupplier);
+        registerSuggestionProcessor(mEditUrlSuggestionProcessor);
+
         registerSuggestionProcessor(
                 new AnswerSuggestionProcessor(context, host, textProvider, imageFetcherSupplier));
         registerSuggestionProcessor(
@@ -234,6 +238,9 @@ class DropdownItemViewInfoListBuilder {
     /** Signals that native initialization has completed. */
     void onNativeInitialized() {
         mHeaderProcessor.onNativeInitialized();
+        if (ChromeFeatureList.isEnabled(ChromeFeatureList.SEARCH_READY_OMNIBOX) == false) {
+            mPriorityOrderedSuggestionProcessors.remove(mEditUrlSuggestionProcessor);
+        }
         for (int index = 0; index < mPriorityOrderedSuggestionProcessors.size(); index++) {
             mPriorityOrderedSuggestionProcessors.get(index).onNativeInitialized();
         }

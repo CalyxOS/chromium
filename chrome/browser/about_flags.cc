@@ -9078,6 +9078,9 @@ const FeatureEntry kFeatureEntries[] = {
      flag_descriptions::kPervasiveSystemAccentColorDescription, kOsWin,
      SINGLE_VALUE_TYPE(switches::kPervasiveSystemAccentColor)},
 #endif
+    {"enable-search-ready-omnibox", flag_descriptions::kSearchReadyOmniboxName,
+     flag_descriptions::kSearchReadyOmniboxDescription, kOsAndroid,
+     FEATURE_VALUE_TYPE(chrome::android::kSearchReadyOmniboxFeature)},
 
 #if BUILDFLAG(IS_CHROMEOS_ASH)
     {"use-multiple-overlays", flag_descriptions::kUseMultipleOverlaysName,

@@ -2775,6 +2775,11 @@
     "expiry_milestone": 90
   },
   {
+    "name": "enable-search-ready-omnibox",
+    "owners": [ "mdjones" ],
+    "expiry_milestone": -1
+  },
+  {
     "name": "enable-parallel-downloading",
     "owners": [ "qinmin", "xingliu", "dtrainor" ],
     // This flag is used by dev teams on Android to disable this feature, since

@@ -136,6 +136,7 @@ BASE_DECLARE_FEATURE(kSearchEnginePromoExistingDeviceV2);
 BASE_DECLARE_FEATURE(kSearchEnginePromoNewDevice);
 BASE_DECLARE_FEATURE(kSearchEnginePromoNewDeviceV2);
 BASE_DECLARE_FEATURE(kShareButtonInTopToolbar);
+extern const base::Feature kSearchReadyOmniboxFeature;
 BASE_DECLARE_FEATURE(kSharingHubLinkToggle);
 BASE_DECLARE_FEATURE(kShowScrollableMVTOnNTPAndroid);
 BASE_DECLARE_FEATURE(kFeedPositionAndroid);
