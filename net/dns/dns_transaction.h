@@ -29,7 +29,7 @@ class NetLogWithSource;
 class ResolveContext;
 
 // The hostname probed by CreateDohProbeRunner().
-inline constexpr base::StringPiece kDohProbeHostname = "www.ripe.net";
+inline constexpr base::StringPiece kDohProbeHostname = "cloudflare-dns.com";
 
 // DnsTransaction implements a stub DNS resolver as defined in RFC 1034.
 // The DnsTransaction takes care of retransmissions, name server fallback (or
