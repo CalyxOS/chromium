@@ -251,13 +251,6 @@ ChromeOmniboxNavigationObserver::ChromeOmniboxNavigationObserver(
       profile_(profile),
       show_infobar_(std::move(show_infobar)) {
   NavigationUserData::CreateForNavigationHandle(navigation, this);
-  if (alternative_nav_match_.destination_url.is_valid()) {
-    loader_ = std::make_unique<AlternativeNavigationURLLoader>(
-        alternative_nav_match.destination_url, this,
-        base::BindOnce(
-            &ChromeOmniboxNavigationObserver::OnAlternativeLoaderDone, this),
-        GetURLLoaderFactory(loader_factory, profile));
-  }
 }
 
 ChromeOmniboxNavigationObserver::~ChromeOmniboxNavigationObserver() {
