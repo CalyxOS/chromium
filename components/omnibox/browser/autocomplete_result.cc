@@ -78,6 +78,7 @@ constexpr size_t kMaxPedalMatchIndex = std::numeric_limits<size_t>::max();
 // static
 size_t AutocompleteResult::GetMaxMatches(bool is_zero_suggest) {
 #if BUILDFLAG(IS_ANDROID)
+  // this needs to be double the value of default_max_matches_per_provider from components/omnibox/browser/omnibox_field_trial.cc
   constexpr size_t kDefaultMaxAutocompleteMatches = 10;
   constexpr size_t kDefaultMaxZeroSuggestMatches = 15;
 #elif BUILDFLAG(IS_IOS)

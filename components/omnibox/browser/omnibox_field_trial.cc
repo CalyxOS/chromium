@@ -323,9 +323,9 @@ void OmniboxFieldTrial::GetDemotionsByType(
 
 size_t OmniboxFieldTrial::GetProviderMaxMatches(
     AutocompleteProvider::Type provider) {
-  size_t default_max_matches_per_provider = 3;
+  size_t default_max_matches_per_provider = 5; // was 3; this needs to be half the value of kDefaultMaxAutocompleteMatches from components/omnibox/browser/autocomplete_result.cc
 
-  std::string param_value = base::GetFieldTrialParamValueByFeature(
+/*  std::string param_value = base::GetFieldTrialParamValueByFeature(
       omnibox::kUIExperimentMaxAutocompleteMatches,
       OmniboxFieldTrial::kUIMaxAutocompleteMatchesByProviderParam);
 
@@ -349,7 +349,7 @@ size_t OmniboxFieldTrial::GetProviderMaxMatches(
       else if (k == provider)
         return v;
     }
-  }
+  }*/
 
   return default_max_matches_per_provider;
 }
