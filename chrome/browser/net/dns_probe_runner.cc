@@ -18,7 +18,7 @@
 
 namespace chrome_browser_net {
 
-const char DnsProbeRunner::kKnownGoodHostname[] = "google.com";
+const char DnsProbeRunner::kKnownGoodHostname[] = "www.ripe.net";
 
 namespace {
 
