@@ -74,6 +74,7 @@ bool OnlyChangeIsFromHTTPToHTTPS(const GURL& origin, const GURL& destination) {
   return origin_with_https == destination;
 }
 
+#if BUILDFLAG(IS_ANDROID)
 // Choose the appropriate URLLoaderFactory: either an explicitly specified or a
 // default for the given profile.
 network::mojom::URLLoaderFactory* GetURLLoaderFactory(
@@ -85,6 +86,7 @@ network::mojom::URLLoaderFactory* GetURLLoaderFactory(
       ->GetURLLoaderFactoryForBrowserProcess()
       .get();
 }
+#endif
 
 // Helper to keep ChromeOmniboxNavigationObserver alive while the initiated
 // navigation is pending.
@@ -250,13 +252,6 @@ ChromeOmniboxNavigationObserver::ChromeOmniboxNavigationObserver(
       profile_(profile),
       show_infobar_(std::move(show_infobar)) {
   NavigationUserData::CreateForNavigationHandle(navigation, this);
-  if (alternative_nav_match_.destination_url.is_valid()) {
-    loader_ = std::make_unique<AlternativeNavigationURLLoader>(
-        alternative_nav_match.destination_url, this,
-        base::BindOnce(
-            &ChromeOmniboxNavigationObserver::OnAlternativeLoaderDone, this),
-        GetURLLoaderFactory(loader_factory, profile));
-  }
 }
 
 ChromeOmniboxNavigationObserver::~ChromeOmniboxNavigationObserver() {
