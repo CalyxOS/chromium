@@ -607,6 +607,10 @@ GURL FixupURLInternal(const std::string& text,
     }
   }
 
+  if (scheme == url::kTraceScheme) {
+    return GURL();
+  }
+
   // We handle the file scheme separately.
   if (scheme == url::kFileScheme) {
     return GURL(parts.scheme.is_valid() ? text : FixupPath(text));

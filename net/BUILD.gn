@@ -1085,6 +1085,8 @@ component("net") {
     "url_request/url_request_http_job.cc",
     "url_request/url_request_http_job.h",
     "url_request/url_request_interceptor.cc",
+    "url_request/trk_protocol_handler.cc",
+    "url_request/trk_protocol_handler.h",
     "url_request/url_request_interceptor.h",
     "url_request/url_request_job.cc",
     "url_request/url_request_job.h",
