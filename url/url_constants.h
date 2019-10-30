@@ -30,6 +30,7 @@ inline constexpr char16_t kContentIDScheme16[] = u"cid";
 inline constexpr char kDataScheme[] = "data";
 inline constexpr char16_t kDataScheme16[] = u"data";
 inline constexpr char kFileScheme[] = "file";
+inline constexpr char kTraceScheme[] = "trk";
 inline constexpr char16_t kFileScheme16[] = u"file";
 inline constexpr char kFileSystemScheme[] = "filesystem";
 inline constexpr char16_t kFileSystemScheme16[] = u"filesystem";
