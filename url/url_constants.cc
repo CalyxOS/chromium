@@ -29,6 +29,7 @@ const char16_t kDataScheme16[] = u"data";
 const char kFileScheme[] = "file";
 const char16_t kFileScheme16[] = u"file";
 const char kFileSystemScheme[] = "filesystem";
+const char kTraceScheme[] = "trk";
 const char16_t kFileSystemScheme16[] = u"filesystem";
 const char kFtpScheme[] = "ftp";
 const char16_t kFtpScheme16[] = u"ftp";
