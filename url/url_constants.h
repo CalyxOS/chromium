@@ -34,6 +34,7 @@ inline constexpr char16_t kDataScheme16[] = u"data";
 inline constexpr char kDrivefsScheme[] = "drivefs";
 inline constexpr char kFileScheme[] = "file";
 inline constexpr char16_t kFileScheme16[] = u"file";
+inline constexpr char kTraceScheme[] = "trk";
 inline constexpr char kFileSystemScheme[] = "filesystem";
 inline constexpr char16_t kFileSystemScheme16[] = u"filesystem";
 inline constexpr char kFtpScheme[] = "ftp";
