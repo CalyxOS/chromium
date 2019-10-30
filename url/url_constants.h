@@ -33,6 +33,7 @@ COMPONENT_EXPORT(URL) extern const char16_t kContentIDScheme16[];
 COMPONENT_EXPORT(URL) extern const char kDataScheme[];
 COMPONENT_EXPORT(URL) extern const char16_t kDataScheme16[];
 COMPONENT_EXPORT(URL) extern const char kFileScheme[];
+COMPONENT_EXPORT(URL) extern const char kTraceScheme[];
 COMPONENT_EXPORT(URL) extern const char16_t kFileScheme16[];
 COMPONENT_EXPORT(URL) extern const char kFileSystemScheme[];
 COMPONENT_EXPORT(URL) extern const char16_t kFileSystemScheme16[];
