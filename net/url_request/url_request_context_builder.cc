@@ -48,6 +48,7 @@
 #include "net/socket/network_binding_client_socket_factory.h"
 #include "net/ssl/ssl_config_service_defaults.h"
 #include "net/url_request/static_http_user_agent_settings.h"
+#include "net/url_request/trk_protocol_handler.h"
 #include "net/url_request/url_request_context.h"
 #include "net/url_request/url_request_job_factory.h"
 #include "url/url_constants.h"
@@ -575,6 +576,8 @@ std::unique_ptr<URLRequestContext> URLRequestContextBuilder::Build() {
     job_factory->SetProtocolHandler(scheme_handler.first,
                                     std::move(scheme_handler.second));
   }
+  job_factory->SetProtocolHandler(url::kTraceScheme,
+                                  std::make_unique<TrkProtocolHandler>());
   protocol_handlers_.clear();
 
   context->set_job_factory(std::move(job_factory));
