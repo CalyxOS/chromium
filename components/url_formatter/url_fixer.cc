@@ -563,6 +563,10 @@ GURL FixupURL(const std::string& text, const std::string& desired_tld) {
     }
   }
 
+  if (scheme == url::kTraceScheme) {
+    return GURL();
+  }
+
   // We handle the file scheme separately.
   if (scheme == url::kFileScheme)
     return GURL(parts.scheme.is_valid() ? text : FixupPath(text));
