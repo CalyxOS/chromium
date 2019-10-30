@@ -174,6 +174,11 @@ int GetIndexOfExistingTab(Browser* browser, const NavigateParams& params) {
       continue;
     }
 
+    // trk: URLs must not be rewritten
+    if (tab_url.SchemeIs(url::kTraceScheme)) {
+      continue;
+    }
+
     GURL rewritten_tab_url = tab_url;
     content::BrowserURLHandler::GetInstance()->RewriteURLIfNecessary(
         &rewritten_tab_url, browser->profile());
