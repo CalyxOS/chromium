@@ -973,8 +973,8 @@ BASE_FEATURE(kShouldAllowFirstPartyStorageKeyOverrideFromEmbedder,
 // Origin-Signed HTTP Exchanges (for WebPackage Loading)
 // https://www.chromestatus.com/feature/5745285984681984
 BASE_FEATURE(kSignedHTTPExchange,
-             "SignedHTTPExchange",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "SignedHTTPExchange",                        // must be disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);          // in Bromite
 
 // If enabled, GetUserMedia API will only work when the concerned tab is in
 // focus
