@@ -51,7 +51,7 @@ void ReportErrorAndTraceEvent(
 }
 
 bool IsSignedExchangeHandlingEnabled(BrowserContext* context) {
-  return GetContentClient()->browser()->AllowSignedExchange(context);
+  return false;
 }
 
 bool IsSignedExchangeReportingForDistributorsEnabled() {
