@@ -1119,14 +1119,14 @@ BASE_FEATURE(kSharedArrayBufferOnDesktop,
 // Signed Exchange Reporting for distributors
 // https://www.chromestatus.com/feature/5687904902840320
 BASE_FEATURE(kSignedExchangeReportingForDistributors,
-             "SignedExchangeReportingForDistributors",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "SignedExchangeReportingForDistributors",    // must be disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);          // in Bromite
 
 // Origin-Signed HTTP Exchanges (for WebPackage Loading)
 // https://www.chromestatus.com/feature/5745285984681984
 BASE_FEATURE(kSignedHTTPExchange,
-             "SignedHTTPExchange",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "SignedHTTPExchange",                        // must be disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);          // in Bromite
 
 // Delays RenderProcessHost shutdown by a few seconds to allow the subframe's
 // process to be potentially reused. This aims to reduce process churn in
