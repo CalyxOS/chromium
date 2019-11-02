@@ -432,8 +432,8 @@ const base::FeatureParam<std::string>
 // Signed Exchange Reporting for distributors
 // https://www.chromestatus.com/feature/5687904902840320
 BASE_FEATURE(kSignedExchangeReportingForDistributors,
-             "SignedExchangeReportingForDistributors",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "SignedExchangeReportingForDistributors",  // disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);        // by default
 
 // When enabled, ensures that an unlocked process cannot access data for
 // sites that require a dedicated process.
