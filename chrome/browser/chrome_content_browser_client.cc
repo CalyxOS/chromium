@@ -1613,7 +1613,7 @@ void ChromeContentBrowserClient::RegisterProfilePrefs(
       site_isolation::prefs::kWebTriggeredIsolatedOrigins);
   registry->RegisterDictionaryPref(
       prefs::kDevToolsBackgroundServicesExpirationDict);
-  registry->RegisterBooleanPref(prefs::kSignedHTTPExchangeEnabled, true);
+  registry->RegisterBooleanPref(prefs::kSignedHTTPExchangeEnabled, false);
 #if !BUILDFLAG(IS_ANDROID)
   registry->RegisterBooleanPref(prefs::kAutoplayAllowed, false);
   registry->RegisterListPref(prefs::kAutoplayAllowlist);
