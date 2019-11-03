@@ -118,48 +118,6 @@ public class AppLocaleUtils {
     }
 
     /**
-     * Download the language split. If successful set the application language shared preference.
-     * If set to null the system language will be used.
-     * @param languageName String BCP-47 code of language to download.
-     */
-    public static void setAppLanguagePref(String languageName) {
-        setAppLanguagePref(languageName, success -> {});
-    }
-
-    /**
-     * Download the language split using the provided listener for callbacks. If successful set the
-     * application language shared preference. If called from an APK build where no bundle needs to
-     * be downloaded the listener's on complete function is immediately called. If languageName is
-     * null the system language will be used.
-     * @param languageName String BCP-47 code of language to download.
-     * @param listener LanguageSplitInstaller.InstallListener to use for callbacks.
-     */
-    public static void setAppLanguagePref(
-            String languageName, LanguageSplitInstaller.InstallListener listener) {
-        // Wrap the install listener so that on success the app override preference is set.
-        LanguageSplitInstaller.InstallListener wrappedListener = (success) -> {
-            if (success) {
-                if (shouldUseSystemManagedLocale()) {
-                    setSystemManagedAppLanguage(languageName);
-                } else {
-                    SharedPreferencesManager.getInstance().writeString(
-                            ChromePreferenceKeys.APPLICATION_OVERRIDE_LANGUAGE, languageName);
-                }
-            }
-            listener.onComplete(success);
-        };
-
-        // If this is not a bundle build or the default system language is being used the language
-        // split should not be installed. Instead indicate that the listener completed successfully
-        // since the language resources will already be present.
-        if (!BundleUtils.isBundle() || isFollowSystemLanguage(languageName)) {
-            wrappedListener.onComplete(true);
-        } else {
-            LanguageSplitInstaller.getInstance().installLanguage(languageName, wrappedListener);
-        }
-    }
-
-    /**
      * Sets the {@link LocaleManager} App language to |languageName|.
      * TODO(crbug.com/1333981) Move to Android T.
      */

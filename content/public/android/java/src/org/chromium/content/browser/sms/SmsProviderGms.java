@@ -6,9 +6,6 @@ package org.chromium.content.browser.sms;
 
 import androidx.annotation.VisibleForTesting;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-
 import org.chromium.base.ContextUtils;
 import org.chromium.base.Log;
 import org.chromium.base.annotations.CalledByNative;
@@ -45,16 +42,10 @@ public class SmsProviderGms {
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     public SmsProviderGms(long smsProviderGmsAndroid, @GmsBackend int backend,
-            boolean isVerificationBackendAvailable) {
+            boolean ignored) {
         mSmsProviderGmsAndroid = smsProviderGmsAndroid;
         mBackend = backend;
         mContext = new Wrappers.WebOTPServiceContext(ContextUtils.getApplicationContext(), this);
-
-        // Creates an mVerificationReceiver regardless of the backend to support requests from
-        // remote devices.
-        if (isVerificationBackendAvailable) {
-            mVerificationReceiver = new SmsVerificationReceiver(this, mContext);
-        }
 
         if (mBackend == GmsBackend.AUTO || mBackend == GmsBackend.USER_CONSENT) {
             mUserConsentReceiver = new SmsUserConsentReceiver(this, mContext);
@@ -87,12 +78,7 @@ public class SmsProviderGms {
     @CalledByNative
     private static SmsProviderGms create(long smsProviderGmsAndroid, @GmsBackend int backend) {
         Log.d(TAG, "Creating SmsProviderGms");
-        boolean isVerificationBackendAvailable =
-                GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(
-                        ContextUtils.getApplicationContext(),
-                        MIN_GMS_VERSION_NUMBER_WITH_CODE_BROWSER_BACKEND)
-                == ConnectionResult.SUCCESS;
-        return new SmsProviderGms(smsProviderGmsAndroid, backend, isVerificationBackendAvailable);
+        return new SmsProviderGms(smsProviderGmsAndroid, backend, false);
     }
 
     @CalledByNative
@@ -181,13 +167,6 @@ public class SmsProviderGms {
     }
 
     public Wrappers.SmsRetrieverClientWrapper getClient() {
-        if (mClient != null) {
-            return mClient;
-        }
-        mClient = new Wrappers.SmsRetrieverClientWrapper(
-                mUserConsentReceiver != null ? mUserConsentReceiver.createClient() : null,
-                mVerificationReceiver != null ? mVerificationReceiver.createClient() : null);
-
         return mClient;
     }
 

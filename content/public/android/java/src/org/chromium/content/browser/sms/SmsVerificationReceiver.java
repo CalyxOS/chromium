@@ -11,16 +11,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 
-import com.google.android.gms.auth.api.phone.SmsCodeBrowserClient;
-import com.google.android.gms.auth.api.phone.SmsCodeRetriever;
-import com.google.android.gms.auth.api.phone.SmsRetriever;
-import com.google.android.gms.auth.api.phone.SmsRetrieverStatusCodes;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.CommonStatusCodes;
-import com.google.android.gms.common.api.ResolvableApiException;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.tasks.Task;
-
 import org.chromium.base.ContextUtils;
 import org.chromium.base.Log;
 import org.chromium.base.metrics.RecordHistogram;
@@ -63,32 +53,14 @@ public class SmsVerificationReceiver extends BroadcastReceiver {
         // lightweight (e.g. it responds quickly without much computation). If this broadcast
         // receiver becomes more heavyweight, we should make this registration expire after the SMS
         // message is received.
-        if (DEBUG) Log.i(TAG, "Registering intent filters.");
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(SmsCodeRetriever.SMS_CODE_RETRIEVED_ACTION);
-
-        // The SEND_PERMISSION permission is not documented to held by the sender of this broadcast,
-        // but it's coming from the same place the UserConsent (SmsRetriever.SMS_RETRIEVED_ACTION)
-        // broadcast is coming from, so the sender will be holding this permission. This prevents
-        // other apps from spoofing verification codes.
-        ContextUtils.registerExportedBroadcastReceiver(
-                mContext, this, filter, SmsRetriever.SEND_PERMISSION);
-    }
-
-    public SmsCodeBrowserClient createClient() {
-        return SmsCodeRetriever.getBrowserClient(mContext);
     }
 
     public void destroy() {
-        if (mDestroyed) return;
-        if (DEBUG) Log.d(TAG, "Destroying SmsVerificationReceiver.");
-        mDestroyed = true;
-        mContext.unregisterReceiver(this);
     }
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (DEBUG) Log.d(TAG, "Received something!");
+        /*if (DEBUG) Log.d(TAG, "Received something!");
 
         if (mDestroyed) {
             return;
@@ -121,7 +93,7 @@ public class SmsVerificationReceiver extends BroadcastReceiver {
                 if (DEBUG) Log.d(TAG, "Timeout");
                 mProvider.onTimeout();
                 break;
-        }
+        }*/
     }
 
     public void onPermissionDone(int resultCode, boolean isLocalRequest) {
@@ -141,7 +113,7 @@ public class SmsVerificationReceiver extends BroadcastReceiver {
      * task.
      */
     public void onRetrieverTaskFailure(boolean isLocalRequest, Exception e) {
-        if (DEBUG) Log.d(TAG, "Task failed. Attempting recovery.", e);
+        /* if (DEBUG) Log.d(TAG, "Task failed. Attempting recovery.", e);
         ApiException exception = (ApiException) e;
         if (exception.getStatusCode() == SmsRetrieverStatusCodes.API_NOT_CONNECTED) {
             reportBackendAvailability(BackendAvailability.API_NOT_CONNECTED);
@@ -183,12 +155,12 @@ public class SmsVerificationReceiver extends BroadcastReceiver {
                 }
             }
         } else {
-            Log.w(TAG, "Unexpected exception", e);
-        }
+            Log.w(TAG, "Unexpected exception", e); // marker
+        } */
     }
 
     public void listen(boolean isLocalRequest) {
-        Wrappers.SmsRetrieverClientWrapper client = mProvider.getClient();
+        /* Wrappers.SmsRetrieverClientWrapper client = mProvider.getClient();
         Task<Void> task = client.startSmsCodeBrowserRetriever();
 
         task.addOnSuccessListener(unused -> {
@@ -200,7 +172,8 @@ public class SmsVerificationReceiver extends BroadcastReceiver {
             mProvider.verificationReceiverFailed(isLocalRequest);
         });
 
-        if (DEBUG) Log.d(TAG, "Installed task");
+        if (DEBUG) Log.d(TAG, "Installed task"); */
+        if (DEBUG) Log.d(TAG, "Ignored task");
     }
 
     public void reportBackendAvailability(BackendAvailability availability) {

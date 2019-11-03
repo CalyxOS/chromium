@@ -14,11 +14,6 @@ import android.os.Handler;
 
 import androidx.annotation.RequiresApi;
 
-import com.google.android.gms.auth.api.phone.SmsCodeBrowserClient;
-import com.google.android.gms.auth.api.phone.SmsCodeRetriever;
-import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
-import com.google.android.gms.tasks.Task;
-
 class Wrappers {
     // Prevent instantiation.
     private Wrappers() {}
@@ -27,16 +22,9 @@ class Wrappers {
      * Wraps com.google.android.gms.auth.api.phone.SmsRetrieverClient.
      */
     static class SmsRetrieverClientWrapper {
-        // Used for user consent flow.
-        private final SmsRetrieverClient mSmsRetrieverClient;
-        // Used for browser code flow.
-        private final SmsCodeBrowserClient mSmsCodeBrowserClient;
         private WebOTPServiceContext mContext;
 
-        public SmsRetrieverClientWrapper(
-                SmsRetrieverClient smsRetrieverClient, SmsCodeBrowserClient smsCodeBrowserClient) {
-            mSmsRetrieverClient = smsRetrieverClient;
-            mSmsCodeBrowserClient = smsCodeBrowserClient;
+        public SmsRetrieverClientWrapper() {
         }
 
         public void setContext(WebOTPServiceContext context) {
@@ -45,14 +33,6 @@ class Wrappers {
 
         public WebOTPServiceContext getContext() {
             return mContext;
-        }
-
-        public Task<Void> startSmsCodeBrowserRetriever() {
-            return mSmsCodeBrowserClient.startSmsCodeRetriever();
-        }
-
-        public Task<Void> startSmsUserConsent(String senderAddress) {
-            return mSmsRetrieverClient.startSmsUserConsent(senderAddress);
         }
     }
 
@@ -83,11 +63,6 @@ class Wrappers {
         }
 
         private void onRegisterReceiver(BroadcastReceiver receiver, IntentFilter filter) {
-            if (filter.hasAction(SmsCodeRetriever.SMS_CODE_RETRIEVED_ACTION)) {
-                mVerificationReceiver = receiver;
-            } else {
-                mUserConsentReceiver = receiver;
-            }
         }
 
         // ---------------------------------------------------------------------
