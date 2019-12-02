@@ -3988,6 +3988,10 @@ const char kReadLaterDescription[] =
     "Allow users to save tabs for later. Enables a new button and menu for "
     "accessing tabs saved for later.";
 
+const char kDisablePullToRefreshEffectName[] = "The pull-to-refresh effect";
+const char kDisablePullToRefreshEffectDescription[] =
+    "Page reloads triggered by vertically overscrolling content.";
+
 const char kReaderModeHeuristicsName[] = "Reader Mode triggering";
 const char kReaderModeHeuristicsDescription[] =
     "Determines what pages the Reader Mode infobar is shown on.";

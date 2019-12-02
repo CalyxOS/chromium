@@ -2275,6 +2275,9 @@ extern const char kQueryTilesSegmentationDescription[];
 extern const char kQueryTilesSwapTrendingName[];
 extern const char kQueryTilesSwapTrendingDescription[];
 
+extern const char kDisablePullToRefreshEffectName[];
+extern const char kDisablePullToRefreshEffectDescription[];
+
 extern const char kReaderModeHeuristicsName[];
 extern const char kReaderModeHeuristicsDescription[];
 extern const char kReaderModeHeuristicsMarkup[];

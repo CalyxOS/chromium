@@ -1452,6 +1452,10 @@
     "expiry_milestone": 110
   },
   {
+    "name": "disable-pull-to-refresh-effect",
+    "expiry_milestone": -1
+  },
+  {
     "name": "disable-quick-answers-v2-translation",
     "owners": [ "croissant-eng" ],
     "expiry_milestone": 100

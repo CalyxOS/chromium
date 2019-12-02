@@ -4334,6 +4334,10 @@ const FeatureEntry kFeatureEntries[] = {
      flag_descriptions::kEnableVulkanDescription,
      kOsWin | kOsLinux | kOsAndroid, FEATURE_VALUE_TYPE(features::kVulkan)},
 #if BUILDFLAG(IS_ANDROID)
+    {switches::kDisablePullToRefreshEffect,
+     flag_descriptions::kDisablePullToRefreshEffectName,
+     flag_descriptions::kDisablePullToRefreshEffectDescription, kOsAndroid,
+     SINGLE_DISABLE_VALUE_TYPE(switches::kDisablePullToRefreshEffect)},
     {"translate-force-trigger-on-english",
      flag_descriptions::kTranslateForceTriggerOnEnglishName,
      flag_descriptions::kTranslateForceTriggerOnEnglishDescription, kOsAndroid,
