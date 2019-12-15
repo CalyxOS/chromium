@@ -27,11 +27,6 @@ public class ModuleUtil {
      * Updates the CrashKey report containing modules currently present.
      */
     public static void updateCrashKeys() {
-        if (!BundleUtils.isBundle()) return;
-
-        try (Timer timer = new Timer()) {
-            CrashKeyRecorder.updateCrashKeys();
-        }
     }
 
     /**
