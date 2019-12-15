@@ -12,9 +12,6 @@ import org.chromium.build.annotations.NullMarked;
 public class ModuleUtil {
     /** Updates the CrashKey report containing modules currently present. */
     public static void updateCrashKeys() {
-        if (!BundleUtils.isBundle()) return;
-
-        CrashKeyRecorder.updateCrashKeys();
     }
 
     /** Initializes the PlayCore SplitCompat framework. */
