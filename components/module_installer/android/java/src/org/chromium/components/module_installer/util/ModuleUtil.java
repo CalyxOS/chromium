@@ -10,9 +10,6 @@ import org.chromium.build.BuildConfig;
 public class ModuleUtil {
     /** Updates the CrashKey report containing modules currently present. */
     public static void updateCrashKeys() {
-        if (!BuildConfig.IS_BUNDLE) return;
-
-        CrashKeyRecorder.updateCrashKeys();
     }
 
     /** Initializes the PlayCore SplitCompat framework. */
