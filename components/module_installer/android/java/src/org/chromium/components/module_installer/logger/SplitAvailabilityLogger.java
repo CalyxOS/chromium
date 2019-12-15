@@ -9,10 +9,6 @@ import android.content.SharedPreferences;
 import android.os.SystemClock;
 import android.util.SparseLongArray;
 
-import com.google.android.play.core.splitinstall.SplitInstallManager;
-import com.google.android.play.core.splitinstall.SplitInstallManagerFactory;
-import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus;
-
 import org.chromium.base.ContextUtils;
 import org.chromium.base.metrics.RecordHistogram;
 
@@ -52,21 +48,6 @@ public class SplitAvailabilityLogger {
         Set<String> requestedModules = new HashSet<>();
         requestedModules.addAll(prefs.getStringSet(ONDEMAND_REQ_PREV, new HashSet<>()));
         requestedModules.addAll(prefs.getStringSet(DEFERRED_REQ_PREV, new HashSet<>()));
-
-        Context context = ContextUtils.getApplicationContext();
-        SplitInstallManager manager = SplitInstallManagerFactory.create(context);
-        Set<String> installedModules = manager.getInstalledModules();
-
-        for (String name : requestedModules) {
-            recordAvailabilityStatus(
-                    name, installedModules.contains(name) ? INSTALLED_REQUESTED : REQUESTED);
-        }
-
-        for (String name : installedModules) {
-            if (!requestedModules.contains(name)) {
-                recordAvailabilityStatus(name, INSTALLED_UNREQUESTED);
-            }
-        }
     }
 
     private static void recordAvailabilityStatus(String moduleName, int status) {
@@ -80,14 +61,6 @@ public class SplitAvailabilityLogger {
      * @param moduleName The module name.
      */
     public void logInstallTimes(String moduleName) {
-        recordInstallTime(moduleName, "", SplitInstallSessionStatus.UNKNOWN,
-                SplitInstallSessionStatus.INSTALLED);
-        recordInstallTime(moduleName, ".PendingDownload", SplitInstallSessionStatus.UNKNOWN,
-                SplitInstallSessionStatus.DOWNLOADING);
-        recordInstallTime(moduleName, ".Download", SplitInstallSessionStatus.DOWNLOADING,
-                SplitInstallSessionStatus.INSTALLING);
-        recordInstallTime(moduleName, ".Installing", SplitInstallSessionStatus.INSTALLING,
-                SplitInstallSessionStatus.INSTALLED);
     }
 
     /**
@@ -172,7 +145,6 @@ public class SplitAvailabilityLogger {
 
         public InstallTimes(boolean isCached) {
             mIsCached = isCached;
-            mInstallTimes.put(SplitInstallSessionStatus.UNKNOWN, SystemClock.uptimeMillis());
         }
     }
 }
