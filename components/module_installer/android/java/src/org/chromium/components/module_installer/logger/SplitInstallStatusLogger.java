@@ -4,8 +4,6 @@
 
 package org.chromium.components.module_installer.logger;
 
-import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus;
-
 import org.chromium.base.metrics.RecordHistogram;
 
 class SplitInstallStatusLogger {
@@ -28,33 +26,7 @@ class SplitInstallStatusLogger {
     // Keep this one at the end and increment appropriately when adding new status.
     private static final int COUNT = 12;
 
-    private int getHistogramCode(@SplitInstallSessionStatus int code) {
-        switch (code) {
-            case SplitInstallSessionStatus.PENDING:
-                return PENDING;
-            case SplitInstallSessionStatus.DOWNLOADING:
-                return DOWNLOADING;
-            case SplitInstallSessionStatus.DOWNLOADED:
-                return DOWNLOADED;
-            case SplitInstallSessionStatus.INSTALLING:
-                return INSTALLING;
-            case SplitInstallSessionStatus.INSTALLED:
-                return INSTALLED;
-            case SplitInstallSessionStatus.FAILED:
-                return FAILED;
-            case SplitInstallSessionStatus.CANCELING:
-                return CANCELING;
-            case SplitInstallSessionStatus.CANCELED:
-                return CANCELED;
-            case SplitInstallSessionStatus.REQUIRES_USER_CONFIRMATION:
-                return REQUIRES_USER_CONFIRMATION;
-        }
-
-        return UNKNOWN_CODE;
-    }
-
-    public void logStatusChange(String moduleName, @SplitInstallSessionStatus int status) {
-        recordInstallStatus(moduleName, getHistogramCode(status));
+    public void logStatusChange(String moduleName, int status) {
     }
 
     public void logRequestStart(String moduleName) {
