@@ -4,8 +4,6 @@
 
 package org.chromium.components.module_installer.util;
 
-import com.google.android.play.core.splitcompat.SplitCompat;
-
 import org.chromium.base.ContextUtils;
 import org.chromium.base.StrictModeContext;
 import org.chromium.base.ThreadUtils;
@@ -23,10 +21,6 @@ class SplitCompatInitializer {
             return;
         }
 
-        // SplitCompat.install may copy modules into Chrome's internal folder or clean them up.
-        try (StrictModeContext ignored = StrictModeContext.allowDiskWrites()) {
-            SplitCompat.install(ContextUtils.getApplicationContext());
-        }
         sIsInitialized = true;
     }
 
