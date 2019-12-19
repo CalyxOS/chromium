@@ -155,10 +155,13 @@ BASE_FEATURE(kWebFeedKillSwitch,
              base::FEATURE_DISABLED_BY_DEFAULT);
 
 bool IsWebFeedEnabledForLocale(const std::string& country) {
+  if ((true)) return false;
   const std::vector<std::string> launched_countries = {"AU", "CA", "GB",
                                                        "NZ", "US", "ZA"};
   return base::Contains(launched_countries, country) &&
          !base::FeatureList::IsEnabled(kWebFeedKillSwitch);
 }
+
+SET_CROMITE_FEATURE_DISABLED(kInterestFeedV2);
 
 }  // namespace feed
