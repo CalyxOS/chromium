@@ -44,14 +44,7 @@ public final class FeedFeatures {
      *         the user is signed in and confirms it's not a child profile.
      */
     public static boolean isWebFeedUIEnabled() {
-        // TODO(b/197354832, b/188188861): change consent check to SIGNIN.
-        return ChromeFeatureList.isEnabled(ChromeFeatureList.WEB_FEED)
-                && IdentityServicesProvider.get()
-                        .getSigninManager(Profile.getLastUsedRegularProfile())
-                        .getIdentityManager()
-                        .hasPrimaryAccount(ConsentLevel.SIGNIN)
-                && !Profile.getLastUsedRegularProfile().isChild()
-                && isFeedEnabledByDSE();
+        return false;
     }
 
     private static boolean isFeedEnabledByDSE() {
