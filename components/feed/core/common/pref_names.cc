@@ -107,18 +107,7 @@ void RegisterProfilePrefs(PrefRegistrySimple* registry) {
 }
 
 void MigrateObsoleteProfilePrefsOct_2022(PrefService* prefs) {
-  const base::Value* val =
-      prefs->GetUserPrefValue(prefs::kExperimentsDeprecated);
-  const base::Value::Dict* old = val ? val->GetIfDict() : nullptr;
-  if (old) {
-    base::Value::Dict dict;
-    for (const auto kv : *old) {
-      base::Value::List list;
-      list.Append(kv.second.GetString());
-      dict.Set(kv.first, std::move(list));
-    }
-    prefs->SetDict(feed::prefs::kExperimentsV2, std::move(dict));
-  }
+  prefs->ClearPref(feed::prefs::kExperimentsV2);
   prefs->ClearPref(prefs::kExperimentsDeprecated);
 }
 
