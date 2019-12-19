@@ -249,11 +249,11 @@
 #endif
 
 #include "components/feed/buildflags.h"
-#if BUILDFLAG(ENABLE_FEED_V2)
+//#if BUILDFLAG(ENABLE_FEED_V2)
 #include "components/feed/core/common/pref_names.h"        // nogncheck
 #include "components/feed/core/shared_prefs/pref_names.h"  // nogncheck
 #include "components/feed/core/v2/ios_shared_prefs.h"      // nogncheck
-#endif
+//#endif
 
 #if BUILDFLAG(IS_ANDROID)
 #include "chrome/browser/accessibility/accessibility_prefs/android/accessibility_prefs_controller.h"
@@ -1894,10 +1894,10 @@ void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry,
   ChromeRLZTrackerDelegate::RegisterProfilePrefs(registry);
 #endif
 
-#if BUILDFLAG(ENABLE_FEED_V2)
+//#if BUILDFLAG(ENABLE_FEED_V2)
   feed::prefs::RegisterFeedSharedProfilePrefs(registry);
   feed::RegisterProfilePrefs(registry);
-#endif
+//#endif
 
 #if BUILDFLAG(IS_ANDROID)
   cdm::MediaDrmStorageImpl::RegisterProfilePrefs(registry);
@@ -2684,7 +2684,7 @@ void MigrateObsoleteProfilePrefs(PrefService* profile_prefs,
   syncer::SyncPrefs::MaybeMigrateAutofillToPerAccountPref(profile_prefs);
 #endif  // !BUILDFLAG(IS_ANDROID)
 
-#if BUILDFLAG(IS_ANDROID)
+#if BUILDFLAG(IS_ANDROID) && BUILDFLAG(ENABLE_FEED_V2)
   // Added 06/2024
   feed::prefs::MigrateObsoleteFeedExperimentPref_Jun_2024(profile_prefs);
 #endif  // BUILDFLAG(IS_ANDROID)

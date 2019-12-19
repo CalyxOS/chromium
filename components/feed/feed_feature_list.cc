@@ -150,4 +150,7 @@ bool IsWebFeedEnabledForLocale(const std::string& country) {
          !base::FeatureList::IsEnabled(kWebFeedKillSwitch);
 }
 
+SET_CROMITE_FEATURE_DISABLED(kInterestFeedV2);
+SET_CROMITE_FEATURE_ENABLED(kWebFeedKillSwitch);
+
 }  // namespace feed
