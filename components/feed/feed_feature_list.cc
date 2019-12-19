@@ -17,14 +17,14 @@
 namespace feed {
 
 BASE_FEATURE(kInterestFeedContentSuggestions,
-             "InterestFeedContentSuggestions",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "InterestFeedContentSuggestions",          // must be disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);        // by default in Bromite
 // InterestFeedV2 takes precedence over InterestFeedContentSuggestions.
 // InterestFeedV2 is cached in ChromeCachedFlags. If the default value here is
 // changed, please update the cached one's default value in CachedFeatureFlags.
 BASE_FEATURE(kInterestFeedV2,
-             "InterestFeedV2",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "InterestFeedV2",                          // must be disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);        // by default in Bromite
 
 BASE_FEATURE(kInterestFeedV2Autoplay,
              "InterestFeedV2Autoplay",
