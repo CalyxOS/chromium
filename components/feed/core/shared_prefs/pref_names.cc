@@ -26,7 +26,7 @@ const char kEnableSnippetsByDse[] = "ntp_snippets_by_dse.enable";
 void RegisterFeedSharedProfilePrefs(PrefRegistrySimple* registry) {
   registry->RegisterBooleanPref(kEnableSnippets, true);
   registry->RegisterBooleanPref(kArticlesListVisible, true);
-  registry->RegisterBooleanPref(kEnableSnippetsByDse, true);
+  registry->RegisterBooleanPref(kEnableSnippetsByDse, false);
 }
 
 }  // namespace prefs
