@@ -2691,11 +2691,6 @@ void MigrateObsoleteProfilePrefs(PrefService* profile_prefs,
   syncer::SyncPrefs::MaybeMigrateAutofillToPerAccountPref(profile_prefs);
 #endif  // !BUILDFLAG(IS_ANDROID)
 
-#if BUILDFLAG(IS_ANDROID)
-  // Added 06/2024
-  feed::prefs::MigrateObsoleteFeedExperimentPref_Jun_2024(profile_prefs);
-#endif  // BUILDFLAG(IS_ANDROID)
-
   // Added 06/2024.
   profile_prefs->ClearPref(kDefaultSearchProviderChoicePending);
 
