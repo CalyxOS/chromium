@@ -78,7 +78,7 @@ public class CachedFeatureFlags {
                     .put(ChromeFeatureList.INCOGNITO_REAUTHENTICATION_FOR_ANDROID, false)
                     .put(ChromeFeatureList.INSTANCE_SWITCHER, true)
                     .put(ChromeFeatureList.INSTANT_START, false)
-                    .put(ChromeFeatureList.INTEREST_FEED_V2, true)
+                    .put(ChromeFeatureList.INTEREST_FEED_V2, false)
                     .put(ChromeFeatureList.LENS_CAMERA_ASSISTED_SEARCH, false)
                     .put(ChromeFeatureList.NEW_WINDOW_APP_MENU, true)
                     .put(ChromeFeatureList.OMAHA_MIN_SDK_VERSION_ANDROID, false)
