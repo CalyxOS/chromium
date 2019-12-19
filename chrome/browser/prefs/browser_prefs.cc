@@ -1864,10 +1864,10 @@ void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry,
   supervised_user::RegisterProfilePrefs(registry);
 #endif
 
-#if BUILDFLAG(ENABLE_FEED_V2)
+//#if BUILDFLAG(ENABLE_FEED_V2)
   feed::prefs::RegisterFeedSharedProfilePrefs(registry);
   feed::RegisterProfilePrefs(registry);
-#endif
+//#endif
 
 #if BUILDFLAG(IS_ANDROID)
   cdm::MediaDrmStorageImpl::RegisterProfilePrefs(registry);
