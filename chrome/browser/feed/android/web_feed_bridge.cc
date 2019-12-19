@@ -228,10 +228,7 @@ static jboolean JNI_WebFeedBridge_IsCormorantEnabledForLocale(JNIEnv* env) {
 }
 
 static jboolean JNI_WebFeedBridge_IsWebFeedEnabled(JNIEnv* env) {
-  return l10n_util::GetLanguage(g_browser_process->GetApplicationLocale()) ==
-             "en" &&
-         feed::IsWebFeedEnabledForLocale(
-             country_codes::GetCurrentCountryCode());
+  return false;
 }
 
 static void JNI_WebFeedBridge_FollowWebFeedById(
