@@ -169,4 +169,6 @@ BASE_FEATURE(kRefreshFeedOnRestart,
              "RefreshFeedOnRestart",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+SET_CROMITE_FEATURE_DISABLED(kInterestFeedV2);
+SET_CROMITE_FEATURE_DISABLED(kWebFeed);
 }  // namespace feed
