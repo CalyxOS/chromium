@@ -2663,6 +2663,15 @@ static_library("browser") {
     ]
   }
 
+  if (is_android && !enable_feed_v2) {
+    sources += [
+      "feed/feed_service_factory.cc",
+      "feed/feed_service_factory.h",
+    ]
+    deps += [
+      "//components/feed:feature_list",
+    ]
+  }
   if (enable_feed_v2) {
     sources += [
       "feed/feed_service_factory.cc",
