@@ -24,6 +24,7 @@
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/profiles/profile_manager.h"
 #include "components/country_codes/country_codes.h"
+#include "components/feed/buildflags.h"
 #include "components/feed/core/v2/config.h"
 #include "components/feed/core/v2/public/feed_service.h"
 #include "components/feed/core/v2/public/types.h"
@@ -81,10 +82,14 @@ base::android::ScopedJavaLocalRef<jbyteArray> ToJavaWebFeedId(
 }
 
 WebFeedSubscriptions* GetSubscriptions() {
+#if BUILDFLAG(ENABLE_FEED_V2)
   Profile* profile = ProfileManager::GetLastUsedProfile();
   if (!profile)
     return nullptr;
   return GetSubscriptionsForProfile(profile);
+#else
+  return nullptr;
+#endif
 }
 
 FeedApi* GetStream() {
@@ -220,10 +225,14 @@ static void JNI_WebFeedBridge_FollowWebFeed(
     return;
   }
 
+#if BUILDFLAG(ENABLE_FEED_V2)
   FollowWebFeed(
       page_info.web_contents,
       static_cast<feedwire::webfeed::WebFeedChangeReason>(change_reason),
       std::move(callback));
+#else
+  std::move(callback).Run({});
+#endif
 }
 
 static jboolean JNI_WebFeedBridge_IsCormorantEnabledForLocale(JNIEnv* env) {
@@ -264,11 +273,16 @@ static void JNI_WebFeedBridge_UnfollowWebFeed(
   auto callback =
       AdaptCallbackForJava<WebFeedSubscriptions::UnfollowWebFeedResult>(
           env, j_callback);
+
+#if BUILDFLAG(ENABLE_FEED_V2)
   UnfollowWebFeed(
       ToNativeWebFeedId(env, webFeedId),
       /*is_durable_request=*/is_durable,
       static_cast<feedwire::webfeed::WebFeedChangeReason>(change_reason),
       std::move(callback));
+#else
+  std::move(callback).Run({});
+#endif
 }
 
 static void JNI_WebFeedBridge_FindWebFeedInfoForPage(
@@ -280,6 +294,7 @@ static void JNI_WebFeedBridge_FindWebFeedInfoForPage(
       AdaptCallbackForJava<WebFeedMetadata>(env, j_callback);
 
   PageInformation page_info = ToNativePageInformation(env, pageInfo);
+#if BUILDFLAG(ENABLE_FEED_V2)
   // Make sure web_contents is not NULL since the user might navigate away from
   // the current tab that is requested to find info.
   if (!page_info.web_contents) {
@@ -290,6 +305,9 @@ static void JNI_WebFeedBridge_FindWebFeedInfoForPage(
       page_info.web_contents,
       static_cast<WebFeedPageInformationRequestReason>(reason),
       std::move(callback));
+#else
+  std::move(callback).Run({});
+#endif
 }
 
 static void JNI_WebFeedBridge_FindWebFeedInfoForWebFeedId(
