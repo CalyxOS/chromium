@@ -588,6 +588,8 @@ public class SingleWebsiteSettings extends BaseSiteSettingsFragment
                 setUpSoundPreference(preference);
             } else if (type == ContentSettingsType.JAVASCRIPT) {
                 setUpJavascriptPreference(preference);
+            } else if (type == ContentSettingsType.COOKIES) {
+                setUpCookiesPreference(preference);
             } else if (type == ContentSettingsType.GEOLOCATION) {
                 setUpLocationPreference(preference);
             } else if (type == ContentSettingsType.NOTIFICATIONS) {
@@ -1070,17 +1072,8 @@ public class SingleWebsiteSettings extends BaseSiteSettingsFragment
     private void setUpAdsInformationalBanner() {
         // Add the informational banner which shows at the top of the UI if ad blocking is
         // activated on this site.
-        boolean adBlockingActivated =
-                SiteSettingsCategory.adsCategoryEnabled()
-                        && WebsitePreferenceBridge.getAdBlockingActivated(
-                                getSiteSettingsDelegate().getBrowserContextHandle(),
-                                mSite.getAddress().getOrigin())
-                        && findPreference(getPreferenceKey(ContentSettingsType.ADS)) != null;
-
-        if (!adBlockingActivated) {
             removePreferenceSafely(PREF_INTRUSIVE_ADS_INFO);
             removePreferenceSafely(PREF_INTRUSIVE_ADS_INFO_DIVIDER);
-        }
     }
 
     private SiteSettingsCategory getWarningCategory() {
@@ -1282,12 +1275,13 @@ public class SingleWebsiteSettings extends BaseSiteSettingsFragment
         @Nullable
         Integer currentValue =
                 mSite.getContentSetting(browserContextHandle, ContentSettingsType.JAVASCRIPT);
-        // If Javascript is blocked by default, then always show a Javascript permission.
-        // To do this, set it to the default value (blocked).
-        if ((currentValue == null)
-                && !WebsitePreferenceBridge.isCategoryEnabled(
-                        browserContextHandle, ContentSettingsType.JAVASCRIPT)) {
-            currentValue = ContentSettingValues.BLOCK;
+        // Always show the Javascript permission
+        if (currentValue == null) {
+            currentValue =
+                WebsitePreferenceBridge.isCategoryEnabled(
+                    browserContextHandle, ContentSettingsType.JAVASCRIPT)
+                        ? ContentSettingValues.ALLOW
+                        : ContentSettingValues.BLOCK;
         }
         // Not possible to embargo JAVASCRIPT.
         setupContentSettingsPreference(
@@ -1296,6 +1290,29 @@ public class SingleWebsiteSettings extends BaseSiteSettingsFragment
                 /* isEmbargoed= */ false,
                 isOneTime(ContentSettingsType.JAVASCRIPT));
     }
+
+    private void setUpCookiesPreference(Preference preference) {
+        BrowserContextHandle browserContextHandle =
+                getSiteSettingsDelegate().getBrowserContextHandle();
+        @ContentSettingValues
+        @Nullable
+        Integer currentValue =
+                mSite.getContentSetting(browserContextHandle, ContentSettingsType.COOKIES);
+        // Always show the cookies permission
+        if (currentValue == null || currentValue == ContentSettingValues.DEFAULT) {
+            currentValue =
+                WebsitePreferenceBridge.isCategoryEnabled(
+                    browserContextHandle, ContentSettingsType.COOKIES)
+                        ? ContentSettingValues.ALLOW
+                        : ContentSettingValues.BLOCK;
+        }
+        // Not possible to embargo COOKIES.
+        setupContentSettingsPreference(
+                preference,
+                currentValue,
+                /* isEmbargoed= */ false,
+                isOneTime(ContentSettingsType.COOKIES));
+     }
 
     /**
      * Updates the ads list preference based on whether the site is a candidate for blocking. This
@@ -1315,9 +1332,7 @@ public class SingleWebsiteSettings extends BaseSiteSettingsFragment
         }
         // If the ad blocker is activated, then this site will have ads blocked unless there is an
         // explicit permission disallowing the blocking.
-        boolean activated =
-                WebsitePreferenceBridge.getAdBlockingActivated(
-                        browserContextHandle, mSite.getAddress().getOrigin());
+        boolean activated = true;
         @ContentSettingValues
         @Nullable
         Integer permission = mSite.getContentSetting(browserContextHandle, ContentSettingsType.ADS);
