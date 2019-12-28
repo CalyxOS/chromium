@@ -204,13 +204,18 @@ public final class Website implements WebsiteEntry {
 
         ContentSettingException exception = getContentSettingException(type);
         if (type == ContentSettingsType.ADS) {
-            // It is possible to set the permission without having an existing exception,
-            // because we can show the BLOCK state even when this permission is set to the
-            // default. In that case, just set an exception now to BLOCK to enable changing the
-            // permission.
+            // It is possible to set the permission without having an existing exception
             if (exception == null) {
                 exception = new ContentSettingException(ContentSettingsType.ADS,
-                        getAddress().getOrigin(), ContentSettingValues.BLOCK, "",
+                        getAddress().getOrigin(), value, "",
+                        /*isEmbargoed=*/false);
+                setContentSettingException(type, exception);
+            }
+        } else if (type == ContentSettingsType.COOKIES) {
+            // It is possible to set the permission without having an existing exception
+            if (exception == null) {
+                exception = new ContentSettingException(ContentSettingsType.COOKIES,
+                        getAddress().getOrigin(), value, "",
                         /*isEmbargoed=*/false);
                 setContentSettingException(type, exception);
             }
