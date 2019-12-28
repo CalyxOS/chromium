@@ -280,7 +280,19 @@ public final class Website implements WebsiteEntry {
                         new ContentSettingException(
                                 ContentSettingsType.ADS,
                                 getAddress().getOrigin(),
-                                ContentSettingValues.BLOCK,
+                                value,
+                                "",
+                                /* isEmbargoed= */ false);
+                setContentSettingException(type, exception);
+            }
+        } else if (type == ContentSettingsType.COOKIES) {
+            // It is possible to set the permission without having an existing exception
+            if (exception == null) {
+                exception =
+                        new ContentSettingException(
+                                ContentSettingsType.COOKIES,
+                                getAddress().getOrigin(),
+                                value,
                                 "",
                                 /* isEmbargoed= */ false);
                 setContentSettingException(type, exception);
