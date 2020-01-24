@@ -256,6 +256,7 @@ public abstract class ChromeFeatureList {
     public static final String CCT_NAVIGATIONAL_PREFETCH = "CCTNavigationalPrefetch";
     public static final String CCT_NESTED_SECURITY_ICON = "CCTNestedSecurityIcon";
     public static final String CCT_INTENT_FEATURE_OVERRIDES = "CCTIntentFeatureOverrides";
+    public static final String CHROME_SMART_SELECTION = "ChromeSmartSelection";
 
     public static final String CCT_GOOGLE_BOTTOM_BAR = "CCTGoogleBottomBar";
     public static final String CCT_GOOGLE_BOTTOM_BAR_VARIANT_LAYOUTS =
