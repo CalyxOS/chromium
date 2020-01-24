@@ -197,6 +197,7 @@ const base::Feature* const kFeaturesExposedToJava[] = {
     &kCCTDeprecatedAPIs,
     &kCCTFeatureUsage,
     &kCCTIncognito,
+    &kChromeSmartSelection,
     &kCCTIncognitoAvailableToThirdParty,
     &kCCTIntentFeatureOverrides,
     &kCCTMinimized,
@@ -1030,6 +1031,10 @@ BASE_FEATURE(kTabAndLinkDragDropAndroid,
 
 BASE_FEATURE(kTabEngagementReportingAndroid,
              "TabEngagementReportingAndroid",
+             base::FEATURE_DISABLED_BY_DEFAULT);
+
+BASE_FEATURE(kChromeSmartSelection,
+             "ChromeSmartSelection",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kTabStripRedesign,
