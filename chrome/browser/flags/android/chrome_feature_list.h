@@ -70,6 +70,7 @@ BASE_DECLARE_FEATURE(kCCTToolbarCustomizations);
 BASE_DECLARE_FEATURE(kDontAutoHideBrowserControls);
 BASE_DECLARE_FEATURE(kCacheDeprecatedSystemLocationSetting);
 BASE_DECLARE_FEATURE(kChromeNewDownloadTab);
+BASE_DECLARE_FEATURE(kChromeSmartSelection);
 BASE_DECLARE_FEATURE(kChromeShareScreenshot);
 BASE_DECLARE_FEATURE(kChromeSharingHub);
 BASE_DECLARE_FEATURE(kChromeSharingHubLaunchAdjacent);
