@@ -220,6 +220,7 @@ public abstract class ChromeFeatureList {
     public static final String CCT_PAGE_INSIGHTS_HUB_BETTER_SCROLL =
             "CCTPageInsightsHubBetterScroll";
 
+    public static final String CHROME_SMART_SELECTION = "ChromeSmartSelection";
     public static final String CCT_GOOGLE_BOTTOM_BAR = "CCTGoogleBottomBar";
     public static final String CCT_REPORT_PARALLEL_REQUEST_STATUS =
             "CCTReportParallelRequestStatus";
