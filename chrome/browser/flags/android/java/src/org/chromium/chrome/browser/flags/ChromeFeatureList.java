@@ -256,6 +256,7 @@ public abstract class ChromeFeatureList {
     public static final String CCT_INTENT_FEATURE_OVERRIDES = "CCTIntentFeatureOverrides";
     public static final String CCT_PAGE_INSIGHTS_HUB = "CCTPageInsightsHub";
     public static final String CCT_PAGE_INSIGHTS_HUB_PEEK = "CCTPageInsightsHubPeek";
+    public static final String CHROME_SMART_SELECTION = "ChromeSmartSelection";
     public static final String CCT_PAGE_INSIGHTS_HUB_BETTER_SCROLL =
             "CCTPageInsightsHubBetterScroll";
 
