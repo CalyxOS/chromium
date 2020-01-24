@@ -203,6 +203,7 @@ const base::Feature* const kFeaturesExposedToJava[] = {
     &kDontAutoHideBrowserControls,
     &kCacheDeprecatedSystemLocationSetting,
     &kChromeSharePageInfo,
+    &kChromeSmartSelection,
     &kChromeSurveyNextAndroid,
     &kCommandLineOnNonRooted,
     &kContextMenuTranslateWithGoogleLens,
