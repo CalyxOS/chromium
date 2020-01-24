@@ -222,6 +222,7 @@ const base::Feature* const kFeaturesExposedToJava[] = {
     &kCCTEphemeralMediaViewerExperiment,
     &kCCTEphemeralMode,
     &kCCTFreInSameTask,
+    &kChromeSmartSelection,
     &kCCTIncognitoAvailableToThirdParty,
     &kCCTIntentFeatureOverrides,
     &kCCTMinimized,
