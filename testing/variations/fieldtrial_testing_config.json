@@ -3398,6 +3398,21 @@
             ]
         }
     ],
+    "ChromeSmartSelection": [
+        {
+            "platforms": [
+                "android"
+            ],
+            "experiments": [
+                {
+                    "name": "Enabled_Launch",
+                    "enable_features": [
+                        "ChromeSmartSelection"
+                    ]
+                }
+            ]
+        }
+    ],
     "CommerceHintAndroid": [
         {
             "platforms": [

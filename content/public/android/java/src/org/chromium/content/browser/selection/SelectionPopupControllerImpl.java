@@ -851,7 +851,7 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper
             menu.removeItem(R.id.select_action_menu_share);
         }
 
-        if (isFocusedNodeEditable() || isIncognito()
+        if (isFocusedNodeEditable()
                 || !isSelectActionModeAllowed(MENU_ITEM_WEB_SEARCH)) {
             menu.removeItem(R.id.select_action_menu_web_search);
         }
