@@ -1187,7 +1187,6 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper
     public boolean canWebSearch() {
         return hasSelection()
                 && !isFocusedNodeEditable()
-                && !isIncognito()
                 && isSelectActionModeAllowed(MENU_ITEM_WEB_SEARCH);
     }
 
