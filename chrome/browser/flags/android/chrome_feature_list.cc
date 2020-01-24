@@ -197,6 +197,7 @@ const base::Feature* const kFeaturesExposedToJava[] = {
     &kCCTClientDataHeader,
     &kCCTDeprecatedAPIs,
     &kCCTFeatureUsage,
+    &kChromeSmartSelection,
     &kCCTIncognitoAvailableToThirdParty,
     &kCCTIntentFeatureOverrides,
     &kCCTMinimized,
