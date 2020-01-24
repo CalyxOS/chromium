@@ -1020,8 +1020,8 @@ BASE_FEATURE(kMediaDrmPersistentLicense,
 // MediaDrmBridge. If disabled, MediaDrmBridge will get unprovisioned origin IDs
 // which will trigger provisioning process after MediaDrmBridge is created.
 BASE_FEATURE(kMediaDrmPreprovisioning,
-             "MediaDrmPreprovisioning",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "MediaDrmPreprovisioning",             // must be disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);    // in Bromite
 
 // Determines if MediaDrmOriginIdManager should attempt to pre-provision origin
 // IDs at startup (whenever a profile is loaded). Also used by tests that
