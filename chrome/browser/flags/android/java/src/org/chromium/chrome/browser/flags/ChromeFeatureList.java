@@ -236,6 +236,7 @@ public abstract class ChromeFeatureList {
     public static final String CCT_PREFETCH_DELAY_SHOW_ON_START = "CCTPrefetchDelayShowOnStart";
     public static final String CCT_REAL_TIME_ENGAGEMENT_SIGNALS = "CCTRealTimeEngagementSignals";
     public static final String CCT_REDIRECT_PRECONNECT = "CCTRedirectPreconnect";
+    public static final String CHROME_SMART_SELECTION = "ChromeSmartSelection";
     public static final String CCT_REMOVE_REMOTE_VIEW_IDS = "CCTRemoveRemoteViewIds";
     public static final String CCT_REPORT_PARALLEL_REQUEST_STATUS =
             "CCTReportParallelRequestStatus";
