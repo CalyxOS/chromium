@@ -211,6 +211,7 @@ const base::Feature* const kFeaturesExposedToJava[] = {
     &kCCTExtendTrustedCdnPublisher,
     &kCCTFeatureUsage,
     &kCCTEphemeralMode,
+    &kChromeSmartSelection,
     &kCCTIncognitoAvailableToThirdParty,
     &kCCTIntentFeatureOverrides,
     &kCCTMinimized,
