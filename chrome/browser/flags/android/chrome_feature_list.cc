@@ -184,6 +184,7 @@ const base::Feature* const kFeaturesExposedToJava[] = {
     &kCCTClientDataHeader,
     &kCCTFeatureUsage,
     &kCCTIncognito,
+    &kChromeSmartSelection,
     &kCCTIncognitoAvailableToThirdParty,
     &kCCTIntentFeatureOverrides,
     &kCCTNewDownloadTab,
@@ -1013,6 +1014,10 @@ BASE_FEATURE(kTabGridLayoutAndroid,
 BASE_FEATURE(kDiscoverFeedMultiColumn,
              "DiscoverFeedMultiColumn",
              base::FEATURE_ENABLED_BY_DEFAULT);
+
+BASE_FEATURE(kChromeSmartSelection,
+             "ChromeSmartSelection",
+             base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kTabStripRedesign,
              "TabStripRedesign",
