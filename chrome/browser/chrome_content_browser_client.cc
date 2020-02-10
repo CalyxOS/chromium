@@ -1602,7 +1602,7 @@ void ChromeContentBrowserClient::RegisterProfilePrefs(
   registry->RegisterIntegerPref(
       prefs::kUserAgentReduction,
       static_cast<int>(
-          embedder_support::UserAgentReductionEnterprisePolicyState::kDefault));
+          embedder_support::UserAgentReductionEnterprisePolicyState::kForceEnabled));
   registry->RegisterBooleanPref(prefs::kOriginAgentClusterDefaultEnabled, true);
 
   registry->RegisterBooleanPref(
