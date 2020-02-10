@@ -1285,8 +1285,8 @@ BASE_FEATURE(kDurableClientHintsCache,
 const base::FeatureParam<std::string> kUserAgentFrozenBuildVersion{
     &kReduceUserAgentMinorVersion, "build_version", "0"};
 
-const base::FeatureParam<bool> kAllExceptLegacyWindowsPlatform = {
-    &kReduceUserAgentPlatformOsCpu, "all_except_legacy_windows_platform", true};
+const base::FeatureParam<bool> kAllExceptLegacyWindowsPlatform = {                 // must be enabled
+    &kReduceUserAgentPlatformOsCpu, "all_except_legacy_windows_platform", true};   // in Bromite
 const base::FeatureParam<bool> kLegacyWindowsPlatform = {
     &kReduceUserAgentPlatformOsCpu, "legacy_windows_platform", true};
 
