@@ -352,14 +352,7 @@ std::string BuildUserAgentFromProduct(const std::string& product) {
 }
 
 std::string BuildModelInfo() {
-  std::string model;
-#if BUILDFLAG(IS_ANDROID)
-  // Only send the model information if on the release build of Android,
-  // matching user agent behaviour.
-  if (base::SysInfo::GetAndroidBuildCodename() == "REL")
-    model = base::SysInfo::HardwareModelName();
-#endif
-  return model;
+  return std::string();
 }
 
 #if BUILDFLAG(IS_ANDROID)
@@ -387,6 +380,10 @@ std::string GetAndroidOSInfo(
     IncludeAndroidBuildNumber include_android_build_number,
     IncludeAndroidModel include_android_model) {
   std::string android_info_str;
+
+  // Do not send information about the device.
+  include_android_model = IncludeAndroidModel::Exclude;
+  include_android_build_number = IncludeAndroidBuildNumber::Exclude;
 
   // Send information about the device.
   bool semicolon_inserted = false;
