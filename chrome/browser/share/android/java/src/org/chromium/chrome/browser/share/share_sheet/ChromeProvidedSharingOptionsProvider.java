@@ -31,7 +31,6 @@ import org.chromium.chrome.browser.share.ChromeShareExtras.DetailedContentType;
 import org.chromium.chrome.browser.share.SaveBitmapDelegate;
 import org.chromium.chrome.browser.share.link_to_text.LinkToTextCoordinator.LinkGeneration;
 import org.chromium.chrome.browser.share.long_screenshots.LongScreenshotsCoordinator;
-import org.chromium.chrome.browser.share.qrcode.QrCodeCoordinator;
 import org.chromium.chrome.browser.share.screenshot.ScreenshotCoordinator;
 import org.chromium.chrome.browser.share.send_tab_to_self.SendTabToSelfAndroidBridge;
 import org.chromium.chrome.browser.share.send_tab_to_self.SendTabToSelfCoordinator;
@@ -311,9 +310,6 @@ public class ChromeProvidedSharingOptionsProvider {
                 || !ChromeFeatureList.isEnabled(ChromeFeatureList.SEND_TAB_TO_SELF_SIGNIN_PROMO)) {
             mOrderedFirstPartyOptions.add(createSendTabToSelfFirstPartyOption());
         }
-        if (!mIsIncognito) {
-            mOrderedFirstPartyOptions.add(createQrCodeFirstPartyOption());
-        }
         if (mTabProvider.hasValue() && UserPrefs.get(mProfile).getBoolean(Pref.PRINTING_ENABLED)) {
             mOrderedFirstPartyOptions.add(createPrintingFirstPartyOption());
         }
@@ -452,21 +448,6 @@ public class ChromeProvidedSharingOptionsProvider {
                             new SendTabToSelfCoordinator(mActivity, mWindowAndroid, mUrl,
                                     mShareParams.getTitle(), mBottomSheetController, mProfile);
                     sttsCoordinator.show();
-                })
-                .build();
-    }
-
-    private FirstPartyOption createQrCodeFirstPartyOption() {
-        return new FirstPartyOptionBuilder(
-                ContentType.LINK_PAGE_VISIBLE, ContentType.LINK_PAGE_NOT_VISIBLE, ContentType.IMAGE)
-                .setDetailedContentTypesToDisableFor(
-                        DetailedContentType.LIGHTWEIGHT_REACTION, DetailedContentType.WEB_NOTES)
-                .setIcon(R.drawable.qr_code, R.string.qr_code_share_icon_label)
-                .setFeatureNameForMetrics("SharingHubAndroid.QRCodeSelected")
-                .setOnClickCallback((view) -> {
-                    QrCodeCoordinator qrCodeCoordinator =
-                            new QrCodeCoordinator(mActivity, mUrl, mShareParams.getWindow());
-                    qrCodeCoordinator.show();
                 })
                 .build();
     }

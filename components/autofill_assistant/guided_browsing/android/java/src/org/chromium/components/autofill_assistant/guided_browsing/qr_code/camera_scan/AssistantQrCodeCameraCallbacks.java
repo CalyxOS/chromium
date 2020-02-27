@@ -9,10 +9,6 @@ import android.graphics.ImageFormat;
 import android.hardware.Camera;
 import android.util.SparseArray;
 
-import com.google.android.gms.vision.Frame;
-import com.google.android.gms.vision.barcode.Barcode;
-import com.google.android.gms.vision.barcode.BarcodeDetector;
-
 import org.chromium.base.task.AsyncTask;
 import org.chromium.base.task.PostTask;
 import org.chromium.components.autofill_assistant.guided_browsing.qr_code.AssistantQrCodeDelegate;
@@ -29,8 +25,6 @@ public class AssistantQrCodeCameraCallbacks
     private final AssistantQrCodeCameraScanModel mCameraScanModel;
     private final AssistantQrCodeCameraScanCoordinator.DialogCallbacks mDialogCallbacks;
 
-    private BarcodeDetector mDetector;
-
     /**
      * The AssistantQrCodeCameraCallbacks constructor.
      */
@@ -39,10 +33,6 @@ public class AssistantQrCodeCameraCallbacks
         mContext = context;
         mCameraScanModel = cameraScanModel;
         mDialogCallbacks = dialogCallbacks;
-
-        // Set detector to null until it gets initialized asynchronously.
-        mDetector = null;
-        initBarcodeDetectorAsync();
     }
 
     /**
@@ -53,39 +43,6 @@ public class AssistantQrCodeCameraCallbacks
      */
     @Override
     public void onPreviewFrame(byte[] data, Camera camera) {
-        if (mDetector == null) {
-            return;
-        }
-
-        ByteBuffer buffer = ByteBuffer.allocate(data.length);
-        buffer.put(data);
-        Frame frame =
-                new Frame.Builder()
-                        .setImageData(buffer, camera.getParameters().getPreviewSize().width,
-                                camera.getParameters().getPreviewSize().height, ImageFormat.NV21)
-                        .build();
-        SparseArray<Barcode> barcodes = mDetector.detect(frame);
-        if (!mCameraScanModel.get(AssistantQrCodeCameraScanModel.IS_ON_FOREGROUND)) {
-            return;
-        }
-        if (barcodes.size() == 0 || barcodes.valueAt(0).rawValue.isEmpty()) {
-            camera.setOneShotPreviewCallback(this);
-            return;
-        }
-
-        Barcode firstCode = barcodes.valueAt(0);
-        PostTask.postTask(UiThreadTaskTraits.DEFAULT, new Runnable() {
-            @Override
-            public void run() {
-                AssistantQrCodeDelegate delegate =
-                        mCameraScanModel.get(AssistantQrCodeCameraScanModel.DELEGATE);
-                if (delegate != null) {
-                    delegate.onScanResult(firstCode.rawValue);
-                }
-            }
-        });
-        // Dismiss the QR Code scan UI dialog.
-        mDialogCallbacks.dismiss();
     }
 
     /**
@@ -94,31 +51,5 @@ public class AssistantQrCodeCameraCallbacks
      */
     @Override
     public void onError(int error, Camera camera) {
-        PostTask.postTask(UiThreadTaskTraits.DEFAULT, new Runnable() {
-            @Override
-            public void run() {
-                AssistantQrCodeDelegate delegate =
-                        mCameraScanModel.get(AssistantQrCodeCameraScanModel.DELEGATE);
-                if (delegate != null) {
-                    delegate.onCameraError();
-                }
-            }
-        });
-        // Dismiss the QR Code scan UI dialog.
-        mDialogCallbacks.dismiss();
-    }
-
-    private void initBarcodeDetectorAsync() {
-        new AsyncTask<BarcodeDetector>() {
-            @Override
-            protected BarcodeDetector doInBackground() {
-                return new BarcodeDetector.Builder(mContext).build();
-            }
-
-            @Override
-            protected void onPostExecute(BarcodeDetector detector) {
-                mDetector = detector;
-            }
-        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 }

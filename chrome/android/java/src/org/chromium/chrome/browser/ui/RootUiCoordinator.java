@@ -99,7 +99,6 @@ import org.chromium.chrome.browser.share.ShareButtonController;
 import org.chromium.chrome.browser.share.ShareDelegate;
 import org.chromium.chrome.browser.share.ShareDelegate.ShareOrigin;
 import org.chromium.chrome.browser.share.ShareUtils;
-import org.chromium.chrome.browser.share.qrcode.QrCodeDialog;
 import org.chromium.chrome.browser.share.scroll_capture.ScrollCaptureManager;
 import org.chromium.chrome.browser.tab.AccessibilityVisibilityHandler;
 import org.chromium.chrome.browser.tab.AutofillSessionLifetimeController;
@@ -498,10 +497,6 @@ public class RootUiCoordinator
     }
 
     public void onAttachFragment(Fragment fragment) {
-        if (fragment instanceof QrCodeDialog) {
-            QrCodeDialog qrCodeDialog = (QrCodeDialog) fragment;
-            qrCodeDialog.setWindowAndroid(mWindowAndroid);
-        }
     }
 
     @Override
