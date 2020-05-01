@@ -11,7 +11,7 @@ namespace payments {
 void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
   registry->RegisterBooleanPref(kPaymentsFirstTransactionCompleted, false);
   registry->RegisterBooleanPref(
-      kCanMakePaymentEnabled, true,
+      kCanMakePaymentEnabled, false,
       user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
 }
 
