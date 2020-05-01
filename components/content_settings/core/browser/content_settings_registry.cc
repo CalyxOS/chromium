@@ -311,7 +311,7 @@ void ContentSettingsRegistry::Init() {
            ContentSettingsInfo::EXCEPTIONS_ON_SECURE_ORIGINS_ONLY);
 
   Register(ContentSettingsType::BACKGROUND_SYNC, "background-sync",
-           CONTENT_SETTING_ALLOW, WebsiteSettingsInfo::UNSYNCABLE,
+           CONTENT_SETTING_BLOCK, WebsiteSettingsInfo::UNSYNCABLE,
            AllowlistedSchemes(),
            ValidSettings(CONTENT_SETTING_ALLOW, CONTENT_SETTING_BLOCK),
            WebsiteSettingsInfo::TOP_ORIGIN_ONLY_SCOPE,
@@ -411,7 +411,7 @@ void ContentSettingsRegistry::Init() {
   // TODO(crbug.com/904439): Update this to "SECURE_ONLY" once
   // DeviceOrientationEvents and DeviceMotionEvents are only fired in secure
   // contexts.
-  Register(ContentSettingsType::SENSORS, "sensors", CONTENT_SETTING_ALLOW,
+  Register(ContentSettingsType::SENSORS, "sensors", CONTENT_SETTING_BLOCK,
            WebsiteSettingsInfo::UNSYNCABLE, AllowlistedSchemes(),
            ValidSettings(CONTENT_SETTING_ALLOW, CONTENT_SETTING_BLOCK),
            WebsiteSettingsInfo::TOP_ORIGIN_ONLY_SCOPE,
