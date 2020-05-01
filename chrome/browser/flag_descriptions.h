@@ -1665,6 +1665,9 @@ extern const char kTabGroupsUiImprovementsAndroidDescription[];
 extern const char kTabToGTSAnimationAndroidName[];
 extern const char kTabToGTSAnimationAndroidDescription[];
 
+extern const char kAppsShortcutDefaultOffName[];
+extern const char kAppsShortcutDefaultOffDescription[];
+
 extern const char kTabGroupsNewBadgePromoName[];
 extern const char kTabGroupsNewBadgePromoDescription[];
 
