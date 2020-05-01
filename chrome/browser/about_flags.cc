@@ -76,6 +76,7 @@
 #include "components/autofill/core/common/autofill_payments_features.h"
 #include "components/autofill/core/common/autofill_switches.h"
 #include "components/autofill/core/common/autofill_util.h"
+#include "components/bookmarks/browser/features.h"
 #include "components/browser_sync/browser_sync_switches.h"
 #include "components/commerce/core/commerce_feature_list.h"
 #include "components/commerce/core/flag_descriptions.h"
