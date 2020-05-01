@@ -191,9 +191,9 @@ void PrimaryAccountManager::RegisterProfilePrefs(PrefRegistrySimple* registry) {
       prefs::kGoogleServicesSyncingGaiaIdMigratedToSignedIn, std::string());
   registry->RegisterStringPref(
       prefs::kGoogleServicesSyncingUsernameMigratedToSignedIn, std::string());
-  registry->RegisterBooleanPref(prefs::kAutologinEnabled, true);
+  registry->RegisterBooleanPref(prefs::kAutologinEnabled, false);
   registry->RegisterListPref(prefs::kReverseAutologinRejectedEmailList);
-  registry->RegisterBooleanPref(prefs::kSigninAllowed, true);
+  registry->RegisterBooleanPref(prefs::kSigninAllowed, false);
   registry->RegisterBooleanPref(prefs::kSignedInWithCredentialProvider, false);
 }
 
