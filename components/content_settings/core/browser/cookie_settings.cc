@@ -93,7 +93,7 @@ void CookieSettings::RegisterProfilePrefs(
     user_prefs::PrefRegistrySyncable* registry) {
   registry->RegisterIntegerPref(
       prefs::kCookieControlsMode,
-      static_cast<int>(CookieControlsMode::kIncognitoOnly),
+      static_cast<int>(CookieControlsMode::kBlockThirdParty), // this is the default in Bromite, overridden from kIncognitoOnly
       user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
 }
 
