@@ -3290,6 +3290,10 @@ const char kTabGroupsContinuationAndroidName[] = "Tab Groups Continuation";
 const char kTabGroupsContinuationAndroidDescription[] =
     "Allows users to access continuation features in Tab Group on phones.";
 
+const char kAppsShortcutDefaultOffName[] = "Apps Shortcut Default Off";
+const char kAppsShortcutDefaultOffDescription[] =
+    "Changes the apps shortcut on the bookmarks bar to default to off.";
+
 const char kTabGroupsSaveName[] = "Tab Groups Save";
 const char kTabGroupsSaveDescription[] =
     "Enables users to explicitly save and recall tab groups.";
