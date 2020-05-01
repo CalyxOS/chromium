@@ -229,9 +229,9 @@ void RegisterProfilePrefs(PrefRegistrySimple* registry) {
   registry->RegisterBooleanPref(
       prefs::kSafeBrowsingSawInterstitialScoutReporting, false);
   registry->RegisterBooleanPref(
-      prefs::kSafeBrowsingExtendedReportingOptInAllowed, true);
+      prefs::kSafeBrowsingExtendedReportingOptInAllowed, false);
   registry->RegisterBooleanPref(
-      prefs::kSafeBrowsingEnabled, true,
+      prefs::kSafeBrowsingEnabled, false,
       user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
   registry->RegisterBooleanPref(prefs::kSafeBrowsingEnhanced, false);
   registry->RegisterBooleanPref(prefs::kSafeBrowsingProceedAnywayDisabled,
