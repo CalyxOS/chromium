@@ -3292,6 +3292,11 @@ const char kCommerceMerchantViewerAndroidName[] = "Merchant Viewer";
 const char kCommerceMerchantViewerAndroidDescription[] =
     "Allows users to view merchant trust signals on eligible pages.";
 
+const char kAppsShortcutDefaultOffId[] = "apps-shortcut-default-off";
+const char kAppsShortcutDefaultOffName[] = "Apps Shortcut Default Off";
+const char kAppsShortcutDefaultOffDescription[] =
+    "Changes the apps shortcut on the bookmarks bar to default to off.";
+
 const char kTabGroupsSaveId[] = "tab-groups-save";
 const char kTabGroupsSaveName[] = "Tab Groups Save and Sync";
 const char kTabGroupsSaveDescription[] =
