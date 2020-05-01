@@ -182,9 +182,9 @@ void PrimaryAccountManager::RegisterProfilePrefs(PrefRegistrySimple* registry) {
                                std::string());
   registry->RegisterStringPref(prefs::kGoogleServicesAccountId, std::string());
   registry->RegisterBooleanPref(prefs::kGoogleServicesConsentedToSync, false);
-  registry->RegisterBooleanPref(prefs::kAutologinEnabled, true);
+  registry->RegisterBooleanPref(prefs::kAutologinEnabled, false);
   registry->RegisterListPref(prefs::kReverseAutologinRejectedEmailList);
-  registry->RegisterBooleanPref(prefs::kSigninAllowed, true);
+  registry->RegisterBooleanPref(prefs::kSigninAllowed, false);
   registry->RegisterBooleanPref(prefs::kSignedInWithCredentialProvider, false);
 }
 
