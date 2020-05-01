@@ -27,6 +27,7 @@
 #include "build/build_config.h"
 #include "components/bookmarks/browser/bookmark_client.h"
 #include "components/bookmarks/browser/bookmark_model.h"
+#include "components/bookmarks/browser/features.h"
 #include "components/bookmarks/browser/scoped_group_bookmark_actions.h"
 #include "components/bookmarks/common/bookmark_pref_names.h"
 #include "components/pref_registry/pref_registry_syncable.h"
@@ -487,11 +488,13 @@ bool DoesBookmarkContainWords(const std::u16string& title,
 
 void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
   registry->RegisterBooleanPref(
-      prefs::kShowBookmarkBar, false,
+      prefs::kShowBookmarkBar, true,
       user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
   registry->RegisterBooleanPref(prefs::kEditBookmarksEnabled, true);
   registry->RegisterBooleanPref(
-      prefs::kShowAppsShortcutInBookmarkBar, false,
+      prefs::kShowAppsShortcutInBookmarkBar,
+      base::FeatureList::IsEnabled(features::kAppsShortcutDefaultOff) ? false
+                                                                      : true,
       user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
   registry->RegisterBooleanPref(
       prefs::kShowTabGroupsInBookmarkBar, true,
