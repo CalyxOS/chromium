@@ -997,8 +997,8 @@ const base::FeatureParam<int> kInterestGroupStorageMaxOpsBeforeMaintenance{
 // the attribute. Note: At present, only iframes with origin-restricted
 // sandboxes are isolated.
 BASE_FEATURE(kIsolateSandboxedIframes,
-             "IsolateSandboxedIframes",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "IsolateSandboxedIframes",          // enabled by default
+             base::FEATURE_ENABLED_BY_DEFAULT);  // in Bromite
 const base::FeatureParam<IsolateSandboxedIframesGrouping>::Option
     isolated_sandboxed_iframes_grouping_types[] = {
         {IsolateSandboxedIframesGrouping::kPerSite, "per-site"},
