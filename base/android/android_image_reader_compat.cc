@@ -23,6 +23,8 @@
 namespace base {
 namespace android {
 
+bool AndroidImageReader::disable_support_ = false;
+
 AndroidImageReader& AndroidImageReader::GetInstance() {
   // C++11 static local variable initialization is
   // thread-safe.
@@ -30,8 +32,12 @@ AndroidImageReader& AndroidImageReader::GetInstance() {
   return instance;
 }
 
+void AndroidImageReader::DisableSupport() {
+  disable_support_ = true;
+}
+
 bool AndroidImageReader::IsSupported() {
-  return is_supported_;
+  return !disable_support_ && is_supported_;
 }
 
 AndroidImageReader::AndroidImageReader() : is_supported_(LoadFunctions()) {}
