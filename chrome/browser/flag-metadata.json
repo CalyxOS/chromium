@@ -2684,9 +2684,9 @@
     "expiry_milestone": 115
   },
   {
-    "name": "enable-image-reader",
-    "owners": [ "vikassoni", "liberato" ],
-    "expiry_milestone": 115
+    "name": "enable-image-reader",          // Bromite: do not expire
+    "owners": [ "vikassoni", "liberato" ],  // flag
+    "expiry_milestone": -1
   },
   {
     "name": "enable-immersive-fullscreen-toolbar",
