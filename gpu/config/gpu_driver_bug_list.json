@@ -3143,6 +3143,22 @@
       ]
     },
     {
+      "id":335,
+      "cr_bugs": [1051705],
+      "description": "Disable AImageReader on ARM GPUs",
+      "os": {
+        "type": "android",
+        "version": {
+          "op": "<",
+          "value": "10"
+        }
+      },
+      "gl_vendor": "ARM.*|Qualcomm.*",
+      "features": [
+        "disable_aimagereader"
+      ]
+    },
+    {
       "id": 337,
       "description": "Disable hardware MFT H.264 encoder on older NVIDIA drivers",
       "cr_bugs": [1058583, 1263058],
