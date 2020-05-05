@@ -3160,6 +3160,22 @@
       ]
     },
     {
+      "id":335,
+      "cr_bugs": [1051705],
+      "description": "Disable AImageReader on ARM GPUs",
+      "os": {
+        "type": "android",
+        "version": {
+          "op": "<",
+          "value": "10"
+        }
+      },
+      "gl_vendor": "ARM.*|Qualcomm.*",
+      "features": [
+        "disable_aimagereader"
+      ]
+    },
+    {
       "id": 336,
       "cr_bugs": [625785],
       "description": "DXVA video decoder crashes on some AMD GPUs.",
