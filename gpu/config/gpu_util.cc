@@ -122,6 +122,9 @@ GpuFeatureStatus GetAndroidSurfaceControlFeatureStatus(
 #if !BUILDFLAG(IS_ANDROID)
   return kGpuFeatureStatusDisabled;
 #else
+  if (blocklisted_features.count(GPU_FEATURE_TYPE_ANDROID_SURFACE_CONTROL))
+    return kGpuFeatureStatusBlocklisted;
+
   if (!gpu_preferences.enable_android_surface_control)
     return kGpuFeatureStatusDisabled;
 
@@ -351,6 +354,11 @@ void AdjustGpuFeatureStatusToWorkarounds(GpuFeatureInfo* gpu_feature_info) {
   }
   if (gpu_feature_info->IsWorkaroundEnabled(DISABLE_CANVAS_OOP_RASTERIZATION)) {
     gpu_feature_info->status_values[GPU_FEATURE_TYPE_CANVAS_OOP_RASTERIZATION] =
+        kGpuFeatureStatusBlocklisted;
+  }
+
+  if (gpu_feature_info->IsWorkaroundEnabled(DISABLE_AIMAGEREADER)) {
+    gpu_feature_info->status_values[GPU_FEATURE_TYPE_ANDROID_SURFACE_CONTROL] =
         kGpuFeatureStatusBlocklisted;
   }
 }
