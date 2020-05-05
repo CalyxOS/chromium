@@ -628,6 +628,11 @@ bool GpuInit::InitializeAndStartSandbox(base::CommandLine* command_line,
   }
 #endif  // BUILDFLAG(IS_WIN)
 
+  // Disable AImageReader if the workaround is enabled.
+  if (gpu_feature_info_.IsWorkaroundEnabled(DISABLE_AIMAGEREADER)) {
+    base::android::AndroidImageReader::DisableSupport();
+  }
+
   if (gpu_feature_info_.status_values[GPU_FEATURE_TYPE_VULKAN] !=
           kGpuFeatureStatusEnabled ||
       !InitializeVulkan()) {
