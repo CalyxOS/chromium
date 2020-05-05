@@ -22,6 +22,7 @@ namespace features {
 GPU_EXPORT BASE_DECLARE_FEATURE(kUseGles2ForOopR);
 
 // All features in alphabetical order. The features should be documented
+GPU_EXPORT extern const base::Feature kAImageReaderMediaPlayer;
 // alongside the definition of their values in the .cc file.
 #if BUILDFLAG(IS_ANDROID)
 GPU_EXPORT BASE_DECLARE_FEATURE(kAndroidSurfaceControl);
