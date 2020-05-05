@@ -785,6 +785,11 @@ BASE_FEATURE(kHardwareSecureDecryptionExperiment,
 // Allows automatically disabling hardware secure Content Decryption Module
 // (CDM) after failures or crashes to fallback to software secure CDMs. If this
 // feature is disabled, the fallback will never happen and users could be stuck
+// Enables the Android Image Reader path for Video decoding(for AVDA and MCVD)
+BASE_FEATURE(kAImageReaderVideoOutput,
+             "AImageReaderVideoOutput",
+             base::FEATURE_ENABLED_BY_DEFAULT);
+
 // in playback failures.
 BASE_FEATURE(kHardwareSecureDecryptionFallback,
              "HardwareSecureDecryptionFallback",
