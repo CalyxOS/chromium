@@ -24,6 +24,9 @@ class BASE_EXPORT AndroidImageReader {
   AndroidImageReader(const AndroidImageReader&) = delete;
   AndroidImageReader& operator=(const AndroidImageReader&) = delete;
 
+  // Disable image reader support.
+  static void DisableSupport();
+
   // Check if the image reader usage is supported. This function returns TRUE
   // if android version is >=OREO, image reader support is not disabled and all
   // the required functions are loaded.
@@ -61,6 +64,7 @@ class BASE_EXPORT AndroidImageReader {
   jobject ANativeWindow_toSurface(JNIEnv* env, ANativeWindow* window);
 
  private:
+  static bool disable_support_;
   friend class base::NoDestructor<AndroidImageReader>;
 
   AndroidImageReader();
