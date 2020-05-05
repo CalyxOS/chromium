@@ -1,0 +1,1 @@
+MEDIA_EXPORT BASE_DECLARE_FEATURE(kAImageReaderVideoOutput);

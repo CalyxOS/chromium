@@ -71,6 +71,11 @@ BASE_FEATURE(kUseGles2ForOopR,
 );
 
 #if BUILDFLAG(IS_ANDROID)
+// Use android AImageReader when playing videos with MediaPlayer.
+CROMITE_FEATURE(kAImageReaderMediaPlayer,
+                "AImageReaderMediaPlayer",
+                base::FEATURE_ENABLED_BY_DEFAULT);
+
 // Use android SurfaceControl API for managing display compositor's buffer queue
 // and using overlays on Android. Also used by webview to disable surface
 // SurfaceControl.
