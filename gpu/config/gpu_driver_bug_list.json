@@ -3689,6 +3689,22 @@
       ]
     },
     {
+      "id":335,
+      "cr_bugs": [1051705],
+      "description": "Disable AImageReader on ARM GPUs",
+      "os": {
+        "type": "android",
+        "version": {
+          "op": "<",
+          "value": "10"
+        }
+      },
+      "gl_vendor": "ARM.*|Qualcomm.*",
+      "features": [
+        "disable_aimagereader"
+      ]
+    },
+    {
       "id": 381,
       "cr_bugs": [
         1246254
