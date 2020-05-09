@@ -30,7 +30,10 @@ blink::mojom::WebRtcIpHandlingPolicy ToWebRTCIPHandlingPolicy(
   if (preference == kWebRTCIPHandlingDisableNonProxiedUdp) {
     return blink::mojom::WebRtcIpHandlingPolicy::kDisableNonProxiedUdp;
   }
-  return blink::mojom::WebRtcIpHandlingPolicy::kDefault;
+  if (preference == kWebRTCIPHandlingDefault) {
+    return blink::mojom::WebRtcIpHandlingPolicy::kDefault;
+  }
+  return blink::mojom::WebRtcIpHandlingPolicy::kDisableNonProxiedUdp;
 }
 
 const char* ToString(blink::mojom::WebRtcIpHandlingPolicy policy) {
