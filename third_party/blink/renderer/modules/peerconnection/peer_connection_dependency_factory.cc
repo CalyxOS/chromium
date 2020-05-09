@@ -959,7 +959,7 @@ PeerConnectionDependencyFactory::CreatePortAllocator(
           break;
       }
 
-      VLOG(3) << "WebRTC routing preferences: " << "policy: "
+      LOG(INFO) << "WebRTC routing preferences: " << "policy: "
               << ToString(webrtc_ip_handling_policy)
               << ", multiple_routes: " << port_config.enable_multiple_routes
               << ", nonproxied_udp: " << port_config.enable_nonproxied_udp
