@@ -120,7 +120,9 @@ WebRTCIPHandlingPolicy GetWebRTCIPHandlingPolicy(const String& preference) {
     return kDefaultPublicInterfaceOnly;
   if (preference == kWebRTCIPHandlingDisableNonProxiedUdp)
     return kDisableNonProxiedUdp;
-  return kDefault;
+  if (preference == kWebRTCIPHandlingDefault)
+    return kDefault;
+  return kDisableNonProxiedUdp;
 }
 
 bool IsValidPortRange(uint16_t min_port, uint16_t max_port) {
@@ -897,7 +899,7 @@ PeerConnectionDependencyFactory::CreatePortAllocator(
           break;
       }
 
-      VLOG(3) << "WebRTC routing preferences: "
+      LOG(INFO) << "WebRTC routing preferences: "
               << "policy: " << policy
               << ", multiple_routes: " << port_config.enable_multiple_routes
               << ", nonproxied_udp: " << port_config.enable_nonproxied_udp
