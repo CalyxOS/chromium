@@ -108,7 +108,7 @@ void RegisterBrowserUserPrefs(user_prefs::PrefRegistrySyncable* registry) {
                                 false);
 #endif
   registry->RegisterStringPref(prefs::kWebRTCIPHandlingPolicy,
-                               blink::kWebRTCIPHandlingDefault);
+                               blink::kWebRTCIPHandlingDisableNonProxiedUdp);
   registry->RegisterListPref(prefs::kWebRTCIPHandlingUrl, base::Value::List());
   registry->RegisterStringPref(prefs::kWebRTCUDPPortRange, std::string());
   registry->RegisterBooleanPref(prefs::kWebRtcEventLogCollectionAllowed, false);
