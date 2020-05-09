@@ -48,7 +48,7 @@ public abstract class IncognitoSnapshotController {
         boolean expectedSecureState = mIsShowingIncognitoSupplier.get();
         if (ChromeFeatureList.sIncognitoScreenshot.isEnabled()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                mActivity.setRecentsScreenshotEnabled(!expectedSecureState);
+                mActivity.setRecentsScreenshotEnabled(true);
             }
             expectedSecureState = false;
         }
