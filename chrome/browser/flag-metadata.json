@@ -4706,9 +4706,9 @@
     "expiry_milestone": 120
   },
   {
-    "name": "incognito-screenshot",
-    "owners": [ "roagarwal", "sideyilmaz", "chrome-incognito@google.com" ],
-    "expiry_milestone": 120
+    "name": "incognito-screenshot",                                          // Bromite: guard this feature flag
+    "owners": [ "roagarwal", "sideyilmaz", "chrome-incognito@google.com" ],  // -
+    "expiry_milestone": -1                                                   // -
   },
   {
     "name": "indicate-account-storage-error-in-account-cell",
