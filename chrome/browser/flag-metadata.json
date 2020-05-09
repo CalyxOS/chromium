@@ -5048,9 +5048,9 @@
     "expiry_milestone": 120
   },
   {
-    "name": "incognito-screenshot",
-    "owners": [ "zalmashni@google.com", "sideyilmaz@chromium.org", "chrome-incognito@google.com" ],
-    "expiry_milestone": 140
+    "name": "incognito-screenshot", // Bromite: guard this feature flag
+    "owners": [ "zalmashni@google.com", "sideyilmaz@chromium.org", "chrome-incognito@google.com" ],  // -
+    "expiry_milestone": -1          // -
   },
   {
     "name": "increment-local-surface-id-for-mainframe-same-doc-navigation",
