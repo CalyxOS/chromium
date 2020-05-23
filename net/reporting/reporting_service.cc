@@ -216,6 +216,12 @@ class ReportingServiceImpl : public ReportingService {
       int depth,
       base::TimeTicks queued_ticks,
       ReportingTargetType target_type) {
+#if BUILDFLAG(ENABLE_REPORTING)
+    if ((true))
+      return;
+#else
+#error Attempting to build with enable_reporting
+#endif
     DCHECK(initialized_);
     context_->cache()->AddReport(reporting_source, network_anonymization_key,
                                  sanitized_url, user_agent, group, type,
