@@ -218,6 +218,7 @@ extern const base::FeatureParam<base::TimeDelta> kTimeoutTcpConnectAttemptMax(
     base::Seconds(30));
 
 #if BUILDFLAG(ENABLE_REPORTING)
+#error Attempting to build with enable_reporting
 BASE_FEATURE(kDocumentReporting,
              "DocumentReporting",
              base::FEATURE_ENABLED_BY_DEFAULT);
