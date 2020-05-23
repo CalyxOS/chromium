@@ -1189,6 +1189,7 @@ interface NetworkContext {
   // provided |network_isolation_key|.
   //
   // Spec: https://w3c.github.io/reporting/#concept-reports
+  [EnableIf=enable_reporting]
   QueueReport(string type,
               string group,
               url.mojom.Url url,
@@ -1202,6 +1203,7 @@ interface NetworkContext {
   // Note that this queued report will never be delivered if no reporting
   // endpoint matching is registered for with the provided
   // |network_isolation_key|.
+  [EnableIf=enable_reporting]
   QueueSignedExchangeReport(SignedExchangeReport report,
                             NetworkAnonymizationKey network_anonymization_key);
 
