@@ -16,10 +16,10 @@
 namespace network::features {
 
 BASE_FEATURE(kNetworkErrorLogging,
-             "NetworkErrorLogging",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "NetworkErrorLogging",              // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT); // in bromite
 
-BASE_FEATURE(kReporting, "Reporting", base::FEATURE_ENABLED_BY_DEFAULT);
+BASE_FEATURE(kReporting, "Reporting", base::FEATURE_DISABLED_BY_DEFAULT); // disabled by default
 
 // Based on the field trial parameters, this feature will override the value of
 // the maximum number of delayable requests allowed in flight. The number of
