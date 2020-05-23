@@ -45,6 +45,7 @@
 #include "build/build_config.h"
 #include "mojo/public/cpp/bindings/self_owned_receiver.h"
 #include "mojo/public/cpp/system/message_pipe.h"
+#include "net/net_buildflags.h"
 #include "services/network/public/cpp/features.h"
 #include "services/network/public/mojom/content_security_policy.mojom-blink.h"
 #include "services/network/public/mojom/source_location.mojom-blink.h"
@@ -2650,9 +2651,11 @@ void LocalFrame::MainFrameFirstMeaningfulPaint() {
   v8_local_compile_hints_producer_->GenerateData(kIsFinalData);
 }
 
+#if BUILDFLAG(ENABLE_REPORTING)
 mojom::blink::ReportingServiceProxy* LocalFrame::GetReportingService() {
   return mojo_handler_->ReportingService();
 }
+#endif
 
 mojom::blink::DevicePostureProvider* LocalFrame::GetDevicePostureProvider() {
   return mojo_handler_->DevicePostureProvider();
