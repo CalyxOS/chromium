@@ -13360,12 +13360,6 @@ void RenderFrameHostImpl::MaybeGenerateCrashReport(
   base::Value::Dict body;
   if (!reason.empty())
     body.Set("reason", reason);
-
-  // Send the crash report to the Reporting API.
-  GetProcess()->GetStoragePartition()->GetNetworkContext()->QueueReport(
-      /*type=*/"crash", /*group=*/"default", last_committed_url_,
-      GetReportingSource(), isolation_info_.network_anonymization_key(),
-      absl::nullopt /* user_agent */, std::move(body));
 }
 
 void RenderFrameHostImpl::SendCommitNavigation(
