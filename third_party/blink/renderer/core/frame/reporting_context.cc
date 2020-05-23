@@ -4,6 +4,7 @@
 
 #include "third_party/blink/renderer/core/frame/reporting_context.h"
 
+#include "net/net_buildflags.h"
 #include "third_party/blink/public/platform/browser_interface_broker_proxy.h"
 #include "third_party/blink/public/platform/platform.h"
 #include "third_party/blink/public/platform/task_type.h"
@@ -53,7 +54,9 @@ const char ReportingContext::kSupplementName[] = "ReportingContext";
 ReportingContext::ReportingContext(ExecutionContext& context)
     : Supplement<ExecutionContext>(context),
       execution_context_(context),
+#if BUILDFLAG(ENABLE_REPORTING)
       reporting_service_(&context),
+#endif
       receiver_(this, &context) {}
 
 // static
@@ -121,7 +124,9 @@ void ReportingContext::Trace(Visitor* visitor) const {
   visitor->Trace(observers_);
   visitor->Trace(report_buffer_);
   visitor->Trace(execution_context_);
+#if BUILDFLAG(ENABLE_REPORTING)
   visitor->Trace(reporting_service_);
+#endif
   visitor->Trace(receiver_);
   Supplement<ExecutionContext>::Trace(visitor);
 }
@@ -143,6 +148,7 @@ void ReportingContext::CountReport(Report* report) {
   UseCounter::Count(execution_context_, feature);
 }
 
+#if BUILDFLAG(ENABLE_REPORTING)
 const HeapMojoRemote<mojom::blink::ReportingServiceProxy>&
 ReportingContext::GetReportingService() const {
   if (!reporting_service_.is_bound()) {
@@ -152,6 +158,7 @@ ReportingContext::GetReportingService() const {
   }
   return reporting_service_;
 }
+#endif
 
 void ReportingContext::NotifyInternal(Report* report) {
   // Buffer the report.
@@ -174,6 +181,7 @@ void ReportingContext::NotifyInternal(Report* report) {
 
 void ReportingContext::SendToReportingAPI(Report* report,
                                           const String& endpoint) const {
+#if BUILDFLAG(ENABLE_REPORTING)
   const String& type = report->type();
   if (!(type == ReportType::kCSPViolation || type == ReportType::kDeprecation ||
         type == ReportType::kPermissionsPolicyViolation ||
@@ -230,6 +238,7 @@ void ReportingContext::SendToReportingAPI(Report* report,
         url, endpoint, body->featureId(), body->disposition(), body->message(),
         body->sourceFile(), line_number, column_number);
   }
+#endif
 }
 
 }  // namespace blink
