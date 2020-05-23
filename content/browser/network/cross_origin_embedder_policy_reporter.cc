@@ -4,6 +4,7 @@
 
 #include "content/browser/network/cross_origin_embedder_policy_reporter.h"
 
+#include "net/base/features.h"
 #include <string_view>
 
 #include "base/values.h"
@@ -96,8 +97,6 @@ void CrossOriginEmbedderPolicyReporter::Clone(
 void CrossOriginEmbedderPolicyReporter::QueueAndNotify(
     std::initializer_list<std::pair<std::string_view, std::string_view>> body,
     bool report_only) {
-  const std::optional<std::string>& endpoint =
-      report_only ? report_only_endpoint_ : endpoint_;
   const char* const disposition = report_only ? "reporting" : "enforce";
   if (observer_) {
     std::vector<blink::mojom::ReportBodyElementPtr> list;
@@ -112,6 +111,9 @@ void CrossOriginEmbedderPolicyReporter::QueueAndNotify(
     observer_->Notify(blink::mojom::Report::New(
         kType, context_url_, blink::mojom::ReportBody::New(std::move(list))));
   }
+#if BUILDFLAG(ENABLE_REPORTING)
+  const std::optional<std::string>& endpoint =
+      report_only ? report_only_endpoint_ : endpoint_;
   if (endpoint) {
     base::Value::Dict body_to_pass;
     for (const auto& pair : body) {
@@ -125,6 +127,7 @@ void CrossOriginEmbedderPolicyReporter::QueueAndNotify(
           network_anonymization_key_, std::move(body_to_pass));
     }
   }
+#endif
 }
 
 }  // namespace content
