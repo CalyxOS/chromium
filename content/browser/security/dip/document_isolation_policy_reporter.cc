@@ -7,6 +7,7 @@
 #include <string_view>
 
 #include "base/values.h"
+#include "net/net_buildflags.h"
 #include "content/public/browser/storage_partition.h"
 #include "services/network/public/cpp/request_destination.h"
 #include "services/network/public/mojom/network_context.mojom.h"
@@ -94,11 +95,13 @@ void DocumentIsolationPolicyReporter::QueueAndNotify(
     }
     body_to_pass.Set("disposition", disposition);
 
+#if BUILDFLAG(ENABLE_REPORTING)
     if (auto* storage_partition = storage_partition_.get()) {
       storage_partition->GetNetworkContext()->QueueReport(
           kType, *endpoint, context_url_, reporting_source_,
           network_anonymization_key_, std::move(body_to_pass));
     }
+#endif
   }
 }
 
