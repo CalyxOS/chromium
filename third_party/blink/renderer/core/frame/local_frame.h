@@ -38,6 +38,7 @@
 #include "build/build_config.h"
 #include "mojo/public/cpp/bindings/pending_associated_receiver.h"
 #include "mojo/public/cpp/bindings/pending_receiver.h"
+#include "net/net_buildflags.h"
 #include "services/device/public/mojom/device_posture_provider.mojom-blink-forward.h"
 #include "services/metrics/public/cpp/ukm_source_id.h"
 #include "services/network/public/mojom/fetch_api.mojom-blink-forward.h"
@@ -657,8 +658,9 @@ class CORE_EXPORT LocalFrame final
   void FinishedScrollSequence();
 
   SmoothScrollSequencer* GetSmoothScrollSequencer() const;
-
+#if BUILDFLAG(ENABLE_REPORTING)
   mojom::blink::ReportingServiceProxy* GetReportingService();
+#endif
   device::mojom::blink::DevicePostureProvider* GetDevicePostureProvider();
 
   // Returns the frame host ptr. The interface returned is backed by an
