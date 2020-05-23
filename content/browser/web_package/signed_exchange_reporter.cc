@@ -127,6 +127,7 @@ bool ShouldDowngradeReport(const char* result_string,
 void ReportResult(int frame_tree_node_id,
                   network::mojom::SignedExchangeReportPtr report,
                   const net::NetworkAnonymizationKey& network_isolation_key) {
+#if BUILDFLAG(ENABLE_REPORTING)
   FrameTreeNode* frame_tree_node =
       FrameTreeNode::GloballyFindByID(frame_tree_node_id);
   if (!frame_tree_node)
@@ -141,6 +142,7 @@ void ReportResult(int frame_tree_node_id,
   DCHECK(partition);
   partition->GetNetworkContext()->QueueSignedExchangeReport(
       std::move(report), network_isolation_key);
+#endif
 }
 
 }  // namespace

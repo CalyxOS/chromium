@@ -1291,6 +1291,7 @@ String BuildReportStatus(const net::ReportingReport::Status status) {
   }
 }
 
+#if BUILDFLAG(ENABLE_REPORTING)
 std::vector<GURL> ComputeReportingURLs(RenderFrameHostImpl* frame_host) {
   std::vector<GURL> urls;
   base::queue<FrameTreeNode*> queue;
@@ -1308,6 +1309,7 @@ std::vector<GURL> ComputeReportingURLs(RenderFrameHostImpl* frame_host) {
   }
   return urls;
 }
+#endif  // BUILDFLAG(ENABLE_REPORTING)
 
 }  // namespace
 
