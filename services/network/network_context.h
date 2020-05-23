@@ -467,10 +467,10 @@ class COMPONENT_EXPORT(NETWORK_SERVICE) NetworkContext
       const std::optional<base::UnguessableToken>& reporting_source,
       const net::NetworkAnonymizationKey& network_anonymization_key,
       const std::optional<std::string>& user_agent,
-      base::Value::Dict body) override;
+      base::Value::Dict body);
   void QueueSignedExchangeReport(
       mojom::SignedExchangeReportPtr report,
-      const net::NetworkAnonymizationKey& network_anonymization_key) override;
+      const net::NetworkAnonymizationKey& network_anonymization_key);
   void AddDomainReliabilityContextForTesting(
       const url::Origin& origin,
       const GURL& upload_url,
