@@ -115,6 +115,7 @@ mojom::ParsedHeadersPtr PopulateParsedHeaders(
   }
 
 #if BUILDFLAG(ENABLE_REPORTING)
+#error Attempting to build with enable_reporting
   if (std::optional<std::string> reporting_endpoints =
           headers->GetNormalizedHeader("Reporting-Endpoints")) {
     parsed_headers->reporting_endpoints =

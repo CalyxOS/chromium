@@ -5,6 +5,7 @@
 #ifndef THIRD_PARTY_BLINK_RENDERER_CORE_FRAME_REPORTING_CONTEXT_H_
 #define THIRD_PARTY_BLINK_RENDERER_CORE_FRAME_REPORTING_CONTEXT_H_
 
+#include "net/net_buildflags.h"
 #include "third_party/blink/public/mojom/frame/reporting_observer.mojom-blink.h"
 #include "third_party/blink/public/mojom/reporting/reporting.mojom-blink.h"
 #include "third_party/blink/renderer/core/core_export.h"
@@ -55,10 +56,10 @@ class CORE_EXPORT ReportingContext : public GarbageCollected<ReportingContext>,
  private:
   // Counts the use of a report type via UseCounter.
   void CountReport(Report*);
-
+#if BUILDFLAG(ENABLE_REPORTING)
   const HeapMojoRemote<mojom::blink::ReportingServiceProxy>&
   GetReportingService() const;
-
+#endif
   void NotifyInternal(Report* report);
   // Send |report| via the Reporting API to |endpoint|.
   void SendToReportingAPI(Report* report, const String& endpoint) const;
@@ -69,8 +70,10 @@ class CORE_EXPORT ReportingContext : public GarbageCollected<ReportingContext>,
 
   // This is declared mutable so that the service endpoint can be cached by
   // const methods.
+#if BUILDFLAG(ENABLE_REPORTING)
   mutable HeapMojoRemote<mojom::blink::ReportingServiceProxy>
       reporting_service_;
+#endif
 
   // There might be up to two ReportingObservers stored here: one that is called
   // from the CrossOriginEmbedderPolicyReporter and one that is called from the
