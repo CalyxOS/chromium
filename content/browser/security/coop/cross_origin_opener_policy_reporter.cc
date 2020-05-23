@@ -18,25 +18,17 @@
 #include "services/network/public/mojom/network_context.mojom.h"
 #include "services/network/public/mojom/source_location.mojom.h"
 #include "url/origin.h"
+#include "build/build_config.h"
 
 namespace content {
 
 namespace {
 
 // Report attribute names (camelCase):
-constexpr char kColumnNumber[] = "columnNumber";
 constexpr char kDisposition[] = "disposition";
-constexpr char kEffectivePolicy[] = "effectivePolicy";
-constexpr char kInitialPopupURL[] = "initialPopupURL";
-constexpr char kLineNumber[] = "lineNumber";
 constexpr char kNextURL[] = "nextResponseURL";
-constexpr char kOpeneeURL[] = "openeeURL";
-constexpr char kOpenerURL[] = "openerURL";
-constexpr char kOtherDocumentURL[] = "otherDocumentURL";
 constexpr char kPreviousURL[] = "previousResponseURL";
-constexpr char kProperty[] = "property";
 constexpr char kReferrer[] = "referrer";
-constexpr char kSourceFile[] = "sourceFile";
 constexpr char kType[] = "type";
 
 // Report attribute values:
@@ -45,6 +37,7 @@ constexpr char kDispositionReporting[] = "reporting";
 constexpr char kTypeFromResponse[] = "navigation-from-response";
 constexpr char kTypeToResponse[] = "navigation-to-response";
 
+#if BUILDFLAG(ENABLE_REPORTING)
 std::string ToString(network::mojom::CrossOriginOpenerPolicyValue coop_value) {
   switch (coop_value) {
     case network::mojom::CrossOriginOpenerPolicyValue::kUnsafeNone:
@@ -64,6 +57,7 @@ std::string ToString(network::mojom::CrossOriginOpenerPolicyValue coop_value) {
       return "noopener-allow-popups";
   }
 }
+#endif
 
 FrameTreeNode* TopLevelOpener(FrameTreeNode* frame) {
   FrameTreeNode* opener =
@@ -235,6 +229,7 @@ void CrossOriginOpenerPolicyReporter::QueueAccessReport(
     network::mojom::SourceLocationPtr source_location,
     const std::string& reported_window_url,
     const std::string& initial_popup_url) const {
+#if BUILDFLAG(ENABLE_REPORTING)
   // Cross-Origin-Opener-Policy-Report-Only is not required to provide
   // endpoints.
   if (!coop_.report_only_reporting_endpoint)
@@ -282,12 +277,14 @@ void CrossOriginOpenerPolicyReporter::QueueAccessReport(
   storage_partition_->GetNetworkContext()->QueueReport(
       "coop", endpoint, context_url_, reporting_source_,
       network_anonymization_key_, std::move(body));
+#endif
 }
 
 void CrossOriginOpenerPolicyReporter::QueueNavigationReport(
     base::Value::Dict body,
     const std::string& endpoint,
     bool is_report_only) {
+#if BUILDFLAG(ENABLE_REPORTING)
   body.Set(kDisposition,
            is_report_only ? kDispositionReporting : kDispositionEnforce);
   body.Set(kEffectivePolicy,
@@ -295,6 +292,7 @@ void CrossOriginOpenerPolicyReporter::QueueNavigationReport(
   storage_partition_->GetNetworkContext()->QueueReport(
       "coop", endpoint, context_url_, reporting_source_,
       network_anonymization_key_, std::move(body));
+#endif
 }
 
 }  // namespace content
