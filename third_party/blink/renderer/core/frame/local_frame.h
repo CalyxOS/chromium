@@ -35,9 +35,9 @@
 #include "base/time/default_tick_clock.h"
 #include "base/time/time.h"
 #include "base/unguessable_token.h"
-#include "build/build_config.h"
 #include "mojo/public/cpp/bindings/pending_associated_receiver.h"
 #include "mojo/public/cpp/bindings/pending_receiver.h"
+#include "net/net_buildflags.h"
 #include "services/device/public/mojom/device_posture_provider.mojom-blink-forward.h"
 #include "services/metrics/public/cpp/ukm_source_id.h"
 #include "services/network/public/mojom/fetch_api.mojom-blink-forward.h"
@@ -629,9 +629,9 @@ class CORE_EXPORT LocalFrame final
   void FinishedScrollSequence();
 
   SmoothScrollSequencer* GetSmoothScrollSequencer() const;
-
+#if BUILDFLAG(ENABLE_REPORTING)
   mojom::blink::ReportingServiceProxy* GetReportingService();
-
+#endif
   // Returns the frame host ptr. The interface returned is backed by an
   // associated interface with the legacy Chrome IPC channel.
   mojom::blink::LocalFrameHost& GetLocalFrameHostRemote() const;
