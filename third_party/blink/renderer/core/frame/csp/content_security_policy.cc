@@ -28,6 +28,7 @@
 #include <memory>
 #include <utility>
 
+#include "net/net_buildflags.h"
 #include "base/containers/contains.h"
 #include "base/debug/dump_without_crashing.h"
 #include "services/network/public/cpp/web_sandbox_flags.h"
@@ -1156,6 +1157,7 @@ void ContentSecurityPolicy::ReportViolation(
     return;
   }
 
+#if BUILDFLAG(ENABLE_REPORTING)
   PostViolationReport(violation_data, context_frame, report_endpoints,
                       use_reporting_api);
 
@@ -1163,6 +1165,7 @@ void ContentSecurityPolicy::ReportViolation(
   // `context_frame` (i.e. we're not processing 'frame-ancestors').
   if (delegate_ && !context_frame)
     delegate_->DispatchViolationEvent(*violation_data, element);
+#endif
 
   AuditsIssue audits_issue = AuditsIssue::CreateContentSecurityPolicyIssue(
       *violation_data, header_type == ContentSecurityPolicyType::kReport,
