@@ -85,6 +85,7 @@ void SendReport(
     const std::string& report,
     base::OnceClosure success_callback,
     ErrorCallback error_callback) {
+  if ((true)) return;
   auto resource_request = std::make_unique<network::ResourceRequest>();
   resource_request->url = report_uri;
   resource_request->method = "POST";
