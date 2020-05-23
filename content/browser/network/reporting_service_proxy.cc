@@ -11,6 +11,7 @@
 #include "base/memory/ref_counted.h"
 #include "base/unguessable_token.h"
 #include "base/values.h"
+#include "net/base/features.h"
 #include "content/browser/service_worker/service_worker_host.h"
 #include "content/browser/worker_host/dedicated_worker_host.h"
 #include "content/browser/worker_host/shared_worker_host.h"
@@ -175,12 +176,14 @@ class ReportingServiceProxyImpl : public blink::mojom::ReportingServiceProxy {
                    const std::string& group,
                    const std::string& type,
                    base::Value::Dict body) {
+#if BUILDFLAG(ENABLE_REPORTING)
     auto* rph = RenderProcessHost::FromID(render_process_id_);
     if (!rph)
       return;
     rph->GetStoragePartition()->GetNetworkContext()->QueueReport(
         type, group, url, reporting_source_, network_anonymization_key_,
         std::move(body));
+#endif
   }
 
   const int render_process_id_;

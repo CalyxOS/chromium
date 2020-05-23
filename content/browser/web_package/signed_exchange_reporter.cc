@@ -128,6 +128,7 @@ void ReportResult(
     FrameTreeNodeId frame_tree_node_id,
     network::mojom::SignedExchangeReportPtr report,
     const net::NetworkAnonymizationKey& network_anonymization_key) {
+#if BUILDFLAG(ENABLE_REPORTING)
   FrameTreeNode* frame_tree_node =
       FrameTreeNode::GloballyFindByID(frame_tree_node_id);
   if (!frame_tree_node)
@@ -142,6 +143,7 @@ void ReportResult(
   DCHECK(partition);
   partition->GetNetworkContext()->QueueSignedExchangeReport(
       std::move(report), network_anonymization_key);
+#endif
 }
 
 }  // namespace
