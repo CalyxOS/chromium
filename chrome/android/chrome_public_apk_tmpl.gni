@@ -30,7 +30,7 @@ declare_args() {
   chrome_public_manifest_package = "org.chromium.chrome"
   if (use_stable_package_name_for_trichrome) {
     chrome_public_manifest_package += ".stable"
-  } else if (android_channel != "default") {
+  } else if (android_channel != "default" && android_channel != "stable") {
     chrome_public_manifest_package += "." + android_channel
   }
 }
