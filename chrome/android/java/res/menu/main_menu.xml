@@ -108,6 +108,9 @@ found in the LICENSE file.
         <item android:id="@+id/add_to_homescreen_id"
             android:title="@string/menu_add_to_homescreen"
             android:icon="@drawable/ic_add_to_home_screen" />
+        <item android:id="@+id/view_source_id"
+            android:title="@string/view_source"
+            android:icon="@drawable/ic_drive_document_24dp" />
         <item android:id="@+id/open_webapk_id"
             android:title="@string/menu_open_webapk"
             android:icon="@drawable/ic_add_to_home_screen" />

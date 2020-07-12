@@ -543,6 +543,7 @@ public class AppMenuPropertiesDelegateImpl implements AppMenuPropertiesDelegate 
                         isChromeScheme, isFileScheme, isContentScheme, isIncognito, url));
 
         updateRequestDesktopSiteMenuItem(menu, currentTab, true /* can show */, isChromeScheme);
+        updateViewSourceMenuItem(menu, currentTab);
 
         updateAutoDarkMenuItem(menu, currentTab, isChromeScheme);
 
@@ -1240,6 +1241,23 @@ public class AppMenuPropertiesDelegateImpl implements AppMenuPropertiesDelegate 
         stopPriceTrackingMenuItem.setVisible(priceTrackingEnabled); */
         startPriceTrackingMenuItem.setVisible(false);
         stopPriceTrackingMenuItem.setVisible(false);
+    }
+
+    /**
+     * Updates the view source menu item's state.
+     *
+     * @param menu {@link Menu} for view source.
+     * @param currentTab      Current tab being displayed.
+     */
+    protected void updateViewSourceMenuItem(
+            Menu menu, Tab currentTab) {
+        MenuItem viewSourceMenuItem = menu.findItem(R.id.view_source_id);
+        boolean visible = false;
+        if (currentTab != null) {
+                String url = currentTab.getUrl().getSpec();
+                visible = !url.isEmpty() && !url.startsWith("view-source:");
+        }
+        viewSourceMenuItem.setVisible(visible);
     }
 
     /**

@@ -228,6 +228,7 @@ public class CustomTabAppMenuPropertiesDelegate extends AppMenuPropertiesDelegat
 
             updateRequestDesktopSiteMenuItem(
                     menu, currentTab, requestDesktopSiteVisible, isChromeScheme);
+            updateViewSourceMenuItem(menu, currentTab);
             prepareAddToHomescreenMenuItem(menu, currentTab, addToHomeScreenVisible);
         }
     }

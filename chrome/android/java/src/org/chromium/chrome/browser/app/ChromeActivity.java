@@ -2445,6 +2445,11 @@ public abstract class ChromeActivity<C extends ChromeActivityComponent>
             return true;
         }
 
+        if (id == R.id.view_source_id) {
+            currentTab.getWebContents().getNavigationController().loadUrl(new LoadUrlParams("view-source:"+currentTab.getUrl().getSpec()));
+            return true;
+        }
+
         if (id == R.id.request_desktop_site_id || id == R.id.request_desktop_site_check_id) {
             boolean usingDesktopUserAgent =
                     currentTab.getWebContents().getNavigationController().getUseDesktopUserAgent();
