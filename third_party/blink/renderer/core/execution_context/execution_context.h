@@ -408,6 +408,7 @@ class CORE_EXPORT ExecutionContext : public Supplementable<ExecutionContext>,
   void SetAddressSpace(network::mojom::blink::IPAddressSpace ip_address_space);
 
   HeapObserverSet<ContextLifecycleObserver>& ContextLifecycleObserverSet();
+  String addressSpaceForBindings() const;
   unsigned ContextLifecycleStateObserverCountForTesting() const;
 
   // Implementation of WindowOrWorkerGlobalScope.crossOriginIsolated.
