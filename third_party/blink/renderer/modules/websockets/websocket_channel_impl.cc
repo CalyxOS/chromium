@@ -275,6 +275,11 @@ bool WebSocketChannelImpl::Connect(const KURL& url, const String& protocol) {
     return false;
   }
 
+  if (GetBaseFetchContext()->ShouldBlockGateWayAttacks(execution_context_->AddressSpace(), url)) {
+    has_initiated_opening_handshake_ = false;
+    return false;
+  }
+
   if (auto* scheduler = execution_context_->GetScheduler()) {
     feature_handle_for_scheduler_ = scheduler->RegisterFeature(
         SchedulingPolicy::Feature::kWebSocket,
