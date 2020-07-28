@@ -25,6 +25,7 @@
 #include "third_party/blink/renderer/platform/loader/fetch/url_loader/url_loader_factory.h"
 #include "third_party/blink/renderer/platform/loader/fetch/worker_resource_timing_notifier.h"
 #include "third_party/blink/renderer/platform/network/network_state_notifier.h"
+#include "third_party/blink/renderer/platform/network/network_utils.h"
 #include "third_party/blink/renderer/platform/runtime_enabled_features.h"
 #include "third_party/blink/renderer/platform/scheduler/public/virtual_time_controller.h"
 #include "third_party/blink/renderer/platform/supplementable.h"
@@ -88,6 +89,26 @@ bool WorkerFetchContext::ShouldBlockRequestByInspector(const KURL& url) const {
   bool should_block_request = false;
   probe::ShouldBlockRequest(Probe(), url, &should_block_request);
   return should_block_request;
+}
+
+bool WorkerFetchContext::ShouldBlockGateWayAttacks(network::mojom::IPAddressSpace requestor_space, const KURL& request_url) const {
+  // TODO(mkwst): This only checks explicit IP addresses. We'll have to move
+  // all this up to //net and //content in order to have any real impact on
+  // gateway attacks. That turns out to be a TON of work (crbug.com/378566).
+  if (requestor_space == network::mojom::IPAddressSpace::kUnknown)
+    requestor_space = network::mojom::IPAddressSpace::kPublic;
+  network::mojom::IPAddressSpace target_space =
+      network::mojom::IPAddressSpace::kPublic;
+  if (network_utils::IsReservedIPAddress(request_url.Host()))
+    target_space = network::mojom::IPAddressSpace::kPrivate;
+  if (SecurityOrigin::Create(request_url)->IsLocalhost())
+    target_space = network::mojom::IPAddressSpace::kLocal;
+
+  bool is_external_request = requestor_space > target_space;
+  if (is_external_request)
+    return true;
+
+  return false;
 }
 
 void WorkerFetchContext::DispatchDidBlockRequest(
