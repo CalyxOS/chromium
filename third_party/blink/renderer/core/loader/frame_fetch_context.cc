@@ -1000,6 +1000,26 @@ bool FrameFetchContext::ShouldBlockRequestByInspector(const KURL& url) const {
   return should_block_request;
 }
 
+bool FrameFetchContext::ShouldBlockGateWayAttacks(network::mojom::IPAddressSpace requestor_space, const KURL& request_url) const {
+  // TODO(mkwst): This only checks explicit IP addresses. We'll have to move
+  // all this up to //net and //content in order to have any real impact on
+  // gateway attacks. That turns out to be a TON of work (crbug.com/378566).
+  if (requestor_space == network::mojom::IPAddressSpace::kUnknown)
+    requestor_space = network::mojom::IPAddressSpace::kPublic;
+  network::mojom::IPAddressSpace target_space =
+      network::mojom::IPAddressSpace::kPublic;
+  if (network_utils::IsReservedIPAddress(request_url.Host()))
+    target_space = network::mojom::IPAddressSpace::kPrivate;
+  if (SecurityOrigin::Create(request_url)->IsLocalhost())
+    target_space = network::mojom::IPAddressSpace::kLocal;
+
+  bool is_external_request = requestor_space > target_space;
+  if (is_external_request)
+    return true;
+
+  return false;
+}
+
 void FrameFetchContext::DispatchDidBlockRequest(
     const ResourceRequest& resource_request,
     const ResourceLoaderOptions& options,
