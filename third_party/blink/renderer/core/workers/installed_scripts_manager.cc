@@ -33,9 +33,9 @@ InstalledScriptsManager::ScriptData::ScriptData(
   // place so that this is shareable out of worker code.
   response_address_space_ = network::mojom::IPAddressSpace::kPublic;
   if (network_utils::IsReservedIPAddress(script_url_.Host()))
-    response_address_space_ = network::mojom::IPAddressSpace::kLocal;
+    response_address_space_ = network::mojom::IPAddressSpace::kPrivate;
   if (SecurityOrigin::Create(script_url_)->IsLocalhost())
-    response_address_space_ = network::mojom::IPAddressSpace::kLoopback;
+    response_address_space_ = network::mojom::IPAddressSpace::kLocal;
 }
 
 ContentSecurityPolicyResponseHeaders
