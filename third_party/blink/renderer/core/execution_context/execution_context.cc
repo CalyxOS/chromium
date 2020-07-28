@@ -708,6 +708,21 @@ void ExecutionContext::WriteIntoTrace(
   proto->set_world_type(GetWorldType(*this));
 }
 
+String ExecutionContext::addressSpaceForBindings() const {
+  switch (AddressSpace()) {
+    case network::mojom::IPAddressSpace::kPublic:
+    case network::mojom::IPAddressSpace::kUnknown:
+      return "public";
+
+    case network::mojom::IPAddressSpace::kPrivate:
+      return "private";
+
+    case network::mojom::IPAddressSpace::kLocal:
+      return "local";
+  }
+  NOTREACHED();
+}
+
 bool ExecutionContext::CrossOriginIsolatedCapabilityOrDisabledWebSecurity()
     const {
   return Agent::IsWebSecurityDisabled() || CrossOriginIsolatedCapability();
