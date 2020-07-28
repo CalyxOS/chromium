@@ -693,4 +693,20 @@ bool ExecutionContext::RequireTrustedTypes() const {
   return require_safe_types_;
 }
 
+String ExecutionContext::addressSpaceForBindings() const {
+  switch (AddressSpace()) {
+    case network::mojom::IPAddressSpace::kPublic:
+    case network::mojom::IPAddressSpace::kUnknown:
+      return "public";
+
+    case network::mojom::IPAddressSpace::kPrivate:
+      return "private";
+
+    case network::mojom::IPAddressSpace::kLocal:
+      return "local";
+  }
+  NOTREACHED();
+  return "public";
+}
+
 }  // namespace blink
