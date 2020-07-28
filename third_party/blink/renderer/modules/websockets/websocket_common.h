@@ -11,6 +11,8 @@
 
 #include <optional>
 
+#include "services/network/public/mojom/ip_address_space.mojom.h"
+#include "third_party/blink/renderer/platform/network/network_utils.h"
 #include "third_party/blink/renderer/modules/modules_export.h"
 #include "third_party/blink/renderer/platform/weborigin/kurl.h"
 #include "third_party/blink/renderer/platform/wtf/allocator/allocator.h"
@@ -57,6 +59,8 @@ class MODULES_EXPORT WebSocketCommon {
   State GetState() const { return state_; }
   void SetState(State state) { state_ = state; }
   const KURL& Url() const { return url_; }
+
+  bool ShouldBlockGateWayAttacks(network::mojom::IPAddressSpace requestor_space, const KURL& url) const;
 
   // The following methods are public for testing.
 
