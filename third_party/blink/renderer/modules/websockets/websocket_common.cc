@@ -125,7 +125,36 @@ WebSocketCommon::ConnectResult WebSocketCommon::Connect(
     return ConnectResult::kException;
   }
 
+  network::mojom::IPAddressSpace requestor_space =
+      execution_context->AddressSpace();
+  if (ShouldBlockGateWayAttacks(requestor_space, url_)) {
+    state_ = kClosed;
+    exception_state.ThrowSecurityError(
+        "Access to address of '" + url_.Host() + "' is not allowed from '" + execution_context->addressSpaceForBindings() + "' address space.");
+    return ConnectResult::kException;
+  }
+
   return ConnectResult::kSuccess;
+}
+
+bool WebSocketCommon::ShouldBlockGateWayAttacks(network::mojom::IPAddressSpace requestor_space, const KURL& request_url) const {
+  // TODO(mkwst): This only checks explicit IP addresses. We'll have to move
+  // all this up to //net and //content in order to have any real impact on
+  // gateway attacks. That turns out to be a TON of work (crbug.com/378566).
+  if (requestor_space == network::mojom::IPAddressSpace::kUnknown)
+    requestor_space = network::mojom::IPAddressSpace::kPublic;
+  network::mojom::IPAddressSpace target_space =
+      network::mojom::IPAddressSpace::kPublic;
+  if (network_utils::IsReservedIPAddress(request_url.Host()))
+    target_space = network::mojom::IPAddressSpace::kLocal;
+  if (SecurityOrigin::Create(request_url)->IsLocalhost())
+    target_space = network::mojom::IPAddressSpace::kLoopback;
+
+  bool is_external_request = requestor_space > target_space;
+  if (is_external_request)
+    return true;
+
+  return false;
 }
 
 void WebSocketCommon::CloseInternal(int code,
