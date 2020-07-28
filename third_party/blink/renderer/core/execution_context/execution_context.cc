@@ -724,4 +724,20 @@ void ExecutionContext::WriteIntoTrace(
   proto->set_world_type(GetWorldType(*this));
 }
 
+String ExecutionContext::addressSpaceForBindings() const {
+  switch (AddressSpace()) {
+    case network::mojom::IPAddressSpace::kPublic:
+    case network::mojom::IPAddressSpace::kUnknown:
+      return "public";
+
+    case network::mojom::IPAddressSpace::kLocal:
+      return "local";
+
+    case network::mojom::IPAddressSpace::kLoopback:
+      return "loopback";
+  }
+  NOTREACHED();
+  return "public";
+}
+
 }  // namespace blink
