@@ -176,6 +176,7 @@ class CORE_EXPORT FrameFetchContext final : public BaseFetchContext,
   bool ShouldBlockWebSocketByMixedContentCheck(const KURL&) const override;
   std::unique_ptr<WebSocketHandshakeThrottle> CreateWebSocketHandshakeThrottle()
       override;
+  bool ShouldBlockGateWayAttacks(network::mojom::IPAddressSpace requestor_space, const KURL&) const override;
   bool ShouldBlockFetchByMixedContentCheck(
       mojom::blink::RequestContextType request_context,
       network::mojom::blink::IPAddressSpace target_address_space,
