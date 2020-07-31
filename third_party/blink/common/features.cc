@@ -510,8 +510,8 @@ BASE_FEATURE(kAllowSyncXHRInPageDismissal,
 // Prefetch request properties are updated to be privacy-preserving. See
 // crbug.com/988956.
 BASE_FEATURE(kPrefetchPrivacyChanges,
-             "PrefetchPrivacyChanges",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "PrefetchPrivacyChanges",            // must be enabled
+             base::FEATURE_ENABLED_BY_DEFAULT);   // in Bromite
 
 // Decodes jpeg 4:2:0 formatted images to YUV instead of RGBX and stores in this
 // format in the image decode cache. See crbug.com/919627 for details on the
