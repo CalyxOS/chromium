@@ -1308,8 +1308,8 @@ BASE_FEATURE(kPrefetchFontLookupTables,
 // Prefetch request properties are updated to be privacy-preserving. See
 // crbug.com/988956.
 BASE_FEATURE(kPrefetchPrivacyChanges,
-             "PrefetchPrivacyChanges",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "PrefetchPrivacyChanges",            // must be enabled
+             base::FEATURE_ENABLED_BY_DEFAULT);   // in Bromite
 
 BASE_FEATURE(kPrerender2InNewTab,
              "Prerender2InNewTab",
