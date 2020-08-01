@@ -3428,4 +3428,33 @@
     &lt;/ul&gt;</translation>
 <translation id="994346157028146140">JIS B1</translation>
 <translation id="997986563973421916">来自 Google Pay</translation>
+<translation id="410351446219883937">自动播放</translation>
+<translation id="4554660614737153151">标签页收藏</translation>
+<translation id="9025994914956303635">标签页收藏</translation>
+<translation id="3743203980988005072">未保存</translation>
+<translation id="2882401588417060602">未保存，或已忽略</translation>
+<translation id="1120902422582551571">已保存</translation>
+<translation id="2631006050119455616">已保存</translation>
+<translation id="8719254670702170418">已保存的崩溃报告文件：</translation>
+<translation id="2471417644829303302">保存时间：</translation>
+<translation id="5582222851885298063">开始保存崩溃数据</translation>
+<translation id="1069722914611137577">立即保存</translation>
+<translation id="119944043368869598">清空</translation>
+<translation id="3750232884974956046">生成报告</translation>
+<translation id="8677659652102671482">用户脚本</translation>
+<translation id="5387227673092839387">运行用户脚本</translation>
+<translation id="1181384281493298884">启用</translation>
+<translation id="600555505907290313">关闭</translation>
+<translation id="5679989071017888358">添加脚本</translation>
+<translation id="3421511728817915523">实验性支持 Greasemonkey 类型的用户脚本</translation>
+<translation id="3324175644148454298">文件：</translation>
+<translation id="3163871304881977747">网址：</translation>
+<translation id="5334844597069022743">查看源代码</translation>
+<translation id="404606687423498907">要安装以下脚本吗？
+
+<ph name="FILE" />
+
+注意：建议只安装已验证安全的用户脚本，攻击者可能会利用脚本窃取您的证书和个人信息。</translation>
+<translation id="1087089915192348000">JavaScript JIT</translation>
+<translation id="1699383947321238118">JavaScript JIT</translation>
 </translationbundle>
