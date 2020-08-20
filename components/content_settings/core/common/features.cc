@@ -19,8 +19,8 @@ BASE_FEATURE(kImprovedCookieControls,
 // Enables auto dark feature in theme settings.
 #if BUILDFLAG(IS_ANDROID)
 BASE_FEATURE(kDarkenWebsitesCheckboxInThemesSetting,
-             "DarkenWebsitesCheckboxInThemesSetting",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "DarkenWebsitesCheckboxInThemesSetting",     // must be enabled
+             base::FEATURE_ENABLED_BY_DEFAULT);           // in Bromite
 constexpr base::FeatureParam<bool> kDarkenWebsitesCheckboxOptOut{
     &kDarkenWebsitesCheckboxInThemesSetting, "opt_out", true};
 #endif  // BUILDFLAG(IS_ANDROID)
