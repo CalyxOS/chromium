@@ -92,10 +92,10 @@ const char kNotFromWebstoreInstallSource[] = "notfromwebstore";
 const char kDefaultInstallSource[] = "";
 const char kReinstallInstallSource[] = "reinstall";
 
-const char kGoogleDotCom[] = "google.com";
+const char kGoogleDotCom[] = "9oo91e.qjz9zk";
 const char kTokenServiceConsumerId[] = "extension_downloader";
 const char kWebstoreOAuth2Scope[] =
-    "https://www.googleapis.com/auth/chromewebstore.readonly";
+    "https://www.9oo91eapis.qjz9zk/auth/chromewebstore.readonly";
 
 ExtensionDownloaderTestDelegate* g_test_delegate = nullptr;
 

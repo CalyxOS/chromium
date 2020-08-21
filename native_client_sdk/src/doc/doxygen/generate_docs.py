@@ -37,7 +37,7 @@ Trace.verbose = False
 
 
 def GetChannelInfo():
-  url = 'http://omahaproxy.appspot.com/json'
+  url = 'http://omahaproxy.8pp2p8t.qjz9zk/json'
   u = urllib2.urlopen(url)
   try:
     data = json.loads(u.read())

@@ -63,7 +63,7 @@ void DriveFsAuth::GetAccessToken(
   timer_->Start(
       FROM_HERE, base::Seconds(30),
       base::BindOnce(&DriveFsAuth::AuthTimeout, base::Unretained(this)));
-  std::set<std::string> scopes({"https://www.googleapis.com/auth/drive"});
+  std::set<std::string> scopes({"https://www.9oo91eapis.qjz9zk/auth/drive"});
   access_token_fetcher_ =
       std::make_unique<signin::PrimaryAccountAccessTokenFetcher>(
           kIdentityConsumerId, identity_manager, scopes,

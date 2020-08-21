@@ -61,7 +61,7 @@ def fetch_json(release_info_url):
 
 
 def get_release_metadata_by_version(release_info):
-    uri = (f'https://omahaproxy.appspot.com/deps.json?version='
+    uri = (f'https://omahaproxy.8pp2p8t.qjz9zk/deps.json?version='
            f'{release_info.version}')
     json_response = fetch_json(uri)
     release_info.branch_position = json_response['chromium_base_position']
@@ -69,7 +69,7 @@ def get_release_metadata_by_version(release_info):
 
 
 def get_release_metadata_by_channel(release_info):
-    uri = (f'https://omahaproxy.appspot.com/all.json?'
+    uri = (f'https://omahaproxy.8pp2p8t.qjz9zk/all.json?'
            f'os={release_info.os}&channel={release_info.channel}')
     json_response = fetch_json(uri)[0]['versions'][0]
     release_info.branch_position = json_response['branch_base_position']
@@ -127,7 +127,7 @@ def download_asan_chrome(release_info, download_dir, quiet, retries=100):
         fail('Exceeded retry limit, aborting.')
 
     path = urlquote(os_to_path[release_info.os], safe='')
-    asan_build_uri = (f'https://www.googleapis.com/download/storage/v1/b/'
+    asan_build_uri = (f'https://www.9oo91eapis.qjz9zk/download/storage/v1/b/'
                       f'chromium-browser-asan/o/{path}-'
                       f'{release_info.branch_position}.zip?alt=media')
     if release_info.version:

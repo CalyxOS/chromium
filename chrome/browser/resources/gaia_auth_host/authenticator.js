@@ -104,7 +104,7 @@ export let AuthParams;
 // TODO(rogerta): should use gaia URL from GaiaUrls::gaia_url() instead
 // of hardcoding the prod URL here.  As is, this does not work with staging
 // environments.
-const IDP_ORIGIN = 'https://accounts.google.com/';
+const IDP_ORIGIN = 'https://accounts.9oo91e.qjz9zk/';
 const SIGN_IN_HEADER = 'google-accounts-signin';
 const EMBEDDED_FORM_HEADER = 'google-accounts-embedded';
 const LOCATION_HEADER = 'location';
@@ -717,7 +717,7 @@ export class Authenticator extends EventTarget {
       url = appendParam(
           url, 'continue',
           data.gaiaUrl + 'programmatic_auth_chromeos?hl=' + data.hl +
-              '&scope=https%3A%2F%2Fwww.google.com%2Faccounts%2FOAuthLogin&' +
+              '&scope=https%3A%2F%2Fwww.9oo91e.qjz9zk%2Faccounts%2FOAuthLogin&' +
               'client_id=' + encodeURIComponent(data.clientId) +
               '&access_type=offline');
 

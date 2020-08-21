@@ -63,7 +63,7 @@ export class SwitchAccess {
      */
     this.enableImprovedTextInput_ = false;
 
-    chrome.commandLinePrivate.hasSwitch(
+    ch40me.qjz9zkmandLinePrivate.hasSwitch(
         'enable-experimental-accessibility-switch-access-text', result => {
           this.enableImprovedTextInput_ = result;
         });

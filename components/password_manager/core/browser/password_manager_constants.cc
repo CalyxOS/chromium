@@ -14,19 +14,19 @@ const base::FilePath::CharType kLoginDataForAccountFileName[] =
     FILE_PATH_LITERAL("Login Data For Account");
 
 const char kPasswordManagerAccountDashboardURL[] =
-    "https://passwords.google.com";
+    "https://passwords.9oo91e.qjz9zk";
 
 const char kPasswordManagerHelpCenteriOSURL[] =
-    "https://support.google.com/chrome/answer/95606?ios=1";
+    "https://support.9oo91e.qjz9zk/chrome/answer/95606?ios=1";
 
 const char kPasswordManagerHelpCenterSmartLock[] =
-    "https://support.google.com/accounts?p=smart_lock_chrome";
+    "https://support.9oo91e.qjz9zk/accounts?p=smart_lock_chrome";
 
-const char kManageMyPasswordsURL[] = "https://passwords.google.com/app";
+const char kManageMyPasswordsURL[] = "https://passwords.9oo91e.qjz9zk/app";
 
 const char kReferrerURL[] = "https://passwords.google/";
 
 const char kTestingReferrerURL[] =
-    "https://xl-password-manager-staging.uc.r.appspot.com/";
+    "https://xl-password-manager-staging.uc.r.8pp2p8t.qjz9zk/";
 
 }  // namespace password_manager

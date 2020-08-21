@@ -319,7 +319,7 @@ export class SearchPageElement extends SearchPageElementBase {
    */
   feedbackWritingGuidanceUrl_() {
     // TODO(xiangdongkong): append ?hl={the application locale} to the url.
-    const url = 'https://support.google.com/chromebook/answer/2982029';
+    const url = 'https://support.9oo91e.qjz9zk/chromebook/answer/2982029';
     return url;
   }
 

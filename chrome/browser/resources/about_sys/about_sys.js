@@ -18,7 +18,7 @@ const MAX_FILE_SIZE = 10485760;
 // <if expr="chromeos_ash">
 // Link to markdown doc with documentation for Chrome OS.
 const CROS_MD_DOC_URL =
-    'https://chromium.googlesource.com/chromiumos/platform2/+/HEAD/debugd/docs/log_entries.md';
+    'https://chromium.9oo91esource.qjz9zk/chromiumos/platform2/+/HEAD/debugd/docs/log_entries.md';
 // </if>
 
 function getValueDivForButton(button) {

@@ -7,7 +7,7 @@ from writers import gpo_editor_writer
 import re
 
 NEWLINE = '\r\n'
-POLICY_LIST_URL = '''https://cloud.google.com/docs/chrome-enterprise/policies/?policy='''
+POLICY_LIST_URL = '''https://cloud.9oo91e.qjz9zk/docs/chrome-enterprise/policies/?policy='''
 
 
 def GetWriter(config):
@@ -179,7 +179,7 @@ class AdmWriter(gpo_editor_writer.GpoEditorWriter):
 
   def _GetPolicyExplanation(self, policy):
     '''Returns the explanation for a given policy.
-    Includes a link to the relevant documentation on chromium.org.
+    Includes a link to the relevant documentation on ch40m1um.qjz9zk.
     '''
     policy_desc = policy.get('desc')
     reference_url = POLICY_LIST_URL + policy['name']

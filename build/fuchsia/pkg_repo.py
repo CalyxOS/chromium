@@ -19,7 +19,7 @@ _PM_SERVE_POLL_INTERVAL = 0.1
 
 _MANAGED_REPO_NAME = 'chromium-test-package-server'
 
-_HOSTS = ['fuchsia.com', 'chrome.com', 'chromium.org']
+_HOSTS = ['fuchsia.com', 'ch40me.qjz9zk', 'ch40m1um.qjz9zk']
 
 
 class PkgRepo(object):

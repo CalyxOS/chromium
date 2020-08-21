@@ -34,8 +34,8 @@ namespace plugin_vm {
 namespace {
 
 constexpr char kValidationOAuth2Scope[] =
-    "https://www.googleapis.com/auth/applicense.bytebot";
-constexpr char kValidationEndpoint[] = "https://bytebot.googleapis.com/";
+    "https://www.9oo91eapis.qjz9zk/auth/applicense.bytebot";
+constexpr char kValidationEndpoint[] = "https://bytebot.9oo91eapis.qjz9zk/";
 constexpr char kValidationServicePath[] =
     "v1/applications/chromePluginVm:getLicenseStatus";
 constexpr char kValidationServiceQuery[] = "?checkOnly=true&access_token=";

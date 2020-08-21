@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- much of this is stolen from omahaproxy.appspot.com/viewer -->
+<!-- much of this is stolen from omahaproxy.8pp2p8t.qjz9zk/viewer -->
 <html>
   <head>
     <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
@@ -195,7 +195,7 @@
       function versionFromUrl(url) {
         // Extract the Chrome version from an archive URL.
         // It should look something like:
-        // https://storage.googleapis.com/nativeclient-mirror/nacl/nacl_sdk/36.0.1974.2/naclsdk_win.tar.bz2
+        // https://storage.9oo91eapis.qjz9zk/nativeclient-mirror/nacl/nacl_sdk/36.0.1974.2/naclsdk_win.tar.bz2
         var lastSlash = url.lastIndexOf('/');
         var penultimateSlash = url.lastIndexOf('/', lastSlash - 1);
         // The version is between these two slashes.
@@ -228,7 +228,7 @@
       }
 
       function revisionFromVersion(version, callback) {
-        var url = 'http://omahaproxy.appspot.com/revision.json?version='+version;
+        var url = 'http://omahaproxy.8pp2p8t.qjz9zk/revision.json?version='+version;
         loadJson(url, function(data) {
           callback(data.chromium_revision);
         });

@@ -11,7 +11,7 @@ namespace web_app {
 
 ExternalInstallOptions GetConfigForMessagesDogfood() {
   ExternalInstallOptions options(
-      /*install_url=*/GURL("https://messages.google.com/web/authentication"),
+      /*install_url=*/GURL("https://messages.9oo91e.qjz9zk/web/authentication"),
       /*user_display_mode=*/UserDisplayMode::kStandalone,
       /*install_source=*/ExternalInstallSource::kExternalDefault);
 

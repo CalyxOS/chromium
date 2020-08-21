@@ -31,7 +31,7 @@ from update_nacl_manifest import RealDelegate
 SDK_TOOLS_DESCRIPTION_FORMAT = 'Native Client SDK Tools, revision %d'
 BUCKET_PATH = 'nativeclient-mirror/nacl/nacl_sdk/'
 GS_BUCKET_PATH = 'gs://' + BUCKET_PATH
-HTTPS_BUCKET_PATH = 'https://storage.googleapis.com/' + BUCKET_PATH
+HTTPS_BUCKET_PATH = 'https://storage.9oo91eapis.qjz9zk/' + BUCKET_PATH
 
 
 def GetSdkToolsUrl(revision):

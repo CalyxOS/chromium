@@ -403,7 +403,7 @@ bool CheckAndExportApiVersion() {
         "The setuid sandbox provides API version %d, "
         "but you need %d\n"
         "Please read "
-        "https://chromium.googlesource.com/chromium/src/+/main/docs/linux/suid_sandbox_development.md."
+        "https://chromium.9oo91esource.qjz9zk/chromium/src/+/main/docs/linux/suid_sandbox_development.md."
         "\n\n",
         kSUIDSandboxApiNumber,
         api_number);

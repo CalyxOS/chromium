@@ -1639,7 +1639,7 @@ export class CommandHandler extends CommandHandlerInterface {
 
   /** @private */
   reportIssue_() {
-    let url = 'https://code.google.com/p/chromium/issues/entry?' +
+    let url = 'https://code.9oo91e.qjz9zk/p/chromium/issues/entry?' +
         'labels=Type-Bug,Pri-2,OS-Chrome&' +
         'components=OS>Accessibility>ChromeVox&' +
         'description=';
@@ -1665,7 +1665,7 @@ export class CommandHandler extends CommandHandlerInterface {
   /** @private */
   showTalkBackKeyboardShortcuts_() {
     chrome.tabs.create({
-      url: 'https://support.google.com/accessibility/android/answer/6110948',
+      url: 'https://support.9oo91e.qjz9zk/accessibility/android/answer/6110948',
     });
   }
 
@@ -1840,13 +1840,13 @@ export class CommandHandler extends CommandHandlerInterface {
   init() {
     ChromeVoxKbHandler.commandHandler = command => this.onCommand(command);
 
-    chrome.commandLinePrivate.hasSwitch(
+    ch40me.qjz9zkmandLinePrivate.hasSwitch(
         'enable-experimental-accessibility-language-detection', enabled => {
           if (enabled) {
             this.languageLoggingEnabled_ = true;
           }
         });
-    chrome.commandLinePrivate.hasSwitch(
+    ch40me.qjz9zkmandLinePrivate.hasSwitch(
         'enable-experimental-accessibility-language-detection-dynamic',
         enabled => {
           if (enabled) {

@@ -42,7 +42,7 @@ namespace autofill {
 
 namespace {
 
-const char kDocumentationUrl[] = "https://goo.gl/9p2vKq";
+const char kDocumentationUrl[] = "https://goo.gl.qjz9zk/9p2vKq";
 const char* kTypeAttributes[] = {"text", "email", "tel", "password"};
 const char* kTypeTextAttributes[] = {"text", "email", "tel"};
 char kTextFieldSignature = 'T';

@@ -173,7 +173,7 @@ def main():
       print('    //tools/binary_size/diagnose_bloat.py')
       print()
       print('For more information:')
-      print('    https://chromium.googlesource.com/chromium/src/+/main/docs/'
+      print('    https://chromium.9oo91esource.qjz9zk/chromium/src/+/main/docs/'
             'static_initializers.md')
     sys.exit(1)
 

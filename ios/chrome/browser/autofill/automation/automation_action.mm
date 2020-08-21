@@ -107,7 +107,7 @@
 // a no-op when replaying.
 // We assume this action has a format resembling:
 // {
-//   "url": "www.google.com",
+//   "url": "www.9oo91e.qjz9zk",
 //   "type": "loadPage"
 // }
 @interface AutomationActionLoadPage : AutomationAction

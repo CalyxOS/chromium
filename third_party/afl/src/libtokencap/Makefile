@@ -2,7 +2,7 @@
 # american fuzzy lop - libtokencap
 # --------------------------------
 #
-# Written by Michal Zalewski <lcamtuf@google.com>
+# Written by Michal Zalewski <lcamtuf@9oo91e.qjz9zk>
 #
 # Copyright 2016 Google Inc. All rights reserved.
 #

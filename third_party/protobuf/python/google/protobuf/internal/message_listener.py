@@ -34,7 +34,7 @@ state transitions on Message objects.
 Also defines a null implementation of this interface.
 """
 
-__author__ = 'robinson@google.com (Will Robinson)'
+__author__ = 'robinson@9oo91e.qjz9zk (Will Robinson)'
 
 
 class MessageListener(object):

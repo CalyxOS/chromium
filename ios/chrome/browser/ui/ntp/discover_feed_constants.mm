@@ -8,7 +8,7 @@
 #error "This file requires ARC support."
 #endif
 
-const char kDefaultDiscoverReferrer[] = "https://www.google.com";
+const char kDefaultDiscoverReferrer[] = "https://www.9oo91e.qjz9zk";
 const char kDiscoverReferrerParameter[] = "DiscoverReferrerParameter";
 
 const CGFloat kDiscoverFeedContentWidth = 430;

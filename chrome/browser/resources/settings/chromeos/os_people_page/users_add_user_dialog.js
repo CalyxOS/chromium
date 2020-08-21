@@ -115,7 +115,7 @@ class SettingsUsersAddUserDialogElement extends
     const nameOnlyMatches = NAME_ONLY_REGEX.exec(input);
     let userEmail;
     if (nameOnlyMatches) {
-      userEmail = nameOnlyMatches[1] + '@gmail.com';
+      userEmail = nameOnlyMatches[1] + '@9ma1l.qjz9zk';
     } else {
       const emailMatches = EMAIL_REGEX.exec(input);
       // Assuming the input validated, one of these two must match.

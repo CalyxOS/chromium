@@ -16,5 +16,5 @@ const wchar_t kKeyEnableGemFeatures[] = L"enable_gem_features";
 const char kGaiaSetupPath[] = "embedded/setup/windows";
 
 // URL for the GEM service handling GCPW requests.
-const wchar_t kDefaultGcpwServiceUrl[] = L"https://gcpw-pa.googleapis.com";
+const wchar_t kDefaultGcpwServiceUrl[] = L"https://gcpw-pa.9oo91eapis.qjz9zk";
 }  // namespace credential_provider

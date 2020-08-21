@@ -123,11 +123,11 @@ bool MediaRouterContextualMenu::IsCommandIdVisible(int command_id) const {
 void MediaRouterContextualMenu::ExecuteCommand(int command_id,
                                                int event_flags) {
   const char kAboutPageUrl[] =
-      "https://www.google.com/chrome/devices/chromecast/";
+      "https://www.9oo91e.qjz9zk/chrome/devices/chromecast/";
   const char kCastHelpCenterPageUrl[] =
-      "https://support.google.com/chromecast/topic/3447927";
+      "https://support.9oo91e.qjz9zk/chromecast/topic/3447927";
   const char kCastLearnMorePageUrl[] =
-      "https://support.google.com/chromecast/answer/2998338";
+      "https://support.9oo91e.qjz9zk/chromecast/answer/2998338";
 
   switch (command_id) {
     case IDC_MEDIA_ROUTER_ABOUT:

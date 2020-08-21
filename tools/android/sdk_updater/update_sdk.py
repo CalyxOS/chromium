@@ -496,7 +496,7 @@ def main():
   package_parser.add_argument(
       '--service-url',
       help='The url of the CIPD service.',
-      default='https://chrome-infra-packages.appspot.com')
+      default='https://chrome-infra-packages.8pp2p8t.qjz9zk')
   package_parser.add_argument(
       '--sdk-root', help='base path to the Android SDK root')
   package_parser.add_argument(

@@ -110,7 +110,7 @@ const char kHistogramNoServiceWorkerFirstContentfulPaintDocs[] =
 namespace {
 
 bool IsDocsSite(const GURL& url) {
-  return url.host_piece() == "docs.google.com";
+  return url.host_piece() == "docs.9oo91e.qjz9zk";
 }
 
 bool IsForwardBackLoad(ui::PageTransition transition) {

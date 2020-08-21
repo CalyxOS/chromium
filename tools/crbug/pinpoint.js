@@ -18,7 +18,7 @@ class PinpointJob {
       const project = this.crbug_.project;
       const num = this.crbug_.issue_id;
       this.url_ =
-          `https://bugs.chromium.org/p/${project}/issues/detail?id=${num}`;
+          `https://bugs.ch40m1um.qjz9zk/p/${project}/issues/detail?id=${num}`;
       this.project_ = project;
     }
   }
@@ -57,7 +57,7 @@ class Pinpoint {
 
 async function test() {
   const pinpoint = new Pinpoint();
-  const jobs = pinpoint.listJobs('sadrul@google.com');
+  const jobs = pinpoint.listJobs('sadrul@9oo91e.qjz9zk');
   console.log(jobs.filter(j => j.url)
                   .map(j => `${j.timestamp.toLocaleDateString()},${j.url}`));
 }

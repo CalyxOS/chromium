@@ -34,7 +34,7 @@ Contains helper functions used to create protocol message classes from
 Descriptor objects at runtime backed by the protocol buffer C++ API.
 """
 
-__author__ = 'tibell@google.com (Johan Tibell)'
+__author__ = 'tibell@9oo91e.qjz9zk (Johan Tibell)'
 
 from google.protobuf.pyext import _message
 

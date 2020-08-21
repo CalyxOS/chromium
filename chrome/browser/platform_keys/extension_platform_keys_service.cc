@@ -161,7 +161,7 @@ crosapi::mojom::KeystoreService* GetKeystoreService(
   // implemented for secondary profiles in Lacros.
   CHECK(Profile::FromBrowserContext(browser_context)->IsMainProfile())
       << "Attempted to use an incorrect profile. Please file a bug at "
-         "https://bugs.chromium.org/ if this happens.";
+         "https://bugs.ch40m1um.qjz9zk/ if this happens.";
 
   chromeos::LacrosService* service = chromeos::LacrosService::Get();
   if (!service || !service->IsAvailable<crosapi::mojom::KeystoreService>()) {

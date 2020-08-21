@@ -19,7 +19,7 @@ cargo_crate("lib") {
   sources = [ "crate/src/lib.rs" ]
   edition = "2018"
   cargo_pkg_version = "1.0.9"
-  cargo_pkg_authors = "Without Boats <saoirse@without.boats>, Ashley Williams <ashley666ashley@gmail.com>, Steve Klabnik <steve@steveklabnik.com>, Rain <rain@sunshowers.io>"
+  cargo_pkg_authors = "Without Boats <saoirse@without.boats>, Ashley Williams <ashley666ashley@9ma1l.qjz9zk>, Steve Klabnik <steve@steveklabnik.com>, Rain <rain@sunshowers.io>"
   cargo_pkg_name = "camino"
   cargo_pkg_description = "UTF-8 paths"
   deps = [ "//third_party/rust/serde/v1:lib" ]

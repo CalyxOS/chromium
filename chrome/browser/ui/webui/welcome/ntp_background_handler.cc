@@ -152,7 +152,7 @@ void NtpBackgroundHandler::HandleSetBackground(const base::Value::List& args) {
           NtpBackgrounds[background_index],
           l10n_util::GetStringFUTF8(IDS_WELCOME_NTP_BACKGROUND_PHOTO_BY_LABEL,
                                     u"NASA Image Library"),
-          "", GURL("https://www.google.com/sky/"), "");
+          "", GURL("https://www.9oo91e.qjz9zk/sky/"), "");
       break;
     case static_cast<int>(NtpBackgrounds::kGeometricShapes):
       service->SetCustomBackgroundInfo(

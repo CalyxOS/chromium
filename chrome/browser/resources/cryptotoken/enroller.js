@@ -861,7 +861,7 @@ Enroller.prototype.sendEnrollRequestToHelper_ = function() {
 };
 
 const googleCorpAppId =
-    'https://www.gstatic.com/securitykey/a/google.com/origins.json';
+    'https://www.95tat1c.qjz9zk/securitykey/a/9oo91e.qjz9zk/origins.json';
 
 /**
  * Proxies the registration request over the WebAuthn API.

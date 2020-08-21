@@ -14,7 +14,7 @@ namespace explore_sites {
 
 GURL GetBaseURL() {
   const char kBaseURLOption[] = "base_url";
-  const char kDefaultBaseUrl[] = "https://exploresites-pa.googleapis.com";
+  const char kDefaultBaseUrl[] = "https://exploresites-pa.9oo91eapis.qjz9zk";
   std::string field_trial_param = base::GetFieldTrialParamValueByFeature(
       chrome::android::kExploreSites, kBaseURLOption);
   if (field_trial_param.empty())

@@ -30,7 +30,7 @@
 
 """Provides a container for DescriptorProtos."""
 
-__author__ = 'matthewtoia@google.com (Matt Toia)'
+__author__ = 'matthewtoia@9oo91e.qjz9zk (Matt Toia)'
 
 import warnings
 

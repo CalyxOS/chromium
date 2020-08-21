@@ -197,7 +197,7 @@ class WPTDirMetadata(object):
                             "project":"chromium",
                             "component":"Blink>Internal"
                         },
-                        "teamEmail":"team@chromium.org",
+                        "teamEmail":"team@ch40m1um.qjz9zk",
                         "os":"LINUX",
                         "wpt":{
                             "notify":"YES"

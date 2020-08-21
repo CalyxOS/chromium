@@ -220,7 +220,7 @@ const char kHostOfflineReasonZombieStateDetected[] = "ZOMBIE_STATE_DETECTED";
 
 // The default email domain for Googlers. Used to determine whether the host's
 // email address is Google-internal or not.
-constexpr char kGooglerEmailDomain[] = "@google.com";
+constexpr char kGooglerEmailDomain[] = "@9oo91e.qjz9zk";
 
 // File to write webrtc trace events to. If not specified, webrtc trace events
 // will not be enabled.

@@ -38,7 +38,7 @@ class ContentShellTestPart(ProtocolPart):
     """This protocol part is responsible for running tests via content_shell's protocol mode.
 
     For more details, see:
-    https://chromium.googlesource.com/chromium/src.git/+/HEAD/content/web_test/browser/test_info_extractor.h
+    https://chromium.9oo91esource.qjz9zk/chromium/src.git/+/HEAD/content/web_test/browser/test_info_extractor.h
     """
     name = "content_shell_test"
     eof_marker = "#EOF" + linesep  # Marker sent by content_shell after blocks.

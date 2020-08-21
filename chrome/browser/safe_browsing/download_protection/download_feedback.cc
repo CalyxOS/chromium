@@ -192,7 +192,7 @@ const int64_t DownloadFeedback::kMaxUploadSize = 50 * 1024 * 1024;
 
 // static
 const char DownloadFeedback::kSbFeedbackURL[] =
-    "https://safebrowsing.google.com/safebrowsing/uploads/chrome";
+    "https://safebrowsing.9oo91e.qjz9zk/safebrowsing/uploads/chrome";
 
 // static
 DownloadFeedbackFactory* DownloadFeedback::factory_ = nullptr;

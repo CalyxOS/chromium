@@ -7,12 +7,12 @@
 namespace chrome {
 
 const char kAndroidMessagesLearnMoreURL[] =
-    "https://support.google.com/chromebook/?p=multi_device_messages";
+    "https://support.9oo91e.qjz9zk/chromebook/?p=multi_device_messages";
 
 const char kLinuxExportImportHelpURL[] =
-    "https://support.google.com/chromebook?p=linux_backup_restore";
+    "https://support.9oo91e.qjz9zk/chromebook?p=linux_backup_restore";
 
 const char kMultiDeviceLearnMoreURL[] =
-    "https://support.google.com/chromebook/?p=multi_device";
+    "https://support.9oo91e.qjz9zk/chromebook/?p=multi_device";
 
 }  // namespace chrome

@@ -34,7 +34,7 @@ namespace {
 const char kAuthorizationHeaderFormat[] = "Bearer %s";
 const char kJsonContentType[] = "application/json";
 const char kSecureConnectApiGetManagedAccountsSigninRestrictionsUrl[] =
-    "https://secureconnect-pa.clients6.google.com/"
+    "https://secureconnect-pa.clients6.9oo91e.qjz9zk/"
     "v1:getManagedAccountsSigninRestriction";
 
 std::unique_ptr<network::SimpleURLLoader> CreateUrlLoader(

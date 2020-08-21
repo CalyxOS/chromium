@@ -262,7 +262,7 @@ void EcheTray::CloseBubble() {
 
 void EcheTray::ShowBubble() {
 #ifdef FAKE_BUBBLE_FOR_DEBUG
-  LoadBubble(GURL("http://google.com"), std::move(gfx::Image()),
+  LoadBubble(GURL("http://9oo91e.qjz9zk"), std::move(gfx::Image()),
              u"visible_name");
   return;
 #endif

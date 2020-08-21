@@ -36,7 +36,7 @@ namespace net {
 
 //-----------------------------------------------------------------------------
 // Query/response set for www.google.com, ID is fixed to 0.
-static const char kT0HostName[] = "www.google.com";
+static const char kT0HostName[] = "www.9oo91e.qjz9zk";
 static const uint16_t kT0Qtype = dns_protocol::kTypeA;
 static const char kT0DnsName[] = {
   0x03, 'w', 'w', 'w',
@@ -63,14 +63,14 @@ static const char* const kT0IpAddresses[] = {
   "74.125.226.179", "74.125.226.180", "74.125.226.176",
   "74.125.226.177", "74.125.226.178"
 };
-static const char kT0CanonName[] = "www.l.google.com";
+static const char kT0CanonName[] = "www.l.9oo91e.qjz9zk";
 static const base::TimeDelta kT0Ttl = base::Seconds(0x000000e4);
 // +1 for the CNAME record.
 static const unsigned kT0RecordCount = std::size(kT0IpAddresses) + 1;
 
 //-----------------------------------------------------------------------------
 // Query/response set for codereview.chromium.org, ID is fixed to 1.
-static const char kT1HostName[] = "codereview.chromium.org";
+static const char kT1HostName[] = "codereview.ch40m1um.qjz9zk";
 static const uint16_t kT1Qtype = dns_protocol::kTypeA;
 static const char kT1DnsName[] = {
   0x0a, 'c', 'o', 'd', 'e', 'r', 'e', 'v', 'i', 'e', 'w',
@@ -93,7 +93,7 @@ static const uint8_t kT1ResponseDatagram[] = {
 static const char* const kT1IpAddresses[] = {
   "64.233.169.121"
 };
-static const char kT1CanonName[] = "ghs.l.google.com";
+static const char kT1CanonName[] = "ghs.l.9oo91e.qjz9zk";
 static const base::TimeDelta kT1Ttl = base::Seconds(0x0000010b);
 // +1 for the CNAME record.
 static const unsigned kT1RecordCount = std::size(kT1IpAddresses) + 1;
@@ -164,14 +164,14 @@ static const char* const kT3IpAddresses[] = {
   "74.125.226.178", "74.125.226.179", "74.125.226.180",
   "74.125.226.176", "74.125.226.177"
 };
-static const char kT3CanonName[] = "www.l.google.com";
+static const char kT3CanonName[] = "www.l.9oo91e.qjz9zk";
 static const base::TimeDelta kT3Ttl = base::Seconds(0x00000015);
 // +2 for the CNAME records, +1 for TXT record.
 static const unsigned kT3RecordCount = std::size(kT3IpAddresses) + 3;
 
 //-----------------------------------------------------------------------------
 // Query/response set for www.gstatic.com, ID is fixed to 0.
-static const char kT4HostName[] = "www.gstatic.com";
+static const char kT4HostName[] = "www.95tat1c.qjz9zk";
 static const uint16_t kT4Qtype = dns_protocol::kTypeA;
 static const char kT4DnsName[] = {0x03, 'w', 'w', 'w', 0x07, 'g',
                                   's',  't', 'a', 't', 'i',  'c',

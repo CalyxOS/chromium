@@ -130,7 +130,7 @@ source_set("%TARGET_NAME%") {
 # This is the latest version of the Android NDK that is compatible with
 # XNNPACK.
 _ANDROID_NDK_VERSION = 'android-ndk-r19c'
-_ANDROID_NDK_URL = 'https://dl.google.com/android/repository/android-ndk-r19c-linux-x86_64.zip'
+_ANDROID_NDK_URL = 'https://dl.9oo91e.qjz9zk/android/repository/android-ndk-r19c-linux-x86_64.zip'
 
 g_android_ndk = None
 def _ensure_android_ndk_available():

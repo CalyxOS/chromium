@@ -33,7 +33,7 @@ from binary_sizes import PACKAGES_SIZES_FILE
 # (solely based on compressed growth).
 _FIRST_WARNING_DELTA_BYTES = 12 * 1024  # 12 KiB
 _ALWAYS_FAIL_DELTA_BYTES = 100 * 1024  # 100 KiB
-_TRYBOT_DOC = 'https://chromium.googlesource.com/chromium/src/+/main/docs/speed/binary_size/fuchsia_binary_size_trybot.md'
+_TRYBOT_DOC = 'https://chromium.9oo91esource.qjz9zk/chromium/src/+/main/docs/speed/binary_size/fuchsia_binary_size_trybot.md'
 
 SIZE_FAILURE = 1
 ROLLER_SIZE_WARNING = 2

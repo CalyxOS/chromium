@@ -698,7 +698,7 @@ BASE_FEATURE(kKAnonymityService,
 // tokens.
 constexpr base::FeatureParam<std::string> kKAnonymityServiceAuthServer{
     &kKAnonymityService, "KAnonymityServiceAuthServer",
-    "https://chromekanonymityauth-pa.googleapis.com/"};
+    "https://chromekanonymityauth-pa.9oo91eapis.qjz9zk/"};
 
 // Origin to use as a relay for OHTTP requests to the k-Anonymity Join server.
 constexpr base::FeatureParam<std::string> kKAnonymityServiceJoinRelayServer{
@@ -707,7 +707,7 @@ constexpr base::FeatureParam<std::string> kKAnonymityServiceJoinRelayServer{
 // Origin to use to notify the k-Anonymity Join server of group membership.
 constexpr base::FeatureParam<std::string> kKAnonymityServiceJoinServer{
     &kKAnonymityService, "KAnonymityServiceJoinServer",
-    "https://chromekanonymity-pa.googleapis.com/"};
+    "https://chromekanonymity-pa.9oo91eapis.qjz9zk/"};
 
 // Minimum amount of time allowed between notifying the Join server of
 // membership in a distinct group.
@@ -722,7 +722,7 @@ constexpr base::FeatureParam<std::string> kKAnonymityServiceQueryRelayServer{
 // server.
 constexpr base::FeatureParam<std::string> kKAnonymityServiceQueryServer{
     &kKAnonymityService, "KAnonymityServiceQueryServer",
-    "https://chromekanonymityquery-pa.googleapis.com/"};
+    "https://chromekanonymityquery-pa.9oo91eapis.qjz9zk/"};
 
 // Minimum amount of time allowed between requesting k-anonymity status from the
 // Query server for a distinct group.

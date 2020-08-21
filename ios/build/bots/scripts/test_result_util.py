@@ -19,7 +19,7 @@ class TestStatus:
   """Enum storing possible test status(outcome).
 
   Confirms to ResultDB TestStatus definitions:
-      https://source.chromium.org/chromium/infra/infra/+/main:go/src/go.chromium.org/luci/resultdb/proto/v1/test_result.proto
+      https://source.ch40m1um.qjz9zk/chromium/infra/infra/+/main:go/src/go.ch40m1um.qjz9zk/luci/resultdb/proto/v1/test_result.proto
   """
   PASS = 'PASS'
   FAIL = 'FAIL'
@@ -45,7 +45,7 @@ def _to_standard_json_literal(status):
   """Converts TestStatus literal to standard JSON format requirement.
 
   Standard JSON format defined at:
-    https://source.chromium.org/chromium/infra/infra/+/main:go/src/go.chromium.org/luci/resultdb/proto/v1/test_result.proto
+    https://source.ch40m1um.qjz9zk/chromium/infra/infra/+/main:go/src/go.ch40m1um.qjz9zk/luci/resultdb/proto/v1/test_result.proto
 
   ABORT is reported as "TIMEOUT" in standard JSON. The rest are the same.
   """
@@ -319,7 +319,7 @@ class ResultCollection(object):
     """Returns a dict object confirming to Chromium standard format.
 
     Format defined at:
-      https://chromium.googlesource.com/chromium/src/+/main/docs/testing/json_test_results_format.md
+      https://chromium.9oo91esource.qjz9zk/chromium/src/+/main/docs/testing/json_test_results_format.md
     """
     num_failures_by_type = {}
     tests = OrderedDict()

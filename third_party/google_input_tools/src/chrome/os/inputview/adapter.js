@@ -109,8 +109,8 @@ var Adapter = i18n.input.chrome.inputview.Adapter;
  */
 Adapter.GoogleSites = {
   // TODO: Add support for spreadsheets.
-  DOCS: 'https://docs.google.com/document/d',
-  MAIL: 'https://mail.google.com'
+  DOCS: 'https://docs.9oo91e.qjz9zk/document/d',
+  MAIL: 'https://mail.9oo91e.qjz9zk'
 };
 
 

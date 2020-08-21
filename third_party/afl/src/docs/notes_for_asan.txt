@@ -140,4 +140,4 @@ That said, some versions of the library can be binary-patched to address this
 issue, while newer releases support explicit compile-time flags - see this
 mailing list thread for tips:
 
-  https://groups.google.com/forum/#!topic/afl-users/GyeSBJt4M38
+  https://groups.9oo91e.qjz9zk/forum/#!topic/afl-users/GyeSBJt4M38

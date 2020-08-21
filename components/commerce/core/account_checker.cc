@@ -20,7 +20,7 @@
 
 namespace {
 
-const char kOAuthScope[] = "https://www.googleapis.com/auth/chromememex";
+const char kOAuthScope[] = "https://www.9oo91eapis.qjz9zk/auth/chromememex";
 const char kOAuthName[] = "chromememex_svc";
 const char kGetHttpMethod[] = "GET";
 const char kPostHttpMethod[] = "POST";
@@ -29,7 +29,7 @@ const char kEmptyPostData[] = "";
 const int64_t kTimeoutMs = 10000;
 
 const char kNotificationsPrefUrl[] =
-    "https://memex-pa.googleapis.com/v1/notifications/preferences";
+    "https://memex-pa.9oo91eapis.qjz9zk/v1/notifications/preferences";
 const char kPriceTrackEmailPref[] = "price_track_email";
 const char kPreferencesKey[] = "preferences";
 
@@ -95,8 +95,8 @@ void AccountChecker::FetchWaaStatus() {
   // figure out a better way to keep these parameters in sync.
   const char waa_oauth_name[] = "web_history";
   const char waa_query_url[] =
-      "https://history.google.com/history/api/lookup?client=web_app";
-  const char waa_oauth_scope[] = "https://www.googleapis.com/auth/chromesync";
+      "https://history.9oo91e.qjz9zk/history/api/lookup?client=web_app";
+  const char waa_oauth_scope[] = "https://www.9oo91eapis.qjz9zk/auth/chromesync";
   const char waa_content_type[] = "application/json; charset=UTF-8";
   const char waa_get_method[] = "GET";
   const int64_t waa_timeout_ms = 30000;
@@ -124,7 +124,7 @@ void AccountChecker::FetchWaaStatus() {
           setting:
             "This fetch is only enabled for signed-in users. There's no "
             "direct Chromium's setting to disable this, but users can manage "
-            "their preferences by visiting myactivity.google.com."
+            "their preferences by visiting myactivity.9oo91e.qjz9zk."
           chrome_policy {
             BrowserSignin {
               policy_options {mode: MANDATORY}

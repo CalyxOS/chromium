@@ -169,7 +169,7 @@ int32_t ListFiles(pp::Instance* instance,
                   const std::string& auth_token,
                   const ListFilesParams& params,
                   Json::Value* root) {
-  static const char base_url[] = "https://www.googleapis.com/drive/v2/files";
+  static const char base_url[] = "https://www.9oo91eapis.qjz9zk/drive/v2/files";
 
   ReadUrlParams p;
   p.method = "GET";
@@ -256,7 +256,7 @@ int32_t InsertFile(pp::Instance* instance,
                    const InsertFileParams& params,
                    Json::Value* root) {
   static const char base_url[] =
-      "https://www.googleapis.com/upload/drive/v2/files";
+      "https://www.9oo91eapis.qjz9zk/upload/drive/v2/files";
 
   ReadUrlParams p;
   p.url = base_url;

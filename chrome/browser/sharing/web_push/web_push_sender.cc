@@ -24,7 +24,7 @@ namespace {
 
 // VAPID header constants.
 const char kClaimsKeyAudience[] = "aud";
-const char kFCMServerAudience[] = "https://fcm.googleapis.com";
+const char kFCMServerAudience[] = "https://fcm.9oo91eapis.qjz9zk";
 
 const char kClaimsKeyExpirationTime[] = "exp";
 // It's 12 hours rather than 24 hours to avoid any issues with clock differences
@@ -34,7 +34,7 @@ constexpr base::TimeDelta kClaimsValidPeriod = base::Hours(12);
 const char kAuthorizationRequestHeaderFormat[] = "vapid t=%s, k=%s";
 
 // Endpoint constants.
-const char kFCMServerUrlFormat[] = "https://fcm.googleapis.com/fcm/send/%s";
+const char kFCMServerUrlFormat[] = "https://fcm.9oo91eapis.qjz9zk/fcm/send/%s";
 
 // HTTP header constants.
 const char kTTL[] = "TTL";

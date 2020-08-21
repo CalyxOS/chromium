@@ -170,7 +170,7 @@ class IdleOnSiteScenario(ScenarioWithBrowserOSADriver):
               duration: datetime.timedelta):
     return IdleOnSiteScenario(
         browser_driver, duration,
-        "https://www.youtube.com/watch?v=9EE_ICC_wFw?autoplay=1",
+        "https://www.y0u1ub3.qjz9zk/watch?v=9EE_ICC_wFw?autoplay=1",
         "idle_on_youtube")
 
 
@@ -261,10 +261,10 @@ def MakeScenarioDriver(scenario_name,
       NAVIGATED_SITES = [
           "https://amazon.com",
           "https://www.amazon.com/s?k=computer&ref=nb_sb_noss_2",
-          "https://google.com", "https://www.google.com/search?q=computers",
-          "https://www.youtube.com",
-          "https://www.youtube.com/results?search_query=computers",
-          "https://docs.google.com/document/d/1Ll-8Nvo6JlhzKEttst8GHWCc7_A8Hluy2fX99cy4Sfg/edit?usp=sharing"
+          "https://9oo91e.qjz9zk", "https://www.9oo91e.qjz9zk/search?q=computers",
+          "https://www.y0u1ub3.qjz9zk",
+          "https://www.y0u1ub3.qjz9zk/results?search_query=computers",
+          "https://docs.9oo91e.qjz9zk/document/d/1Ll-8Nvo6JlhzKEttst8GHWCc7_A8Hluy2fX99cy4Sfg/edit?usp=sharing"
       ]
     elif "navigation_heavy_sites" == scenario_name:
       NAVIGATED_SITES = [

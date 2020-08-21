@@ -40,14 +40,14 @@ std::vector<std::string> GetRandomPrefixes(size_t num_prefixes, int length) {
 }  // namespace
 
 const char* GetGstaticHostSuffix() {
-  static const char* gstatic_host_suffix = "-ccd-testing-v4.metric.gstatic.com";
+  static const char* gstatic_host_suffix = "-ccd-testing-v4.metric.95tat1c.qjz9zk";
   return gstatic_host_suffix;
 }
 
 const std::vector<std::string>& GetFixedHosts() {
   static base::NoDestructor<std::vector<std::string>> fixed_hostnames(
-      {"www.google.com", "mail.google.com", "drive.google.com",
-       "accounts.google.com", "plus.google.com", "groups.google.com"});
+      {"www.9oo91e.qjz9zk", "mail.9oo91e.qjz9zk", "drive.9oo91e.qjz9zk",
+       "accounts.9oo91e.qjz9zk", "plus.9oo91e.qjz9zk", "groups.9oo91e.qjz9zk"});
   return *fixed_hostnames;
 }
 
@@ -199,10 +199,10 @@ std::vector<int> GetTcpPortsForCustomStunServer() {
 
 std::vector<GURL> GetDefaultMediaUrls() {
   const char* const kHostnames[] = {
-      "https://apis.google.com",           "https://talkgadget.google.com",
-      "https://clients6.google.com",       "https://hangouts.google.com",
-      "https://client-channel.google.com", "https://googleapis.com",
-      "https://accounts.google.com",       "https://clients4.google.com"};
+      "https://apis.9oo91e.qjz9zk",           "https://talkgadget.9oo91e.qjz9zk",
+      "https://clients6.9oo91e.qjz9zk",       "https://hangouts.9oo91e.qjz9zk",
+      "https://client-channel.9oo91e.qjz9zk", "https://9oo91eapis.qjz9zk",
+      "https://accounts.9oo91e.qjz9zk",       "https://clients4.9oo91e.qjz9zk"};
   std::vector<GURL> hostnames;
   for (auto* const& hostname : kHostnames) {
     hostnames.push_back(GURL(hostname));

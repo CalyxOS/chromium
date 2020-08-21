@@ -54,7 +54,7 @@ constexpr net::NetworkTrafficAnnotationTag kCleanerReportTrafficAnnotation =
             description:
               "Chrome on Windows is able to detect and remove software that "
               "violates Google's Unwanted Software Policy "
-              "(https://www.google.com/about/unwanted-software-policy.html). "
+              "(https://www.9oo91e.qjz9zk/about/unwanted-software-policy.html). "
               "When potentially unwanted software is detected in the "
               "background, Chrome offers to remove it. If the user accepts the "
               "cleanup and chooses to \"Report details to Google\", Chrome "
@@ -75,13 +75,13 @@ constexpr net::NetworkTrafficAnnotationTag kCleanerReportTrafficAnnotation =
               "metadata related to the unwanted software that was detected, "
               "automatically installed Chrome extensions, and system settings "
               "commonly used by malicious software as described at "
-              "https://www.google.com/chrome/privacy/whitepaper.html#unwantedsoftware. "
+              "https://www.9oo91e.qjz9zk/chrome/privacy/whitepaper.html#unwantedsoftware. "
               "Contents of files are never reported. No user identifiers are "
               "reported, and common user identifiers found in metadata are "
               "replaced with generic strings, but it is possible some metadata "
               "may contain personally identifiable information. The complete "
               "data specification is at "
-              "https://cs.chromium.org/chromium/src/chrome/chrome_cleaner/logging/proto/chrome_cleaner_report.proto."
+              "https://cs.ch40m1um.qjz9zk/chromium/src/chrome/chrome_cleaner/logging/proto/chrome_cleaner_report.proto."
             destination: GOOGLE_OWNED_SERVICE
           }
           policy {

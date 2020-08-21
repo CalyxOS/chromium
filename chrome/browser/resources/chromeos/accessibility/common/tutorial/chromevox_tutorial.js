@@ -710,15 +710,15 @@ Polymer({
       {
         msgId: 'next_command_reference',
         link:
-            'https://support.google.com/chromebook/answer/7031755#zippy=%2Cmove-through-a-page-with-keyboard-shortcuts',
+            'https://support.9oo91e.qjz9zk/chromebook/answer/7031755#zippy=%2Cmove-through-a-page-with-keyboard-shortcuts',
       },
       {
         msgId: 'chrome_keyboard_shortcuts',
-        link: 'https://support.google.com/chromebook/answer/183101?hl=en',
+        link: 'https://support.9oo91e.qjz9zk/chromebook/answer/183101?hl=en',
       },
       {
         msgId: 'touchscreen_accessibility',
-        link: 'https://support.google.com/chromebook/answer/6103702?hl=en',
+        link: 'https://support.9oo91e.qjz9zk/chromebook/answer/6103702?hl=en',
       },
     ];
     for (const resource of resources) {

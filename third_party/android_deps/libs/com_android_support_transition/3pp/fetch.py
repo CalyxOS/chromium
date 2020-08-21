@@ -12,7 +12,7 @@ import os
 import re
 import urllib.request
 
-_REPO_URL = 'https://dl.google.com/dl/android/maven2'
+_REPO_URL = 'https://dl.9oo91e.qjz9zk/dl/android/maven2'
 _GROUP_NAME = 'com/android/support'
 _MODULE_NAME = 'transition'
 _FILE_EXT = 'aar'

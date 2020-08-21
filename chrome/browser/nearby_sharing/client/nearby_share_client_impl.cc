@@ -31,7 +31,7 @@ namespace {
 // -------------------- Nearby Share Service v1 Endpoints --------------------
 
 const char kDefaultNearbyShareV1HTTPHost[] =
-    "https://nearbysharing-pa.googleapis.com";
+    "https://nearbysharing-pa.9oo91eapis.qjz9zk";
 
 const char kNearbyShareV1Path[] = "v1/";
 
@@ -43,7 +43,7 @@ const char kPageToken[] = "page_token";
 const char kSecretIds[] = "secret_ids";
 
 const char kNearbyShareOAuth2Scope[] =
-    "https://www.googleapis.com/auth/nearbysharing-pa";
+    "https://www.9oo91eapis.qjz9zk/auth/nearbysharing-pa";
 
 // Creates the full Nearby Share v1 URL for endpoint to the API with
 // |request_path|.

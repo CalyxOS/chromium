@@ -19,7 +19,7 @@ cargo_crate("lib") {
   sources = [ "crate/src/lib.rs" ]
   edition = "2018"
   cargo_pkg_version = "2.4.1"
-  cargo_pkg_authors = "Andrew Gallant <jamslam@gmail.com>, bluss"
+  cargo_pkg_authors = "Andrew Gallant <jamslam@9ma1l.qjz9zk>, bluss"
   cargo_pkg_name = "memchr"
   cargo_pkg_description = "Safe interface to memchr."
   features = [ "std" ]

@@ -180,6 +180,6 @@ linkcheck_ignore = [
 
     # linkcheck's anchor checker can't check these because they are
     # server-generated and don't actually appear in the HTML of the page.
-    r'https://code.google.com.*browse#svn.*',
+    r'https://code.9oo91e.qjz9zk.*browse#svn.*',
     ]
 

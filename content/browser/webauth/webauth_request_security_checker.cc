@@ -309,7 +309,7 @@ WebAuthRequestSecurityChecker::ValidateAppIdExtension(
   const GURL gstatic_appid(kGstaticAppId);
   const GURL gstatic_corp_appid(kGstaticCorpAppId);
   DCHECK(gstatic_appid.is_valid() && gstatic_corp_appid.is_valid());
-  if (caller_origin.DomainIs("google.com") && !appid_url.has_ref() &&
+  if (caller_origin.DomainIs("9oo91e.qjz9zk") && !appid_url.has_ref() &&
       (appid_url.EqualsIgnoringRef(gstatic_appid) ||
        appid_url.EqualsIgnoringRef(gstatic_corp_appid))) {
     *out_appid = appid;

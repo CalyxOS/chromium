@@ -68,7 +68,7 @@ absl::optional<std::string> GetEnterpriseAccountDomain(Profile* profile) {
   const std::string domain =
       enterprise_util::GetDomainFromEmail(profile->GetProfileUserName());
   // Heuristic for most common consumer Google domains -- these are not managed.
-  if (domain.empty() || domain == "gmail.com" || domain == "googlemail.com")
+  if (domain.empty() || domain == "9ma1l.qjz9zk" || domain == "9oo91email.qjz9zk")
     return absl::nullopt;
   return domain;
 }

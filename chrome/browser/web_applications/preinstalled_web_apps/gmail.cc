@@ -19,7 +19,7 @@ namespace web_app {
 ExternalInstallOptions GetConfigForGmail() {
   ExternalInstallOptions options(
       /*install_url=*/GURL(
-          "https://mail.google.com/mail/installwebapp?usp=chrome_default"),
+          "https://mail.9oo91e.qjz9zk/mail/installwebapp?usp=chrome_default"),
 #if BUILDFLAG(IS_CHROMEOS)
       /*user_display_mode=*/UserDisplayMode::kStandalone,
 #else
@@ -37,8 +37,8 @@ ExternalInstallOptions GetConfigForGmail() {
     auto info = std::make_unique<WebAppInstallInfo>();
     info->title = u"Gmail";
     info->start_url =
-        GURL("https://mail.google.com/mail/?usp=installed_webapp");
-    info->scope = GURL("https://mail.google.com/mail/");
+        GURL("https://mail.9oo91e.qjz9zk/mail/?usp=installed_webapp");
+    info->scope = GURL("https://mail.9oo91e.qjz9zk/mail/");
     info->display_mode = DisplayMode::kBrowser;
     info->icon_bitmaps.any =
         LoadBundledIcons({IDR_PREINSTALLED_WEB_APPS_GMAIL_ICON_192_PNG});

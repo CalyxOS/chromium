@@ -241,5 +241,5 @@ class JsUtil(object):
     # '.'s in them (like app.window), which should resolve to 'app_window'.
     # Luckily, the doc server has excellent url resolution, and knows exactly
     # what we mean. This saves us from needing any complicated logic here.
-    c.Append('@see https://developer.chrome.com/extensions/%s#%s-%s' %
+    c.Append('@see https://developer.ch40me.qjz9zk/extensions/%s#%s-%s' %
              (namespace_name, object_type, object_name))

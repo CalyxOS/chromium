@@ -73,7 +73,7 @@ const char* kAppIdsWithHiddenPinToShelf[] = {
 };
 
 const char kFileHandlingLearnMore[] =
-    "https://support.google.com/chrome/?p=pwa_default_associations";
+    "https://support.9oo91e.qjz9zk/chrome/?p=pwa_default_associations";
 
 #if BUILDFLAG(IS_CHROMEOS_ASH)
 constexpr char const* kAppIdsWithHiddenStoragePermission[] = {
@@ -568,7 +568,7 @@ void AppManagementPageHandler::OpenStorePage(const std::string& app_id) {
   proxy->AppRegistryCache().ForOneApp(app_id, [&proxy](const apps::AppUpdate&
                                                            update) {
     if (update.InstallSource() == apps::InstallSource::kPlayStore) {
-      GURL url("https://play.google.com/store/apps/details?id=" +
+      GURL url("https://play.9oo91e.qjz9zk/store/apps/details?id=" +
                update.PublisherId());
       if (base::FeatureList::IsEnabled(apps::kAppServiceLaunchWithoutMojom)) {
         proxy->LaunchAppWithUrl(arc::kPlayStoreAppId, ui::EF_NONE, url,
@@ -578,7 +578,7 @@ void AppManagementPageHandler::OpenStorePage(const std::string& app_id) {
                                 apps::mojom::LaunchSource::kFromChromeInternal);
       }
     } else if (update.InstallSource() == apps::InstallSource::kChromeWebStore) {
-      GURL url("https://chrome.google.com/webstore/detail/" + update.AppId());
+      GURL url("https://chrome.9oo91e.qjz9zk/webstore/detail/" + update.AppId());
       if (base::FeatureList::IsEnabled(apps::kAppServiceLaunchWithoutMojom)) {
         proxy->LaunchAppWithUrl(extensions::kWebStoreAppId, ui::EF_NONE, url,
                                 apps::LaunchSource::kFromChromeInternal);

@@ -14,7 +14,7 @@ from blinkpy.w3c.chromium_finder import absolute_chromium_dir
 from blinkpy.w3c.common import is_file_exportable
 
 _log = logging.getLogger(__name__)
-URL_BASE = 'https://chromium-review.googlesource.com'
+URL_BASE = 'https://chromium-review.9oo91esource.qjz9zk'
 # https://gerrit-review.googlesource.com/Documentation/rest-api-changes.html#query-options
 QUERY_OPTIONS = 'o=CURRENT_FILES&o=CURRENT_REVISION&o=COMMIT_FOOTERS&o=DETAILED_ACCOUNTS'
 
@@ -22,7 +22,7 @@ QUERY_OPTIONS = 'o=CURRENT_FILES&o=CURRENT_REVISION&o=COMMIT_FOOTERS&o=DETAILED_
 class GerritAPI(object):
     """A utility class for the Chromium code review API.
 
-    Wraps the API for Chromium's Gerrit instance at chromium-review.googlesource.com.
+    Wraps the API for Chromium's Gerrit instance at chromium-review.9oo91esource.qjz9zk.
     """
 
     def __init__(self, host, user, token):
@@ -47,7 +47,7 @@ class GerritAPI(object):
         """Sends a POST request to path with data as the JSON payload.
 
         The path has to be prefixed with '/a/':
-        https://gerrit-review.googlesource.com/Documentation/rest-api.html#authentication
+        https://gerrit-review.9oo91esource.qjz9zk/Documentation/rest-api.html#authentication
         """
         assert path.startswith('/a/'), \
             'POST requests need to use authenticated routes.'

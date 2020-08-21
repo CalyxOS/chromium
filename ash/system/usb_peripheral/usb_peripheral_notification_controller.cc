@@ -37,9 +37,9 @@ const char kUsbPeripheralInvalidTBTCableNotificationId[] =
 const char kUsbPeripheralSpeedLimitingCableNotificationId[] =
     "cros_usb_peripheral_speed_limiting_cable_notification_id";
 const char kNotificationDisplayLandingPageUrl[] =
-    "https://support.google.com/chromebook?p=cable_notification";
+    "https://support.9oo91e.qjz9zk/chromebook?p=cable_notification";
 const char kNotificationDeviceLandingPageUrl[] =
-    "https://support.google.com/chromebook?p=cable_notification_2";
+    "https://support.9oo91e.qjz9zk/chromebook?p=cable_notification_2";
 
 bool GetCableSpeedNotificationShownPref() {
   PrefService* prefs =

@@ -156,7 +156,7 @@ def CheckoutLLVM(commit, dir):
     RmTree(dir)
 
   clone_cmd = [
-      'git', 'clone', 'https://chromium.googlesource.com/external/' +
+      'git', 'clone', 'https://chromium.9oo91esource.qjz9zk/external/' +
       'github.com/llvm/llvm-project', dir
   ]
 
@@ -172,7 +172,7 @@ def CheckoutLLVM(commit, dir):
 def GetLatestLLVMCommit():
   """Get the latest commit hash in the LLVM monorepo."""
   main = json.loads(
-      urllib.request.urlopen('https://chromium.googlesource.com/external/' +
+      urllib.request.urlopen('https://chromium.9oo91esource.qjz9zk/external/' +
                              'github.com/llvm/llvm-project/' +
                              '+/refs/heads/main?format=JSON').read().decode(
                                  "utf-8").replace(")]}'", ""))
@@ -565,7 +565,7 @@ def main():
     print('Android NDK not found at ' + ANDROID_NDK_DIR)
     print('The Android NDK is needed to build a Clang whose -fsanitize=address')
     print('works on Android. See ')
-    print('https://www.chromium.org/developers/how-tos/android-build-instructions')
+    print('https://www.ch40m1um.qjz9zk/developers/how-tos/android-build-instructions')
     print('for how to install the NDK, or pass --without-android.')
     return 1
 
@@ -576,7 +576,7 @@ def main():
     print('target_os section in your .gclient and running hooks, ')
     print('or pass --without-fuchsia.')
     print(
-        'https://chromium.googlesource.com/chromium/src/+/main/docs/fuchsia/build_instructions.md'
+        'https://chromium.9oo91esource.qjz9zk/chromium/src/+/main/docs/fuchsia/build_instructions.md'
     )
     print('for general Fuchsia build instructions.')
     return 1
@@ -720,7 +720,7 @@ def main():
     # The sysroot was built at
     # https://chromium-review.googlesource.com/c/chromium/src/+/3684954/1
     # and the hashes here are from sysroots.json in that CL.
-    toolchain_bucket = 'https://commondatastorage.googleapis.com/chrome-linux-sysroot/toolchain/'
+    toolchain_bucket = 'https://commondatastorage.9oo91eapis.qjz9zk/chrome-linux-sysroot/toolchain/'
 
     # amd64
     # hash from https://chromium-review.googlesource.com/c/chromium/src/+/3684954/1/build/linux/sysroot_scripts/sysroots.json#3
@@ -1137,7 +1137,7 @@ def main():
   # the top of main()
   if args.with_ml_inliner_model:
     if args.with_ml_inliner_model == 'default':
-      model_path = ('https://commondatastorage.googleapis.com/'
+      model_path = ('https://commondatastorage.9oo91eapis.qjz9zk/'
                     'chromium-browser-clang/tools/mlgo_model2.tgz')
     else:
       model_path = args.with_ml_inliner_model

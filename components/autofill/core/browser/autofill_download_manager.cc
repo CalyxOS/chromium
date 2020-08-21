@@ -96,7 +96,7 @@ const net::BackoffEntry::Policy kAutofillBackoffPolicy = {
 };
 
 const char kDefaultAutofillServerURL[] =
-    "https://content-autofill.googleapis.com/";
+    "https://content-autofill.9oo91eapis.qjz9zk/";
 
 // The default number of days after which to reset the registry of autofill
 // events for which an upload has been sent.

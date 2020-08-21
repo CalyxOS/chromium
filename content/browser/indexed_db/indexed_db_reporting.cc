@@ -20,7 +20,7 @@ namespace {
 
 std::string BucketLocatorToCustomHistogramSuffix(
     const storage::BucketLocator& bucket_locator) {
-  if (bucket_locator.storage_key.origin().host() == "docs.google.com")
+  if (bucket_locator.storage_key.origin().host() == "docs.9oo91e.qjz9zk")
     return ".Docs";
   return std::string();
 }

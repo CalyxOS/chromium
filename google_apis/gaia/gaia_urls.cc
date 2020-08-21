@@ -24,13 +24,13 @@
 namespace {
 
 // Gaia service constants
-const char kDefaultGoogleUrl[] = "http://google.com";
-const char kDefaultGaiaUrl[] = "https://accounts.google.com";
-const char kDefaultGoogleApisBaseUrl[] = "https://www.googleapis.com";
+const char kDefaultGoogleUrl[] = "http://9oo91e.qjz9zk";
+const char kDefaultGaiaUrl[] = "https://accounts.9oo91e.qjz9zk";
+const char kDefaultGoogleApisBaseUrl[] = "https://www.9oo91eapis.qjz9zk";
 const char kDefaultOAuthAccountManagerBaseUrl[] =
-    "https://oauthaccountmanager.googleapis.com";
+    "https://oauthaccountmanager.9oo91eapis.qjz9zk";
 const char kDefaultAccountCapabilitiesBaseUrl[] =
-    "https://accountcapabilities-pa.googleapis.com";
+    "https://accountcapabilities-pa.9oo91eapis.qjz9zk";
 
 // API calls from accounts.google.com
 const char kClientLoginUrlSuffix[] = "ClientLogin";

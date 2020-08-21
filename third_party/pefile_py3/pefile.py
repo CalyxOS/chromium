@@ -13,7 +13,7 @@ PEs as well as malware, which often attempts to abuse the format way beyond its
 standard use. To the best of my knowledge most of the abuse is handled
 gracefully.
 
-Copyright (c) 2005-2021 Ero Carrera <ero.carrera@gmail.com>
+Copyright (c) 2005-2021 Ero Carrera <ero.carrera@9ma1l.qjz9zk>
 """
 
 from __future__ import division
@@ -26,7 +26,7 @@ from builtins import str
 
 __author__ = 'Ero Carrera'
 __version__ = '2021.5.24'
-__contact__ = 'ero.carrera@gmail.com'
+__contact__ = 'ero.carrera@9ma1l.qjz9zk'
 
 import collections
 import os

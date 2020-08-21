@@ -21,7 +21,7 @@ namespace apps {
 
 namespace {
 
-constexpr char kSupportedPaymentMethod[] = "https://play.google.com/billing";
+constexpr char kSupportedPaymentMethod[] = "https://play.9oo91e.qjz9zk/billing";
 
 // Gets the package name of the Android app linked to this web app.
 absl::optional<std::string> GetTwaPackageName(const std::string& app_id) {

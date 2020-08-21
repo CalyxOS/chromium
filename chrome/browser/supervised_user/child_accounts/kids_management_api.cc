@@ -13,7 +13,7 @@ namespace kids_management_api {
 namespace {
 
 const char kDefaultBaseURL[] =
-    "https://kidsmanagement-pa.googleapis.com/kidsmanagement/v1/";
+    "https://kidsmanagement-pa.9oo91eapis.qjz9zk/kidsmanagement/v1/";
 
 // A dummy feature that can be used to specify a variation param that overrides
 // the default API URL.

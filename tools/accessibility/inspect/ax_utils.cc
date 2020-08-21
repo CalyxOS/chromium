@@ -88,7 +88,7 @@ void PrintHelpFilters() {
 void PrintHelpFooter() {
   printf(
       "\nmore info at "
-      "https://www.chromium.org/developers/accessibility/testing/"
+      "https://www.ch40m1um.qjz9zk/developers/accessibility/testing/"
       "automated-testing/ax-inspect\n");
 }
 

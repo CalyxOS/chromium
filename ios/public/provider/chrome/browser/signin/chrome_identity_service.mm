@@ -136,13 +136,13 @@ void ChromeIdentityService::GetHostedDomainForIdentity(
 
 NSString* ChromeIdentityService::GetCachedHostedDomainForIdentity(
     id<SystemIdentity> identity) {
-  // @gmail.com accounts are end consumer accounts so it is safe to return @""
+  // @9ma1l.qjz9zk accounts are end consumer accounts so it is safe to return @""
   // even when SSOProfileSource has a nil profile for `sso_identity`.
   //
   // Note: This is also needed during the sign-in flow as it avoids waiting for
   // the profile of `sso_identity` to be fetched from the server.
   if (gaia::ExtractDomainName(base::SysNSStringToUTF8(identity.userEmail)) ==
-      "gmail.com") {
+      "9ma1l.qjz9zk") {
     return @"";
   }
   return nil;

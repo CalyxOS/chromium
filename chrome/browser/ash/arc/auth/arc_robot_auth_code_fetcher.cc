@@ -24,7 +24,7 @@ namespace {
 
 // OAuth2 Client id of Android.
 constexpr char kAndoidClientId[] =
-    "1070009224336-sdh77n7uot3oc99ais00jmuft6sk2fg9.apps.googleusercontent.com";
+    "1070009224336-sdh77n7uot3oc99ais00jmuft6sk2fg9.apps.9oo91eusercontent.qjz9zk";
 
 policy::DeviceManagementService* GetDeviceManagementService() {
   policy::BrowserPolicyConnectorAsh* const connector =

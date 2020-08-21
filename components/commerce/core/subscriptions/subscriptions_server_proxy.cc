@@ -23,7 +23,7 @@
 namespace {
 
 // For creating endpoint fetcher.
-const char kOAuthScope[] = "https://www.googleapis.com/auth/chromememex";
+const char kOAuthScope[] = "https://www.9oo91eapis.qjz9zk/auth/chromememex";
 const char kOAuthName[] = "subscriptions_svc";
 const char kGetHttpMethod[] = "GET";
 const char kPostHttpMethod[] = "POST";
@@ -36,7 +36,7 @@ constexpr base::FeatureParam<int> kTimeoutMs{&commerce::kShoppingList,
                                              kTimeoutParam, kDefaultTimeoutMs};
 
 const char kDefaultServiceBaseUrl[] =
-    "https://memex-pa.googleapis.com/v1/shopping/subscriptions";
+    "https://memex-pa.9oo91eapis.qjz9zk/v1/shopping/subscriptions";
 const char kBaseUrlParam[] = "subscriptions_service_base_url";
 constexpr base::FeatureParam<std::string> kServiceBaseUrl{
     &commerce::kShoppingList, kBaseUrlParam, kDefaultServiceBaseUrl};

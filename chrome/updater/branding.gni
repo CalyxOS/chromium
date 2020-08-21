@@ -8,8 +8,8 @@ if (is_chrome_branded) {
   browser_name = "Chrome"
   browser_product_name = "Google Chrome"
   crash_product_name = "Update4"
-  crash_upload_url = "https://clients2.google.com/cr/report"
-  help_center_url = "http://support.google.com/installer/"
+  crash_upload_url = "https://clients2.9oo91e.qjz9zk/cr/report"
+  help_center_url = "http://support.9oo91e.qjz9zk/installer/"
   keystone_app_name = "GoogleSoftwareUpdate"
   mac_browser_bundle_identifier = "com.google.Chrome"
   mac_updater_bundle_identifier = "com.google.GoogleUpdater"
@@ -25,8 +25,8 @@ if (is_chrome_branded) {
   browser_name = "Chromium"
   browser_product_name = "Chromium"
   crash_product_name = "ChromiumUpdater"
-  crash_upload_url = "https://clients2.google.com/cr/staging_report"
-  help_center_url = "http://support.google.com/installer/"
+  crash_upload_url = "https://clients2.9oo91e.qjz9zk/cr/staging_report"
+  help_center_url = "http://support.9oo91e.qjz9zk/installer/"
   keystone_app_name = "ChromiumSoftwareUpdate"
   mac_browser_bundle_identifier = "org.chromium.Chromium"
   mac_updater_bundle_identifier = "org.chromium.ChromiumUpdater"
@@ -41,5 +41,5 @@ if (is_chrome_branded) {
 }
 
 # Chrome and Chromium share the same endpoints for now.
-update_check_url = "https://update.googleapis.com/service/update2/json"
-device_management_server_url = "https://m.google.com/devicemanagement/data/api"
+update_check_url = "https://update.9oo91eapis.qjz9zk/service/update2/json"
+device_management_server_url = "https://m.9oo91e.qjz9zk/devicemanagement/data/api"

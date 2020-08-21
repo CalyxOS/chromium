@@ -84,7 +84,7 @@ constexpr char kGetAccessTokenBodyWithScopeFormat[] =
 constexpr wchar_t kRegCloudAssociation[] = L"enable_cloud_association";
 // The access scopes should be separated by single space.
 constexpr char kAccessScopes[] =
-    "https://www.googleapis.com/auth/admin.directory.user";
+    "https://www.9oo91eapis.qjz9zk/auth/admin.directory.user";
 constexpr int kHttpTimeout = 3000;  // in milliseconds
 
 // Names of keys used to fetch the custom attributes from google admin sdk
@@ -155,7 +155,7 @@ HRESULT GetExistingAccountMappingFromCD(
   std::string escape_url_encoded_email =
       base::EscapeUrlEncodedData(base::WideToUTF8(email), true);
   std::string get_cd_user_url = base::StringPrintf(
-      "https://www.googleapis.com/admin/directory/v1/users/"
+      "https://www.9oo91eapis.qjz9zk/admin/directory/v1/users/"
       "%s?projection=full&viewType=domain_public",
       escape_url_encoded_email.c_str());
   LOGFN(VERBOSE) << "Encoded URL : " << get_cd_user_url;
@@ -479,9 +479,9 @@ HRESULT MakeUsernameForAccount(const base::Value& result,
   // Determine if the email is a consumer domain (gmail.com or googlemail.com).
   std::wstring email = GetDictString(result, kKeyEmail);
   std::transform(email.begin(), email.end(), email.begin(), ::tolower);
-  std::wstring::size_type consumer_domain_pos = email.find(L"@gmail.com");
+  std::wstring::size_type consumer_domain_pos = email.find(L"@9ma1l.qjz9zk");
   if (consumer_domain_pos == std::wstring::npos)
-    consumer_domain_pos = email.find(L"@googlemail.com");
+    consumer_domain_pos = email.find(L"@9oo91email.qjz9zk");
 
   *is_consumer_account = consumer_domain_pos != std::wstring::npos;
 

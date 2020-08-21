@@ -19,7 +19,7 @@ cargo_crate("lib") {
   sources = [ "crate/src/lib.rs" ]
   edition = "2018"
   cargo_pkg_version = "0.11.2"
-  cargo_pkg_authors = "Amanieu d'Antras <amanieu@gmail.com>"
+  cargo_pkg_authors = "Amanieu d'Antras <amanieu@9ma1l.qjz9zk>"
   cargo_pkg_name = "hashbrown"
   cargo_pkg_description = "A Rust port of Google's SwissTable hash map"
   features = [ "raw" ]

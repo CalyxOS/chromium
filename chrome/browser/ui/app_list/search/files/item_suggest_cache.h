@@ -115,7 +115,7 @@ class ItemSuggestCache {
   // The url of the service that fetches descriptions given image pixels.
   static constexpr base::FeatureParam<std::string> kServerUrl{
       &kLauncherItemSuggest, "server_url",
-      "https://appsitemsuggest-pa.googleapis.com/v1/items"};
+      "https://appsitemsuggest-pa.9oo91eapis.qjz9zk/v1/items"};
 
   // Specifies the ItemSuggest backend that should be used to serve our
   // requests.

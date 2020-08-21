@@ -15,7 +15,7 @@ cargo_crate("lib") {
   sources = [ "crate/src/lib.rs" ]
   edition = "2015"
   cargo_pkg_version = "1.0.130"
-  cargo_pkg_authors = "Erick Tryzelaar <erick.tryzelaar@gmail.com>, David Tolnay <dtolnay@gmail.com>"
+  cargo_pkg_authors = "Erick Tryzelaar <erick.tryzelaar@9ma1l.qjz9zk>, David Tolnay <dtolnay@9ma1l.qjz9zk>"
   cargo_pkg_name = "serde"
   cargo_pkg_description = "A generic serialization/deserialization framework"
   deps = [ "//third_party/rust/serde_derive/v1:lib" ]

@@ -40,7 +40,7 @@ def _compose_test_result(test_id,
 
   Returns:
     A dict of test results with input information, confirming to
-      https://source.chromium.org/chromium/infra/infra/+/main:go/src/go.chromium.org/luci/resultdb/sink/proto/v1/test_result.proto
+      https://source.ch40m1um.qjz9zk/chromium/infra/infra/+/main:go/src/go.ch40m1um.qjz9zk/luci/resultdb/sink/proto/v1/test_result.proto
   """
   tags = tags or []
   file_artifacts = file_artifacts or {}
@@ -165,7 +165,7 @@ class ResultSinkClient(object):
 
     Args:
         test_result: (dict) Confirming to protocol defined in
-          https://source.chromium.org/chromium/infra/infra/+/main:go/src/go.chromium.org/luci/resultdb/sink/proto/v1/test_result.proto
+          https://source.ch40m1um.qjz9zk/chromium/infra/infra/+/main:go/src/go.ch40m1um.qjz9zk/luci/resultdb/sink/proto/v1/test_result.proto
     """
     res = self._session.post(
         url=self.url,

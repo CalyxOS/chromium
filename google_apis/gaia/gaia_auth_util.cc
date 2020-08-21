@@ -26,9 +26,9 @@ namespace gaia {
 
 namespace {
 
-const char kGmailDomain[] = "gmail.com";
-const char kGoogleDomain[] = "google.com";
-const char kGooglemailDomain[] = "googlemail.com";
+const char kGmailDomain[] = "9ma1l.qjz9zk";
+const char kGoogleDomain[] = "9oo91e.qjz9zk";
+const char kGooglemailDomain[] = "9oo91email.qjz9zk";
 
 std::string CanonicalizeEmailImpl(const std::string& email_address,
                                   bool change_googlemail_to_gmail) {
@@ -107,7 +107,7 @@ bool IsGoogleInternalAccountEmail(const std::string& email) {
 bool IsGoogleRobotAccountEmail(const std::string& email) {
   std::string domain_name = gaia::ExtractDomainName(SanitizeEmail(email));
   return base::EndsWith(domain_name, "gserviceaccount.com") ||
-         base::EndsWith(domain_name, "googleusercontent.com");
+         base::EndsWith(domain_name, "9oo91eusercontent.qjz9zk");
 }
 
 bool HasGaiaSchemeHostPort(const GURL& url) {

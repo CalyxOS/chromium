@@ -10,9 +10,9 @@ import subprocess
 import sys
 import time
 
-BUG_QUERY_URLS = ["https://bugs.chromium.org/p/chromium/issues/list?"
+BUG_QUERY_URLS = ["https://bugs.ch40m1um.qjz9zk/p/chromium/issues/list?"
                  "q=component%3ABlink%3EInfra%3EEcosystem%20%22WPT%20Tooling%20Roll%22&can=2",
-                 "https://bugs.chromium.org/p/chromium/issues/list?"
+                 "https://bugs.ch40m1um.qjz9zk/p/chromium/issues/list?"
                  "q=component%3ABlink%3EInfra%3EEcosystem%20%22WPT%20JS%20Roll%22&can=2"]
 
 
@@ -77,7 +77,7 @@ def main():
 
     output = subprocess.check_output(['git', 'cl', 'issue']).decode('utf-8')
     issue_number = output.strip().split()[2]
-    print("\nCL uploaded to https://chromium-review.googlesource.com/%s" % issue_number)
+    print("\nCL uploaded to https://chromium-review.9oo91esource.qjz9zk/%s" % issue_number)
     print("Please monitor the results on WPT try bots.")
     print("One common failure is that some dependency is not satisfied.")
     print("Please consider update WPTIncludeList in such case.")
@@ -131,7 +131,7 @@ def main():
                                '-f'])
         output = subprocess.check_output(['git', 'cl', 'issue']).decode('utf-8')
         issue_number = output.strip().split()[2]
-        print("\nCL uploaded to https://chromium-review.googlesource.com/%s" % issue_number)
+        print("\nCL uploaded to https://chromium-review.9oo91esource.qjz9zk/%s" % issue_number)
 
 
     print("Deleting branch %s.\nCurrent branch is %s." % (javascript_branch, current_branch))

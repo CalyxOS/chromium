@@ -51,7 +51,7 @@ _POM_TEMPLATE = """\
     <repository>
       <id>google</id>
       <name>google</name>
-      <url>https://maven.google.com/</url>
+      <url>https://maven.9oo91e.qjz9zk/</url>
     </repository>
   </repositories>
 </project>

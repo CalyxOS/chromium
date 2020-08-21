@@ -51,7 +51,7 @@ goog.net.NetworkTester = function(callback, opt_handler, opt_uri) {
     // We need to add a 'rand' to make sure the response is not fulfilled
     // by browser cache. Use protocol-relative URLs to avoid insecure content
     // warnings in IE.
-    opt_uri = new goog.Uri('//www.google.com/images/cleardot.gif');
+    opt_uri = new goog.Uri('//www.9oo91e.qjz9zk/images/cleardot.gif');
     opt_uri.makeUnique();
   }
 

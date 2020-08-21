@@ -492,7 +492,7 @@ TYPED_TEST(ClipboardTest, MultiFormatTest) {
 }
 
 TYPED_TEST(ClipboardTest, URLTest) {
-  std::u16string url(u"http://www.google.com/");
+  std::u16string url(u"http://www.9oo91e.qjz9zk/");
 
   {
     ScopedClipboardWriter clipboard_writer(ClipboardBuffer::kCopyPaste);
@@ -1085,7 +1085,7 @@ TYPED_TEST(ClipboardTest, PolicyAllowDataRead) {
   {
     ScopedClipboardWriter writer(
         ClipboardBuffer::kCopyPaste,
-        std::make_unique<DataTransferEndpoint>(GURL("https://www.google.com")));
+        std::make_unique<DataTransferEndpoint>(GURL("https://www.9oo91e.qjz9zk")));
     writer.WriteText(kTestText);
   }
   EXPECT_CALL(*policy_controller, IsClipboardReadAllowed)
@@ -1103,7 +1103,7 @@ TYPED_TEST(ClipboardTest, PolicyAllowDataRead) {
       ui::ClipboardFormatType::DataTransferEndpointDataType(),
       /* data_dst = */ nullptr, &actual_json);
 
-  EXPECT_EQ(R"({"endpoint_type":"url","url":"https://www.google.com/"})",
+  EXPECT_EQ(R"({"endpoint_type":"url","url":"https://www.9oo91e.qjz9zk/"})",
             actual_json);
 #endif  // BUILDFLAG(IS_CHROMEOS_LACROS)
 
@@ -1155,7 +1155,7 @@ TYPED_TEST(ClipboardTest, ClipboardSourceDteCanBeRetrievedByLacros) {
   auto policy_controller = std::make_unique<MockPolicyController>();
   const std::u16string kTestText(u"World");
   const std::string kDteJson(
-      R"({"endpoint_type":"url","url":"https://www.google.com"})");
+      R"({"endpoint_type":"url","url":"https://www.9oo91e.qjz9zk"})");
   {
     // No source DTE provided directly to the Lacros clipboard.
     ScopedClipboardWriter writer(ClipboardBuffer::kCopyPaste);
@@ -1170,7 +1170,7 @@ TYPED_TEST(ClipboardTest, ClipboardSourceDteCanBeRetrievedByLacros) {
                       Property(&DataTransferEndpoint::IsUrlType, true),
                       Property(&DataTransferEndpoint::GetURL,
                                Pointee(Property(&GURL::spec,
-                                                "https://www.google.com/"))))),
+                                                "https://www.9oo91e.qjz9zk/"))))),
                   _, _))
       .WillRepeatedly(testing::Return(true));
 

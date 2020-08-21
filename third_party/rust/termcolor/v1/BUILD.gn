@@ -19,7 +19,7 @@ cargo_crate("lib") {
   sources = [ "crate/src/lib.rs" ]
   edition = "2018"
   cargo_pkg_version = "1.1.2"
-  cargo_pkg_authors = "Andrew Gallant <jamslam@gmail.com>"
+  cargo_pkg_authors = "Andrew Gallant <jamslam@9ma1l.qjz9zk>"
   cargo_pkg_name = "termcolor"
   cargo_pkg_description =
       "A simple cross platform library for writing colored text to a terminal."

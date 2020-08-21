@@ -58,7 +58,7 @@ signin::ScopeSet GetAccessTokenScopes() {
 }  // namespace
 
 const char kAuthTokenExchangeEndPoint[] =
-    "https://www.googleapis.com/oauth2/v4/ExchangeToken";
+    "https://www.9oo91eapis.qjz9zk/oauth2/v4/ExchangeToken";
 
 ArcBackgroundAuthCodeFetcher::ArcBackgroundAuthCodeFetcher(
     scoped_refptr<network::SharedURLLoaderFactory> url_loader_factory,

@@ -19,7 +19,7 @@ cargo_crate("lib") {
   sources = [ "crate/src/lib.rs" ]
   edition = "2015"
   cargo_pkg_version = "0.3.9"
-  cargo_pkg_authors = "Peter Atashian <retep998@gmail.com>"
+  cargo_pkg_authors = "Peter Atashian <retep998@9ma1l.qjz9zk>"
   cargo_pkg_name = "winapi"
   cargo_pkg_description = "Raw FFI bindings for all of Windows API."
   features = [

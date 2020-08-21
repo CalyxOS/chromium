@@ -19,7 +19,7 @@ cargo_crate("lib") {
   sources = [ "crate/src/lib.rs" ]
   edition = "2015"
   cargo_pkg_version = "0.2.14"
-  cargo_pkg_authors = "softprops <d.tangren@gmail.com>"
+  cargo_pkg_authors = "softprops <d.tangren@9ma1l.qjz9zk>"
   cargo_pkg_name = "atty"
   cargo_pkg_description = "A simple interface for querying atty"
   deps = []

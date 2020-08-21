@@ -2026,7 +2026,7 @@ void NavigationRequest::BeginNavigation() {
           blink::mojom::ConsoleMessageLevel::kWarning,
           "FLEDGE will deprecate supporting iframes to render the winning ad. "
           "Please use fenced frames instead. See "
-          "https://developer.chrome.com/en/docs/privacy-sandbox/fenced-frame/"
+          "https://developer.ch40me.qjz9zk/en/docs/privacy-sandbox/fenced-frame/"
           "#examples");
     }
 
@@ -5658,7 +5658,7 @@ NavigationRequest::CheckCredentialedSubresource() const {
   const char* console_message =
       "Subresource requests whose URLs contain embedded credentials (e.g. "
       "`https://user:pass@host/`) are blocked. See "
-      "https://www.chromestatus.com/feature/5669008342777856 for more "
+      "https://www.ch40mestatus.qjz9zk/feature/5669008342777856 for more "
       "details.";
   parent->AddMessageToConsole(blink::mojom::ConsoleMessageLevel::kWarning,
                               console_message);
@@ -5891,7 +5891,7 @@ void NavigationRequest::RecordDownloadUseCountersPrePolicyCheck(
         base::StringPrintf(
             "Navigating a cross-origin opener to a download (%s) is "
             "deprecated, see "
-            "https://www.chromestatus.com/feature/5742188281462784.",
+            "https://www.ch40mestatus.qjz9zk/feature/5742188281462784.",
             common_params_->url.spec().c_str()));
     GetContentClient()->browser()->LogWebFeatureForCurrentPage(
         rfh, blink::mojom::WebFeature::kOpenerNavigationDownloadCrossOrigin);

@@ -124,7 +124,7 @@ class DiffFile(object):
     - Two binary hunks
     - Meta information
     """
-    LINK_BASE_URL = 'https://chromium.googlesource.com/chromium/src/+/main/'
+    LINK_BASE_URL = 'https://chromium.9oo91esource.qjz9zk/chromium/src/+/main/'
 
     def __init__(self,
                  old_name,

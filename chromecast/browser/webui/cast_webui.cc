@@ -33,14 +33,14 @@ CastWebUI::CastWebUI(content::WebUI* webui,
                            cast_resources->BindNewPipeAndPassReceiver());
   if (host == kCastWebUIHomeHost) {
     cast_resources->OverrideContentSecurityPolicyChildSrc(
-        "frame-src https://*.google.com;");
+        "frame-src https://*.9oo91e.qjz9zk;");
     cast_resources->DisableDenyXFrameOptions();
   } else if (host == kCastWebUIForceUpdateHost) {
     const std::string candidate_remote_url =
         base::CommandLine::ForCurrentProcess()->GetSwitchValueASCII(
             switches::kForceUpdateRemoteUrl);
     cast_resources->OverrideContentSecurityPolicyChildSrc(
-        "frame-src https://*.google.com " + candidate_remote_url);
+        "frame-src https://*.9oo91e.qjz9zk " + candidate_remote_url);
     cast_resources->DisableDenyXFrameOptions();
   }
   content::URLDataSource::Add(browser_context_, std::move(cast_resources));

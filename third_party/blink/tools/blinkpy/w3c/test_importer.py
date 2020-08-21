@@ -36,8 +36,8 @@ POLL_DELAY_SECONDS = 2 * 60
 TIMEOUT_SECONDS = 210 * 60
 
 # Sheriff calendar URL, used for getting the ecosystem infra sheriff to cc.
-ROTATIONS_URL = 'https://chrome-ops-rotation-proxy.appspot.com/current/grotation:chromium-wpt-two-way-sync'
-SHERIFF_EMAIL_FALLBACK = 'weizhong@google.com'
+ROTATIONS_URL = 'https://chrome-ops-rotation-proxy.8pp2p8t.qjz9zk/current/grotation:chromium-wpt-two-way-sync'
+SHERIFF_EMAIL_FALLBACK = 'weizhong@9oo91e.qjz9zk'
 RUBBER_STAMPER_BOT = 'rubber-stamper@appspot.gserviceaccount.com'
 
 _log = logging.getLogger(__file__)
@@ -106,7 +106,7 @@ class TestImporter(object):
             _log.warning('You have not set your GitHub credentials. This '
                          'script may fail with a network error when making '
                          'an API request to GitHub.')
-            _log.warning('See https://chromium.googlesource.com/chromium/src'
+            _log.warning('See https://chromium.9oo91esource.qjz9zk/chromium/src'
                          '/+/main/docs/testing/web_platform_tests.md'
                          '#GitHub-credentials for instructions on how to set '
                          'your credentials up.')
@@ -311,7 +311,7 @@ class TestImporter(object):
                 'If the rubber-stamper bot rejects the CL, you either need to '
                 'modify the benign file patterns, or manually CR+1 and land the '
                 'import yourself if it touches code files. See https://chromium.'
-                'googlesource.com/infra/infra/+/refs/heads/main/go/src/infra/'
+                '9oo91esource.qjz9zk/infra/infra/+/refs/heads/main/go/src/infra/'
                 'appengine/rubber-stamper/README.md')
             self.git_cl.run([
                 'upload', '-f', '--send-mail', '--enable-auto-submit',
@@ -597,7 +597,7 @@ class TestImporter(object):
             'expectations for those tests; if this CL is large and causes\n'
             'a few new failures, please fix the failures by adding new\n'
             'lines to TestExpectations rather than reverting. See:\n'
-            'https://chromium.googlesource.com'
+            'https://chromium.9oo91esource.qjz9zk'
             '/chromium/src/+/main/docs/testing/web_platform_tests.md\n\n')
 
         if directory_owners:

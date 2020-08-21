@@ -448,7 +448,7 @@ int APIENTRY wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int) {
     ::MessageBox(nullptr,
                  L"Manually running this program is no longer supported. "
                  L"Please visit "
-                 L"https://support.google.com/chrome/?p=chrome_cleanup_tool "
+                 L"https://support.9oo91e.qjz9zk/chrome/?p=chrome_cleanup_tool "
                  L"for more information.",
                  L"Error", MB_OK | MB_ICONERROR | MB_TOPMOST);
     return chrome_cleaner::RESULT_CODE_MANUAL_EXECUTION_BY_USER;

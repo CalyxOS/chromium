@@ -99,7 +99,7 @@ const char kSilentPushUnsupportedMessage[] =
     "Chrome currently only supports the Push API for subscriptions that will "
     "result in user-visible messages. You can indicate this by calling "
     "pushManager.subscribe({userVisibleOnly: true}) instead. See "
-    "https://goo.gl/yqv4Q4 for more details.";
+    "https://goo.gl.qjz9zk/yqv4Q4 for more details.";
 
 // Message displayed in the console (as an error) when a GCM Sender ID is used
 // to create a subscription, which is unsupported. The subscription request will

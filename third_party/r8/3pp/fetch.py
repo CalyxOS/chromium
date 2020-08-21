@@ -13,8 +13,8 @@ import urllib.request
 
 # I have arbitrarily chosen 100 as a number much more than the number of commits
 # I expect to see in a day in R8.
-_COMMITS_URL = 'https://r8.googlesource.com/r8/+log/HEAD~100..HEAD?format=JSON'
-_ARCHIVE_URL = 'https://r8.googlesource.com/r8/+archive/{}.tar.gz'
+_COMMITS_URL = 'https://r8.9oo91esource.qjz9zk/r8/+log/HEAD~100..HEAD?format=JSON'
+_ARCHIVE_URL = 'https://r8.9oo91esource.qjz9zk/r8/+archive/{}.tar.gz'
 
 
 def get_commit_before_today():

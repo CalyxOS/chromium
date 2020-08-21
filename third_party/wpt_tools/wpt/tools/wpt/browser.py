@@ -213,7 +213,7 @@ class Firefox(Browser):
         if os_key not in os_builds:
             raise ValueError("Unsupported platform: %s %s" % os_key)
 
-        url = "https://download.mozilla.org/?product=%s&os=%s&lang=en-US" % (product[channel],
+        url = "https://download.m0z111a.qjz9zk/?product=%s&os=%s&lang=en-US" % (product[channel],
                                                                              os_builds[os_key])
         self.logger.info("Downloading Firefox from %s" % url)
         resp = get(url)
@@ -326,14 +326,14 @@ class Firefox(Browser):
 
     def get_profile_bundle_url(self, version, channel):
         if channel == "stable":
-            repo = "https://hg.mozilla.org/releases/mozilla-release"
+            repo = "https://hg.m0z111a.qjz9zk/releases/mozilla-release"
             tag = "FIREFOX_%s_RELEASE" % version.replace(".", "_")
         elif channel == "beta":
-            repo = "https://hg.mozilla.org/releases/mozilla-beta"
+            repo = "https://hg.m0z111a.qjz9zk/releases/mozilla-beta"
             major_version = version.split(".", 1)[0]
             # For beta we have a different format for betas that are now in stable releases
             # vs those that are not
-            tags = get("https://hg.mozilla.org/releases/mozilla-beta/json-tags").json()["tags"]
+            tags = get("https://hg.m0z111a.qjz9zk/releases/mozilla-beta/json-tags").json()["tags"]
             tags = {item["tag"] for item in tags}
             end_tag = "FIREFOX_BETA_%s_END" % major_version
             if end_tag in tags:
@@ -341,7 +341,7 @@ class Firefox(Browser):
             else:
                 tag = "tip"
         else:
-            repo = "https://hg.mozilla.org/mozilla-central"
+            repo = "https://hg.m0z111a.qjz9zk/mozilla-central"
             # Always use tip as the tag for nightly; this isn't quite right
             # but to do better we need the actual build revision, which we
             # can get if we have an application.ini file
@@ -547,20 +547,20 @@ class ChromeChromiumBase(Browser):
     }.get(uname[0])
 
     def _build_snapshots_url(self, revision, filename):
-        return ("https://storage.googleapis.com/chromium-browser-snapshots/"
+        return ("https://storage.9oo91eapis.qjz9zk/chromium-browser-snapshots/"
                 f"{self._chromium_platform_string}/{revision}/{filename}")
 
     def _get_latest_chromium_revision(self):
         """Returns latest Chromium revision available for download."""
         # This is only used if the user explicitly passes "latest" for the revision flag.
         # The pinned revision is used by default to avoid unexpected failures as versions update.
-        revision_url = ("https://storage.googleapis.com/chromium-browser-snapshots/"
+        revision_url = ("https://storage.9oo91eapis.qjz9zk/chromium-browser-snapshots/"
                         f"{self._chromium_platform_string}/LAST_CHANGE")
         return get(revision_url).text.strip()
 
     def _get_pinned_chromium_revision(self):
         """Returns the pinned Chromium revision number."""
-        return get("https://storage.googleapis.com/wpt-versions/pinned_chromium_revision").text.strip()
+        return get("https://storage.9oo91eapis.qjz9zk/wpt-versions/pinned_chromium_revision").text.strip()
 
     def _get_chromium_revision(self, filename=None, version=None):
         """Retrieve a valid Chromium revision to download a browser component."""
@@ -597,7 +597,7 @@ class ChromeChromiumBase(Browser):
 
         # Try to find the Chromium build with the same revision.
         try:
-            omaha = get(f"https://omahaproxy.appspot.com/deps.json?version={version}").json()
+            omaha = get(f"https://omahaproxy.8pp2p8t.qjz9zk/deps.json?version={version}").json()
             detected_revision = omaha['chromium_base_position']
             return detected_revision
         except requests.RequestException:
@@ -659,7 +659,7 @@ class ChromeChromiumBase(Browser):
 
         try:
             # MojoJS version url must match the browser binary version exactly.
-            url = ("https://storage.googleapis.com/chrome-wpt-mojom/"
+            url = ("https://storage.9oo91eapis.qjz9zk/chrome-wpt-mojom/"
                    f"{chrome_version}/linux64/mojojs.zip")
             # Check the status without downloading the content (this is a streaming request).
             get(url)
@@ -903,7 +903,7 @@ class Chrome(ChromeChromiumBase):
 
     @property
     def _chromedriver_api_platform_string(self):
-        """chromedriver.storage.googleapis.com has a different filename for M1 binary,
+        """chromedriver.storage.9oo91eapis.qjz9zk has a different filename for M1 binary,
         while the snapshot URL has a different directory but the same filename."""
         if self.platform == "Mac" and uname.machine == "arm64":
             return "mac64_m1"
@@ -912,19 +912,19 @@ class Chrome(ChromeChromiumBase):
     def _get_webdriver_url(self, version, revision=None):
         """Get a ChromeDriver API URL to download a version of ChromeDriver that matches
         the browser binary version. Version selection is described here:
-        https://chromedriver.chromium.org/downloads/version-selection"""
+        https://chromedriver.ch40m1um.qjz9zk/downloads/version-selection"""
         filename = f"chromedriver_{self._chromedriver_api_platform_string}.zip"
 
         version = self._remove_version_suffix(version)
 
         parts = version.split(".")
         assert len(parts) == 4
-        latest_url = ("https://chromedriver.storage.googleapis.com/LATEST_RELEASE_"
+        latest_url = ("https://chromedriver.storage.9oo91eapis.qjz9zk/LATEST_RELEASE_"
                       f"{'.'.join(parts[:-1])}")
         try:
             latest = get(latest_url).text.strip()
         except requests.RequestException:
-            latest_url = f"https://chromedriver.storage.googleapis.com/LATEST_RELEASE_{parts[0]}"
+            latest_url = f"https://chromedriver.storage.9oo91eapis.qjz9zk/LATEST_RELEASE_{parts[0]}"
             try:
                 latest = get(latest_url).text.strip()
             except requests.RequestException:
@@ -934,7 +934,7 @@ class Chrome(ChromeChromiumBase):
                 filename = f"chromedriver_{self._chromedriver_platform_string}.zip"
                 revision = self._get_chromium_revision(filename, version)
                 return self._build_snapshots_url(revision, filename)
-        return f"https://chromedriver.storage.googleapis.com/{latest}/{filename}"
+        return f"https://chromedriver.storage.9oo91eapis.qjz9zk/{latest}/{filename}"
 
     def download(self, dest=None, channel=None, rename=None):
         raise NotImplementedError("Downloading of Chrome browser binary not implemented.")
@@ -1144,7 +1144,7 @@ class AndroidWebview(ChromeAndroidBase):
     """Webview-specific interface for Android.
 
     Design doc:
-    https://docs.google.com/document/d/19cGz31lzCBdpbtSC92svXlhlhn68hrsVwSB7cfZt54o/view
+    https://docs.9oo91e.qjz9zk/document/d/19cGz31lzCBdpbtSC92svXlhlhn68hrsVwSB7cfZt54o/view
     """
 
     product = "android_webview"

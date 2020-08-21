@@ -35,7 +35,7 @@ using ::ash::UserContext;
 namespace {
 
 const char kInSessionAuthHelpPageUrl[] =
-    "https://support.google.com/chromebook?p=WebAuthn";
+    "https://support.9oo91e.qjz9zk/chromebook?p=WebAuthn";
 
 InSessionAuthDialogClient* g_auth_dialog_client_instance = nullptr;
 

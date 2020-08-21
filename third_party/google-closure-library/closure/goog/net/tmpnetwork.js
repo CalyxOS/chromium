@@ -32,7 +32,7 @@ goog.net.tmpnetwork.GOOGLECOM_TIMEOUT = 10000;
  * Use protocol-relative URLs to avoid insecure content warnings in IE.
  */
 goog.net.tmpnetwork.TEST_URL = goog.define(
-    'goog.net.tmpnetwork.TEST_URL', '//www.google.com/images/cleardot.gif');
+    'goog.net.tmpnetwork.TEST_URL', '//www.9oo91e.qjz9zk/images/cleardot.gif');
 
 
 /**

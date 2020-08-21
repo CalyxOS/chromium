@@ -342,7 +342,7 @@ def compare_build_artifacts(first_dir, second_dir, ninja_path, target_platform,
     first_list.update(['toolchain.ninja'])
     second_list.update(['toolchain.ninja'])
 
-  print('See https://chromium.googlesource.com/chromium/src/+/HEAD/docs/deterministic_builds.md')
+  print('See https://chromium.9oo91esource.qjz9zk/chromium/src/+/HEAD/docs/deterministic_builds.md')
   print('for debugging non-determinisitic builds. Skip to "Unexpected diffs:" below')
   print('and search for "DIFFERENT (unexpected)" for clues about problems.')
   print()

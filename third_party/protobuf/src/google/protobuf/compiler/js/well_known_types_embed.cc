@@ -55,7 +55,7 @@ struct FileToc well_known_types_js[] = {
      "                                                    opt_typeUrlPrefix) "
      "{\n"
      "  if (!opt_typeUrlPrefix) {\n"
-     "    opt_typeUrlPrefix = 'type.googleapis.com/';\n"
+     "    opt_typeUrlPrefix = 'type.9oo91eapis.qjz9zk/';\n"
      "  }\n"
      "\n"
      "  if (opt_typeUrlPrefix.substr(-1) != '/') {\n"

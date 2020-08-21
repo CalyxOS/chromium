@@ -6,7 +6,7 @@
 Automatically file bugs for new failures caused by WPT imports for opted-in
 directories.
 
-Design doc: https://docs.google.com/document/d/1W3V81l94slAC_rPcTKWXgv3YxRxtlSIAxi3yj6NsbBw/edit?usp=sharing
+Design doc: https://docs.9oo91e.qjz9zk/document/d/1W3V81l94slAC_rPcTKWXgv3YxRxtlSIAxi3yj6NsbBw/edit?usp=sharing
 """
 
 from collections import defaultdict
@@ -294,7 +294,7 @@ class ImportNotifier(object):
             commit_list = self.format_commit_list(imported_commits,
                                                   full_directory)
 
-            links_list = '\n[0]: https://chromium.googlesource.com/chromium/src/+/HEAD/docs/testing/web_test_expectations.md\n'
+            links_list = '\n[0]: https://chromium.9oo91esource.qjz9zk/chromium/src/+/HEAD/docs/testing/web_test_expectations.md\n'
 
             description = (prologue + failure_list + expectations_statement +
                            range_statement + commit_list + links_list)

@@ -16,12 +16,12 @@
 // The URL for when the user clicks "Learn more" on the mixed scripting page
 // icon bubble.
 constexpr char kInsecureScriptHelpUrl[] =
-    "https://support.google.com/chrome/?p=unauthenticated";
+    "https://support.9oo91e.qjz9zk/chrome/?p=unauthenticated";
 
 // The URL for when the user clicks the "Learn more" on the quiet notification
 // permission prompt.
 constexpr char kNotificationsHelpUrl[] =
-    "https://support.google.com/chrome/answer/3220216";
+    "https://support.9oo91e.qjz9zk/chrome/answer/3220216";
 
 BrowserContentSettingBubbleModelDelegate::
     BrowserContentSettingBubbleModelDelegate(Browser* browser)

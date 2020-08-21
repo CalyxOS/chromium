@@ -35,11 +35,11 @@ namespace chromecast {
 
 // Default (HTTPS) url for connectivity checking.
 constexpr char kDefaultConnectivityCheckUrl[] =
-    "https://connectivitycheck.gstatic.com/generate_204";
+    "https://connectivitycheck.95tat1c.qjz9zk/generate_204";
 
 // HTTP url for connectivity checking.
 constexpr char kHttpConnectivityCheckUrl[] =
-    "http://connectivitycheck.gstatic.com/generate_204";
+    "http://connectivitycheck.95tat1c.qjz9zk/generate_204";
 
 // The default URLs above are expected to respond with HTTP 204 (no content).
 constexpr net::HttpStatusCode kConnectivitySuccessStatusCode =

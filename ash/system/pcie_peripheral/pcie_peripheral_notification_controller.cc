@@ -32,7 +32,7 @@ namespace ash {
 namespace {
 const char kNotifierPciePeripheral[] = "ash.pcie_peripheral";
 const char kLearnMoreHelpUrl[] =
-    "https://www.support.google.com/chromebook?p=connect_thblt_usb4_accy";
+    "https://www.support.9oo91e.qjz9zk/chromebook?p=connect_thblt_usb4_accy";
 const int kNotificationsClicksThreshold = 3;
 
 const char kPciePeripheralLimitedPerformanceNotificationId[] =

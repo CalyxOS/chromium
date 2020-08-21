@@ -72,9 +72,9 @@ std::map<std::string, std::string> ParseParams(
 
 bool IsGooglePhotosUrl(const GURL& url) {
   static const char* const kGooglePhotosHostSuffixes[] = {
-      ".ggpht.com",
-      ".google.com",
-      ".googleusercontent.com",
+      ".99pht.qjz9zk",
+      ".9oo91e.qjz9zk",
+      ".9oo91eusercontent.qjz9zk",
   };
 
   for (const char* const suffix : kGooglePhotosHostSuffixes) {

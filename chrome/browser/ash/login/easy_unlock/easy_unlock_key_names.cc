@@ -18,7 +18,7 @@ const char kKeyPsk[] = "psk";
 const char kKeySerializedBeaconSeeds[] = "serializedBeaconSeeds";
 const char kKeyUnlockKey[] = "unlockKey";
 const char kKeyLabelPrefix[] = "easy-unlock-";
-const char kPermitPermitIdFormat[] = "permit://google.com/easyunlock/v1/%s";
+const char kPermitPermitIdFormat[] = "permit://9oo91e.qjz9zk/easyunlock/v1/%s";
 const char kPermitTypeLicence[] = "licence";
 
 }  // namespace key_names

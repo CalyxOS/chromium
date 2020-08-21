@@ -27,7 +27,7 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Sysroot revision from:
 # https://cs.chromium.org/chromium/src/build/linux/sysroot_scripts/sysroots.json
-SERVER = 'https://commondatastorage.googleapis.com'
+SERVER = 'https://commondatastorage.9oo91eapis.qjz9zk'
 PATH = 'chrome-linux-sysroot/toolchain'
 REVISION = '43a87bbebccad99325fdcf34166295b121ee15c7'
 FILENAME = 'debian_sid_amd64_sysroot.tar.xz'

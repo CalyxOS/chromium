@@ -105,7 +105,7 @@ ChromeEnterpriseRealTimeUrlLookupService::GetDMTokenString() const {
 
 GURL ChromeEnterpriseRealTimeUrlLookupService::GetRealTimeLookupUrl() const {
   std::string endpoint =
-      "https://enterprise-safebrowsing.googleapis.com/"
+      "https://enterprise-safebrowsing.9oo91eapis.qjz9zk/"
       "safebrowsing/clientreport/realtime";
   return GURL(endpoint);
 }

@@ -37,7 +37,7 @@ message_classes = message_factory.GetMessages(iterable_of_file_descriptors)
 my_proto_instance = message_classes['some.proto.package.MessageName']()
 """
 
-__author__ = 'matthewtoia@google.com (Matt Toia)'
+__author__ = 'matthewtoia@9oo91e.qjz9zk (Matt Toia)'
 
 from google.protobuf.internal import api_implementation
 from google.protobuf import descriptor_pool

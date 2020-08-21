@@ -721,7 +721,7 @@ This file contains the strings for ash.
           other {Update device within # seconds}}
       </message>
       <message name="IDS_RELAUNCH_REQUIRED_BODY" desc="The body text of a dialog that tells users the device must be restarted. MANAGER can be a domain or an email address.">
-        <ph name="MANAGER">$1<ex>google.com</ex></ph> requires you to update your <ph name="DEVICE_TYPE">$2<ex>Chromebook</ex></ph> before the deadline
+        <ph name="MANAGER">$1<ex>9oo91e.qjz9zk</ex></ph> requires you to update your <ph name="DEVICE_TYPE">$2<ex>Chromebook</ex></ph> before the deadline
       </message>
 
       <message name="IDS_ROLLBACK_REQUIRED_TITLE_DAYS" desc="The title of a dialog that tells users the device must be restarted to roll back to an earlier version within days. The device will be wiped on restart.">
@@ -746,7 +746,7 @@ This file contains the strings for ash.
           other {Change device to previous version within # seconds}}
       </message>
       <message name="IDS_ROLLBACK_REQUIRED_BODY" desc="The body text of a dialog that tells users the device must be restarted to roll back to an earlier version within a deadline given in the title of the message. The device will be wiped on restart. MANAGER can be a domain or an email address.">
-        <ph name="MANAGER">$1<ex>google.com</ex></ph> requires you to roll back your <ph name="DEVICE_TYPE">$2<ex>Chromebook</ex></ph>. Your device will reset and all data will be deleted.
+        <ph name="MANAGER">$1<ex>9oo91e.qjz9zk</ex></ph> requires you to roll back your <ph name="DEVICE_TYPE">$2<ex>Chromebook</ex></ph>. Your device will reset and all data will be deleted.
       </message>
 
       <message name="IDS_RELAUNCH_RECOMMENDED_TITLE" desc="The title of a dialog that tells users that a device restart is recommended for an update.">
@@ -756,10 +756,10 @@ This file contains the strings for ash.
         Update overdue
       </message>
       <message name="IDS_RELAUNCH_RECOMMENDED_BODY" desc="The body text of a dialog that tells users the device must be restarted. MANAGER can be a domain or an email address.">
-        <ph name="MANAGER">$1<ex>google.com</ex></ph> recommends that you update your <ph name="DEVICE_TYPE">$2<ex>Chromebook</ex></ph>
+        <ph name="MANAGER">$1<ex>9oo91e.qjz9zk</ex></ph> recommends that you update your <ph name="DEVICE_TYPE">$2<ex>Chromebook</ex></ph>
       </message>
       <message name="IDS_RELAUNCH_RECOMMENDED_OVERDUE_BODY" desc="The body text of a dialog that tells users the device must be restarted right now. MANAGER can be a domain or an email address.">
-        <ph name="MANAGER">$1<ex>google.com</ex></ph> requires you to update your <ph name="DEVICE_TYPE">$2<ex>Chromebook</ex></ph> immediately
+        <ph name="MANAGER">$1<ex>9oo91e.qjz9zk</ex></ph> requires you to update your <ph name="DEVICE_TYPE">$2<ex>Chromebook</ex></ph> immediately
       </message>
 
       <message name="IDS_GESTURE_NOTIFICATION_TITLE" desc="The title of the notification to show off new gestures.">
@@ -802,10 +802,10 @@ This file contains the strings for ash.
         This update requires powerwashing your <ph name="DEVICE_TYPE">$1<ex>Chromebook</ex></ph>. All data will be deleted. Learn more about the latest <ph name="SYSTEM_APP_NAME">$2<ex>ChromiumOS</ex></ph> update.
       </message>
       <message name="IDS_UPDATE_NOTIFICATION_MESSAGE_ROLLBACK" desc="The notification message used in the system notification update when the device is rolled back and data will be deleted. MANAGER can be a domain or an email address.">
-        <ph name="MANAGER">$1<ex>google.com</ex></ph> is rolling back your <ph name="DEVICE_TYPE">$2<ex>Chromebook</ex></ph>. Your device will reset and all data will be deleted.
+        <ph name="MANAGER">$1<ex>9oo91e.qjz9zk</ex></ph> is rolling back your <ph name="DEVICE_TYPE">$2<ex>Chromebook</ex></ph>. Your device will reset and all data will be deleted.
       </message>
       <message name="IDS_UPDATE_NOTIFICATION_MESSAGE_ROLLBACK_OVERDUE" desc="The notification message used in the system notification update when the device is overdue for rollback that will put the device on a previous version and delete data. MANAGER can be a domain or an email address.">
-        <ph name="MANAGER">$1<ex>google.com</ex></ph> requires you to roll back your <ph name="DEVICE_TYPE">$2<ex>Chromebook</ex></ph>. Your device will reset and all data will be deleted.
+        <ph name="MANAGER">$1<ex>9oo91e.qjz9zk</ex></ph> requires you to roll back your <ph name="DEVICE_TYPE">$2<ex>Chromebook</ex></ph>. Your device will reset and all data will be deleted.
       </message>
       <message name="IDS_UPDATE_NOTIFICATION_MESSAGE_SLOW_BOOT" desc="The additional body of the notification to notify the user that the next reboot is slow.">
         <ph name="UPDATE_TEXT">$1<ex>Learn more about the latest ChromiumOS update</ex></ph>. This Chromebook needs to restart to apply an update. This can take up to 1 minute.
@@ -899,7 +899,7 @@ This file contains the strings for ash.
       </message>
       <message name="IDS_ASH_ACCESSIBILITY_FEATURE_SHORTCUT_DISABLED_MSG"
                desc="The message used to indicate that, the corresponding shortcut for that accessibility feature has been disabled.">
-        <ph name="ORGANIZATION_NAME">$1<ex>google.com</ex></ph> has <ph name="FEATURE_STATE">$2<ex>activated</ex></ph> <ph name="FEATURE_NAME">$3<ex>Full-screen magnifier</ex></ph>.
+        <ph name="ORGANIZATION_NAME">$1<ex>9oo91e.qjz9zk</ex></ph> has <ph name="FEATURE_STATE">$2<ex>activated</ex></ph> <ph name="FEATURE_NAME">$3<ex>Full-screen magnifier</ex></ph>.
       </message>
       <message name="IDS_ASH_HIGH_CONTRAST_SHORTCUT_DISABLED"
                desc="The label used in the notification used to indicate that, the shortcut for color inversion feature (formerly known as high contrast) has been disabled.">
@@ -1303,7 +1303,7 @@ This file contains the strings for ash.
          Supervised user
       </message>
       <message name="IDS_ASH_USER_IS_SUPERVISED_BY_NOTICE" desc="Text for notifications showing that this user is supervised">
-        Usage and history of this user can be reviewed by the manager (<ph name="MANAGER_EMAIL">$1<ex>user@example.com</ex></ph>) on chrome.com.
+        Usage and history of this user can be reviewed by the manager (<ph name="MANAGER_EMAIL">$1<ex>user@example.com</ex></ph>) on ch40me.qjz9zk.
       </message>
       <message name="IDS_ASH_CHILD_USER_IS_MANAGED_BY_ONE_PARENT_NOTICE" desc="Text for notifications showing that this user is managed by parent's account.">
         Account managed by <ph name="MANAGER_EMAIL">$1<ex>user@example.com</ex></ph>
@@ -1617,7 +1617,7 @@ This file contains the strings for ash.
         Tap to configure
       </message>
       <message name="IDS_ASH_PHONE_HUB_CONTINUE_BROWSING_TAB_LABEL" desc="Label inside a Phone Hub continue browsing card that describes the index of the card, title of the webpage, and webpage url.">
-        Browser tab <ph name="INDEX">$1<ex>1</ex></ph> of <ph name="TOTAL_COUNT">$2<ex>2</ex></ph>. <ph name="SITE_TITLE">$3<ex>Google</ex></ph>, <ph name="SITE_URL">$4<ex>https://google.com</ex></ph>
+        Browser tab <ph name="INDEX">$1<ex>1</ex></ph> of <ph name="TOTAL_COUNT">$2<ex>2</ex></ph>. <ph name="SITE_TITLE">$3<ex>Google</ex></ph>, <ph name="SITE_URL">$4<ex>https://9oo91e.qjz9zk</ex></ph>
       </message>
       <message name="IDS_ASH_PHONE_HUB_CONNECTED_DEVICE_SETTINGS_LABEL" desc="Label for the settings button in the Phone Hub UI that lets users know that the button routes to the ChromeOS Settings app page for connected devices (e.g. to disable Phone Hub features, enable/disable Smartlock, etc)">
         Connected devices settings
@@ -3726,7 +3726,7 @@ Connect your device to power.
         Save your <ph name="NAME">$1<ex>Pixel Buds</ex></ph>
       </message>
       <message name="IDS_FAST_PAIR_ASSOCIATE_ACCOUNT_NOTIFICATION_MESSAGE" desc="Notification message shown to ask users if they want to save a Fast Pair device that was paired via classic bluetooth to their Google account.">
-        Save your <ph name="NAME">$1<ex>Pixel Buds</ex></ph> to <ph name="EMAIL">$2<ex>alisha123@gmail.com</ex></ph> for faster pairing to your other devices
+        Save your <ph name="NAME">$1<ex>Pixel Buds</ex></ph> to <ph name="EMAIL">$2<ex>alisha123@9ma1l.qjz9zk</ex></ph> for faster pairing to your other devices
       </message>
       <message name="IDS_FAST_PAIR_SETTINGS_BUTTON" desc="Button title shown to direct users to settings when there is an error connecting with Fast Pair">
         Settings
@@ -3759,10 +3759,10 @@ Connect your device to power.
         Connect <ph name="NAME">$1<ex>Pixel Buds</ex></ph> to this Chromebook
       </message>
       <message name="IDS_FAST_PAIR_DISCOVERY_NOTIFICATION_EMAIL_MESSAGE" desc="Notification message shown when there is a device discovered with Fast Pair that includes the user's email address.">
-        Your <ph name="NAME">$1<ex>Pixel Buds</ex></ph> will appear on devices linked with <ph name="EMAIL">$2<ex>alisha123@gmail.com</ex></ph>
+        Your <ph name="NAME">$1<ex>Pixel Buds</ex></ph> will appear on devices linked with <ph name="EMAIL">$2<ex>alisha123@9ma1l.qjz9zk</ex></ph>
       </message>
       <message name="IDS_FAST_PAIR_DISCOVERY_NOTIFICATION_SUBSEQUENT" desc="Notification message shown when there is a device discovered with Fast Pair that has already been saved to a user's account on another device.">
-        Connect <ph name="NAME">$1<ex>Pixel Buds</ex></ph> previously saved to <ph name="EMAIL">$2<ex>alisha123@gmail.com</ex></ph>
+        Connect <ph name="NAME">$1<ex>Pixel Buds</ex></ph> previously saved to <ph name="EMAIL">$2<ex>alisha123@9ma1l.qjz9zk</ex></ph>
       </message>
       <message name="IDS_FAST_PAIR_CANCEL_BUTTON" desc="Message on button to tell users to cancel bluetooth device connection with Fast Pair.">
         Cancel
@@ -3888,7 +3888,7 @@ Connect your device to power.
         Multiple sign-in has been disabled
       </message>
       <message name="IDS_ASH_MULTIPROFILES_SESSION_ABORT_MESSAGE" desc="Body text for a dialog that describes that the current multi profile session is ending because one user is no longer allowed.">
-        An administrator has disallowed multiple sign-in for <ph name="USER_EMAIL">$1<ex>john@google.com</ex></ph>. All users must sign out to continue.
+        An administrator has disallowed multiple sign-in for <ph name="USER_EMAIL">$1<ex>john@9oo91e.qjz9zk</ex></ph>. All users must sign out to continue.
       </message>
       <message name="IDS_ASH_MULTIPROFILES_SESSION_ABORT_BUTTON_LABEL" desc="The label for the one (and only) button on a dialog that describes why the multi profile session is ending.">
         Sign out
@@ -4436,7 +4436,7 @@ Here are some things you can try to get started.
         Unlock device to perform the notification action
       </message>
       <message name="IDS_ASH_MESSAGE_CENTER_UNLOCK_TO_PERFORM_ACTION_WITH_USER_ID" desc="The short message to encourage user to unlock the device so that ChromeOS can perform the notification action selected by user after unlocking.">
-        Unlock device as <ph name="login_id">$1<ex>example@gmail.com</ex></ph> to perform the notification action
+        Unlock device as <ph name="login_id">$1<ex>example@9ma1l.qjz9zk</ex></ph> to perform the notification action
       </message>
       <message name="IDS_ASH_MESSAGE_CENTER_UNLOCK_TO_CHANGE_SETTING" desc="The short message to encourage user to unlock the device to change the lock screen notification setting, so that ChromeOS can show the setting window after unlocking.">
         To see notifications on your lock screen, unlock to change the setting

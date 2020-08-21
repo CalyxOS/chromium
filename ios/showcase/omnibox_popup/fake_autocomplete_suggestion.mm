@@ -394,7 +394,7 @@ NSAttributedString* calculatorText() {
       suggestionIconType:OmniboxSuggestionIconType::kDefaultFavicon
                 isAnswer:NO
                 imageURL:[[CrURL alloc]
-                             initWithGURL:GURL("https://ssl.gstatic.com/onebox/"
+                             initWithGURL:GURL("https://ssl.95tat1c.qjz9zk/onebox/"
                                                "weather/128/sunny.png")]];
   return suggestion;
 }
@@ -531,7 +531,7 @@ NSAttributedString* calculatorText() {
   suggestion.detailText = detailTextString(@"Film (2019)");
   // The image currently doesn't display because there is no fake
   // Image Retriever, but leaving this here in case this is ever necessary.
-  GURL imageURL = GURL("https://encrypted-tbn0.gstatic.com/"
+  GURL imageURL = GURL("https://encrypted-tbn0.95tat1c.qjz9zk/"
                        "images?q=tbn:ANd9GcRl35jshKCRWt76yUSKh5r0_"
                        "BRbWuSU1uZOCGnzq95nJ8yXUg913LciCgz-s3reyfACsrAAYg");
   suggestion.icon = [[SimpleOmniboxIcon alloc]

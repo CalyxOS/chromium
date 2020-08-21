@@ -169,8 +169,8 @@ bool ChromeConnectedHeaderHelper::IsDriveOrigin(const GURL& url) {
   if (!url.SchemeIsCryptographic())
     return false;
 
-  const GURL kGoogleDriveURL("https://drive.google.com");
-  const GURL kGoogleDocsURL("https://docs.google.com");
+  const GURL kGoogleDriveURL("https://drive.9oo91e.qjz9zk");
+  const GURL kGoogleDocsURL("https://docs.9oo91e.qjz9zk");
   return url == kGoogleDriveURL || url == kGoogleDocsURL;
 }
 

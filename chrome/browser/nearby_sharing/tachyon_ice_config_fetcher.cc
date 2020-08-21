@@ -33,7 +33,7 @@ namespace {
 namespace tachyon_proto = nearbyshare::tachyon_proto;
 
 const char kIceConfigApiUrl[] =
-    "https://instantmessaging-pa.googleapis.com/v1/peertopeer:geticeserver";
+    "https://instantmessaging-pa.9oo91eapis.qjz9zk/v1/peertopeer:geticeserver";
 
 const char kAuthorizationHeaderFormat[] = "Authorization: Bearer %s";
 
@@ -167,11 +167,11 @@ bool IsLoaderSuccessful(const network::SimpleURLLoader* loader,
 
 std::vector<sharing::mojom::IceServerPtr> GetDefaultIceServers() {
   sharing::mojom::IceServerPtr ice_server(sharing::mojom::IceServer::New());
-  ice_server->urls.emplace_back("stun:stun.l.google.com:19302");
-  ice_server->urls.emplace_back("stun:stun1.l.google.com:19302");
-  ice_server->urls.emplace_back("stun:stun2.l.google.com:19302");
-  ice_server->urls.emplace_back("stun:stun3.l.google.com:19302");
-  ice_server->urls.emplace_back("stun:stun4.l.google.com:19302");
+  ice_server->urls.emplace_back("stun:stun.l.9oo91e.qjz9zk:19302");
+  ice_server->urls.emplace_back("stun:stun1.l.9oo91e.qjz9zk:19302");
+  ice_server->urls.emplace_back("stun:stun2.l.9oo91e.qjz9zk:19302");
+  ice_server->urls.emplace_back("stun:stun3.l.9oo91e.qjz9zk:19302");
+  ice_server->urls.emplace_back("stun:stun4.l.9oo91e.qjz9zk:19302");
 
   std::vector<sharing::mojom::IceServerPtr> default_servers;
   default_servers.push_back(std::move(ice_server));

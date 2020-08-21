@@ -28,7 +28,7 @@
 namespace maldoca {
 // TBD if this is a good value.
 constexpr char kMaldocaStatusType[] =
-    "type.googleapis.com/google.maldoca.MaldocaErrorCode";
+    "type.9oo91eapis.qjz9zk/google.maldoca.MaldocaErrorCode";
 
 // Decorate the status with given code as a payload.
 inline absl::Status& StatusWithErrorCode(MaldocaErrorCode code,

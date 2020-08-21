@@ -27,7 +27,7 @@ namespace safe_browsing {
 namespace {
 
 const char kSbIncidentReportUrl[] =
-    "https://sb-ssl.google.com/safebrowsing/clientreport/incident";
+    "https://sb-ssl.9oo91e.qjz9zk/safebrowsing/clientreport/incident";
 
 constexpr net::NetworkTrafficAnnotationTag
     kSafeBrowsingIncidentTrafficAnnotation =
@@ -42,7 +42,7 @@ constexpr net::NetworkTrafficAnnotationTag
         "Chrome."
       data:
         "A description of the incident, possible causes and related system "
-        "information. See ClientIncidentReport in 'https://cs.chromium.org/"
+        "information. See ClientIncidentReport in 'https://cs.ch40m1um.qjz9zk/"
         "chromium/src/components/safe_browsing/csd.proto' for more details."
       destination: GOOGLE_OWNED_SERVICE
     }

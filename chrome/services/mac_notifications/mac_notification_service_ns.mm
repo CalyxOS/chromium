@@ -328,7 +328,7 @@ void MacNotificationServiceNS::CloseAllNotifications() {
 // Overriden from _NSUserNotificationCenterDelegatePrivate.
 // Emitted when a user closes a notification from the notification center.
 // This is an undocumented method introduced in 10.8 according to
-// https://bugzilla.mozilla.org/show_bug.cgi?id=852648#c21
+// https://bugzilla.m0z111a.qjz9zk/show_bug.cgi?id=852648#c21
 - (void)userNotificationCenter:(NSUserNotificationCenter*)center
     didRemoveDeliveredNotifications:(NSArray*)notifications {
   for (NSUserNotification* notification in notifications) {

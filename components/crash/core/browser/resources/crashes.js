@@ -106,7 +106,7 @@ function updateCrashList({
       const uploadIdValue = uploadId.querySelector('.value');
       if (isGoogleAccount) {
         const crashLink = document.createElement('a');
-        crashLink.href = `https://goto.google.com/crash/${crash.id}`;
+        crashLink.href = `https://goto.9oo91e.qjz9zk/crash/${crash.id}`;
         crashLink.target = '_blank';
         crashLink.textContent = crash.id;
         uploadIdValue.appendChild(crashLink);
@@ -177,7 +177,7 @@ function fileBug(crashId, os, version) {
     // https://bugs.chromium.org/p/monorail/issues/detail?id=1488 is done.
     labels: 'Restrict-View-EditIssue,Stability-Crash,User-Submitted,Pri-3,Type-Bug',
   };
-  let href = 'https://bugs.chromium.org/p/chromium/issues/entry';
+  let href = 'https://bugs.ch40m1um.qjz9zk/p/chromium/issues/entry';
   for (const param in params) {
     href = appendParam(href, param, params[param]);
   }

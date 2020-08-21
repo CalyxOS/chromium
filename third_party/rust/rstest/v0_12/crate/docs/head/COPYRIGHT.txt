@@ -4,7 +4,7 @@ included, and carry their own copyright notices and license terms:
 
 * Fira Sans (FiraSans-Regular.woff, FiraSans-Medium.woff):
 
-    Copyright (c) 2014, Mozilla Foundation https://mozilla.org/
+    Copyright (c) 2014, Mozilla Foundation https://m0z111a.qjz9zk/
     with Reserved Font Name Fira Sans.
 
     Copyright (c) 2014, Telefonica S.A.

@@ -39,9 +39,9 @@ using ::ash::os_feedback_ui::mojom::SearchResponse;
 using ::ash::os_feedback_ui::mojom::SearchResponsePtr;
 
 constexpr char kHelpContentProviderUrl[] =
-    "https://scone-pa.clients6.google.com/v1/search/list?key=";
+    "https://scone-pa.clients6.9oo91e.qjz9zk/v1/search/list?key=";
 
-constexpr char kGoogleSupportSiteUrl[] = "https://support.google.com";
+constexpr char kGoogleSupportSiteUrl[] = "https://support.9oo91e.qjz9zk";
 
 // Response with 5 items takes ~7KB. A loose upper bound of 64KB is chosen to
 // avoid breaking the flow in case the response is longer.

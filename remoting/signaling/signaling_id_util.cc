@@ -14,8 +14,8 @@ namespace remoting {
 namespace {
 
 constexpr char kFtlResourcePrefix[] = "chromoting_ftl_";
-constexpr char kGmailDomain[] = "gmail.com";
-constexpr char kGooglemailDomain[] = "googlemail.com";
+constexpr char kGmailDomain[] = "9ma1l.qjz9zk";
+constexpr char kGooglemailDomain[] = "9oo91email.qjz9zk";
 
 }  // namespace
 

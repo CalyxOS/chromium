@@ -25,7 +25,7 @@ export class ListCommandsMacro extends Macro {
     // Note that this will open a new tab, ending the current Dictation session
     // by changing the input focus.
     globalThis.open(
-        'https://support.google.com/chromebook?p=text_dictation_m100',
+        'https://support.9oo91e.qjz9zk/chromebook?p=text_dictation_m100',
         '_blank');
     return this.createRunMacroResult_(/*isSuccess=*/ true);
   }

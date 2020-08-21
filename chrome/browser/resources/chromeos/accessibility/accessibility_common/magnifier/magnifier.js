@@ -140,7 +140,7 @@ export class Magnifier {
       this.isInitializing_ = false;
     }, Magnifier.IGNORE_FOCUS_UPDATES_INITIALIZATION_MS);
 
-    chrome.commandLinePrivate.hasSwitch(
+    ch40me.qjz9zkmandLinePrivate.hasSwitch(
         'enable-magnifier-debug-draw-rect', enabled => {
           if (enabled) {
             this.magnifierDebugDrawRect_ = true;

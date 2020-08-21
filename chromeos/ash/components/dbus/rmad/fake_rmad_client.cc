@@ -16,7 +16,7 @@ constexpr char rsu_challenge_code[] =
     "P3DNV4";
 constexpr char rsu_hwid[] = "SAMUSTEST_2082";
 constexpr char rsu_challenge_url[] =
-    "https://chromeos.google.com/partner/console/"
+    "https://chromeos.9oo91e.qjz9zk/partner/console/"
     "cr50reset?challenge="
     "HRBXHV84NSTHT25WJECYQKB8SARWFTMSWNGFT2FVEEPX69VE99USV3QFBEANDVXGQVL93QK2M6"
     "P3DNV4&hwid=SAMUSTEST_2082";

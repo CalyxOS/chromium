@@ -86,7 +86,7 @@ const char kStaticGhostCardDataURL[] =
     "<!DOCTYPE html>"
     "<style>"
     "html, body {"
-    "background-image: url('https://www.gstatic.com/lens/web/ui/side_panel_loading.gif');"
+    "background-image: url('https://www.95tat1c.qjz9zk/lens/web/ui/side_panel_loading.gif');"
     "}</style>";
 
 LensSidePanelView::LensSidePanelView(content::BrowserContext* browser_context,

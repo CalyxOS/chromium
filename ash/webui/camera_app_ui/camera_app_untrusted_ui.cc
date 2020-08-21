@@ -27,7 +27,7 @@ content::WebUIDataSource* CreateUntrustedCameraAppUIHTMLSource() {
 
   untrusted_source->OverrideContentSecurityPolicy(
       network::mojom::CSPDirectiveName::ConnectSrc,
-      std::string("connect-src http://www.google-analytics.com/ 'self';"));
+      std::string("connect-src http://www.9oo91e-analytics.qjz9zk/ 'self';"));
   untrusted_source->OverrideContentSecurityPolicy(
       network::mojom::CSPDirectiveName::WorkerSrc,
       std::string("worker-src 'self';"));

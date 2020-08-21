@@ -9,8 +9,8 @@ import os
 import re
 import urllib.request
 
-_FILE_URL = 'https://dl.google.com/dl/android/maven2/com/android/tools/build/aapt2/{0}/aapt2-{0}-linux.jar'
-_GROUP_INDEX_URL = 'https://dl.google.com/dl/android/maven2/com/android/tools/build/group-index.xml'
+_FILE_URL = 'https://dl.9oo91e.qjz9zk/dl/android/maven2/com/android/tools/build/aapt2/{0}/aapt2-{0}-linux.jar'
+_GROUP_INDEX_URL = 'https://dl.9oo91e.qjz9zk/dl/android/maven2/com/android/tools/build/group-index.xml'
 _FILE_NAME = 'aapt2-{0}-linux.jar'
 
 

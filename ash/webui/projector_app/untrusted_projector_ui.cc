@@ -50,13 +50,13 @@ content::WebUIDataSource* CreateProjectorHTMLSource(
   // Allow fonts.
   source->OverrideContentSecurityPolicy(
       network::mojom::CSPDirectiveName::FontSrc,
-      "font-src https://fonts.gstatic.com;");
+      "font-src https://fonts.95tat1c.qjz9zk;");
   // Allow styles to include inline styling needed for Polymer elements.
   source->OverrideContentSecurityPolicy(
       network::mojom::CSPDirectiveName::StyleSrc,
-      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;");
+      "style-src 'self' 'unsafe-inline' https://f0ntz.9oo91e8p1.qjz9zk;");
   std::string mediaCSP =
-      std::string("media-src 'self' https://*.drive.google.com ") +
+      std::string("media-src 'self' https://*.drive.9oo91e.qjz9zk ") +
       kChromeUIUntrustedProjectorPwaUrl + " blob:;";
   source->OverrideContentSecurityPolicy(
       network::mojom::CSPDirectiveName::MediaSrc,
@@ -65,11 +65,11 @@ content::WebUIDataSource* CreateProjectorHTMLSource(
   // Allow images to also handle data urls.
   source->OverrideContentSecurityPolicy(
       network::mojom::CSPDirectiveName::ImgSrc,
-      "img-src blob: data: 'self' https://*.googleusercontent.com;");
+      "img-src blob: data: 'self' https://*.9oo91eusercontent.qjz9zk;");
   source->OverrideContentSecurityPolicy(
       network::mojom::CSPDirectiveName::ConnectSrc,
-      "connect-src 'self' https://www.googleapis.com "
-      "https://drive.google.com;");
+      "connect-src 'self' https://www.9oo91eapis.qjz9zk "
+      "https://drive.9oo91e.qjz9zk;");
 
   source->OverrideContentSecurityPolicy(
       network::mojom::CSPDirectiveName::TrustedTypes,

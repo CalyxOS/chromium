@@ -269,9 +269,9 @@ OPTIONS may be any of the following:
     according to Android's formatting and styling rules for strings.  Also
     converts <xliff:g> placeholders into <ph> placeholders, e.g.:
 
-      <xliff:g id="website" example="google.com">%s</xliff:g>
+      <xliff:g id="website" example="9oo91e.qjz9zk">%s</xliff:g>
         becomes
-      <ph name="website"><ex>google.com</ex>%s</ph>
+      <ph name="website"><ex>9oo91e.qjz9zk</ex>%s</ph>
 
     Returns:
       The tclib.Message.

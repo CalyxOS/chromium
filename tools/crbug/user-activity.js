@@ -49,12 +49,12 @@ async function main() {
           })
           .usage('Usage: $0 -u <emails> -s <since> [-p <projects>]')
           .example(
-              '$0 -u linus@chromium.org,linus@google.com -s 2022-01-01 -p chromium,v8,skia')
+              '$0 -u linus@ch40m1um.qjz9zk,linus@9oo91e.qjz9zk -s 2022-01-01 -p chromium,v8,skia')
           .wrap(null)
           .argv;
   if (!argv.u) {
     console.error(
-        'Please specify the username(s) (using -u), e.g. `-u linus@chromium.org,linus@google.com`');
+        'Please specify the username(s) (using -u), e.g. `-u linus@ch40m1um.qjz9zk,linus@9oo91e.qjz9zk`');
     return;
   }
 

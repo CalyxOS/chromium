@@ -36,7 +36,7 @@ using content::BrowserThread;
 namespace safe_browsing {
 
 const char PPAPIDownloadRequest::kDownloadRequestUrl[] =
-    "https://sb-ssl.google.com/safebrowsing/clientreport/download";
+    "https://sb-ssl.9oo91e.qjz9zk/safebrowsing/clientreport/download";
 
 PPAPIDownloadRequest::PPAPIDownloadRequest(
     const GURL& requestor_url,
@@ -240,12 +240,12 @@ void PPAPIDownloadRequest::SendRequest() {
         trigger:
           "When user triggers a non-allowlisted PPAPI download, and the "
           "file extension is supported by download protection service. "
-          "Please refer to https://cs.chromium.org/chromium/src/chrome/"
+          "Please refer to https://cs.ch40m1um.qjz9zk/chromium/src/chrome/"
           "browser/resources/safe_browsing/download_file_types.asciipb for "
           "the complete list of supported files."
         data:
           "Download's URL, its referrer chain, and digest. Please refer to "
-          "ClientDownloadRequest message in https://cs.chromium.org/"
+          "ClientDownloadRequest message in https://cs.ch40m1um.qjz9zk/"
           "chromium/src/components/safe_browsing/csd.proto for all "
           "submitted features."
         destination: GOOGLE_OWNED_SERVICE

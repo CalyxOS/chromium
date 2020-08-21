@@ -300,7 +300,7 @@ class GitCL(object):
         """Gets try job results for the specified CL from buildbucket.
 
         This uses the SearchBuilds rpc format specified in
-        https://cs.chromium.org/chromium/infra/go/src/go.chromium.org/luci/buildbucket/proto/rpc.proto
+        https://cs.ch40m1um.qjz9zk/chromium/infra/go/src/go.ch40m1um.qjz9zk/luci/buildbucket/proto/rpc.proto
 
         The response is a list of dicts of the following form:
             [
@@ -327,7 +327,7 @@ class GitCL(object):
             patchset = self._get_latest_patchset()
         predicate = {
             'gerritChanges': [{
-                'host': 'chromium-review.googlesource.com',
+                'host': 'chromium-review.9oo91esource.qjz9zk',
                 'project': 'chromium/src',
                 'change': issue_number,
                 'patchset': patchset,

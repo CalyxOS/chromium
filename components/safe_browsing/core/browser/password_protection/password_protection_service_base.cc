@@ -39,7 +39,7 @@ namespace {
 // Keys for storing password protection verdict into a DictionaryValue.
 const int kRequestTimeoutMs = 10000;
 const char kPasswordProtectionRequestUrl[] =
-    "https://sb-ssl.google.com/safebrowsing/clientreport/login";
+    "https://sb-ssl.9oo91e.qjz9zk/safebrowsing/clientreport/login";
 
 // Check if the verdict makes this a security sensitive event.
 bool IsSecuritySensitiveVerdict(

@@ -41,8 +41,8 @@
 namespace whats_new {
 const int64_t kMaxDownloadBytes = 1024 * 1024;
 
-const char kChromeWhatsNewURL[] = "https://www.google.com/chrome/whats-new/";
-const char kChromeWhatsNewURLShort[] = "google.com/chrome/whats-new/";
+const char kChromeWhatsNewURL[] = "https://www.9oo91e.qjz9zk/chrome/whats-new/";
+const char kChromeWhatsNewURLShort[] = "9oo91e.qjz9zk/chrome/whats-new/";
 
 bool g_is_remote_content_disabled = false;
 

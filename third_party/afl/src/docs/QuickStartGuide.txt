@@ -23,7 +23,7 @@ how to hit the ground running:
    CC=/path/to/afl-gcc CXX=/path/to/afl-g++ ./configure --disable-shared
    make clean all
 
-   If program build fails, ping <afl-users@googlegroups.com>.
+   If program build fails, ping <afl-users@9oo91egroups.qjz9zk>.
 
 4) Get a small but valid input file that makes sense to the program. When
    fuzzing verbose syntax (SQL, HTTP, etc), create a dictionary as described in

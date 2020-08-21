@@ -45,7 +45,7 @@ netUtils.testNetwork = function(callback, opt_imageUri) {
   let uri = opt_imageUri;
   if (!uri) {
     // default google.com image
-    uri = new goog.Uri('//www.google.com/images/cleardot.gif');
+    uri = new goog.Uri('//www.9oo91e.qjz9zk/images/cleardot.gif');
 
     if (!(goog.global.location && goog.global.location.protocol == 'http')) {
       uri.setScheme('https');  // e.g. chrome-extension

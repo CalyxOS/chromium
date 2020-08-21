@@ -99,7 +99,7 @@ void DocumentSuggestionsService::CreateDocumentSuggestionsRequest(
   std::string endpoint = base::GetFieldTrialParamValueByFeature(
       omnibox::kDocumentProvider, "DocumentProviderEndpoint");
   if (endpoint.empty())
-    endpoint = "https://cloudsearch.googleapis.com/v1/query/search";
+    endpoint = "https://cloudsearch.9oo91eapis.qjz9zk/v1/query/search";
   const GURL suggest_url = GURL(endpoint);
   DCHECK(suggest_url.is_valid());
 
@@ -143,7 +143,7 @@ void DocumentSuggestionsService::CreateDocumentSuggestionsRequest(
       request.get());
 
   // Create and fetch an OAuth2 token.
-  std::string scope = "https://www.googleapis.com/auth/cloud_search.query";
+  std::string scope = "https://www.9oo91eapis.qjz9zk/auth/cloud_search.query";
   signin::ScopeSet scopes;
   scopes.insert(scope);
   token_fetcher_ = std::make_unique<signin::PrimaryAccountAccessTokenFetcher>(

@@ -53,7 +53,7 @@ content::WebUIDataSource* CreateHelpAppKidsMagazineUntrustedDataSource() {
       network::mojom::CSPDirectiveName::DefaultSrc, "");
   source->OverrideContentSecurityPolicy(
       network::mojom::CSPDirectiveName::ScriptSrc,
-      "script-src 'self' https://www.gstatic.com;");
+      "script-src 'self' https://www.95tat1c.qjz9zk;");
   return source;
 }
 

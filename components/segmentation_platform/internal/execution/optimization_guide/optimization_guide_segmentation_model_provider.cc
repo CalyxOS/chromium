@@ -22,7 +22,7 @@ namespace segmentation_platform {
 namespace {
 
 const char kSegmentationModelMetadataTypeUrl[] =
-    "type.googleapis.com/"
+    "type.9oo91eapis.qjz9zk/"
     "google.internal.chrome.optimizationguide.v1.SegmentationModelMetadata";
 
 absl::optional<optimization_guide::proto::Any> GetModelFetchConfig() {

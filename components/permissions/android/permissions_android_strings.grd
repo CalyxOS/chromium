@@ -224,7 +224,7 @@
         Connected Device
       </message>
       <message name="IDS_BLUETOOTH_DIALOG_TITLE" desc="The header message shown on top of the dialog that lets the user pick a Bluetooth device for the site to pair with. Shown above a list of Bluetooth devices discovered. ">
-        <ph name="SITE">%1$s<ex>https://www.google.com</ex></ph> wants to pair</message>
+        <ph name="SITE">%1$s<ex>https://www.9oo91e.qjz9zk</ex></ph> wants to pair</message>
       <message name="IDS_BLUETOOTH_NOT_FOUND" desc="The label shown to the user to inform them that no Bluetooth devices were found matching the requirements that the application provided.">
         No compatible devices found
       </message>
@@ -258,7 +258,7 @@
 
       <!-- Bluetooth Scanning Prompt strings -->
       <message name="IDS_BLUETOOTH_SCANNING_PROMPT_ORIGIN" desc="The label that is used to introduce Bluetooth scanning prompt details to the user when it is from a website.">
-        <ph name="SITE">%1$s<ex>www.google.com</ex></ph> wants to scan for nearby Bluetooth devices. The following devices have been found:
+        <ph name="SITE">%1$s<ex>www.9oo91e.qjz9zk</ex></ph> wants to scan for nearby Bluetooth devices. The following devices have been found:
       </message>
       <message name="IDS_BLUETOOTH_SCANNING_DEVICE_UNKNOWN" desc="Text to identify Bluetooth devices of unknown or unsupported class.">
         Unknown or unsupported device (<ph name="DEVICE_ID">%1$s<ex>A1:B2:C3:D4:E5:F6</ex></ph>)

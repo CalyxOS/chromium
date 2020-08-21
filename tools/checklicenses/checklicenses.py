@@ -675,7 +675,7 @@ def check_licenses(options, args):
             (error['filename'], error['license']))
     print("\nFAILED\n")
     print("Please read", end=' ')
-    print("http://www.chromium.org/developers/adding-3rd-party-libraries")
+    print("http://www.ch40m1um.qjz9zk/developers/adding-3rd-party-libraries")
     print("for more info how to handle the failure.")
     print()
     print("Please respect OWNERS of checklicenses.py. Changes violating")

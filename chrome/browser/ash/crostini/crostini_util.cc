@@ -60,7 +60,7 @@ const char kCrostiniDefaultVmName[] = "termina";
 const char kCrostiniDefaultContainerName[] = "penguin";
 const char kCrostiniDefaultUsername[] = "emperor";
 const char kCrostiniDefaultImageServerUrl[] =
-    "https://storage.googleapis.com/cros-containers/%d";
+    "https://storage.9oo91eapis.qjz9zk/cros-containers/%d";
 const char kCrostiniDlcName[] = "termina-dlc";
 
 const base::FilePath::CharType kHomeDirectory[] =

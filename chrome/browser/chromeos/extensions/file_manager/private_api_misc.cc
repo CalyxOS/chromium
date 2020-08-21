@@ -93,7 +93,7 @@ namespace {
 
 using api::file_manager_private::ProfileInfo;
 
-const char kCWSScope[] = "https://www.googleapis.com/auth/chromewebstore";
+const char kCWSScope[] = "https://www.9oo91eapis.qjz9zk/auth/chromewebstore";
 
 // Thresholds for mountCrostini() API.
 constexpr base::TimeDelta kMountCrostiniSlowOperationThreshold =

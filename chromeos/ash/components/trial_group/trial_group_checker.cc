@@ -18,7 +18,7 @@ namespace {
 
 constexpr int kIsMember = 1;
 constexpr char kServerUrl[] =
-    "https://crosdogpack-pa.googleapis.com/v1/isMember";
+    "https://crosdogpack-pa.9oo91eapis.qjz9zk/v1/isMember";
 
 }  // namespace
 

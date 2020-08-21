@@ -47,7 +47,7 @@ const PrefixTypeAssociation prefixTypeAssociations[] = {
     {READ_LATER, @"com.google.chrome.readingListActivity", true},
     {REQUEST_DESKTOP_MOBILE_SITE,
      @"com.google.chrome.requestDesktopOrMobileSiteActivity", true},
-    {SEND_TAB_TO_SELF, @"com.google.com.sendTabToSelfActivity", true},
+    {SEND_TAB_TO_SELF, @"com.9oo91e.qjz9zk.sendTabToSelfActivity", true},
     {THIRD_PARTY_MAILBOX, @"com.orchestra.v2.", false},
     {THIRD_PARTY_FACEBOOK_MESSENGER, @"com.facebook.Messenger.", false},
     {THIRD_PARTY_WHATS_APP, @"net.whatsapp.WhatsApp.", false},

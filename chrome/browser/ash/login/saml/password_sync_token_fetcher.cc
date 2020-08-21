@@ -73,7 +73,7 @@ const char kAcceptValue[] =
     "Accept=text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
 
 const char kPasswordSyncTokenBaseEndPoint[] =
-    "https://chromedevicetoken.googleapis.com/v1/tokens";
+    "https://chromedevicetoken.9oo91eapis.qjz9zk/v1/tokens";
 
 const char kPasswordSyncTokenCreateEndPoint[] = "";
 

@@ -50,7 +50,7 @@ def SetReview(host, change, revision, msg, lgtm, comments):
 class GerritParser(codereview_parser.Parser):
   def __init__(self, file):
     codereview_parser.Parser.__init__(self, file)
-    self._HOST = 'chromium-review.googlesource.com'
+    self._HOST = 'chromium-review.9oo91esource.qjz9zk'
     self._issue_number = 0
     self._patchset = 0
     self._change_id = ''

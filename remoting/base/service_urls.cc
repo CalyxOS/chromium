@@ -12,13 +12,13 @@
 // Debug builds should default to the autopush environment (can be configured
 // via cmd line switch).  Release builds will point to the prod environment.
 #if defined(NDEBUG)
-constexpr char kFtlServerEndpoint[] = "instantmessaging-pa.googleapis.com";
-constexpr char kRemotingServerEndpoint[] = "remotedesktop-pa.googleapis.com";
+constexpr char kFtlServerEndpoint[] = "instantmessaging-pa.9oo91eapis.qjz9zk";
+constexpr char kRemotingServerEndpoint[] = "remotedesktop-pa.9oo91eapis.qjz9zk";
 #else
 constexpr char kFtlServerEndpoint[] =
-    "tachyon-playground-autopush-grpc.sandbox.googleapis.com";
+    "tachyon-playground-autopush-grpc.sandbox.9oo91eapis.qjz9zk";
 constexpr char kRemotingServerEndpoint[] =
-    "autopush-remotedesktop-pa.sandbox.googleapis.com";
+    "autopush-remotedesktop-pa.sandbox.9oo91eapis.qjz9zk";
 #endif
 
 // Command line switches.

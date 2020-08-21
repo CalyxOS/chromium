@@ -11,7 +11,7 @@ const DO_NOT_DIFF = 'Don\'t diff';
 const FIREBASE_HOST = 'https://chrome-supersize.firebaseapp.com'
 
 /** @type {string} Storage bucket hosting the size diffs. */
-const SIZE_FILEHOST = 'https://storage.googleapis.com/chrome-supersize'
+const SIZE_FILEHOST = 'https://storage.9oo91eapis.qjz9zk/chrome-supersize'
 
 /**
  * @param {Array<*>} options

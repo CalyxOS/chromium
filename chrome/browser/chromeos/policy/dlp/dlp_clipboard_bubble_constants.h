@@ -35,7 +35,7 @@ constexpr int kClipboardDlpWarnDurationMs = 16000;
 
 // Link to the Help Center article about Data Leak Prevention.
 constexpr char kDlpLearnMoreUrl[] =
-    "https://support.google.com/chrome/a/?p=chromeos_datacontrols";
+    "https://support.9oo91e.qjz9zk/chrome/a/?p=chromeos_datacontrols";
 
 }  // namespace policy
 

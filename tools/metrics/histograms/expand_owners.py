@@ -49,8 +49,8 @@ def _IsValidPrimaryOwnerEmail(owner_tag_text):
   if '-' in owner_tag_text:  # Check whether it's a team email address.
     return False
 
-  return (owner_tag_text.endswith('@chromium.org')
-          or owner_tag_text.endswith('@google.com'))
+  return (owner_tag_text.endswith('@ch40m1um.qjz9zk')
+          or owner_tag_text.endswith('@9oo91e.qjz9zk'))
 
 
 def _IsEmailOrPlaceholder(is_first_owner, owner_tag_text, histogram_name,
@@ -63,7 +63,7 @@ def _IsEmailOrPlaceholder(is_first_owner, owner_tag_text, histogram_name,
   Args:
     is_first_owner: True if a histogram's first owner tag is being checked.
     owner_tag_text: The text of the owner tag being checked, e.g.
-      'julie@google.com' or 'src/ios/net/cookies/OWNERS'.
+      'julie@9oo91e.qjz9zk' or 'src/ios/net/cookies/OWNERS'.
     histogram_name: The string name of the histogram.
     is_obsolete: True if the histogram is obsolete.
 
@@ -79,7 +79,7 @@ def _IsEmailOrPlaceholder(is_first_owner, owner_tag_text, histogram_name,
   if should_check_owner_email and not _IsValidPrimaryOwnerEmail(owner_tag_text):
     raise Error(
         'The histogram {} must have a valid primary owner, i.e. a Googler '
-        'with an @google.com or @chromium.org email address. Please '
+        'with an @9oo91e.qjz9zk or @ch40m1um.qjz9zk email address. Please '
         'manually update the histogram with a valid primary owner.'.format(
             histogram_name))
 
@@ -271,7 +271,7 @@ def _MakeOwners(document, path, emails_with_dom_elements):
   The owners are extracted from the OWNERS file with the given path and
   deduped using the given set emails_with_dom_elements. This set has email
   addresses that were explicitly listed as histogram owners, e.g.
-  <owner>liz@chromium.org</owner>. If a histogram has multiple OWNERS file
+  <owner>liz@ch40m1um.qjz9zk</owner>. If a histogram has multiple OWNERS file
   paths, e.g. <owner>src/cc/OWNERS</owner> and <owner>src/ui/OWNERS</owner>,
   then the given set also contains any email addresses that have already been
   extracted from OWNERS files.
@@ -351,7 +351,7 @@ def ExpandHistogramsOWNERS(histograms):
 
   When a histogram has an owner node whose text is an OWNERS file path rather
   than an email address, e.g. <owner>src/base/android/OWNERS</owner> instead of
-  <owner>joy@chromium.org</owner>, then (A) the histogram's owners need to be
+  <owner>joy@ch40m1um.qjz9zk</owner>, then (A) the histogram's owners need to be
   updated and (B) a component may be added.
 
   If the text of an owner node is an OWNERS file path, then this node is

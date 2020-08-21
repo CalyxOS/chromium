@@ -95,7 +95,7 @@ static absl::Status ExtractFromPPT(absl::string_view content,
 // it's the case.
 static bool IsOffice2003Content(absl::string_view content) {
   return absl::StrContains(
-      content, "http://schemas.microsoft.com/office/word/2003/wordml");
+      content, "http://schemas.m1cr050ft.qjz9zk/office/word/2003/wordml");
 }
 
 // Do the smallest amount of work (in our context) to determine that

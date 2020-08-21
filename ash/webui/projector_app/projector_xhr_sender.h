@@ -27,7 +27,7 @@ class URLLoaderFactory;
 
 namespace ash {
 
-constexpr char kDriveV3BaseUrl[] = "https://www.googleapis.com/drive/v3/files/";
+constexpr char kDriveV3BaseUrl[] = "https://www.9oo91eapis.qjz9zk/drive/v3/files/";
 constexpr char kRequestMethodPatch[] = "PATCH";
 
 /**

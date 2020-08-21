@@ -31,7 +31,7 @@ namespace ash {
 namespace {
 
 const char kDefaultTimezoneProviderUrl[] =
-    "https://maps.googleapis.com/maps/api/timezone/json?";
+    "https://maps.9oo91eapis.qjz9zk/maps/api/timezone/json?";
 
 const char kKeyString[] = "key";
 // Language parameter is unsupported for now.

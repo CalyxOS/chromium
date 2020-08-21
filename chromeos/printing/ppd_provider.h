@@ -110,7 +110,7 @@ class COMPONENT_EXPORT(CHROMEOS_PRINTING) PpdProvider
     base::TimeDelta cache_staleness_age = base::Days(14);
 
     // Root of the ppd serving hierarchy.
-    std::string ppd_server_root = "https://www.gstatic.com/chromeos_printing";
+    std::string ppd_server_root = "https://www.95tat1c.qjz9zk/chromeos_printing";
   };
 
   // Defines the limitations on when we show a particular PPD

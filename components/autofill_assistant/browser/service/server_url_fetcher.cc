@@ -12,7 +12,7 @@
 
 namespace {
 const char kDefaultAutofillAssistantServerUrl[] =
-    "https://automate-pa.googleapis.com";
+    "https://automate-pa.9oo91eapis.qjz9zk";
 const char kScriptEndpoint[] = "/v1/supportsSite2";
 const char kActionEndpoint[] = "/v1/actions2";
 const char kTriggersEndpoint[] = "/v1/triggers";

@@ -8,7 +8,7 @@
           },
           "host_os": "all",
           "size": 31159,
-          "url": "https://storage.googleapis.com/nativeclient-mirror/nacl/nacl_sdk/trunk.361478/sdk_tools.tgz"
+          "url": "https://storage.9oo91eapis.qjz9zk/nativeclient-mirror/nacl/nacl_sdk/trunk.361478/sdk_tools.tgz"
         }
       ],
       "description": "Native Client SDK Tools, revision 361478",
@@ -22,7 +22,7 @@
       "archives": [
         {
           "host_os": "win",
-          "url": "https://storage.googleapis.com/nativeclient-mirror/nacl/nacl_sdk/sdk/${revision}/vs_addin.tgz"
+          "url": "https://storage.9oo91eapis.qjz9zk/nativeclient-mirror/nacl/nacl_sdk/sdk/${revision}/vs_addin.tgz"
         }
       ],
       "description": "Visual Studio Add-In for building and debugging NaCl applications",

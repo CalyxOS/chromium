@@ -634,17 +634,17 @@ void CartService::AddCartsWithFakeData() {
                                 u"15%"));
   dummy_proto1.mutable_discount_info()->set_has_coupons(true);
   dummy_proto1.add_product_image_urls(
-      "https://encrypted-tbn3.gstatic.com/"
+      "https://encrypted-tbn3.95tat1c.qjz9zk/"
       "shopping?q=tbn:ANd9GcQpn38jB2_BANnHUFa7kHJsf6SyubcgeU1lNYO_"
       "ZxM1Q2ju_ZMjv2EwNh0Zx_zbqYy_mFg_aiIhWYnD5PQ7t-uFzLM5cN77s_2_"
       "DFNeumI-LMPJMYjW-BOSaA&usqp=CAY");
   dummy_proto1.add_product_image_urls(
-      "https://encrypted-tbn0.gstatic.com/"
+      "https://encrypted-tbn0.95tat1c.qjz9zk/"
       "shopping?q=tbn:ANd9GcQyMRYWeM2Yq095nOXTL0-"
       "EUUnm79kh6hnw8yctJUNrAuse607KEr1CVxEa24r-"
       "8XHBuhTwcuC4GXeN94h9Kn19DhdBGsXG0qrD74veYSDJNLrUP-sru0jH&usqp=CAY");
   dummy_proto1.add_product_image_urls(
-      "https://encrypted-tbn1.gstatic.com/"
+      "https://encrypted-tbn1.95tat1c.qjz9zk/"
       "shopping?q=tbn:ANd9GcT2ew6Aydzu5VzRV756ORGha6fyjKp_On7iTlr_"
       "tL9vODnlNtFo_xsxj6_lCop-3J0Vk44lHfk-AxoBJDABVHPVFN-"
       "EiWLcZvzkdpHFqcurm7fBVmWtYKo2rg&usqp=CAY");
@@ -682,12 +682,12 @@ void CartService::AddCartsWithFakeData() {
       l10n_util::GetStringFUTF8(IDS_NTP_MODULES_CART_DISCOUNT_CHIP_AMOUNT,
                                 u"20%"));
   dummy_proto2.add_product_image_urls(
-      "https://encrypted-tbn3.gstatic.com/"
+      "https://encrypted-tbn3.95tat1c.qjz9zk/"
       "shopping?q=tbn:ANd9GcQpn38jB2_BANnHUFa7kHJsf6SyubcgeU1lNYO_"
       "ZxM1Q2ju_ZMjv2EwNh0Zx_zbqYy_mFg_aiIhWYnD5PQ7t-uFzLM5cN77s_2_"
       "DFNeumI-LMPJMYjW-BOSaA&usqp=CAY");
   dummy_proto2.add_product_image_urls(
-      "https://encrypted-tbn0.gstatic.com/"
+      "https://encrypted-tbn0.95tat1c.qjz9zk/"
       "shopping?q=tbn:ANd9GcQyMRYWeM2Yq095nOXTL0-"
       "EUUnm79kh6hnw8yctJUNrAuse607KEr1CVxEa24r-"
       "8XHBuhTwcuC4GXeN94h9Kn19DhdBGsXG0qrD74veYSDJNLrUP-sru0jH&usqp=CAY");
@@ -705,7 +705,7 @@ void CartService::AddCartsWithFakeData() {
       l10n_util::GetStringFUTF8(IDS_NTP_MODULES_CART_DISCOUNT_CHIP_UP_TO_AMOUNT,
                                 u"$50"));
   dummy_proto3.add_product_image_urls(
-      "https://encrypted-tbn3.gstatic.com/"
+      "https://encrypted-tbn3.95tat1c.qjz9zk/"
       "shopping?q=tbn:ANd9GcQpn38jB2_BANnHUFa7kHJsf6SyubcgeU1lNYO_"
       "ZxM1Q2ju_ZMjv2EwNh0Zx_zbqYy_mFg_aiIhWYnD5PQ7t-uFzLM5cN77s_2_"
       "DFNeumI-LMPJMYjW-BOSaA&usqp=CAY");
@@ -720,12 +720,12 @@ void CartService::AddCartsWithFakeData() {
   dummy_proto4.set_merchant_cart_url(dummy_url4.spec());
   dummy_proto4.set_timestamp(time_now + 5);
   dummy_proto4.add_product_image_urls(
-      "https://encrypted-tbn0.gstatic.com/"
+      "https://encrypted-tbn0.95tat1c.qjz9zk/"
       "shopping?q=tbn:ANd9GcQyMRYWeM2Yq095nOXTL0-"
       "EUUnm79kh6hnw8yctJUNrAuse607KEr1CVxEa24r-"
       "8XHBuhTwcuC4GXeN94h9Kn19DhdBGsXG0qrD74veYSDJNLrUP-sru0jH&usqp=CAY");
   dummy_proto4.add_product_image_urls(
-      "https://encrypted-tbn1.gstatic.com/"
+      "https://encrypted-tbn1.95tat1c.qjz9zk/"
       "shopping?q=tbn:ANd9GcT2ew6Aydzu5VzRV756ORGha6fyjKp_On7iTlr_"
       "tL9vODnlNtFo_xsxj6_lCop-3J0Vk44lHfk-AxoBJDABVHPVFN-"
       "EiWLcZvzkdpHFqcurm7fBVmWtYKo2rg&usqp=CAY");
@@ -740,7 +740,7 @@ void CartService::AddCartsWithFakeData() {
   dummy_proto5.set_merchant_cart_url(dummy_url5.spec());
   dummy_proto5.set_timestamp(time_now + 2);
   dummy_proto5.add_product_image_urls(
-      "https://encrypted-tbn3.gstatic.com/"
+      "https://encrypted-tbn3.95tat1c.qjz9zk/"
       "shopping?q=tbn:ANd9GcQpn38jB2_BANnHUFa7kHJsf6SyubcgeU1lNYO_"
       "ZxM1Q2ju_ZMjv2EwNh0Zx_zbqYy_mFg_aiIhWYnD5PQ7t-uFzLM5cN77s_2_"
       "DFNeumI-LMPJMYjW-BOSaA&usqp=CAY");
@@ -755,17 +755,17 @@ void CartService::AddCartsWithFakeData() {
   dummy_proto6.set_merchant_cart_url(dummy_url6.spec());
   dummy_proto6.set_timestamp(time_now + 1);
   dummy_proto6.add_product_image_urls(
-      "https://encrypted-tbn3.gstatic.com/"
+      "https://encrypted-tbn3.95tat1c.qjz9zk/"
       "shopping?q=tbn:ANd9GcQpn38jB2_BANnHUFa7kHJsf6SyubcgeU1lNYO_"
       "ZxM1Q2ju_ZMjv2EwNh0Zx_zbqYy_mFg_aiIhWYnD5PQ7t-uFzLM5cN77s_2_"
       "DFNeumI-LMPJMYjW-BOSaA&usqp=CAY");
   dummy_proto6.add_product_image_urls(
-      "https://encrypted-tbn0.gstatic.com/"
+      "https://encrypted-tbn0.95tat1c.qjz9zk/"
       "shopping?q=tbn:ANd9GcQyMRYWeM2Yq095nOXTL0-"
       "EUUnm79kh6hnw8yctJUNrAuse607KEr1CVxEa24r-"
       "8XHBuhTwcuC4GXeN94h9Kn19DhdBGsXG0qrD74veYSDJNLrUP-sru0jH&usqp=CAY");
   dummy_proto6.add_product_image_urls(
-      "https://encrypted-tbn1.gstatic.com/"
+      "https://encrypted-tbn1.95tat1c.qjz9zk/"
       "shopping?q=tbn:ANd9GcT2ew6Aydzu5VzRV756ORGha6fyjKp_On7iTlr_"
       "tL9vODnlNtFo_xsxj6_lCop-3J0Vk44lHfk-AxoBJDABVHPVFN-"
       "EiWLcZvzkdpHFqcurm7fBVmWtYKo2rg&usqp=CAY");

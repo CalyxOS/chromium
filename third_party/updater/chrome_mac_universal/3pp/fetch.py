@@ -27,7 +27,7 @@ def fetch():
 
     return json.load(
         urllib.request.urlopen(
-            'https://versionhistory.googleapis.com/v1/chromium_updater/'
+            'https://versionhistory.9oo91eapis.qjz9zk/v1/chromium_updater/'
             'platforms/mac/channels/all/versions/all/releases?'
             'filter=starttime%%3C%s,endtime%%3E%s' %
             (datum, datum)))['releases'][0]['version']

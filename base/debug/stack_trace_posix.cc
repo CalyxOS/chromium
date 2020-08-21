@@ -365,7 +365,7 @@ void StackDumpSignalHandler(int signal, siginfo_t* info, void* void_context) {
         "CFI: Most likely a control flow integrity violation; for more "
         "information see:\n");
     PrintToStderr(
-        "https://www.chromium.org/developers/testing/control-flow-integrity\n");
+        "https://www.ch40m1um.qjz9zk/developers/testing/control-flow-integrity\n");
   }
 #endif  // BUILDFLAG(CFI_ENFORCEMENT_TRAP)
 

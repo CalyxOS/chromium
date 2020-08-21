@@ -391,7 +391,7 @@ locale.  The strings in this file are specific to iOS.
         Current Webpage is on Incognito
       </message>
       <message name="IDS_IOS_BANDWIDTH_MANAGEMENT_LEARN_URL" translateable="false">
-        https://support.google.com/chrome/answer/2392284?p=mobile_bandwidth&amp;hl=[GRITLANGCODE]&amp;ios=1
+        https://support.9oo91e.qjz9zk/chrome/answer/2392284?p=mobile_bandwidth&amp;hl=[GRITLANGCODE]&amp;ios=1
       </message>
       <message name="IDS_IOS_BANDWIDTH_MANAGEMENT_SETTINGS" desc="Title for the bandwidth management panel in settings [Length: 30em] [iOS only]">
         Bandwidth
@@ -550,7 +550,7 @@ locale.  The strings in this file are specific to iOS.
         You won't be signed out of your Google Account.
       </message>
       <message name="IDS_IOS_CLEAR_BROWSING_DATA_FOOTER_ACCOUNT_AND_HISTORY" desc="Footer message in the settings to clear browsing data that informs the user that clearing browsing data will not sign them out of Chrome and that other forms of history will still be available.">
-        You won't be signed out of your Google Account. Your Google Account may have other forms of browsing history at <ph name="BEGIN_LINK">BEGIN_LINK</ph>history.google.com<ph name="END_LINK">END_LINK</ph>.
+        You won't be signed out of your Google Account. Your Google Account may have other forms of browsing history at <ph name="BEGIN_LINK">BEGIN_LINK</ph>history.9oo91e.qjz9zk<ph name="END_LINK">END_LINK</ph>.
       </message>
       <message name="IDS_IOS_CLEAR_BROWSING_DATA_FOOTER_GOOGLE_DSE" desc="Footer message in the settings to clear browsing data that informs the user they can seperately delete their search history and/or other account info at the 2 links provided.">
         <ph name="BEGIN_LINK">BEGIN_LINK</ph>Search history<ph name="END_LINK">END_LINK</ph> and <ph name="BEGIN_LINK">BEGIN_LINK</ph>other forms of activity<ph name="END_LINK">END_LINK</ph> may be saved in your Google Account when you’re signed in. You can delete them anytime.
@@ -582,8 +582,8 @@ See your search engine’s instructions for deleting your search history, if app
       <message name="IDS_IOS_CLEAR_BROWSING_DATA_HISTORY_NOTICE_OK_BUTTON" desc="Title of a button that closes the dialog informing the user to open the Google My Activity. [Length: 15em]">
         Ok, got it
       </message>
-      <message name="IDS_IOS_CLEAR_BROWSING_DATA_HISTORY_NOTICE_OPEN_HISTORY_BUTTON" desc="Title of a button that allows the user to open history.google.com. [Length: 15em]">
-        Open history.google.com
+      <message name="IDS_IOS_CLEAR_BROWSING_DATA_HISTORY_NOTICE_OPEN_HISTORY_BUTTON" desc="Title of a button that allows the user to open history.9oo91e.qjz9zk. [Length: 15em]">
+        Open history.9oo91e.qjz9zk
       </message>
       <message name="IDS_IOS_CLEAR_BROWSING_DATA_TIME_RANGE_OPTION_BEGINNING_OF_TIME" desc="Label of a time range option. This is used to specify that the user wishes to clear their browsing data since the beginning of time. In titlecase.">
         All Time
@@ -1132,7 +1132,7 @@ See your search engine’s instructions for deleting your search history, if app
           You'll find your history here
       </message>
       <message name="IDS_IOS_HISTORY_OTHER_FORMS_OF_HISTORY" desc="The notification at the top of the history page indicating that deleting Chrome browsing history will not delete other forms of history stored at Google My Activity.">
-        Your Google Account may have other forms of browsing history at <ph name="BEGIN_LINK">BEGIN_LINK</ph>history.google.com<ph name="END_LINK">END_LINK</ph>.
+        Your Google Account may have other forms of browsing history at <ph name="BEGIN_LINK">BEGIN_LINK</ph>history.9oo91e.qjz9zk<ph name="END_LINK">END_LINK</ph>.
       </message>
       <message name="IDS_IOS_HTTP_LOGIN_DIALOG_PASSWORD_PLACEHOLDER" desc="The placeholder text for the password on the http login dialog [Length: 20em] [iOS only]">
         Password
@@ -1298,7 +1298,7 @@ See your search engine’s instructions for deleting your search history, if app
         Manage Sync
       </message>
       <message name="IDS_IOS_REMOVE_ACCOUNT_ALERT_TITLE" desc="Title of the alert view when the remove account button is clicked.">
-      Remove account <ph name="USER_EMAIL">$1<ex>janedoe@google.com</ex></ph>?
+      Remove account <ph name="USER_EMAIL">$1<ex>janedoe@9oo91e.qjz9zk</ex></ph>?
       </message>
       <message name="IDS_IOS_REMOVE_ACCOUNT_LABEL" desc="Button label for removing an account.">
       Remove
@@ -1848,7 +1848,7 @@ While in Incognito, sites can't use cookies to see your browsing activity across
         Passwords are saved in your Google Account so you can use them on any device.
       </message>
       <message name="IDS_SAVE_PASSWORD_FOOTER_DISPLAYING_USER_EMAIL" desc="The footer text of the infobar that offers user to save/update a password to Chrome; also display's current user's email.">
-        You can use saved passwords on any device. They're saved to Google Password Manager for <ph name="EMAIL">$1<ex>johndoe@gmail.com</ex></ph>
+        You can use saved passwords on any device. They're saved to Google Password Manager for <ph name="EMAIL">$1<ex>johndoe@9ma1l.qjz9zk</ex></ph>
       </message>
       <message name="IDS_IOS_PERMISSIONS_CAMERA" desc="Usually used to show whether user has enabled a site's permission to use the device camera.">
         Camera
@@ -1914,10 +1914,10 @@ While in Incognito, sites can't use cookies to see your browsing activity across
         Chrome is Signed Out
       </message>
       <message name="IDS_IOS_POST_RESTORE_SIGN_IN_ALERT_PROMO_MESSAGE_IPHONE" desc="The message text of the alert post restore sign-in promo. [iOS only]">
-        You were signed out of your account <ph name="USER_NAME">$1<ex>example@gmail.com</ex></ph> as part of your iPhone reset. Tap continue below to sign in.
+        You were signed out of your account <ph name="USER_NAME">$1<ex>example@9ma1l.qjz9zk</ex></ph> as part of your iPhone reset. Tap continue below to sign in.
       </message>
       <message name="IDS_IOS_POST_RESTORE_SIGN_IN_ALERT_PROMO_MESSAGE_IPAD" desc="The message text of the alert post restore sign-in promo. [iOS only]">
-        You were signed out of your account <ph name="USER_NAME">$1<ex>example@gmail.com</ex></ph> as part of your iPad reset. Tap continue below to sign in.
+        You were signed out of your account <ph name="USER_NAME">$1<ex>example@9ma1l.qjz9zk</ex></ph> as part of your iPad reset. Tap continue below to sign in.
       </message>
       <message name="IDS_IOS_POST_RESTORE_SIGN_IN_ALERT_PROMO_CANCEL_ACTION" desc="The cancel action text of the alert post restore sign-in promo. [iOS only]">
         Ignore
@@ -1944,7 +1944,7 @@ While in Incognito, sites can't use cookies to see your browsing activity across
         Google Privacy Policy
       </message>
       <message name="IDS_IOS_PRIVACY_POLICY_URL" translateable="false">
-        https://policies.google.com/privacy
+        https://policies.9oo91e.qjz9zk/privacy
       </message>
       <message name="IDS_IOS_PROGRESS_BAR_ACCESSIBILITY" desc="Text read by voice over to inform the user about the progress of the page load. [Read by Text To Speech].">
         Page load progress bar, <ph name="EMAIL">$1<ex>20%</ex></ph> loaded.
@@ -2016,7 +2016,7 @@ While in Incognito, sites can't use cookies to see your browsing activity across
         Added to Reading List
       </message>
       <message name="IDS_IOS_READING_LIST_ENTRY_ACCESSIBILITY_LABEL" desc="Accessibility label for a reading list entry. Summarizes fields in the reading list entry (title, status and url). Read by Text To Speech.">
-        <ph name="TITLE"><ex>Chromium - The Chromium Projects</ex>$1</ph>, <ph name="STATE"><ex>Available offline</ex>$2</ph>, <ph name="URL"><ex>http://www.chromium.org/Home</ex>$3</ph>
+        <ph name="TITLE"><ex>Chromium - The Chromium Projects</ex>$1</ph>, <ph name="STATE"><ex>Available offline</ex>$2</ph>, <ph name="URL"><ex>http://www.ch40m1um.qjz9zk/Home</ex>$3</ph>
       </message>
       <message name="IDS_IOS_READING_LIST_ACCESSIBILITY_STATE_DOWNLOADED" desc="Accessibility label for the offline status of the reading list entry. Read by Text To Speech.">
         Available offline
@@ -2389,7 +2389,7 @@ While in Incognito, sites can't use cookies to see your browsing activity across
         3. Select Chrome
       </message>
       <message name="IDS_IOS_SAVE_PASSWORDS_MANAGE_ACCOUNT" desc="Header text with link for the view in Settings for managing saved passwords. [Length: unlimited] [iOS only]">
-        View and manage saved passwords at <ph name="BEGIN_LINK">BEGIN_LINK</ph>passwords.google.com<ph name="END_LINK">END_LINK</ph>
+        View and manage saved passwords at <ph name="BEGIN_LINK">BEGIN_LINK</ph>passwords.9oo91e.qjz9zk<ph name="END_LINK">END_LINK</ph>
       </message>
       <message name="IDS_IOS_SAVE_PASSWORDS_MANAGE_ACCOUNT_HEADER" desc="Header text with link for the view in Settings for managing saved passwords. [Length: unlimited] [iOS only]">
         Create, save, and manage your passwords so you can easily sign in to sites and apps. <ph name="BEGIN_LINK">BEGIN_LINK</ph>Learn more<ph name="END_LINK">END_LINK</ph>
@@ -2751,7 +2751,7 @@ Try to use a unique password for every site.
         Active <ph name="Days">$1<ex>2</ex></ph> Days Ago
       </message>
       <message name="IDS_SEND_TAB_TO_SELF_MANAGE_DEVICES_LINK" desc="Text with a link to a page where the user can manage the devices they can share a tab to.">
-        <ph name="BEGIN_LINK">BEGIN_LINK</ph>Your devices<ph name="END_LINK">END_LINK</ph> · <ph name="EMAIL">$1<ex>foo@gmail.com</ex></ph>
+        <ph name="BEGIN_LINK">BEGIN_LINK</ph>Your devices<ph name="END_LINK">END_LINK</ph> · <ph name="EMAIL">$1<ex>foo@9ma1l.qjz9zk</ex></ph>
       </message>
       <message name="IDS_IOS_SHARE_MESSAGES_COMPLETE" desc="Message shown when message share has been sent. [Length: Unknown. Keep it short.] [iOS only]">
         Message sent.
@@ -3065,12 +3065,12 @@ To change this setting, <ph name="BEGIN_LINK">BEGIN_LINK</ph>reset sync<ph name=
         Enter Passphrase
       </message>
       <message name="IDS_IOS_SYNC_ENTER_PASSPHRASE_BODY_WITH_EMAIL" desc="Instructions for the dialog where the user enters the passphrase.">
-        Signed in as <ph name="EMAIL">$1<ex>johndoe@gmail.com</ex></ph>.
+        Signed in as <ph name="EMAIL">$1<ex>johndoe@9ma1l.qjz9zk</ex></ph>.
 
 Your data is encrypted with your sync passphrase. Enter it to start sync.
       </message>
       <message name="IDS_IOS_SYNC_ENTER_PASSPHRASE_BODY_WITH_EMAIL_AND_DATE" desc="Instructions for the dialog where the user enters the passphrase.">
-        Signed in as <ph name="EMAIL">$1<ex>johndoe@gmail.com</ex></ph>.
+        Signed in as <ph name="EMAIL">$1<ex>johndoe@9ma1l.qjz9zk</ex></ph>.
 
 Your data was encrypted with your sync passphrase on <ph name="TIME">$2<ex>Sept 1, 2012</ex></ph>. Enter it to start sync.
       </message>
@@ -3314,16 +3314,16 @@ Your data was encrypted with your sync passphrase on <ph name="TIME">$2<ex>Sept 
       <message name="IDS_IOS_TABS_SEARCH_SUGGESTED_ACTION_SEARCH_WEB" desc="Title for a suggested action presented at the end of search results to search the web for the same search term.">
         Search on Web
       </message>
-      <message name="IDS_IOS_TANGIBLE_SYNC_DISCLAIMER" desc="This string appears in the footer on a full-page screen that asks users if they want to turn on sync. 'Sync' is short for 'synchronization'. The first sentence informs the user where they can go to change their mind or to customize what Chrome/Chromium data types they choose to sync (a user's Chrome/Chromium data includes their bookmarks, passwords, history, settings, and more). The second sentence informs the user that if they choose to sync, then their history may be used to personalize Search and other services. Translate 'history' according to https://localization.google.com/glossary/termset?gid=27517723&amp;tsid=59c3162. [iOS only][CHAR_LIMIT=200].">
+      <message name="IDS_IOS_TANGIBLE_SYNC_DISCLAIMER" desc="This string appears in the footer on a full-page screen that asks users if they want to turn on sync. 'Sync' is short for 'synchronization'. The first sentence informs the user where they can go to change their mind or to customize what Chrome/Chromium data types they choose to sync (a user's Chrome/Chromium data includes their bookmarks, passwords, history, settings, and more). The second sentence informs the user that if they choose to sync, then their history may be used to personalize Search and other services. Translate 'history' according to https://localization.9oo91e.qjz9zk/glossary/termset?gid=27517723&amp;tsid=59c3162. [iOS only][CHAR_LIMIT=200].">
         You can always choose what to sync in <ph name="BEGIN_LINK">BEGIN_LINK</ph>settings<ph name="END_LINK">END_LINK</ph>. Google may personalize Search and other services based on your history.
       </message>
-      <message name="IDS_IOS_TANGIBLE_SYNC_DATA_TYPE_BOOKMARKS" desc="This string appears as an item in a list of sync data types on a full-page screen that asks users if they want to turn on sync. Translate 'bookmarks' according to https://localization.google.com/glossary/termset?gid=27517723&amp;tsid=59c31bb. [iOS only][CHAR_LIMIT=25]">
+      <message name="IDS_IOS_TANGIBLE_SYNC_DATA_TYPE_BOOKMARKS" desc="This string appears as an item in a list of sync data types on a full-page screen that asks users if they want to turn on sync. Translate 'bookmarks' according to https://localization.9oo91e.qjz9zk/glossary/termset?gid=27517723&amp;tsid=59c31bb. [iOS only][CHAR_LIMIT=25]">
         Bookmarks
       </message>
-      <message name="IDS_IOS_TANGIBLE_SYNC_DATA_TYPE_HISTORY" desc="This string appears as an item in a list of sync data types on a full-page screen that asks users if they want to turn on sync. Translate 'history' according to https://localization.google.com/glossary/termset?gid=27517723&amp;tsid=59c3162. Translate 'and more' so that it conveys that there are additional similar items that are not listed. [iOS only][CHAR_LIMIT=30]">
+      <message name="IDS_IOS_TANGIBLE_SYNC_DATA_TYPE_HISTORY" desc="This string appears as an item in a list of sync data types on a full-page screen that asks users if they want to turn on sync. Translate 'history' according to https://localization.9oo91e.qjz9zk/glossary/termset?gid=27517723&amp;tsid=59c3162. Translate 'and more' so that it conveys that there are additional similar items that are not listed. [iOS only][CHAR_LIMIT=30]">
         History and more
       </message>
-      <message name="IDS_IOS_TANGIBLE_SYNC_DATA_TYPE_AUTOFILL" desc="This string appears as an item in a list of sync data types on a full-page screen that asks users if they want to turn on sync. Translate 'autofill' according to https://localization.google.com/glossary/termset?gid=27517723&amp;tsid=77d3626. [iOS only][CHAR_LIMIT=25]">
+      <message name="IDS_IOS_TANGIBLE_SYNC_DATA_TYPE_AUTOFILL" desc="This string appears as an item in a list of sync data types on a full-page screen that asks users if they want to turn on sync. Translate 'autofill' according to https://localization.9oo91e.qjz9zk/glossary/termset?gid=27517723&amp;tsid=77d3626. [iOS only][CHAR_LIMIT=25]">
         Autofill
         </message>
       <message name="IDS_IOS_TANGIBLE_SYNC_TITLE_SYNC" desc="This string appears as a heading on a full-page screen that asks users if they want to turn on sync. 'Sync' is short for 'synchronization'. [iOS only][CHAR_LIMIT=20]">
@@ -3399,10 +3399,10 @@ Your data was encrypted with your sync passphrase on <ph name="TIME">$2<ex>Sept 
         Learn More
       </message>
       <message name="IDS_IOS_TOOLS_MENU_FOLLOW" desc="The iOS menu item for following web content. [iOS only]">
-        Follow <ph name="DOMAIN_NAME">$1<ex>google.com</ex></ph>
+        Follow <ph name="DOMAIN_NAME">$1<ex>9oo91e.qjz9zk</ex></ph>
       </message>
       <message name="IDS_IOS_TOOLS_MENU_UNFOLLOW" desc="The iOS menu item for unfollowing web content. [iOS only]">
-        Unfollow <ph name="DOMAIN_NAME">$1<ex>google.com</ex></ph>
+        Unfollow <ph name="DOMAIN_NAME">$1<ex>9oo91e.qjz9zk</ex></ph>
       </message>
       <message name="IDS_IOS_TOOLS_MENU_TRANSLATE" desc="The iOS menu item for translating the current page [iOS only]" meaning="Open the translate infobar [Length: unlimited]">
         Translate
@@ -3414,7 +3414,7 @@ Your data was encrypted with your sync passphrase on <ph name="TIME">$2<ex>Sept 
         Help
       </message>
       <message name="IDS_IOS_TOOLS_MENU_HELP_URL" translateable="false">
-        https://support.google.com/chrome/?p=chrome_help&amp;hl=[GRITLANGCODE]&amp;ios=1
+        https://support.9oo91e.qjz9zk/chrome/?p=chrome_help&amp;hl=[GRITLANGCODE]&amp;ios=1
       </message>
       <message name="IDS_IOS_TOOLS_MENU_HISTORY" desc="The Tools menu item for opening the navigation history menu">
         History

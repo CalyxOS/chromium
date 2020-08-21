@@ -44,7 +44,7 @@ def fetch(platform, minimum, minimum_lexographic):
             lambda s: s[len(platform) + 1:-1],
             json.load(
                 urllib.request.urlopen(
-                    'https://storage.googleapis.com/storage/v1/b/'
+                    'https://storage.9oo91eapis.qjz9zk/storage/v1/b/'
                     'chromium-browser-snapshots/o?prefix=%s%%2F&startOffset=%s'
                     '%%2F%s&fields=prefixes&delimiter=%%2F' %
                     (platform, platform,
@@ -71,7 +71,7 @@ def lastDatum(platform):
     """
     latest = int(
         urllib.request.urlopen(
-            'https://storage.googleapis.com/storage/v1/b/'
+            'https://storage.9oo91eapis.qjz9zk/storage/v1/b/'
             'chromium-browser-snapshots/o/%s%%2FLAST_CHANGE?alt=media' % platform).read())
     return max(MIN_VERSION,
                find(platform, latest - latest % 1000, latest))
@@ -85,7 +85,7 @@ def get_url():
     print(
         json.dumps({
             'url': [
-                'https://storage.googleapis.com/storage/v1/b/'
+                'https://storage.9oo91eapis.qjz9zk/storage/v1/b/'
                 'chromium-browser-snapshots/o/%s%%2F%s%%2Fupdater.zip?alt=media'
                 % (get_platform(), os.environ['_3PP_VERSION'])
             ],

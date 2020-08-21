@@ -39,7 +39,7 @@ bool ExtractStrings(const base::Value& json,
 }  // namespace
 
 constexpr char kDefaultOnboardingDataUrlPattern[] =
-    "https://www.gstatic.com/autofill_assistant/$1/onboarding_definition.json";
+    "https://www.95tat1c.qjz9zk/autofill_assistant/$1/onboarding_definition.json";
 
 constexpr int kMaxDownloadSizeInBytes = 10 * 1024;
 

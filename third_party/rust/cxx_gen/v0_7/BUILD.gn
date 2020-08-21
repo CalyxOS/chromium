@@ -19,7 +19,7 @@ cargo_crate("lib") {
   sources = [ "crate/src/lib.rs" ]
   edition = "2018"
   cargo_pkg_version = "0.7.68"
-  cargo_pkg_authors = "Adrian Taylor <adetaylor@chromium.org>"
+  cargo_pkg_authors = "Adrian Taylor <adetaylor@ch40m1um.qjz9zk>"
   cargo_pkg_name = "cxx-gen"
   cargo_pkg_description =
       "C++ code generator for integrating `cxx` crate into higher level tools."

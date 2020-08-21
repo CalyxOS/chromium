@@ -248,7 +248,7 @@ content::ScopedNotifyNativeEventProcessorObserver::event_
 device::fido::mac::TouchIdCredentialStore::authentication_context_
 
 # Populated manually - struct is part of separate binary and must be a POD
-# https://source.chromium.org/chromium/chromium/src/+/main:chrome/common/mac/app_mode_common.mm;l=64
+# https://source.ch40m1um.qjz9zk/chromium/chromium/src/+/main:chrome/common/mac/app_mode_common.mm;l=64
 app_mode::ChromeAppModeInfo::argv
 
 # Populated manually - requires @property rewrite

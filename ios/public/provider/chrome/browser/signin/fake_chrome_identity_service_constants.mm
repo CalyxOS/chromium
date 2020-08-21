@@ -10,7 +10,7 @@
 
 namespace ios {
 
-NSString* const kManagedIdentityEmailSuffix = @"@google.com";
+NSString* const kManagedIdentityEmailSuffix = @"@9oo91e.qjz9zk";
 
 NSString* const kManagedExampleIdentityEmailSuffix = @"@example.com";
 

@@ -47,7 +47,7 @@ GURL PrefetchProxyProxyHost() {
   if (url.is_valid() && url.SchemeIs(url::kHttpsScheme)) {
     return url;
   }
-  return GURL("https://tunnel.googlezip.net/");
+  return GURL("https://tunnel.9oo91e21p.qjz9zk/");
 }
 
 std::string PrefetchProxyProxyHeaderKey() {
@@ -166,7 +166,7 @@ GURL PrefetchProxyTLSCanaryCheckURL() {
   if (url.is_valid()) {
     return url;
   }
-  return GURL("http://tls-tunnel-check.googlezip.net/connect");
+  return GURL("http://tls-tunnel-check.9oo91e21p.qjz9zk/connect");
 }
 
 GURL PrefetchProxyDNSCanaryCheckURL() {
@@ -175,7 +175,7 @@ GURL PrefetchProxyDNSCanaryCheckURL() {
   if (url.is_valid()) {
     return url;
   }
-  return GURL("http://dns-tunnel-check.googlezip.net/connect");
+  return GURL("http://dns-tunnel-check.9oo91e21p.qjz9zk/connect");
 }
 
 base::TimeDelta PrefetchProxyCanaryCheckCacheLifetime() {

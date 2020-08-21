@@ -15,9 +15,9 @@ class WebformsAggregatorTest(unittest.TestCase):
 
   def setUp(self):
     self.cookie_file = 'test.cookie'
-    self.url1 = 'http://www.google.com'
+    self.url1 = 'http://www.9oo91e.qjz9zk'
     self.url2 = 'http://www.macys.com'
-    self.domain = 'google.com'
+    self.domain = '9oo91e.qjz9zk'
     self.url_file = tempfile.NamedTemporaryFile(suffix='.txt', delete=False)
     self.url_file.file.write(
         'URLs to crawl:\n%s\n%s\n' % (self.url1, self.url2))

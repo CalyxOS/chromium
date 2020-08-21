@@ -16,7 +16,7 @@
 namespace {
 
 constexpr char kGSuiteAdministratorInstructionsUrl[] =
-    "https://support.google.com/a/answer/6304876";
+    "https://support.9oo91e.qjz9zk/a/answer/6304876";
 
 }  // namespace
 

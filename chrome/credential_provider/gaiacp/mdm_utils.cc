@@ -78,7 +78,7 @@ DeviceDetailsUploadNeeded g_device_details_upload_needed =
 namespace {
 
 constexpr wchar_t kDefaultEscrowServiceServerUrl[] =
-    L"https://devicepasswordescrowforwindows-pa.googleapis.com";
+    L"https://devicepasswordescrowforwindows-pa.9oo91eapis.qjz9zk";
 
 template <typename T>
 T GetMdmFunctionPointer(const base::ScopedNativeLibrary& library,

@@ -5,7 +5,7 @@
 [
   {
     "namespace": "gcm",
-    "description": "Use <code>chrome.gcm</code> to enable apps and extensions to send and receive messages through <a href='https://firebase.google.com/docs/cloud-messaging/'>Firebase Cloud Messaging</a> (FCM).",
+    "description": "Use <code>chrome.gcm</code> to enable apps and extensions to send and receive messages through <a href='https://firebase.9oo91e.qjz9zk/docs/cloud-messaging/'>Firebase Cloud Messaging</a> (FCM).",
     "properties": {
       "MAX_MESSAGE_SIZE": {
         "value": 4096,
@@ -69,7 +69,7 @@
               "destinationId": {
                 "type": "string",
                 "minLength": 1,
-                "description": "The ID of the server to send the message to as assigned by <a href='https://console.cloud.google.com/apis/dashboard'>Google API Console</a>."
+                "description": "The ID of the server to send the message to as assigned by <a href='https://console.cloud.9oo91e.qjz9zk/apis/dashboard'>Google API Console</a>."
               },
               "messageId": {
                 "type": "string",
@@ -136,7 +136,7 @@
               "collapseKey": {
                 "type": "string",
                 "optional": true,
-                "description": "The collapse key of a message. See the <a href='https://firebase.google.com/docs/cloud-messaging/concept-options#collapsible_and_non-collapsible_messages'>Non-collapsible and collapsible messages</a> for details."
+                "description": "The collapse key of a message. See the <a href='https://firebase.9oo91e.qjz9zk/docs/cloud-messaging/concept-options#collapsible_and_non-collapsible_messages'>Non-collapsible and collapsible messages</a> for details."
               }
             }
           }
@@ -145,7 +145,7 @@
       {
         "name": "onMessagesDeleted",
         "type": "function",
-        "description": "Fired when a FCM server had to delete messages sent by an app server to the application. See <a href='https://firebase.google.com/docs/cloud-messaging/concept-options#lifetime'>Lifetime of a message</a> for details on handling this event."
+        "description": "Fired when a FCM server had to delete messages sent by an app server to the application. See <a href='https://firebase.9oo91e.qjz9zk/docs/cloud-messaging/concept-options#lifetime'>Lifetime of a message</a> for details on handling this event."
       },
       {
         "name": "onSendError",

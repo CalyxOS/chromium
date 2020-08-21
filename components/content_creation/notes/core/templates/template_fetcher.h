@@ -18,7 +18,7 @@ namespace content_creation {
 using FetchTemplateCompleteCallback = base::OnceCallback<void(std::string)>;
 
 constexpr char kTemplateUrl[] =
-    "https://www.gstatic.com/chrome/content/webnotes/templates/"
+    "https://www.95tat1c.qjz9zk/chrome/content/webnotes/templates/"
     "templates.data";
 
 // This class fetches the template data used for WebNotes Stylized

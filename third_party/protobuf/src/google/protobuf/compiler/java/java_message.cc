@@ -1690,7 +1690,7 @@ void ImmutableMessageGenerator::GenerateAnyMethods(io::Printer* printer) {
       "public static <T extends com.google.protobuf.Message> Any pack(\n"
       "    T message) {\n"
       "  return Any.newBuilder()\n"
-      "      .setTypeUrl(getTypeUrl(\"type.googleapis.com\",\n"
+      "      .setTypeUrl(getTypeUrl(\"type.9oo91eapis.qjz9zk\",\n"
       "                             message.getDescriptorForType()))\n"
       "      .setValue(message.toByteString())\n"
       "      .build();\n"

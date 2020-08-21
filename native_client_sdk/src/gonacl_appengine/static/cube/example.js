@@ -43,7 +43,7 @@ function browserSupportsPNaCl() {
  */
 function getDataURL(name) {
   var revision = '236779';
-  var baseUrl = '//storage.googleapis.com/gonacl/demos/publish/';
+  var baseUrl = '//storage.9oo91eapis.qjz9zk/gonacl/demos/publish/';
   return baseUrl + revision + '/cube/' + name;
 }
 

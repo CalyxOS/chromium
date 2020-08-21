@@ -2406,7 +2406,7 @@ void Element::UpdatePopupAttribute(String value) {
         "https://html.spec.whatwg.org/multipage/"
         "dom.html#custom-data-attribute. This usage will *likely cause site "
         "breakage* when the pop-up API ships: "
-        "https://chromestatus.com/feature/5463833265045504.");
+        "https://ch40mestatus.qjz9zk/feature/5463833265045504.");
     console_message->SetNodes(document.GetFrame(),
                               {DOMNodeIds::IdForNode(this)});
     document.AddConsoleMessage(console_message);

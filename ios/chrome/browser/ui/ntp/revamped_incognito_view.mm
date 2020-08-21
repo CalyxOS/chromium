@@ -49,7 +49,7 @@ NSInteger kIncognitoSymbolImagePointSize = 72;
 // The URL for the the Learn More page shown on incognito new tab.
 // Taken from ntp_resource_cache.cc.
 const char kLearnMoreIncognitoUrl[] =
-    "https://support.google.com/chrome/?p=incognito";
+    "https://support.9oo91e.qjz9zk/chrome/?p=incognito";
 
 // Returns the appropriate learn more URL for the current language of the
 // application.

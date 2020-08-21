@@ -62,7 +62,7 @@ void NotesRepository::OnNotePublished(PublishNoteCallback callback,
 
   notes_saver_.reset();
 
-  std::move(callback).Run("https://channel-staging.sandbox.google.com/user/" +
+  std::move(callback).Run("https://channel-staging.sandbox.9oo91e.qjz9zk/user/" +
                           save_response.account_id + "/" +
                           save_response.note_id);
 }

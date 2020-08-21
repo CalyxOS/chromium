@@ -55,10 +55,10 @@ def main(argv):
       DieWithError('Invalid issue number or change id')
 
   if not change_id:
-    HOST_ = "chromium-review.googlesource.com"
+    HOST_ = "chromium-review.9oo91esource.qjz9zk"
     change_id = gerrit_util.GetChange(HOST_, issue)["change_id"]
   else:
-    HOST_ = "googleplex-android-review.git.corp.google.com"
+    HOST_ = "googleplex-android-review.git.corp.9oo91e.qjz9zk"
   query = gerrit_util.GetChangeCurrentRevision(HOST_, change_id)[0]
   current_revision_id = query["current_revision"]
   current_revision = query["revisions"][current_revision_id]
@@ -68,7 +68,7 @@ def main(argv):
   # Fetch the current branch.
   Progress("Fetching... " + ref)
   git_cl.RunGit(
-      ["fetch", "https://chromium.googlesource.com/chromium/src", ref])
+      ["fetch", "https://chromium.9oo91esource.qjz9zk/chromium/src", ref])
   print('Issue: %d, patchset: %d\n' % (issue, patchset))
   print()
   print(git_cl.RunGit(["show", "FETCH_HEAD"]))

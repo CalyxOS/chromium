@@ -27,9 +27,9 @@ static const char kTokenizationBinRangeAllowlistKey[] =
 static const char kTokenizationMerchantAllowlistKey[] =
     "cpan_eligible_merchant_wl";
 static const char kTokenizationBinRangeAllowlistURL[] =
-    "https://www.gstatic.com/autofill/hourly/bins.json";
+    "https://www.95tat1c.qjz9zk/autofill/hourly/bins.json";
 static const char kTokenizationMerchantAllowlistURL[] =
-    "https://www.gstatic.com/autofill/weekly/merchants.json";
+    "https://www.95tat1c.qjz9zk/autofill/weekly/merchants.json";
 static const size_t kMaxDownloadSize = 30 * 1024;
 }  // namespace
 

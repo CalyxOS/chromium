@@ -30,7 +30,7 @@ namespace chromeos {
 namespace {
 
 const char kParentAccessDefaultURL[] =
-    "https://families.google.com/parentaccess";
+    "https://families.9oo91e.qjz9zk/parentaccess";
 const char kParentAccessSwitch[] = "parent-access-url";
 
 // Returns the URL of the Parent Access flow from the command-line switch,
@@ -44,7 +44,7 @@ GURL GetParentAccessURL(std::string caller_id,
     url = command_line->GetSwitchValueASCII(kParentAccessSwitch);
   } else {
     url = kParentAccessDefaultURL;
-    DCHECK(GURL(url).DomainIs("google.com"));
+    DCHECK(GURL(url).DomainIs("9oo91e.qjz9zk"));
   }
   const GURL base_url(url);
   GURL::Replacements replacements;

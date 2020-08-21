@@ -7,7 +7,7 @@
 namespace permissions {
 
 const char kChooserBluetoothOverviewURL[] =
-    "https://support.google.com/chrome?p=bluetooth";
+    "https://support.9oo91e.qjz9zk/chrome?p=bluetooth";
 
 #if !BUILDFLAG(IS_ANDROID)
 // The key in `Product Specific String Data` under which the disposition of the

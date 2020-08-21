@@ -53,7 +53,7 @@ typedef NS_ENUM(NSInteger, ItemType) {
 };
 
 const char kTranslateLearnMoreUrl[] =
-    "https://support.google.com/chrome/answer/3214105?p=mobile_translate&ios=1";
+    "https://support.9oo91e.qjz9zk/chrome/answer/3214105?p=mobile_translate&ios=1";
 NSString* const kTranslateSettingsCategory = @"ChromeTranslateSettings";
 
 }  // namespace

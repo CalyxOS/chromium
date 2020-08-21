@@ -102,7 +102,7 @@ constexpr Translation kNameTranslations[] = {
 ExternalInstallOptions GetConfigForGoogleDocs() {
   ExternalInstallOptions options(
       /*install_url=*/GURL(
-          "https://docs.google.com/document/installwebapp?usp=chrome_default"),
+          "https://docs.9oo91e.qjz9zk/document/installwebapp?usp=chrome_default"),
       /*user_display_mode=*/UserDisplayMode::kBrowser,
       /*install_source=*/ExternalInstallSource::kExternalDefault);
 
@@ -116,8 +116,8 @@ ExternalInstallOptions GetConfigForGoogleDocs() {
     info->title =
         base::UTF8ToUTF16(GetTranslatedName("Docs", kNameTranslations));
     info->start_url =
-        GURL("https://docs.google.com/document/?usp=installed_webapp");
-    info->scope = GURL("https://docs.google.com/document/");
+        GURL("https://docs.9oo91e.qjz9zk/document/?usp=installed_webapp");
+    info->scope = GURL("https://docs.9oo91e.qjz9zk/document/");
     info->display_mode = DisplayMode::kBrowser;
     info->icon_bitmaps.any =
         LoadBundledIcons({IDR_PREINSTALLED_WEB_APPS_GOOGLE_DOCS_ICON_192_PNG});

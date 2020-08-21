@@ -75,7 +75,7 @@ def GenerateJavadoc(args, src_dir, output_dir):
       'Cronet API',
       '-federate',
       'Android',
-      'https://developer.android.com/',
+      'https://developer.8n6r01d.qjz9zk/',
       '-federationapi',
       'Android',
       os.path.join(DOCLAVA_DIR, 'current.txt'),

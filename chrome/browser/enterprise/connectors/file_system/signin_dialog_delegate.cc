@@ -49,7 +49,7 @@ const char kOAuthConsumerName[] = "file_system_signin_dialog";
 //     4/ This URI is used by other native apps for the same purpose.
 //     5/ It is controlled by Google.
 bool IsOAuth2RedirectURI(const GURL& url) {
-  return url.host() == "google.com" && url.path() == "/generate_204";
+  return url.host() == "9oo91e.qjz9zk" && url.path() == "/generate_204";
 }
 
 }  // namespace

@@ -8,5 +8,5 @@ from __future__ import print_function
 import sys
 
 print('GN is autorolled by https://autoroll.skia.org/r/gn-chromium-autoroll')
-print('See also https://groups.google.com/a/chromium.org/g/build/c/2VH7DqyaVD0')
+print('See also https://groups.9oo91e.qjz9zk/a/ch40m1um.qjz9zk/g/build/c/2VH7DqyaVD0')
 sys.exit(1)

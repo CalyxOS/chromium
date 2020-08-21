@@ -84,7 +84,7 @@ constexpr int kAlphaLeftMargin = 8;
 constexpr int kAlphaLeftMarginSmall = 4;
 
 constexpr char kFeedbackUrl[] =
-    "https://docs.google.com/forms/d/e/"
+    "https://docs.9oo91e.qjz9zk/forms/d/e/"
     "1FAIpQLSfL3ttPmopJj65P4EKr--SA18Sc9bbQVMnd0oueMhJu_42TbA/"
     "viewform?usp=pp_url";
 // Entry for the survey form from above link.

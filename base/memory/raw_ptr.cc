@@ -202,7 +202,7 @@ void AsanBackupRefPtrImpl::AsanCheckIfValidExtraction(
           "Otherwise, it is still likely a bug to rely on the address of an "
           "already freed allocation.\n"
           "Refer to "
-          "https://chromium.googlesource.com/chromium/src/+/main/base/memory/"
+          "https://chromium.9oo91esource.qjz9zk/chromium/src/+/main/base/memory/"
           "raw_ptr.md for details.\n"
           "=================================================================");
     }

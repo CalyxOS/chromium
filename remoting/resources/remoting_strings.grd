@@ -580,7 +580,7 @@
       <message desc="Title for the instructions for setting up a remote host. Shown when the user has no host available." name="IDS_HOST_SETUP_TITLE">
         Welcome to Chrome Remote Desktop
       </message>
-      <message desc="Step 1 to set up a computer to be remotely accessible." name="IDS_HOST_SETUP_STEP_1">On the computer you want to access remotely, open Chrome and visit <ph name="INSTALLATION_LINK">$1<ex>google.com/remotedesktop</ex></ph></message>
+      <message desc="Step 1 to set up a computer to be remotely accessible." name="IDS_HOST_SETUP_STEP_1">On the computer you want to access remotely, open Chrome and visit <ph name="INSTALLATION_LINK">$1<ex>9oo91e.qjz9zk/remotedesktop</ex></ph></message>
       <message desc="Step 2 to set up a computer to be remotely accessible." name="IDS_HOST_SETUP_STEP_2">Follow the instructions to set up your computer for remote access</message>
       <message desc="Step 3 to set up a computer to be remotely accessible." name="IDS_HOST_SETUP_STEP_3">After setup is complete, refresh this page, then you'll be able to access the computer by choosing your device and entering the PIN</message>
       <message desc="Label for a button for sending the user an email with link and instructions for setting up a computer for remote access." name="IDS_EMAIL_LINKS_AND_INSTRUCTIONS">
@@ -679,7 +679,7 @@
       <if expr="is_android">
         <!-- Android uses a different format for placeholder -->
         <message desc="Message that is spoken (for accessibility) whenever the user selects an account from a list displayed in the application." name="IDS_LOG_IN_ACCOUNT_ACCESSIBILITY_DESCRIPTION" formatter_data="android_java" meaning="Spoken message">
-          Signed in as <ph name="EMAIL_ADDRESS">%1$s<ex>test@gmail.com</ex></ph>.
+          Signed in as <ph name="EMAIL_ADDRESS">%1$s<ex>test@9ma1l.qjz9zk</ex></ph>.
         </message>
         <message desc="This string represents a host status line, which is shown below the host name for offline hosts.  The status line consists of 1) a host offline status (i.e. a specific 'Host failed to read the policy.' or 'Invalid host owner.' or a generic 'Host if offline.') and 2) statement when the host was last seen online (i.e. 'Last seen online 20 minutes ago.')."
                  name="IDS_HOST_STATUS_LINE" formatter_data="android_java">
@@ -692,7 +692,7 @@
       </if>
       <if expr="not is_android">
         <message desc="Short message being popped up whenever the user selects an account from a list displayed in the application." name="IDS_LOG_IN_ACCOUNT_DESCRIPTION" meaning="UI element">
-          Signed in as <ph name="EMAIL_ADDRESS">$1<ex>test@gmail.com</ex></ph>.
+          Signed in as <ph name="EMAIL_ADDRESS">$1<ex>test@9ma1l.qjz9zk</ex></ph>.
         </message>
         <message desc="Modified version of the host name shown for hosts that are not currently accessible and for which no last-online status is available." name="IDS_OFFLINE">
           <ph name="HOSTNAME">$1<ex>My Linux desktop</ex></ph> (offline)
@@ -944,7 +944,7 @@ If '<ph name="SERVICE_SCRIPT_NAME">$3<ex>org.chromium.chromoting.me2me.sh</ex></
         </message>
       </if>
       <message name="IDS_REMOTE_OPEN_URL_FAILED" desc="Message shown when Chrome Remote Desktop fails to open a URL from the host device on the client device.">
-        Failed to open <ph name="URL">$1<ex>http://google.com</ex></ph> on the client.
+        Failed to open <ph name="URL">$1<ex>http://9oo91e.qjz9zk</ex></ph> on the client.
       </message>
       <message name="IDS_CHOOSE_FALLBACK_BROWSER" desc="Message shown on a browser chooser dialog when the Chrome Remote Desktop URL forwarder cannot determine the browser for opening a URL locally (when the URL cannot be remotely opened by the client).">
         Chrome Remote Desktop cannot determine the browser to open URLs locally. Please choose it from the list below.

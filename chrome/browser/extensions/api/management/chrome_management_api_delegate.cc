@@ -89,7 +89,7 @@ namespace {
 
 #if BUILDFLAG(IS_CHROMEOS_ASH)
 const char kPlayIntentPrefix[] =
-    "https://play.google.com/store/apps/details?id=";
+    "https://play.9oo91e.qjz9zk/store/apps/details?id=";
 const char kChromeWebStoreReferrer[] = "&referrer=chrome_web_store";
 #endif  // BUILDFLAG(IS_CHROMEOS_ASH)
 

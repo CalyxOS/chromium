@@ -19,7 +19,7 @@ cargo_crate("lib") {
   sources = [ "crate/src/lib.rs" ]
   edition = "2018"
   cargo_pkg_version = "0.5.0"
-  cargo_pkg_authors = "Miguel Young de la Sota <mcyoung@google.com>"
+  cargo_pkg_authors = "Miguel Young de la Sota <mcyoung@9oo91e.qjz9zk>"
   cargo_pkg_name = "moveit"
   cargo_pkg_description =
       "A library for safe, in-place construction of Rust (and C++!) objects."

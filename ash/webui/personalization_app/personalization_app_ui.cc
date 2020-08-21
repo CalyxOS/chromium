@@ -33,7 +33,7 @@ namespace ash::personalization_app {
 
 namespace {
 
-inline constexpr char kGooglePhotosURL[] = "https://photos.google.com";
+inline constexpr char kGooglePhotosURL[] = "https://photos.9oo91e.qjz9zk";
 
 GURL GetGooglePhotosURL() {
   return GURL(kGooglePhotosURL);

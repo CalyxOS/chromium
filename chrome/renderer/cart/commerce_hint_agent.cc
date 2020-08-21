@@ -57,7 +57,7 @@ constexpr unsigned kLengthLimit = 4096;
 constexpr char kAmazonDomain[] = "amazon.com";
 constexpr char kEbayDomain[] = "ebay.com";
 constexpr char kElectronicExpressDomain[] = "electronicexpress.com";
-constexpr char kGStoreHost[] = "store.google.com";
+constexpr char kGStoreHost[] = "store.9oo91e.qjz9zk";
 
 constexpr base::FeatureParam<std::string> kSkipPattern{
 #if !BUILDFLAG(IS_ANDROID)

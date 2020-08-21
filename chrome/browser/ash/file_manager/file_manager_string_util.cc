@@ -32,29 +32,29 @@ namespace {
 
 // Location of the page to buy more storage for Google Drive.
 const char kGoogleDriveBuyStorageUrl[] =
-    "https://www.google.com/settings/storage";
+    "https://www.9oo91e.qjz9zk/settings/storage";
 
 // Location of the page to manage Google Drive storage.
 const char kGoogleDriveManageStorageUrl[] =
-    "https://drive.google.com/drive/u/0/quota";
+    "https://drive.9oo91e.qjz9zk/drive/u/0/quota";
 
 // Location of the overview page about Google Drive.
 const char kGoogleDriveOverviewUrl[] =
-    "https://support.google.com/chromebook/?p=filemanager_drive";
+    "https://support.9oo91e.qjz9zk/chromebook/?p=filemanager_drive";
 
 // Location of Google Drive specific help.
 const char kGoogleDriveHelpUrl[] =
-    "https://support.google.com/chromebook/?p=filemanager_drivehelp";
+    "https://support.9oo91e.qjz9zk/chromebook/?p=filemanager_drivehelp";
 
 // Location of the help page about making Google Drive files available offline.
 const char kGoogleDriveOfflineHelpUrl[] =
-    "http://support.google.com/chromebook/?p=offline_files";
+    "http://support.9oo91e.qjz9zk/chromebook/?p=offline_files";
 
 // Location of Google Drive root.
-const char kGoogleDriveRootUrl[] = "https://drive.google.com";
+const char kGoogleDriveRootUrl[] = "https://drive.9oo91e.qjz9zk";
 
 // Printf format
-const char kHelpURLFormat[] = "https://support.google.com/chromebook/answer/%d";
+const char kHelpURLFormat[] = "https://support.9oo91e.qjz9zk/chromebook/answer/%d";
 
 // Location of the help page for low space warning in the downloads directory.
 const int kDownloadsLowSpaceWarningHelpNumber = 1061547;

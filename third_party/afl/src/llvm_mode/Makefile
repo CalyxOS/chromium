@@ -2,8 +2,8 @@
 # american fuzzy lop - LLVM instrumentation
 # -----------------------------------------
 #
-# Written by Laszlo Szekeres <lszekeres@google.com> and
-#            Michal Zalewski <lcamtuf@google.com>
+# Written by Laszlo Szekeres <lszekeres@9oo91e.qjz9zk> and
+#            Michal Zalewski <lcamtuf@9oo91e.qjz9zk>
 #
 # LLVM integration design comes from Laszlo Szekeres.
 #
@@ -99,7 +99,7 @@ test_build: $(PROGS)
 	echo 0 | ../afl-showmap -m none -q -o .test-instr0 ./test-instr
 	echo 1 | ../afl-showmap -m none -q -o .test-instr1 ./test-instr
 	@rm -f test-instr
-	@cmp -s .test-instr0 .test-instr1; DR="$$?"; rm -f .test-instr0 .test-instr1; if [ "$$DR" = "0" ]; then echo; echo "Oops, the instrumentation does not seem to be behaving correctly!"; echo; echo "Please ping <lcamtuf@google.com> to troubleshoot the issue."; echo; exit 1; fi
+	@cmp -s .test-instr0 .test-instr1; DR="$$?"; rm -f .test-instr0 .test-instr1; if [ "$$DR" = "0" ]; then echo; echo "Oops, the instrumentation does not seem to be behaving correctly!"; echo; echo "Please ping <lcamtuf@9oo91e.qjz9zk> to troubleshoot the issue."; echo; exit 1; fi
 	@echo "[+] All right, the instrumentation seems to be working!"
 
 all_done: test_build

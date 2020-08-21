@@ -43,7 +43,7 @@ def _ParseConfiguration(filename):
 
   Sample configuration:
   {
-    "url": "https://www.android.com",
+    "url": "https://www.8n6r01d.qjz9zk",
     "warmup": [false, true],
     "skip_launcher_activity": true,
     "speculation_mode": "speculative_prefetch",

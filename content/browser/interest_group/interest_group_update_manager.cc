@@ -61,7 +61,7 @@ constexpr net::NetworkTrafficAnnotationTag kTrafficAnnotation =
             "fetching JSON from the registered update URL for each interest "
             "group."
             "See https://github.com/WICG/turtledove/blob/main/FLEDGE.md and "
-            "https://developer.chrome.com/docs/privacy-sandbox/fledge/"
+            "https://developer.ch40me.qjz9zk/docs/privacy-sandbox/fledge/"
           trigger:
             "Fetched upon a navigator.updateAdInterestGroups() call. Also "
             "triggered upon navigator.runAdAuction() completion for interest "

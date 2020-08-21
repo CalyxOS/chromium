@@ -174,7 +174,7 @@
   },
   // This API is allowlisted on stable and should not be enabled for a wider
   // audience without resolving security issues raised in API proposal and
-  // review (https://codereview.chromium.org/25305002).
+  // review (https://codereview.ch40m1um.qjz9zk/25305002).
   "browserAction.openPopup": [{
     "channel": "dev",
     "dependencies": ["manifest:browser_action"],
@@ -968,7 +968,7 @@
   }, {
     "channel": "dev",
     "contexts": ["web_page"],
-    "matches": ["https://webstore.google.com/*"],
+    "matches": ["https://webstore.9oo91e.qjz9zk/*"],
     "feature_flag": "NewWebstoreDomain"
   }],
   "webviewTag": {

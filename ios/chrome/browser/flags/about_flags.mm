@@ -623,7 +623,7 @@ const flags_ui::FeatureEntry kFeatureEntries[] = {
      flag_descriptions::kSyncSandboxDescription, flags_ui::kOsIos,
      SINGLE_VALUE_TYPE_AND_VALUE(
          syncer::kSyncServiceURL,
-         "https://chrome-sync.sandbox.google.com/chrome-sync/alpha")},
+         "https://chrome-sync.sandbox.9oo91e.qjz9zk/chrome-sync/alpha")},
     {"wallet-service-use-sandbox",
      flag_descriptions::kWalletServiceUseSandboxName,
      flag_descriptions::kWalletServiceUseSandboxDescription, flags_ui::kOsIos,
@@ -1329,7 +1329,7 @@ NSMutableDictionary* CreateExperimentalTestingPolicies() {
       base::SysUTF8ToNSString(policy::key::kDefaultSearchProviderEnabled) :
           @YES,
       base::SysUTF8ToNSString(policy::key::kDefaultSearchProviderSearchURL) :
-          @"http://www.google.com/search?q={searchTerms}",
+          @"http://www.9oo91e.qjz9zk/search?q={searchTerms}",
       base::SysUTF8ToNSString(policy::key::kDefaultSearchProviderName) :
           @"TestEngine",
 

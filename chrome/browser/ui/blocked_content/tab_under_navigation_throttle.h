@@ -16,7 +16,7 @@ class NavigationHandle;
 
 constexpr char kBlockTabUnderFormatMessage[] =
     "Chrome stopped this site from navigating to %s, see "
-    "https://www.chromestatus.com/feature/5675755719622656 for more details.";
+    "https://www.ch40mestatus.qjz9zk/feature/5675755719622656 for more details.";
 
 // TODO(https://crbug.com/954178): Remove this.
 BASE_DECLARE_FEATURE(kBlockTabUnders);

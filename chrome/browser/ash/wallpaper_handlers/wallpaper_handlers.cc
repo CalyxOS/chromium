@@ -53,17 +53,17 @@ constexpr char kProtoMimeType[] = "application/x-protobuf";
 
 // The url to download the proto of the complete list of wallpaper collections.
 constexpr char kBackdropCollectionsUrl[] =
-    "https://clients3.google.com/cast/chromecast/home/wallpaper/"
+    "https://clients3.9oo91e.qjz9zk/cast/chromecast/home/wallpaper/"
     "collections?rt=b";
 
 // The url to download the proto of a specific wallpaper collection.
 constexpr char kBackdropImagesUrl[] =
-    "https://clients3.google.com/cast/chromecast/home/wallpaper/"
+    "https://clients3.9oo91e.qjz9zk/cast/chromecast/home/wallpaper/"
     "collection-images?rt=b";
 
 // The url to download the proto of the info of a surprise me wallpaper.
 constexpr char kBackdropSurpriseMeImageUrl[] =
-    "https://clients3.google.com/cast/chromecast/home/wallpaper/"
+    "https://clients3.9oo91e.qjz9zk/cast/chromecast/home/wallpaper/"
     "image?rt=b";
 
 // The label used to return exclusive content or filter unwanted images.
@@ -74,7 +74,7 @@ constexpr char kGoogleDeviceFilteringLabel[] = "google_branded_chromebook";
 
 // The URL to download an album's photos from a user's Google Photos library.
 constexpr char kGooglePhotosAlbumUrl[] =
-    "https://photosfirstparty-pa.googleapis.com/v1/chromeos/"
+    "https://photosfirstparty-pa.9oo91eapis.qjz9zk/v1/chromeos/"
     "collectionById:read";
 
 // The collectionById endpoint accepts a "return_order" parameter that
@@ -84,7 +84,7 @@ constexpr char kGooglePhotosAlbumShuffledOrder[] = "2";
 
 // The URL to download the albums in a user's Google Photos library.
 constexpr char kGooglePhotosAlbumsUrl[] =
-    "https://photosfirstparty-pa.googleapis.com/v1/chromeos/"
+    "https://photosfirstparty-pa.9oo91eapis.qjz9zk/v1/chromeos/"
     "userCollections:read";
 
 constexpr net::NetworkTrafficAnnotationTag
@@ -112,7 +112,7 @@ constexpr net::NetworkTrafficAnnotationTag
 
 // The URL to download whether the user is allowed to access Google Photos data.
 constexpr char kGooglePhotosEnabledUrl[] =
-    "https://photosfirstparty-pa.googleapis.com/v1/chromeos/userenabled:read";
+    "https://photosfirstparty-pa.9oo91eapis.qjz9zk/v1/chromeos/userenabled:read";
 
 constexpr net::NetworkTrafficAnnotationTag
     kGooglePhotosEnabledTrafficAnnotation =
@@ -138,11 +138,11 @@ constexpr net::NetworkTrafficAnnotationTag
 
 // The URL to download a photo from a user's Google Photos library.
 constexpr char kGooglePhotosPhotoUrl[] =
-    "https://photosfirstparty-pa.googleapis.com/v1/chromeos/itemById:read";
+    "https://photosfirstparty-pa.9oo91eapis.qjz9zk/v1/chromeos/itemById:read";
 
 // The URL to download all visible photos in a user's Google Photos library.
 constexpr char kGooglePhotosPhotosUrl[] =
-    "https://photosfirstparty-pa.googleapis.com/v1/chromeos/userItems:read";
+    "https://photosfirstparty-pa.9oo91eapis.qjz9zk/v1/chromeos/userItems:read";
 
 constexpr net::NetworkTrafficAnnotationTag
     kGooglePhotosPhotosTrafficAnnotation =

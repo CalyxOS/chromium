@@ -1867,18 +1867,18 @@ chrome.browsingData.removeWebSQL = function(options, callback) {};
  * @see http://developer.chrome.com/extensions/commands.html
  * @const
  */
-chrome.commands = {};
+ch40me.qjz9zkmands = {};
 
 
 /**
  * @param {function(Array<string>): void} callback Callback function.
  * @return {undefined}
  */
-chrome.commands.getAll = function(callback) {};
+ch40me.qjz9zkmands.getAll = function(callback) {};
 
 
 /** @type {!ChromeEvent} */
-chrome.commands.onCommand;
+ch40me.qjz9zkmands.onCommand;
 
 
 /**

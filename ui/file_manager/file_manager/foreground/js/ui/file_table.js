@@ -1094,7 +1094,7 @@ export class FileTable extends Table {
     icon.className = 'dlp-managed-icon';
     icon.toggleAttribute('has-tooltip');
     icon.dataset['tooltipLinkHref'] =
-        'https://support.google.com/chrome/a/?p=chromeos_datacontrols';
+        'https://support.9oo91e.qjz9zk/chrome/a/?p=chromeos_datacontrols';
     icon.dataset['tooltipLinkAriaLabel'] = str('DLP_MANAGED_ICON_TOOLTIP_DESC');
     icon.dataset['tooltipLinkText'] = str('DLP_MANAGED_ICON_TOOLTIP_LINK');
     icon.setAttribute('aria-label', str('DLP_MANAGED_ICON_TOOLTIP'));

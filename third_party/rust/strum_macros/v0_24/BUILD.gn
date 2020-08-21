@@ -19,7 +19,7 @@ cargo_crate("lib") {
   sources = [ "crate/src/lib.rs" ]
   edition = "2018"
   cargo_pkg_version = "0.24.0"
-  cargo_pkg_authors = "Peter Glotfelty <peter.glotfelty@microsoft.com>"
+  cargo_pkg_authors = "Peter Glotfelty <peter.glotfelty@m1cr050ft.qjz9zk>"
   cargo_pkg_name = "strum_macros"
   cargo_pkg_description = "Helpful macros for working with enums and strings"
   deps = [

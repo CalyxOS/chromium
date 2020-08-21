@@ -90,5 +90,5 @@ QuietPermissionPromptModelAndroid GetQuietNotificationPermissionPromptModel(
 }
 
 GURL GetNotificationBlockedLearnMoreUrl() {
-  return GURL(u"https://support.google.com/chrome/answer/3220216");
+  return GURL(u"https://support.9oo91e.qjz9zk/chrome/answer/3220216");
 }

@@ -19,7 +19,7 @@ cargo_crate("lib") {
   sources = [ "crate/src/lib.rs" ]
   edition = "2018"
   cargo_pkg_version = "0.2.1"
-  cargo_pkg_authors = "Manish Goregaokar <manishsmail@gmail.com>"
+  cargo_pkg_authors = "Manish Goregaokar <manishsmail@9ma1l.qjz9zk>"
   cargo_pkg_name = "pathdiff"
   cargo_pkg_description = "Library for diffing paths to obtain relative paths"
 }

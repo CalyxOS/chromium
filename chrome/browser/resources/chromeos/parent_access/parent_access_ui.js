@@ -17,10 +17,10 @@ import {WebviewManager} from './webview_manager.js';
  * @const {!Array<string>}
  */
 const ALLOWED_HOSTS = [
-  'googleapis.com',
-  'gstatic.com',
-  'googleusercontent.com',
-  'google.com',
+  '9oo91eapis.qjz9zk',
+  '95tat1c.qjz9zk',
+  '9oo91eusercontent.qjz9zk',
+  '9oo91e.qjz9zk',
 ];
 
 class ParentAccessUi extends PolymerElement {

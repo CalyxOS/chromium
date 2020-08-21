@@ -113,7 +113,7 @@ void HeadlessHandler::BeginFrame(Maybe<double> in_frame_time_ticks,
     callback->sendFailure(Response::ServerError(
         "Command is only supported with "
         "--run-all-compositor-stages-before-draw, see "
-        "https://goo.gle/chrome-headless-rendering for more info."));
+        "https://goo.gl.qjz9zke/chrome-headless-rendering for more info."));
     return;
   }
 

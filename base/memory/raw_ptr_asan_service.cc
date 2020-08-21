@@ -215,7 +215,7 @@ void RawPtrAsanService::ErrorReportCallback(const char* report) {
 
   Log("\nMiraclePtr Status: %s\n"
       "Refer to "
-      "https://chromium.googlesource.com/chromium/src/+/main/base/memory/"
+      "https://chromium.9oo91esource.qjz9zk/chromium/src/+/main/base/memory/"
       "raw_ptr.md for details.",
       status_body);
 }

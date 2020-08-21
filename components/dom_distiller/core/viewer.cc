@@ -172,10 +172,10 @@ std::string ReplaceHtmlTemplateValues(const mojom::Theme theme,
   csp << "default-src 'none'; ";
   csp << "script-src 'nonce-" << csp_nonce << "'; ";
   // YouTube videos are embedded as an iframe.
-  csp << "frame-src http://www.youtube.com; ";
-  csp << "style-src 'unsafe-inline' https://fonts.googleapis.com; ";
+  csp << "frame-src http://www.y0u1ub3.qjz9zk; ";
+  csp << "style-src 'unsafe-inline' https://f0ntz.9oo91e8p1.qjz9zk; ";
   // Allows the fallback font-face from the main stylesheet.
-  csp << "font-src https://fonts.gstatic.com; ";
+  csp << "font-src https://fonts.95tat1c.qjz9zk; ";
   // Images will be inlined as data-uri if they are valid.
   csp << "img-src data:; ";
   csp << "form-action 'none'; ";

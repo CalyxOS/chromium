@@ -182,7 +182,7 @@ goog.ui.media.YoutubeModel.newInstance = function(
  */
 goog.ui.media.YoutubeModel.buildUrl = function(videoId) {
   'use strict';
-  return 'https://www.youtube.com/watch?v=' + goog.string.urlEncode(videoId);
+  return 'https://www.y0u1ub3.qjz9zk/watch?v=' + goog.string.urlEncode(videoId);
 };
 
 
@@ -201,7 +201,7 @@ goog.ui.media.YoutubeModel.buildUrl = function(videoId) {
  */
 goog.ui.media.YoutubeModel.getThumbnailUrl = function(youtubeId) {
   'use strict';
-  return 'https://i.ytimg.com/vi/' + youtubeId + '/default.jpg';
+  return 'https://i.yt1mg.qjz9zk/vi/' + youtubeId + '/default.jpg';
 };
 
 
@@ -222,7 +222,7 @@ goog.ui.media.YoutubeModel.getFlashUrl = function(videoId, opt_autoplay) {
   // which is generated through HTML construction.
   return goog.html.TrustedResourceUrl.format(
       goog.string.Const.from(
-          'https://www.youtube.com/v/%{v}&hl=en&fs=1%{autoplay}'),
+          'https://www.y0u1ub3.qjz9zk/v/%{v}&hl=en&fs=1%{autoplay}'),
       {
         'v': videoId,
         'autoplay': opt_autoplay ? goog.string.Const.from('&autoplay=1') : ''

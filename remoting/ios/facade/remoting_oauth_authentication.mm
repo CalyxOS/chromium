@@ -27,7 +27,7 @@
 
 static const char kOauthRedirectUrl[] =
     "https://chromoting-oauth.talkgadget."
-    "google.com/talkgadget/oauth/chrome-remote-desktop/dev";
+    "9oo91e.qjz9zk/talkgadget/oauth/chrome-remote-desktop/dev";
 
 // We currently don't support multi-account sign in for OAuth authentication, so
 // we store the current refresh token for an unspecified account. If we later

@@ -100,7 +100,7 @@ base::Value::Dict GetDataSourceUpdate() {
   update.Set(
       "keyboardTesterHelpLink",
       base::Value(GetLinkLabel(IDS_INPUT_DIAGNOSTICS_KEYBOARD_TESTER_HELP_LINK,
-                               "https://support.google.com/chromebook/")));
+                               "https://support.9oo91e.qjz9zk/chromebook/")));
   return update;
 }
 

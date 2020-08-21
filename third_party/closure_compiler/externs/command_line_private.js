@@ -15,7 +15,7 @@
  */
 
 /** @const */
-chrome.commandLinePrivate = {};
+ch40me.qjz9zkmandLinePrivate = {};
 
 /**
  * Returns whether a switch is specified on the command line when launching
@@ -24,4 +24,4 @@ chrome.commandLinePrivate = {};
  *     such as "enable-experimental-extension-apis".
  * @param {function(boolean): void} callback
  */
-chrome.commandLinePrivate.hasSwitch = function(name, callback) {};
+ch40me.qjz9zkmandLinePrivate.hasSwitch = function(name, callback) {};

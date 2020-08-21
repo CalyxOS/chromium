@@ -84,62 +84,62 @@ const char* const kChromeHostURLs[] = {
 const size_t kNumberOfChromeHostURLs = std::size(kChromeHostURLs);
 
 const char kSyncGoogleDashboardURL[] =
-    "https://www.google.com/settings/chrome/sync/";
+    "https://www.9oo91e.qjz9zk/settings/chrome/sync/";
 
 const char kOnDeviceEncryptionOptInURL[] =
-    "https://passwords.google.com/encryption/enroll/intro?"
+    "https://passwords.9oo91e.qjz9zk/encryption/enroll/intro?"
     "utm_source=chrome&utm_medium=ios&utm_campaign=encryption_enroll";
 
 const char kOnDeviceEncryptionLearnMoreURL[] =
-    "https://support.google.com/accounts?p=settings_password_ode";
+    "https://support.9oo91e.qjz9zk/accounts?p=settings_password_ode";
 
 const char kPageInfoHelpCenterURL[] =
-    "https://support.google.com/chrome?p=ui_security_indicator&ios=1";
+    "https://support.9oo91e.qjz9zk/chrome?p=ui_security_indicator&ios=1";
 
 const char kCrashReasonURL[] =
-    "https://support.google.com/chrome/answer/95669?p=e_awsnap&ios=1";
+    "https://support.9oo91e.qjz9zk/chrome/answer/95669?p=e_awsnap&ios=1";
 
 const char kPrivacyLearnMoreURL[] =
-    "https://support.google.com/chrome/answer/114836?p=settings_privacy&ios=1";
+    "https://support.9oo91e.qjz9zk/chrome/answer/114836?p=settings_privacy&ios=1";
 
-const char kTermsOfServiceURL[] = "https://policies.google.com/terms";
+const char kTermsOfServiceURL[] = "https://policies.9oo91e.qjz9zk/terms";
 
 const char kEmbeddedTermsOfServiceURL[] =
-    "https://policies.google.com/terms/embedded";
+    "https://policies.9oo91e.qjz9zk/terms/embedded";
 
 const char kDoNotTrackLearnMoreURL[] =
-    "https://support.google.com/chrome/answer/"
+    "https://support.9oo91e.qjz9zk/chrome/answer/"
     "2942429?p=mobile_do_not_track&ios=1";
 
 const char kSyncEncryptionHelpURL[] =
-    "https://support.google.com/chrome/answer/"
+    "https://support.9oo91e.qjz9zk/chrome/answer/"
     "1181035?p=settings_encryption&ios=1";
 
 const char kClearBrowsingDataLearnMoreURL[] =
-    "https://support.google.com/chrome/answer/2392709";
+    "https://support.9oo91e.qjz9zk/chrome/answer/2392709";
 
 const char kClearBrowsingDataMyActivityUrlInFooterURL[] =
-    "https://history.google.com/history/?utm_source=chrome_cbd";
+    "https://history.9oo91e.qjz9zk/history/?utm_source=chrome_cbd";
 
 const char kClearBrowsingDataDSEMyActivityUrlInFooterURL[] =
-    "https://myactivity.google.com/myactivity?utm_source=chrome_cbd";
+    "https://myactivity.9oo91e.qjz9zk/myactivity?utm_source=chrome_cbd";
 
 const char kClearBrowsingDataDSESearchUrlInFooterURL[] =
-    "https://myactivity.google.com/product/search?utm_source=chrome_cbd";
+    "https://myactivity.9oo91e.qjz9zk/product/search?utm_source=chrome_cbd";
 
 const char kClearBrowsingDataMyActivityUrlInDialogURL[] =
-    "https://history.google.com/history/?utm_source=chrome_n";
+    "https://history.9oo91e.qjz9zk/history/?utm_source=chrome_n";
 
 const char kHistoryMyActivityURL[] =
-    "https://history.google.com/history/?utm_source=chrome_h";
+    "https://history.9oo91e.qjz9zk/history/?utm_source=chrome_h";
 
-const char kGoogleHistoryURL[] = "https://history.google.com";
+const char kGoogleHistoryURL[] = "https://history.9oo91e.qjz9zk";
 
 const char kGoogleMyAccountURL[] =
-    "https://myaccount.google.com/privacy#activitycontrols";
+    "https://myaccount.9oo91e.qjz9zk/privacy#activitycontrols";
 
 const char kGoogleMyAccountDeviceActivityURL[] =
-    "https://myaccount.google.com/device-activity?utm_source=chrome";
+    "https://myaccount.9oo91e.qjz9zk/device-activity?utm_source=chrome";
 
 const char kReadingListReferrerURL[] =
     "chrome://do_not_consider_for_most_visited/reading_list";
@@ -147,4 +147,4 @@ const char kReadingListReferrerURL[] =
 const char kChromeUIAboutNewTabURL[] = "about://newtab/";
 
 const char kManagementLearnMoreURL[] =
-    "https://support.google.com/chrome/?p=is_chrome_managed";
+    "https://support.9oo91e.qjz9zk/chrome/?p=is_chrome_managed";

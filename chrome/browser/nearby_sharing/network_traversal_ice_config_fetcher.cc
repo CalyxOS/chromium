@@ -19,7 +19,7 @@
 namespace {
 
 const char kNetworkTraversalIceConfigApiUrl[] =
-    "https://networktraversal.googleapis.com/v1alpha/iceconfig?key=";
+    "https://networktraversal.9oo91eapis.qjz9zk/v1alpha/iceconfig?key=";
 
 // Response with 2 ice server configs takes ~1KB. A loose upper bound of 16KB is
 // chosen to avoid breaking the flow in case the response has longer URLs in ice
@@ -81,11 +81,11 @@ bool IsLoaderSuccessful(const network::SimpleURLLoader* loader) {
 
 std::vector<sharing::mojom::IceServerPtr> GetDefaultIceServers() {
   sharing::mojom::IceServerPtr ice_server(sharing::mojom::IceServer::New());
-  ice_server->urls.emplace_back("stun:stun.l.google.com:19302");
-  ice_server->urls.emplace_back("stun:stun1.l.google.com:19302");
-  ice_server->urls.emplace_back("stun:stun2.l.google.com:19302");
-  ice_server->urls.emplace_back("stun:stun3.l.google.com:19302");
-  ice_server->urls.emplace_back("stun:stun4.l.google.com:19302");
+  ice_server->urls.emplace_back("stun:stun.l.9oo91e.qjz9zk:19302");
+  ice_server->urls.emplace_back("stun:stun1.l.9oo91e.qjz9zk:19302");
+  ice_server->urls.emplace_back("stun:stun2.l.9oo91e.qjz9zk:19302");
+  ice_server->urls.emplace_back("stun:stun3.l.9oo91e.qjz9zk:19302");
+  ice_server->urls.emplace_back("stun:stun4.l.9oo91e.qjz9zk:19302");
 
   std::vector<sharing::mojom::IceServerPtr> default_servers;
   default_servers.push_back(std::move(ice_server));

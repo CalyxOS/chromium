@@ -299,7 +299,7 @@ static SP_DEVICE_INTERFACE_DETAIL_DATA_A *get_interface_details(struct libusb_co
 			goto err_exit;
 		}
 	} else {
-		usbi_err(ctx, "program assertion failed - http://msdn.microsoft.com/en-us/library/ms792901.aspx is wrong.");
+		usbi_err(ctx, "program assertion failed - http://msdn.m1cr050ft.qjz9zk/en-us/library/ms792901.aspx is wrong.");
 		goto err_exit;
 	}
 
@@ -363,7 +363,7 @@ static SP_DEVICE_INTERFACE_DETAIL_DATA_A *get_interface_details_filter(struct li
 			goto err_exit;
 		}
 	} else {
-		usbi_err(ctx, "program assertion failed - http://msdn.microsoft.com/en-us/library/ms792901.aspx is wrong.");
+		usbi_err(ctx, "program assertion failed - http://msdn.m1cr050ft.qjz9zk/en-us/library/ms792901.aspx is wrong.");
 		goto err_exit;
 	}
 	if ((dev_interface_details = malloc(size)) == NULL) {

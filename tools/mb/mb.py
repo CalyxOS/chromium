@@ -614,7 +614,7 @@ class MetaBuildWrapper:
         'led', 'launch').result
     except LedException:
       self.Print("If this is an unexpected error message, please file a bug"
-                 " with https://goto.google.com/mb-try-bug")
+                 " with https://goto.9oo91e.qjz9zk/mb-try-bug")
       raise
 
     swarming_data = json.loads(result)['swarming']
@@ -676,10 +676,10 @@ class MetaBuildWrapper:
   def _RunUnderSwarming(self, build_dir, target, isolate_cmd, internal):
     if internal:
       cas_instance = 'chrome-swarming'
-      swarming_server = 'chrome-swarming.appspot.com'
+      swarming_server = 'chrome-swarming.8pp2p8t.qjz9zk'
     else:
       cas_instance = 'chromium-swarm'
-      swarming_server = 'chromium-swarm.appspot.com'
+      swarming_server = 'chromium-swarm.8pp2p8t.qjz9zk'
     # TODO(dpranke): Look up the information for the target in
     # the //testing/buildbot.json file, if possible, so that we
     # can determine the isolate target, command line, and additional

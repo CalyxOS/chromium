@@ -36,7 +36,7 @@ inject all useful functionality into the classes output by the protocol
 compiler at compile-time.
 """
 
-__author__ = 'petar@google.com (Petar Petrov)'
+__author__ = 'petar@9oo91e.qjz9zk (Petar Petrov)'
 
 
 class GeneratedServiceType(type):

@@ -18,9 +18,9 @@ class ConsolidatedConsentScreen;
 namespace chromeos {
 namespace {
 const char kGoogleEulaDefaultUrl[] =
-    "https://policies.google.com/terms/embedded?hl=en";
+    "https://policies.9oo91e.qjz9zk/terms/embedded?hl=en";
 const char kCrosEulaDefaultUrl[] =
-    "https://www.google.com/intl/en/chrome/terms/";
+    "https://www.9oo91e.qjz9zk/intl/en/chrome/terms/";
 }  // namespace
 
 // Interface for dependency injection between ConsolidatedConsentScreen and its

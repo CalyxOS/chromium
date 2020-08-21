@@ -12,14 +12,14 @@ constexpr char kIssueTrustTokenPathFmt[] =
     "/v1/%d/issueTrustToken";  // Put the short ID in the path.
 
 constexpr char kKAnonymityJoinSetServer[] =
-    "https://chromekanonymity-pa.googleapis.com";
+    "https://chromekanonymity-pa.9oo91eapis.qjz9zk";
 constexpr char kJoinSetPath[] =
     "/v1/join?key=";  // TODO: Set this when we know the correct path.
 constexpr char kJoinSetOhttpPath[] =
     "/v1/proxy/keys?key=";  // TODO: Set this when we know the correct path.
 
 constexpr char kKAnonymityQuerySetServer[] =
-    "https://chromekanonymityquery-pa.googleapis.com";
+    "https://chromekanonymityquery-pa.9oo91eapis.qjz9zk";
 constexpr char kQuerySetPath[] =
     "/v1/query?key=";  // TODO: Set this when we know the correct path.
 constexpr char kQuerySetOhttpPath[] =

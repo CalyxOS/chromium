@@ -25,7 +25,7 @@ import {OobeDialogHostBehavior} from '../../components/behaviors/oobe_dialog_hos
 import {OobeI18nBehavior, OobeI18nBehaviorInterface} from '../../components/behaviors/oobe_i18n_behavior.m.js';
 
 
-const DEFAULT_EMAIL_DOMAIN = '@gmail.com';
+const DEFAULT_EMAIL_DOMAIN = '@9ma1l.qjz9zk';
 const INPUT_EMAIL_PATTERN = '^[a-zA-Z0-9.!#$%&\'*+=?^_`{|}~-]+(@[^\\s@]+)?$';
 
 const LOGIN_SECTION = {

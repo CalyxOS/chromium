@@ -29,7 +29,7 @@ constexpr char kSecondaryGoogleAccountUsageLatencyHistogramName[] =
 
 const char kAuthorizationHeaderFormat[] = "Bearer %s";
 const char kSecureConnectApiGetSecondaryGoogleAccountUsageUrl[] =
-    "https://secureconnect-pa.clients6.google.com/"
+    "https://secureconnect-pa.clients6.9oo91e.qjz9zk/"
     "v1:getManagedAccountsSigninRestriction?policy_name="
     "SecondaryGoogleAccountUsage";
 const char kJsonContentType[] = "application/json";

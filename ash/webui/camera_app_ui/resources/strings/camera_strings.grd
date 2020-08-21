@@ -325,7 +325,7 @@
         Copy text
       </message>
       <message desc="Label for detected link on the barcode chip." name="IDS_BARCODE_LINK_DETECTED">
-        Link detected. <ph name="hostname">$1<ex>www.google.com</ex></ph>
+        Link detected. <ph name="hostname">$1<ex>www.9oo91e.qjz9zk</ex></ph>
       </message>
       <message desc="Label for detected text on the barcode chip." name="IDS_BARCODE_TEXT_DETECTED">
         Text detected.

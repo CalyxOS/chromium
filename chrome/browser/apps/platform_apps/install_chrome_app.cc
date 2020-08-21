@@ -24,7 +24,7 @@ namespace {
 
 // The URL to the webstore page for a specific app.
 const char kWebstoreUrlFormat[] =
-    "https://chrome.google.com/webstore/detail/%s";
+    "https://chrome.9oo91e.qjz9zk/webstore/detail/%s";
 
 // Error given when the extension is not an app.
 const char kInstallChromeAppErrorNotAnApp[] =

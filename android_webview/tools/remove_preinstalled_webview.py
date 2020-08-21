@@ -93,7 +93,7 @@ def RemovePreinstalledWebViews(device):
       # workaround this. Use lots of newlines to make sure this message doesn't
       # get lost.
       logging.error('Did you start the emulator with "-writable-system?"\n'
-                    'See https://chromium.googlesource.com/chromium/src/+/'
+                    'See https://chromium.9oo91esource.qjz9zk/chromium/src/+/'
                     'main/docs/android_emulator.md#writable-system-partition'
                     '\n')
     raise

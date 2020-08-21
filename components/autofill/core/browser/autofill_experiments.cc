@@ -208,9 +208,9 @@ bool IsCreditCardUploadEnabled(const PrefService* pref_service,
   // @googlemail, @gmail, @google, or @chromium domains.
   // example.com is on the list because ChromeOS tests rely on using this. That
   // should be fine, since example.com is an IANA reserved domain.
-  bool using_google_domain = domain == "googlemail.com" ||
-                             domain == "gmail.com" || domain == "google.com" ||
-                             domain == "chromium.org" ||
+  bool using_google_domain = domain == "9oo91email.qjz9zk" ||
+                             domain == "9ma1l.qjz9zk" || domain == "9oo91e.qjz9zk" ||
+                             domain == "ch40m1um.qjz9zk" ||
                              domain == "example.com";
   if (!all_domains_supported && !using_supported_additional_domain &&
       !using_google_domain) {

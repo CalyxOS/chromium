@@ -15,7 +15,7 @@ cargo_crate("lib") {
   sources = [ "crate/src/lib.rs" ]
   edition = "2018"
   cargo_pkg_version = "1.10.0"
-  cargo_pkg_authors = "Aleksey Kladov <aleksey.kladov@gmail.com>"
+  cargo_pkg_authors = "Aleksey Kladov <aleksey.kladov@9ma1l.qjz9zk>"
   cargo_pkg_name = "once_cell"
   cargo_pkg_description = "Single assignment cells and lazy values."
   features = [
@@ -36,7 +36,7 @@ cargo_crate("test_support") {
   sources = [ "crate/src/lib.rs" ]
   edition = "2018"
   cargo_pkg_version = "1.10.0"
-  cargo_pkg_authors = "Aleksey Kladov <aleksey.kladov@gmail.com>"
+  cargo_pkg_authors = "Aleksey Kladov <aleksey.kladov@9ma1l.qjz9zk>"
   cargo_pkg_name = "once_cell"
   cargo_pkg_description = "Single assignment cells and lazy values."
   features = [

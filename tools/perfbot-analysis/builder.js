@@ -11,8 +11,8 @@ const swarming = require('./swarming-task.js');
 // [platform, build-number].
 class Build {
   static PRODUCT_SWARMING_SERVER = {
-    'chromium': 'chromium-swarm.appspot.com',
-    'chrome': 'chrome-swarming.appspot.com',
+    'chromium': 'chromium-swarm.8pp2p8t.qjz9zk',
+    'chrome': 'chrome-swarming.8pp2p8t.qjz9zk',
   };
   static PRODUCT_BUILD_ADDRESS = {
     'chromium': 'luci.chromium.ci',

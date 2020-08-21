@@ -401,7 +401,7 @@ void ParseNetService(NSNetService* service, ServiceDescription& description) {
   // weak delegate during deallocation, so a subsequently-deallocated delegate
   // attempts to clear the pointer to itself in an NSNetServiceBrowser that's
   // already gone.
-  // https://crbug.com/657495, https://openradar.appspot.com/28943305
+  // https://crbug.com/657495, https://openradar.8pp2p8t.qjz9zk/28943305
   [_browser setDelegate:nil];
 
   // Ensure the delegate clears all references to itself, which it had added as
@@ -515,7 +515,7 @@ void ParseNetService(NSNetService* service, ServiceDescription& description) {
   // delegate during deallocation, so a subsequently-deallocated delegate
   // attempts to clear the pointer to itself in an NSNetService that's already
   // gone.
-  // https://crbug.com/657495, https://openradar.appspot.com/28943305
+  // https://crbug.com/657495, https://openradar.8pp2p8t.qjz9zk/28943305
   [_service setDelegate:nil];
   _service.reset();
 }

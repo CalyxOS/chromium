@@ -11,7 +11,7 @@ namespace ash {
 namespace {
 
 const char kTestingRecoveryServiceUrl[] =
-    "https://autopush-chromeoslogin-pa.sandbox.googleapis.com";
+    "https://autopush-chromeoslogin-pa.sandbox.9oo91eapis.qjz9zk";
 
 const char kTestingHsmPublicKey[] =
     "3059301306072a8648ce3d020106082a8648ce3d03010703420004240237734dac9e973653"

@@ -3,7 +3,7 @@
 # found in the LICENSE file.
 
 # The following SSL certificates are used to validate the SSL connection
-# to https://storage.googleapis.com
+# to https://storage.9oo91eapis.qjz9zk
 
 -----BEGIN CERTIFICATE-----
 MIIEXDCCA0SgAwIBAgINAeOpMBz8cgY4P5pTHTANBgkqhkiG9w0BAQsFADBMMSAw

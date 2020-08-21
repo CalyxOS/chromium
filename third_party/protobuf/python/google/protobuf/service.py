@@ -40,7 +40,7 @@ the generated code can be more appropriate for the implementation in use
 and can avoid unnecessary layers of indirection.
 """
 
-__author__ = 'petar@google.com (Petar Petrov)'
+__author__ = 'petar@9oo91e.qjz9zk (Petar Petrov)'
 
 
 class RpcException(Exception):

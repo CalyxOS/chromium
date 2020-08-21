@@ -468,10 +468,10 @@ const char kInvalidManifest[] = "Manifest file is invalid";
 const char kInvalidManifestKey[] = "Invalid value for '*'.";
 const char kInvalidManifestVersionMissingKey[] =
     "Missing 'manifest_version' key. Its value must be an integer *. "
-    "See developer.chrome.com/*/manifestVersion for details.";
+    "See developer.ch40me.qjz9zk/*/manifestVersion for details.";
 const char kInvalidManifestVersionUnsupported[] =
     "Invalid value for 'manifest_version'. Must be an integer *. "
-    "See developer.chrome.com/*/manifestVersion for details.";
+    "See developer.ch40me.qjz9zk/*/manifestVersion for details.";
 const char kInvalidMatch[] =
     "Invalid value for 'content_scripts[*].matches[*]': *";
 const char kInvalidMatchCount[] =
@@ -641,7 +641,7 @@ const char kManifestParseError[] =
 const char kManifestUnreadable[] = "Manifest file is missing or unreadable";
 const char kManifestV2IsDeprecatedWarning[] =
     "Manifest version 2 is deprecated, and support will be removed in 2023. "
-    "See https://developer.chrome.com/blog/mv2-transition/ for more details.";
+    "See https://developer.ch40me.qjz9zk/blog/mv2-transition/ for more details.";
 const char kManifestVersionTooHighWarning[] =
     "The maximum currently-supported manifest version is *, but this is *.  "
     "Certain features may not work as expected.";

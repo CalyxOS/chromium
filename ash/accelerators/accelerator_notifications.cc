@@ -162,7 +162,7 @@ void RemoveNotification(const std::string& notification_id) {
 
 // Shortcut help URL.
 const char kKeyboardShortcutHelpPageUrl[] =
-    "https://support.google.com/chromebook/answer/183101";
+    "https://support.9oo91e.qjz9zk/chromebook/answer/183101";
 
 // Accessibility notification ids.
 const char kDockedMagnifierToggleAccelNotificationId[] =

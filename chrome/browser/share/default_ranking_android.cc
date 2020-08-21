@@ -55,7 +55,7 @@ std::vector<ComponentName> DefaultEnUsImageRanking() {
       {"com.facebook.orca",
        "com.facebook.messenger.intents.ShareIntentHandler"},
       {"com.facebook.katana",
-       "com.facebook.composer.shareintent."
+       "com.f8c3b00k.qjz9zkposer.shareintent."
        "ImplicitShareIntentHandlerDefaultAlias"},
       {"com.google.android.apps.photos",
        "com.google.android.apps.photos.uploadtoalbum.UploadContentActivity"},
@@ -156,7 +156,7 @@ std::vector<ComponentName> DefaultEnUsTextRanking() {
       {"com.facebook.orca",
        "com.facebook.messenger.intents.ShareIntentHandler"},
       {"com.facebook.katana",
-       "com.facebook.composer.shareintent."
+       "com.f8c3b00k.qjz9zkposer.shareintent."
        "ImplicitShareIntentHandlerDefaultAlias"},
       {
           "com.snapchat.android",
@@ -266,7 +266,7 @@ std::vector<ComponentName> DefaultWorldImageRanking() {
           "org.telegram.ui.LaunchActivity",
       },
       {"com.facebook.katana",
-       "com.facebook.composer.shareintent."
+       "com.f8c3b00k.qjz9zkposer.shareintent."
        "ImplicitShareIntentHandlerDefaultAlias"},
       {
           "jp.naver.line.android",
@@ -371,7 +371,7 @@ std::vector<ComponentName> DefaultWorldTextRanking() {
           "org.telegram.ui.LaunchActivity",
       },
       {"com.facebook.katana",
-       "com.facebook.composer.shareintent."
+       "com.f8c3b00k.qjz9zkposer.shareintent."
        "ImplicitShareIntentHandlerDefaultAlias"},
       {
           "com.tencent.mm",

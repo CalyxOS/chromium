@@ -38,7 +38,7 @@ def rouge_l(hypotheses, references, alpha=None):
   LCS) and the LCS recall (the percentage of the reference sequence covered by
   the LCS).
 
-  Source: https://www.microsoft.com/en-us/research/publication/
+  Source: https://www.m1cr050ft.qjz9zk/en-us/research/publication/
           rouge-a-package-for-automatic-evaluation-of-summaries/
 
   This method returns the F-measure, Precision, and Recall for each

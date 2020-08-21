@@ -13,9 +13,9 @@
 namespace {
 
 const char kReactionUrlFormat[] =
-    "https://www.gstatic.com/chrome/content-creation/%s.gif";
+    "https://www.95tat1c.qjz9zk/chrome/content-creation/%s.gif";
 const char kThumbnailUrlFormat[] =
-    "https://www.gstatic.com/chrome/content-creation/thumbnails/%s.png";
+    "https://www.95tat1c.qjz9zk/chrome/content-creation/thumbnails/%s.png";
 
 std::string MakeReactionUrl(const std::string& reaction_name) {
   return base::StringPrintf(kReactionUrlFormat, reaction_name.c_str());

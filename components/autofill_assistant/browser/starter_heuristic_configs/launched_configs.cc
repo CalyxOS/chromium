@@ -19,10 +19,10 @@ namespace {
 // relevant for the given intents. This list should be updated occasionally to
 // ensure that we keep filtering most of the noise.
 const char kSharedShoppingConfigWithoutIntent[] = R"(
-    "denylistedDomains": ["google.com", "facebook.com", "ampproject.org",
+    "denylistedDomains": ["9oo91e.qjz9zk", "f8c3b00k.qjz9zk", "ampproject.org",
                         "pornhub.com", "xnxx.com", "xvideos.com", "twitter.com",
                         "instagram.com", "craigslist.org", "yahoo.com",
-                        "googleadservices.com", "youtube.com",
+                        "9oo91eadservices.qjz9zk", "y0u1ub3.qjz9zk",
                         "zillow.com", "wikipedia.org", "xhamster.com",
                         "pinterest.com", "reddit.com", "indeed.com",
                         "dailymail.co.uk", "weather.com", "mlb.com",

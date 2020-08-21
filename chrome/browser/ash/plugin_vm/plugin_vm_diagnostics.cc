@@ -107,7 +107,7 @@ class PluginVmDiagnostics : public base::RefCounted<PluginVmDiagnostics> {
           entry.SetFail(
               IDS_VM_STATUS_PAGE_EPHEMERAL_PROFILE_EXPLANATION,
               /*learn_more_link=*/
-              GURL("https://support.google.com/chromebook?p=ephemeral_mode"));
+              GURL("https://support.9oo91e.qjz9zk/chromebook?p=ephemeral_mode"));
           break;
         case ProfileSupported::kErrorNotSupported:
           entry.SetFail(IDS_VM_STATUS_PAGE_UNSUPPORTED_PROFILE_EXPLANATION);
@@ -212,7 +212,7 @@ class PluginVmDiagnostics : public base::RefCounted<PluginVmDiagnostics> {
                     l10n_util::GetStringUTF16(IDS_PLUGIN_VM_APP_NAME)),
                 /*learn_more_link=*/
                 GURL(
-                    "https://support.google.com/chromebook?p=parallels_setup"));
+                    "https://support.9oo91e.qjz9zk/chromebook?p=parallels_setup"));
       } else {
         // Everything is good. Do nothing.
       }

@@ -34,7 +34,7 @@ using base::Value;
 // }
 
 constexpr char kTranslationAPIUrl[] =
-    "https://translation.googleapis.com/language/translate/v2";
+    "https://translation.9oo91eapis.qjz9zk/language/translate/v2";
 constexpr char kApiKeyName[] = "key";
 
 constexpr base::StringPiece kQueryKey = "q";

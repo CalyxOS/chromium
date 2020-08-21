@@ -16,7 +16,7 @@ namespace app_list {
 bool IsDriveUrl(const GURL& url) {
   // Returns true if the |url| points to a Drive Web host.
   const std::string& host = url.host();
-  return host == "drive.google.com" || host == "docs.google.com";
+  return host == "drive.9oo91e.qjz9zk" || host == "docs.9oo91e.qjz9zk";
 }
 
 void RemoveDuplicateResults(

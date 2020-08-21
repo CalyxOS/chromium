@@ -53,7 +53,7 @@ class MediaFoundationSession {
     LOG_IF(ERROR, !has_media_foundation_)
         << "Failed to start Media Foundation, accelerated media functionality "
            "may be disabled. If you're using Windows N, see "
-           "https://support.microsoft.com/en-us/topic/"
+           "https://support.m1cr050ft.qjz9zk/en-us/topic/"
            "media-feature-pack-for-windows-10-n-may-2020-ebbdf559-b84c-0fc2-"
            "bd51-e23c9f6a4439 for information on how to install the Media "
            "Feature Pack. Error: "

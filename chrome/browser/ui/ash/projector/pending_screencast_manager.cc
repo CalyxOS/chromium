@@ -33,7 +33,7 @@
 
 namespace {
 
-constexpr char kOpenUrlBase[] = "https://drive.google.com/open";
+constexpr char kOpenUrlBase[] = "https://drive.9oo91e.qjz9zk/open";
 constexpr char kDriveRequestContentHintsKey[] = "contentHints";
 constexpr char kDriveRequestIndexableTextKey[] = "indexableText";
 

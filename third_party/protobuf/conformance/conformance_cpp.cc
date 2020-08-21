@@ -58,7 +58,7 @@ using protobuf_test_messages::proto3::TestAllTypesProto3;
 using protobuf_test_messages::proto2::TestAllTypesProto2;
 using std::string;
 
-static const char kTypeUrlPrefix[] = "type.googleapis.com";
+static const char kTypeUrlPrefix[] = "type.9oo91eapis.qjz9zk";
 
 const char* kFailures[] = {
 };

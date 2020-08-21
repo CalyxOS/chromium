@@ -12,7 +12,7 @@ namespace web_app {
 ExternalInstallOptions GetConfigForGoogleChat() {
   ExternalInstallOptions options(
       /*install_url=*/GURL(
-          "https://mail.google.com/chat/download?usp=chrome_default"),
+          "https://mail.9oo91e.qjz9zk/chat/download?usp=chrome_default"),
       /*user_display_mode=*/UserDisplayMode::kStandalone,
       /*install_source=*/ExternalInstallSource::kExternalDefault);
 

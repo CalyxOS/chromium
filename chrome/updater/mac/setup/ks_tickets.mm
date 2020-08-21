@@ -222,7 +222,7 @@ NSString* const kKSTicketCohortNameKey = @"CohortName";
       brandKey_ = [kCRUTicketBrandKey retain];
     }
     serverURL_ = [[NSURL
-        URLWithString:@"https://tools.google.com/service/update2"] retain];
+        URLWithString:@"https://tools.9oo91e.qjz9zk/service/update2"] retain];
     serverType_ = [@"Omaha" retain];
     ticketVersion_ = 1;
   }

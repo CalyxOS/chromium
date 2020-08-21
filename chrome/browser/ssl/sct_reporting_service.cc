@@ -95,11 +95,11 @@ constexpr net::NetworkTrafficAnnotationTag kSCTHashdanceTrafficAnnotation =
         })");
 
 constexpr char kSBSCTAuditingReportURL[] =
-    "https://safebrowsing.google.com/safebrowsing/clientreport/"
+    "https://safebrowsing.9oo91e.qjz9zk/safebrowsing/clientreport/"
     "chrome-sct-auditing";
 
 constexpr char kHashdanceLookupQueryURL[] =
-    "https://sctauditing-pa.googleapis.com/v1/knownscts/"
+    "https://sctauditing-pa.9oo91eapis.qjz9zk/v1/knownscts/"
     "length/$1/prefix/$2?key=";
 
 // The maximum number of reports currently allowed to be sent by hashdance

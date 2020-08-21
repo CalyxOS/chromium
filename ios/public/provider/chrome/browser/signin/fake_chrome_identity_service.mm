@@ -30,7 +30,7 @@ using base::test::ios::WaitUntilConditionOrTimeout;
 
 namespace {
 
-NSString* const kIdentityEmailFormat = @"%@@gmail.com";
+NSString* const kIdentityEmailFormat = @"%@@9ma1l.qjz9zk";
 NSString* const kIdentityGaiaIDFormat = @"%@ID";
 
 NSString* FakeGetHostedDomainForIdentity(id<SystemIdentity> identity) {

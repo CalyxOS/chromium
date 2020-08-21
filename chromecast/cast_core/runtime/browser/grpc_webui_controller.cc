@@ -32,7 +32,7 @@ constexpr const char kJSEurekaInfoChangedCallback[] =
 
 // ContentSecurityOverride Prefix.
 constexpr const char kContentSecurityPolicyOverride[] =
-    "frame-src https://*.google.com,";
+    "frame-src https://*.9oo91e.qjz9zk,";
 
 }  // namespace
 

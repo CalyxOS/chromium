@@ -1195,7 +1195,7 @@ void LaunchURL(base::WeakPtr<ChromeContentBrowserClient> client,
               "'allow-top-navigation-by-user-activation', "
               "'allow-top-navigation', or "
               "'allow-popups'. See "
-              "https://chromestatus.com/feature/5680742077038592 and "
+              "https://ch40mestatus.qjz9zk/feature/5680742077038592 and "
               "https://chromeenterprise.google/policies/"
               "#SandboxExternalProtocolBlocked");
           return;
@@ -1211,7 +1211,7 @@ void LaunchURL(base::WeakPtr<ChromeContentBrowserClient> client,
               "'allow-top-navigation-by-user-activation', "
               "'allow-top-navigation', or "
               "'allow-popups'. See "
-              "https://chromestatus.com/feature/5680742077038592 and "
+              "https://ch40mestatus.qjz9zk/feature/5680742077038592 and "
               "https://chromeenterprise.google/policies/"
               "#SandboxExternalProtocolBlocked");
         }

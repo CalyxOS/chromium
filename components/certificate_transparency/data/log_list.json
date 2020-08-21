@@ -5,14 +5,14 @@
     {
       "name": "Google",
       "email": [
-        "google-ct-logs@googlegroups.com"
+        "google-ct-logs@9oo91egroups.qjz9zk"
       ],
       "logs": [
         {
           "description": "Google 'Argon2022' log",
           "log_id": "KXm+8J45OSHwVnOfY6V35b5XfZxgCvj5TV0mXCVdx4Q=",
           "key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEeIPc6fGmuBg6AJkv/z7NFckmHvf/OqmjchZJ6wm2qN200keRDg352dWpi7CHnSV51BpQYAj1CQY5JuRAwrrDwg==",
-          "url": "https://ct.googleapis.com/logs/argon2022/",
+          "url": "https://ct.9oo91eapis.qjz9zk/logs/argon2022/",
           "mmd": 86400,
           "state": {
             "usable": {
@@ -28,7 +28,7 @@
           "description": "Google 'Argon2023' log",
           "log_id": "6D7Q2j71BjUy51covIlryQPTy9ERa+zraeF3fW0GvW4=",
           "key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE0JCPZFJOQqyEti5M8j13ALN3CAVHqkVM4yyOcKWCu2yye5yYeqDpEXYoALIgtM3TmHtNlifmt+4iatGwLpF3eA==",
-          "url": "https://ct.googleapis.com/logs/argon2023/",
+          "url": "https://ct.9oo91eapis.qjz9zk/logs/argon2023/",
           "mmd": 86400,
           "state": {
             "usable": {
@@ -44,7 +44,7 @@
           "description": "Google 'Argon2024' log",
           "log_id": "7s3QZNXbGs7FXLedtM0TojKHRny87N7DUUhZRnEftZs=",
           "key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEHblsqctplMVc5ramA7vSuNxUQxcomQwGAVAdnWTAWUYr3MgDHQW0LagJ95lB7QT75Ve6JgT2EVLOFGU7L3YrwA==",
-          "url": "https://ct.googleapis.com/logs/us1/argon2024/",
+          "url": "https://ct.9oo91eapis.qjz9zk/logs/us1/argon2024/",
           "mmd": 86400,
           "state": {
             "qualified": {
@@ -60,7 +60,7 @@
           "description": "Google 'Xenon2022' log",
           "log_id": "RqVV63X6kSAwtaKJafTzfREsQXS+/Um4havy/HD+bUc=",
           "key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE+WS9FSxAYlCVEzg8xyGwOrmPonoV14nWjjETAIdZvLvukPzIWBMKv6tDNlQjpIHNrUcUt1igRPpqoKDXw2MeKw==",
-          "url": "https://ct.googleapis.com/logs/xenon2022/",
+          "url": "https://ct.9oo91eapis.qjz9zk/logs/xenon2022/",
           "mmd": 86400,
           "state": {
             "usable": {
@@ -76,7 +76,7 @@
           "description": "Google 'Xenon2023' log",
           "log_id": "rfe++nz/EMiLnT2cHj4YarRnKV3PsQwkyoWGNOvcgoo=",
           "key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEchY+C+/vzj5g3ZXLY3q5qY1Kb2zcYYCmRV4vg6yU84WI0KV00HuO/8XuQqLwLZPjwtCymeLhQunSxgAnaXSuzg==",
-          "url": "https://ct.googleapis.com/logs/xenon2023/",
+          "url": "https://ct.9oo91eapis.qjz9zk/logs/xenon2023/",
           "mmd": 86400,
           "state": {
             "usable": {
@@ -92,7 +92,7 @@
           "description": "Google 'Xenon2024' log",
           "log_id": "dv+IPwq2+5VRwmHM9Ye6NLSkzbsp3GhCCp/mZ0xaOnQ=",
           "key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEuWDgNB415GUAk0+QCb1a7ETdjA/O7RE+KllGmjG2x5n33O89zY+GwjWlPtwpurvyVOKoDIMIUQbeIW02UI44TQ==",
-          "url": "https://ct.googleapis.com/logs/eu1/xenon2024/",
+          "url": "https://ct.9oo91eapis.qjz9zk/logs/eu1/xenon2024/",
           "mmd": 86400,
           "state": {
             "qualified": {
@@ -108,7 +108,7 @@
           "description": "Google 'Icarus' log",
           "log_id": "KTxRllTIOWW6qlD8WAfUt2+/WHopctykwwz05UVH9Hg=",
           "key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAETtK8v7MICve56qTHHDhhBOuV4IlUaESxZryCfk9QbG9co/CqPvTsgPDbCpp6oFtyAHwlDhnvr7JijXRD9Cb2FA==",
-          "url": "https://ct.googleapis.com/icarus/",
+          "url": "https://ct.9oo91eapis.qjz9zk/icarus/",
           "mmd": 86400,
           "state": {
             "retired": {
@@ -120,7 +120,7 @@
           "description": "Google 'Pilot' log",
           "log_id": "pLkJkLQYWBSHuxOizGdwCjw1mAT5G9+443fNDsgN3BA=",
           "key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEfahLEimAoz2t01p3uMziiLOl/fHTDM0YDOhBRuiBARsV4UvxG2LdNgoIGLrtCzWE0J5APC2em4JlvR8EEEFMoA==",
-          "url": "https://ct.googleapis.com/pilot/",
+          "url": "https://ct.9oo91eapis.qjz9zk/pilot/",
           "mmd": 86400,
           "state": {
             "retired": {
@@ -132,7 +132,7 @@
           "description": "Google 'Rocketeer' log",
           "log_id": "7ku9t3XOYLrhQmkfq+GeZqMPfl+wctiDAMR7iXqo/cs=",
           "key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEIFsYyDzBi7MxCAC/oJBXK7dHjG+1aLCOkHjpoHPqTyghLpzA9BYbqvnV16mAw04vUjyYASVGJCUoI3ctBcJAeg==",
-          "url": "https://ct.googleapis.com/rocketeer/",
+          "url": "https://ct.9oo91eapis.qjz9zk/rocketeer/",
           "mmd": 86400,
           "state": {
             "retired": {
@@ -144,7 +144,7 @@
           "description": "Google 'Skydiver' log",
           "log_id": "u9nfvB+KcbWTlCOXqpJ7RzhXlQqrUugakJZkNo4e0YU=",
           "key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEEmyGDvYXsRJsNyXSrYc9DjHsIa2xzb4UR7ZxVoV6mrc9iZB7xjI6+NrOiwH+P/xxkRmOFG6Jel20q37hTh58rA==",
-          "url": "https://ct.googleapis.com/skydiver/",
+          "url": "https://ct.9oo91eapis.qjz9zk/skydiver/",
           "mmd": 86400,
           "state": {
             "retired": {

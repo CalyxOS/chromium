@@ -28,7 +28,7 @@ namespace optimization_guide {
 namespace {
 
 const char kPageTopicsModelMetadataTypeUrl[] =
-    "type.googleapis.com/"
+    "type.9oo91eapis.qjz9zk/"
     "google.internal.chrome.optimizationguide.v1.PageTopicsModelMetadata";
 
 // The current version the client supports for the topics model. This

@@ -43,7 +43,7 @@ TYPE_TO_DESERIALIZE_METHOD: A dictionary with field types and deserialization
   function.
 """
 
-__author__ = 'robinson@google.com (Will Robinson)'
+__author__ = 'robinson@9oo91e.qjz9zk (Will Robinson)'
 
 import ctypes
 import numbers

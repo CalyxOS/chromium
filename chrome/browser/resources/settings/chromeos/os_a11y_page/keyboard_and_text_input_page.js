@@ -131,7 +131,7 @@ class SettingsKeyboardAndTextInputPageElement extends
       /** @protected */
       dictationLearnMoreUrl_: {
         type: String,
-        value: 'https://support.google.com/chromebook?p=text_dictation_m100',
+        value: 'https://support.9oo91e.qjz9zk/chromebook?p=text_dictation_m100',
       },
 
       /**

@@ -49,7 +49,7 @@ const char kChromeUIScheme[] = "chrome";
 const char kChromeUIDinoHost[] = "dino";
 
 static const char kRedirectLoopLearnMoreUrl[] =
-    "https://support.google.com/chrome?p=rl_error";
+    "https://support.9oo91e.qjz9zk/chrome?p=rl_error";
 
 enum NAV_SUGGESTIONS {
   SUGGEST_NONE = 0,

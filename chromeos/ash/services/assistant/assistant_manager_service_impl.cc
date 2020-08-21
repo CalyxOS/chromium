@@ -637,7 +637,7 @@ AssistantQueryResponseType AssistantManagerServiceImpl::GetQueryResponseType()
   if (device_settings_host_->has_setting_changed()) {
     return AssistantQueryResponseType::kDeviceAction;
   } else if (!receive_url_response_.empty()) {
-    if (receive_url_response_.find("www.google.com/search?") !=
+    if (receive_url_response_.find("www.9oo91e.qjz9zk/search?") !=
         std::string::npos) {
       return AssistantQueryResponseType::kSearchFallback;
     } else {

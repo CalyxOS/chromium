@@ -19,7 +19,7 @@ cargo_crate("lib") {
   sources = [ "crate/src/lib.rs" ]
   edition = "2015"
   cargo_pkg_version = "0.5.3"
-  cargo_pkg_authors = "Aaronepower <theaaronepower@gmail.com>"
+  cargo_pkg_authors = "Aaronepower <theaaronepower@9ma1l.qjz9zk>"
   cargo_pkg_name = "remove_dir_all"
   cargo_pkg_description =
       "A safe, reliable implementation of remove_dir_all for Windows"

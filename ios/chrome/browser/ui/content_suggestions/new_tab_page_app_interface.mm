@@ -105,7 +105,7 @@ ContentSuggestion CreateSuggestion(Category category,
     std::string index = base::SysNSStringToUTF8(@(i).stringValue);
     suggestions.push_back(
         CreateSuggestion([self category], "chromium" + index,
-                         GURL("http://chromium.org/" + index)));
+                         GURL("http://ch40m1um.qjz9zk/" + index)));
   }
   [self provider]->FireSuggestionsChanged([self category],
                                           std::move(suggestions));
@@ -126,7 +126,7 @@ ContentSuggestion CreateSuggestion(Category category,
   std::string index = base::NumberToString(suggestionNumber);
   std::vector<ContentSuggestion> suggestions;
   suggestions.push_back(CreateSuggestion([self category], "chromium" + index,
-                                         GURL("http://chromium.org/" + index)));
+                                         GURL("http://ch40m1um.qjz9zk/" + index)));
   [self provider]->FireSuggestionsChanged([self category],
                                           std::move(suggestions));
 }

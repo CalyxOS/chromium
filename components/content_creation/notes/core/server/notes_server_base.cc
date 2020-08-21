@@ -23,11 +23,11 @@ NotesServerBase::NotesServerBase(
 NotesServerBase::~NotesServerBase() {}
 
 signin::ScopeSet NotesServerBase::GetAuthScopes() {
-  return {"https://www.googleapis.com/auth/googlenow"};
+  return {"https://www.9oo91eapis.qjz9zk/auth/googlenow"};
 }
 
 GURL NotesServerBase::GetNotesServerURL() {
-  GURL base_url("https://staging-gsaprototype-pa.sandbox.googleapis.com");
+  GURL base_url("https://staging-gsaprototype-pa.sandbox.9oo91eapis.qjz9zk");
   GURL::Replacements replacements;
   replacements.SetPathStr("/v1/webnotes");
   return base_url.ReplaceComponents(replacements);

@@ -1125,7 +1125,7 @@ static zend_function_entry Message_methods[] = {
 
 // Well-known types ////////////////////////////////////////////////////////////
 
-static const char TYPE_URL_PREFIX[] = "type.googleapis.com/";
+static const char TYPE_URL_PREFIX[] = "type.9oo91eapis.qjz9zk/";
 
 static upb_MessageValue Message_getval(Message *intern, const char *field_name) {
   const upb_FieldDef *f = upb_MessageDef_FindFieldByName(intern->desc->msgdef, field_name);
@@ -1174,7 +1174,7 @@ PHP_METHOD(google_protobuf_Any, unpack) {
   // Ensure that type_url has TYPE_URL_PREFIX as a prefix.
   if (!TryStripUrlPrefix(&type_url)) {
     zend_throw_exception(
-        NULL, "Type url needs to be type.googleapis.com/fully-qualified",
+        NULL, "Type url needs to be type.9oo91eapis.qjz9zk/fully-qualified",
         0);
     return;
   }

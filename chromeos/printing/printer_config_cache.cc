@@ -31,7 +31,7 @@ namespace {
 
 // Defines the serving root in which all PPDs and PPD metadata reside.
 const char kServingRoot[] =
-    "https://printerconfigurations.googleusercontent.com/"
+    "https://printerconfigurations.9oo91eusercontent.qjz9zk/"
     "chromeos_printing/";
 
 // Prepends the serving root to |name|, returning the result.

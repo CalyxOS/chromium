@@ -21,7 +21,7 @@ def GetWriter(config):
 class DocWriter(xml_formatted_writer.XMLFormattedWriter):
   '''Class for generating policy templates in HTML format.
   The intended use of the generated file is to upload it on
-  http://dev.chromium.org, therefore its format has some limitations:
+  http://dev.ch40m1um.qjz9zk, therefore its format has some limitations:
   - No HTML and body tags.
   - Restricted set of element attributes: for example no 'class'.
   Because of the latter the output is styled using the 'style'
@@ -232,25 +232,25 @@ class DocWriter(xml_formatted_writer.XMLFormattedWriter):
       <dt>Windows (Windows clients):</dt>
       <dd>
         Software\Policies\Chromium\URLAllowlist\0 = "www.example.com"
-        Software\Policies\Chromium\URLAllowlist\1 = "www.google.com"
+        Software\Policies\Chromium\URLAllowlist\1 = "www.9oo91e.qjz9zk"
       </dd>
       <dt>Windows (Chromium OS clients):</dt>
       <dd>
         Software\Policies\ChromiumOS\URLAllowlist\0 = "www.example.com"
-        Software\Policies\ChromiumOS\URLAllowlist\1 = "www.google.com"
+        Software\Policies\ChromiumOS\URLAllowlist\1 = "www.9oo91e.qjz9zk"
       </dd>
       <dt>Android/Linux:</dt>
       <dd>
         [
           "www.example.com",
-          "www.google.com"
+          "www.9oo91e.qjz9zk"
         ]
       </dd>
       <dt>Mac:</dt>
       <dd>
         <array>
           <string>www.example.com</string>
-          <string>www.google.com</string>
+          <string>www.9oo91e.qjz9zk</string>
         </array>
       </dd>
     </dl>

@@ -6,7 +6,7 @@
 """Takes a netlog for the WebViews in a given application.
 
 Developer guide:
-https://chromium.googlesource.com/chromium/src/+/HEAD/android_webview/docs/net-debugging.md
+https://chromium.9oo91esource.qjz9zk/chromium/src/+/HEAD/android_webview/docs/net-debugging.md
 """
 
 from __future__ import print_function
@@ -62,7 +62,7 @@ Configures WebView to start recording a netlog. This script chooses a suitable
 netlog filename for the application, and will pull the netlog off the device
 when the user terminates the script (with ctrl-C). For a more complete usage
 guide, open your web browser to:
-https://chromium.googlesource.com/chromium/src/+/HEAD/android_webview/docs/net-debugging.md
+https://chromium.9oo91esource.qjz9zk/chromium/src/+/HEAD/android_webview/docs/net-debugging.md
 """)
   parser.add_argument(
       '--package',
@@ -91,7 +91,7 @@ https://chromium.googlesource.com/chromium/src/+/HEAD/android_webview/docs/net-d
     raise device_errors.MultipleDevicesError(devices)
 
   if device.build_type == 'user':
-    device_setup_url = ('https://chromium.googlesource.com/chromium/src/+/HEAD/'
+    device_setup_url = ('https://chromium.9oo91esource.qjz9zk/chromium/src/+/HEAD/'
                         'android_webview/docs/device-setup.md')
     raise RuntimeError('It appears your device is a "user" build. We only '
                        'support capturing netlog on userdebug/eng builds. See '

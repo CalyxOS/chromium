@@ -166,7 +166,7 @@ content::WebUIDataSource* CreateMediaAppUntrustedDataSource(
   // Allow calls to Maps reverse geocoding API for loading metadata.
   source->OverrideContentSecurityPolicy(
       network::mojom::CSPDirectiveName::ConnectSrc,
-      "connect-src 'self' https://maps.googleapis.com/maps/api/geocode/json;");
+      "connect-src 'self' https://maps.9oo91eapis.qjz9zk/maps/api/geocode/json;");
 
   // Allow use of SharedArrayBuffer (required by the wasm).
   source->OverrideCrossOriginOpenerPolicy("same-origin");

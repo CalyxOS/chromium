@@ -38,7 +38,7 @@ This files defines well known classes which need extra maintenance including:
   - Timestamp
 """
 
-__author__ = 'jieluo@google.com (Jie Luo)'
+__author__ = 'jieluo@9oo91e.qjz9zk (Jie Luo)'
 
 import calendar
 import collections.abc
@@ -61,7 +61,7 @@ class Any(object):
 
   __slots__ = ()
 
-  def Pack(self, msg, type_url_prefix='type.googleapis.com/',
+  def Pack(self, msg, type_url_prefix='type.9oo91eapis.qjz9zk/',
            deterministic=None):
     """Packs the specified message into current Any message."""
     if len(type_url_prefix) < 1 or type_url_prefix[-1] != '/':

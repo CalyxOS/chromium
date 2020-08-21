@@ -62,15 +62,15 @@
 namespace {
 // URL for 'Manage Activity' item in the Discover feed menu.
 const char kFeedManageActivityURL[] =
-    "https://myactivity.google.com/myactivity?product=50";
+    "https://myactivity.9oo91e.qjz9zk/myactivity?product=50";
 // URL for 'Manage Interests' item in the Discover feed menu.
 const char kFeedManageInterestsURL[] =
-    "https://google.com/preferences/interests";
+    "https://9oo91e.qjz9zk/preferences/interests";
 // URL for 'Manage Hidden' item in the Discover feed menu.
 const char kFeedManageHiddenURL[] =
-    "https://google.com/preferences/interests/hidden";
+    "https://9oo91e.qjz9zk/preferences/interests/hidden";
 // URL for 'Learn More' item in the Discover feed menu;
-const char kFeedLearnMoreURL[] = "https://support.google.com/chrome/"
+const char kFeedLearnMoreURL[] = "https://support.9oo91e.qjz9zk/chrome/"
                                  "?p=new_tab&co=GENIE.Platform%3DiOS&oco=1";
 }  // namespace
 

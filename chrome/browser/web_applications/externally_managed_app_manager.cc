@@ -138,8 +138,8 @@ void ExternallyManagedAppManager::SynchronizeInstalledApps(
           WebAppManagement::kDefault) {
     base::EraseIf(urls_to_remove, [&](const GURL& url) {
       return url.spec() ==
-                 "https://messages-web.sandbox.google.com/web/authentication" ||
-             url.spec() == "https://messages.google.com/web/authentication";
+                 "https://messages-web.sandbox.9oo91e.qjz9zk/web/authentication" ||
+             url.spec() == "https://messages.9oo91e.qjz9zk/web/authentication";
     });
   }
 #endif

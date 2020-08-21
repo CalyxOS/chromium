@@ -344,7 +344,7 @@ void EventTarget::SetDefaultAddEventListenerOptions(
         "Added non-passive event listener to a scroll-blocking '%s' event. "
         "Consider marking event handler as 'passive' to make the page more "
         "responsive. See "
-        "https://www.chromestatus.com/feature/5745543795965952",
+        "https://www.ch40mestatus.qjz9zk/feature/5745543795965952",
         event_type.GetString().Utf8().c_str());
 
     PerformanceMonitor::ReportGenericViolation(

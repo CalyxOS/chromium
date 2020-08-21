@@ -532,5 +532,5 @@ void Convert_ModuleInit(void) {
 
   zend_declare_class_constant_string(GPBUtil_class_entry, prefix_name,
                                      strlen(prefix_name),
-                                     "type.googleapis.com/");
+                                     "type.9oo91eapis.qjz9zk/");
 }

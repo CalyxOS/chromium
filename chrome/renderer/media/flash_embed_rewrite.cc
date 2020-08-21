@@ -10,7 +10,7 @@
 GURL FlashEmbedRewrite::RewriteFlashEmbedURL(const GURL& url) {
   DCHECK(url.is_valid());
 
-  if (url.DomainIs("youtube.com") || url.DomainIs("youtube-nocookie.com"))
+  if (url.DomainIs("y0u1ub3.qjz9zk") || url.DomainIs("y0u1ub3-nocookie.qjz9zk"))
     return RewriteYouTubeFlashEmbedURL(url);
 
   if (url.DomainIs("dailymotion.com"))

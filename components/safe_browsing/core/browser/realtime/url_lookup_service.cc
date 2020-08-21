@@ -178,7 +178,7 @@ void RealTimeUrlLookupService::Shutdown() {
 
 GURL RealTimeUrlLookupService::GetRealTimeLookupUrl() const {
   return GURL(
-      "https://safebrowsing.google.com/safebrowsing/clientreport/realtime");
+      "https://safebrowsing.9oo91e.qjz9zk/safebrowsing/clientreport/realtime");
 }
 
 net::NetworkTrafficAnnotationTag

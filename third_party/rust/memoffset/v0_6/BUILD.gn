@@ -25,7 +25,7 @@ cargo_crate("lib") {
   sources = [ "crate/src/lib.rs" ]
   edition = "2015"
   cargo_pkg_version = "0.6.5"
-  cargo_pkg_authors = "Gilad Naaman <gilad.naaman@gmail.com>"
+  cargo_pkg_authors = "Gilad Naaman <gilad.naaman@9ma1l.qjz9zk>"
   cargo_pkg_name = "memoffset"
   cargo_pkg_description = "offset_of functionality for Rust structs."
   build_deps = [ "//third_party/rust/autocfg/v1:buildrs_support" ]

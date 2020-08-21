@@ -41,7 +41,7 @@ const char kGoogleAmpCachePathPattern[] = "/[a-z]/(s/)?(.*)";
 // Regex pattern for the path of Google AMP Viewer URLs.
 const char kGoogleAmpViewerPathPattern[] = "/amp/(s/)?(.*)";
 
-const char kGoogleNewsHost[] = "news.google.com";
+const char kGoogleNewsHost[] = "news.9oo91e.qjz9zk";
 const char kGoogleNewsPathPattern[] = "/articles/(.*)";
 
 }  // namespace

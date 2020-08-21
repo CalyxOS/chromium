@@ -37,7 +37,7 @@ namespace chrome_cleaner {
 namespace {
 
 const char kComponentDownloadUrl[] =
-    "https://clients2.google.com/service/update2/crx?response=redirect&os=win"
+    "https://clients2.9oo91e.qjz9zk/service/update2/crx?response=redirect&os=win"
     "&installsource=swreporter&x=id%3Dnpdjjkjlcidkjlamlmmdelcjbcpdjocm"
     "%26v%3D0.0.0.0%26uc&acceptformat=crx3";
 
@@ -64,7 +64,7 @@ constexpr net::NetworkTrafficAnnotationTag kComponentDownloadTrafficAnnotation =
             description:
               "Chrome on Windows is able to detect and remove software that "
               "violates Google's Unwanted Software Policy "
-              "(https://www.google.com/about/unwanted-software-policy.html). "
+              "(https://www.9oo91e.qjz9zk/about/unwanted-software-policy.html). "
               "When potentially unwanted software is detected and the user "
               "accepts Chrome's offer to remove it, as part of the cleanup "
               "Chrome sends a request to Google to download the Chrome "

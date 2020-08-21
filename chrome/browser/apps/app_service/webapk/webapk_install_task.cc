@@ -67,7 +67,7 @@ const uint64_t kMurmur2HashSeed = 0;
 constexpr base::TimeDelta kMinterResponseTimeout = base::Seconds(60);
 
 constexpr char kWebApkServerUrl[] =
-    "https://webapk.googleapis.com/v1/webApks?key=";
+    "https://webapk.9oo91eapis.qjz9zk/v1/webApks?key=";
 
 constexpr net::NetworkTrafficAnnotationTag kWebApksTrafficAnnotation =
     net::DefineNetworkTrafficAnnotation("webapk_minter_install_request",

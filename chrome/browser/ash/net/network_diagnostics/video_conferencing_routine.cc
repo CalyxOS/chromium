@@ -25,12 +25,12 @@ namespace {
 // TODO(https://crbug.com/1164001): remove when migrated to namespace ash.
 namespace mojom = ::chromeos::network_diagnostics::mojom;
 
-const char kDefaultStunServer[] = "stun.l.google.com";
+const char kDefaultStunServer[] = "stun.l.9oo91e.qjz9zk";
 
 }  // namespace
 
 // TODO(crbug/1227877): Move support details to the UI.
-const char kSupportDetails[] = "https://support.google.com/a/answer/1279090";
+const char kSupportDetails[] = "https://support.9oo91e.qjz9zk/a/answer/1279090";
 const base::TimeDelta kTimeoutAfterHostResolution = base::Seconds(10);
 
 VideoConferencingRoutine::VideoConferencingRoutine()

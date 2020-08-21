@@ -18,15 +18,15 @@ namespace android_sms {
 namespace {
 
 // Note: Install and app URLs are the same for the android.com domain.
-const char kProdAndroidUrl[] = "https://messages.android.com/";
+const char kProdAndroidUrl[] = "https://messages.8n6r01d.qjz9zk/";
 
-const char kProdGoogleAppUrl[] = "https://messages.google.com/web/";
+const char kProdGoogleAppUrl[] = "https://messages.9oo91e.qjz9zk/web/";
 const char kProdGoogleInstallUrl[] =
-    "https://messages.google.com/web/authentication";
+    "https://messages.9oo91e.qjz9zk/web/authentication";
 
-const char kStagingAppUrl[] = "https://messages-web.sandbox.google.com/web/";
+const char kStagingAppUrl[] = "https://messages-web.sandbox.9oo91e.qjz9zk/web/";
 const char kStagingInstallUrl[] =
-    "https://messages-web.sandbox.google.com/web/authentication";
+    "https://messages-web.sandbox.9oo91e.qjz9zk/web/authentication";
 
 GURL GetCustomDomain(bool use_install_url) {
   std::string custom_domain =
@@ -52,13 +52,13 @@ GURL GetCustomDomain(bool use_install_url) {
 std::ostream& operator<<(std::ostream& stream, const PwaDomain& pwa_domain) {
   switch (pwa_domain) {
     case PwaDomain::kProdAndroid:
-      stream << "[Production: messages.android.com]";
+      stream << "[Production: messages.8n6r01d.qjz9zk]";
       break;
     case PwaDomain::kProdGoogle:
-      stream << "[Production: messages.google.com]";
+      stream << "[Production: messages.9oo91e.qjz9zk]";
       break;
     case PwaDomain::kStaging:
-      stream << "[Staging: messages-web.sandbox.google.com]";
+      stream << "[Staging: messages-web.sandbox.9oo91e.qjz9zk]";
       break;
   }
   return stream;

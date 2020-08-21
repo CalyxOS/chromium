@@ -47,10 +47,10 @@ namespace {
 const int kRepeatingCheckTailoredSecurityBitDelayInMinutes = 5;
 
 constexpr char kAPIScope[] =
-    "https://www.googleapis.com/auth/chrome-safe-browsing";
+    "https://www.9oo91eapis.qjz9zk/auth/chrome-safe-browsing";
 
 const char kQueryTailoredSecurityServiceUrl[] =
-    "https://history.google.com/history/api/lookup?client=aesb";
+    "https://history.9oo91e.qjz9zk/history/api/lookup?client=aesb";
 
 // The maximum number of retries for the SimpleURLLoader requests.
 const size_t kMaxRetries = 1;
@@ -334,7 +334,7 @@ void TailoredSecurityService::StartRequest(
                                           R"(
         semantics {
           description:
-            "Queries history.google.com to find out if user has Account level"
+            "Queries history.9oo91e.qjz9zk to find out if user has Account level"
             "Enhanced Safe Browsing enabled."
           trigger:
             "This request is sent every 5 minutes as long as the user does not"

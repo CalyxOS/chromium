@@ -29,7 +29,7 @@ namespace enterprise_connectors {
 
 namespace {
 
-constexpr char kStableChannelHostName[] = "m.google.com";
+constexpr char kStableChannelHostName[] = "m.9oo91e.qjz9zk";
 
 bool ValidRotationCommand(const std::string& host_name) {
   return chrome::GetChannel() != version_info::Channel::STABLE ||

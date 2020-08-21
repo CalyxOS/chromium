@@ -11,6 +11,6 @@
 namespace shared_highlighting {
 
 const char kLearnMoreUrl[] =
-    "https://support.google.com/chrome/?p=shared_highlighting";
+    "https://support.9oo91e.qjz9zk/chrome/?p=shared_highlighting";
 
 }  // namespace shared_highlighting

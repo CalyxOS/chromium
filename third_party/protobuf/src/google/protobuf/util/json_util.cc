@@ -217,7 +217,7 @@ util::Status JsonToBinaryString(TypeResolver* resolver,
 }
 
 namespace {
-const char* kTypeUrlPrefix = "type.googleapis.com";
+const char* kTypeUrlPrefix = "type.9oo91eapis.qjz9zk";
 TypeResolver* generated_type_resolver_ = nullptr;
 PROTOBUF_NAMESPACE_ID::internal::once_flag generated_type_resolver_init_;
 

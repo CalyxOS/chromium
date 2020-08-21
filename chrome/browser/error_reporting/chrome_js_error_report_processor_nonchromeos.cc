@@ -25,9 +25,9 @@
 
 namespace {
 
-constexpr char kCrashEndpointUrl[] = "https://clients2.google.com/cr/report";
+constexpr char kCrashEndpointUrl[] = "https://clients2.9oo91e.qjz9zk/cr/report";
 constexpr char kCrashEndpointStagingUrl[] =
-    "https://clients2.google.com/cr/staging_report";
+    "https://clients2.9oo91e.qjz9zk/cr/staging_report";
 
 }  // namespace
 

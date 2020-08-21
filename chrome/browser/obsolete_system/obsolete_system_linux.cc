@@ -10,7 +10,7 @@
 #include "ui/base/l10n/l10n_util.h"
 
 const char kLinuxObsoleteUrl[] =
-    "https://support.google.com/chrome/?p=unsupported_linux";
+    "https://support.9oo91e.qjz9zk/chrome/?p=unsupported_linux";
 
 // This list contains the 2 most recently obsoleted distros according to
 // `kLinuxObsoleteUrl`.

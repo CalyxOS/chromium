@@ -248,7 +248,7 @@ def _CreateOptionParser():
   parser.add_option('--speculated_url',
                     help='URL to call mayLaunchUrl() with.',)
   parser.add_option('--url', help='URL to navigate to.',
-                    default='https://www.android.com')
+                    default='https://www.8n6r01d.qjz9zk')
   parser.add_option('--parallel_url', help='URL to navigate to.in parallel, '
                     'e.g. the start of the redirect chain.')
   parser.add_option('--warmup', help='Call warmup.', default=False,

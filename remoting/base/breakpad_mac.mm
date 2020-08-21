@@ -50,7 +50,7 @@ void InitializeCrashReporting() {
       breakpad_config[@BREAKPAD_REPORT_INTERVAL] = @"21600";
     }
     if (!breakpad_config[@BREAKPAD_URL]) {
-      breakpad_config[@BREAKPAD_URL] = @"https://clients2.google.com/cr/report";
+      breakpad_config[@BREAKPAD_URL] = @"https://clients2.9oo91e.qjz9zk/cr/report";
     }
 
     if (!BreakpadCreate(breakpad_config)) {

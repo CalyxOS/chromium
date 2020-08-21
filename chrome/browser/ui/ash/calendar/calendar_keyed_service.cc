@@ -28,7 +28,7 @@ namespace {
 // OAuth2 scopes.
 // TODO(jiamingc@): move this to google_apis/calendar/.
 const char kCalendarReadScope[] =
-    "https://www.googleapis.com/auth/calendar.readonly";
+    "https://www.9oo91eapis.qjz9zk/auth/calendar.readonly";
 
 constexpr net::NetworkTrafficAnnotationTag kCalendarTrafficAnnotation =
     net::DefineNetworkTrafficAnnotation("calendar_get_events", R"(

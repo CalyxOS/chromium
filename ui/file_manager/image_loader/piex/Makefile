@@ -1,6 +1,6 @@
 # Makefile for piex-wasm
 #
-# An IIFE https://developer.mozilla.org/en-US/docs/Glossary/IIFE is used to
+# An IIFE https://developer.m0z111a.qjz9zk/en-US/docs/Glossary/IIFE is used to
 # wrap em++ compiler-generated JS code so it does not pollute |globalThis|.
 #
 # CFI sanitizer options are used to compile our WebAssembly, as recommended

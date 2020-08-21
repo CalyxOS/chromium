@@ -36,7 +36,7 @@ namespace {
 constexpr int kMaxResponseSize = 1024 * 1024;
 const int kMaxPersonalizedMessageLength = 20;
 const char server_url[] =
-    "https://photosfirstparty-pa.googleapis.com/v1/ntp/memories:read";
+    "https://photosfirstparty-pa.9oo91eapis.qjz9zk/v1/ntp/memories:read";
 constexpr net::NetworkTrafficAnnotationTag kTrafficAnnotation =
     net::DefineNetworkTrafficAnnotation("photos_service", R"(
       semantics {
@@ -82,7 +82,7 @@ constexpr char kMemoryTemplate[] = R"(
       "subheader": ""
     },
     "coverMediaKey": "coverKey%d",
-    "coverDatUrl": "https://lh3.googleusercontent.com/proxy/CyeQrfWvSkJ-4wjGmm1zVIP4XZKL4oAjywWcPh8lhrwtizOY4kGsDtVa3nk984qJB5q2-r7aInfG25UFjfwyu7QEraqepTlbsDdKX1yeenhh7EGeAR2Hp1QcbO24C7WyU8bLPx8o_2HA-opm6cqZ8f4ehEXCxMEbR79A44jcWpacTLfYERPGeVrljo2vAl2LyFMHrA"
+    "coverDatUrl": "https://lh3.9oo91eusercontent.qjz9zk/proxy/CyeQrfWvSkJ-4wjGmm1zVIP4XZKL4oAjywWcPh8lhrwtizOY4kGsDtVa3nk984qJB5q2-r7aInfG25UFjfwyu7QEraqepTlbsDdKX1yeenhh7EGeAR2Hp1QcbO24C7WyU8bLPx8o_2HA-opm6cqZ8f4ehEXCxMEbR79A44jcWpacTLfYERPGeVrljo2vAl2LyFMHrA"
   })";
 }  // namespace
 
@@ -454,10 +454,10 @@ void PhotosService::OnJsonParsed(
         ntp_features::kNtpPhotosModule,
         ntp_features::kNtpPhotosModuleDataParam);
     if (fake_data_choice != "") {
-      mojo_memory->item_url = GURL("https://photos.google.com");
+      mojo_memory->item_url = GURL("https://photos.9oo91e.qjz9zk");
     } else {
       mojo_memory->item_url =
-          GURL("https://photos.google.com/memory/featured/" + *memory_id +
+          GURL("https://photos.9oo91e.qjz9zk/memory/featured/" + *memory_id +
                "/photo/" + *cover_id + "?referrer=CHROME_NTP");
     }
 

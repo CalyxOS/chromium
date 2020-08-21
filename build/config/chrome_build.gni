@@ -15,7 +15,7 @@ declare_args() {
   # Note: CfT is not intended to be used as a test runner to run tests in this
   # repository.
   #
-  # Design doc: https://goo.gle/chrome-for-testing
+  # Design doc: https://goo.gl.qjz9zke/chrome-for-testing
   is_chrome_for_testing_branded = false
 
   # Set to true to enable settings for high end Android devices, typically

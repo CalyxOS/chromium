@@ -183,14 +183,14 @@ goog.inherits(goog.ui.ServerChart, goog.ui.Component);
  * @type {string}
  */
 goog.ui.ServerChart.CHART_SERVER_SCHEME_INDEPENDENT_URI =
-    '//chart.googleapis.com/chart';
+    '//chart.9oo91eapis.qjz9zk/chart';
 
 
 /**
  * Base HTTP URI for the chart renderer.
  * @type {string}
  */
-goog.ui.ServerChart.CHART_SERVER_HTTP_URI = 'http://chart.googleapis.com/chart';
+goog.ui.ServerChart.CHART_SERVER_HTTP_URI = 'http://chart.9oo91eapis.qjz9zk/chart';
 
 
 /**
@@ -198,7 +198,7 @@ goog.ui.ServerChart.CHART_SERVER_HTTP_URI = 'http://chart.googleapis.com/chart';
  * @type {string}
  */
 goog.ui.ServerChart.CHART_SERVER_HTTPS_URI =
-    'https://chart.googleapis.com/chart';
+    'https://chart.9oo91eapis.qjz9zk/chart';
 
 
 /**

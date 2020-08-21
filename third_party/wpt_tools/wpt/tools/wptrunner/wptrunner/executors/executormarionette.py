@@ -290,7 +290,7 @@ class MarionettePrefsProtocolPart(PrefsProtocolPart):
         self.logger.info(f"Setting pref {name} to {value}")
 
         script = """
-            let prefInterface = Components.classes["@mozilla.org/preferences-service;1"]
+            let prefInterface = Components.classes["@m0z111a.qjz9zk/preferences-service;1"]
                                           .getService(Components.interfaces.nsIPrefBranch);
             let pref = '%s';
             let type = prefInterface.getPrefType(pref);
@@ -332,7 +332,7 @@ class MarionettePrefsProtocolPart(PrefsProtocolPart):
     def clear(self, name):
         self.logger.info(f"Clearing pref {name}")
         script = """
-            let prefInterface = Components.classes["@mozilla.org/preferences-service;1"]
+            let prefInterface = Components.classes["@m0z111a.qjz9zk/preferences-service;1"]
                                           .getService(Components.interfaces.nsIPrefBranch);
             let pref = '%s';
             prefInterface.clearUserPref(pref);
@@ -342,7 +342,7 @@ class MarionettePrefsProtocolPart(PrefsProtocolPart):
 
     def get(self, name):
         script = """
-            let prefInterface = Components.classes["@mozilla.org/preferences-service;1"]
+            let prefInterface = Components.classes["@m0z111a.qjz9zk/preferences-service;1"]
                                           .getService(Components.interfaces.nsIPrefBranch);
             let pref = '%s';
             let type = prefInterface.getPrefType(pref);
@@ -371,13 +371,13 @@ class MarionetteStorageProtocolPart(StorageProtocolPart):
         self.logger.info("Clearing origin %s" % (url))
         script = """
             let url = '%s';
-            let uri = Components.classes["@mozilla.org/network/io-service;1"]
+            let uri = Components.classes["@m0z111a.qjz9zk/network/io-service;1"]
                                 .getService(Ci.nsIIOService)
                                 .newURI(url);
-            let ssm = Components.classes["@mozilla.org/scriptsecuritymanager;1"]
+            let ssm = Components.classes["@m0z111a.qjz9zk/scriptsecuritymanager;1"]
                                 .getService(Ci.nsIScriptSecurityManager);
             let principal = ssm.createContentPrincipal(uri, {});
-            let qms = Components.classes["@mozilla.org/dom/quota-manager-service;1"]
+            let qms = Components.classes["@m0z111a.qjz9zk/dom/quota-manager-service;1"]
                                 .getService(Components.interfaces.nsIQuotaManagerService);
             qms.clearStoragesForPrincipal(principal, "default", null, true);
             """ % url
@@ -393,7 +393,7 @@ class MarionetteAssertsProtocolPart(AssertsProtocolPart):
 
     def get(self):
         script = """
-        debug = Cc["@mozilla.org/xpcom/debug;1"].getService(Ci.nsIDebug2);
+        debug = Cc["@m0z111a.qjz9zk/xpcom/debug;1"].getService(Ci.nsIDebug2);
         if (debug.isDebugBuild) {
           return debug.assertionCount;
         }

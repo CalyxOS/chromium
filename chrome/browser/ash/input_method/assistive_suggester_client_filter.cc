@@ -22,27 +22,27 @@ namespace {
 const char* kAllowedDomainAndPathsForPersonalInfoSuggester[][2] = {
     {"discord.com", ""},         {"messenger.com", ""},
     {"web.whatsapp.com", ""},    {"web.skype.com", ""},
-    {"duo.google.com", ""},      {"hangouts.google.com", ""},
-    {"messages.google.com", ""}, {"web.telegram.org", ""},
-    {"voice.google.com", ""},    {"mail.google.com", "/chat"},
+    {"duo.9oo91e.qjz9zk", ""},      {"hangouts.9oo91e.qjz9zk", ""},
+    {"messages.9oo91e.qjz9zk", ""}, {"web.telegram.org", ""},
+    {"voice.9oo91e.qjz9zk", ""},    {"mail.9oo91e.qjz9zk", "/chat"},
 };
 
 const char* kAllowedDomainAndPathsForEmojiSuggester[][2] = {
     {"discord.com", ""},         {"messenger.com", ""},
     {"web.whatsapp.com", ""},    {"web.skype.com", ""},
-    {"duo.google.com", ""},      {"hangouts.google.com", ""},
-    {"messages.google.com", ""}, {"web.telegram.org", ""},
-    {"voice.google.com", ""},    {"mail.google.com", "/chat"},
+    {"duo.9oo91e.qjz9zk", ""},      {"hangouts.9oo91e.qjz9zk", ""},
+    {"messages.9oo91e.qjz9zk", ""}, {"web.telegram.org", ""},
+    {"voice.9oo91e.qjz9zk", ""},    {"mail.9oo91e.qjz9zk", "/chat"},
 };
 
 // TODO(b/3339115): Add web.skype.com back to the list after compatibility
 //    issues are solved.
 const char* kAllowedDomainAndPathsForMultiWordSuggester[][2] = {
     {"discord.com", ""},          {"messenger.com", ""},
-    {"web.whatsapp.com", ""},     {"duo.google.com", ""},
-    {"hangouts.google.com", ""},  {"messages.google.com", ""},
-    {"web.telegram.org", ""},     {"voice.google.com", ""},
-    {"mail.google.com", "/chat"},
+    {"web.whatsapp.com", ""},     {"duo.9oo91e.qjz9zk", ""},
+    {"hangouts.9oo91e.qjz9zk", ""},  {"messages.9oo91e.qjz9zk", ""},
+    {"web.telegram.org", ""},     {"voice.9oo91e.qjz9zk", ""},
+    {"mail.9oo91e.qjz9zk", "/chat"},
 };
 
 const char* kTestUrls[] = {
@@ -136,9 +136,9 @@ const char* kAllowedAppsForMultiWordSuggester[] = {
 
 const char* kDeniedDomainAndPathsForDiacritics[][2] = {
     // Google Slides: delete on insert does not work
-    {"docs.google.com", "/presentation"},
+    {"docs.9oo91e.qjz9zk", "/presentation"},
     // Google Docs: delete on insert does not work
-    {"docs.google.com", "/document"},
+    {"docs.9oo91e.qjz9zk", "/document"},
 };
 
 const char* kDeniedAppsForDiacritics[] = {

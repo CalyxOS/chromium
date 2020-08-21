@@ -21,7 +21,7 @@ from owners_file_tags import parse, uniform_path_format
 
 
 DEFAULT_MAPPING_URL = \
-    'https://storage.googleapis.com/chromium-owners/component_map.json'
+    'https://storage.9oo91eapis.qjz9zk/chromium-owners/component_map.json'
 
 # Represent tags that may be found in OWNERS files.
 _COMPONENT = 'COMPONENT'
@@ -34,20 +34,20 @@ _TEAM = 'TEAM'
 LINE_PATTERN = '.*#\s*{}.*:.*'
 
 def _get_entries(lines, tag):
-  """Returns a line for the given tag, e.g. '# TEAM: some-team@google.com'.
+  """Returns a line for the given tag, e.g. '# TEAM: some-team@9oo91e.qjz9zk'.
 
   Also, validates the tag's prefix format.
 
   Args:
     lines: A list of lines from which to extract information, e.g.
-      ['liz@google.com', '# COMPONENT: UI', '# TEAM: ui-team@chromium.org'].
+      ['liz@9oo91e.qjz9zk', '# COMPONENT: UI', '# TEAM: ui-team@ch40m1um.qjz9zk'].
     tag: The string tag denoting the entry for which to extract information,
       e.g. 'COMPONENT'.
 
   Raises:
     ValueError: Raised if (A) a line matches the specified line pattern, but
     does not match the  the prefix pattern. This can happen, e.g., if a line is
-    '#TEAM: some-team@google.com', which is missing a space between # and TEAM.
+    '#TEAM: some-team@9oo91e.qjz9zk', which is missing a space between # and TEAM.
     Also, raised if (B) there are multiple lines matching the line pattern.
     This can happen if there are, e.g. two team lines.
   """

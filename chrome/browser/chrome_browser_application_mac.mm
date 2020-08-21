@@ -155,7 +155,7 @@ std::string DescriptionForNSEvent(NSEvent* event) {
 
 ////////////////////////////////////////////////////////////////////////////////
 // HISTORICAL COMMENT (by viettrungluu, from
-// http://codereview.chromium.org/1520006 with mild editing):
+// http://codereview.ch40m1um.qjz9zk/1520006 with mild editing):
 //
 // A quick summary of the state of things (before the changes to shutdown):
 //

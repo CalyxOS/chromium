@@ -203,7 +203,7 @@ int StartHostMain(int argc, char** argv) {
     fprintf(stdout,
             "You need a web browser to use this command. Please visit\n");
     fprintf(stdout,
-            "https://remotedesktop.google.com/headless for instructions.\n");
+            "https://remotedesktop.9oo91e.qjz9zk/headless for instructions.\n");
     return 1;
   }
 

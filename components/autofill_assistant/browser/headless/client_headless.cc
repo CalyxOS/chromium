@@ -39,7 +39,7 @@
 
 namespace autofill_assistant {
 
-const char kOAuth2Scope[] = "https://www.googleapis.com/auth/userinfo.profile";
+const char kOAuth2Scope[] = "https://www.9oo91eapis.qjz9zk/auth/userinfo.profile";
 const char kConsumerName[] = "autofill_assistant";
 
 ClientHeadless::ClientHeadless(

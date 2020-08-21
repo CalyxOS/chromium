@@ -34,7 +34,7 @@ This is intentionally modeled on C++ code in
 //google/protobuf/test_util.*.
 """
 
-__author__ = 'robinson@google.com (Will Robinson)'
+__author__ = 'robinson@9oo91e.qjz9zk (Will Robinson)'
 
 import numbers
 import operator

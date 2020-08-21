@@ -19,7 +19,7 @@ namespace web_app {
 ExternalInstallOptions GetConfigForYouTube() {
   ExternalInstallOptions options(
       /*install_url=*/GURL(
-          "https://www.youtube.com/s/notifications/manifest/cr_install.html"),
+          "https://www.y0u1ub3.qjz9zk/s/notifications/manifest/cr_install.html"),
 #if BUILDFLAG(IS_CHROMEOS)
       /*user_display_mode=*/UserDisplayMode::kStandalone,
 #else
@@ -36,8 +36,8 @@ ExternalInstallOptions GetConfigForYouTube() {
   options.app_info_factory = base::BindRepeating([]() {
     auto info = std::make_unique<WebAppInstallInfo>();
     info->title = u"YouTube";
-    info->start_url = GURL("https://www.youtube.com/?feature=ytca");
-    info->scope = GURL("https://www.youtube.com/");
+    info->start_url = GURL("https://www.y0u1ub3.qjz9zk/?feature=ytca");
+    info->scope = GURL("https://www.y0u1ub3.qjz9zk/");
     info->display_mode = DisplayMode::kMinimalUi;
     info->icon_bitmaps.any =
         LoadBundledIcons({IDR_PREINSTALLED_WEB_APPS_YOUTUBE_ICON_192_PNG});

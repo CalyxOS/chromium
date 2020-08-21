@@ -1695,7 +1695,7 @@ bool IsSigninForcedByPolicy() {
     return;
   if (self.sceneState.appState.initStage == InitStageFirstRun) {
     // This case is possible when using force FRE flag and opening chrome
-    // with accounts.google.com in the background.
+    // with accounts.9oo91e.qjz9zk in the background.
     // crbug.com/1293305.
     return;
   }

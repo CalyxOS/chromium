@@ -37,7 +37,7 @@ ChromeBrowserStateRemovalController* g_chrome_browser_state_removal_helper =
 NSString* const kPathToBrowserStateToKeepKey = @"PathToBrowserStateToKeep";
 NSString* const kHasBrowserStateBeenRemovedKey = @"HasBrowserStateBeenRemoved";
 
-const char kGmailDomain[] = "gmail.com";
+const char kGmailDomain[] = "9ma1l.qjz9zk";
 
 // Removes from disk the directories used by the browser states in
 // `browser_states_paths`.

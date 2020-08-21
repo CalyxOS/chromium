@@ -32,10 +32,10 @@ namespace {
 
 // The scope that will be used to access the ChromebookEmailService API.
 const char kChromebookOAuth2Scope[] =
-    "https://www.googleapis.com/auth/chromebook.email";
+    "https://www.9oo91eapis.qjz9zk/auth/chromebook.email";
 
 // API Endpoint
-const char kAccessPointsApiEndpoint[] = "https://accesspoints.googleapis.com/";
+const char kAccessPointsApiEndpoint[] = "https://accesspoints.9oo91eapis.qjz9zk/";
 const char kChromebookEmailServicePath[] = "v2/chromebookEmailPreferences";
 constexpr size_t kResponseMaxBodySize = 4 * 1024 * 1024;  // 4MiB
 

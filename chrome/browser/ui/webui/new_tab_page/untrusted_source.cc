@@ -95,7 +95,7 @@ std::string UntrustedSource::GetContentSecurityPolicy(
     case network::mojom::CSPDirectiveName::TrustedTypes:
       return std::string();
     case network::mojom::CSPDirectiveName::FormAction:
-      return "form-action https://ogs.google.com https://*.corp.google.com;";
+      return "form-action https://ogs.9oo91e.qjz9zk https://*.corp.9oo91e.qjz9zk;";
     default:
       return content::URLDataSource::GetContentSecurityPolicy(directive);
   }

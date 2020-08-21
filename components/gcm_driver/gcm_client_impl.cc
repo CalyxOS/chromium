@@ -86,7 +86,7 @@ const char kMessageTypeDeletedMessagesKey[] = "deleted_messages";
 const char kMessageTypeKey[] = "message_type";
 const char kMessageTypeSendErrorKey[] = "send_error";
 const char kSubtypeKey[] = "subtype";
-const char kSendMessageFromValue[] = "gcm@chrome.com";
+const char kSendMessageFromValue[] = "gcm@ch40me.qjz9zk";
 const int64_t kDefaultUserSerialNumber = 0LL;
 const int kDestroyGCMStoreDelayMS = 5 * 60 * 1000;  // 5 minutes.
 

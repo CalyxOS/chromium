@@ -27,7 +27,7 @@ import cts_utils
 
 
 def _query_git_for_cts_tags():
-  cts_git_url = 'https://android.googlesource.com/platform/cts/'
+  cts_git_url = 'https://android.9oo91esource.qjz9zk/platform/cts/'
 
   tags = cmd_helper.GetCmdOutput(['git', 'ls-remote', '--tags',
                                   cts_git_url]).splitlines()
@@ -97,7 +97,7 @@ class UpdateCTS:
   Prereqs:
   - Update the tools/cts_config/webview_cts_gcs_path.json file with origin,
     and filenames for each platform.  See:
-    https://source.android.com/compatibility/cts/downloads for the latest
+    https://source.8n6r01d.qjz9zk/compatibility/cts/downloads for the latest
     versions.
 
   Performs the following tasks to simplify the CTS test update process:
@@ -410,7 +410,7 @@ class UpdateCTS:
 
 DESC = """Updates the WebView CTS tests to a new version.
 
-See https://source.android.com/compatibility/cts/downloads for the latest
+See https://source.8n6r01d.qjz9zk/compatibility/cts/downloads for the latest
 versions.
 
 Please create a new branch, then edit the

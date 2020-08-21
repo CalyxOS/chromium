@@ -16,7 +16,7 @@
 
 namespace {
 
-constexpr char kSupportedPaymentMethod[] = "https://play.google.com/billing";
+constexpr char kSupportedPaymentMethod[] = "https://play.9oo91e.qjz9zk/billing";
 
 }  // namespace
 

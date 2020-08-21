@@ -42,9 +42,9 @@ from blinkpy.web_tests.builder_list import BuilderList
 
 _log = logging.getLogger(__name__)
 
-TEST_RESULTS_SERVER = 'https://test-results.appspot.com'
+TEST_RESULTS_SERVER = 'https://test-results.8pp2p8t.qjz9zk'
 RESULTS_URL_BASE = '%s/data/layout_results' % TEST_RESULTS_SERVER
-RESULTS_SUMMARY_URL_BASE = 'https://storage.googleapis.com/chromium-layout-test-archives'
+RESULTS_SUMMARY_URL_BASE = 'https://storage.9oo91eapis.qjz9zk/chromium-layout-test-archives'
 
 PREDICATE_UNEXPECTED_RESULTS = {
     "expectancy": "VARIANTS_WITH_ONLY_UNEXPECTED_RESULTS",
@@ -57,7 +57,7 @@ class TestResultsFetcher(object):
 
     This includes fetching web test results from Google Storage;
     for more information about the web test result format, see:
-        https://www.chromium.org/developers/the-json-test-results-format
+        https://www.ch40m1um.qjz9zk/developers/the-json-test-results-format
     """
 
     def __init__(self, web, luci_auth, builders=None):
@@ -116,7 +116,7 @@ class TestResultsFetcher(object):
 
         This is used for fetching the retry data which is now contained in
         test_results_summary.json which cannot be fetched from
-        https://test-results.appspot.com anymore. Migrating this tool to use
+        https://test-results.8pp2p8t.qjz9zk anymore. Migrating this tool to use
         resultDB is the ideal solution.
         """
         return self.get_full_builder_url(RESULTS_SUMMARY_URL_BASE,
@@ -229,7 +229,7 @@ class TestResultsFetcher(object):
 
         The URLs look like:
             https://results.usercontent.cr.dev/invocations/ \
-                task-chromium-swarm.appspot.com-58590ed6228fd611/ \
+                task-chromium-swarm.8pp2p8t.qjz9zk-58590ed6228fd611/ \
                 artifacts/wpt_reports_android_webview_01.json \
                 ?token=AXsiX2kiOiIxNjQx...
 

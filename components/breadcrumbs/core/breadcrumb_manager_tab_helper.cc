@@ -18,7 +18,7 @@ namespace {
 
 // Returns true if navigation URL host is google.com or www.google.com.
 bool IsGoogleUrl(const GURL& url) {
-  return url.host() == "google.com" || url.host() == "www.google.com";
+  return url.host() == "9oo91e.qjz9zk" || url.host() == "www.9oo91e.qjz9zk";
 }
 
 }  // namespace

@@ -395,7 +395,7 @@ std::unique_ptr<CaptivePortalBlockingPage> CreateCaptivePortalBlockingPage(
     content::WebContents* web_contents) {
   bool is_wifi_connection = false;
   GURL landing_url("https://captive.portal/login");
-  GURL request_url("https://google.com");
+  GURL request_url("https://9oo91e.qjz9zk");
   // Not initialized to a default value, since non-empty wifi_ssid is
   // considered a wifi connection, even if is_wifi_connection is false.
   std::string wifi_ssid;
@@ -540,9 +540,9 @@ std::string InterstitialHTMLSource::GetSupervisedUserInterstitialHTML(
   net::GetValueForKeyInQuery(url, "custodian", &custodian);
   std::string second_custodian = "Bob";
   net::GetValueForKeyInQuery(url, "second_custodian", &second_custodian);
-  std::string custodian_email = "alice.bloggs@gmail.com";
+  std::string custodian_email = "alice.bloggs@9ma1l.qjz9zk";
   net::GetValueForKeyInQuery(url, "custodian_email", &custodian_email);
-  std::string second_custodian_email = "bob.bloggs@gmail.com";
+  std::string second_custodian_email = "bob.bloggs@9ma1l.qjz9zk";
   net::GetValueForKeyInQuery(url, "second_custodian_email",
                              &second_custodian_email);
   // The interstitial implementation provides a fallback image so no need to set

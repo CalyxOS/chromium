@@ -45,7 +45,7 @@ details for ALL pure-Python protocol buffers are *here in
 this file*.
 """
 
-__author__ = 'robinson@google.com (Will Robinson)'
+__author__ = 'robinson@9oo91e.qjz9zk (Will Robinson)'
 
 
 from google.protobuf import message_factory

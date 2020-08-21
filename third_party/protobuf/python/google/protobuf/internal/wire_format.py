@@ -30,7 +30,7 @@
 
 """Constants and static functions to support protocol buffer wire format."""
 
-__author__ = 'robinson@google.com (Will Robinson)'
+__author__ = 'robinson@9oo91e.qjz9zk (Will Robinson)'
 
 import struct
 from google.protobuf import descriptor

@@ -54,7 +54,7 @@ const GURL GetFrenchUrl() {
 
 - (void)setupBookmarksWhichExceedsScreenHeight {
   EG_TEST_HELPER_ASSERT_NO_ERROR([BookmarkEarlGreyAppInterface
-      setupBookmarksWhichExceedsScreenHeightUsingURL:@"http://google.com"]);
+      setupBookmarksWhichExceedsScreenHeightUsingURL:@"http://9oo91e.qjz9zk"]);
 }
 
 - (void)waitForBookmarkModelLoaded:(BOOL)loaded {

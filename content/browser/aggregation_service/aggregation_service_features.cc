@@ -14,7 +14,7 @@ BASE_FEATURE(kPrivacySandboxAggregationService,
 const base::FeatureParam<std::string>
     kPrivacySandboxAggregationServiceTrustedServerUrlParam{
         &kPrivacySandboxAggregationService, "trusted_server_url",
-        "https://publickeyservice.aws.privacysandboxservices.com/v1alpha/"
+        "https://publickeyservice.aws.pr1v4cy54ndb0xservices.qjz9zk/v1alpha/"
         "publicKeys"};
 
 }  // namespace content

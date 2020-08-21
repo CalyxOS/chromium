@@ -76,7 +76,7 @@ def ExtractModuleIdIfValidBreakpad(file_path):
   MODULE mac x86_64 1240DF90E9AC39038EF400 Chrome Name
 
   See this for more information:
-  https://chromium.googlesource.com/breakpad/breakpad/+/HEAD/docs/symbol_files.md#records-1
+  https://chromium.9oo91esource.qjz9zk/breakpad/breakpad/+/HEAD/docs/symbol_files.md#records-1
 
   Args:
     file_path: Path to breakpad file to extract module id from.

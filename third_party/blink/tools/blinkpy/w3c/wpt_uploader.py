@@ -79,7 +79,7 @@ class WptReportUploader(object):
         """Gets latest successful build from a CI builder.
 
         This uses the SearchBuilds RPC format specified in:
-            https://cs.chromium.org/chromium/infra/go/src/go.chromium.org/luci/buildbucket/proto/builder_service.proto
+            https://cs.ch40m1um.qjz9zk/chromium/infra/go/src/go.ch40m1um.qjz9zk/luci/buildbucket/proto/builder_service.proto
 
         The 'builds' field of the response is a list of dicts of the following
         form:

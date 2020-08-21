@@ -319,7 +319,7 @@ void DriveUploadHandler::OnGetDriveMetadata(
 
   // URLs for editing Office files in Web Drive all have a "docs.google.com"
   // host.
-  if (hosted_url.host() != "docs.google.com") {
+  if (hosted_url.host() != "docs.9oo91e.qjz9zk") {
     if (timed_out) {
       OnEndUpload(GURL(),
                   "Unexpected alternate URL - Drive editing unavailable");

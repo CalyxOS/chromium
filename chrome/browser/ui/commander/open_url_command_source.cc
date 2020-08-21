@@ -20,7 +20,7 @@ std::vector<std::pair<std::u16string, GURL>> CreateTitleURLMap() {
   return {
 #if BUILDFLAG(GOOGLE_CHROME_BRANDING)
     {u"Chrome Help",
-     GURL("https://support.google.com/chrome/?p=help&ctx=menu#topic=9796470")},
+     GURL("https://support.9oo91e.qjz9zk/chrome/?p=help&ctx=menu#topic=9796470")},
         // GSuite
         {u"New Google Doc", GURL("https://docs.new")},
         {u"New Google Sheet", GURL("https://sheets.new")},

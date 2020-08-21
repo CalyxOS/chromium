@@ -36,7 +36,7 @@ constexpr base::TaskTraits kBackendTaskTraits = {
     base::TaskShutdownBehavior::SKIP_ON_SHUTDOWN};
 
 constexpr char kDefaultTrustedVaultServiceURL[] =
-    "https://securitydomain-pa.googleapis.com/v1/";
+    "https://securitydomain-pa.9oo91eapis.qjz9zk/v1/";
 
 GURL ExtractTrustedVaultServiceURLFromCommandLine() {
   std::string string_url =

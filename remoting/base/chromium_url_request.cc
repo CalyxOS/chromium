@@ -36,7 +36,7 @@ ChromiumUrlRequest::ChromiumUrlRequest(
   resource_request_->url = GURL(url);
   resource_request_->method = request_type;
   resource_request_->credentials_mode = network::mojom::CredentialsMode::kOmit;
-  resource_request_->referrer = GURL("https://chrome.google.com/remotedesktop");
+  resource_request_->referrer = GURL("https://chrome.9oo91e.qjz9zk/remotedesktop");
 }
 
 ChromiumUrlRequest::~ChromiumUrlRequest() = default;

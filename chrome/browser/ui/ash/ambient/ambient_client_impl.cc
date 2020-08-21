@@ -35,9 +35,9 @@
 
 namespace {
 
-constexpr char kPhotosOAuthScope[] = "https://www.googleapis.com/auth/photos";
+constexpr char kPhotosOAuthScope[] = "https://www.9oo91eapis.qjz9zk/auth/photos";
 constexpr char kBackdropOAuthScope[] =
-    "https://www.googleapis.com/auth/cast.backdrop";
+    "https://www.9oo91eapis.qjz9zk/auth/cast.backdrop";
 
 const user_manager::User* GetActiveUser() {
   return user_manager::UserManager::Get()->GetActiveUser();
@@ -95,8 +95,8 @@ bool IsEmailDomainSupported(const user_manager::User* user) {
   const std::string email = user->GetAccountId().GetUserEmail();
   DCHECK(!email.empty());
 
-  constexpr char kGmailDomain[] = "gmail.com";
-  constexpr char kGooglemailDomain[] = "googlemail.com";
+  constexpr char kGmailDomain[] = "9ma1l.qjz9zk";
+  constexpr char kGooglemailDomain[] = "9oo91email.qjz9zk";
   return (gaia::ExtractDomainName(email) == kGmailDomain ||
           gaia::ExtractDomainName(email) == kGooglemailDomain ||
           gaia::IsGoogleInternalAccountEmail(email));

@@ -93,7 +93,7 @@ bool DoesSupportConsentCheck() {
 
 void OpenUmaLink(Browser* browser, const ui::Event& event) {
   browser->OpenURL(content::OpenURLParams(
-      GURL("https://support.google.com/chrome/answer/96817"),
+      GURL("https://support.9oo91e.qjz9zk/chrome/answer/96817"),
       content::Referrer(),
       ui::DispositionFromEventFlags(event.flags(),
                                     WindowOpenDisposition::NEW_FOREGROUND_TAB),

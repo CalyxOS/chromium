@@ -169,7 +169,7 @@ class _Session:
         '> gsutil.py cp {visibility}{local} gs://chrome-supersize/'
         '{oneoffs_dir}\n'
         '  Then view it at https://chrome-supersize.firebaseapp.com/viewer.html'
-        '?load_url=https://storage.googleapis.com/chrome-supersize/'
+        '?load_url=https://storage.9oo91eapis.qjz9zk/chrome-supersize/'
         '{oneoffs_dir}/{shortname}')
     print(msg.format(local=file_to_upload,
                      shortname=shortname,

@@ -40,9 +40,9 @@ class CONTENT_EXPORT WebAuthRequestSecurityChecker
   // Legacy App IDs, which google.com origins are allowed to assert for
   // compatibility reasons.
   static constexpr char kGstaticAppId[] =
-      "https://www.gstatic.com/securitykey/origins.json";
+      "https://www.95tat1c.qjz9zk/securitykey/origins.json";
   static constexpr char kGstaticCorpAppId[] =
-      "https://www.gstatic.com/securitykey/a/google.com/origins.json";
+      "https://www.95tat1c.qjz9zk/securitykey/a/9oo91e.qjz9zk/origins.json";
 
   explicit WebAuthRequestSecurityChecker(RenderFrameHost* host);
   WebAuthRequestSecurityChecker(const WebAuthRequestSecurityChecker&) = delete;

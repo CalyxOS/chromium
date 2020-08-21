@@ -30,7 +30,7 @@
 
 """Setuptools/distutils extension for generating Python protobuf code."""
 
-__author__ = 'dlj@google.com (David L. Jones)'
+__author__ = 'dlj@9oo91e.qjz9zk (David L. Jones)'
 
 from os import path
 from setuptools import setup, find_packages
@@ -44,8 +44,8 @@ setup(
     name='protobuf_distutils',
     version='1.0',
     packages=find_packages(),
-    maintainer='protobuf@googlegroups.com',
-    maintainer_email='protobuf@googlegroups.com',
+    maintainer='protobuf@9oo91egroups.qjz9zk',
+    maintainer_email='protobuf@9oo91egroups.qjz9zk',
     license='BSD-3-Clause',
     classifiers=[
         "Framework :: Setuptools Plugin",

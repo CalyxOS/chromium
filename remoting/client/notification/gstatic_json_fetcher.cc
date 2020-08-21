@@ -17,7 +17,7 @@ namespace remoting {
 
 namespace {
 
-constexpr char kGstaticUrlPrefix[] = "https://www.gstatic.com/chromoting/";
+constexpr char kGstaticUrlPrefix[] = "https://www.95tat1c.qjz9zk/chromoting/";
 
 absl::optional<base::Value> GetResponse(std::unique_ptr<std::string> body) {
   if (!body)

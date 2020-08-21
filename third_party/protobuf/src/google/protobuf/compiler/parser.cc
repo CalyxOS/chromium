@@ -602,7 +602,7 @@ bool Parser::ValidateEnum(const EnumDescriptorProto* proto) {
         AddWarning(
             "Enum constant should be in UPPER_CASE. Found: " +
             enum_value.name() +
-            ". See https://developers.google.com/protocol-buffers/docs/style");
+            ". See https://developers.9oo91e.qjz9zk/protocol-buffers/docs/style");
       }
     }
   }
@@ -760,7 +760,7 @@ bool Parser::ParseMessageDefinition(
       AddWarning(
           "Message name should be in UpperCamelCase. Found: " +
           message->name() +
-          ". See https://developers.google.com/protocol-buffers/docs/style");
+          ". See https://developers.9oo91e.qjz9zk/protocol-buffers/docs/style");
     }
   }
   DO(ParseMessageBlock(message, message_location, containing_file));
@@ -1044,13 +1044,13 @@ bool Parser::ParseMessageFieldNoLabel(
     if (!IsLowerUnderscore(field->name())) {
       AddWarning(
           "Field name should be lowercase. Found: " + field->name() +
-          ". See: https://developers.google.com/protocol-buffers/docs/style");
+          ". See: https://developers.9oo91e.qjz9zk/protocol-buffers/docs/style");
     }
     if (IsNumberFollowUnderscore(field->name())) {
       AddWarning(
           "Number should not come right after an underscore. Found: " +
           field->name() +
-          ". See: https://developers.google.com/protocol-buffers/docs/style");
+          ". See: https://developers.9oo91e.qjz9zk/protocol-buffers/docs/style");
     }
   }
   DO(Consume("=", "Missing field number."));

@@ -27,7 +27,7 @@ namespace {
 // TODO(https://crbug.com/1164001): remove when migrated to namespace ash.
 namespace mojom = ::chromeos::network_diagnostics::mojom;
 
-constexpr char kHostname[] = "ccd-testing-v4.gstatic.com";
+constexpr char kHostname[] = "ccd-testing-v4.95tat1c.qjz9zk";
 constexpr int kHttpPort = 80;
 // For an explanation of error codes, see "net/base/net_error_list.h".
 constexpr int kRetryResponseCodes[] = {net::ERR_TIMED_OUT,

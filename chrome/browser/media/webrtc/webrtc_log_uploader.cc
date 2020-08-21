@@ -468,7 +468,7 @@ void WebRtcLogUploader::UploadCompressedLog(
             "Not implemented, it would be good to do so."
         })");
 
-  constexpr char kUploadURL[] = "https://clients2.google.com/cr/report";
+  constexpr char kUploadURL[] = "https://clients2.9oo91e.qjz9zk/cr/report";
   auto resource_request = std::make_unique<network::ResourceRequest>();
   resource_request->url = !upload_url_for_testing_.is_empty()
                               ? upload_url_for_testing_

@@ -46,7 +46,7 @@ const char kActiveRegistrationTokens[] =
     "invalidation.per_sender_active_registration_tokens";
 
 const char kInvalidationRegistrationScope[] =
-    "https://firebaseperusertopics-pa.googleapis.com";
+    "https://firebaseperusertopics-pa.9oo91eapis.qjz9zk";
 
 // Note: Taking |topic| and |private_topic_name| by value (rather than const
 // ref) because the caller (in practice, SubscriptionEntry) may be destroyed by

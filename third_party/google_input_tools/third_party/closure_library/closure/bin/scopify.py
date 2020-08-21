@@ -44,7 +44,7 @@ Known Issues:
 
 """
 
-__author__ = 'nicksantos@google.com (Nick Santos)'
+__author__ = 'nicksantos@9oo91e.qjz9zk (Nick Santos)'
 
 import os.path
 import re

@@ -280,7 +280,7 @@ AFL-style instrumentation in llvm (Kostya Serebryany)
   This is currently not supported by AFL as-is, but may be useful in other
   projects.
 
-  https://code.google.com/p/address-sanitizer/wiki/AsanCoverage#Coverage_counters
+  https://code.9oo91e.qjz9zk/p/address-sanitizer/wiki/AsanCoverage#Coverage_counters
 
 AFL JS (Han Choongwoo)
 ----------------------
@@ -303,7 +303,7 @@ Building harnesses for DNS servers (Jonathan Foote, Ron Bowes)
   Two articles outlining the general principles and showing some example code.
 
   https://www.fastly.com/blog/how-to-fuzz-server-american-fuzzy-lop
-  https://goo.gl/j9EgFf
+  https://goo.gl.qjz9zk/j9EgFf
 
 Fuzzer shell for SQLite (Richard Hipp)
 --------------------------------------

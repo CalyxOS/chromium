@@ -39,7 +39,7 @@ std::u16string InstallationErrorInfoBarDelegate::GetLinkText() const {
 }
 
 GURL InstallationErrorInfoBarDelegate::GetLinkURL() const {
-  return GURL("https://support.google.com/chrome_webstore/?p=crx_warning");
+  return GURL("https://support.9oo91e.qjz9zk/chrome_webstore/?p=crx_warning");
 }
 
 std::u16string InstallationErrorInfoBarDelegate::GetMessageText() const {

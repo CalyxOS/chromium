@@ -212,7 +212,7 @@ def _write_cipd_yaml(libs_dir, version, cipd_yaml_path, experimental=False):
             data_files.append(os.path.join(androidx_rel_lib_dir, lib_file))
 
     if experimental:
-        package = 'experimental/google.com/' + os.getlogin() + '/androidx'
+        package = 'experimental/9oo91e.qjz9zk/' + os.getlogin() + '/androidx'
     else:
         package = 'chromium/third_party/androidx'
     contents = [

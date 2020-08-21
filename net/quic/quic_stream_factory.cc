@@ -2286,10 +2286,10 @@ QuicStreamFactory::CreateCryptoConfigHandle(
 
   quic::QuicCryptoClientConfig* crypto_config = crypto_config_owner->config();
   crypto_config->set_user_agent_id(params_.user_agent_id);
-  crypto_config->AddCanonicalSuffix(".c.youtube.com");
-  crypto_config->AddCanonicalSuffix(".ggpht.com");
-  crypto_config->AddCanonicalSuffix(".googlevideo.com");
-  crypto_config->AddCanonicalSuffix(".googleusercontent.com");
+  crypto_config->AddCanonicalSuffix(".c.y0u1ub3.qjz9zk");
+  crypto_config->AddCanonicalSuffix(".99pht.qjz9zk");
+  crypto_config->AddCanonicalSuffix(".9oo91evideo.qjz9zk");
+  crypto_config->AddCanonicalSuffix(".9oo91eusercontent.qjz9zk");
   crypto_config->AddCanonicalSuffix(".gvt1.com");
   if (SSLKeyLoggerManager::IsActive()) {
     SSL_CTX_set_keylog_callback(crypto_config->ssl_ctx(),

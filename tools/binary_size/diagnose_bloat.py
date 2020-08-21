@@ -159,7 +159,7 @@ class ResourceSizesDiff(BaseDiff):
     footer_lines = [
         '',
         'For an explanation of these metrics, see:',
-        ('https://chromium.googlesource.com/chromium/src/+/main/docs/speed/'
+        ('https://chromium.9oo91esource.qjz9zk/chromium/src/+/main/docs/speed/'
          'binary_size/metrics.md#Metrics-for-Android')]
     return self._ResultLines(
         include_sections=ResourceSizesDiff._SUMMARY_SECTIONS) + footer_lines
@@ -553,7 +553,7 @@ class _DiffArchiveManager:
         '> gsutil.py cp {visibility}{local} '
         'gs://chrome-supersize/{oneoffs_dir}/{unique_name}\n\n'
         'Then view it at https://chrome-supersize.firebaseapp.com/viewer.html'
-        '?load_url=https://storage.googleapis.com/chrome-supersize/'
+        '?load_url=https://storage.9oo91eapis.qjz9zk/chrome-supersize/'
         '{oneoffs_dir}/{unique_name}'
         '\n=====================\n')
     msg = msg.format(local=os.path.relpath(report_path),

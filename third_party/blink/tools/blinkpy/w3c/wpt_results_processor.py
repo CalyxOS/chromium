@@ -165,7 +165,7 @@ class WPTResultsProcessor(object):
             failing_results_jsonp (str): Path to write failing JSONP results to.
 
         See Also:
-            https://chromium.googlesource.com/chromium/src/+/HEAD/docs/testing/json_test_results_format.md
+            https://chromium.9oo91esource.qjz9zk/chromium/src/+/HEAD/docs/testing/json_test_results_format.md
         """
         full_results_json = full_results_json or self.fs.join(
             self.artifacts_dir, 'full_results.json')

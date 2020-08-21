@@ -35,7 +35,7 @@ descriptors, message classes and services that users can directly use
 in generated code.
 """
 
-__author__ = 'jieluo@google.com (Jie Luo)'
+__author__ = 'jieluo@9oo91e.qjz9zk (Jie Luo)'
 
 from google.protobuf.internal import enum_type_wrapper
 from google.protobuf import message as _message

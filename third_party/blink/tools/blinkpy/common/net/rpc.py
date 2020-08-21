@@ -167,8 +167,8 @@ class BaseRPC:
             on the method.
 
         See Also:
-            https://source.chromium.org/chromium/infra/infra/+/master:go/src/go.chromium.org/luci/buildbucket/proto/builds_service.proto
-            https://source.chromium.org/chromium/infra/infra/+/master:go/src/go.chromium.org/luci/resultdb/proto/v1/resultdb.proto
+            https://source.ch40m1um.qjz9zk/chromium/infra/infra/+/master:go/src/go.ch40m1um.qjz9zk/luci/buildbucket/proto/builds_service.proto
+            https://source.ch40m1um.qjz9zk/chromium/infra/infra/+/master:go/src/go.ch40m1um.qjz9zk/luci/resultdb/proto/v1/resultdb.proto
         """
         entities = []
         # Using 1e5 instead of 1000 max to reduce the rpc number
@@ -188,7 +188,7 @@ class BuildbucketClient(BaseRPC):
     def __init__(self,
                  web,
                  luci_auth,
-                 hostname='cr-buildbucket.appspot.com',
+                 hostname='cr-buildbucket.8pp2p8t.qjz9zk',
                  service='buildbucket.v2.Builds'):
         super().__init__(web, luci_auth, hostname, service)
         self._batch_requests = []

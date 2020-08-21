@@ -23,7 +23,7 @@ all: chromesite
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
 	@echo "  html            to make standalone HTML files"
-	@echo "  chromesite      build docs for developer.chrome.com"
+	@echo "  chromesite      build docs for developer.ch40me.qjz9zk"
 	@echo "  chromesite_rst  only build .rst docs; no doxygen"
 	@echo "  serve           start python web server for chromesite docs"
 	@echo "  linkcheck       to check all external links for integrity"

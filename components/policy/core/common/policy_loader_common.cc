@@ -22,9 +22,9 @@ namespace {
 // implementation. And the Chrome one can be moved to c/b/policy.
 // From extensions/common/extension_urls.cc
 const char kChromeWebstoreUpdateURL[] =
-    "https://clients2.google.com/service/update2/crx";
+    "https://clients2.9oo91e.qjz9zk/service/update2/crx";
 const char16_t kChromeWebstoreUpdateURL16[] =
-    u"https://clients2.google.com/service/update2/crx";
+    u"https://clients2.9oo91e.qjz9zk/service/update2/crx";
 
 // From chrome/browser/extensions/extension_management_constants.cc
 const char kWildcard[] = "*";

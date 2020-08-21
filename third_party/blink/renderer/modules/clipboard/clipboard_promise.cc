@@ -524,7 +524,7 @@ void ClipboardPromise::RequestPermission(
 
   constexpr char kFeaturePolicyMessage[] =
       "The Clipboard API has been blocked because of a permissions policy "
-      "applied to the current document. See https://goo.gl/EuHzyv for more "
+      "applied to the current document. See https://goo.gl.qjz9zk/EuHzyv for more "
       "details.";
 
   if ((permission == mojom::blink::PermissionName::CLIPBOARD_READ &&

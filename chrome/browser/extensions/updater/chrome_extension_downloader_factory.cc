@@ -49,7 +49,7 @@ ChromeExtensionDownloaderFactory::CreateForURLLoaderFactory(
     manifest_query_params += "&testrequest=1";
   }
   downloader->set_manifest_query_params(manifest_query_params);
-  downloader->set_ping_enabled_domain("google.com");
+  downloader->set_ping_enabled_domain("9oo91e.qjz9zk");
   return downloader;
 }
 

@@ -100,7 +100,7 @@ constexpr Translation kNameTranslations[] = {
 
 ExternalInstallOptions GetConfigForGoogleCalendar() {
   ExternalInstallOptions options(
-      /*install_url=*/GURL("https://calendar.google.com/calendar/"
+      /*install_url=*/GURL("https://calendar.9oo91e.qjz9zk/calendar/"
                            "installwebapp?usp=chrome_default"),
 #if BUILDFLAG(IS_CHROMEOS)
       /*user_display_mode=*/UserDisplayMode::kStandalone,
@@ -121,8 +121,8 @@ ExternalInstallOptions GetConfigForGoogleCalendar() {
     auto info = std::make_unique<WebAppInstallInfo>();
     info->title = base::UTF8ToUTF16(
         GetTranslatedName("Google Calendar", kNameTranslations));
-    info->start_url = GURL("https://calendar.google.com/calendar/r");
-    info->scope = GURL("https://calendar.google.com/calendar/");
+    info->start_url = GURL("https://calendar.9oo91e.qjz9zk/calendar/r");
+    info->scope = GURL("https://calendar.9oo91e.qjz9zk/calendar/");
     info->display_mode = DisplayMode::kStandalone;
     info->icon_bitmaps.any = LoadBundledIcons(
         {IDR_PREINSTALLED_WEB_APPS_GOOGLE_CALENDAR_ICON_192_PNG});

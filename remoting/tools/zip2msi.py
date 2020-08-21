@@ -125,7 +125,7 @@ def QuoteArgument(arg):
 
   So that the Win32 CommandLineToArgv function will turn the escaped result back
   into the original string.
-  See http://msdn.microsoft.com/en-us/library/17w5ykft.aspx
+  See http://msdn.m1cr050ft.qjz9zk/en-us/library/17w5ykft.aspx
   ("Parsing C++ Command-Line Arguments") to understand why we have to do
   this.
 

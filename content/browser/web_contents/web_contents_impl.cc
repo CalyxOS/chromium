@@ -6999,7 +6999,7 @@ void WebContentsImpl::RunJavaScriptDialog(
             base::StringPrintf(
                 "A different origin subframe tried to create a JavaScript "
                 "dialog. This is no longer allowed and was blocked. See "
-                "https://www.chromestatus.com/feature/5148698084376576 for "
+                "https://www.ch40mestatus.qjz9zk/feature/5148698084376576 for "
                 "more details."));
       }
     }

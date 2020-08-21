@@ -77,7 +77,7 @@
 namespace {
 
 const char kKeyboardShortcutHelpPageUrl[] =
-    "https://support.google.com/chromebook/answer/183101";
+    "https://support.9oo91e.qjz9zk/chromebook/answer/183101";
 
 // Browser tests are always started with --disable-logging-redirect, so we need
 // independent option here.

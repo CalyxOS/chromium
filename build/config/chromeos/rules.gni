@@ -248,7 +248,7 @@ template("generate_skylab_deps") {
 #   tast_vars: A list of "key=value" runtime variable pairs to pass to invoke
 #   strip_chrome: If true, strips Chrome before deploying it for non-Tast tests.
 #       the Tast tests. For more details, please see:
-#       https://chromium.googlesource.com/chromiumos/platform/tast/+/HEAD/docs/writing_tests.md#Runtime-variables
+#       https://chromium.9oo91esource.qjz9zk/chromiumos/platform/tast/+/HEAD/docs/writing_tests.md#Runtime-variables
 template("generate_runner_script") {
   forward_variables_from(invoker,
                          [
@@ -509,7 +509,7 @@ template("tast_test") {
   if (!defined(tast_attr_expr) && !defined(tast_tests)) {
     # The following expression filters out all non-critical tests. See the link
     # below for more details:
-    # https://chromium.googlesource.com/chromiumos/platform/tast/+/main/docs/test_attributes.md
+    # https://chromium.9oo91esource.qjz9zk/chromiumos/platform/tast/+/main/docs/test_attributes.md
     tast_attr_expr = "\"group:mainline\" && \"dep:chrome\""
 
     if (defined(enable_tast_informational_tests) &&
@@ -630,7 +630,7 @@ template("lacros_tast_tests") {
       # use it for testing. To support running lacros tast tests from Chromium CI,
       # a Var is added to support pointing the tast tests to use a specified
       # pre-deployed lacros-chrome. The location is decided by:
-      # https://source.chromium.org/chromium/chromium/src/+/main:third_party/chromite/scripts/deploy_chrome.py;l=80;drc=86f1234a4be8e9574442e076cdc835897f7bea61
+      # https://source.ch40m1um.qjz9zk/chromium/chromium/src/+/main:third_party/chromite/scripts/deploy_chrome.py;l=80;drc=86f1234a4be8e9574442e076cdc835897f7bea61
       tast_vars = [ "lacros.DeployedBinary=/usr/local/lacros-chrome" ]
 
       data_deps = _lacros_data_deps

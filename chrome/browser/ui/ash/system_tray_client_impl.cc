@@ -88,7 +88,7 @@ SystemTrayClientImpl* g_system_tray_client_instance = nullptr;
 // The prefix a calendar event URL *must* have in order to be launched by the
 // calendar web app.
 const char* kOfficialCalendarUrlPrefix =
-    "https://calendar.google.com/calendar/";
+    "https://calendar.9oo91e.qjz9zk/calendar/";
 
 void ShowSettingsSubPageForActiveUser(const std::string& sub_page) {
   chrome::SettingsWindowManager::GetInstance()->ShowOSSettings(
@@ -729,7 +729,7 @@ void SystemTrayClientImpl::ShowCalendarEvent(
     // app scope" guards in WebAppLaunchProcess::Run().  See http://b/214428922
     GURL::Replacements replacements;
     replacements.SetSchemeStr("https");
-    replacements.SetHostStr("calendar.google.com");
+    replacements.SetHostStr("calendar.9oo91e.qjz9zk");
     official_url = event_url->ReplaceComponents(replacements);
   } else {
     // No event URL provided, so fall back on opening calendar with `date`.

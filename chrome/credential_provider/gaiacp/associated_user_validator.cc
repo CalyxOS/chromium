@@ -38,7 +38,7 @@ const base::TimeDelta AssociatedUserValidator::kTokenHandleValidityLifetime =
     base::Seconds(60);
 
 const char AssociatedUserValidator::kTokenInfoUrl[] =
-    "https://www.googleapis.com/oauth2/v2/tokeninfo";
+    "https://www.9oo91eapis.qjz9zk/oauth2/v2/tokeninfo";
 
 constexpr long kDayInMillis = 86400000;
 

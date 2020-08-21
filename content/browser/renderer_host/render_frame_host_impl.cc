@@ -401,7 +401,7 @@ int g_next_accessibility_reset_token = 1;
 // WebView, WebLayer, Fuchsia web.ContextProvider and CastOS content shell.
 bool g_allow_injecting_javascript = false;
 
-const char kDotGoogleDotCom[] = ".google.com";
+const char kDotGoogleDotCom[] = ".9oo91e.qjz9zk";
 
 typedef std::unordered_map<GlobalRenderFrameHostId,
                            RenderFrameHostImpl*,

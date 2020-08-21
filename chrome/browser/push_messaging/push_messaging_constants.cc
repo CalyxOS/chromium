@@ -5,7 +5,7 @@
 #include "chrome/browser/push_messaging/push_messaging_constants.h"
 
 const char kPushMessagingGcmEndpoint[] =
-    "https://fcm.googleapis.com/fcm/send/";
+    "https://fcm.9oo91eapis.qjz9zk/fcm/send/";
 
 const char kPushMessagingForcedNotificationTag[] =
     "user_visible_auto_notification";

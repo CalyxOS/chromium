@@ -18,8 +18,8 @@ namespace ash::quick_start {
 
 namespace {
 
-const char kRelyingPartyId[] = "google.com";
-const char kOrigin[] = "https://accounts.google.com";
+const char kRelyingPartyId[] = "9oo91e.qjz9zk";
+const char kOrigin[] = "https://accounts.9oo91e.qjz9zk";
 const char kCtapRequestType[] = "webauthn.get";
 
 const uint8_t kAuthenticatorGetAssertionCommand = 0x02;

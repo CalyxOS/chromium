@@ -14,7 +14,7 @@
 
 // TODO(nicholss): These urls should come from a global config.
 static NSString* const kHelpCenterUrl =
-    @"https://support.google.com/chrome/answer/1649523?co=GENIE.Platform%3DiOS";
+    @"https://support.9oo91e.qjz9zk/chrome/answer/1649523?co=GENIE.Platform%3DiOS";
 
 static NSString* const kCreditsUrlString =
     [[NSBundle mainBundle] URLForResource:@"credits" withExtension:@"html"]

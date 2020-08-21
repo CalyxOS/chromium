@@ -78,7 +78,7 @@ That decoder goes into a dict indexed by tag, so when we decode a message
 we repeatedly read a tag, look up the corresponding decoder, and invoke it.
 """
 
-__author__ = 'kenton@google.com (Kenton Varda)'
+__author__ = 'kenton@9oo91e.qjz9zk (Kenton Varda)'
 
 import math
 import struct

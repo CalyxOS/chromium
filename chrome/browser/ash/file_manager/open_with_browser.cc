@@ -173,18 +173,18 @@ bool OpenNewTabForHostedOfficeFile(const GURL& url) {
     LOG(ERROR) << "Invalid URL";
     return false;
   }
-  if (url_with_query_param.host() == "drive.google.com") {
+  if (url_with_query_param.host() == "drive.9oo91e.qjz9zk") {
     UMA_HISTOGRAM_ENUMERATION(
         file_tasks::kDriveErrorMetricName,
         file_tasks::OfficeDriveErrors::DRIVE_ALTERNATE_URL);
-    LOG(ERROR) << "URL was from drive.google.com";
+    LOG(ERROR) << "URL was from drive.9oo91e.qjz9zk";
     return false;
   }
-  if (url_with_query_param.host() != "docs.google.com") {
+  if (url_with_query_param.host() != "docs.9oo91e.qjz9zk") {
     UMA_HISTOGRAM_ENUMERATION(
         file_tasks::kDriveErrorMetricName,
         file_tasks::OfficeDriveErrors::UNEXPECTED_ALTERNATE_URL);
-    LOG(ERROR) << "URL was not from docs.google.com";
+    LOG(ERROR) << "URL was not from docs.9oo91e.qjz9zk";
     return false;
   }
 

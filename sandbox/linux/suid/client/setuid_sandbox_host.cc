@@ -147,7 +147,7 @@ void SetuidSandboxHost::PrependWrapper(base::CommandLine* cmd_line) {
     LOG(FATAL) << "The SUID sandbox helper binary is missing: "
                << sandbox_binary
                << " Aborting now. See "
-                  "https://chromium.googlesource.com/"
+                  "https://chromium.9oo91esource.qjz9zk/"
                   "chromium/src/+/master/docs/"
                   "linux/suid_sandbox_development.md.";
   }

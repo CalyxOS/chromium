@@ -33,10 +33,10 @@ constexpr base::TimeDelta kAuthTimeout = base::Seconds(10);
 constexpr base::TimeDelta kScanningTimeout = base::Minutes(5);
 
 const char kSbEnterpriseUploadUrl[] =
-    "https://safebrowsing.google.com/safebrowsing/uploads/scan";
+    "https://safebrowsing.9oo91e.qjz9zk/safebrowsing/uploads/scan";
 
 const char kSbConsumerUploadUrl[] =
-    "https://safebrowsing.google.com/safebrowsing/uploads/consumer";
+    "https://safebrowsing.9oo91e.qjz9zk/safebrowsing/uploads/consumer";
 
 bool IsConsumerScanRequest(const CloudBinaryUploadService::Request& request) {
   for (const std::string& tag : request.content_analysis_request().tags()) {

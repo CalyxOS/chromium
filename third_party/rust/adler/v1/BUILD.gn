@@ -19,7 +19,7 @@ cargo_crate("lib") {
   sources = [ "crate/src/lib.rs" ]
   edition = "2015"
   cargo_pkg_version = "1.0.2"
-  cargo_pkg_authors = "Jonas Schievink <jonasschievink@gmail.com>"
+  cargo_pkg_authors = "Jonas Schievink <jonasschievink@9ma1l.qjz9zk>"
   cargo_pkg_name = "adler"
   cargo_pkg_description =
       "A simple clean-room implementation of the Adler-32 checksum"

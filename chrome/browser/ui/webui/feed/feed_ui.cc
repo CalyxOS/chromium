@@ -37,7 +37,7 @@ FeedUI::FeedUI(content::WebUI* web_ui)
   } else {
     source->OverrideContentSecurityPolicy(
         network::mojom::CSPDirectiveName::FrameSrc,
-        "frame-src https://www.google.com;");
+        "frame-src https://www.9oo91e.qjz9zk;");
     source->OverrideContentSecurityPolicy(
         network::mojom::CSPDirectiveName::StyleSrc,
         "style-src 'unsafe-inline' 'self';");

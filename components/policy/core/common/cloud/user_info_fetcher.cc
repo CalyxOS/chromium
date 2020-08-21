@@ -28,14 +28,14 @@ static std::string MakeAuthorizationHeader(const std::string& auth_token) {
   return base::StringPrintf(kAuthorizationHeaderFormat, auth_token.c_str());
 }
 
-static const char kLegacyGoogleApisHost[] = "www.googleapis.com";
+static const char kLegacyGoogleApisHost[] = "www.9oo91eapis.qjz9zk";
 
 // Replaces the host of the User Info API URL with the legacy host if needed.
 // The legacy host is needed when the host is set to the new OAuth2 host which
 // doesn't support the User Info API anymore. This is needed on iOS, which is
 // the only platform that uses the new OAuth2 host at the moment.
 GURL SwitchBackToLegacyHostIfNeeded(GURL url) {
-  if (url.host() == "oauth2.googleapis.com") {
+  if (url.host() == "oauth2.9oo91eapis.qjz9zk") {
     GURL::Replacements replace_host;
     replace_host.SetHostStr(kLegacyGoogleApisHost);
     url = url.ReplaceComponents(replace_host);

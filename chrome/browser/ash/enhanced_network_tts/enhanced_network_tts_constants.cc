@@ -10,7 +10,7 @@ namespace enhanced_network_tts {
 const char kGoogApiKeyHeader[] = "X-Goog-Api-Key";
 
 const char kReadAloudServerUrl[] =
-    "https://readaloud.googleapis.com//v1:generateAudioDocStream";
+    "https://readaloud.9oo91eapis.qjz9zk//v1:generateAudioDocStream";
 
 const char kNetworkRequestUploadType[] = "application/json";
 

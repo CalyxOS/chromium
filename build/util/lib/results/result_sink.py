@@ -139,7 +139,7 @@ class ResultSinkClient(object):
     if test_file and str(test_file).startswith('//'):
       tr['testMetadata']['location'] = {
           'file_name': test_file,
-          'repo': 'https://chromium.googlesource.com/chromium/src',
+          'repo': 'https://chromium.9oo91esource.qjz9zk/chromium/src',
       }
 
     res = requests.post(url=self.test_results_url,

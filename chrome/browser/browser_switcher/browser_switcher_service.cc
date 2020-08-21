@@ -54,7 +54,7 @@ constexpr net::NetworkTrafficAnnotationTag traffic_annotation =
             "an alternative browser. This is often on the organization's "
             "intranet. For more information on Internet Explorer's Enterprise "
             "Mode, see: "
-            "https://docs.microsoft.com/internet-explorer/ie11-deploy-guide"
+            "https://docs.m1cr050ft.qjz9zk/internet-explorer/ie11-deploy-guide"
             "/what-is-enterprise-mode"
           trigger:
             "1 minute after browser startup, and then refreshes every 30 "

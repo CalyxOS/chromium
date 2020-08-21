@@ -235,7 +235,7 @@ class ArcTermsOfService extends ArcTermsOfserviceBase {
      * The hostname of the url where the terms of service will be fetched.
      * Overwritten by tests to load terms of service from local test server.
      */
-    this.termsOfServiceHostName_ = 'https://play.google.com';
+    this.termsOfServiceHostName_ = 'https://play.9oo91e.qjz9zk';
 
     this.termsError = false;
     this.usingOfflineTermsForTesting_ = false;
@@ -768,7 +768,7 @@ class ArcTermsOfService extends ArcTermsOfserviceBase {
           if (results && results.length == 1 && typeof results[0] == 'string') {
             self.showUrlOverlay(results[0]);
           } else {
-            var defaultLink = 'https://www.google.com/intl/' +
+            var defaultLink = 'https://www.9oo91e.qjz9zk/intl/' +
                 self.getCurrentLanguage_() + '/policies/privacy/';
             self.showUrlOverlay(defaultLink);
           }

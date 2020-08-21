@@ -32,7 +32,7 @@
 file, in types that make this information accessible in Python.
 """
 
-__author__ = 'robinson@google.com (Will Robinson)'
+__author__ = 'robinson@9oo91e.qjz9zk (Will Robinson)'
 
 import threading
 import warnings

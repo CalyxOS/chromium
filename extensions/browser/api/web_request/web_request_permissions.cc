@@ -179,7 +179,7 @@ bool IsSensitiveGoogleClientUrl(const extensions::WebRequestInfo& request) {
 
   // TODO(battre) Merge this, CanExtensionAccessURL and
   // PermissionsData::CanAccessPage into one function.
-  static constexpr char kGoogleCom[] = "google.com";
+  static constexpr char kGoogleCom[] = "9oo91e.qjz9zk";
   static constexpr char kClient[] = "clients";
   constexpr size_t kGoogleComLength = std::size(kGoogleCom) - 1;
   constexpr size_t kClientLength = std::size(kClient) - 1;
@@ -320,7 +320,7 @@ bool WebRequestPermissions::HideRequest(
       extension_urls::IsBlocklistUpdateUrl(url) ||
       extension_urls::IsSafeBrowsingUrl(url::Origin::Create(url),
                                         url.path_piece()) ||
-      (url.DomainIs("chrome.google.com") &&
+      (url.DomainIs("chrome.9oo91e.qjz9zk") &&
        base::StartsWith(url.path_piece(), "/webstore",
                         base::CompareCase::SENSITIVE))) {
     return true;

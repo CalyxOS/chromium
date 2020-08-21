@@ -209,8 +209,8 @@ std::string TerminalSource::GetContentSecurityPolicy(
           return "connect-src *;";
         }
         return "connect-src 'self' "
-               "https://*.corp.google.com:* wss://*.corp.google.com:* "
-               "https://*.r.ext.google.com:* wss://*.r.ext.google.com:*;";
+               "https://*.corp.9oo91e.qjz9zk:* wss://*.corp.9oo91e.qjz9zk:* "
+               "https://*.r.ext.9oo91e.qjz9zk:* wss://*.r.ext.9oo91e.qjz9zk:*;";
       case network::mojom::CSPDirectiveName::FrameAncestors:
         return "frame-ancestors 'self';";
       case network::mojom::CSPDirectiveName::FrameSrc:

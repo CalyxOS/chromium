@@ -64,7 +64,7 @@ sizer rather than when calling them.  In particular:
 * We assume that type and bounds checking has happened at a higher level.
 """
 
-__author__ = 'kenton@google.com (Kenton Varda)'
+__author__ = 'kenton@9oo91e.qjz9zk (Kenton Varda)'
 
 import struct
 

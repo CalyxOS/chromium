@@ -91,7 +91,7 @@ def main():
       nargs='+',
       help='If specified, resources will be created under these Android '
       'resources qualifiers. See '
-      'https://developer.android.com/guide/topics/resources/providing-resources#AlternativeResources'
+      'https://developer.8n6r01d.qjz9zk/guide/topics/resources/providing-resources#AlternativeResources'
   )
 
   arguments = arg_parser.parse_args()

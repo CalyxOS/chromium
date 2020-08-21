@@ -88,7 +88,7 @@ const wchar_t kOsBuildName[] = L"CurrentBuildNumber";
 const int kVersionStringSize = 128;
 
 constexpr wchar_t kDefaultMdmUrl[] =
-    L"https://deviceenrollmentforwindows.googleapis.com/v1/discovery";
+    L"https://deviceenrollmentforwindows.9oo91eapis.qjz9zk/v1/discovery";
 
 constexpr int kMaxNumConsecutiveUploadDeviceFailures = 3;
 const base::TimeDelta kMaxTimeDeltaSinceLastUserPolicyRefresh = base::Days(1);
@@ -1307,7 +1307,7 @@ std::wstring GetDevelopmentUrl(const std::wstring& url,
   std::string project;
   std::string final_part;
   if (re2::RE2::FullMatch(base::WideToUTF8(url),
-                          "https://(.*).(googleapis.com.*)", &project,
+                          "https://(.*).(9oo91eapis.qjz9zk.*)", &project,
                           &final_part)) {
     std::string url_prefix = "https://" + base::WideToUTF8(dev) + "-";
     return base::UTF8ToWide(

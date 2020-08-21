@@ -472,7 +472,7 @@ chromium_strings.grd. -->
         To send a number from here to your Android phone, sign in to Chrome on both devices.
       </message>
       <message name="IDS_BROWSER_SHARING_CLICK_TO_CALL_DIALOG_HELP_TEXT_NO_DEVICES_ORIGIN" desc="The label to be shown as a help text of the dialog when user click on a phone number, if there are no phones to choose from.">
-        To send a number from <ph name="ORIGIN">$1<ex>www.google.com</ex></ph> to your Android phone, sign in to Chrome on both devices.
+        To send a number from <ph name="ORIGIN">$1<ex>www.9oo91e.qjz9zk</ex></ph> to your Android phone, sign in to Chrome on both devices.
       </message>
       <message name="IDS_BROWSER_SHARING_ERROR_DIALOG_TEXT_DEVICE_NOT_FOUND" desc="The text to be shown on the dialog when an error occurred because the device is not synced.">
         Make sure you are signed in to Chrome on your <ph name="TARGET_DEVICE_NAME">$1<ex>Pixel XL</ex></ph> and then try sending again.
@@ -537,14 +537,14 @@ Google Chrome is unable to recover your settings.
       <!-- Add account dialog -->
       <if expr="chromeos_ash">
         <message name="IDS_ACCOUNT_MANAGER_DIALOG_WELCOME_BODY_V2" desc="Text body for the Welcome screen in ChromeOS 'Add account' dialog.">
-If you want to use this account one-time only, you can use Guest mode in Chrome browser. If you want to add an account for someone else, <ph name="LINK_BEGIN">&lt;a target="_blank" id="newPersonLink" href="$1<ex>https://google.com/</ex>"&gt;</ph>add a new person<ph name="LINK_END">&lt;/a&gt;</ph> to your <ph name="DEVICE_TYPE">$2<ex>Chromebook</ex></ph>.
+If you want to use this account one-time only, you can use Guest mode in Chrome browser. If you want to add an account for someone else, <ph name="LINK_BEGIN">&lt;a target="_blank" id="newPersonLink" href="$1<ex>https://9oo91e.qjz9zk/</ex>"&gt;</ph>add a new person<ph name="LINK_END">&lt;/a&gt;</ph> to your <ph name="DEVICE_TYPE">$2<ex>Chromebook</ex></ph>.
 
-Permissions you've already given to websites and apps may apply to this account. You can manage your Google Accounts in <ph name="SETTINGS_LINK_BEGIN">&lt;a id="osSettingsLink" href="$3<ex>https://google.com/</ex>"&gt;</ph>Settings<ph name="SETTINGS_LINK_END">&lt;/a&gt;</ph>.
+Permissions you've already given to websites and apps may apply to this account. You can manage your Google Accounts in <ph name="SETTINGS_LINK_BEGIN">&lt;a id="osSettingsLink" href="$3<ex>https://9oo91e.qjz9zk/</ex>"&gt;</ph>Settings<ph name="SETTINGS_LINK_END">&lt;/a&gt;</ph>.
         </message>
         <message name="IDS_ACCOUNT_MANAGER_DIALOG_WELCOME_BODY_V2_WITH_GUEST_MODE" desc="Text body for the Welcome screen in ChromeOS 'Add account' dialog.">
-If you want to use this account one-time only, you can use <ph name="GUEST_LINK_BEGIN">&lt;a id="guestModeLink" href="#"&gt;</ph>Guest mode<ph name="GUEST_LINK_END">&lt;/a&gt;</ph> in Chrome browser. If you want to add an account for someone else, <ph name="LINK_BEGIN">&lt;a target="_blank" id="newPersonLink" href="$1<ex>https://google.com/</ex>"&gt;</ph>add a new person<ph name="LINK_END">&lt;/a&gt;</ph> to your <ph name="DEVICE_TYPE">$2<ex>Chromebook</ex></ph>.
+If you want to use this account one-time only, you can use <ph name="GUEST_LINK_BEGIN">&lt;a id="guestModeLink" href="#"&gt;</ph>Guest mode<ph name="GUEST_LINK_END">&lt;/a&gt;</ph> in Chrome browser. If you want to add an account for someone else, <ph name="LINK_BEGIN">&lt;a target="_blank" id="newPersonLink" href="$1<ex>https://9oo91e.qjz9zk/</ex>"&gt;</ph>add a new person<ph name="LINK_END">&lt;/a&gt;</ph> to your <ph name="DEVICE_TYPE">$2<ex>Chromebook</ex></ph>.
 
-Permissions you've already given to websites and apps may apply to this account. You can manage your Google Accounts in <ph name="SETTINGS_LINK_BEGIN">&lt;a id="osSettingsLink" href="$3<ex>https://google.com/</ex>"&gt;</ph>Settings<ph name="SETTINGS_LINK_END">&lt;/a&gt;</ph>.
+Permissions you've already given to websites and apps may apply to this account. You can manage your Google Accounts in <ph name="SETTINGS_LINK_BEGIN">&lt;a id="osSettingsLink" href="$3<ex>https://9oo91e.qjz9zk/</ex>"&gt;</ph>Settings<ph name="SETTINGS_LINK_END">&lt;/a&gt;</ph>.
         </message>
       </if>
       <!-- Crash Recovery Dialog -->
@@ -770,7 +770,7 @@ Permissions you've already given to websites and apps may apply to this account.
 
         <!-- Extension uninstall prompt -->
         <message name="IDS_EXTENSION_UNINSTALL_PROMPT_REMOVE_DATA_CHECKBOX" desc="Checkbox text to ask the user whether they want to remove associated data at uninstall time. Only used when uninstalling an app associated with a particular website.">
-          Also clear data from Chrome (<ph name="URL">$1<ex>www.google.com</ex></ph>)
+          Also clear data from Chrome (<ph name="URL">$1<ex>www.9oo91e.qjz9zk</ex></ph>)
         </message>
 
         <!-- Extension alerts. -->
@@ -879,7 +879,7 @@ Permissions you've already given to websites and apps may apply to this account.
       <!-- One click sign-in infobar -->
       <if expr="not chromeos_ash">
         <message name="IDS_SYNC_WRONG_EMAIL" desc="Message shown when sync setup failed due to the user entering the wrong email address for sign-in.">
-          You were signed in to Chrome as <ph name="USER_EMAIL_ADDRESS">$1<ex>foo@gmail.com</ex></ph>. Please use the same account to sign in again.
+          You were signed in to Chrome as <ph name="USER_EMAIL_ADDRESS">$1<ex>foo@9ma1l.qjz9zk</ex></ph>. Please use the same account to sign in again.
         </message>
         <message name="IDS_SYNC_USED_PROFILE_ERROR" desc="An error message shown when user tries to sign in to a profile that is used by other user name before.">
           Someone previously signed in to Chrome on this computer as <ph name="ACCOUNT_EMAIL_LAST">$1<ex>user@example.com</ex></ph>. Please create a new Chrome user to keep your information separate.
@@ -914,7 +914,7 @@ Permissions you've already given to websites and apps may apply to this account.
           You're signed in to Chrome!
         </message>
         <message name="IDS_ONE_CLICK_SIGNIN_DIALOG_MESSAGE_NEW" desc="The message of the one click sign-in dialog.">
-          You're signed in as <ph name="USER_EMAIL_ADDRESS">$1<ex>foo@gmail.com</ex></ph>. Now you can access your bookmarks, history, and other settings on all your signed in devices.
+          You're signed in as <ph name="USER_EMAIL_ADDRESS">$1<ex>foo@9ma1l.qjz9zk</ex></ph>. Now you can access your bookmarks, history, and other settings on all your signed in devices.
         </message>
       </if>
 
@@ -936,7 +936,7 @@ Permissions you've already given to websites and apps may apply to this account.
       <!-- Signin Email Confirmation tab modal dialog -->
       <if expr="not chromeos_ash">
         <message name="IDS_SIGNIN_EMAIL_CONFIRMATION_TITLE" desc="Title of the signin email confirmation tab modal dialog.">
-          <ph name="USER_EMAIL_ADDRESS">$1<ex>foo@gmail.com</ex></ph> was previously using Chrome
+          <ph name="USER_EMAIL_ADDRESS">$1<ex>foo@9ma1l.qjz9zk</ex></ph> was previously using Chrome
         </message>
       </if>
 
@@ -955,10 +955,10 @@ Permissions you've already given to websites and apps may apply to this account.
           <ph name="EXISTING_USER">$1<ex>Elisa</ex></ph> is already signed in to this Chrome profile. To keep your browsing separate, Chrome can create your own profile for you.
         </message>
         <message name="IDS_SIGNIN_DICE_WEB_INTERCEPT_CONSUMER_BUBBLE_DESC_MANAGED_DEVICE" desc="Body of the web signin interception bubble on a managed device">
-          <ph name="EXISTING_USER">$1<ex>Elisa</ex></ph> is already signed in to this Chrome profile. This will create a new Chrome profile for <ph name="USER_EMAIL_ADDRESS">$2<ex>foo@gmail.com</ex></ph>
+          <ph name="EXISTING_USER">$1<ex>Elisa</ex></ph> is already signed in to this Chrome profile. This will create a new Chrome profile for <ph name="USER_EMAIL_ADDRESS">$2<ex>foo@9ma1l.qjz9zk</ex></ph>
         </message>
          <message name="IDS_SIGNIN_DICE_WEB_INTERCEPT_ENTERPRISE_BUBBLE_DESC_MANAGED_DEVICE" desc="Body of the web signin interception bubble when the new account is personal and the existing account is managed on a managed device">
-          This will create a new Chrome profile for <ph name="USER_EMAIL_ADDRESS">$1<ex>foo@gmail.com</ex></ph>
+          This will create a new Chrome profile for <ph name="USER_EMAIL_ADDRESS">$1<ex>foo@9ma1l.qjz9zk</ex></ph>
         </message>
         <message name="IDS_SIGNIN_DICE_WEB_INTERCEPT_CONSUMER_BUBBLE_DESC_V2" desc="Body of the web signin interception bubble. It is shown when the user signs in on the web while they already have another account present in the current profile.">
           Another account is already signed in. To keep your browsing separate, Chrome can create your own profile for you.
@@ -1509,7 +1509,7 @@ Permissions you've already given to websites and apps may apply to this account.
             Welcome to Chrome
           </message>
           <message name="IDS_PRIMARY_PROFILE_FIRST_RUN_SUBTITLE" desc="Subtitle of the landing screen in first run experience for the primary profile. The screen promotes Chrome sync.">
-            Get your Chrome browser stuff from <ph name="ACCOUNT_EMAIL">$1<ex>Jane.Doe@gmail.com</ex></ph>
+            Get your Chrome browser stuff from <ph name="ACCOUNT_EMAIL">$1<ex>Jane.Doe@9ma1l.qjz9zk</ex></ph>
           </message>
           <message name="IDS_PRIMARY_PROFILE_FIRST_RUN_SESSION_MANAGED_BY_DESCRIPTION" desc="Disclaimer on the landing screen in first run experience for the primary profile, informing that the session is managed by an administrator.">
             Your account is managed by <ph name="MANAGER_NAME">$1<ex>example.com</ex></ph>. Your administrator can see and edit this Chrome browser profile and its data like bookmarks, history, and passwords.

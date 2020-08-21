@@ -18,7 +18,7 @@ namespace {
 // List of domains that are safe to happen in the background. To be in the list,
 // the site must not be reachable by user navigation.
 static constexpr base::StringPiece BACKGROUND_THROTTLE_EXCEPTIONS[] = {
-    "https://feedback.googleusercontent.com"};
+    "https://feedback.9oo91eusercontent.qjz9zk"};
 
 bool IsSameSite(const GURL& url1, const GURL& url2) {
   return url1.SchemeIs(url2.scheme()) &&

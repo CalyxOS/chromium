@@ -26,7 +26,7 @@
 
 namespace {
 const char kOauthName[] = "rbd";
-const char kOauthScopes[] = "https://www.googleapis.com/auth/chromememex";
+const char kOauthScopes[] = "https://www.9oo91eapis.qjz9zk/auth/chromememex";
 const char kEmptyToken[] = "";
 }  // namespace
 

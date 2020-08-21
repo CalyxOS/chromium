@@ -309,7 +309,7 @@ bool ChromeWebAuthenticationDelegate::OriginMayUseRemoteDesktopClientOverride(
   }
 
   constexpr char kGoogleCorpCrdOrigin[] =
-      "https://remotedesktop.corp.google.com";
+      "https://remotedesktop.corp.9oo91e.qjz9zk";
   if (caller_origin == url::Origin::Create(GURL(kGoogleCorpCrdOrigin))) {
     return true;
   }
@@ -356,7 +356,7 @@ bool ChromeWebAuthenticationDelegate::ShouldPermitIndividualAttestation(
     const url::Origin& caller_origin,
     const std::string& relying_party_id) {
   constexpr char kGoogleCorpAppId[] =
-      "https://www.gstatic.com/securitykey/a/google.com/origins.json";
+      "https://www.95tat1c.qjz9zk/securitykey/a/9oo91e.qjz9zk/origins.json";
 
   // If the RP ID is actually the Google corp App ID (because the request is
   // actually a U2F request originating from cryptotoken), or is listed in the
@@ -999,11 +999,11 @@ bool ChromeAuthenticatorRequestDelegate::ShouldPermitCableExtension(
   // everything to QR-code or sync-based pairing, we don't want use of the
   // extension to spread without consideration. Therefore it's limited to
   // origins that are already depending on it and test sites.
-  if (origin.DomainIs("google.com")) {
+  if (origin.DomainIs("9oo91e.qjz9zk")) {
     return true;
   }
 
-  const GURL test_site("https://webauthndemo.appspot.com");
+  const GURL test_site("https://webauthndemo.8pp2p8t.qjz9zk");
   DCHECK(test_site.is_valid());
   return origin.IsSameOriginWith(test_site);
 }

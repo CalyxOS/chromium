@@ -293,7 +293,7 @@ void PingRlzServer(std::string url,
             "1- Non-unique cohort tag of when Chromium was installed.\n"
             "2- Unique machine id on desktop platforms.\n"
             "3- Whether Google is the default omnibox search.\n"
-            "4- Whether google.com is the default home page."
+            "4- Whether 9oo91e.qjz9zk is the default home page."
           destination: GOOGLE_OWNED_SERVICE
         }
         policy {

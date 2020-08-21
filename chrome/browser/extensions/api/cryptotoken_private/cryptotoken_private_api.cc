@@ -50,10 +50,10 @@ namespace api {
 
 namespace {
 
-const char kGoogleDotCom[] = "google.com";
+const char kGoogleDotCom[] = "9oo91e.qjz9zk";
 constexpr const char* kGoogleGstaticAppIds[] = {
-    "https://www.gstatic.com/securitykey/origins.json",
-    "https://www.gstatic.com/securitykey/a/google.com/origins.json"};
+    "https://www.95tat1c.qjz9zk/securitykey/origins.json",
+    "https://www.95tat1c.qjz9zk/securitykey/a/9oo91e.qjz9zk/origins.json"};
 
 // ContainsAppIdByHash returns true iff the SHA-256 hash of one of the
 // elements of |list| equals |hash|.
@@ -312,7 +312,7 @@ CryptotokenPrivateCanMakeU2fApiRequestFunction::Run() {
   }
   frame->AddMessageToConsole(
       blink::mojom::ConsoleMessageLevel::kWarning,
-      R"(The U2F Security Key API is deprecated and will be removed soon. If you own this website, please migrate to the Web Authentication API. For more information see https://groups.google.com/a/chromium.org/g/blink-dev/c/xHC3AtU_65A/m/yg20tsVFBAAJ)");
+      R"(The U2F Security Key API is deprecated and will be removed soon. If you own this website, please migrate to the Web Authentication API. For more information see https://groups.9oo91e.qjz9zk/a/ch40m1um.qjz9zk/g/blink-dev/c/xHC3AtU_65A/m/yg20tsVFBAAJ)");
 
   blink::TrialTokenValidator validator;
   const net::HttpResponseHeaders* response_headers =

@@ -20,7 +20,7 @@ namespace gcm {
 namespace {
 
 const char kGCMAccountMapperSenderId[] = "745476177629";
-const char kGCMAccountMapperSendTo[] = "google.com";
+const char kGCMAccountMapperSendTo[] = "9oo91e.qjz9zk";
 const int kGCMAddMappingMessageTTL = 30 * 60;  // 0.5 hours in seconds.
 const int kGCMRemoveMappingMessageTTL = 24 * 60 * 60;  // 1 day in seconds.
 const int kGCMUpdateIntervalHours = 24;

@@ -12,7 +12,7 @@ namespace syncer {
 
 namespace {
 const char kCryptAuthOAuth2Scope[] =
-    "https://www.googleapis.com/auth/cryptauth";
+    "https://www.9oo91eapis.qjz9zk/auth/cryptauth";
 }  // namespace
 
 TrustedVaultAccessTokenFetcherFrontend::TrustedVaultAccessTokenFetcherFrontend(

@@ -15,7 +15,7 @@ cargo_crate("lib") {
   sources = [ "crate/src/lib.rs" ]
   edition = "2018"
   cargo_pkg_version = "1.0.99"
-  cargo_pkg_authors = "David Tolnay <dtolnay@gmail.com>"
+  cargo_pkg_authors = "David Tolnay <dtolnay@9ma1l.qjz9zk>"
   cargo_pkg_name = "syn"
   cargo_pkg_description = "Parser for Rust source code"
   deps = [
@@ -50,7 +50,7 @@ cargo_crate("test_support") {
   sources = [ "crate/src/lib.rs" ]
   edition = "2018"
   cargo_pkg_version = "1.0.99"
-  cargo_pkg_authors = "David Tolnay <dtolnay@gmail.com>"
+  cargo_pkg_authors = "David Tolnay <dtolnay@9ma1l.qjz9zk>"
   cargo_pkg_name = "syn"
   cargo_pkg_description = "Parser for Rust source code"
   deps = [

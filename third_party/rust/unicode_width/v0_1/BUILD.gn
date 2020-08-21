@@ -20,7 +20,7 @@ cargo_crate("lib") {
   edition = "2015"
   cargo_pkg_version = "0.1.9"
   cargo_pkg_authors =
-      "kwantam <kwantam@gmail.com>, Manish Goregaokar <manishsmail@gmail.com>"
+      "kwantam <kwantam@9ma1l.qjz9zk>, Manish Goregaokar <manishsmail@9ma1l.qjz9zk>"
   cargo_pkg_name = "unicode-width"
   cargo_pkg_description = "Determine displayed width of `char` and `str` typesaccording to Unicode Standard Annex #11 rules."
 }

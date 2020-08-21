@@ -54,7 +54,7 @@ class TestExporter(object):
         if not (credentials.get('GH_USER') and credentials.get('GH_TOKEN')):
             _log.error('You must provide your GitHub credentials for this '
                        'script to work.')
-            _log.error('See https://chromium.googlesource.com/chromium/src'
+            _log.error('See https://chromium.9oo91esource.qjz9zk/chromium/src'
                        '/+/main/docs/testing/web_platform_tests.md'
                        '#GitHub-credentials for instructions on how to set '
                        'your credentials up.')
@@ -334,7 +334,7 @@ class TestExporter(object):
                 'on GitHub if the required GitHub checks pass; otherwise, '
                 'ecosystem-infra@ team will triage the failures and may contact you.\n\n'
                 'WPT Export docs:\n'
-                'https://chromium.googlesource.com/chromium/src/+/main'
+                'https://chromium.9oo91esource.qjz9zk/chromium/src/+/main'
                 '/docs/testing/web_platform_tests.md#Automatic-export-process'
             ).format(pr_url='%spull/%d' % (WPT_GH_URL, pr_number)))
 

@@ -20,7 +20,7 @@ namespace ash::multidevice {
 namespace {
 
 // Attributes of the default stub device.
-const char kStubDeviceUserId[] = "example@gmail.com";
+const char kStubDeviceUserId[] = "example@9ma1l.qjz9zk";
 const char kStubDevicePiiFreeName[] = "no-pii device";
 const char kStubDevicePSK[] = "remote device psk";
 const int64_t kStubDeviceLastUpdateTimeMillis = 0L;

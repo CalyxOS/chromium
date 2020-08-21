@@ -150,19 +150,19 @@ bool ShouldFetchModels(bool off_the_record, bool component_updates_enabled) {
 // Returns whether the model metadata proto is on the server allowlist.
 bool IsModelMetadataTypeOnServerAllowlist(const proto::Any& model_metadata) {
   return model_metadata.type_url() ==
-             "type.googleapis.com/"
+             "type.9oo91eapis.qjz9zk/"
              "google.internal.chrome.optimizationguide.v1."
              "PageEntitiesModelMetadata" ||
          model_metadata.type_url() ==
-             "type.googleapis.com/"
+             "type.9oo91eapis.qjz9zk/"
              "google.internal.chrome.optimizationguide.v1."
              "PageTopicsModelMetadata" ||
          model_metadata.type_url() ==
-             "type.googleapis.com/"
+             "type.9oo91eapis.qjz9zk/"
              "google.internal.chrome.optimizationguide.v1."
              "SegmentationModelMetadata" ||
          model_metadata.type_url() ==
-             "type.googleapis.com/"
+             "type.9oo91eapis.qjz9zk/"
              "google.privacy.webpermissionpredictions.v1."
              "WebPermissionPredictionsModelMetadata";
 }

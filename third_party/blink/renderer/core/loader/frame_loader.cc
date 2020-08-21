@@ -1820,7 +1820,7 @@ void FrameLoader::ReportLegacyTLSVersion(const KURL& url,
         "1.1, which are deprecated and will be disabled in the future. Once "
         "disabled, users will be prevented from loading these resources. "
         "Servers should enable TLS 1.2 or later. See "
-        "https://www.chromestatus.com/feature/5654791610957824 for more "
+        "https://www.ch40mestatus.qjz9zk/feature/5654791610957824 for more "
         "information.";
   } else {
     console_message =
@@ -1829,7 +1829,7 @@ void FrameLoader::ReportLegacyTLSVersion(const KURL& url,
         "1.1, which are deprecated and will be disabled in the future. Once "
         "disabled, users will be prevented from loading these resources. The "
         "server should enable TLS 1.2 or later. See "
-        "https://www.chromestatus.com/feature/5654791610957824 for more "
+        "https://www.ch40mestatus.qjz9zk/feature/5654791610957824 for more "
         "information.";
   }
   tls_version_warning_origins_.insert(origin);

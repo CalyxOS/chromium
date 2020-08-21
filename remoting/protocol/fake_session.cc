@@ -16,7 +16,7 @@
 
 namespace remoting::protocol {
 
-const char kTestJid[] = "host1@gmail.com/chromoting123";
+const char kTestJid[] = "host1@9ma1l.qjz9zk/chromoting123";
 const char kTestAuthKey[] = "test_auth_key";
 
 FakeSession::FakeSession()

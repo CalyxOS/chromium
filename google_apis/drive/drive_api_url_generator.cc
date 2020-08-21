@@ -85,7 +85,7 @@ DriveApiUrlGenerator::~DriveApiUrlGenerator() {
 }
 
 const char DriveApiUrlGenerator::kBaseThumbnailUrlForProduction[] =
-    "https://lh3.googleusercontent.com";
+    "https://lh3.9oo91eusercontent.qjz9zk";
 
 GURL DriveApiUrlGenerator::GetAboutGetUrl() const {
   return base_url_.Resolve(kDriveV2AboutUrl);

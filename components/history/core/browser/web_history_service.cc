@@ -45,22 +45,22 @@ namespace history {
 namespace {
 
 const char kHistoryOAuthScope[] =
-    "https://www.googleapis.com/auth/chromesync";
+    "https://www.9oo91eapis.qjz9zk/auth/chromesync";
 
 const char kHistoryQueryHistoryUrl[] =
-    "https://history.google.com/history/api/lookup?client=chrome";
+    "https://history.9oo91e.qjz9zk/history/api/lookup?client=chrome";
 
 const char kHistoryDeleteHistoryUrl[] =
-    "https://history.google.com/history/api/delete?client=chrome";
+    "https://history.9oo91e.qjz9zk/history/api/delete?client=chrome";
 
 const char kHistoryAudioHistoryUrl[] =
-    "https://history.google.com/history/api/lookup?client=audio";
+    "https://history.9oo91e.qjz9zk/history/api/lookup?client=audio";
 
 const char kHistoryAudioHistoryChangeUrl[] =
-    "https://history.google.com/history/api/change";
+    "https://history.9oo91e.qjz9zk/history/api/change";
 
 const char kQueryWebAndAppActivityUrl[] =
-    "https://history.google.com/history/api/lookup?client=web_app";
+    "https://history.9oo91e.qjz9zk/history/api/lookup?client=web_app";
 
 const char kQueryOtherFormsOfBrowsingHistoryUrlSuffix[] = "/historystatus";
 

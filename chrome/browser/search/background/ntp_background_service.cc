@@ -26,7 +26,7 @@ namespace {
 constexpr char kCollectionsBaseUrlCmdlineSwitch[] = "collections-base-url";
 
 // The default base URL to download collections.
-constexpr char kCollectionsBaseUrl[] = "https://clients3.google.com";
+constexpr char kCollectionsBaseUrl[] = "https://clients3.9oo91e.qjz9zk";
 
 // The MIME type of the POST data sent to the server.
 constexpr char kProtoMimeType[] = "application/x-protobuf";

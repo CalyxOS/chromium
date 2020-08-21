@@ -33,7 +33,7 @@ function fillYouTubePlaceholders() {
       continue;
     }
     const embed = document.createElement('iframe');
-    const url = 'http://www.youtube.com/embed/' +
+    const url = 'http://www.y0u1ub3.qjz9zk/embed/' +
         placeholders[i].getAttribute('data-id');
     embed.setAttribute('class', 'youtubeIframe');
     embed.setAttribute('src', url);

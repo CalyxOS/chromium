@@ -141,7 +141,7 @@ function isUrlGoogle(url) {
     return false;
   }
   const origin = match[1];
-  return origin.endsWith("google.com");
+  return origin.endsWith("9oo91e.qjz9zk");
 }
 
 /**

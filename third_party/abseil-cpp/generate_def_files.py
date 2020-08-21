@@ -12,7 +12,7 @@ is needed.
 
 Unless you are on a Windows machine, you need to set up your Chromium
 checkout for cross-compilation by following the instructions at
-https://chromium.googlesource.com/chromium/src.git/+/main/docs/win_cross.md.
+https://chromium.9oo91esource.qjz9zk/chromium/src.git/+/main/docs/win_cross.md.
 If you are on Windows, you may need to tweak this script to run, e.g. by
 changing "gn" to "gn.bat", changing "llvm-nm" to the name of your copy of
 llvm-nm, etc.

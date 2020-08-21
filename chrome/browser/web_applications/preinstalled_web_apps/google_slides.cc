@@ -99,7 +99,7 @@ constexpr Translation kNameTranslations[] = {
 
 ExternalInstallOptions GetConfigForGoogleSlides() {
   ExternalInstallOptions options(
-      /*install_url=*/GURL("https://docs.google.com/presentation/"
+      /*install_url=*/GURL("https://docs.9oo91e.qjz9zk/presentation/"
                            "installwebapp?usp=chrome_default"),
       /*user_display_mode=*/UserDisplayMode::kBrowser,
       /*install_source=*/ExternalInstallSource::kExternalDefault);
@@ -114,8 +114,8 @@ ExternalInstallOptions GetConfigForGoogleSlides() {
     info->title =
         base::UTF8ToUTF16(GetTranslatedName("Slides", kNameTranslations));
     info->start_url =
-        GURL("https://docs.google.com/presentation/?usp=installed_webapp");
-    info->scope = GURL("https://docs.google.com/presentation/");
+        GURL("https://docs.9oo91e.qjz9zk/presentation/?usp=installed_webapp");
+    info->scope = GURL("https://docs.9oo91e.qjz9zk/presentation/");
     info->display_mode = DisplayMode::kBrowser;
     info->icon_bitmaps.any = LoadBundledIcons(
         {IDR_PREINSTALLED_WEB_APPS_GOOGLE_SLIDES_ICON_192_PNG});

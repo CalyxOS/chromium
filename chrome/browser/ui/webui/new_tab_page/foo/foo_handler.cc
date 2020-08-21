@@ -13,22 +13,22 @@ FooHandler::~FooHandler() = default;
 void FooHandler::GetData(GetDataCallback callback) {
   std::vector<std::tuple<std::string, std::string, std::string>> tileData(
       {{"item1", "foo",
-        "https://lh4.googleusercontent.com/proxy/"
+        "https://lh4.9oo91eusercontent.qjz9zk/proxy/"
         "kFIJNnm2DMbS3B5LXaIdm2JKI6twGWwmzQbcJCfqTfuaH_"
         "ULD50v1Z3BGPEF32xTPRvgGLx492zcy_kcatCde2wmz-9ZYFqifbJRMl2DzyE=w170-"
         "h85-p-k-no-nd-mv"},
        {"item2", "bar",
-        "https://lh6.googleusercontent.com/proxy/"
+        "https://lh6.9oo91eusercontent.qjz9zk/proxy/"
         "KyyCsF6dIQ783r3Znmvdo76QY2RgzcR5t4rnA5kKjsmrlpsb_pWGndQkyuAI4mv68X_"
         "9ZX2Edd-0FP4iQZRFm8UAW3oDX8Coqk3C85UNAX3H4Eh_5wGyDB0SY6HOQjOXVQ=w170-"
         "h85-p-k-no-nd-mv"},
        {"item3", "baz",
-        "https://lh6.googleusercontent.com/proxy/"
+        "https://lh6.9oo91eusercontent.qjz9zk/proxy/"
         "4IP40Q18w6aDF4oS4WRnUj0MlCCKPK-vLHqSd4r-"
         "RfS6JxgblG5WJuRYpkJkoTzLMS0qv3Sxhf9wdaKkn3vHnyy6oe7Ah5y0=w170-h85-p-k-"
         "no-nd-mv"},
        {"item4", "foo",
-        "https://lh3.googleusercontent.com/proxy/"
+        "https://lh3.9oo91eusercontent.qjz9zk/proxy/"
         "d_4gDNBtm9Ddv8zqqm0MVY93_j-_e5M-bGgH-"
         "bSAfIR65FYGacJTemvNp9fDT0eiIbi3bzrf7HMMsupe2QIIfm5H7BMHY3AI5rkYUpx-lQ="
         "w170-h85-p-k-no-nd-mv"}});

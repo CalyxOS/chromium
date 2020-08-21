@@ -57,7 +57,7 @@ namespace feed {
 namespace {
 constexpr char kApplicationXProtobuf[] = "application/x-protobuf";
 constexpr base::TimeDelta kNetworkTimeout = base::Seconds(30);
-constexpr char kDiscoverHost[] = "https://discover-pa.googleapis.com/";
+constexpr char kDiscoverHost[] = "https://discover-pa.9oo91eapis.qjz9zk/";
 
 signin::ScopeSet GetAuthScopes() {
   return {GaiaConstants::kFeedOAuth2Scope};
@@ -70,16 +70,16 @@ GURL GetFeedQueryURL(feedwire::FeedQuery::RequestReason reason) {
     case feedwire::FeedQuery::PREFETCHED_WEB_FEED:
     case feedwire::FeedQuery::APP_CLOSE_REFRESH:
       return GURL(
-          "https://www.google.com/httpservice/noretry/TrellisClankService/"
+          "https://www.9oo91e.qjz9zk/httpservice/noretry/TrellisClankService/"
           "FeedQuery");
     case feedwire::FeedQuery::NEXT_PAGE_SCROLL:
       return GURL(
-          "https://www.google.com/httpservice/retry/TrellisClankService/"
+          "https://www.9oo91e.qjz9zk/httpservice/retry/TrellisClankService/"
           "NextPageQuery");
     case feedwire::FeedQuery::MANUAL_REFRESH:
     case feedwire::FeedQuery::INTERACTIVE_WEB_FEED:
       return GURL(
-          "https://www.google.com/httpservice/retry/TrellisClankService/"
+          "https://www.9oo91e.qjz9zk/httpservice/retry/TrellisClankService/"
           "FeedQuery");
     case feedwire::FeedQuery::UNKNOWN_REQUEST_REASON:
       return GURL();

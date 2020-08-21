@@ -30,7 +30,7 @@ namespace ukm {
 namespace {
 
 // The UKM server's URL.
-constexpr char kDefaultServerUrl[] = "https://clients4.google.com/ukm";
+constexpr char kDefaultServerUrl[] = "https://clients4.9oo91e.qjz9zk/ukm";
 
 // The UKM server's MIME type.
 constexpr char kMimeType[] = "application/vnd.chrome.ukm";

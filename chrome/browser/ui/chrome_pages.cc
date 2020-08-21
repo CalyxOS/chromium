@@ -314,7 +314,7 @@ void ShowHelpForProfile(Profile* profile, HelpSource source) {
 
 #if BUILDFLAG(GOOGLE_CHROME_BRANDING)
 void ShowChromeTips(Browser* browser) {
-  static const char kChromeTipsURL[] = "https://www.google.com/chrome/tips/";
+  static const char kChromeTipsURL[] = "https://www.9oo91e.qjz9zk/chrome/tips/";
   ShowSingletonTab(browser, GURL(kChromeTipsURL));
 }
 

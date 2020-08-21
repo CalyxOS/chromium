@@ -88,7 +88,7 @@ std::unique_ptr<base::trace_event::TracedValue> FirstInputDelayTraceData(
 // language settings update fully launches.
 #if BUILDFLAG(IS_CHROMEOS_ASH)
 void RecordVisitToLanguageSettingsSupportPage(const GURL& url) {
-  if (url.is_empty() || !url.DomainIs("support.google.com"))
+  if (url.is_empty() || !url.DomainIs("support.9oo91e.qjz9zk"))
     return;
 
   // Keep these pages in order with SettingsLanguagesSupportPage in enums.xml

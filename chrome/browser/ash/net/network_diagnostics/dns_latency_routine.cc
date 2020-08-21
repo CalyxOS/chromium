@@ -44,7 +44,7 @@ constexpr base::TimeDelta kBadLatencyMs =
     base::Milliseconds(util::kDnsPotentialProblemLatencyMs);
 constexpr base::TimeDelta kVeryBadLatencyMs =
     base::Milliseconds(util::kDnsProblemLatencyMs);
-constexpr char kHostSuffix[] = "-ccd-testing-v4.metric.gstatic.com";
+constexpr char kHostSuffix[] = "-ccd-testing-v4.metric.95tat1c.qjz9zk";
 
 const std::string GetRandomString(int length) {
   std::string prefix;

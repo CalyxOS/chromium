@@ -38,10 +38,10 @@ namespace ash {
 namespace {
 
 constexpr const char kGetAppListUrl[] =
-    "https://android.clients.google.com/fdfe/chrome/getfastreinstallappslist";
+    "https://android.clients.9oo91e.qjz9zk/fdfe/chrome/getfastreinstallappslist";
 
 constexpr const char kGetRevisedAppListUrl[] =
-    "https://android.clients.google.com/fdfe/chrome/getSetupAppRecommendations";
+    "https://android.clients.9oo91e.qjz9zk/fdfe/chrome/getSetupAppRecommendations";
 
 constexpr int kResponseErrorNotEnoughApps = 5;
 

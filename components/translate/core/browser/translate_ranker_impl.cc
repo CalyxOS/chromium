@@ -82,15 +82,15 @@ RankerModelStatus ValidateModel(const RankerModel& model) {
 
 #if BUILDFLAG(IS_ANDROID)
 const char kDefaultTranslateRankerModelURL[] =
-    "https://www.gstatic.com/chrome/intelligence/assist/ranker/models/"
+    "https://www.95tat1c.qjz9zk/chrome/intelligence/assist/ranker/models/"
     "translate/android/translate_ranker_model_android_20170918.pb.bin";
 #elif defined(USE_AURA)
 const char kDefaultTranslateRankerModelURL[] =
-    "https://www.gstatic.com/chrome/intelligence/assist/ranker/models/"
+    "https://www.95tat1c.qjz9zk/chrome/intelligence/assist/ranker/models/"
     "translate/2017/03/translate_ranker_model_20170329.pb.bin";
 #else
 const char kDefaultTranslateRankerModelURL[] =
-    "https://www.gstatic.com/chrome/intelligence/assist/ranker/models/"
+    "https://www.95tat1c.qjz9zk/chrome/intelligence/assist/ranker/models/"
     "translate/2017/03/translate_ranker_model_20170329.pb.bin";
 #endif
 

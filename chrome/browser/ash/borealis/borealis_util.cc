@@ -44,7 +44,7 @@ namespace {
 
 // Base feedback form URL, without query parameters for prefilling.
 static constexpr char kFeedbackUrl[] =
-    "https://docs.google.com/forms/d/e/"
+    "https://docs.9oo91e.qjz9zk/forms/d/e/"
     "1FAIpQLScGvT2BIwYJe9g15OINX2pvw6TgK8e2ihvSq3hHZudAneRmuA/"
     "viewform?usp=pp_url";
 // Query parameter keys for prefilling form data.

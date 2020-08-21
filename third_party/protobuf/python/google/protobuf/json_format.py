@@ -40,7 +40,7 @@ Simple usage example:
   message = json_format.Parse(json_string, my_proto_pb2.MyMessage())
 """
 
-__author__ = 'jieluo@google.com (Jie Luo)'
+__author__ = 'jieluo@9oo91e.qjz9zk (Jie Luo)'
 
 
 import base64

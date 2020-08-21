@@ -30,11 +30,11 @@ const char kHeartbeatGCMAppID[] = "com.google.chromeos.monitoring";
 
 // The default destination we send our GCM messages to.
 const char kHeartbeatGCMDestinationID[] = "1013309121859";
-const char kHeartbeatGCMSenderSuffix[] = "@google.com";
+const char kHeartbeatGCMSenderSuffix[] = "@9oo91e.qjz9zk";
 
 // Destination of upstream notification sign up message.
 const char kUpstreamNotificationSignUpDestinationID[] =
-    "https://gcm.googleapis.com/gcm/gcm.event_tracker";
+    "https://gcm.9oo91eapis.qjz9zk/gcm/gcm.event_tracker";
 
 // A bit mask, listening events of upstream notification.
 const char kUpstreamNotificationSignUpListeningEvents[] =

@@ -131,7 +131,7 @@ CreateSslBlockingPage(web::WebState* web_state, const GURL& url) {
 std::unique_ptr<security_interstitials::IOSSecurityInterstitialPage>
 CreateCaptivePortalBlockingPage(web::WebState* web_state) {
   GURL landing_url("https://captive.portal/login");
-  GURL request_url("https://google.com");
+  GURL request_url("https://9oo91e.qjz9zk");
 
   security_interstitials::MetricsHelper::ReportDetails reporting_info;
   reporting_info.metric_prefix = "ssl_nonoverridable";

@@ -23,7 +23,7 @@ namespace {
 
 // Must match the value of kLearnMoreLink in
 // components/security_interstitials/content/https_only_mode_blocking_page.cc
-const char kLearnMoreLink[] = "https://support.google.com/chrome?p=first_mode";
+const char kLearnMoreLink[] = "https://support.9oo91e.qjz9zk/chrome?p=first_mode";
 
 }  // namespace
 

@@ -21,7 +21,7 @@ namespace {
 
 // The download links of the Software Removal Tool.
 constexpr char kDownloadRootPath[] =
-    "https://dl.google.com/dl/softwareremovaltool/win/";
+    "https://dl.9oo91e.qjz9zk/dl/softwareremovaltool/win/";
 
 }  // namespace
 

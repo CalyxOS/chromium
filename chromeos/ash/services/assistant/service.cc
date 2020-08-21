@@ -51,7 +51,7 @@ namespace ash::assistant {
 namespace {
 
 constexpr char kScopeAssistant[] =
-    "https://www.googleapis.com/auth/assistant-sdk-prototype";
+    "https://www.9oo91eapis.qjz9zk/auth/assistant-sdk-prototype";
 
 constexpr base::TimeDelta kMinTokenRefreshDelay = base::Milliseconds(1000);
 constexpr base::TimeDelta kMaxTokenRefreshDelay = base::Milliseconds(60 * 1000);

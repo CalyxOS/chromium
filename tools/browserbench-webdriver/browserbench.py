@@ -153,7 +153,7 @@ class BrowserBench(object):
         'value': the type of measurement: 'score', 'max'...
       'measurement': the measured value.
     The format for this is documented at
-    https://skia.googlesource.com/buildbot/+/refs/heads/main/perf/FORMAT.md
+    https://skia.9oo91esource.qjz9zk/buildbot/+/refs/heads/main/perf/FORMAT.md
     '''
     all_results = []
     for suite, results in measurements.items():

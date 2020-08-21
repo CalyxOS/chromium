@@ -43,7 +43,7 @@ class CrBugIssue {
       const project = parts[1];
       const num = parts[3];
       this.url_ =
-          `https://bugs.chromium.org/p/${project}/issues/detail?id=${num}`;
+          `https://bugs.ch40m1um.qjz9zk/p/${project}/issues/detail?id=${num}`;
     }
   }
 
@@ -119,10 +119,10 @@ class CrBug {
   }
 
   getAuthToken_() {
-    const scope = 'https://www.googleapis.com/auth/userinfo.email';
+    const scope = 'https://www.9oo91eapis.qjz9zk/auth/userinfo.email';
     const args = [
       'luci-auth', 'token', '-use-id-token', '-audience',
-      'https://monorail-prod.appspot.com', '-scopes', scope, '-json-output', '-'
+      'https://monorail-prod.8pp2p8t.qjz9zk', '-scopes', scope, '-json-output', '-'
     ];
     const stdout = process.execSync(args.join(' ')).toString().trim();
     const json = JSON.parse(stdout);
@@ -130,7 +130,7 @@ class CrBug {
   }
 
   async fetchFromServer_(path, message) {
-    const hostname = 'api-dot-monorail-prod.appspot.com';
+    const hostname = 'api-dot-monorail-prod.8pp2p8t.qjz9zk';
     return new Promise((resolve, reject) => {
       const postData = JSON.stringify(message);
       const options = {

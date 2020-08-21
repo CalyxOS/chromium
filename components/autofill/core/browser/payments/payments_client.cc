@@ -54,7 +54,7 @@ namespace {
 
 const char kTokenFetchId[] = "wallet_client";
 const char kPaymentsOAuth2Scope[] =
-    "https://www.googleapis.com/auth/wallet.chrome";
+    "https://www.9oo91eapis.qjz9zk/auth/wallet.chrome";
 
 GURL GetRequestUrl(const std::string& path) {
   if (base::CommandLine::ForCurrentProcess()->HasSwitch("sync-url")) {

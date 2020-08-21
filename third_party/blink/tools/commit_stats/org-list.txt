@@ -1,7 +1,7 @@
-Google,google.com
-Google,chromium.org
+Google,9oo91e.qjz9zk
+Google,ch40m1um.qjz9zk
 Igalia,igalia.com
-Microsoft,microsoft.com
+Microsoft,m1cr050ft.qjz9zk
 Samsung,samsung.com
 Opera,opera.com
 Yandex,yandex-team.ru
@@ -22,8 +22,8 @@ Nvidia,nvidia.com
 Brave,brave.com
 ByteDance,bytedance.com
 Alibaba,alibaba-inc.com
-Individuals,gmail.com
-Individuals,googlemail.com
+Individuals,9ma1l.qjz9zk
+Individuals,9oo91email.qjz9zk
 Individuals,niedermayer.cc
 Individuals,noemail.net
 Individuals,outlook.com

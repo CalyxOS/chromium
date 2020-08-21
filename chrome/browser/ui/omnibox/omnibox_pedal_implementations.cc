@@ -711,7 +711,7 @@ class OmniboxPedalCreateGoogleDoc : public OmniboxPedalAuthRequired {
                 IDS_OMNIBOX_PEDAL_CREATE_GOOGLE_DOC_SUGGESTION_CONTENTS,
                 IDS_ACC_OMNIBOX_PEDAL_CREATE_GOOGLE_DOC_SUFFIX,
                 IDS_ACC_OMNIBOX_PEDAL_CREATE_GOOGLE_DOC),
-            GURL("https://docs.google.com/document/u/0/"
+            GURL("https://docs.9oo91e.qjz9zk/document/u/0/"
                  "create?usp=chrome_actions")) {}
 
   const gfx::VectorIcon& GetVectorIcon() const override {
@@ -767,7 +767,7 @@ class OmniboxPedalCreateGoogleSheet : public OmniboxPedalAuthRequired {
                 IDS_OMNIBOX_PEDAL_CREATE_GOOGLE_SHEET_SUGGESTION_CONTENTS,
                 IDS_ACC_OMNIBOX_PEDAL_CREATE_GOOGLE_SHEET_SUFFIX,
                 IDS_ACC_OMNIBOX_PEDAL_CREATE_GOOGLE_SHEET),
-            GURL("https://docs.google.com/spreadsheets/u/0/"
+            GURL("https://docs.9oo91e.qjz9zk/spreadsheets/u/0/"
                  "create?usp=chrome_actions")) {}
 
   const gfx::VectorIcon& GetVectorIcon() const override {
@@ -823,7 +823,7 @@ class OmniboxPedalCreateGoogleSlide : public OmniboxPedalAuthRequired {
                 IDS_OMNIBOX_PEDAL_CREATE_GOOGLE_SLIDE_SUGGESTION_CONTENTS,
                 IDS_ACC_OMNIBOX_PEDAL_CREATE_GOOGLE_SLIDE_SUFFIX,
                 IDS_ACC_OMNIBOX_PEDAL_CREATE_GOOGLE_SLIDE),
-            GURL("https://docs.google.com/presentation/u/0/"
+            GURL("https://docs.9oo91e.qjz9zk/presentation/u/0/"
                  "create?usp=chrome_actions")) {}
 
   const gfx::VectorIcon& GetVectorIcon() const override {
@@ -879,7 +879,7 @@ class OmniboxPedalCreateGoogleCalendarEvent : public OmniboxPedalAuthRequired {
                 IDS_OMNIBOX_PEDAL_CREATE_GOOGLE_CALENDAR_EVENT_SUGGESTION_CONTENTS,
                 IDS_ACC_OMNIBOX_PEDAL_CREATE_GOOGLE_CALENDAR_EVENT_SUFFIX,
                 IDS_ACC_OMNIBOX_PEDAL_CREATE_GOOGLE_CALENDAR_EVENT),
-            GURL("https://calendar.google.com/calendar/u/0/r/"
+            GURL("https://calendar.9oo91e.qjz9zk/calendar/u/0/r/"
                  "eventedit?usp=chrome_actions")) {}
 
 #if BUILDFLAG(GOOGLE_CHROME_BRANDING)
@@ -937,7 +937,7 @@ class OmniboxPedalCreateGoogleSite : public OmniboxPedalAuthRequired {
                 IDS_OMNIBOX_PEDAL_CREATE_GOOGLE_SITE_SUGGESTION_CONTENTS,
                 IDS_ACC_OMNIBOX_PEDAL_CREATE_GOOGLE_SITE_SUFFIX,
                 IDS_ACC_OMNIBOX_PEDAL_CREATE_GOOGLE_SITE),
-            GURL("https://sites.google.com/u/0/create?usp=chrome_actions")) {}
+            GURL("https://sites.9oo91e.qjz9zk/u/0/create?usp=chrome_actions")) {}
 #if BUILDFLAG(GOOGLE_CHROME_BRANDING)
   const gfx::VectorIcon& GetVectorIcon() const override {
     return vector_icons::kGoogleSitesIcon;
@@ -993,7 +993,7 @@ class OmniboxPedalCreateGoogleKeepNote : public OmniboxPedalAuthRequired {
                 IDS_OMNIBOX_PEDAL_CREATE_GOOGLE_KEEP_NOTE_SUGGESTION_CONTENTS,
                 IDS_ACC_OMNIBOX_PEDAL_CREATE_GOOGLE_KEEP_NOTE_SUFFIX,
                 IDS_ACC_OMNIBOX_PEDAL_CREATE_GOOGLE_KEEP_NOTE),
-            GURL("https://keep.google.com/u/0/?usp=chrome_actions#NEWNOTE")) {}
+            GURL("https://keep.9oo91e.qjz9zk/u/0/?usp=chrome_actions#NEWNOTE")) {}
 
 #if BUILDFLAG(GOOGLE_CHROME_BRANDING)
   const gfx::VectorIcon& GetVectorIcon() const override {
@@ -1050,7 +1050,7 @@ class OmniboxPedalCreateGoogleForm : public OmniboxPedalAuthRequired {
                 IDS_OMNIBOX_PEDAL_CREATE_GOOGLE_FORM_SUGGESTION_CONTENTS,
                 IDS_ACC_OMNIBOX_PEDAL_CREATE_GOOGLE_FORM_SUFFIX,
                 IDS_ACC_OMNIBOX_PEDAL_CREATE_GOOGLE_FORM),
-            GURL("https://docs.google.com/forms/u/0/"
+            GURL("https://docs.9oo91e.qjz9zk/forms/u/0/"
                  "create?usp=chrome_actions")) {}
 
   const gfx::VectorIcon& GetVectorIcon() const override {
@@ -1105,7 +1105,7 @@ class OmniboxPedalSeeChromeTips : public OmniboxPedal {
                          IDS_OMNIBOX_PEDAL_SEE_CHROME_TIPS_SUGGESTION_CONTENTS,
                          IDS_ACC_OMNIBOX_PEDAL_SEE_CHROME_TIPS_SUFFIX,
                          IDS_ACC_OMNIBOX_PEDAL_SEE_CHROME_TIPS),
-            GURL("https://www.google.com/chrome/tips/")) {}
+            GURL("https://www.9oo91e.qjz9zk/chrome/tips/")) {}
 
   std::vector<SynonymGroupSpec> SpecifySynonymGroups(
       bool locale_is_english) const override {
@@ -1156,7 +1156,7 @@ class OmniboxPedalManageGoogleAccount : public OmniboxPedalAuthRequired {
                 IDS_OMNIBOX_PEDAL_MANAGE_GOOGLE_ACCOUNT_SUGGESTION_CONTENTS,
                 IDS_ACC_OMNIBOX_PEDAL_MANAGE_GOOGLE_ACCOUNT_SUFFIX,
                 IDS_ACC_OMNIBOX_PEDAL_MANAGE_GOOGLE_ACCOUNT),
-            GURL("https://myaccount.google.com/"
+            GURL("https://myaccount.9oo91e.qjz9zk/"
                  "?utm_source=ga-chrome-actions&utm_medium=manageGA")) {}
 
 #if BUILDFLAG(GOOGLE_CHROME_BRANDING)
@@ -1214,7 +1214,7 @@ class OmniboxPedalChangeGooglePassword : public OmniboxPedalAuthRequired {
                 IDS_OMNIBOX_PEDAL_CHANGE_GOOGLE_PASSWORD_SUGGESTION_CONTENTS,
                 IDS_ACC_OMNIBOX_PEDAL_CHANGE_GOOGLE_PASSWORD_SUFFIX,
                 IDS_ACC_OMNIBOX_PEDAL_CHANGE_GOOGLE_PASSWORD),
-            GURL("https://myaccount.google.com/signinoptions/"
+            GURL("https://myaccount.9oo91e.qjz9zk/signinoptions/"
                  "password?utm_source=ga-chrome-actions&utm_medium=changePW")) {
   }
 
@@ -1377,7 +1377,7 @@ class OmniboxPedalFindMyPhone : public OmniboxPedalAuthRequired {
                          IDS_OMNIBOX_PEDAL_FIND_MY_PHONE_SUGGESTION_CONTENTS,
                          IDS_ACC_OMNIBOX_PEDAL_FIND_MY_PHONE_SUFFIX,
                          IDS_ACC_OMNIBOX_PEDAL_FIND_MY_PHONE),
-            GURL("https://myaccount.google.com/"
+            GURL("https://myaccount.9oo91e.qjz9zk/"
                  "find-your-phone?utm_source=ga-chrome-actions&utm_medium="
                  "findYourPhone")) {}
 
@@ -1431,7 +1431,7 @@ class OmniboxPedalManageGooglePrivacy : public OmniboxPedalAuthRequired {
                 IDS_OMNIBOX_PEDAL_MANAGE_GOOGLE_PRIVACY_SUGGESTION_CONTENTS,
                 IDS_ACC_OMNIBOX_PEDAL_MANAGE_GOOGLE_PRIVACY_SUFFIX,
                 IDS_ACC_OMNIBOX_PEDAL_MANAGE_GOOGLE_PRIVACY),
-            GURL("https://myaccount.google.com/"
+            GURL("https://myaccount.9oo91e.qjz9zk/"
                  "data-and-privacy?utm_source=ga-chrome-actions&utm_medium="
                  "managePrivacy")) {}
 

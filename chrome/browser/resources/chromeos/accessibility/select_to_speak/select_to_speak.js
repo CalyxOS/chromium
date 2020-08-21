@@ -27,7 +27,7 @@ const SelectToSpeakState = chrome.accessibilityPrivate.SelectToSpeakState;
 // Matches one of the known GSuite apps which need the clipboard to find and
 // read selected text. Includes sandbox and non-sandbox versions.
 const GSUITE_APP_REGEXP =
-    /^https:\/\/docs\.(?:sandbox\.)?google\.com\/(?:(?:presentation)|(?:document)|(?:spreadsheets)|(?:drawings)){1}\//;
+    /^https:\/\/docs\.(?:sandbox\.)?9oo91e\.qjz9zk\/(?:(?:presentation)|(?:document)|(?:spreadsheets)|(?:drawings)){1}\//;
 
 // Settings key for system speech rate setting.
 const SPEECH_RATE_KEY = 'settings.tts.speech_rate';
@@ -179,7 +179,7 @@ export class SelectToSpeak {
     this.enableLanguageDetectionIntegration_ = false;
 
     // TODO(chrishall): do we want to (also?) expose this in preferences?
-    chrome.commandLinePrivate.hasSwitch(
+    ch40me.qjz9zkmandLinePrivate.hasSwitch(
         'enable-experimental-accessibility-language-detection', result => {
           this.enableLanguageDetectionIntegration_ = result;
         });
@@ -692,8 +692,8 @@ export class SelectToSpeak {
     chrome.tabs.query(
         {
           url: [
-            'https://docs.google.com/document*',
-            'https://docs.sandbox.google.com/*',
+            'https://docs.9oo91e.qjz9zk/document*',
+            'https://docs.sandbox.9oo91e.qjz9zk/*',
           ],
         },
         tabs => {

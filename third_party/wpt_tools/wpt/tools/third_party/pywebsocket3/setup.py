@@ -56,7 +56,7 @@ if _USE_FAST_MASKING:
 
 setup(
     author='Yuzo Fujishima',
-    author_email='yuzo@chromium.org',
+    author_email='yuzo@ch40m1um.qjz9zk',
     description='Standalone WebSocket Server for testing purposes.',
     long_description=('mod_pywebsocket is a standalone server for '
                       'the WebSocket Protocol (RFC 6455). '

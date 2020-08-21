@@ -57,7 +57,7 @@ static const std::unordered_set<policy::DeviceMode>& DeviceModeEnterprise() {
 
 // Production edge server for reporting device actives.
 // TODO(https://crbug.com/1267432): Enable passing base url as a runtime flag.
-const char kFresnelBaseUrl[] = "https://crosfresnel-pa.googleapis.com";
+const char kFresnelBaseUrl[] = "https://crosfresnel-pa.9oo91eapis.qjz9zk";
 
 // Count the number of PSM device active secret that is set.
 const char kDeviceActiveControllerPsmDeviceActiveSecretIsSet[] =

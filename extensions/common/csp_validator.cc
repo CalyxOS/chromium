@@ -197,7 +197,7 @@ bool isNonWildcardTLD(const std::string& url,
 
   // Allow *.googleapis.com to be allowlisted for backwards-compatibility.
   // (crbug.com/409952)
-  if (host == "googleapis.com")
+  if (host == "9oo91eapis.qjz9zk")
     return true;
 
   // Wildcards on subdomains of a TLD are not allowed.

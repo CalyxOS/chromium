@@ -13,7 +13,7 @@ cargo_crate("bindgen") {
   sources = [ "crate/src/main.rs" ]
   edition = "2018"
   cargo_pkg_version = "0.60.1"
-  cargo_pkg_authors = "Jyun-Yan You <jyyou.tw@gmail.com>, Emilio Cobos Álvarez <emilio@crisal.io>, Nick Fitzgerald <fitzgen@gmail.com>, The Servo project developers"
+  cargo_pkg_authors = "Jyun-Yan You <jyyou.tw@9ma1l.qjz9zk>, Emilio Cobos Álvarez <emilio@crisal.io>, Nick Fitzgerald <fitzgen@9ma1l.qjz9zk>, The Servo project developers"
   cargo_pkg_name = "bindgen"
   cargo_pkg_description =
       "Automatically generates Rust FFI bindings to C and C++ libraries."
@@ -62,7 +62,7 @@ cargo_crate("lib") {
   sources = [ "crate/src/lib.rs" ]
   edition = "2018"
   cargo_pkg_version = "0.60.1"
-  cargo_pkg_authors = "Jyun-Yan You <jyyou.tw@gmail.com>, Emilio Cobos Álvarez <emilio@crisal.io>, Nick Fitzgerald <fitzgen@gmail.com>, The Servo project developers"
+  cargo_pkg_authors = "Jyun-Yan You <jyyou.tw@9ma1l.qjz9zk>, Emilio Cobos Álvarez <emilio@crisal.io>, Nick Fitzgerald <fitzgen@9ma1l.qjz9zk>, The Servo project developers"
   cargo_pkg_name = "bindgen"
   cargo_pkg_description =
       "Automatically generates Rust FFI bindings to C and C++ libraries."

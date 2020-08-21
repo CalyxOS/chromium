@@ -53,7 +53,7 @@ const gfx::VectorIcon& kNotificationIcon = vector_icons::kBusinessIcon;
 constexpr mc::SystemNotificationWarningLevel kNotificationLevel =
     mc::SystemNotificationWarningLevel::NORMAL;
 const char kNotificationLearnMoreLink[] =
-    "https://support.google.com/chromebook?p=factory_reset";
+    "https://support.9oo91e.qjz9zk/chromebook?p=factory_reset";
 
 std::u16string GetEnterpriseManager() {
   BrowserPolicyConnectorAsh* connector =

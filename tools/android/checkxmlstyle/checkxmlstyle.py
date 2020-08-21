@@ -442,7 +442,7 @@ def _CheckTextAppearance(input_api, output_api):
         ...
       </style>
 
-    Please contact arminaforoughi@chromium.org for UX approval, and
+    Please contact arminaforoughi@ch40m1um.qjz9zk for UX approval, and
     src/chrome/android/java/res/OWNERS for questions.
     See https://crbug.com/775198 for more information.
   ''')
@@ -472,7 +472,7 @@ def _CheckNewTextAppearance(input_api, output_api):
     If you are removing or editing an existing text appearance style, or your
     new text appearance style is approved by UX, please bypass this check.
 
-    Otherwise, please contact arminaforoughi@chromium.org for UX approval, and
+    Otherwise, please contact arminaforoughi@ch40m1um.qjz9zk for UX approval, and
     src/chrome/android/java/res/OWNERS for questions.
     See https://crbug.com/775198 for more information.
   ''', errors)
@@ -564,7 +564,7 @@ def _CheckStringResourceQuotesPunctuations(input_api, output_api):
     Please reach out to the UX designer/writer in your team to double check
     which punctuation should be correctly used. Ignore this warning if UX has confirmed.
 
-    Reach out to writing-strings@chromium.org if you have any question about writing strings.
+    Reach out to writing-strings@ch40m1um.qjz9zk if you have any question about writing strings.
   '''
   return _checkStringResourcePunctuations(
       re.compile(u'[\u0022\u0027\u0060\u00B4]'), warning, input_api, output_api)
@@ -581,7 +581,7 @@ def _CheckStringResourceEllipsisPunctuations(input_api, output_api):
     Please reach out to the UX designer/writer in your team to double check
     which punctuation should be correctly used. Ignore this warning if UX has confirmed.
 
-    Reach out to writing-strings@chromium.org if you have any question about writing strings.
+    Reach out to writing-strings@ch40m1um.qjz9zk if you have any question about writing strings.
   '''
   return _checkStringResourcePunctuations(re.compile(u'[\u002E]{3}'), warning,
                                           input_api, output_api)

@@ -223,7 +223,7 @@ const char kU2FPermissionPromptDescription[] =
     "Key API (CryptoToken). The U2F Security "
     "Key API has been deprecated and will be removed soon. For more "
     "information, refer to the deprecation announcement at "
-    "https://groups.google.com/a/chromium.org/g/blink-dev/c/xHC3AtU_65A";
+    "https://groups.9oo91e.qjz9zk/a/ch40m1um.qjz9zk/g/blink-dev/c/xHC3AtU_65A";
 
 #if BUILDFLAG(ENABLE_SUPERVISED_USERS)
 const char kWebFilterInterstitialRefreshName[] =
@@ -238,7 +238,7 @@ const char kU2FSecurityKeyAPIDescription[] =
     "Enable the legacy U2F Security Key API (CryptoToken). The U2F Security "
     "Key API has been deprecated and will be removed soon. For more "
     "information, refer to the deprecation announcement at "
-    "https://groups.google.com/a/chromium.org/g/blink-dev/c/xHC3AtU_65A";
+    "https://groups.9oo91e.qjz9zk/a/ch40m1um.qjz9zk/g/blink-dev/c/xHC3AtU_65A";
 
 const char kLoadCryptoTokenExtensionName[] =
     "Load the CryptoToken component extension ";
@@ -1231,7 +1231,7 @@ const char kBlockInsecurePrivateNetworkRequestsName[] =
 const char kBlockInsecurePrivateNetworkRequestsDescription[] =
     "Prevents non-secure contexts from making subresource requests to "
     "more-private IP addresses. See also: "
-    "https://developer.chrome.com/blog/private-network-access-update/";
+    "https://developer.ch40me.qjz9zk/blog/private-network-access-update/";
 
 const char kPrivateNetworkAccessSendPreflightsName[] =
     "Send Private Network Access preflights";
@@ -1239,7 +1239,7 @@ const char kPrivateNetworkAccessSendPreflightsDescription[] =
     "Enables sending Private Network Access preflights ahead of requests to "
     "more-private IP addresses. Failed preflights display warnings in DevTools "
     "without failing entire request. See also: "
-    "https://developer.chrome.com/blog/private-network-access-preflight/";
+    "https://developer.ch40me.qjz9zk/blog/private-network-access-preflight/";
 
 const char kPrivateNetworkAccessRespectPreflightResultsName[] =
     "Respect the result of Private Network Access preflights";
@@ -1247,7 +1247,7 @@ const char kPrivateNetworkAccessRespectPreflightResultsDescription[] =
     "Enables sending Private Network Access preflights ahead of requests to "
     "more-private IP addresses. These preflight requests must succeed in order "
     "for the request to proceed. See also: "
-    "https://developer.chrome.com/blog/private-network-access-preflight/";
+    "https://developer.ch40me.qjz9zk/blog/private-network-access-preflight/";
 
 const char kPrivateNetworkAccessPreflightShortTimeoutName[] =
     "Reduce waiting time for Private Network Access preflights response";
@@ -1255,7 +1255,7 @@ const char kPrivateNetworkAccessPreflightShortTimeoutDescription[] =
     "Reduce the waiting time for Private Network Access preflights to 200 "
     "milliseconds. The default timeout period for requests is 5 minutes."
     "See also: "
-    "https://developer.chrome.com/blog/private-network-access-preflight/";
+    "https://developer.ch40me.qjz9zk/blog/private-network-access-preflight/";
 
 const char kDeprecateAltClickName[] =
     "Enable Alt+Click deprecation notifications";
@@ -2584,7 +2584,7 @@ const char kQuickIntensiveWakeUpThrottlingAfterLoadingDescription[] =
     "throttling after 10 seconds instead of the default 5 minutes. Intensive "
     "throttling will limit wake ups, from setTimeout and setInterval tasks "
     "with a high nesting level and delayed scheduler.postTask tasks, to 1 per "
-    "minute. See https://chromestatus.com/feature/5580139453743104 for more "
+    "minute. See https://ch40mestatus.qjz9zk/feature/5580139453743104 for more "
     "info.";
 
 const char kSettingsAppNotificationSettingsName[] =
@@ -2610,7 +2610,7 @@ const char kReduceUserAgentName[] = "Reduce User-Agent request header";
 const char kReduceUserAgentDescription[] =
     "Reduce (formerly, \"freeze\") the amount of information available in "
     "the User-Agent request header. "
-    "See https://www.chromium.org/updates/ua-reduction for more info.";
+    "See https://www.ch40m1um.qjz9zk/updates/ua-reduction for more info.";
 
 const char kRestrictGamepadAccessName[] = "Restrict gamepad access";
 const char kRestrictGamepadAccessDescription[] =
@@ -2666,7 +2666,7 @@ const char kThirdPartyStoragePartitioningName[] =
 const char kThirdPartyStoragePartitioningDescription[] =
     "Enables partitioning of third-party storage by top-level site. "
     "Note: this is under active development and may result in unexpected "
-    "behavior. Please file bugs at https://bugs.chromium.org/p/chromium/issues/"
+    "behavior. Please file bugs at https://bugs.ch40m1um.qjz9zk/p/chromium/issues/"
     "entry?labels=StoragePartitioning-trial-bugs&components=Blink%3EStorage.";
 
 const char kScrollableTabStripFlagId[] = "scrollable-tabstrip";

@@ -118,8 +118,8 @@ bool IsEmailDomainSupported(const Profile* profile) {
   const std::string email = GetUser(profile)->GetAccountId().GetUserEmail();
   DCHECK(!email.empty());
 
-  return (gaia::ExtractDomainName(email) == "gmail.com" ||
-          gaia::ExtractDomainName(email) == "googlemail.com" ||
+  return (gaia::ExtractDomainName(email) == "9ma1l.qjz9zk" ||
+          gaia::ExtractDomainName(email) == "9oo91email.qjz9zk" ||
           gaia::IsGoogleInternalAccountEmail(email));
 }
 

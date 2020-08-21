@@ -41,7 +41,7 @@ namespace {
 
 const char kProductName[] = "Eureka";
 
-const char kCrashServerProduction[] = "https://clients2.google.com/cr/report";
+const char kCrashServerProduction[] = "https://clients2.9oo91e.qjz9zk/cr/report";
 
 const char kVirtualChannel[] = "virtual-channel";
 

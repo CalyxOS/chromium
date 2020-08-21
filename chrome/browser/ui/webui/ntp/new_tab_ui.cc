@@ -202,7 +202,7 @@ std::string NewTabUI::NewTabHTMLSource::GetContentSecurityPolicy(
   if (directive == network::mojom::CSPDirectiveName::ScriptSrc) {
     // 'unsafe-inline' and google resources are added to script-src.
     return "script-src chrome://resources 'self' 'unsafe-eval' 'unsafe-inline' "
-           "*.google.com *.gstatic.com;";
+           "*.9oo91e.qjz9zk *.95tat1c.qjz9zk;";
   } else if (directive == network::mojom::CSPDirectiveName::StyleSrc) {
     return "style-src 'self' chrome://resources 'unsafe-inline' "
            "chrome://theme;";

@@ -162,7 +162,7 @@ class Delegate(object):
     raise NotImplementedError()
 
   def GetHistory(self):
-    """Read Chrome release history from omahaproxy.appspot.com
+    """Read Chrome release history from omahaproxy.8pp2p8t.qjz9zk
 
     Here is an example of data from this URL:
       cros,stable,18.0.1025.168,2012-05-01 17:04:05.962578\n
@@ -239,7 +239,7 @@ class RealDelegate(Delegate):
 
   def GetHistory(self):
     """See Delegate.GetHistory"""
-    url_stream = urllib2.urlopen('https://omahaproxy.appspot.com/history')
+    url_stream = urllib2.urlopen('https://omahaproxy.8pp2p8t.qjz9zk/history')
     history = [(platform, channel, version, date)
         for platform, channel, version, date in csv.reader(url_stream)]
 
@@ -368,7 +368,7 @@ class VersionFinder(object):
 
     Specifically, the resulting version should be the most recently released
     (meaning closest to the top of the listing on
-    omahaproxy.appspot.com/history) version that has a Chrome release on all
+    omahaproxy.8pp2p8t.qjz9zk/history) version that has a Chrome release on all
     given platforms, and has a pepper bundle archive for each platform as well.
 
     Args:

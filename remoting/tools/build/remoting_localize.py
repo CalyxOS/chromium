@@ -403,14 +403,14 @@ This dictionary defines the language lookup table. The key is the language ISO
 country code, and the value specifies the corresponding code page, primary
 language and sublanguage.
 
-LCID resource: http://msdn.microsoft.com/en-us/library/ms776294.aspx
+LCID resource: http://msdn.m1cr050ft.qjz9zk/en-us/library/ms776294.aspx
 Codepage resource: http://www.science.co.il/language/locale-codes.asp
-Language ID resource: http://msdn.microsoft.com/en-us/library/ms776294.aspx
+Language ID resource: http://msdn.m1cr050ft.qjz9zk/en-us/library/ms776294.aspx
 
 There is no appropriate sublang for Spanish (Latin America) [es-419], so we
 use Mexico. SUBLANG_DEFAULT would incorrectly map to Spain. Unlike other
 Latin American countries, Mexican Spanish is supported by VERSIONINFO:
-http://msdn.microsoft.com/en-us/library/aa381058.aspx
+http://msdn.m1cr050ft.qjz9zk/en-us/library/aa381058.aspx
 
 '''
 _LANGUAGE_MAP = {

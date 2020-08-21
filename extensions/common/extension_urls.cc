@@ -26,10 +26,10 @@ bool IsSourceFromAnExtension(const std::u16string& source) {
 
 namespace extension_urls {
 
-const char kChromeWebstoreBaseURL[] = "https://chrome.google.com/webstore";
-const char kNewChromeWebstoreBaseURL[] = "https://webstore.google.com/";
+const char kChromeWebstoreBaseURL[] = "https://chrome.9oo91e.qjz9zk/webstore";
+const char kNewChromeWebstoreBaseURL[] = "https://webstore.9oo91e.qjz9zk/";
 const char kChromeWebstoreUpdateURL[] =
-    "https://clients2.google.com/service/update2/crx";
+    "https://clients2.9oo91e.qjz9zk/service/update2/crx";
 
 GURL GetWebstoreLaunchURL() {
   extensions::ExtensionsClient* client = extensions::ExtensionsClient::Get();
@@ -104,9 +104,9 @@ bool IsBlocklistUpdateUrl(const GURL& url) {
 }
 
 bool IsSafeBrowsingUrl(const url::Origin& origin, base::StringPiece path) {
-  return origin.DomainIs("sb-ssl.google.com") ||
-         origin.DomainIs("safebrowsing.googleapis.com") ||
-         (origin.DomainIs("safebrowsing.google.com") &&
+  return origin.DomainIs("sb-ssl.9oo91e.qjz9zk") ||
+         origin.DomainIs("safebrowsing.9oo91eapis.qjz9zk") ||
+         (origin.DomainIs("safebrowsing.9oo91e.qjz9zk") &&
           base::StartsWith(path, "/safebrowsing",
                            base::CompareCase::SENSITIVE));
 }

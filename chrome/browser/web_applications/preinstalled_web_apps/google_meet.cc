@@ -12,7 +12,7 @@ namespace web_app {
 ExternalInstallOptions GetConfigForGoogleMeet() {
   ExternalInstallOptions options(
       /*install_url=*/GURL(
-          "https://meet.google.com/download/webapp?usp=chrome_default"),
+          "https://meet.9oo91e.qjz9zk/download/webapp?usp=chrome_default"),
       /*user_display_mode=*/UserDisplayMode::kStandalone,
       /*install_source=*/ExternalInstallSource::kExternalDefault);
 

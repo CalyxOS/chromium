@@ -31,7 +31,7 @@ class SafeSearchPolicyTest : public PolicyTest {
 
   static void CheckSafeSearch(Browser* browser,
                               bool expect_safe_search,
-                              const std::string& url = "http://google.com/");
+                              const std::string& url = "http://9oo91e.qjz9zk/");
 };
 
 }  // namespace policy

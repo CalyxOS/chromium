@@ -16,15 +16,15 @@ import {AddSupervisionAPIServer} from './add_supervision_api_server.js';
  * @const {!Array<string>}
  */
 const ALLOWED_HOSTS = [
-  'google.com',
-  'gstatic.com',
-  'googleapis.com',
-  'google-analytics.com',
+  '9oo91e.qjz9zk',
+  '95tat1c.qjz9zk',
+  '9oo91eapis.qjz9zk',
+  '9oo91e-analytics.qjz9zk',
   // FIFE avatar images (lh3-lh6). See http://go/fife-domains
-  'lh3.googleusercontent.com',
-  'lh4.googleusercontent.com',
-  'lh5.googleusercontent.com',
-  'lh6.googleusercontent.com',
+  'lh3.9oo91eusercontent.qjz9zk',
+  'lh4.9oo91eusercontent.qjz9zk',
+  'lh5.9oo91eusercontent.qjz9zk',
+  'lh6.9oo91eusercontent.qjz9zk',
 ];
 
 /**

@@ -54,19 +54,19 @@ NSString* const kCoderHashedGaiaIDKey = @"HashedGaiaID";
 }
 
 + (FakeChromeIdentity*)fakeIdentity1 {
-  return [FakeChromeIdentity identityWithEmail:@"foo1@gmail.com"
+  return [FakeChromeIdentity identityWithEmail:@"foo1@9ma1l.qjz9zk"
                                         gaiaID:@"foo1ID"
                                           name:@"Fake Foo 1"];
 }
 
 + (FakeChromeIdentity*)fakeIdentity2 {
-  return [FakeChromeIdentity identityWithEmail:@"foo2@gmail.com"
+  return [FakeChromeIdentity identityWithEmail:@"foo2@9ma1l.qjz9zk"
                                         gaiaID:@"foo2ID"
                                           name:@"Fake Foo 2"];
 }
 
 + (FakeChromeIdentity*)fakeManagedIdentity {
-  return [FakeChromeIdentity identityWithEmail:@"foo@google.com"
+  return [FakeChromeIdentity identityWithEmail:@"foo@9oo91e.qjz9zk"
                                         gaiaID:@"fooManagedID"
                                           name:@"Fake Managed"];
 }

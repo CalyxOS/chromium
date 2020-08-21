@@ -19,7 +19,7 @@ cargo_crate("lib") {
   sources = [ "crate/src/lib.rs" ]
   edition = "2015"
   cargo_pkg_version = "1.1.0"
-  cargo_pkg_authors = "comex <comexk@gmail.com>, Fenhl <fenhl@fenhl.net>"
+  cargo_pkg_authors = "comex <comexk@9ma1l.qjz9zk>, Fenhl <fenhl@fenhl.net>"
   cargo_pkg_name = "shlex"
   cargo_pkg_description =
       "Split a string into shell words, like Python's shlex."

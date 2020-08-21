@@ -67,7 +67,7 @@ StructTraits<media::stable::mojom::ColorSpaceDataView,
                    decltype(
                        media::stable::mojom::ColorSpace::primaries)>::value,
       "Unexpected type for gfx::ColorSpace::primaries_. If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
   return input.primaries_;
 }
 
@@ -79,7 +79,7 @@ StructTraits<media::stable::mojom::ColorSpaceDataView,
       std::is_same<decltype(::gfx::ColorSpace::transfer_),
                    decltype(media::stable::mojom::ColorSpace::transfer)>::value,
       "Unexpected type for gfx::ColorSpace::transfer_. If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
   return input.transfer_;
 }
 
@@ -91,7 +91,7 @@ StructTraits<media::stable::mojom::ColorSpaceDataView, gfx::ColorSpace>::matrix(
       std::is_same<decltype(::gfx::ColorSpace::matrix_),
                    decltype(media::stable::mojom::ColorSpace::matrix)>::value,
       "Unexpected type for gfx::ColorSpace::matrix_. If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
   return input.matrix_;
 }
 
@@ -103,7 +103,7 @@ StructTraits<media::stable::mojom::ColorSpaceDataView, gfx::ColorSpace>::range(
       std::is_same<decltype(::gfx::ColorSpace::range_),
                    decltype(media::stable::mojom::ColorSpace::range)>::value,
       "Unexpected type for gfx::ColorSpace::range_. If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
   return input.range_;
 }
 
@@ -116,7 +116,7 @@ base::span<const float> StructTraits<
                    float[9]>::value,
       "Unexpected type for gfx::ColorSpace::custom_primary_matrix_. If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
   return input.custom_primary_matrix_;
 }
 
@@ -128,7 +128,7 @@ StructTraits<media::stable::mojom::ColorSpaceDataView,
       std::is_same<decltype(::gfx::ColorSpace::transfer_params_),
                    float[7]>::value,
       "Unexpected type for gfx::ColorSpace::transfer_params_. If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
   return input.transfer_params_;
 }
 
@@ -168,7 +168,7 @@ const gfx::PointF& StructTraits<
           decltype(
               media::stable::mojom::ColorVolumeMetadata::primary_r)>::value,
       "Unexpected type for gfx::ColorVolumeMetadata::primary_r. If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.primary_r;
 }
@@ -184,7 +184,7 @@ const gfx::PointF& StructTraits<
           decltype(
               media::stable::mojom::ColorVolumeMetadata::primary_g)>::value,
       "Unexpected type for gfx::ColorVolumeMetadata::primary_g. If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.primary_g;
 }
@@ -200,7 +200,7 @@ const gfx::PointF& StructTraits<
           decltype(
               media::stable::mojom::ColorVolumeMetadata::primary_b)>::value,
       "Unexpected type for gfx::ColorVolumeMetadata::primary_b. If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.primary_b;
 }
@@ -217,7 +217,7 @@ const gfx::PointF& StructTraits<
               media::stable::mojom::ColorVolumeMetadata::white_point)>::value,
       "Unexpected type for gfx::ColorVolumeMetadata::white_point. If you need "
       "to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.white_point;
 }
@@ -233,7 +233,7 @@ float StructTraits<media::stable::mojom::ColorVolumeMetadataDataView,
               media::stable::mojom::ColorVolumeMetadata::luminance_max)>::value,
       "Unexpected type for gfx::ColorVolumeMetadata::luminance_max. If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.luminance_max;
 }
@@ -249,7 +249,7 @@ float StructTraits<media::stable::mojom::ColorVolumeMetadataDataView,
               media::stable::mojom::ColorVolumeMetadata::luminance_min)>::value,
       "Unexpected type for gfx::ColorVolumeMetadata::luminance_min. If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.luminance_min;
 }
@@ -281,7 +281,7 @@ base::TimeDelta StructTraits<media::stable::mojom::DecoderBufferDataView,
                    decltype(
                        media::stable::mojom::DecoderBuffer::timestamp)>::value,
       "Unexpected type for media::DecoderBuffer::timestamp(). If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
   if (!input->end_of_stream())
     return input->timestamp();
   return base::TimeDelta();
@@ -296,7 +296,7 @@ base::TimeDelta StructTraits<media::stable::mojom::DecoderBufferDataView,
                    decltype(
                        media::stable::mojom::DecoderBuffer::duration)>::value,
       "Unexpected type for media::DecoderBuffer::duration(). If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
   if (!input->end_of_stream())
     return input->duration();
   return base::TimeDelta();
@@ -313,7 +313,7 @@ bool StructTraits<media::stable::mojom::DecoderBufferDataView,
               media::stable::mojom::DecoderBuffer::is_end_of_stream)>::value,
       "Unexpected type for media::DecoderBuffer::end_of_stream(). If you need "
       "to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
   return input->end_of_stream();
 }
 
@@ -324,7 +324,7 @@ uint32_t StructTraits<media::stable::mojom::DecoderBufferDataView,
   static_assert(
       std::is_same<decltype(input->data_size()), size_t>::value,
       "Unexpected type for media::DecoderBuffer::data_size(). If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
   if (!input->end_of_stream())
     return base::checked_cast<uint32_t>(input->data_size());
   return 0u;
@@ -340,7 +340,7 @@ bool StructTraits<media::stable::mojom::DecoderBufferDataView,
           decltype(media::stable::mojom::DecoderBuffer::is_key_frame)>::value,
       "Unexpected type for media::DecoderBuffer::is_key_frame(). If you need "
       "to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
   if (!input->end_of_stream())
     return input->is_key_frame();
   return false;
@@ -353,11 +353,11 @@ std::vector<uint8_t> StructTraits<media::stable::mojom::DecoderBufferDataView,
   static_assert(
       std::is_same<decltype(input->side_data()), const uint8_t*>::value,
       "Unexpected type for media::DecoderBuffer::side_data(). If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
   static_assert(std::is_same<decltype(input->side_data_size()), size_t>::value,
                 "Unexpected type for media::DecoderBuffer::side_data_size(). "
                 "If you need to change this assertion, please contact "
-                "chromeos-gfx-video@google.com.");
+                "chromeos-gfx-video@9oo91e.qjz9zk.");
   if (input->end_of_stream() || !input->side_data())
     return {};
   CHECK_GT(input->side_data_size(), 0u);
@@ -375,14 +375,14 @@ StructTraits<media::stable::mojom::DecoderBufferDataView,
                              const media::DecryptConfig*>::value,
                 "Unexpected type for media::DecoderBuffer::decrypt_config(). "
                 "If you need to change this assertion, please contact "
-                "chromeos-gfx-video@google.com.");
+                "chromeos-gfx-video@9oo91e.qjz9zk.");
   static_assert(
       std::is_same<
           decltype(input->decrypt_config()->Clone()),
           decltype(media::stable::mojom::DecoderBuffer::decrypt_config)>::value,
       "Unexpected type for media::DecoderBuffer::decrypt_config()->Clone(). If "
       "you need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
   if (input->end_of_stream() || !input->decrypt_config())
     return nullptr;
   std::unique_ptr<media::DecryptConfig> decrypt_config =
@@ -399,13 +399,13 @@ base::TimeDelta StructTraits<media::stable::mojom::DecoderBufferDataView,
       std::is_same<decltype(input->discard_padding()),
                    const std::pair<base::TimeDelta, base::TimeDelta>&>::value,
       "Unexpected type for input->discard_padding(). If you need to change "
-      "this assertion, please contact chromeos-gfx-video@google.com.");
+      "this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
   static_assert(
       std::is_same<
           decltype(input->discard_padding().first),
           decltype(media::stable::mojom::DecoderBuffer::front_discard)>::value,
       "Unexpected type for input->discard_padding().first. If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
   if (!input->end_of_stream())
     return input->discard_padding().first;
   return base::TimeDelta();
@@ -419,13 +419,13 @@ base::TimeDelta StructTraits<media::stable::mojom::DecoderBufferDataView,
       std::is_same<decltype(input->discard_padding()),
                    const std::pair<base::TimeDelta, base::TimeDelta>&>::value,
       "Unexpected type for input->discard_padding(). If you need to change "
-      "this assertion, please contact chromeos-gfx-video@google.com.");
+      "this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
   static_assert(
       std::is_same<
           decltype(input->discard_padding().second),
           decltype(media::stable::mojom::DecoderBuffer::back_discard)>::value,
       "Unexpected type for input->discard_padding().second. If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
   if (!input->end_of_stream())
     return input->discard_padding().second;
   return base::TimeDelta();
@@ -479,7 +479,7 @@ bool StructTraits<media::stable::mojom::DecoderBufferDataView,
                    std::pair<base::TimeDelta, base::TimeDelta>>::value,
       "Unexpected type for media::DecoderBuffer::DiscardPadding. If you need "
       "to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
   media::DecoderBuffer::DiscardPadding discard_padding(front_discard,
                                                        back_discard);
   decoder_buffer->set_discard_padding(discard_padding);
@@ -500,7 +500,7 @@ StructTraits<media::stable::mojom::DecryptConfigDataView,
               media::stable::mojom::DecryptConfig::encryption_scheme)>::value,
       "Unexpected type for media::DecryptConfig::encryption_scheme(). If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input->encryption_scheme();
 }
@@ -515,7 +515,7 @@ const std::string& StructTraits<media::stable::mojom::DecryptConfigDataView,
                        media::stable::mojom::DecryptConfig::key_id)>::type>::
                        type>::value,
       "Unexpected type for media::DecryptConfig::key_id(). If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input->key_id();
 }
@@ -530,7 +530,7 @@ const std::string& StructTraits<media::stable::mojom::DecryptConfigDataView,
           std::add_lvalue_reference<std::add_const<decltype(
               media::stable::mojom::DecryptConfig::iv)>::type>::type>::value,
       "Unexpected type for media::DecryptConfig::iv(). If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input->iv();
 }
@@ -547,7 +547,7 @@ StructTraits<media::stable::mojom::DecryptConfigDataView,
               media::stable::mojom::DecryptConfig::subsamples)>::type>::type>::
           value,
       "Unexpected type for media::DecryptConfig::subsamples(). If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input->subsamples();
 }
@@ -565,7 +565,7 @@ StructTraits<media::stable::mojom::DecryptConfigDataView,
               type>::value,
       "Unexpected type for media::DecryptConfig::encryption_pattern(). If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input->encryption_pattern();
 }
@@ -610,7 +610,7 @@ uint32_t StructTraits<
                                 max_content_light_level)>::value,
       "Unexpected type for gfx::HDRMetadata::max_content_light_level. If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.max_content_light_level;
 }
@@ -625,7 +625,7 @@ StructTraits<media::stable::mojom::HDRMetadataDataView, gfx::HDRMetadata>::
                                 max_frame_average_light_level)>::value,
       "Unexpected type for gfx::HDRMetadata::max_frame_average_light_level. If "
       "you need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.max_frame_average_light_level;
 }
@@ -641,7 +641,7 @@ const gfx::ColorVolumeMetadata& StructTraits<
               media::stable::mojom::HDRMetadata::color_volume_metadata)>::value,
       "Unexpected type for gfx::HDRMetadata::color_volume_metadata. If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.color_volume_metadata;
 }
@@ -666,7 +666,7 @@ StructTraits<media::stable::mojom::MediaLogRecordDataView,
                    decltype(media::stable::mojom::MediaLogRecord::id)>::value,
       "Unexpected type for media::MediaLogRecord::id. If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.id;
 }
@@ -680,7 +680,7 @@ StructTraits<media::stable::mojom::MediaLogRecordDataView,
                    decltype(media::stable::mojom::MediaLogRecord::type)>::value,
       "Unexpected type for media::MediaLogRecord::type. If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.type;
 }
@@ -693,7 +693,7 @@ const base::Value::Dict& StructTraits<
                              base::Value::Dict>::value,
                 "Unexpected type for media::MediaLogRecord::params. If you "
                 "need to change this assertion, please contact "
-                "chromeos-gfx-video@google.com.");
+                "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.params;
 }
@@ -707,7 +707,7 @@ StructTraits<media::stable::mojom::MediaLogRecordDataView,
                    decltype(media::stable::mojom::MediaLogRecord::time)>::value,
       "Unexpected type for media::MediaLogRecord::time. If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.time;
 }
@@ -742,7 +742,7 @@ const gfx::GpuMemoryBufferId& StructTraits<
               media::stable::mojom::NativeGpuMemoryBufferHandle::id)>::value,
       "Unexpected type for gfx::GpuMemoryBufferHandle::id. If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.id;
 }
@@ -787,7 +787,7 @@ media::stable::mojom::StatusCode StructTraits<
   static_assert(
       std::is_same_v<decltype(::media::internal::StatusData::code), uint16_t>,
       "Unexpected type for media::internal::StatusData::code. If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
 
   // TODO(b/215438024): enforce that this check implies that the input.code
   // really corresponds to media::DecoderStatusTraits::Codes.
@@ -798,7 +798,7 @@ media::stable::mojom::StatusCode StructTraits<
                      uint16_t>,
       "Unexpected underlying type for media::DecoderStatusTraits::Codes. If "
       "you need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
   if (input.code ==
       static_cast<uint16_t>(media::DecoderStatusTraits::Codes::kOk)) {
     return media::stable::mojom::StatusCode::kOk;
@@ -817,7 +817,7 @@ std::string StructTraits<media::stable::mojom::StatusDataDataView,
       std::is_same<decltype(::media::internal::StatusData::group),
                    decltype(media::stable::mojom::StatusData::group)>::value,
       "Unexpected type for media::internal::StatusData::group. If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
 
   CHECK(input.group == media::DecoderStatusTraits::Group());
 
@@ -833,7 +833,7 @@ std::string StructTraits<media::stable::mojom::StatusDataDataView,
                    decltype(media::stable::mojom::StatusData::message)>::value,
       "Unexpected type for media::internal::StatusData::message. If you need "
       "to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.message;
 }
@@ -847,7 +847,7 @@ base::span<const base::Value> StructTraits<
       std::is_same<decltype(::media::internal::StatusData::frames),
                    decltype(media::stable::mojom::StatusData::frames)>::value,
       "Unexpected type for media::internal::StatusData::frames. If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.frames;
 }
@@ -863,14 +863,14 @@ absl::optional<media::internal::StatusData> StructTraits<
                        media::stable::mojom::StatusData::cause)::value_type>::
                        type>::value,
       "Unexpected type for media::internal::StatusData::cause. If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
 
   static_assert(
       std::is_same_v<std::underlying_type_t<media::DecoderStatusTraits::Codes>,
                      media::StatusCodeType>,
       "Unexpected underlying type for media::DecoderStatusTraits::Codes. If "
       "you need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
 #if BUILDFLAG(USE_VAAPI)
   static_assert(
@@ -878,24 +878,24 @@ absl::optional<media::internal::StatusData> StructTraits<
                      uint16_t>,
       "Unexpected underlying type for media::VaapiStatusTraits::Codes. If "
       "you need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
   static_assert(
       static_cast<uint16_t>(media::VaapiStatusTraits::Codes::kOk) == 0u,
       "Unexpected value for media::VaapiStatusTraits::Codes::kOk. If "
       "you need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 #elif BUILDFLAG(USE_V4L2_CODEC)
   static_assert(
       std::is_same_v<std::underlying_type_t<media::V4L2StatusTraits::Codes>,
                      uint16_t>,
       "Unexpected underlying type for media::V4L2StatusTraits::Codes. If "
       "you need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
   static_assert(
       static_cast<uint16_t>(media::V4L2StatusTraits::Codes::kOk) == 0u,
       "Unexpected value for media::V4L2StatusTraits::Codes::kOk. If "
       "you need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 #endif
 
   if (input.cause) {
@@ -903,12 +903,12 @@ absl::optional<media::internal::StatusData> StructTraits<
     static_assert(
         std::is_same_v<decltype(output_cause.code), uint16_t>,
         "Unexpected type for output_cause.code. If you need to change this "
-        "assertion, please contact chromeos-gfx-video@google.com.");
+        "assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
 
     static_assert(
         std::is_same_v<decltype(output_cause.code), media::StatusCodeType>,
         "Unexpected type for output_cause.code. If you need to "
-        "change this assertion, please contact chromeos-gfx-video@google.com.");
+        "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
 
     // TODO(b/215438024): enforce that these checks imply that the
     // output_cause.code really corresponds to media::VaapiStatusTraits::Codes
@@ -941,7 +941,7 @@ const base::Value& StructTraits<media::stable::mojom::StatusDataDataView,
                    decltype(media::stable::mojom::StatusData::data)>::value,
       "Unexpected type for media::internal::StatusData::data::Clone(). If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.data;
 }
@@ -954,14 +954,14 @@ bool StructTraits<media::stable::mojom::StatusDataDataView,
   static_assert(
       std::is_same<decltype(output->code), media::StatusCodeType>::value,
       "Unexpected type for media::internal::StatusData::code. If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
 
   static_assert(
       std::is_same_v<std::underlying_type_t<media::DecoderStatusTraits::Codes>,
                      media::StatusCodeType>,
       "Unexpected underlying type for media::DecoderStatusTraits::Codes. If "
       "you need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   switch (data.code()) {
     case media::stable::mojom::StatusCode::kOk:
@@ -1017,7 +1017,7 @@ mojo::OptionalAsPointer<const media::internal::StatusData> StructTraits<
                        media::stable::mojom::Status::internal)::value_type>::
                        type>::value,
       "Unexpected type for media::DecoderStatus::data_. If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
 
   CHECK(input.data_ || input.is_ok());
 
@@ -1050,7 +1050,7 @@ StructTraits<media::stable::mojom::SupportedVideoDecoderConfigDataView,
                                 profile_min)>::value,
       "Unexpected type for media::SupportedVideoDecoderConfig::profile_min. If "
       "you need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.profile_min;
 }
@@ -1066,7 +1066,7 @@ StructTraits<media::stable::mojom::SupportedVideoDecoderConfigDataView,
                                 profile_max)>::value,
       "Unexpected type for media::SupportedVideoDecoderConfig::profile_max. If "
       "you need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.profile_max;
 }
@@ -1083,7 +1083,7 @@ StructTraits<media::stable::mojom::SupportedVideoDecoderConfigDataView,
                                 coded_size_min)>::value,
       "Unexpected type for media::SupportedVideoDecoderConfig::coded_size_min. "
       "If you need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.coded_size_min;
 }
@@ -1100,7 +1100,7 @@ StructTraits<media::stable::mojom::SupportedVideoDecoderConfigDataView,
                                 coded_size_max)>::value,
       "Unexpected type for media::SupportedVideoDecoderConfig::coded_size_max. "
       "If you need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.coded_size_max;
 }
@@ -1116,7 +1116,7 @@ bool StructTraits<media::stable::mojom::SupportedVideoDecoderConfigDataView,
                                 allow_encrypted)>::value,
       "Unexpected type for "
       "media::SupportedVideoDecoderConfig::allow_encrypted. If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.allow_encrypted;
 }
@@ -1132,7 +1132,7 @@ bool StructTraits<media::stable::mojom::SupportedVideoDecoderConfigDataView,
                                 require_encrypted)>::value,
       "Unexpected type for "
       "media::SupportedVideoDecoderConfig::require_encrypted. If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.require_encrypted;
 }
@@ -1169,7 +1169,7 @@ uint32_t StructTraits<
           decltype(::media::SubsampleEntry::clear_bytes),
           decltype(media::stable::mojom::SubsampleEntry::clear_bytes)>::value,
       "Unexpected type for media::SubsampleEntry::clear_bytes. If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.clear_bytes;
 }
@@ -1183,7 +1183,7 @@ uint32_t StructTraits<
           decltype(::media::SubsampleEntry::cypher_bytes),
           decltype(media::stable::mojom::SubsampleEntry::cypher_bytes)>::value,
       "Unexpected type for media::SubsampleEntry::cypher_bytes. If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.cypher_bytes;
 }
@@ -1206,7 +1206,7 @@ media::VideoCodec StructTraits<
                    decltype(
                        media::stable::mojom::VideoDecoderConfig::codec)>::value,
       "Unexpected type for media::VideoDecoderConfig::codec(). If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.codec();
 }
@@ -1222,7 +1222,7 @@ media::VideoCodecProfile StructTraits<
           decltype(media::stable::mojom::VideoDecoderConfig::profile)>::value,
       "Unexpected type for media::VideoDecoderConfig::profile(). If you need "
       "to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.profile();
 }
@@ -1235,7 +1235,7 @@ bool StructTraits<media::stable::mojom::VideoDecoderConfigDataView,
                              media::VideoDecoderConfig::AlphaMode>::value,
                 "Unexpected type for media::VideoDecoderConfig::alpha_mode(). "
                 "If you need to change this assertion, please contact "
-                "chromeos-gfx-video@google.com.");
+                "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   // This is deliberately written as a switch so that we get alerted when
   // someone makes changes to media::VideoDecoderConfig::AlphaMode.
@@ -1261,7 +1261,7 @@ const gfx::Size& StructTraits<media::stable::mojom::VideoDecoderConfigDataView,
                                                  type>::type>::value,
       "Unexpected type for media::VideoDecoderConfig::coded_size(). If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.coded_size();
 }
@@ -1278,7 +1278,7 @@ const gfx::Rect& StructTraits<media::stable::mojom::VideoDecoderConfigDataView,
               type>::value,
       "Unexpected type for media::VideoDecoderConfig::visible_rect(). If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.visible_rect();
 }
@@ -1295,7 +1295,7 @@ const gfx::Size& StructTraits<media::stable::mojom::VideoDecoderConfigDataView,
               type>::value,
       "Unexpected type for media::VideoDecoderConfig::natural_size(). If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.natural_size();
 }
@@ -1312,7 +1312,7 @@ const std::vector<uint8_t>& StructTraits<
                                                  type>::type>::value,
       "Unexpected type for media::VideoDecoderConfig::extra_data(). If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.extra_data();
 }
@@ -1328,7 +1328,7 @@ StructTraits<media::stable::mojom::VideoDecoderConfigDataView,
                                 encryption_scheme)>::value,
       "Unexpected type for media::VideoDecoderConfig::encryption_scheme(). If "
       "you need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.encryption_scheme();
 }
@@ -1343,7 +1343,7 @@ StructTraits<media::stable::mojom::VideoDecoderConfigDataView,
                    const media::VideoColorSpace&>::value,
       "Unexpected type for media::VideoDecoderConfig::color_space_info(). If "
       "you need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.color_space_info().ToGfxColorSpace();
 }
@@ -1361,7 +1361,7 @@ const absl::optional<gfx::HDRMetadata>& StructTraits<
               type>::value,
       "Unexpected type for media::VideoDecoderConfig::hdr_metadata(). If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.hdr_metadata();
 }
@@ -1375,7 +1375,7 @@ uint32_t StructTraits<
                    decltype(
                        media::stable::mojom::VideoDecoderConfig::level)>::value,
       "Unexpected type for media::VideoDecoderConfig::level(). If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.level();
 }
@@ -1449,7 +1449,7 @@ media::VideoPixelFormat StructTraits<media::stable::mojom::VideoFrameDataView,
                    decltype(media::stable::mojom::VideoFrame::format)>::value,
       "Unexpected type for media::VideoFrame::format(). If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input->format();
 }
@@ -1465,7 +1465,7 @@ const gfx::Size& StructTraits<media::stable::mojom::VideoFrameDataView,
                        type>::value,
       "Unexpected type for media::VideoFrame::coded_size(). If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input->coded_size();
 }
@@ -1481,7 +1481,7 @@ const gfx::Rect& StructTraits<media::stable::mojom::VideoFrameDataView,
                        type>::value,
       "Unexpected type for media::VideoFrame::visible_rect(). If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input->visible_rect();
 }
@@ -1497,7 +1497,7 @@ const gfx::Size& StructTraits<media::stable::mojom::VideoFrameDataView,
                        type>::value,
       "Unexpected type for media::VideoFrame::natural_size(). If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input->natural_size();
 }
@@ -1512,7 +1512,7 @@ base::TimeDelta StructTraits<media::stable::mojom::VideoFrameDataView,
                        media::stable::mojom::VideoFrame::timestamp)>::value,
       "Unexpected type for media::VideoFrame::timestamp(). If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input->timestamp();
 }
@@ -1527,7 +1527,7 @@ gfx::ColorSpace StructTraits<media::stable::mojom::VideoFrameDataView,
                        media::stable::mojom::VideoFrame::color_space)>::value,
       "Unexpected type for media::VideoFrame::ColorSpace(). If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input->ColorSpace();
 }
@@ -1544,7 +1544,7 @@ StructTraits<media::stable::mojom::VideoFrameDataView,
                        type>::value,
       "Unexpected type for media::VideoFrame::hdr_metadata(). If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input->hdr_metadata();
 }
@@ -1569,7 +1569,7 @@ StructTraits<media::stable::mojom::VideoFrameDataView,
               media::stable::mojom::VideoFrame::metadata)>::type>::value,
       "Unexpected type for media::VideoFrame::metadata(). If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input->metadata();
 }
@@ -1685,7 +1685,7 @@ bool StructTraits<media::stable::mojom::VideoFrameMetadataDataView,
               media::stable::mojom::VideoFrameMetadata::allow_overlay)>::value,
       "Unexpected type for media::VideoFrameMetadata::allow_overlay. If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.allow_overlay;
 }
@@ -1701,7 +1701,7 @@ bool StructTraits<media::stable::mojom::VideoFrameMetadataDataView,
               media::stable::mojom::VideoFrameMetadata::end_of_stream)>::value,
       "Unexpected type for media::VideoFrameMetadata::end_of_stream. If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.end_of_stream;
 }
@@ -1717,7 +1717,7 @@ bool StructTraits<media::stable::mojom::VideoFrameMetadataDataView,
                                 read_lock_fences_enabled)>::value,
       "Unexpected type for "
       "media::VideoFrameMetadata::read_lock_fences_enabled. If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.read_lock_fences_enabled;
 }
@@ -1732,7 +1732,7 @@ bool StructTraits<media::stable::mojom::VideoFrameMetadataDataView,
                                 protected_video)>::value,
       "Unexpected type for media::VideoFrameMetadata::protected_video. If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.protected_video;
 }
@@ -1748,7 +1748,7 @@ bool StructTraits<media::stable::mojom::VideoFrameMetadataDataView,
               media::stable::mojom::VideoFrameMetadata::hw_protected)>::value,
       "Unexpected type for media::VideoFrameMetadata::hw_protected. If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.hw_protected;
 }
@@ -1763,7 +1763,7 @@ bool StructTraits<media::stable::mojom::VideoFrameMetadataDataView,
                                 power_efficient)>::value,
       "Unexpected type for media::VideoFrameMetadata::power_efficient. If you "
       "need to change this assertion, please contact "
-      "chromeos-gfx-video@google.com.");
+      "chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return input.power_efficient;
 }

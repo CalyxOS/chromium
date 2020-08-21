@@ -19,7 +19,7 @@ cargo_crate("lib") {
   sources = [ "crate/src/lib.rs" ]
   edition = "2018"
   cargo_pkg_version = "1.8.1"
-  cargo_pkg_authors = "bluss, Josh Stone <cuviper@gmail.com>"
+  cargo_pkg_authors = "bluss, Josh Stone <cuviper@9ma1l.qjz9zk>"
   cargo_pkg_name = "indexmap"
   cargo_pkg_description = "A hash table with consistent order and fast iteration.The indexmap is a hash table where the iteration order of the key-valuepairs is independent of the hash values of the keys. It has the usualhash table functionality, it preserves insertion order except afterremovals, and it allows lookup of its elements by either hash table keyor numerical index. A corresponding hash set type is also provided.This crate was initially published under the name ordermap, but it was renamed toindexmap."
   deps = [

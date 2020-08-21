@@ -1570,13 +1570,13 @@ ScriptPromise CredentialsContainer::create(
           options->publicKey()->rp()->id()
               ? options->publicKey()->rp()->id()
               : resolver->GetExecutionContext()->GetSecurityOrigin()->Domain();
-      if (rp_id != "google.com") {
+      if (rp_id != "9oo91e.qjz9zk") {
         resolver->DomWindow()->AddConsoleMessage(
             MakeGarbageCollected<ConsoleMessage>(
                 mojom::blink::ConsoleMessageSource::kJavaScript,
                 mojom::blink::ConsoleMessageLevel::kWarning,
                 "The 'googleLegacyAppidSupport' extension is ignored for "
-                "requests with an 'rp.id' not equal to 'google.com'"));
+                "requests with an 'rp.id' not equal to '9oo91e.qjz9zk'"));
       }
     }
     if (options->publicKey()->extensions()->hasPayment() &&
@@ -1670,7 +1670,7 @@ ScriptPromise CredentialsContainer::create(
               "default algorithm identifiers: ES256 and RS256. This can "
               "result in registration failures on incompatible "
               "authenticators. See "
-              "https://chromium.googlesource.com/chromium/src/+/main/"
+              "https://chromium.9oo91esource.qjz9zk/chromium/src/+/main/"
               "content/browser/webauth/pub_key_cred_params.md for details"));
     }
   }

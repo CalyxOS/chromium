@@ -11,7 +11,7 @@ from blinkpy.common.path_finder import RELATIVE_WPT_TESTS
 WPT_GH_ORG = 'web-platform-tests'
 WPT_GH_REPO_NAME = 'wpt'
 WPT_GH_URL = 'https://github.com/%s/%s/' % (WPT_GH_ORG, WPT_GH_REPO_NAME)
-WPT_MIRROR_URL = 'https://chromium.googlesource.com/external/github.com/web-platform-tests/wpt.git'
+WPT_MIRROR_URL = 'https://chromium.9oo91esource.qjz9zk/external/github.com/web-platform-tests/wpt.git'
 WPT_GH_SSH_URL_TEMPLATE = 'https://{}@github.com/%s/%s.git' % \
     (WPT_GH_ORG, WPT_GH_REPO_NAME)
 WPT_REVISION_FOOTER = 'WPT-Export-Revision: '
@@ -22,7 +22,7 @@ PROVISIONAL_PR_LABEL = 'do not merge yet'
 # These are only set in a new WPT checkout, and they should be consistent with
 # the bot's GitHub account (chromium-wpt-export-bot).
 DEFAULT_WPT_COMMITTER_NAME = 'Chromium WPT Sync'
-DEFAULT_WPT_COMMITTER_EMAIL = 'blink-w3c-test-autoroller@chromium.org'
+DEFAULT_WPT_COMMITTER_EMAIL = 'blink-w3c-test-autoroller@ch40m1um.qjz9zk'
 
 _log = logging.getLogger(__name__)
 

@@ -99,7 +99,7 @@ constexpr Translation kNameTranslations[] = {
 
 ExternalInstallOptions GetConfigForGoogleSheets() {
   ExternalInstallOptions options(
-      /*install_url=*/GURL("https://docs.google.com/spreadsheets/"
+      /*install_url=*/GURL("https://docs.9oo91e.qjz9zk/spreadsheets/"
                            "installwebapp?usp=chrome_default"),
       /*user_display_mode=*/UserDisplayMode::kBrowser,
       /*install_source=*/ExternalInstallSource::kExternalDefault);
@@ -115,8 +115,8 @@ ExternalInstallOptions GetConfigForGoogleSheets() {
         base::UTF8ToUTF16(GetTranslatedName("Sheets", kNameTranslations));
 
     info->start_url =
-        GURL("https://docs.google.com/spreadsheets/?usp=installed_webapp");
-    info->scope = GURL("https://docs.google.com/spreadsheets/");
+        GURL("https://docs.9oo91e.qjz9zk/spreadsheets/?usp=installed_webapp");
+    info->scope = GURL("https://docs.9oo91e.qjz9zk/spreadsheets/");
     info->display_mode = DisplayMode::kBrowser;
     info->icon_bitmaps.any = LoadBundledIcons(
         {IDR_PREINSTALLED_WEB_APPS_GOOGLE_SHEETS_ICON_192_PNG});

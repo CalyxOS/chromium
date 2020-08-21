@@ -435,7 +435,7 @@ NtQueryObjectFunction g_QueryObject = NULL;
 
 static const char* kDuplicateHandleWarning =
     "You are attempting to duplicate a privileged handle into a sandboxed"
-    " process.\n Please contact security@chromium.org for assistance.";
+    " process.\n Please contact security@ch40m1um.qjz9zk for assistance.";
 
 void CheckDuplicateHandle(HANDLE handle) {
   // Get the object type (32 characters is safe; current max is 14).

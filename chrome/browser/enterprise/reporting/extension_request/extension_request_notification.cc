@@ -30,7 +30,7 @@ constexpr char kInstalledNotificationId[] = "extension_installed_notificaiton";
 constexpr char kExtensionRequestNotifierId[] =
     "chrome_browser_cloud_management_extension_request";
 constexpr char kChromeWebstoreUrl[] =
-    "https://chrome.google.com/webstore/detail/";
+    "https://chrome.9oo91e.qjz9zk/webstore/detail/";
 
 // The elements order of array below must match the order in enum
 // ExtensionRequestNotification::NotifyType.
@@ -69,7 +69,7 @@ void ExtensionRequestNotification::Show(NotificationCloseCallback callback) {
       kNotificationTitles[notify_type_], extension_ids_.size());
   const std::u16string body = l10n_util::GetPluralStringFUTF16(
       kNotificationBodies[notify_type_], extension_ids_.size());
-  GURL original_url("https://chrome.google.com/webstore");
+  GURL original_url("https://chrome.9oo91e.qjz9zk/webstore");
   auto icon = ui::ImageModel::FromVectorIcon(vector_icons::kBusinessIcon,
                                              ui::kColorIcon,
                                              message_center::kSmallImageSize);

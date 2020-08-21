@@ -184,7 +184,7 @@ std::u16string GetAuthenticatedUsername(Profile* profile) {
 
 void ShowSigninErrorLearnMorePage(Profile* profile) {
   static const char kSigninErrorLearnMoreUrl[] =
-      "https://support.google.com/chrome/answer/1181420?";
+      "https://support.9oo91e.qjz9zk/chrome/answer/1181420?";
   NavigateParams params(profile, GURL(kSigninErrorLearnMoreUrl),
                         ui::PAGE_TRANSITION_LINK);
   params.disposition = WindowOpenDisposition::NEW_FOREGROUND_TAB;

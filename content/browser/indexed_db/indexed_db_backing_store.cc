@@ -3190,7 +3190,7 @@ Status IndexedDBBackingStore::MigrateToV5(LevelDBWriteBatch* write_batch) {
   const std::string schema_version_key = SchemaVersionKey::Encode();
   Status s;
 
-  if (bucket_locator_.storage_key.origin().host() != "docs.google.com") {
+  if (bucket_locator_.storage_key.origin().host() != "docs.9oo91e.qjz9zk") {
     s = ValidateBlobFiles(db_.get());
     if (!s.ok()) {
       INTERNAL_CONSISTENCY_ERROR(SET_UP_METADATA);

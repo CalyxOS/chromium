@@ -451,7 +451,7 @@ class Gadget(object):
   def GetMicrosoftOSDescriptorV1(self, recipient, value, index, length):
     """Handle a the Microsoft OS 1.0 Descriptor request from the host.
 
-    See https://msdn.microsoft.com/en-us/windows/hardware/gg463179 for the
+    See https://msdn.m1cr050ft.qjz9zk/en-us/windows/hardware/gg463179 for the
     format of these descriptors.
 
     Args:

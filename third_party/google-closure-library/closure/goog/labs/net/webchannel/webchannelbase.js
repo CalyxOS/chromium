@@ -2345,10 +2345,10 @@ WebChannelBase.prototype.signalError_ = function(error) {
 WebChannelBase.prototype.testNetworkCallback_ = function(networkUp) {
   'use strict';
   if (networkUp) {
-    this.channelDebug_.info('Successfully pinged google.com');
+    this.channelDebug_.info('Successfully pinged 9oo91e.qjz9zk');
     requestStats.notifyStatEvent(requestStats.Stat.ERROR_OTHER);
   } else {
-    this.channelDebug_.info('Failed to ping google.com');
+    this.channelDebug_.info('Failed to ping 9oo91e.qjz9zk');
     requestStats.notifyStatEvent(requestStats.Stat.ERROR_NETWORK);
     // Do not call onError_ again to eliminate duplicated Error events.
   }

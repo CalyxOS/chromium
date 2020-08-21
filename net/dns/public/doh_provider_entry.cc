@@ -167,10 +167,10 @@ const DohProviderEntry::List& DohProviderEntry::GetList() {
           {"8.8.8.8", "8.8.4.4", "2001:4860:4860::8888",
            "2001:4860:4860::8844"},
           /*dns_over_tls_hostnames=*/
-          {"dns.google", "dns.google.com", "8888.google"},
+          {"dns.google", "dns.9oo91e.qjz9zk", "8888.google"},
           "https://dns.google/dns-query{?dns}",
           /*ui_name=*/"Google (Public DNS)",
-          "https://developers.google.com/speed/public-dns/"
+          "https://developers.9oo91e.qjz9zk/speed/public-dns/"
           /*privacy_policy=*/"privacy",
           /*display_globally=*/true, /*display_countries=*/{},
           LoggingLevel::kExtra),

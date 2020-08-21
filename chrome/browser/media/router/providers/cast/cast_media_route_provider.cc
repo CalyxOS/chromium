@@ -36,9 +36,9 @@ constexpr char kLoggerComponent[] = "CastMediaRouteProvider";
 
 // List of origins allowed to use a PresentationRequest to initiate mirroring.
 constexpr std::array<base::StringPiece, 3> kPresentationApiAllowlist = {
-    "https://docs.google.com",
-    "https://meet.google.com",
-    "https://music.youtube.com",
+    "https://docs.9oo91e.qjz9zk",
+    "https://meet.9oo91e.qjz9zk",
+    "https://music.y0u1ub3.qjz9zk",
 };
 
 // Returns a list of origins that are valid for |source_id|. An empty list

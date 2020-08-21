@@ -149,42 +149,42 @@ ADDITIONAL_PATHS = (
 SPECIAL_CASES = {
     os.path.join('native_client'): {
         "Name": "native client",
-        "URL": "http://code.google.com/p/nativeclient",
+        "URL": "http://code.9oo91e.qjz9zk/p/nativeclient",
         "License": "BSD",
     },
     os.path.join('testing', 'gmock'): {
         "Name": "gmock",
-        "URL": "http://code.google.com/p/googlemock",
+        "URL": "http://code.9oo91e.qjz9zk/p/googlemock",
         "License": "BSD",
         "License File": "NOT_SHIPPED",
     },
     os.path.join('testing', 'gtest'): {
         "Name": "gtest",
-        "URL": "http://code.google.com/p/googletest",
+        "URL": "http://code.9oo91e.qjz9zk/p/googletest",
         "License": "BSD",
         "License File": "NOT_SHIPPED",
     },
     os.path.join('third_party', 'angle'): {
         "Name": "Almost Native Graphics Layer Engine",
-        "URL": "http://code.google.com/p/angleproject/",
+        "URL": "http://code.9oo91e.qjz9zk/p/angleproject/",
         "License": "BSD",
     },
     os.path.join('third_party', 'cros_system_api'): {
         "Name": "Chromium OS system API",
-        "URL": "http://www.chromium.org/chromium-os",
+        "URL": "http://www.ch40m1um.qjz9zk/chromium-os",
         "License": "BSD",
         # Absolute path here is resolved as relative to the source root.
         "License File": "/LICENSE.chromium_os",
     },
     os.path.join('third_party', 'ipcz'): {
         "Name": "ipcz",
-        "URL" : "https://chromium.googlesource.com/chromium/src/third_party/ipcz",
+        "URL" : "https://chromium.9oo91esource.qjz9zk/chromium/src/third_party/ipcz",
         "License": "BSD",
         "License File": "/third_party/ipcz/LICENSE",
     },
     os.path.join('third_party', 'lss'): {
         "Name": "linux-syscall-support",
-        "URL": "http://code.google.com/p/linux-syscall-support/",
+        "URL": "http://code.9oo91e.qjz9zk/p/linux-syscall-support/",
         "License": "BSD",
         "License File": "/LICENSE",
     },
@@ -198,7 +198,7 @@ SPECIAL_CASES = {
                  'boringssl'):
     {
         "Name": "BoringSSL",
-        "URL": "https://boringssl.googlesource.com/boringssl/",
+        "URL": "https://boringssl.9oo91esource.qjz9zk/boringssl/",
         "License": "BSDish",
         "License File": "/third_party/boringssl/src/LICENSE",
     },
@@ -218,12 +218,12 @@ SPECIAL_CASES = {
     },
     os.path.join('third_party', 'pdfium'): {
         "Name": "PDFium",
-        "URL": "http://code.google.com/p/pdfium/",
+        "URL": "http://code.9oo91e.qjz9zk/p/pdfium/",
         "License": "BSD",
     },
     os.path.join('third_party', 'ppapi'): {
         "Name": "ppapi",
-        "URL": "http://code.google.com/p/ppapi/",
+        "URL": "http://code.9oo91e.qjz9zk/p/ppapi/",
     },
     os.path.join('third_party', 'scons-2.0.1'): {
         "Name": "scons-2.0.1",
@@ -239,7 +239,7 @@ SPECIAL_CASES = {
     },
     os.path.join('third_party', 'crashpad', 'crashpad', 'third_party', 'lss'): {
         "Name": "linux-syscall-support",
-        "URL": "https://chromium.googlesource.com/linux-syscall-support/",
+        "URL": "https://chromium.9oo91esource.qjz9zk/linux-syscall-support/",
         "License": "BSD",
         "License File": "NOT_SHIPPED",
     },
@@ -247,7 +247,7 @@ SPECIAL_CASES = {
                  'mini_chromium'):
     {
         "Name": "mini_chromium",
-        "URL": "https://chromium.googlesource.com/chromium/mini_chromium/",
+        "URL": "https://chromium.9oo91esource.qjz9zk/chromium/mini_chromium/",
         "License": "BSD",
         "License File": "NOT_SHIPPED",
     },
@@ -266,7 +266,7 @@ SPECIAL_CASES = {
     },
     os.path.join('third_party', 'v8-i18n'): {
         "Name": "Internationalization Library for v8",
-        "URL": "http://code.google.com/p/v8-i18n/",
+        "URL": "http://code.9oo91e.qjz9zk/p/v8-i18n/",
         "License": "Apache 2.0",
     },
     os.path.join('third_party', 'blink'): {
@@ -282,19 +282,19 @@ SPECIAL_CASES = {
     },
     os.path.join('third_party', 'webpagereplay'): {
         "Name": "webpagereplay",
-        "URL": "http://code.google.com/p/web-page-replay",
+        "URL": "http://code.9oo91e.qjz9zk/p/web-page-replay",
         "License": "Apache 2.0",
         "License File": "NOT_SHIPPED",
     },
     os.path.join('tools', 'gyp'): {
         "Name": "gyp",
-        "URL": "http://code.google.com/p/gyp",
+        "URL": "http://code.9oo91e.qjz9zk/p/gyp",
         "License": "BSD",
         "License File": "NOT_SHIPPED",
     },
     os.path.join('v8'): {
         "Name": "V8 JavaScript Engine",
-        "URL": "http://code.google.com/p/v8",
+        "URL": "http://code.9oo91e.qjz9zk/p/v8",
         "License": "BSD",
     },
     os.path.join('v8', 'strongtalk'): {
@@ -322,13 +322,13 @@ SPECIAL_CASES = {
     },
     os.path.join('tools', 'telemetry', 'third_party', 'gsutil'): {
         "Name": "gsutil",
-        "URL": "https://cloud.google.com/storage/docs/gsutil",
+        "URL": "https://cloud.9oo91e.qjz9zk/storage/docs/gsutil",
         "License": "Apache 2.0",
         "License File": "NOT_SHIPPED",
     },
     os.path.join('third_party', 'swiftshader'): {
         "Name": "SwiftShader",
-        "URL": "https://swiftshader.googlesource.com/SwiftShader",
+        "URL": "https://swiftshader.9oo91esource.qjz9zk/SwiftShader",
         "License": "Apache 2.0 and compatible licenses",
         "License Android Compatible": "yes",
         "License File": "/third_party/swiftshader/LICENSE.txt",
@@ -735,7 +735,7 @@ def GenerateCredits(file_template_file,
   # Start from Chromium's LICENSE file
   chromium_license_metadata = {
       'Name': 'The Chromium Project',
-      'URL': 'http://www.chromium.org',
+      'URL': 'http://www.ch40m1um.qjz9zk',
       'License File': os.path.join(_REPOSITORY_ROOT, 'LICENSE')
   }
   entries.append(

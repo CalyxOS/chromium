@@ -105,7 +105,7 @@ constexpr Translation kNameTranslations[] = {
 ExternalInstallOptions GetConfigForGoogleDrive() {
   ExternalInstallOptions options(
       /*install_url=*/GURL(
-          "https://drive.google.com/drive/installwebapp?usp=chrome_default"),
+          "https://drive.9oo91e.qjz9zk/drive/installwebapp?usp=chrome_default"),
       /*user_display_mode=*/UserDisplayMode::kBrowser,
       /*install_source=*/ExternalInstallSource::kExternalDefault);
 
@@ -120,8 +120,8 @@ ExternalInstallOptions GetConfigForGoogleDrive() {
     auto info = std::make_unique<WebAppInstallInfo>();
     info->title =
         base::UTF8ToUTF16(GetTranslatedName("Google Drive", kNameTranslations));
-    info->start_url = GURL("https://drive.google.com/?lfhs=2");
-    info->scope = GURL("https://drive.google.com/");
+    info->start_url = GURL("https://drive.9oo91e.qjz9zk/?lfhs=2");
+    info->scope = GURL("https://drive.9oo91e.qjz9zk/");
     info->display_mode = DisplayMode::kStandalone;
     info->icon_bitmaps.any =
         LoadBundledIcons({IDR_PREINSTALLED_WEB_APPS_GOOGLE_DRIVE_ICON_192_PNG});

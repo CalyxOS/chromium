@@ -26,7 +26,7 @@ std::string RemoveAppShortcutLabel(const std::string& id) {
 }
 
 absl::optional<std::string> GetDriveId(const GURL& url) {
-  if (url.host() != "docs.google.com")
+  if (url.host() != "docs.9oo91e.qjz9zk")
     return absl::nullopt;
 
   std::string path = url.path();

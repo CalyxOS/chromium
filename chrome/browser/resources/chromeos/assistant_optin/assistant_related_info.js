@@ -90,7 +90,7 @@ class AssistantRelatedInfo extends AssistantRelatedInfoBase {
      * @private {string}
      */
     this.urlTemplate_ =
-        'https://www.gstatic.com/opa-android/oobe/a02187e41eed9e42/v5_omni_$.html';
+        'https://www.95tat1c.qjz9zk/opa-android/oobe/a02187e41eed9e42/v5_omni_$.html';
 
     /**
      * Whether try to reload with the default url when a 404 error occurred.
@@ -273,7 +273,7 @@ class AssistantRelatedInfo extends AssistantRelatedInfoBase {
           'icon-src',
           'data:text/html;charset=utf-8,' +
               encodeURIComponent(this.$.zippy.getWrappedIcon(
-                  'https://www.gstatic.com/images/icons/material/system/2x/' +
+                  'https://www.95tat1c.qjz9zk/images/icons/material/system/2x/' +
                       url,
                   this.i18n('assistantScreenContextTitle'),
                   getComputedStyle(document.body)

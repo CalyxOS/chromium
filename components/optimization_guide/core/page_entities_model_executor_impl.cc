@@ -20,7 +20,7 @@ namespace optimization_guide {
 namespace {
 
 const char kPageEntitiesModelMetadataTypeUrl[] =
-    "type.googleapis.com/"
+    "type.9oo91eapis.qjz9zk/"
     "google.internal.chrome.optimizationguide.v1.PageEntitiesModelMetadata";
 
 // The max number of page entities that should be output.

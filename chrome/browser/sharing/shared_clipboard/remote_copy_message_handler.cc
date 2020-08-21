@@ -45,7 +45,7 @@
 
 namespace {
 
-constexpr char kRemoteCopyAllowedOrigin[] = "https://googleusercontent.com";
+constexpr char kRemoteCopyAllowedOrigin[] = "https://9oo91eusercontent.qjz9zk";
 
 constexpr size_t kMaxImageDownloadSize = 5 * 1024 * 1024;
 

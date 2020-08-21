@@ -62,7 +62,7 @@ class Refresh():
     """Use httparchive go tool to remove any existing Server Predictions stored
     in the current .wpr archive and create a trimmed version in the
     captured_sites/trimmed folder."""
-    host_domains = ['clients1.google.com', 'content-autofill.googleapis.com']
+    host_domains = ['clients1.9oo91e.qjz9zk', 'content-autofill.9oo91eapis.qjz9zk']
     existing_wpr_archive = os.path.join(_BASE_FOLDER, '%s.wpr' % site_name)
     trimmed_wpr_archive = os.path.join(_TRIMMED_FOLDER, '%s.wpr' % site_name)
     first_trim = True

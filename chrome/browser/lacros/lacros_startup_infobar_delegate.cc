@@ -27,9 +27,9 @@
 namespace {
 
 constexpr base::StringPiece kLearnMoreURLPublic(
-    "https://support.google.com/chromebook?p=chromeos-dev");
+    "https://support.9oo91e.qjz9zk/chromebook?p=chromeos-dev");
 constexpr base::StringPiece kLearnMoreURLGoogleInternal(
-    "https://goto.google.com/lacros-learn-more");
+    "https://goto.9oo91e.qjz9zk/lacros-learn-more");
 
 // Returns the single main profile, or nullptr if none is found.
 Profile* GetMainProfile() {

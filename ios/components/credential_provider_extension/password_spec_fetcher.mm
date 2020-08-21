@@ -18,7 +18,7 @@ namespace {
 
 // URL of the fetching endpoint.
 NSString* const kPasswordSpecURL =
-    @"https://content-autofill.googleapis.com/v1/domainSuggestions/";
+    @"https://content-autofill.9oo91eapis.qjz9zk/v1/domainSuggestions/";
 // Header field name for the API key.
 NSString* const kApiKeyHeaderField = @"X-Goog-Api-Key";
 // Encoding requested from the server.

@@ -27,7 +27,7 @@ namespace safe_browsing {
 namespace {
 
 #if BUILDFLAG(GOOGLE_CHROME_BRANDING)
-constexpr char kOmahaUrl[] = "https://tools.google.com/service/update2";
+constexpr char kOmahaUrl[] = "https://tools.9oo91e.qjz9zk/service/update2";
 #endif  // BUILDFLAG(GOOGLE_CHROME_BRANDING)
 
 }  // namespace

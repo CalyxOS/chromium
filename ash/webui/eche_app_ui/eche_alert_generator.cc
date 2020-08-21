@@ -35,7 +35,7 @@ const char kEcheAppNetworkSettingNotifierId[] =
 
 // TODO(crbug.com/1241352): This should probably have a ?p=<FEATURE_NAME> at
 // some point.
-const char kEcheAppLearnMoreUrl[] = "https://support.google.com/chromebook";
+const char kEcheAppLearnMoreUrl[] = "https://support.9oo91e.qjz9zk/chromebook";
 
 EcheAlertGenerator::EcheAlertGenerator(LaunchAppHelper* launch_app_helper,
                                        PrefService* pref_service)

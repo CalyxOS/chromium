@@ -29,7 +29,7 @@ namespace {
 // -------------------- CryptAuth v1 Endpoints --------------------
 
 // Default URL of Google APIs endpoint hosting CryptAuth v1.
-const char kDefaultCryptAuthV1HTTPHost[] = "https://www.googleapis.com";
+const char kDefaultCryptAuthV1HTTPHost[] = "https://www.9oo91eapis.qjz9zk";
 
 // URL subpath hosting the CryptAuth v1 service.
 const char kCryptAuthV1Path[] = "cryptauth/v1/";
@@ -49,11 +49,11 @@ const char kFinishEnrollmentPath[] = "enrollment/finish";
 
 // Default URL of Google APIs endpoint hosting CryptAuth v2 Enrollment.
 const char kDefaultCryptAuthV2EnrollmentHTTPHost[] =
-    "https://cryptauthenrollment.googleapis.com";
+    "https://cryptauthenrollment.9oo91eapis.qjz9zk";
 
 // Default URL of Google APIs endpoint hosting CryptAuth v2 DeviceSync.
 const char kDefaultCryptAuthV2DeviceSyncHTTPHost[] =
-    "https://cryptauthdevicesync.googleapis.com";
+    "https://cryptauthdevicesync.9oo91eapis.qjz9zk";
 
 // URL subpaths for each CryptAuth v2 API endpoint.
 // Note: Although "v1" is part of the path names, these are in fact v2 API
@@ -69,7 +69,7 @@ const char kBatchSetFeatureStatusesPath[] = "/v1:batchSetFeatureStatuses";
 const char kGetDevicesActivityStatusPath[] = "/v1:getDevicesActivityStatus";
 
 const char kCryptAuthOAuth2Scope[] =
-    "https://www.googleapis.com/auth/cryptauth";
+    "https://www.9oo91eapis.qjz9zk/auth/cryptauth";
 
 // Creates the full CryptAuth v1 URL for endpoint to the API with
 // |request_path|.

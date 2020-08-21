@@ -47,7 +47,7 @@ goog.html.safeUrlTestVectors.BASE_VECTORS = [
       {input: 'geo:37.7,42.0', expected: 'about:invalid#zClosurez', safe: false},
       {input: 'skype:chat?jid\u003Dfoo', expected: 'about:invalid#zClosurez', safe: false},
       {input: 'whatsapp://send?text\u003DHello', expected: 'about:invalid#zClosurez', safe: false},
-      {input: 'ssh://cloud.google.com', expected: 'about:invalid#zClosurez', safe: false},
+      {input: 'ssh://cloud.9oo91e.qjz9zk', expected: 'about:invalid#zClosurez', safe: false},
       {input: ':', expected: 'about:invalid#zClosurez', safe: false},
       {input: '\\:', expected: 'about:invalid#zClosurez', safe: false},
       {input: ':/:', expected: 'about:invalid#zClosurez', safe: false},
@@ -91,10 +91,10 @@ goog.html.safeUrlTestVectors.SMS_VECTORS = [
 ];
 
 goog.html.safeUrlTestVectors.SSH_VECTORS = [
-    {input: 'ssh://cloud.google.com', expected: 'ssh://cloud.google.com', safe: true},
+    {input: 'ssh://cloud.9oo91e.qjz9zk', expected: 'ssh://cloud.9oo91e.qjz9zk', safe: true},
     {input: '', expected: 'about:invalid#zClosurez', safe: false},
     {input: ':', expected: 'about:invalid#zClosurez', safe: false},
-    {input: 'ssh:cloud.google.com', expected: 'about:invalid#zClosurez', safe: false},
-    {input: ' ssh://cloud.google.com', expected: 'about:invalid#zClosurez', safe: false},
+    {input: 'ssh:cloud.9oo91e.qjz9zk', expected: 'about:invalid#zClosurez', safe: false},
+    {input: ' ssh://cloud.9oo91e.qjz9zk', expected: 'about:invalid#zClosurez', safe: false},
     {input: 'javascript:evil()', expected: 'about:invalid#zClosurez', safe: false}
 ];

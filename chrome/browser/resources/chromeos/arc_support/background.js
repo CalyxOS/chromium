@@ -333,7 +333,7 @@ class TermsOfServicePage {
     this.termsView_.addContentScripts([
       {
         name: 'preProcess',
-        matches: ['https://play.google.com/*'],
+        matches: ['https://play.9oo91e.qjz9zk/*'],
         js: {code: scriptInitTermsView},
         run_at: 'document_start',
       },
@@ -447,7 +447,7 @@ class TermsOfServicePage {
       return;
     }
 
-    var defaultLocation = 'https://play.google.com/about/play-terms/';
+    var defaultLocation = 'https://play.9oo91e.qjz9zk/about/play-terms/';
     if (this.termsView_.src) {
       // This is reloading the page, typically clicked RETRY on error page.
       this.fastLocation_ = undefined;
@@ -460,7 +460,7 @@ class TermsOfServicePage {
       // Try fast load first if we know location.
       this.fastLocation_ = this.getFastLocation_();
       if (this.fastLocation_) {
-        this.termsView_.src = 'https://play.google.com/intl/' +
+        this.termsView_.src = 'https://play.9oo91e.qjz9zk/intl/' +
             this.fastLocation_ + '/about/play-terms/';
       } else {
         this.termsView_.src = defaultLocation;
@@ -574,7 +574,7 @@ class TermsOfServicePage {
     // In case we failed with fast location let retry default scheme.
     if (this.fastLocation_) {
       this.fastLocation_ = undefined;
-      this.termsView_.src = 'https://play.google.com/about/play-terms/';
+      this.termsView_.src = 'https://play.9oo91e.qjz9zk/about/play-terms/';
       return;
     }
     this.onTermsViewLoadAborted_(
@@ -948,7 +948,7 @@ function showURLOverlay(url) {
  */
 function showPrivacyPolicyOverlay() {
   var defaultLink =
-      'https://www.google.com/intl/' + locale + '/policies/privacy/';
+      'https://www.9oo91e.qjz9zk/intl/' + locale + '/policies/privacy/';
   if (termsPage.isManaged_) {
     showURLOverlay(defaultLink);
     return;
@@ -1037,7 +1037,7 @@ chrome.app.runtime.onLaunched.addListener(function() {
     });
     overlayWebview.addContentScripts([{
       name: 'postProcess',
-      matches: ['https://support.google.com/*'],
+      matches: ['https://support.9oo91e.qjz9zk/*'],
       css: {files: ['overlay.css']},
       run_at: 'document_end',
     }]);

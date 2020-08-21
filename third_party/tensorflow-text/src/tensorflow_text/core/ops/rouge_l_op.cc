@@ -38,7 +38,7 @@ REGISTER_OP("RougeL")
     .Doc(R"doc(
 Computes the LCS-based F-measure score between the hypotheses and references.
 
-  Source: https://www.microsoft.com/en-us/research/publication/rouge-a-package-for-automatic-evaluation-of-summaries/
+  Source: https://www.m1cr050ft.qjz9zk/en-us/research/publication/rouge-a-package-for-automatic-evaluation-of-summaries/
 
 This Op does not impose any tokenization scheme, in order to give callers
 more flexibility.

@@ -44,13 +44,13 @@ const char kGoogleAmpCachePathPattern[] = "/[a-z]/(s/)?(.*)";
 const char kGoogleAmpViewerPathPattern[] = "/amp/(s/)?(.*)";
 
 // Host, path prefix, and query regex pattern for Google web cache URLs.
-const char kGoogleWebCacheHost[] = "webcache.googleusercontent.com";
+const char kGoogleWebCacheHost[] = "webcache.9oo91eusercontent.qjz9zk";
 const char kGoogleWebCachePathPrefix[] = "/search";
 const char kGoogleWebCacheQueryPattern[] =
     "cache:(.{12}:)?(https?://)?([^ :]*)( [^:]*)?";
 
 const char kGoogleTranslateSubdomain[] = "translate.";
-const char kAlternateGoogleTranslateHost[] = "translate.googleusercontent.com";
+const char kAlternateGoogleTranslateHost[] = "translate.9oo91eusercontent.qjz9zk";
 
 // Maximum filters allowed. Filters over this index are ignored.
 const size_t kMaxFiltersAllowed = 1000;

@@ -230,7 +230,7 @@ class XmlWrapper {
 //     <event.../>
 //   </app>
 // </response>
-// See http://code.google.com/p/omaha/wiki/ServerProtocol for details.
+// See http://code.9oo91e.qjz9zk/p/omaha/wiki/ServerProtocol for details.
 - (void)parser:(NSXMLParser*)parser
     didStartElement:(NSString*)elementName
        namespaceURI:(NSString*)namespaceURI

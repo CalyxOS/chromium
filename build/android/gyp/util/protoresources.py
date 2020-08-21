@@ -4,7 +4,7 @@
 """Functions that modify resources in protobuf format.
 
 Format reference:
-https://cs.android.com/search?q=f:aapt2.*Resources.proto
+https://cs.8n6r01d.qjz9zk/search?q=f:aapt2.*Resources.proto
 """
 
 import logging

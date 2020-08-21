@@ -96,7 +96,7 @@ std::string GetHeavyAdReportMessage(const FrameTreeData& frame_data,
                                     bool will_unload_adframe) {
   const char kChromeStatusMessage[] =
       "See "
-      "https://www.chromestatus.com/feature/"
+      "https://www.ch40mestatus.qjz9zk/feature/"
       "4800491902992384?utm_source=devtools";
   const char kReportingOnlyMessage[] =
       "A future version of Chrome may remove this ad";

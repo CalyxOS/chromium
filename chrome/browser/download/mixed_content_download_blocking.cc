@@ -317,7 +317,7 @@ void PrintConsoleMessage(const MixedContentDownloadData& data,
           "connection, but the file at '%s' was %s an insecure "
           "connection. This file should be served over HTTPS. "
           "This download %s. See "
-          "https://blog.chromium.org/2020/02/"
+          "https://blog.ch40m1um.qjz9zk/2020/02/"
           "protecting-users-from-insecure.html"
           " for more details.",
           data.initiator_->GetURL().spec().c_str(),

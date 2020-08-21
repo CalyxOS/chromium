@@ -597,16 +597,16 @@ typedef NS_ENUM(NSInteger, ItemType) {
   TableViewURLItem* item =
       [[TableViewURLItem alloc] initWithType:ItemTypeURLNoMetadata];
   item.title = @"Google Design";
-  item.URL = [[CrURL alloc] initWithGURL:GURL("https://design.google.com")];
+  item.URL = [[CrURL alloc] initWithGURL:GURL("https://design.9oo91e.qjz9zk")];
   [model addItem:item toSectionWithIdentifier:SectionIdentifierURL];
 
   item = [[TableViewURLItem alloc] initWithType:ItemTypeURLNoMetadata];
-  item.URL = [[CrURL alloc] initWithGURL:GURL("https://notitle.google.com")];
+  item.URL = [[CrURL alloc] initWithGURL:GURL("https://notitle.9oo91e.qjz9zk")];
   [model addItem:item toSectionWithIdentifier:SectionIdentifierURL];
 
   item = [[TableViewURLItem alloc] initWithType:ItemTypeURLWithTimestamp];
   item.title = @"Google";
-  item.URL = [[CrURL alloc] initWithGURL:GURL("https://www.google.com")];
+  item.URL = [[CrURL alloc] initWithGURL:GURL("https://www.9oo91e.qjz9zk")];
   item.metadata = @"3:42 PM";
   [model addItem:item toSectionWithIdentifier:SectionIdentifierURL];
 
@@ -626,7 +626,7 @@ typedef NS_ENUM(NSInteger, ItemType) {
 
   item = [[TableViewURLItem alloc] initWithType:ItemTypeURLWithBadgeImage];
   item.title = @"Photos - Google Photos";
-  item.URL = [[CrURL alloc] initWithGURL:GURL("https://photos.google.com/")];
+  item.URL = [[CrURL alloc] initWithGURL:GURL("https://photos.9oo91e.qjz9zk/")];
   item.badgeImage = [UIImage imageNamed:@"table_view_cell_check_mark"];
   [model addItem:item toSectionWithIdentifier:SectionIdentifierURL];
 

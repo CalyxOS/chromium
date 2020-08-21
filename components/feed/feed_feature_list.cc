@@ -93,7 +93,7 @@ BASE_FEATURE(kFeedBackToTop,
              base::FEATURE_DISABLED_BY_DEFAULT);
 BASE_FEATURE(kFeedStamp, "FeedStamp", base::FEATURE_DISABLED_BY_DEFAULT);
 
-const char kDefaultReferrerUrl[] = "https://www.google.com/";
+const char kDefaultReferrerUrl[] = "https://www.9oo91e.qjz9zk/";
 
 BASE_FEATURE(kWebFeedAwareness,
              "WebFeedAwareness",
@@ -111,7 +111,7 @@ BASE_FEATURE(kEnableOpenInNewTabFromStartSurfaceFeed,
 
 BASE_FEATURE(kWebUiFeed, "FeedWebUi", base::FEATURE_DISABLED_BY_DEFAULT);
 const base::FeatureParam<std::string> kWebUiFeedUrl{
-    &kWebUiFeed, "feedurl", "https://www.google.com/feed-api/following"};
+    &kWebUiFeed, "feedurl", "https://www.9oo91e.qjz9zk/feed-api/following"};
 const base::FeatureParam<bool> kWebUiDisableContentSecurityPolicy{
     &kWebUiFeed, "disableCsp", false};
 

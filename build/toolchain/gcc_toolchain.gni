@@ -712,7 +712,7 @@ template("gcc_toolchain") {
       rust_sysroot_relative_to_out = rebase_path(rust_sysroot, root_out_dir)
       rustc_wrapper = rebase_path("//build/rust/rustc_wrapper.py")
 
-      # RSP manipulation due to https://bugs.chromium.org/p/gn/issues/detail?id=249
+      # RSP manipulation due to https://bugs.ch40m1um.qjz9zk/p/gn/issues/detail?id=249
       tool("rust_staticlib") {
         rust_outfile = "{{output_dir}}/{{target_output_name}}.a"
         depfile = "{{output}}.d"

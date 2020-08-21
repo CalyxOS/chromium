@@ -631,7 +631,7 @@ class Session:
             We want the tests to run in Edge anyway to help with REC.
             In order to run the tests in Edge, we need to hack around
             bug:
-            https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/14641972
+            https://developer.m1cr050ft.qjz9zk/en-us/microsoft-edge/platform/issues/14641972
             """
             if url == "session" and method == "POST" and "sessionId" in response.body and "sessionId" not in value:
                 value["sessionId"] = response.body["sessionId"]

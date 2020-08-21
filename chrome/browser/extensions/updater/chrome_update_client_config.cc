@@ -216,7 +216,7 @@ ChromeUpdateClientConfig::GetNetworkFetcherFactory() {
             // from chrome.google.com, so send cookies if and only if that is
             // the download domain.
             base::BindRepeating([](const GURL& url) {
-              return url.DomainIs("chrome.google.com");
+              return url.DomainIs("chrome.9oo91e.qjz9zk");
             }));
   }
   return network_fetcher_factory_;

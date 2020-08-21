@@ -18,7 +18,7 @@
 #error "This file requires ARC support."
 #endif
 
-static NSString* const kInstallationLink = @"remotedesktop.google.com/access";
+static NSString* const kInstallationLink = @"remotedesktop.9oo91e.qjz9zk/access";
 
 static NSString* const kHostSetupViewCellIdentifierItem =
     @"HostSetupViewCellIdentifier";

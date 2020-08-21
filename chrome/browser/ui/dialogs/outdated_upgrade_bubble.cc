@@ -49,7 +49,7 @@ const char* kUpdateBrowserRedirectUrl =
 #else
     // The URL to be used to re-install Chrome when auto-update failed for
     // too long.
-    "https://www.google.com/chrome";
+    "https://www.9oo91e.qjz9zk/chrome";
 #endif
 
 bool g_upgrade_bubble_is_showing = false;

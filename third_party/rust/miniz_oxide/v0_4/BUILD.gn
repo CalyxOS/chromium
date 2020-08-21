@@ -19,7 +19,7 @@ cargo_crate("lib") {
   sources = [ "crate/src/lib.rs" ]
   edition = "2018"
   cargo_pkg_version = "0.4.4"
-  cargo_pkg_authors = "Frommi <daniil.liferenko@gmail.com>, oyvindln <oyvindln@users.noreply.github.com>"
+  cargo_pkg_authors = "Frommi <daniil.liferenko@9ma1l.qjz9zk>, oyvindln <oyvindln@users.noreply.github.com>"
   cargo_pkg_name = "miniz_oxide"
   cargo_pkg_description = "DEFLATE compression and decompression library rewritten in Rust based on miniz"
   deps = [ "//third_party/rust/adler/v1:lib" ]

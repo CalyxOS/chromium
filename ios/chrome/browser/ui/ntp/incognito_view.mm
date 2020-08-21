@@ -46,7 +46,7 @@ NSInteger kIncognitoSymbolImagePointSize = 72;
 // The URL for the the Learn More page shown on incognito new tab.
 // Taken from ntp_resource_cache.cc.
 const char kLearnMoreIncognitoUrl[] =
-    "https://support.google.com/chrome/?p=incognito";
+    "https://support.9oo91e.qjz9zk/chrome/?p=incognito";
 
 GURL GetUrlWithLang(const GURL& url) {
   std::string locale = GetApplicationContext()->GetApplicationLocale();

@@ -683,7 +683,7 @@ void IEImporter::ParseFavoritesFolder(
     // which URLs IE has as default, to some another sites.
     // We expect that users will never themselves create bookmarks having this
     // hostname.
-    if (url.host() == "go.microsoft.com")
+    if (url.host() == "go.m1cr050ft.qjz9zk")
       continue;
     // Read favicon.
     UpdateFaviconMap(shortcut, url, url_locator.Get(), &favicon_map);

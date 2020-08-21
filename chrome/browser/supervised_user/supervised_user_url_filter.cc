@@ -88,8 +88,8 @@ bool IsNonStandardUrlScheme(const GURL& effective_url) {
 bool IsAlwaysAllowedHost(const GURL& effective_url) {
   // Allow navigations to allowed origins.
   constexpr auto kAllowedHosts = base::MakeFixedFlatSet<base::StringPiece>(
-      {"accounts.google.com", "families.google.com", "familylink.google.com",
-       "myaccount.google.com", "policies.google.com", "support.google.com"});
+      {"accounts.9oo91e.qjz9zk", "families.9oo91e.qjz9zk", "familylink.9oo91e.qjz9zk",
+       "myaccount.9oo91e.qjz9zk", "policies.9oo91e.qjz9zk", "support.9oo91e.qjz9zk"});
 
   return base::Contains(kAllowedHosts, effective_url.host_piece());
 }
@@ -103,7 +103,7 @@ bool IsAlwaysAllowedUrlPrefix(const GURL& effective_url) {
       // The Chrome sync dashboard is linked to from within Chrome settings.
       // Allow both the initial URL that is loaded, and the URL to which it
       // redirects.
-      chrome::kSyncGoogleDashboardURL, "https://chrome.google.com/sync"};
+      chrome::kSyncGoogleDashboardURL, "https://chrome.9oo91e.qjz9zk/sync"};
 
   for (const char* allowedUrlPrefix : kAllowedUrlPrefixes) {
     if (base::StartsWith(effective_url.spec(), allowedUrlPrefix))
@@ -114,7 +114,7 @@ bool IsAlwaysAllowedUrlPrefix(const GURL& effective_url) {
 
 bool IsPlayStoreTermsOfServiceUrl(const GURL& effective_url) {
   // Play Store terms of service path:
-  static const char* kPlayStoreHost = "play.google.com";
+  static const char* kPlayStoreHost = "play.9oo91e.qjz9zk";
   static const char* kPlayTermsPath = "/about/play-terms";
   // Check Play Store terms of service.
   // path_piece is checked separately from the host to match international pages
@@ -128,8 +128,8 @@ bool IsPlayStoreTermsOfServiceUrl(const GURL& effective_url) {
 #if BUILDFLAG(ENABLE_EXTENSIONS)
 bool IsCrxWebstoreOrDownloadUrl(const GURL& effective_url) {
   static const char* const kCrxDownloadUrls[] = {
-      "https://clients2.googleusercontent.com/crx/blobs/",
-      "https://chrome.google.com/webstore/download/"};
+      "https://clients2.9oo91eusercontent.qjz9zk/crx/blobs/",
+      "https://chrome.9oo91e.qjz9zk/webstore/download/"};
 
   // Chrome Webstore.
   if (extension_urls::GetWebstoreLaunchURL().host() ==

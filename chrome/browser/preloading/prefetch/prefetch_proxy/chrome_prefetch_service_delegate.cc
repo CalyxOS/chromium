@@ -37,7 +37,7 @@ std::string ChromePrefetchServiceDelegate::GetAcceptLanguageHeader() {
 }
 
 GURL ChromePrefetchServiceDelegate::GetDefaultPrefetchProxyHost() {
-  return GURL("https://tunnel.googlezip.net/");
+  return GURL("https://tunnel.9oo91e21p.qjz9zk/");
 }
 
 std::string ChromePrefetchServiceDelegate::GetAPIKey() {
@@ -45,11 +45,11 @@ std::string ChromePrefetchServiceDelegate::GetAPIKey() {
 }
 
 GURL ChromePrefetchServiceDelegate::GetDefaultDNSCanaryCheckURL() {
-  return GURL("http://dns-tunnel-check.googlezip.net/connect");
+  return GURL("http://dns-tunnel-check.9oo91e21p.qjz9zk/connect");
 }
 
 GURL ChromePrefetchServiceDelegate::GetDefaultTLSCanaryCheckURL() {
-  return GURL("http://tls-tunnel-check.googlezip.net/connect");
+  return GURL("http://tls-tunnel-check.9oo91e21p.qjz9zk/connect");
 }
 
 void ChromePrefetchServiceDelegate::ReportOriginRetryAfter(

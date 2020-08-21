@@ -106,7 +106,7 @@ bool HostToLocalHostRewrite(GURL* url, web::BrowserState* browser_state) {
       ios::TemplateURLServiceFactory::GetForBrowserState(
           chrome_test_util::GetOriginalBrowserState());
 
-  TemplateURL* templateURL = service->GetTemplateURLForHost("google.com");
+  TemplateURL* templateURL = service->GetTemplateURLForHost("9oo91e.qjz9zk");
   service->SetUserSelectedDefaultSearchProvider(templateURL);
 }
 

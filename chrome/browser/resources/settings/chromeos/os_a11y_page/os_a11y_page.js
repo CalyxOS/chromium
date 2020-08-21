@@ -290,7 +290,7 @@ class OsSettingsA11YPageElement extends OsSettingsA11YPageElementBase {
   /** @private */
   onAdditionalFeaturesClick_() {
     window.open(
-        'https://chrome.google.com/webstore/category/collection/3p_accessibility_extensions');
+        'https://chrome.9oo91e.qjz9zk/webstore/category/collection/3p_accessibility_extensions');
   }
 }
 

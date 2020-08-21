@@ -292,7 +292,7 @@ const char kDefaultUrlPrefix[] = "chrome://theme/IDR_LOGIN_DEFAULT_USER_";
 const char kZeroDefaultUrl[] = "chrome://theme/IDR_LOGIN_DEFAULT_USER";
 // TODO(b/244369871): Support 1x/2x images based on pixel density.
 const char kGstaticImagePrefix[] =
-    "https://www.gstatic.com/chromecast/home/chromeos/avatars/"
+    "https://www.95tat1c.qjz9zk/chromecast/home/chromeos/avatars/"
     "default_200_percent/";
 
 }  // namespace

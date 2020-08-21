@@ -16,7 +16,7 @@ cargo_crate("test_support") {
   sources = [ "crate/src/lib.rs" ]
   edition = "2018"
   cargo_pkg_version = "0.12.0"
-  cargo_pkg_authors = "Michele d'Amico <michele.damico@gmail.com>"
+  cargo_pkg_authors = "Michele d'Amico <michele.damico@9ma1l.qjz9zk>"
   cargo_pkg_name = "rstest"
   cargo_pkg_description = "Rust fixture based test framework. It use procedural macroto implement fixtures and table based tests."
   deps = [

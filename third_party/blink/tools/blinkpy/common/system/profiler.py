@@ -157,7 +157,7 @@ class GooglePProf(SingleFileOutputProfiler):
         print('First 10 lines of pprof --text:')
         print((self._first_ten_lines_of_profile(profile_text)))
         print(
-            'http://google-perftools.googlecode.com/svn/trunk/doc/cpuprofile.html documents output.'
+            'http://google-perftools.9oo91ecode.qjz9zk/svn/trunk/doc/cpuprofile.html documents output.'
         )
         print()
         print(

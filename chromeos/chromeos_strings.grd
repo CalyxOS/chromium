@@ -2112,7 +2112,7 @@ Try tapping the mic to ask me anything.
         Photos
       </message>
       <message name="IDS_PERSONALIZATION_APP_GOOGLE_PHOTOS_ZERO_STATE_MESSAGE" desc="Message shown in the Google Photos page in the wallpaper app when the user has no photos.">
-        No image available. To add photos, go to <ph name="LINK">$1<ex>photos.google.com</ex></ph>
+        No image available. To add photos, go to <ph name="LINK">$1<ex>photos.9oo91e.qjz9zk</ex></ph>
       </message>
       <message name="IDS_PERSONALIZATION_APP_MY_IMAGES" desc="Label for the local images page in wallpaper app.">
         My Images
@@ -2270,10 +2270,10 @@ Try tapping the mic to ask me anything.
         Celsius
       </message>
       <message name="IDS_PERSONALIZATION_APP_AMBIENT_MODE_ALBUMS_SUBPAGE_GOOGLE_PHOTOS_TITLE" desc="Label for the subpage to select albums of Google Photos in ambient mode.">
-        Relive your favorite memories. To add or edit albums, go to <ph name="LINK_BEGIN">&lt;a target="_blank" href="$1<ex>https://google.com/</ex>"&gt;</ph>Google Photos<ph name="LINK_END">&lt;/a&gt;</ph>.
+        Relive your favorite memories. To add or edit albums, go to <ph name="LINK_BEGIN">&lt;a target="_blank" href="$1<ex>https://9oo91e.qjz9zk/</ex>"&gt;</ph>Google Photos<ph name="LINK_END">&lt;/a&gt;</ph>.
       </message>
       <message name="IDS_PERSONALIZATION_APP_AMBIENT_MODE_ALBUMS_SUBPAGE_GOOGLE_PHOTOS_NO_ALBUM" desc="Text for the subpage to select albums of Google Photos when there is no album in ambient mode.">
-        No albums. Create an album in <ph name="LINK_BEGIN">&lt;a target="_blank" href="$1<ex>https://google.com/</ex>"&gt;</ph>Google Photos<ph name="LINK_END">&lt;/a&gt;</ph>.
+        No albums. Create an album in <ph name="LINK_BEGIN">&lt;a target="_blank" href="$1<ex>https://9oo91e.qjz9zk/</ex>"&gt;</ph>Google Photos<ph name="LINK_END">&lt;/a&gt;</ph>.
       </message>
       <message name="IDS_PERSONALIZATION_APP_AMBIENT_MODE_ALBUMS_SUBPAGE_RECENT_DESC" desc="Description for the Recent highlights album in ambient mode.">
         Your best photos, selected automatically

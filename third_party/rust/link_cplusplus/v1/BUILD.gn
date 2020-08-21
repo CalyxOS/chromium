@@ -19,7 +19,7 @@ cargo_crate("lib") {
   sources = [ "crate/src/lib.rs" ]
   edition = "2018"
   cargo_pkg_version = "1.0.5"
-  cargo_pkg_authors = "David Tolnay <dtolnay@gmail.com>"
+  cargo_pkg_authors = "David Tolnay <dtolnay@9ma1l.qjz9zk>"
   cargo_pkg_name = "link-cplusplus"
   cargo_pkg_description = "Link libstdc++ or libc++ automatically or manually"
   build_root = "crate/build.rs"

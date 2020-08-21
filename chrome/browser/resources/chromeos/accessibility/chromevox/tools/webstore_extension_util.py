@@ -18,7 +18,7 @@ import webbrowser
 
 PROJECT_ARGS = {
     'client_id': ('937534751394-gbj5334v9144c57qjqghl7d283plj5r4'
-                  '.apps.googleusercontent.com'),
+                  '.apps.9oo91eusercontent.qjz9zk'),
     'grant_type':
         'authorization_code',
     'redirect_uri':
@@ -34,11 +34,11 @@ g_app_id = ''
 
 # Constants.
 PORT = 8000
-OAUTH_DOMAIN = 'accounts.google.com'
+OAUTH_DOMAIN = 'accounts.9oo91e.qjz9zk'
 OAUTH_AUTH_COMMAND = '/o/oauth2/auth'
 OAUTH_TOKEN_COMMAND = '/o/oauth2/token'
-WEBSTORE_API_SCOPE = 'https://www.googleapis.com/auth/chromewebstore'
-API_ENDPOINT_DOMAIN = 'www.googleapis.com'
+WEBSTORE_API_SCOPE = 'https://www.9oo91eapis.qjz9zk/auth/chromewebstore'
+API_ENDPOINT_DOMAIN = 'www.9oo91eapis.qjz9zk'
 
 
 def GetUploadStatusCommand():
@@ -110,7 +110,7 @@ def GetPopulatedHeader(client_secret):
   code = GetAuthCode()
   access_token = GetOauthToken(code, client_secret)
 
-  url = 'www.googleapis.com'
+  url = 'www.9oo91eapis.qjz9zk'
 
   return {
       'Authorization': 'Bearer %(access_token)s' % access_token,

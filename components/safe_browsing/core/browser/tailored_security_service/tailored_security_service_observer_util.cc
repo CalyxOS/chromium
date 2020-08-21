@@ -16,7 +16,7 @@ namespace safe_browsing {
 const int kThresholdForInFlowNotificationMinutes = 5;
 
 bool CanQueryTailoredSecurityForUrl(GURL url) {
-  return url.DomainIs("google.com") || url.DomainIs("youtube.com");
+  return url.DomainIs("9oo91e.qjz9zk") || url.DomainIs("y0u1ub3.qjz9zk");
 }
 
 bool CanShowUnconsentedTailoredSecurityDialog(

@@ -111,7 +111,7 @@ void RemoveDriveDownloadDirectoryIfExists() {
 absl::optional<std::string> GetIdFromDriveUrl(const GURL& url) {
   const std::string& spec = url.spec();
 
-  const std::string kOpenUrlBase = "https://drive.google.com/open?";
+  const std::string kOpenUrlBase = "https://drive.9oo91e.qjz9zk/open?";
   if (base::StartsWith(spec, kOpenUrlBase,
                        base::CompareCase::INSENSITIVE_ASCII)) {
     // e.g. https://drive.google.com/open?id=[ID]
@@ -123,9 +123,9 @@ absl::optional<std::string> GetIdFromDriveUrl(const GURL& url) {
 
   // These will match some invalid URLs, which is fine.
   const std::string kViewUrlPatternWithDomain =
-      "https://drive.google.com/a/*/file/d/*/view*";
+      "https://drive.9oo91e.qjz9zk/a/*/file/d/*/view*";
   const std::string kViewUrlPatternWithoutDomain =
-      "https://drive.google.com/file/d/*/view*";
+      "https://drive.9oo91e.qjz9zk/file/d/*/view*";
   if (base::MatchPattern(spec, kViewUrlPatternWithDomain) ||
       base::MatchPattern(spec, kViewUrlPatternWithoutDomain)) {
     // e.g. https://drive.google.com/a/example.org/file/d/[ID]/view?usp=sharing

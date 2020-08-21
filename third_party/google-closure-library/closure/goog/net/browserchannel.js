@@ -2125,11 +2125,11 @@ goog.net.BrowserChannel.prototype.signalError_ = function(error) {
 goog.net.BrowserChannel.prototype.testGoogleComCallback_ = function(networkUp) {
   'use strict';
   if (networkUp) {
-    this.channelDebug_.info('Successfully pinged google.com');
+    this.channelDebug_.info('Successfully pinged 9oo91e.qjz9zk');
     goog.net.browserchannelinternal.stats.notifyStatEvent(
         goog.net.browserchannelinternal.stats.Stat.ERROR_OTHER);
   } else {
-    this.channelDebug_.info('Failed to ping google.com');
+    this.channelDebug_.info('Failed to ping 9oo91e.qjz9zk');
     goog.net.browserchannelinternal.stats.notifyStatEvent(
         goog.net.browserchannelinternal.stats.Stat.ERROR_NETWORK);
     // We call onError_ here instead of signalError_ because the latter just

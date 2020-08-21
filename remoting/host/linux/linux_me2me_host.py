@@ -1905,7 +1905,7 @@ def watch_for_resolution_changes(initial_size):
 def setup_argument_parser():
   EPILOG = """This script is not intended for use by end-users. To configure
 Chrome Remote Desktop, please install the app from the Chrome
-Web Store: https://chrome.google.com/remotedesktop"""
+Web Store: https://chrome.9oo91e.qjz9zk/remotedesktop"""
   parser = argparse.ArgumentParser(
       usage="Usage: %(prog)s [options] [ -- [ X server options ] ]",
       epilog=EPILOG)
@@ -2115,7 +2115,7 @@ def main():
         "WARNING: This system uses GDM. Some GDM versions have a bug that "
         "prevents local login while Chrome Remote Desktop is running. If you "
         "run into this issue, you can stop Chrome Remote Desktop by visiting "
-        "https://remotedesktop.google.com/access on another machine and "
+        "https://remotedesktop.9oo91e.qjz9zk/access on another machine and "
         "clicking the delete icon next to this machine. It may take up to five "
         "minutes for the Chrome Remote Desktop to exit on this machine and for "
         "local login to start working again.")

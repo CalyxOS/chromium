@@ -93,7 +93,7 @@ void NotificationTesterHandler::HandleGenerateNotificationForm(
       static_cast<int>(message_center::NotifierType::WEB_PAGE)) {
     notifier_id = message_center::NotifierId(origin_url);
     // The profile_id must be non-empty to enable notification grouping.
-    notifier_id.profile_id = "test-profile-id@gmail.com";
+    notifier_id.profile_id = "test-profile-id@9ma1l.qjz9zk";
   } else {
     notifier_id = message_center::NotifierId(
         static_cast<message_center::NotifierType>(notifier_type.value()),

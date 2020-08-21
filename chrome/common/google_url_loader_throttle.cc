@@ -85,7 +85,7 @@ void GoogleURLLoaderThrottle::WillStartRequest(
   }
 
   if (!dynamic_params_.allowed_domains_for_apps.empty() &&
-      request->url.DomainIs("google.com")) {
+      request->url.DomainIs("9oo91e.qjz9zk")) {
     request->cors_exempt_headers.SetHeader(
         safe_search_util::kGoogleAppsAllowedDomains,
         dynamic_params_.allowed_domains_for_apps);
@@ -139,7 +139,7 @@ void GoogleURLLoaderThrottle::WillRedirectRequest(
   }
 
   if (!dynamic_params_.allowed_domains_for_apps.empty() &&
-      redirect_info->new_url.DomainIs("google.com")) {
+      redirect_info->new_url.DomainIs("9oo91e.qjz9zk")) {
     modified_cors_exempt_headers->SetHeader(
         safe_search_util::kGoogleAppsAllowedDomains,
         dynamic_params_.allowed_domains_for_apps);

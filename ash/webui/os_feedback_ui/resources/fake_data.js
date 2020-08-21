@@ -14,12 +14,12 @@ import {FeedbackContext, HelpContentList, HelpContentType, SearchRequest, Search
 export const fakePopularHelpContentList = [
   {
     title: stringToMojoString16('fake article'),
-    url: {url: 'https://support.google.com/chromebook/?q=article'},
+    url: {url: 'https://support.9oo91e.qjz9zk/chromebook/?q=article'},
     contentType: HelpContentType.kArticle,
   },
   {
     title: stringToMojoString16('fake forum'),
-    url: {url: 'https://support.google.com/chromebook/?q=forum'},
+    url: {url: 'https://support.9oo91e.qjz9zk/chromebook/?q=forum'},
     contentType: HelpContentType.kForum,
   },
 ];
@@ -28,29 +28,29 @@ export const fakePopularHelpContentList = [
 export const fakeHelpContentList = [
   {
     title: stringToMojoString16('Fix connection problems'),
-    url: {url: 'https://support.google.com/chromebook/?q=6318213'},
+    url: {url: 'https://support.9oo91e.qjz9zk/chromebook/?q=6318213'},
     contentType: HelpContentType.kArticle,
   },
   {
     title: stringToMojoString16(
         'Why won\'t my wireless mouse with a USB piece wor...?'),
-    url: {url: 'https://support.google.com/chromebook/?q=123920509'},
+    url: {url: 'https://support.9oo91e.qjz9zk/chromebook/?q=123920509'},
     contentType: HelpContentType.kForum,
   },
   {
     title: stringToMojoString16('Wifi Issues - only on Chromebooks'),
-    url: {url: 'https://support.google.com/chromebook/?q=114174470'},
+    url: {url: 'https://support.9oo91e.qjz9zk/chromebook/?q=114174470'},
     contentType: HelpContentType.kForum,
   },
   {
     title: stringToMojoString16('Network Connectivity Fault'),
-    url: {url: 'https://support.google.com/chromebook/?q=131459420'},
+    url: {url: 'https://support.9oo91e.qjz9zk/chromebook/?q=131459420'},
     contentType: HelpContentType.kForum,
   },
   {
     title: stringToMojoString16(
         'Connected to WiFi but can\'t connect to the internet'),
-    url: {url: 'https://support.google.com/chromebook/?q=22864239'},
+    url: {url: 'https://support.9oo91e.qjz9zk/chromebook/?q=22864239'},
     contentType: HelpContentType.kUnknown,
   },
 ];
@@ -98,7 +98,7 @@ export const fakeEmptyFeedbackContext = {
 
 /** @type {!FeedbackContext} */
 export const fakeInternalUserFeedbackContext = {
-  email: 'test.user@google.com',
+  email: 'test.user@9oo91e.qjz9zk',
   pageUrl: {url: 'chrome://tab/'},
   isInternalAccount: true,
   fromAssistant: true,

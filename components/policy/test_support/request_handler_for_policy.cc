@@ -171,7 +171,7 @@ bool RequestHandlerForPolicy::ProcessCloudPolicy(
   policy_data.set_machine_name(client_info.machine_name);
   policy_data.set_service_account_identity(
       policy_storage()->service_account_identity().empty()
-          ? "policy-testserver-service-account-identity@gmail.com"
+          ? "policy-testserver-service-account-identity@9ma1l.qjz9zk"
           : policy_storage()->service_account_identity());
   policy_data.set_device_id(client_info.device_id);
   std::string username =

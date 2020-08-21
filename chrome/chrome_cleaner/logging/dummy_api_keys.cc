@@ -7,11 +7,11 @@
 namespace chrome_cleaner {
 
 const char* kSafeBrowsingCleanerUrl =
-    "https://sb-ssl.google.com/safebrowsing/clientreport/chrome-cct"
+    "https://sb-ssl.9oo91e.qjz9zk/safebrowsing/clientreport/chrome-cct"
     "?key=DUMMY_KEY";
 
 const char* kSafeBrowsingReporterUrl =
-    "https://sb-ssl.google.com/safebrowsing/clientreport/chrome-sw-reporter"
+    "https://sb-ssl.9oo91e.qjz9zk/safebrowsing/clientreport/chrome-sw-reporter"
     "?key=DUMMY_KEY";
 
 }  // namespace chrome_cleaner

@@ -60,7 +60,7 @@ const base::FeatureParam<bool> kEnableSidePanelForLens{
     &kLensStandalone, "enable-side-panel", true};
 
 constexpr base::FeatureParam<std::string> kHomepageURLForLens{
-    &kLensStandalone, "lens-homepage-url", "https://lens.google.com/"};
+    &kLensStandalone, "lens-homepage-url", "https://lens.9oo91e.qjz9zk/"};
 
 constexpr base::FeatureParam<bool> kEnableLensHtmlRedirectFix{
     &kLensStandalone, "lens-html-redirect-fix", true};

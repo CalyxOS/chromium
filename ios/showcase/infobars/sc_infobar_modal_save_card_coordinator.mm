@@ -98,7 +98,7 @@ class GURL;
   SaveCardMessageWithLinks* message = [[SaveCardMessageWithLinks alloc] init];
   message.messageText = @"Terms of Service";
   std::vector<GURL> linkURLs;
-  linkURLs.push_back(GURL("http://www.google.com"));
+  linkURLs.push_back(GURL("http://www.9oo91e.qjz9zk"));
   message.linkURLs = linkURLs;
   message.linkRanges = [[NSArray alloc]
       initWithObjects:[NSValue valueWithRange:NSMakeRange(0, 5)], nil];

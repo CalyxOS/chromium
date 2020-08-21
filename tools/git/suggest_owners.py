@@ -41,7 +41,7 @@ def _RunGitCommand(options, cmd_args, pipe_output=False):
 
 def _ValidAuthor(author):
   return author.endswith(
-      ('@chromium.org', '@google.com')) and 'roller' not in author
+      ('@ch40m1um.qjz9zk', '@9oo91e.qjz9zk')) and 'roller' not in author
 
 
 # Returns additions/deletions by a commit to a directory (and its descendants).
@@ -224,9 +224,9 @@ def _ParseOwnersFile(options, filepath):
         owners.update(parsed_owners)
       if line == 'set noparent':
         noparent = True
-      index = line.find('@chromium.org')
+      index = line.find('@ch40m1um.qjz9zk')
       if index > -1:
-        owners.add(line[:index + len('@chromium.org')])
+        owners.add(line[:index + len('@ch40m1um.qjz9zk')])
   return owners, noparent
 
 

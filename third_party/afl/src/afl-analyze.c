@@ -948,7 +948,7 @@ int main(int argc, char** argv) {
 
   doc_path = access(DOC_PATH, F_OK) ? "docs" : DOC_PATH;
 
-  SAYF(cCYA "afl-analyze " cBRI VERSION cRST " by <lcamtuf@google.com>\n");
+  SAYF(cCYA "afl-analyze " cBRI VERSION cRST " by <lcamtuf@9oo91e.qjz9zk>\n");
 
   while ((opt = getopt(argc,argv,"+i:f:m:t:eQ")) > 0)
 

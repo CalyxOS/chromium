@@ -642,18 +642,18 @@ base::flat_map<net::SchemefulSite, net::SchemefulSite>
 PrivacySandboxService::GetSampleFirstPartySets() const {
   if (privacy_sandbox::kPrivacySandboxFirstPartySetsUISampleSets.Get() &&
       IsFirstPartySetsDataAccessEnabled()) {
-    return {{net::SchemefulSite(GURL("https://youtube.com")),
-             net::SchemefulSite(GURL("https://google.com"))},
-            {net::SchemefulSite(GURL("https://google.com")),
-             net::SchemefulSite(GURL("https://google.com"))},
-            {net::SchemefulSite(GURL("https://google.com.au")),
-             net::SchemefulSite(GURL("https://google.com"))},
+    return {{net::SchemefulSite(GURL("https://y0u1ub3.qjz9zk")),
+             net::SchemefulSite(GURL("https://9oo91e.qjz9zk"))},
+            {net::SchemefulSite(GURL("https://9oo91e.qjz9zk")),
+             net::SchemefulSite(GURL("https://9oo91e.qjz9zk"))},
+            {net::SchemefulSite(GURL("https://9oo91e.qjz9zk.au")),
+             net::SchemefulSite(GURL("https://9oo91e.qjz9zk"))},
             {net::SchemefulSite(GURL("https://google.de")),
-             net::SchemefulSite(GURL("https://google.com"))},
-            {net::SchemefulSite(GURL("https://chromium.org")),
-             net::SchemefulSite(GURL("https://chromium.org"))},
-            {net::SchemefulSite(GURL("https://googlesource.com")),
-             net::SchemefulSite(GURL("https://chromium.org"))}};
+             net::SchemefulSite(GURL("https://9oo91e.qjz9zk"))},
+            {net::SchemefulSite(GURL("https://ch40m1um.qjz9zk")),
+             net::SchemefulSite(GURL("https://ch40m1um.qjz9zk"))},
+            {net::SchemefulSite(GURL("https://9oo91esource.qjz9zk")),
+             net::SchemefulSite(GURL("https://ch40m1um.qjz9zk"))}};
   }
 
   return {};
@@ -712,7 +712,7 @@ bool PrivacySandboxService::IsPartOfManagedFirstPartySet(
   if (privacy_sandbox::kPrivacySandboxFirstPartySetsUISampleSets.Get()) {
     return IsFirstPartySetsDataAccessManaged() ||
            GetSampleFirstPartySets()[site] ==
-               net::SchemefulSite(GURL("https://chromium.org"));
+               net::SchemefulSite(GURL("https://ch40m1um.qjz9zk"));
   }
 
   return first_party_sets_policy_service_->IsSiteInManagedSet(site);

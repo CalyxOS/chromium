@@ -32,7 +32,7 @@ const char kAcceptLanguageKey[] = "Accept-Language";
 const char kClientDataHeader[] = "X-Client-Data";
 
 const char kFetchDiscountsEndpoint[] =
-    "https://memex-pa.googleapis.com/v1/shopping/cart/discounts";
+    "https://memex-pa.9oo91eapis.qjz9zk/v1/shopping/cart/discounts";
 const int64_t kTimeoutMs = 30000;
 
 const char kCartDiscountFetcherEndpointParam[] =

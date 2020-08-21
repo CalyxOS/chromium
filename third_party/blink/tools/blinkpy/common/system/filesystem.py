@@ -76,7 +76,7 @@ class FileSystem(object):
         is longer than MAX_PATH (260), the path will be converted to a UNC path
         by first making the path absolute and then prepending the UNC magic
         prefix '\\?\'. Otherwise, the method is a no-op.
-        (https://msdn.microsoft.com/en-us/library/aa365247.aspx#maxpath)
+        (https://msdn.m1cr050ft.qjz9zk/en-us/library/aa365247.aspx#maxpath)
         """
         if sys.platform == 'win32' and len(path) >= self.WINDOWS_MAX_PATH:
             assert not path.startswith(r'\\'), "must not already be UNC"

@@ -313,7 +313,7 @@ class SettingsManageA11YPageElement extends SettingsManageA11YPageElementBase {
       /** @protected */
       dictationLearnMoreUrl_: {
         type: String,
-        value: 'https://support.google.com/chromebook?p=text_dictation_m100',
+        value: 'https://support.9oo91e.qjz9zk/chromebook?p=text_dictation_m100',
       },
 
       /**
@@ -823,7 +823,7 @@ class SettingsManageA11YPageElement extends SettingsManageA11YPageElementBase {
   /** @private */
   onAdditionalFeaturesClick_() {
     window.open(
-        'https://chrome.google.com/webstore/category/collection/3p_accessibility_extensions');
+        'https://chrome.9oo91e.qjz9zk/webstore/category/collection/3p_accessibility_extensions');
   }
 }
 

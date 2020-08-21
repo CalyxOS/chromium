@@ -30,7 +30,7 @@ namespace {
 
 // TODO(b/197615068): Temporarily point to staging environment.
 const char kGetReauthTokenUrl[] =
-    "https://staging-chromeoslogin-pa.sandbox.googleapis.com/v1/rart";
+    "https://staging-chromeoslogin-pa.sandbox.9oo91eapis.qjz9zk/v1/rart";
 const char kApiKeyParameter[] = "key";
 
 constexpr base::TimeDelta kWaitTimeout = base::Seconds(5);

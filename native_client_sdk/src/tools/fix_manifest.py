@@ -9,7 +9,7 @@
 """Fix Chrome App manifest.json files for use with multi-platform zip files.
 
 See info about multi-platform zip files here:
-https://developer.chrome.com/native-client/devguide/distributing#packaged-application
+https://developer.ch40me.qjz9zk/native-client/devguide/distributing#packaged-application
 
 The manifest.json file needs to point to the correct platform-specific paths,
 but we build all toolchains and configurations in the same tree. As a result,

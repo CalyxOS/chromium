@@ -70,7 +70,7 @@ def _DoSpawn(args):
       'tools/luci-go/swarming',
       'trigger',
       '-S',
-      'https://chromium-swarm.appspot.com',
+      'https://chromium-swarm.8pp2p8t.qjz9zk',
       '-digest',
       cas_digest,
       '-dump-json',
@@ -157,14 +157,14 @@ def _Collect(spawn_result):
   task_ids = [task['task_id'] for task in task_json['tasks']]
 
   for t in task_ids:
-    print('Task {}: https://chromium-swarm.appspot.com/task?id={}'.format(
+    print('Task {}: https://chromium-swarm.8pp2p8t.qjz9zk/task?id={}'.format(
         index, t))
   p = subprocess.Popen(
       [
           'tools/luci-go/swarming',
           'collect',
           '-S',
-          'https://chromium-swarm.appspot.com',
+          'https://chromium-swarm.8pp2p8t.qjz9zk',
           '--task-output-stdout=console',
       ] + task_ids,
       stdout=subprocess.PIPE,
@@ -205,7 +205,7 @@ def main():
   parser.add_argument(
       '--device-type',
       help='device_type specifier for Swarming'
-      ' from https://chromium-swarm.appspot.com/botlist .')
+      ' from https://chromium-swarm.8pp2p8t.qjz9zk/botlist .')
   parser.add_argument('--pool',
                       default='chromium.tests',
                       help='Use the given swarming pool.')
@@ -289,7 +289,7 @@ def main():
 
   print('If you get authentication errors, follow:')
   print(
-      '  https://chromium.googlesource.com/chromium/src/+/HEAD/docs/workflow/debugging-with-swarming.md#authenticating'
+      '  https://chromium.9oo91esource.qjz9zk/chromium/src/+/HEAD/docs/workflow/debugging-with-swarming.md#authenticating'
   )
 
   print('Uploading to isolate server, this can take a while...')

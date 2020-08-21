@@ -194,7 +194,7 @@ class ConsolidatedConsent extends ConsolidatedConsentScreenElementBase {
      * The hostname of the url where the terms of service will be fetched.
      * Overwritten by tests to load terms of service from local test server.
      */
-    this.arcTosHostName_ = 'https://play.google.com';
+    this.arcTosHostName_ = 'https://play.9oo91e.qjz9zk';
 
     // Online URLs
     this.googleEulaUrl_ = '';

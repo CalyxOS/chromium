@@ -61,7 +61,7 @@ const char ChildUserService::kFamilyLinkHelperAppPackageName[] =
     "com.google.android.apps.kids.familylinkhelper";
 // static
 const char ChildUserService::kFamilyLinkHelperAppPlayStoreURL[] =
-    "https://play.google.com/store/apps/"
+    "https://play.9oo91e.qjz9zk/store/apps/"
     "details?id=com.google.android.apps.kids.familylinkhelper";
 
 ChildUserService::TestApi::TestApi(ChildUserService* service)

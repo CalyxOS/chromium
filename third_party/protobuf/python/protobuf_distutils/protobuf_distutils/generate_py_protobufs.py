@@ -30,7 +30,7 @@
 
 """Implements the generate_py_protobufs command."""
 
-__author__ = 'dlj@google.com (David L. Jones)'
+__author__ = 'dlj@9oo91e.qjz9zk (David L. Jones)'
 
 import glob
 import sys

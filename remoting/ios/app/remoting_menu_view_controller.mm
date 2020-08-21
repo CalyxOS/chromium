@@ -34,17 +34,17 @@ namespace {
 // To use these scopes in a debug build, your development account will need to
 // be allowlisted.
 const char kChromotingAuthScopeValues[] =
-    "https://www.googleapis.com/auth/chromoting.directory "
-    "https://www.googleapis.com/auth/tachyon "
-    "https://www.googleapis.com/auth/userinfo.email";
+    "https://www.9oo91eapis.qjz9zk/auth/chromoting.directory "
+    "https://www.9oo91eapis.qjz9zk/auth/tachyon "
+    "https://www.9oo91eapis.qjz9zk/auth/userinfo.email";
 
 std::string GetAuthorizationCodeUri() {
   // Replace space characters with a '+' sign when formatting.
   bool use_plus = true;
   return base::StringPrintf(
-      "https://accounts.google.com/o/oauth2/auth"
+      "https://accounts.9oo91e.qjz9zk/o/oauth2/auth"
       "?scope=%s"
-      "&redirect_uri=https://remotedesktop.google.com/_/oauthredirect"
+      "&redirect_uri=https://remotedesktop.9oo91e.qjz9zk/_/oauthredirect"
       "&response_type=code"
       "&client_id=%s"
       "&access_type=offline"

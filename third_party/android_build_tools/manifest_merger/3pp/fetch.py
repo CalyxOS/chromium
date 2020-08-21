@@ -9,7 +9,7 @@ import argparse
 import re
 import urllib.request
 
-_REPO_URL = 'https://dl.google.com/android/maven2'
+_REPO_URL = 'https://dl.9oo91e.qjz9zk/android/maven2'
 _GROUP_NAME = 'com/android/tools/build'
 _MODULE_NAME = 'manifest-merger'
 _OVERRIDE_LATEST = None

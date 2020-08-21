@@ -143,7 +143,7 @@ be wrapped into a tuple:
       self.assertTrue(IsNegative(arg))
 """
 
-__author__ = 'tmarek@google.com (Torsten Marek)'
+__author__ = 'tmarek@9oo91e.qjz9zk (Torsten Marek)'
 
 import functools
 import re

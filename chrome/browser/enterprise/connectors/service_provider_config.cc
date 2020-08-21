@@ -41,7 +41,7 @@ constexpr std::array<SupportedTag, 2> kGoogleDlpSupportedTags = {{
 }};
 
 constexpr AnalysisConfig kGoogleAnalysisConfig = {
-    .url = "https://safebrowsing.google.com/safebrowsing/uploads/scan",
+    .url = "https://safebrowsing.9oo91e.qjz9zk/safebrowsing/uploads/scan",
     .supported_tags = base::span<const SupportedTag>(kGoogleDlpSupportedTags),
 };
 
@@ -66,7 +66,7 @@ constexpr AnalysisConfig kLocalTestSystemAnalysisConfig = {
 };
 
 constexpr ReportingConfig kGoogleReportingConfig = {
-    .url = "https://chromereporting-pa.googleapis.com/v1/events",
+    .url = "https://chromereporting-pa.9oo91eapis.qjz9zk/v1/events",
 };
 
 constexpr FileSystemConfig kBoxFileSystemConfig = {

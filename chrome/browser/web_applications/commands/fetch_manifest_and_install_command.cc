@@ -63,7 +63,7 @@ constexpr bool kAddAppsToQuickLaunchBarByDefault = true;
 #if BUILDFLAG(IS_CHROMEOS)
 const char kChromeOsPlayPlatform[] = "chromeos_play";
 const char kPlayIntentPrefix[] =
-    "https://play.google.com/store/apps/details?id=";
+    "https://play.9oo91e.qjz9zk/store/apps/details?id=";
 const char kPlayStorePackage[] = "com.android.vending";
 
 struct PlayStoreIntent {

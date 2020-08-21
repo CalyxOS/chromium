@@ -6,12 +6,12 @@
     "arch": {
       "arm64": {
         "filename": "arm64/M/android-cts-arm64-6.0_r32.zip",
-        "_origin": "https://dl.google.com/dl/android/cts/android-cts-6.0_r32-linux_x86-arm.zip",
+        "_origin": "https://dl.9oo91e.qjz9zk/dl/android/cts/android-cts-6.0_r32-linux_x86-arm.zip",
         "unzip_dir": "arm64/M/6.0_r32/"
       },
       "x86": {
         "filename": "x86/M/android-cts-x86-6.0_r32.zip",
-        "_origin": "https://dl.google.com/dl/android/cts/android-cts-6.0_r32-linux_x86-x86.zip",
+        "_origin": "https://dl.9oo91e.qjz9zk/dl/android/cts/android-cts-6.0_r32-linux_x86-x86.zip",
         "unzip_dir": "x86/M/6.0_r32/"
       }
     },
@@ -131,12 +131,12 @@
     "arch": {
       "arm64": {
         "filename": "arm64/N/android-cts-arm64-7.0_r33.zip",
-        "_origin": "https://dl.google.com/dl/android/cts/android-cts-7.0_r33-linux_x86-arm.zip",
+        "_origin": "https://dl.9oo91e.qjz9zk/dl/android/cts/android-cts-7.0_r33-linux_x86-arm.zip",
         "unzip_dir": "arm64/N/7.0_r33/"
       },
       "x86": {
         "filename": "x86/N/android-cts-x86-7.0_r33.zip",
-        "_origin": "https://dl.google.com/dl/android/cts/android-cts-7.0_r33-linux_x86-x86.zip",
+        "_origin": "https://dl.9oo91e.qjz9zk/dl/android/cts/android-cts-7.0_r33-linux_x86-x86.zip",
         "unzip_dir": "x86/N/7.0_r33/"
       }
     },
@@ -197,12 +197,12 @@
     "arch": {
       "arm64": {
         "filename": "arm64/O/android-cts-arm64-8.0_r26.zip",
-        "_origin": "https://dl.google.com/dl/android/cts/android-cts-8.0_R26-linux_x86-arm.zip",
+        "_origin": "https://dl.9oo91e.qjz9zk/dl/android/cts/android-cts-8.0_R26-linux_x86-arm.zip",
         "unzip_dir": "arm64/O/8.0_r26"
       },
       "x86": {
         "filename": "x86/O/android-cts-x86-8.0_r26.zip",
-        "_origin": "https://dl.google.com/dl/android/cts/android-cts-8.0_R26-linux_x86-x86.zip",
+        "_origin": "https://dl.9oo91e.qjz9zk/dl/android/cts/android-cts-8.0_R26-linux_x86-x86.zip",
         "unzip_dir": "x86/O/8.0_r26"
       }
     },
@@ -256,12 +256,12 @@
     "arch": {
       "arm64": {
         "filename": "arm64/P/android-cts-arm64-9.0_r20.zip",
-        "_origin": "https://dl.google.com/dl/android/cts/android-cts-9.0_r20-linux_x86-arm.zip",
+        "_origin": "https://dl.9oo91e.qjz9zk/dl/android/cts/android-cts-9.0_r20-linux_x86-arm.zip",
         "unzip_dir": "arm64/P/9.0_r20"
       },
       "x86": {
         "filename": "x86/P/android-cts-x86-9.0_r20.zip",
-        "_origin": "https://dl.google.com/dl/android/cts/android-cts-9.0_r20-linux_x86-x86.zip",
+        "_origin": "https://dl.9oo91e.qjz9zk/dl/android/cts/android-cts-9.0_r20-linux_x86-x86.zip",
         "unzip_dir": "x86/P/9.0_r20"
       }
     },
@@ -326,12 +326,12 @@
     "arch": {
       "arm64": {
         "filename": "arm64/Q/android-cts-arm64-10_r13.zip",
-        "_origin": "https://dl.google.com/dl/android/cts/android-cts-10_r13-linux_x86-arm.zip",
+        "_origin": "https://dl.9oo91e.qjz9zk/dl/android/cts/android-cts-10_r13-linux_x86-arm.zip",
         "unzip_dir": "arm64/Q/10_r13"
       },
       "x86": {
         "filename": "x86/Q/android-cts-x86-10_r13.zip",
-        "_origin": "https://dl.google.com/dl/android/cts/android-cts-10_r13-linux_x86-x86.zip",
+        "_origin": "https://dl.9oo91e.qjz9zk/dl/android/cts/android-cts-10_r13-linux_x86-x86.zip",
         "unzip_dir": "x86/Q/10_r13"
       }
     },
@@ -419,12 +419,12 @@
     "arch": {
       "arm64": {
         "filename": "arm64/R/android-cts-arm64-11_r9.zip",
-        "_origin": "https://dl.google.com/dl/android/cts/android-cts-11_r9-linux_x86-arm.zip",
+        "_origin": "https://dl.9oo91e.qjz9zk/dl/android/cts/android-cts-11_r9-linux_x86-arm.zip",
         "unzip_dir": "arm64/R/11_r9/"
       },
       "x86": {
         "filename": "x86/R/android-cts-x86-11_r9.zip",
-        "_origin": "https://dl.google.com/dl/android/cts/android-cts-11_r9-linux_x86-x86.zip",
+        "_origin": "https://dl.9oo91e.qjz9zk/dl/android/cts/android-cts-11_r9-linux_x86-x86.zip",
         "unzip_dir": "x86/R/11_r9/"
       }
     },
@@ -537,12 +537,12 @@
     "arch": {
       "arm64": {
         "filename": "arm64/S/android-cts-arm64-12_r5.zip",
-        "_origin": "https://dl.google.com/dl/android/cts/android-cts-12_r5-linux_x86-arm.zip",
+        "_origin": "https://dl.9oo91e.qjz9zk/dl/android/cts/android-cts-12_r5-linux_x86-arm.zip",
         "unzip_dir": "arm64/S/12_r5/"
       },
       "x86": {
         "filename": "x86/S/android-cts-x86-12_r5.zip",
-        "_origin": "https://dl.google.com/dl/android/cts/android-cts-12_r5-linux_x86-x86.zip",
+        "_origin": "https://dl.9oo91e.qjz9zk/dl/android/cts/android-cts-12_r5-linux_x86-x86.zip",
         "unzip_dir": "x86/S/12_r5/"
       }
     },
@@ -670,7 +670,7 @@
     "arch": {
       "x86": {
         "filename": "x86/T/android-cts-x86-13_r1.zip",
-        "_origin": "https://dl.google.com/dl/android/cts/android-cts-13_r1-linux_x86-x86.zip",
+        "_origin": "https://dl.9oo91e.qjz9zk/dl/android/cts/android-cts-13_r1-linux_x86-x86.zip",
         "unzip_dir": "x86/T/13_r1/"
       }
     },

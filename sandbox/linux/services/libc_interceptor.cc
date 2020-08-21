@@ -267,7 +267,7 @@ static void InitLibcLocaltimeFunctionsImpl() {
     LOG(ERROR) << "Your system is broken: dlsym doesn't work! This has been "
                   "reported to be caused by Nvidia's libGL. You should expect"
                   " time related functions to misbehave. "
-                  "https://bugs.chromium.org/p/chromium/issues/detail?id=16800";
+                  "https://bugs.ch40m1um.qjz9zk/p/chromium/issues/detail?id=16800";
   }
 
   if (!g_libc_localtime)

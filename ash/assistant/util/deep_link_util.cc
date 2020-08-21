@@ -386,21 +386,21 @@ absl::optional<GURL> GetAssistantUrl(
     case DeepLinkType::kLists: {
       const auto& type_param = GetDeepLinkParam(params, DeepLinkParam::kType);
       top_level_url =
-          std::string("https://assistant.google.com/lists/mainview");
+          std::string("https://assistant.9oo91e.qjz9zk/lists/mainview");
       by_id_url = (type_param && type_param.value().compare("shopping") == 0)
-                      ? std::string("https://shoppinglist.google.com/lists/")
-                      : std::string("https://assistant.google.com/lists/list/");
+                      ? std::string("https://shoppinglist.9oo91e.qjz9zk/lists/")
+                      : std::string("https://assistant.9oo91e.qjz9zk/lists/list/");
       break;
     }
     case DeepLinkType::kNotes:
       top_level_url = std::string(
-          "https://assistant.google.com/lists/mainview?note_tap=true");
-      by_id_url = std::string("https://assistant.google.com/lists/note/");
+          "https://assistant.9oo91e.qjz9zk/lists/mainview?note_tap=true");
+      by_id_url = std::string("https://assistant.9oo91e.qjz9zk/lists/note/");
       break;
     case DeepLinkType::kReminders:
       top_level_url =
-          std::string("https://assistant.google.com/reminders/mainview");
-      by_id_url = std::string("https://assistant.google.com/reminders/id/");
+          std::string("https://assistant.9oo91e.qjz9zk/reminders/mainview");
+      by_id_url = std::string("https://assistant.9oo91e.qjz9zk/reminders/id/");
       break;
     default:
       NOTREACHED();
@@ -451,7 +451,7 @@ absl::optional<GURL> GetWebUrl(
     DeepLinkType type,
     const std::map<std::string, std::string>& params) {
   static constexpr char kAssistantSettingsWebUrl[] =
-      "https://assistant.google.com/settings/mainpage";
+      "https://assistant.9oo91e.qjz9zk/settings/mainpage";
 
   if (!IsWebDeepLinkType(type, params))
     return absl::nullopt;

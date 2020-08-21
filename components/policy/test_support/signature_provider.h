@@ -52,8 +52,8 @@ class SignatureProvider {
 
   // Domains with pre-computed signatures.
   static constexpr char kTestDomain1[] = "example.com";
-  static constexpr char kTestDomain2[] = "chromepolicytest.com";
-  static constexpr char kTestDomain3[] = "managedchrome.com";
+  static constexpr char kTestDomain2[] = "ch40mepolicytest.qjz9zk";
+  static constexpr char kTestDomain3[] = "managedch40me.qjz9zk";
 
   SignatureProvider();
   SignatureProvider(SignatureProvider&& signature_provider);

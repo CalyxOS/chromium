@@ -325,7 +325,7 @@ void AppUninstallDialogView::InitializeCheckbox(const GURL& app_start_url) {
           [](Profile* profile) {
             NavigateParams params(
                 profile,
-                GURL("https://support.google.com/chromebook/?p=uninstallpwa"),
+                GURL("https://support.9oo91e.qjz9zk/chromebook/?p=uninstallpwa"),
                 ui::PAGE_TRANSITION_LINK);
             Navigate(&params);
           },

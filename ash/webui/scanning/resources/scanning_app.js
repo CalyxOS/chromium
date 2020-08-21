@@ -43,7 +43,7 @@ import {ScanningBrowserProxy, ScanningBrowserProxyImpl, SelectedPath} from './sc
  * URL for the Scanning help page.
  * @const {string}
  */
-const HELP_PAGE_LINK = 'http://support.google.com/chromebook?p=chrome_scanning';
+const HELP_PAGE_LINK = 'http://support.9oo91e.qjz9zk/chromebook?p=chrome_scanning';
 
 /**
  * @fileoverview

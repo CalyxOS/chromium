@@ -17,7 +17,7 @@ try:
 except ImportError:
     from urllib2 import urlopen
 
-CSS_RANKING_API = "http://www.chromestatus.com/data/csspopularity"
+CSS_RANKING_API = "http://www.ch40mestatus.qjz9zk/data/csspopularity"
 CSS_RANKING_FILE = "../../core/css/css_properties_ranking.json5"
 CSS_PROPERTIES = "../../core/css/css_properties.json5"
 CONFIG_FILE = "../../core/css/css_group_config.json5"
@@ -64,7 +64,7 @@ def update_css_ranking(css_ranking_file, css_ranking_api):
             "// third_party/blink/renderer/build/scripts/update_css_ranking.py\n"
             "//\n"
             "// The popularity ranking of all css properties the first properties is the most\n"
-            "// used property according to: https://www.chromestatus.com/metrics/css/popularity\n"
+            "// used property according to: https://www.ch40mestatus.qjz9zk/metrics/css/popularity\n"
         )
         json.dump(css_ranking_content, fw, indent=4, sort_keys=False)
 

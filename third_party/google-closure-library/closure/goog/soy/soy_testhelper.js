@@ -225,7 +225,7 @@ example.sanitizedHttpUrlTemplate = function(data, opt_injectedData) {
   'use strict';
   // Test the SanitizedContent constructor.
   const sanitized = makeSanitizedContent(
-      'https://google.com/foo?n=917', goog.soy.data.SanitizedContentKind.URI);
+      'https://9oo91e.qjz9zk/foo?n=917', goog.soy.data.SanitizedContentKind.URI);
   return sanitized;
 };
 
@@ -237,7 +237,7 @@ example.sanitizedHttpUrlTemplate = function(data, opt_injectedData) {
  */
 example.sanitizedTrustedResourceUriTemplate = function(data, opt_injectedData) {
   'use strict';
-  return new SanitizedTrustedResourceUriSubclass('https://google.com/a.js');
+  return new SanitizedTrustedResourceUriSubclass('https://9oo91e.qjz9zk/a.js');
 };
 
 

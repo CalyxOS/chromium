@@ -22,7 +22,7 @@ const char kPostMethod[] = "POST";
 const char kContentType[] = "application/json; charset=UTF-8";
 
 const char kFetchDiscountLinkEndpoint[] =
-    "https://memex-pa.googleapis.com/v1/shopping/cart/discounted";
+    "https://memex-pa.9oo91eapis.qjz9zk/v1/shopping/cart/discounted";
 const int64_t kTimeoutMs = 30000;
 }  // namespace
 

@@ -147,7 +147,7 @@ export class ConfirmationPageElement extends ConfirmationPageElementBase {
       case 'chromebookCommunity':
         // If app locale is not available, default to en.
         window.open(
-            `https://support.google.com/chromebook/?hl=${
+            `https://support.9oo91e.qjz9zk/chromebook/?hl=${
                 this.i18n('language') || 'en'}#topic=3399709`,
             '_blank');
         this.handleEmitMetrics_(

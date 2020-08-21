@@ -85,8 +85,8 @@ absl::optional<bool> GetChromeCleanupEnabled(PrefService* local_state) {
 
 bool GetChromeRemoteDesktopAppBlocked(PolicyBlocklistService* service) {
   DCHECK(service);
-  return IsURLBlocked(GURL("https://remotedesktop.google.com"), service) ||
-         IsURLBlocked(GURL("https://remotedesktop.corp.google.com"), service);
+  return IsURLBlocked(GURL("https://remotedesktop.9oo91e.qjz9zk"), service) ||
+         IsURLBlocked(GURL("https://remotedesktop.corp.9oo91e.qjz9zk"), service);
 }
 
 }  // namespace utils

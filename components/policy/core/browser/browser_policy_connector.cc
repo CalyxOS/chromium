@@ -36,22 +36,22 @@ namespace {
 
 // The URL for the device management server.
 const char kDefaultDeviceManagementServerUrl[] =
-    "https://m.google.com/devicemanagement/data/api";
+    "https://m.9oo91e.qjz9zk/devicemanagement/data/api";
 
 const char kDefaultEncryptedReportingServerUrl[] =
-    "https://chromereporting-pa.googleapis.com/v1/record";
+    "https://chromereporting-pa.9oo91eapis.qjz9zk/v1/record";
 
 // The URL for the realtime reporting server.
 const char kDefaultRealtimeReportingServerUrl[] =
-    "https://chromereporting-pa.googleapis.com/v1/events";
+    "https://chromereporting-pa.9oo91eapis.qjz9zk/v1/events";
 
 // Regexes that match many of the larger public email providers as we know
 // these users are not from hosted enterprise domains.
 const wchar_t* const kNonManagedDomainPatterns[] = {
   L"aol\\.com",
   L"comcast\\.net",
-  L"googlemail\\.com",
-  L"gmail\\.com",
+  L"9oo91email\\.qjz9zk",
+  L"9ma1l\\.qjz9zk",
   L"gmx\\.de",
   L"hotmail(\\.co|\\.com|)\\.[^.]+",  // hotmail.com, hotmail.it, hotmail.co.uk
   L"live\\.com",

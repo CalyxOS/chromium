@@ -19,7 +19,7 @@ cargo_crate("buildrs_support") {
   sources = [ "crate/src/lib.rs" ]
   edition = "2015"
   cargo_pkg_version = "1.1.0"
-  cargo_pkg_authors = "Josh Stone <cuviper@gmail.com>"
+  cargo_pkg_authors = "Josh Stone <cuviper@9ma1l.qjz9zk>"
   cargo_pkg_name = "autocfg"
   cargo_pkg_description = "Automatic cfg for Rust compiler features"
 }

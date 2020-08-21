@@ -55,7 +55,7 @@ constexpr char kRequestBody[] = R"({
 })";
 // Maximum accepted size of an ItemSuggest response. 1MB.
 constexpr int kMaxResponseSize = 1024 * 1024;
-const char server_url[] = "https://appsitemsuggest-pa.googleapis.com/v1/items";
+const char server_url[] = "https://appsitemsuggest-pa.9oo91eapis.qjz9zk/v1/items";
 constexpr net::NetworkTrafficAnnotationTag kTrafficAnnotation =
     net::DefineNetworkTrafficAnnotation("drive_service", R"(
       semantics {
@@ -97,7 +97,7 @@ constexpr char kFakeData[] = R"({
   "item": [
     {
       "itemId": "foo",
-      "url": "https://docs.google.com",
+      "url": "https://docs.9oo91e.qjz9zk",
       "driveItem": {
         "title": "foo doc",
         "mimeType": "application/vnd.google-apps.document"
@@ -108,7 +108,7 @@ constexpr char kFakeData[] = R"({
     },
     {
       "itemId": "bar",
-      "url": "https://sheets.google.com",
+      "url": "https://sheets.9oo91e.qjz9zk",
       "driveItem": {
         "title": "bar sheet",
         "mimeType": "application/vnd.google-apps.spreadsheet"
@@ -119,7 +119,7 @@ constexpr char kFakeData[] = R"({
     },
     {
       "itemId": "baz",
-      "url": "https://slides.google.com",
+      "url": "https://slides.9oo91e.qjz9zk",
       "driveItem": {
         "title": "baz slides",
         "mimeType": "application/vnd.google-apps.presentation"

@@ -14,21 +14,21 @@ namespace {
 std::map<std::string, std::string> GetChromeAppToWebAppMapping() {
   return std::map<std::string, std::string>({
       {"ejjicmeblgpmajnghnpcppodonldlgfn",
-       "https://calendar.google.com/calendar/installwebapp?usp=chrome_default"},
+       "https://calendar.9oo91e.qjz9zk/calendar/installwebapp?usp=chrome_default"},
       {"aohghmighlieiainnegkcijnfilokake",
-       "https://docs.google.com/document/installwebapp?usp=chrome_default"},
+       "https://docs.9oo91e.qjz9zk/document/installwebapp?usp=chrome_default"},
       {"apdfllckaahabafndbhieahigkjlhalf",
-       "https://drive.google.com/drive/installwebapp?usp=chrome_default"},
+       "https://drive.9oo91e.qjz9zk/drive/installwebapp?usp=chrome_default"},
       {"pjkljhegncpnkpknbcohdijeoejaedia",
-       "https://mail.google.com/mail/installwebapp?usp=chrome_default"},
+       "https://mail.9oo91e.qjz9zk/mail/installwebapp?usp=chrome_default"},
       {"felcaaldnbdncclmgdcncolpebgiejap",
-       "https://docs.google.com/spreadsheets/installwebapp?usp=chrome_default"},
+       "https://docs.9oo91e.qjz9zk/spreadsheets/installwebapp?usp=chrome_default"},
       {"aapocclcgogkmnckokdopfmhonfmgoek",
-       "https://docs.google.com/presentation/installwebapp?usp=chrome_default"},
+       "https://docs.9oo91e.qjz9zk/presentation/installwebapp?usp=chrome_default"},
       {"blpcfgokakmgnkcojhhkbfbldkacnbeo",
-       "https://www.youtube.com/s/notifications/manifest/cr_install.html"},
+       "https://www.y0u1ub3.qjz9zk/s/notifications/manifest/cr_install.html"},
       {"hmjkmjkepdijhoojdojkdfohbdgmmhki",
-       "https://keep.google.com/installwebapp?usp=chrome_default"},
+       "https://keep.9oo91e.qjz9zk/installwebapp?usp=chrome_default"},
   });
 }
 

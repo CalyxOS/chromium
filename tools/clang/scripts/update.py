@@ -42,7 +42,7 @@ PACKAGE_VERSION = '%s-%s' % (CLANG_REVISION, CLANG_SUB_REVISION)
 RELEASE_VERSION = '16.0.0'
 
 CDS_URL = os.environ.get('CDS_CLANG_BUCKET_OVERRIDE',
-    'https://commondatastorage.googleapis.com/chromium-browser-clang')
+    'https://commondatastorage.9oo91eapis.qjz9zk/chromium-browser-clang')
 
 # Path constants. (All of these should be absolute paths.)
 THIS_DIR = os.path.abspath(os.path.dirname(__file__))

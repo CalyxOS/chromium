@@ -24,11 +24,11 @@ namespace quick_pair {
 namespace {
 
 const char kUserDevicesUrl[] =
-    "https://nearbydevices-pa.googleapis.com/v1/user/devices"
+    "https://nearbydevices-pa.9oo91eapis.qjz9zk/v1/user/devices"
     "?key=%s&alt=proto";
 
 const char kUserDeleteDeviceUrl[] =
-    "https://nearbydevices-pa.googleapis.com/v1/user/device/%s"
+    "https://nearbydevices-pa.9oo91eapis.qjz9zk/v1/user/device/%s"
     "?key=%s&alt=proto";
 
 const net::PartialNetworkTrafficAnnotationTag kTrafficAnnotation =

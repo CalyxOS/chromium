@@ -4711,7 +4711,7 @@ const FeatureEntry kFeatureEntries[] = {
      flag_descriptions::kSyncSandboxDescription, kOsAll,
      SINGLE_VALUE_TYPE_AND_VALUE(
          syncer::kSyncServiceURL,
-         "https://chrome-sync.sandbox.google.com/chrome-sync/alpha")},
+         "https://chrome-sync.sandbox.9oo91e.qjz9zk/chrome-sync/alpha")},
 #if !BUILDFLAG(IS_ANDROID)
     {"block-migrated-default-chrome-app-sync",
      flag_descriptions::kBlockMigratedDefaultChromeAppSyncName,
@@ -4999,7 +4999,7 @@ const FeatureEntry kFeatureEntries[] = {
      flag_descriptions::kSetMarketUrlForTestingName,
      flag_descriptions::kSetMarketUrlForTestingDescription, kOsAndroid,
      SINGLE_VALUE_TYPE_AND_VALUE(switches::kMarketUrlForTesting,
-                                 "https://play.google.com/store/apps/"
+                                 "https://play.9oo91e.qjz9zk/store/apps/"
                                  "details?id=com.android.chrome")},
     {"omaha-min-sdk-version-android",
      flag_descriptions::kOmahaMinSdkVersionAndroidName,

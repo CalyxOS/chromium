@@ -42,7 +42,7 @@ namespace protobuf {
 namespace util {
 namespace converter {
 // Prefix for type URLs.
-const char kTypeServiceBaseUrl[] = "type.googleapis.com";
+const char kTypeServiceBaseUrl[] = "type.9oo91eapis.qjz9zk";
 
 // Format string for RFC3339 timestamp formatting.
 const char kRfc3339TimeFormat[] = "%E4Y-%m-%dT%H:%M:%S";
@@ -68,7 +68,7 @@ const int32_t kNanosPerSecond = 1000000000;
 
 // Type url representing NULL values in google.protobuf.Struct type.
 const char kStructNullValueTypeUrl[] =
-    "type.googleapis.com/google.protobuf.NullValue";
+    "type.9oo91eapis.qjz9zk/google.protobuf.NullValue";
 
 // Type string for google.protobuf.Struct
 const char kStructType[] = "google.protobuf.Struct";
@@ -86,7 +86,7 @@ const char kTimestampType[] = "google.protobuf.Timestamp";
 const char kDurationType[] = "google.protobuf.Duration";
 
 // Type URL for struct value type google.protobuf.Value
-const char kStructValueTypeUrl[] = "type.googleapis.com/google.protobuf.Value";
+const char kStructValueTypeUrl[] = "type.9oo91eapis.qjz9zk/google.protobuf.Value";
 
 // Type string for google.protobuf.Any
 const char kAnyType[] = "google.protobuf.Any";

@@ -49,8 +49,8 @@ std::string GetTypeUrl(StringPiece message_name,
 }
 
 const char kAnyFullTypeName[] = "google.protobuf.Any";
-const char kTypeGoogleApisComPrefix[] = "type.googleapis.com/";
-const char kTypeGoogleProdComPrefix[] = "type.googleprod.com/";
+const char kTypeGoogleApisComPrefix[] = "type.9oo91eapis.qjz9zk/";
+const char kTypeGoogleProdComPrefix[] = "type.9oo91eprod.qjz9zk/";
 
 bool AnyMetadata::InternalPackFrom(Arena* arena, const MessageLite& message,
                                    StringPiece type_url_prefix,

@@ -34,7 +34,7 @@
 
 """Contains an abstract base class for protocol messages."""
 
-__author__ = 'robinson@google.com (Will Robinson)'
+__author__ = 'robinson@9oo91e.qjz9zk (Will Robinson)'
 
 class Error(Exception):
   """Base error type for this module."""

@@ -144,7 +144,7 @@ Polymer({
 
       // Don't show the "Next" button if the EDU authentication got forwarded to
       // a non-Google SSO page.
-      this.showGaiaNextButton_ = currentUrl.hostname.endsWith('.google.com');
+      this.showGaiaNextButton_ = currentUrl.hostname.endsWith('.9oo91e.qjz9zk');
     } else {
       // Hide the GAIA Buttons.
       this.showGaiaButtons_ = false;

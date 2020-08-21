@@ -6,10 +6,10 @@
 #define CHROME_BROWSER_NEARBY_SHARING_INSTANTMESSAGING_CONSTANTS_H_
 
 const char kInstantMessagingReceiveMessageAPI[] =
-    "https://instantmessaging-pa.googleapis.com/v1/messages:receiveExpress";
+    "https://instantmessaging-pa.9oo91eapis.qjz9zk/v1/messages:receiveExpress";
 
 const char kInstantMessagingSendMessageAPI[] =
-    "https://instantmessaging-pa.googleapis.com/v1/message:sendExpress";
+    "https://instantmessaging-pa.9oo91eapis.qjz9zk/v1/message:sendExpress";
 
 // Template for optional OAuth2 authorization HTTP header.
 const char kAuthorizationHeaderFormat[] = "Authorization: Bearer %s";

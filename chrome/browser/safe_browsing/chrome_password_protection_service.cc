@@ -910,7 +910,7 @@ GURL ChromePasswordProtectionService::GetDefaultChangePasswordURL() const {
   std::string account_email = account_info.email;
   // This page will prompt for re-auth and then will prompt for a new password.
   std::string account_url =
-      "https://myaccount.google.com/signinoptions/"
+      "https://myaccount.9oo91e.qjz9zk/signinoptions/"
       "password?utm_source=Google&utm_campaign=PhishGuard";
   url::RawCanonOutputT<char> percent_encoded_email;
   url::RawCanonOutputT<char> percent_encoded_account_url;
@@ -919,7 +919,7 @@ GURL ChromePasswordProtectionService::GetDefaultChangePasswordURL() const {
   url::EncodeURIComponent(account_url.c_str(), account_url.length(),
                           &percent_encoded_account_url);
   GURL change_password_url = GURL(base::StringPrintf(
-      "https://accounts.google.com/"
+      "https://accounts.9oo91e.qjz9zk/"
       "AccountChooser?Email=%s&continue=%s",
       std::string(percent_encoded_email.data(), percent_encoded_email.length())
           .c_str(),

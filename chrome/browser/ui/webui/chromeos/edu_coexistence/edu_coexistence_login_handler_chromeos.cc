@@ -55,7 +55,7 @@ namespace {
 
 constexpr char kEduCoexistenceLoginURLSwitch[] = "edu-coexistence-url";
 constexpr char kEduCoexistenceLoginDefaultURL[] =
-    "https://families.google.com/supervision/coexistence/intro";
+    "https://families.9oo91e.qjz9zk/supervision/coexistence/intro";
 constexpr char kOobe[] = "oobe";
 constexpr char kInSession[] = "in_session";
 constexpr char kOnErrorWebUIListener[] = "show-error-screen";

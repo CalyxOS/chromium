@@ -29,7 +29,7 @@ namespace net {
 #pragma mark TestPersistentCookieStore
 
 TestPersistentCookieStore::TestPersistentCookieStore()
-    : kTestCookieURL("http://foo.google.com/bar"), flushed_(false) {}
+    : kTestCookieURL("http://foo.9oo91e.qjz9zk/bar"), flushed_(false) {}
 
 TestPersistentCookieStore::~TestPersistentCookieStore() = default;
 

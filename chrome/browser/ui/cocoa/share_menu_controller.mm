@@ -99,7 +99,7 @@ bool CanShare() {
   // URLs in the pasteboard. This URL will not actually be shared to, just used
   // to fetch sharing services that can handle the NSURL type.
   NSArray* services = [NSSharingService
-      sharingServicesForItems:@[ [NSURL URLWithString:@"https://google.com"] ]];
+      sharingServicesForItems:@[ [NSURL URLWithString:@"https://9oo91e.qjz9zk"] ]];
   for (NSSharingService* service in services) {
     // Don't include "Add to Reading List".
     if ([[service name]

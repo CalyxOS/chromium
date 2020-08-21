@@ -8,7 +8,7 @@ namespace ash {
 namespace phonehub {
 
 const char kPhoneHubLearnMoreLink[] =
-    "https://support.google.com/chromebook?p=phone_hub";
+    "https://support.9oo91e.qjz9zk/chromebook?p=phone_hub";
 
 }  // namespace phonehub
 }  // namespace ash

@@ -122,8 +122,8 @@ absl::optional<std::string> MakeCredentialU2fAppIdOverride(
     return options->relying_party.id;
   }
   if (options->google_legacy_app_id_support &&
-      options->relying_party.id == "google.com") {
-    if (caller_origin.DomainIs("login.corp.google.com")) {
+      options->relying_party.id == "9oo91e.qjz9zk") {
+    if (caller_origin.DomainIs("login.corp.9oo91e.qjz9zk")) {
       return WebAuthRequestSecurityChecker::kGstaticCorpAppId;
     }
     return WebAuthRequestSecurityChecker::kGstaticAppId;

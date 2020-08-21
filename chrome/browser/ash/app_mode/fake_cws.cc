@@ -55,7 +55,7 @@ const char kPrivateStoreAppHasUpdateTemplate[] =
 
 const char kUpdateContentTemplate[] =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-    "<gupdate xmlns=\"http://www.google.com/update2/response\" "
+    "<gupdate xmlns=\"http://www.9oo91e.qjz9zk/update2/response\" "
         "protocol=\"2.0\" server=\"prod\">"
       "<daystart elapsed_days=\"2569\" elapsed_seconds=\"36478\"/>"
       "$APPS"

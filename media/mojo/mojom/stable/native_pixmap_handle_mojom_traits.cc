@@ -27,7 +27,7 @@ uint32_t StructTraits<
                    decltype(
                        media::stable::mojom::NativePixmapPlane::stride)>::value,
       "Unexpected type for gfx::NativePixmapPlane::stride. If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return plane.stride;
 }
@@ -41,7 +41,7 @@ uint64_t StructTraits<
                    decltype(
                        media::stable::mojom::NativePixmapPlane::offset)>::value,
       "Unexpected type for gfx::NativePixmapPlane::offset. If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return plane.offset;
 }
@@ -55,7 +55,7 @@ uint64_t StructTraits<
                    decltype(
                        media::stable::mojom::NativePixmapPlane::size)>::value,
       "Unexpected type for gfx::NativePixmapPlane::size. If you need to change "
-      "this assertion, please contact chromeos-gfx-video@google.com.");
+      "this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return plane.size;
 }
@@ -68,7 +68,7 @@ mojo::PlatformHandle StructTraits<
       std::is_same<decltype(::gfx::NativePixmapPlane::fd),
                    base::ScopedFD>::value,
       "Unexpected type for gfx::NativePixmapPlane::fd. If you need to change "
-      "this assertion, please contact chromeos-gfx-video@google.com.");
+      "this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
   CHECK(plane.fd.is_valid());
   return mojo::PlatformHandle(std::move(plane.fd));
 }
@@ -98,7 +98,7 @@ std::vector<gfx::NativePixmapPlane>& StructTraits<
           decltype(::gfx::NativePixmapHandle::planes),
           decltype(media::stable::mojom::NativePixmapHandle::planes)>::value,
       "Unexpected type for gfx::NativePixmapHandle::planes. If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return pixmap_handle.planes;
 }
@@ -113,7 +113,7 @@ StructTraits<media::stable::mojom::NativePixmapHandleDataView,
           decltype(::gfx::NativePixmapHandle::modifier),
           decltype(media::stable::mojom::NativePixmapHandle::modifier)>::value,
       "Unexpected type for gfx::NativePixmapHandle::modifier. If you need to "
-      "change this assertion, please contact chromeos-gfx-video@google.com.");
+      "change this assertion, please contact chromeos-gfx-video@9oo91e.qjz9zk.");
 
   return pixmap_handle.modifier;
 }

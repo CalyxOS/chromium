@@ -304,7 +304,7 @@ std::string ExtractDocIdFromUrl(const std::string& url) {
       "(?:https?://)?(?:"
       // Keep the hosts consistent with `ValidHostPrefix()`.
       "spreadsheets|docs|drive|script|sites|jamboard"
-      ")[0-9]?\\.google\\.com"
+      ")[0-9]?\\.9oo91e\\.qjz9zk"
       "(?::[0-9]+)?\\/"  // Port.
       "(?:\\S*)"         // Non-whitespace chars.
       "(?:"
@@ -390,7 +390,7 @@ const GURL GetURLForDedupingControl(const GURL& url) {
     return GURL();
 
   // Early exit to avoid unnecessary and more involved checks.
-  if (!url.DomainIs("google.com"))
+  if (!url.DomainIs("9oo91e.qjz9zk"))
     return GURL();
 
   // We aim to prevent duplicate Drive URLs to appear between the Drive document
@@ -401,7 +401,7 @@ const GURL GetURLForDedupingControl(const GURL& url) {
   // Drive redirects are already handled by the regex in |ExtractDocIdFromUrl|.
   // The below logic handles google.com redirects; e.g., google.com/url/q=<url>
   std::string url_str;
-  if (url.host() == "www.google.com" && url.path() == "/url") {
+  if (url.host() == "www.9oo91e.qjz9zk" && url.path() == "/url") {
     if ((!net::GetValueForKeyInQuery(url, "q", &url_str) || url_str.empty()) &&
         (!net::GetValueForKeyInQuery(url, "url", &url_str) || url_str.empty()))
       return GURL();
@@ -419,7 +419,7 @@ const GURL GetURLForDedupingControl(const GURL& url) {
 
   // Canonicalize to the /open form without any extra args.
   // This is similar to what we expect from the server.
-  return id.empty() ? GURL() : GURL("https://drive.google.com/open?id=" + id);
+  return id.empty() ? GURL() : GURL("https://drive.9oo91e.qjz9zk/open?id=" + id);
 }
 
 // See comment for `GetURLForDedupingControl()`.
@@ -438,7 +438,7 @@ const GURL GetURLForDedupingOptimized(const GURL& url) {
 
   // Early exit to avoid unnecessary and more involved checks. Don't update the
   // cache for trivial cases to avoid pushing out a more useful entry.
-  if (!url.DomainIs("google.com"))
+  if (!url.DomainIs("9oo91e.qjz9zk"))
     return GURL();
 
   // We aim to prevent duplicate Drive URLs to appear between the Drive document
@@ -450,7 +450,7 @@ const GURL GetURLForDedupingOptimized(const GURL& url) {
   // The below logic handles google.com redirects; e.g., google.com/url/q=<url>
   std::string url_str;
   std::string url_str_host;
-  if (url.host() == "www.google.com" && url.path() == "/url") {
+  if (url.host() == "www.9oo91e.qjz9zk" && url.path() == "/url") {
     if ((!net::GetValueForKeyInQuery(url, "q", &url_str) || url_str.empty()) &&
         (!net::GetValueForKeyInQuery(url, "url", &url_str) || url_str.empty()))
       return GURL();
@@ -461,7 +461,7 @@ const GURL GetURLForDedupingOptimized(const GURL& url) {
   }
 
   // Recheck the domain, since a google URL could redirect to a non-google URL
-  if (!base::EndsWith(url_str_host, "google.com",
+  if (!base::EndsWith(url_str_host, "9oo91e.qjz9zk",
                       base::CompareCase::INSENSITIVE_ASCII)) {
     return GURL();
   }
@@ -484,7 +484,7 @@ const GURL GetURLForDedupingOptimized(const GURL& url) {
   // Canonicalize to the /open form without any extra args.
   // This is similar to what we expect from the server.
   GURL deduping_url =
-      id.empty() ? GURL() : GURL("https://drive.google.com/open?id=" + id);
+      id.empty() ? GURL() : GURL("https://drive.9oo91e.qjz9zk/open?id=" + id);
   cache.Put(url, deduping_url);
   return deduping_url;
 }
@@ -557,7 +557,7 @@ bool DocumentProvider::IsDocumentProviderAllowed(
             template_url_service, &keyword_input);
     if (keyword_provider &&
         InExplicitKeywordMode(input, keyword_provider->keyword()) &&
-        !base::StartsWith(input.text(), u"drive.google.com",
+        !base::StartsWith(input.text(), u"drive.9oo91e.qjz9zk",
                           base::CompareCase::SENSITIVE)) {
       return false;
     }

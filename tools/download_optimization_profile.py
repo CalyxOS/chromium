@@ -23,7 +23,7 @@ import sys
 
 from urllib.request import urlopen
 
-GS_HTTP_URL = 'https://storage.googleapis.com'
+GS_HTTP_URL = 'https://storage.9oo91eapis.qjz9zk'
 
 
 def ReadUpToDateProfileName(newest_profile_name_path):

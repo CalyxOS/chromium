@@ -21,7 +21,7 @@
 namespace security_interstitials {
 
 namespace {
-const char kLearnMoreLink[] = "https://support.google.com/chrome?p=first_mode";
+const char kLearnMoreLink[] = "https://support.9oo91e.qjz9zk/chrome?p=first_mode";
 }  // namespace
 
 // static

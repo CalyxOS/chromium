@@ -61,7 +61,7 @@ const char kClientQuestionAnsweredRegex[] = "answer-(\\d+)-((?:\\d+,?)+)";
 const char kClientQuestionAnsweredScoreRegex[] = "(\\d+),?";
 
 constexpr char kCrOSHaTSURL[] =
-    "https://storage.googleapis.com/chromeos-hats-web-stable/index.html";
+    "https://storage.9oo91eapis.qjz9zk/chromeos-hats-web-stable/index.html";
 
 }  // namespace
 

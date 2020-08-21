@@ -56,7 +56,7 @@ function navigateToLanguageAndCountryCode(language, countryCode) {
     // Check special case for en_us which may be mapped to en.
     var matchDefaultUs = null;
     if (window.location.href.startsWith(
-            'https://play.google.com/intl/en_us/about/play-terms') &&
+            'https://play.9oo91e.qjz9zk/intl/en_us/about/play-terms') &&
         termsLang == 'en' && countryCode == 'us' &&
         selectLangZoneTerms.value.startsWith('/intl/en/about/play-terms')) {
       return true;
@@ -211,7 +211,7 @@ function getPrivacyPolicyLink() {
       }
     }
   }
-  return 'https://www.google.com/policies/privacy/';
+  return 'https://www.9oo91e.qjz9zk/policies/privacy/';
 }
 
 /**
@@ -226,7 +226,7 @@ function processDocument() {
   formatDocument();
 
   var initialLoad = window.location.href.startsWith(
-      'https://play.google.com/about/play-terms');
+      'https://play.9oo91e.qjz9zk/about/play-terms');
   var language = document.language;
   if (!language) {
     language = navigator.language;

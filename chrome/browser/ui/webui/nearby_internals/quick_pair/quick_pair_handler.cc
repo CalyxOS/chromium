@@ -27,9 +27,9 @@ const char kLogMessageSeverityKey[] = "severity";
 // Test device metadata for debug purposes
 const char16_t kTestDeviceName[] = u"Pixel Buds";
 const char16_t kTestAppName[] = u"JBLTools";
-const char16_t kTestEmail[] = u"testemail@gmail.com";
+const char16_t kTestEmail[] = u"testemail@9ma1l.qjz9zk";
 const char kImageUrl[] =
-    "https://lh3.googleusercontent.com/"
+    "https://lh3.9oo91eusercontent.qjz9zk/"
     "kGH7uF95EhgI0XBRJOGh3l7KvPWsNAFwaxPfksIJloqk-"
     "mh8cZYG9RITPS65UOtUNry9dnyYYMn5dQtFzVdagSE";
 

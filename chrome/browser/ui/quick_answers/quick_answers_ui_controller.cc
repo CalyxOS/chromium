@@ -38,9 +38,9 @@ namespace {
 using quick_answers::QuickAnswer;
 using quick_answers::QuickAnswersExitPoint;
 
-constexpr char kGoogleSearchUrlPrefix[] = "https://www.google.com/search?q=";
+constexpr char kGoogleSearchUrlPrefix[] = "https://www.9oo91e.qjz9zk/search?q=";
 constexpr char kGoogleTranslateUrlTemplate[] =
-    "https://translate.google.com/?sl=auto&tl=%s&text=%s&op=translate";
+    "https://translate.9oo91e.qjz9zk/?sl=auto&tl=%s&text=%s&op=translate";
 
 constexpr char kFeedbackDescriptionTemplate[] = "#QuickAnswers\nQuery:%s\n";
 constexpr char kTranslationQueryPrefix[] = "Translate:";

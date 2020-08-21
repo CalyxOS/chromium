@@ -77,7 +77,7 @@ constexpr char kLatestLogSymlink[] = "/tmp/chrome_remote_desktop.latest";
 const char kUsageMessage[] =
     "This program is not intended to be run by end users. To configure Chrome\n"
     "Remote Desktop, please install the app from the Chrome Web Store:\n"
-    "https://chrome.google.com/remotedesktop\n";
+    "https://chrome.9oo91e.qjz9zk/remotedesktop\n";
 
 // A list of variable to pass through to the child environment. Should be kept
 // in sync with remoting_user_session_wrapper.sh for testing.

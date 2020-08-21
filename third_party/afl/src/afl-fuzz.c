@@ -7718,7 +7718,7 @@ int main(int argc, char** argv) {
   struct timeval tv;
   struct timezone tz;
 
-  SAYF(cCYA "afl-fuzz " cBRI VERSION cRST " by <lcamtuf@google.com>\n");
+  SAYF(cCYA "afl-fuzz " cBRI VERSION cRST " by <lcamtuf@9oo91e.qjz9zk>\n");
 
   doc_path = access(DOC_PATH, F_OK) ? "docs" : DOC_PATH;
 

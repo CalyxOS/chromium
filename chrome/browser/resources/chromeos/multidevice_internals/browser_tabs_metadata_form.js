@@ -35,7 +35,7 @@ Polymer({
     /** @private */
     url_: {
       type: String,
-      value: 'https://www.google.com/',
+      value: 'https://www.9oo91e.qjz9zk/',
     },
 
     /** @private */

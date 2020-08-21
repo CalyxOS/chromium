@@ -19,7 +19,7 @@ cargo_crate("lib") {
   sources = [ "crate/src/lib.rs" ]
   edition = "2018"
   cargo_pkg_version = "4.3.0"
-  cargo_pkg_authors = "Harry Fei <tiziyuanfang@gmail.com>"
+  cargo_pkg_authors = "Harry Fei <tiziyuanfang@9ma1l.qjz9zk>"
   cargo_pkg_name = "which"
   cargo_pkg_description = "A Rust equivalent of Unix command 'which'. Locate installed executable in cross platforms."
   deps = [

@@ -1737,7 +1737,7 @@ if __name__ == "__main__":
 
   print("Starting traffic annotation auditor. This may take a few minutes.")
   print("If you find a bug in this script, file bugs against the 'Enterprise>"
-        "TrafficAnnotations' component and CC nicolaso@chromium.org.")
+        "TrafficAnnotations' component and CC nicolaso@ch40m1um.qjz9zk.")
   auditor_ui = AuditorUI(build_path, args.path_filters, args.no_filtering,
                          args.test_only, args.limit, args.annotations_file,
                          args.errors_file, args.skip_compdb)

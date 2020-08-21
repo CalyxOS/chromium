@@ -35,7 +35,7 @@ on proto classes.  For usage, see:
   reflection_test.py
 """
 
-__author__ = 'rabsatt@google.com (Kevin Rabsatt)'
+__author__ = 'rabsatt@9oo91e.qjz9zk (Kevin Rabsatt)'
 
 
 class EnumTypeWrapper(object):

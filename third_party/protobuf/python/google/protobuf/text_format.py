@@ -40,7 +40,7 @@ Simple usage example::
   message = text_format.Parse(text_proto, my_proto_pb2.MyMessage())
 """
 
-__author__ = 'kenton@google.com (Kenton Varda)'
+__author__ = 'kenton@9oo91e.qjz9zk (Kenton Varda)'
 
 # TODO(b/129989314) Import thread contention leads to test failures.
 import encodings.raw_unicode_escape  # pylint: disable=unused-import

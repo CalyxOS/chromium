@@ -27,7 +27,7 @@ namespace safe_browsing {
 namespace {
 
 constexpr const char kUploadUrl[] =
-    "https://safebrowsing.google.com/safebrowsing/clientreport/crx-telemetry";
+    "https://safebrowsing.9oo91e.qjz9zk/safebrowsing/clientreport/crx-telemetry";
 
 constexpr net::NetworkTrafficAnnotationTag
     kSafeBrowsingExtensionTelemetryTrafficAnnotation =

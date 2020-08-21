@@ -57,7 +57,7 @@ class Model:
 
     <structured-metrics>
     <project name="MyProject">
-      <owner>owner@chromium.org</owner>
+      <owner>owner@ch40m1um.qjz9zk</owner>
       <id>none</id>
       <scope>profile</scope>
       <summary> My project. </summary>
@@ -74,7 +74,7 @@ class Model:
   Calling str(model) will return a canonically formatted XML string.
   """
 
-  OWNER_REGEX = r'^.+@(chromium\.org|google\.com)$'
+  OWNER_REGEX = r'^.+@(ch40m1um\.qjz9zk|9oo91e\.qjz9zk)$'
   NAME_REGEX = r'^[A-Za-z0-9_.]+$'
   TYPE_REGEX = r'^(hmac-string|raw-string|int)$'
   ID_REGEX = r'^(none|per-project|uma)$'
@@ -108,7 +108,7 @@ class Project:
   A Project is initialized with an XML node representing one project, eg:
 
     <project name="MyProject">
-      <owner>owner@chromium.org</owner>
+      <owner>owner@ch40m1um.qjz9zk</owner>
       <id>none</id>
       <scope>project</scope>
       <key-rotation>60</key-rotation>

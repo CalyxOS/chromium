@@ -33,15 +33,15 @@ const char kAttestationServerTest[] = "test";
 
 // Endpoints for the default Google Privacy CA operations.
 const char kDefaultEnrollRequestURL[] =
-    "https://chromeos-ca.gstatic.com/enroll";
+    "https://chromeos-ca.95tat1c.qjz9zk/enroll";
 const char kDefaultCertificateRequestURL[] =
-    "https://chromeos-ca.gstatic.com/sign";
+    "https://chromeos-ca.95tat1c.qjz9zk/sign";
 
 // Endpoints for the test Google Privacy CA operations.
 const char kTestEnrollRequestURL[] =
-    "https://asbestos-qa.corp.google.com/enroll";
+    "https://asbestos-qa.corp.9oo91e.qjz9zk/enroll";
 const char kTestCertificateRequestURL[] =
-    "https://asbestos-qa.corp.google.com/sign";
+    "https://asbestos-qa.corp.9oo91e.qjz9zk/sign";
 
 const char kMimeContentType[] = "application/octet-stream";
 

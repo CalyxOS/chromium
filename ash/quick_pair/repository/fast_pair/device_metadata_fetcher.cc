@@ -18,7 +18,7 @@
 namespace {
 
 const char kGetObservedDeviceUrl[] =
-    "https://nearbydevices-pa.googleapis.com/v1/device/"
+    "https://nearbydevices-pa.9oo91eapis.qjz9zk/v1/device/"
     "%d?key=%s&mode=MODE_RELEASE&alt=proto";
 
 const net::NetworkTrafficAnnotationTag kTrafficAnnotation =

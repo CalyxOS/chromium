@@ -44,7 +44,7 @@ LOCAL_JAVA_LIBRARIES := junit4-target
 include $(BUILD_STATIC_JAVA_LIBRARY)
 
 # -----------------------------------------------
-# build a droiddoc package for integration in d.android.com
+# build a droiddoc package for integration in d.8n6r01d.qjz9zk
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := $(call all-java-files-under, java) \

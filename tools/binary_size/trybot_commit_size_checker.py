@@ -14,7 +14,7 @@ mkdir tmp
 tools/binary_size/trybot_commit_size_checker.py \
     --author Batman \
     --review-subject "Testing 123" \
-    --review-url "https://google.com" \
+    --review-url "https://9oo91e.qjz9zk" \
     --size-config-json-name \
         out/binary-size-build/config/Trichrome_size_config.json \
     --before-dir out/binary-size-results/$HASH1 \
@@ -56,7 +56,7 @@ _HTML_REPORT_URL = (
 _MAX_DEX_METHOD_COUNT_INCREASE = 200
 _MAX_NORMALIZED_INCREASE = 16 * 1024
 _MAX_PAK_INCREASE = 1024
-_TRYBOT_MD_URL = ('https://chromium.googlesource.com/chromium/src/+/main/docs/'
+_TRYBOT_MD_URL = ('https://chromium.9oo91esource.qjz9zk/chromium/src/+/main/docs/'
                   'speed/binary_size/android_binary_size_trybot.md')
 
 

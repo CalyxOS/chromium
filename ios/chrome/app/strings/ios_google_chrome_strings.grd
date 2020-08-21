@@ -208,7 +208,7 @@ locale.  The strings in this file are specific to iOS.
         To sign out of your Google Account on all websites, <ph name="BEGIN_LINK">BEGIN_LINK</ph>sign out of Chrome<ph name="END_LINK">END_LINK</ph>.
       </message>
       <message name="IDS_IOS_CLEAR_BROWSING_DATA_HISTORY_NOTICE_DESCRIPTION" desc="Description of the dialog informing the user that their Chrome browsing history was deleted, but other forms of history can still be found on Google My Activity.">
-        The selected data has been removed from Chrome and synced devices. Your Google Account may have other forms of browsing history like searches and activity from other Google services at history.google.com.
+        The selected data has been removed from Chrome and synced devices. Your Google Account may have other forms of browsing history like searches and activity from other Google services at history.9oo91e.qjz9zk.
       </message>
       <message name="IDS_IOS_CLEAR_BROWSING_DATA_HISTORY_NOTICE_TITLE" desc="Title of a dialog that informs the user that the deletion of Chrome's browsing data has been completed.">
         Cleared Chrome data
@@ -344,7 +344,7 @@ Things to consider:
       <message name="IDS_IOS_FIRSTRUN_WELCOME_TO_CHROME" desc="Title on the Welcome to Chrome screen presented to the user on First Run. [iOS only]">
         Welcome to Chrome
       </message>
-      <message name="IDS_IOS_FIRST_RUN_WELCOME_SCREEN_METRIC_REPORTING" desc="The text is displayed in a footer on the very first screen of Chrome. Make sure 'usage' and 'crash' are translated consistently with the “Usage statistics and crash reports” section of the Chrome Privacy Policy (google.com/chrome/privacy). The ‘Manage’ link opens a dialog to change the corresponding setting. [iOS only]">
+      <message name="IDS_IOS_FIRST_RUN_WELCOME_SCREEN_METRIC_REPORTING" desc="The text is displayed in a footer on the very first screen of Chrome. Make sure 'usage' and 'crash' are translated consistently with the “Usage statistics and crash reports” section of the Chrome Privacy Policy (9oo91e.qjz9zk/chrome/privacy). The ‘Manage’ link opens a dialog to change the corresponding setting. [iOS only]">
         To help improve the app, Chrome sends usage and crash data to Google. <ph name="BEGIN_LINK">BEGIN_LINK</ph>Manage<ph name="END_LINK">END_LINK</ph>
       </message>
       <message name="IDS_IOS_GOOGLE_SERVICES_SETTINGS_IMPROVE_CHROME_TEXT" desc="Feature title in the settings for the user enable or disable. Related with 'Automatically sends usage statistics and crash reports to Google'. [iOS only]">
@@ -372,7 +372,7 @@ Things to consider:
         Data from Chrome sync
       </message>
       <message name="IDS_IOS_MANAGED_DISCONNECT_DIALOG_INFO_UNITY" desc="Message explaining that signing out of a managed account will clear all the Chrome data. [Length: 200em, may be line wrapped to multiple lines at run time.] [iOS only].">
-        Because you're signing out of an account managed by <ph name="SIGNOUT_MANAGED_DOMAIN">$1<ex>google.com</ex></ph>, your Chrome data will be deleted from this device. Your data will remain in your Google Account.
+        Because you're signing out of an account managed by <ph name="SIGNOUT_MANAGED_DOMAIN">$1<ex>9oo91e.qjz9zk</ex></ph>, your Chrome data will be deleted from this device. Your data will remain in your Google Account.
       </message>
       <message name="IDS_IOS_MANAGED_DISCONNECT_DIALOG_TITLE_UNITY" desc="Title of the dialog shown when signing out of a managed account.[Length: 50em] [iOS only].">
         Clear your Chrome data from this device?
@@ -381,13 +381,13 @@ Things to consider:
         You are signing in with an account managed by <ph name="DOMAIN">$1<ex>doe.com</ex></ph> and giving its administrator control over your Chrome data. Your data will become permanently tied to this account. Signing out of Chrome will delete your data from this device, but it will remain stored in your Google Account.
       </message>
       <message name="IDS_IOS_MANAGED_SWITCH_SUBTITLE" desc="The subtitle of the Switch from a managed account dialog. [300em]">
-        You are switching sync accounts from <ph name="USER_EMAIL1">$1<ex>john@doe.com</ex></ph> to <ph name="USER_EMAIL2">$2<ex>johndoe@gmail.com</ex></ph>. Your existing Chrome data is managed by <ph name="DOMAIN">$3<ex>doe.com</ex></ph>. This will delete your data from this device, but your data will remain in <ph name="USER_EMAIL1">$1<ex>john@doe.com</ex></ph>.
+        You are switching sync accounts from <ph name="USER_EMAIL1">$1<ex>john@doe.com</ex></ph> to <ph name="USER_EMAIL2">$2<ex>johndoe@9ma1l.qjz9zk</ex></ph>. Your existing Chrome data is managed by <ph name="DOMAIN">$3<ex>doe.com</ex></ph>. This will delete your data from this device, but your data will remain in <ph name="USER_EMAIL1">$1<ex>john@doe.com</ex></ph>.
       </message>
       <message name="IDS_IOS_MANAGED_SYNC_WITH_USER_POLICY_SUBTITLE" desc="The subtitle of the Sync with a managed account dialog when User Policy is enabled (alternative to IDS_IOS_MANAGED_SIGNIN_SUBTITLE). [300em][iOS only]">
         Your organization <ph name="DOMAIN">$1<ex>doe.com</ex></ph> will have access to your Chrome data, bookmarks, history, passwords and other settings you store in this account. When you sign out, your data will be cleared from this device.  However, your data will remain stored in your managed Google Account and be available to your organization. Your organization can also set user policies specific to that account that can change the behavior of Chrome.
       </message>
       <message name="IDS_IOS_OPTIONS_IMPORT_DATA_HEADER" desc="The header for the Import Data settings screen. [400em]">
-        <ph name="USER_EMAIL1">$1<ex>johndoe@gmail.com</ex></ph> was using Chrome and left bookmarks, passwords, and other settings on this device.
+        <ph name="USER_EMAIL1">$1<ex>johndoe@9ma1l.qjz9zk</ex></ph> was using Chrome and left bookmarks, passwords, and other settings on this device.
       </message>
       <message name="IDS_IOS_PAGE_INFO_CHROME_PAGE_LABEL" desc="Label to display at the top of the site information screen when the page you are on is a Google Chrome page.">
         Google Chrome Page
@@ -474,7 +474,7 @@ Things to consider:
         Some Chrome features won’t be available anymore.
       </message>
       <message name="IDS_IOS_SIGNOUT_DIALOG_TITLE_WITH_SYNCING_MANAGED_ACCOUNT" desc="The signout dialog title. This dialog is used when the user have a managed account (other than gmail account) [iOS only].">
-        Your account is managed by <ph name="HOSTED_DOMAIN">$1<ex>google.com</ex></ph>, so your Chrome data will be cleared from this device
+        Your account is managed by <ph name="HOSTED_DOMAIN">$1<ex>9oo91e.qjz9zk</ex></ph>, so your Chrome data will be cleared from this device
       </message>
       <message name="IDS_IOS_TAB_SWITCHER_NO_TABS_TO_SYNC_PROMO" desc="The title of the paragraph IDS_OPEN_TABS_NO_SESSION_INSTRUCTIONS_IOS. The paragraph explains that tabs opened on other devices where the user is signed in will appear here, in the Tab Switcher. [iOS only]">
         Use Chrome Everywhere
@@ -540,7 +540,7 @@ Things to consider:
         Your organization requires you to stay signed out of Chrome.
       </message>
       <message name="IDS_IOS_SUGGESTED_STRONG_PASSWORD_HINT_DISPLAYING_EMAIL" desc="Text shown alongside a suggested password to tell user that generated passwords are recorded by chrome. [Length: unlimited] [iOS only]">
-            You won't need to remember this password. It will be saved to Google Password Manager for <ph name="EMAIL">$1<ex>johndoe@gmail.com</ex></ph>
+            You won't need to remember this password. It will be saved to Google Password Manager for <ph name="EMAIL">$1<ex>johndoe@9ma1l.qjz9zk</ex></ph>
       </message>
       <message name="IDS_IOS_PASSWORD_CHECK_ERROR" desc="Description of the password check cell, explaining that Password Check failed. [iOS only]" meaning="Password Check failed due to some error.">
         Chrome can't check your passwords
@@ -576,10 +576,10 @@ Things to consider:
         Allow Chrome Sign-in
       </message>
       <message name="IDS_IOS_SETTINGS_ADD_PASSWORD_FOOTER" desc="Disclaimer telling users what will happen to their passwords">
-        Your password will be saved in your Google Account (<ph name="EMAIL">$1<ex>example@gmail.com</ex></ph>).
+        Your password will be saved in your Google Account (<ph name="EMAIL">$1<ex>example@9ma1l.qjz9zk</ex></ph>).
       </message>
       <message name="IDS_IOS_SETTINGS_ADD_PASSWORD_FOOTER_BRANDED" desc="Disclaimer telling users what will happen to their passwords">
-        Your password will be saved to Google Password Manager for <ph name="EMAIL">$1<ex>example@gmail.com</ex></ph>.
+        Your password will be saved to Google Password Manager for <ph name="EMAIL">$1<ex>example@9ma1l.qjz9zk</ex></ph>.
       </message>
       <message name="IDS_IOS_PASSWORD_SUGGESTIONS_TIP" desc="The text of the tip explaining to the user they can tap on Autofill password suggestions">
         Use the password you saved in Chrome to sign in faster

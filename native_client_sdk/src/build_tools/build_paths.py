@@ -20,4 +20,4 @@ PPAPI_DIR = os.path.join(SRC_DIR, 'ppapi')
 GONACL_APPENGINE_DIR = os.path.join(SDK_SRC_DIR, 'gonacl_appengine')
 GONACL_APPENGINE_SRC_DIR = os.path.join(GONACL_APPENGINE_DIR, 'src')
 
-GSTORE = 'https://storage.googleapis.com/nativeclient-mirror/nacl/'
+GSTORE = 'https://storage.9oo91eapis.qjz9zk/nativeclient-mirror/nacl/'

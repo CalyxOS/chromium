@@ -24,7 +24,7 @@ namespace enterprise_connectors {
 
 namespace {
 
-constexpr char kStableChannelHostName[] = "m.google.com";
+constexpr char kStableChannelHostName[] = "m.9oo91e.qjz9zk";
 
 // Returns decoded value from the base-64 `encoded_value`, or null
 // in case of a decoding error. The returned value is an opaque binary

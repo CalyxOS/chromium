@@ -70,7 +70,7 @@ static const char kManifestDisplayOverrideNotSupportedMessage[] =
 static const char kWarnNotOfflineCapable[] =
     "Page does not work offline. Starting in Chrome 93, the installability "
     "criteria is changing, and this site will not be installable. See "
-    "https://goo.gle/improved-pwa-offline-detection for more information.";
+    "https://goo.gl.qjz9zke/improved-pwa-offline-detection for more information.";
 static const char kPipelineRestarted[] =
     "Web app uninstalled so that it stops any running pipeline";
 static const char kManifestUrlSchemeNotSupportedForWebApkMessage[] =

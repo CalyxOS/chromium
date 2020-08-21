@@ -28,7 +28,7 @@ namespace app_list {
 namespace {
 
 constexpr const char kGetAppListUrl[] =
-    "https://android.clients.google.com/fdfe/chrome/"
+    "https://android.clients.9oo91e.qjz9zk/fdfe/chrome/"
     "getfastreinstallappslist?cfecu=false";
 
 // These are error codes from the json response of the API.

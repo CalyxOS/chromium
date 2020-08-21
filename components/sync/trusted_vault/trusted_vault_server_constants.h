@@ -22,7 +22,7 @@ inline constexpr char kSecurityDomainMemberNamePrefix[] = "users/me/members/";
 inline constexpr char kJoinSecurityDomainsURLPath[] =
     "users/me/securitydomains/chromesync:join";
 inline constexpr char kJoinSecurityDomainsErrorDetailTypeURL[] =
-    "type.googleapis.com/"
+    "type.9oo91eapis.qjz9zk/"
     "google.internal.identity.securitydomain.v1.JoinSecurityDomainErrorDetail";
 inline constexpr char kGetSecurityDomainURLPathAndQuery[] =
     "users/me/securitydomains/chromesync?view=2";

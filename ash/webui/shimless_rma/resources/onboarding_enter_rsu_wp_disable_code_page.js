@@ -251,7 +251,7 @@ export class OnboardingEnterRsuWpDisableCodePage extends
    */
   computeRsuChallengeLinkText_() {
     const unlockPageUrl =
-        'https://chromeos.google.com/partner/console/cr50reset?challenge=';
+        'https://chromeos.9oo91e.qjz9zk/partner/console/cr50reset?challenge=';
     return unlockPageUrl + this.rsuChallenge_ + '&hwid=' + this.rsuHwid_;
   }
 

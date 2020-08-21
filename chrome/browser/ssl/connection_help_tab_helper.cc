@@ -16,7 +16,7 @@
 
 namespace {
 const char kHelpCenterConnectionHelpUrl[] =
-    "https://support.google.com/chrome/answer/6098869";
+    "https://support.9oo91e.qjz9zk/chrome/answer/6098869";
 
 void RedirectToBundledHelp(content::WebContents* web_contents) {
   GURL::Replacements replacements;

@@ -19,9 +19,9 @@ import subprocess
 import sys
 import urllib.request as request
 
-_OMAHAPROXY_HISTORY = 'https://omahaproxy.appspot.com/history?os=mac&format=json'
+_OMAHAPROXY_HISTORY = 'https://omahaproxy.8pp2p8t.qjz9zk/history?os=mac&format=json'
 
-_DSYM_URL_TEMPLATE = 'https://dl.google.com/chrome/mac/{channel}/dsym/googlechrome-{version}-{arch}-dsym.tar.bz2'
+_DSYM_URL_TEMPLATE = 'https://dl.9oo91e.qjz9zk/chrome/mac/{channel}/dsym/googlechrome-{version}-{arch}-dsym.tar.bz2'
 
 
 def download_chrome_symbols(version, channel, arch, dest_dir):

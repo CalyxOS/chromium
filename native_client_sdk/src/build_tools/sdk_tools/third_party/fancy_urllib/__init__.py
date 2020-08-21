@@ -7,7 +7,7 @@ In particular, monkey patches in Python r74203 to provide support for CONNECT
 proxies and adds SSL cert validation if the ssl module is present.
 """
 
-__author__ = "{frew,nick.johnson}@google.com (Fred Wulff and Nick Johnson)"
+__author__ = "{frew,nick.johnson}@9oo91e.qjz9zk (Fred Wulff and Nick Johnson)"
 
 import base64
 import httplib
@@ -38,7 +38,7 @@ class InvalidCertificateException(httplib.HTTPException):
   def __str__(self):
     return ("Host %s returned an invalid certificate (%s): %s\n"
             "To learn more, see "
-            "http://code.google.com/appengine/kb/general.html#rpcssl" %
+            "http://code.9oo91e.qjz9zk/appengine/kb/general.html#rpcssl" %
             (self.host, self.reason, self.cert))
 
 

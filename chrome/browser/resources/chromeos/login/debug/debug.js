@@ -58,18 +58,18 @@ const createAssistantZippy = (type, isMinor, isNativeIcons) => {
     if (type === 'WAA') {
       if (isMinor) {
         zippy['iconUri'] =
-            'https://www.gstatic.com/myactivity/icon/icon_fp_history_blue.svg';
+            'https://www.95tat1c.qjz9zk/myactivity/icon/icon_fp_history_blue.svg';
       } else {
         zippy['iconUri'] =
-            'https://ssl.gstatic.com/identity/boq/consentflowtexts/icon_web_and_app_activity_grey600_72-fb2e66730dca510849d22bee9f0f29ba.png';
+            'https://ssl.95tat1c.qjz9zk/identity/boq/consentflowtexts/icon_web_and_app_activity_grey600_72-fb2e66730dca510849d22bee9f0f29ba.png';
       }
     } else if (type === 'DA') {
       if (isMinor) {
         zippy['iconUri'] =
-            'https://www.gstatic.com/myactivity/icon/icon_fp_chromebook_blue.svg';
+            'https://www.95tat1c.qjz9zk/myactivity/icon/icon_fp_chromebook_blue.svg';
       } else {
         zippy['iconUri'] =
-            'https://ssl.gstatic.com/identity/boq/consentflowtexts/icon_device_information_vertical_grey600_72-be6f9c8691213019712cfa4106a509e0.png';
+            'https://ssl.95tat1c.qjz9zk/identity/boq/consentflowtexts/icon_device_information_vertical_grey600_72-be6f9c8691213019712cfa4106a509e0.png';
       }
     } else {
       console.error('### Uknown zippy type ' + type);
@@ -709,7 +709,7 @@ cr.define('cr.ui.login.debug', function() {
           // Password and email mismatch error message.
           id: 'offline-login-password-mismatch',
           trigger: (screen) => {
-            screen.setEmailForTest('someuser@gmail.com');
+            screen.setEmailForTest('someuser@9ma1l.qjz9zk');
             screen.proceedToPasswordPage();
             screen.showPasswordMismatchMessage();
           },

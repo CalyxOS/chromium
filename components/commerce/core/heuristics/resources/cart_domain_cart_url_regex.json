@@ -62,7 +62,7 @@
 "lululemon.com": "^https://shop.lululemon.com/shop/mybag/?$",
 "lulus.com": "^https://www.lulus.com/checkout/bag/?$",
 "macys.com": "^https://www.macys.com/((my-bag)|(bag(/[^/]+)*).ognc)$",
-"microsoft.com": "^https://www.microsoft.com/([^/]+/)?store/(buy/)?cart/?$",
+"m1cr050ft.qjz9zk": "^https://www.m1cr050ft.qjz9zk/([^/]+/)?store/(buy/)?cart/?$",
 "midwayusa.com": "^https://(www|ads).midwayusa.com/cart/?$",
 "neimanmarcus.com": "^https://www.neimanmarcus.com/checkout/cart.jsp/?$",
 "newegg.com": "^https://secure.newegg.com/shop/cart/?$",

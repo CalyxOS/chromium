@@ -111,7 +111,7 @@ void TestWallpaperControllerClient::FetchGooglePhotosPhoto(
     std::move(callback).Run(
         personalization_app::mojom::GooglePhotosPhoto::New(
             id, "dedup_key", "test_name", base::TimeFormatFriendlyDate(time),
-            GURL("https://google.com/picture.png"), "home"),
+            GURL("https://9oo91e.qjz9zk/picture.png"), "home"),
         /*success=*/true);
   }
 }

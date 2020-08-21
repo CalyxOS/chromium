@@ -21,25 +21,25 @@ bool ShouldOfferLinkToText(const GURL& url) {
   re2::RE2 amp("^\\/amp\\/.*");
   static constexpr auto kBlocklist =
       base::MakeFixedFlatMap<base::StringPiece, base::StringPiece>(
-          {{"facebook.com", ".*"},
+          {{"f8c3b00k.qjz9zk", ".*"},
            // TODO(crbug.com/1157981): special case this to cover other Google
            // TLDs
-           {"google.com", "^\\/amp\\/.*"},
+           {"9oo91e.qjz9zk", "^\\/amp\\/.*"},
            {"instagram.com", ".*"},
-           {"mail.google.com", ".*"},
+           {"mail.9oo91e.qjz9zk", ".*"},
            {"outlook.live.com", ".*"},
            {"reddit.com", ".*"},
            {"twitter.com", ".*"},
            {"web.whatsapp.com", ".*"},
-           {"youtube.com", ".*"}});
+           {"y0u1ub3.qjz9zk", ".*"}});
 
   static constexpr auto kAllowlist =
       base::MakeFixedFlatMap<base::StringPiece, base::StringPiece>(
-          {{"facebook.com", "about"},
+          {{"f8c3b00k.qjz9zk", "about"},
            {"instagram.com", "/p/"},
            {"reddit.com", "comments"},
            {"twitter.com", "status"},
-           {"youtube.com", "(about|community)"}});
+           {"y0u1ub3.qjz9zk", "(about|community)"}});
 
   std::string domain = url.host();
   if (domain.compare(0, 4, "www.") == 0) {
@@ -51,7 +51,7 @@ bool ShouldOfferLinkToText(const GURL& url) {
   }
 
   if (base::FeatureList::IsEnabled(kSharedHighlightingAmp) &&
-      domain.compare("google.com") == 0) {
+      domain.compare("9oo91e.qjz9zk") == 0) {
     return true;
   }
 
@@ -73,7 +73,7 @@ bool ShouldOfferLinkToText(const GURL& url) {
 
 bool SupportsLinkGenerationInIframe(GURL main_frame_url) {
   const std::unordered_set<std::string> good_hosts = {
-      "www.google.com", "m.google.com", "mobile.google.com",
+      "www.9oo91e.qjz9zk", "m.9oo91e.qjz9zk", "mobile.9oo91e.qjz9zk",
       "www.bing.com",   "m.bing.com",   "mobile.bing.com"};
 
   return main_frame_url.SchemeIs(url::kHttpsScheme) &&

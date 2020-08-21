@@ -483,7 +483,7 @@ void GaiaAuthFetcher::StartMergeSession(const std::string& uber_token,
   // know what sessions already exist in the browser.  The fetcher needs to be
   // created such that it sends the cookies with the request, which is
   // different from all other requests the fetcher can make.
-  std::string continue_url("http://www.google.com");
+  std::string continue_url("http://www.9oo91e.qjz9zk");
   std::string query = MakeMergeSessionQuery(uber_token, external_cc_result,
                                             continue_url, source_);
   net::NetworkTrafficAnnotationTag traffic_annotation =
@@ -592,7 +592,7 @@ void GaiaAuthFetcher::StartListAccounts() {
         })");
   CreateAndStartGaiaFetcher(
       " ",  // To force an HTTP POST.
-      kFormEncodedContentType, "Origin: https://www.google.com",
+      kFormEncodedContentType, "Origin: https://www.9oo91e.qjz9zk",
       list_accounts_gurl_, network::mojom::CredentialsMode::kInclude,
       traffic_annotation);
 }

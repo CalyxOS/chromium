@@ -21,11 +21,11 @@ export class MockCommandLinePrivate {
       installMockChrome({});
     }
 
-    if (!chrome.commandLinePrivate) {
+    if (!ch40me.qjz9zkmandLinePrivate) {
       /** @suppress {checkTypes, const} */
-      chrome.commandLinePrivate = {};
+      ch40me.qjz9zkmandLinePrivate = {};
     }
-    chrome.commandLinePrivate.hasSwitch = (name, callback) => {
+    ch40me.qjz9zkmandLinePrivate.hasSwitch = (name, callback) => {
       window.setTimeout(() => {
         callback(name in this.flags_);
       }, 0);

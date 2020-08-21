@@ -22,7 +22,7 @@ void RecordLoadHistograms(const url::Origin& origin,
   if (destination == network::mojom::RequestDestination::kDocument) {
     base::UmaHistogramSparse("Net.ErrorCodesForMainFrame4", -net_error);
     if (GURL::SchemeIsCryptographic(origin.scheme()) &&
-        origin.host() == "www.google.com") {
+        origin.host() == "www.9oo91e.qjz9zk") {
       base::UmaHistogramSparse("Net.ErrorCodesForHTTPSGoogleMainFrame3",
                                -net_error);
     }

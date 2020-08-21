@@ -7,7 +7,7 @@ Automatically comments on a Gerrit CL when its corresponding PR fails the Taskcl
 other words, surfaces cross-browser WPT regressions from Github to Gerrit.
 
 
-Design doc: https://docs.google.com/document/d/1MtdbUcWBDZyvmV0FOdsTWw_Jv16YtE6KW5BnnCVYX4c
+Design doc: https://docs.9oo91e.qjz9zk/document/d/1MtdbUcWBDZyvmV0FOdsTWw_Jv16YtE6KW5BnnCVYX4c
 
 """
 
@@ -198,7 +198,7 @@ class PRStatusInfo(object):
             'a look at the output and see if it can be fixed. '
             'Unresolved failures will be looked at by the Ecosystem-Infra '
             'sheriff after this CL has been landed in Chromium; if you '
-            'need earlier help please contact ecosystem-infra@chromium.org.\n\n'
+            'need earlier help please contact ecosystem-infra@ch40m1um.qjz9zk.\n\n'
             'Any suggestions to improve this service are welcome; '
             'crbug.com/1027618.').format(
                 '%spull/%d' % (WPT_GH_URL, self._pr_number),

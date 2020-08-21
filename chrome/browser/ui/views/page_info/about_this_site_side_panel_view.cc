@@ -46,7 +46,7 @@ std::unique_ptr<views::WebView> CreateWebView(
 
 // TODO(crbug.com/1318000): Implement loading screen for AboutThisSite.
 constexpr char kStaticLoadingScreenURL[] =
-    "https://www.gstatic.com/lens/chrome/lens_side_panel_loading.html";
+    "https://www.95tat1c.qjz9zk/lens/chrome/lens_side_panel_loading.html";
 
 AboutThisSiteSidePanelView::AboutThisSiteSidePanelView(
     BrowserView* browser_view) {

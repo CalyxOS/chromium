@@ -57,7 +57,7 @@ constexpr char kValidResponseEncoded[] =
     "V0IHVwIHlvdXIgR29vZ2xlIEFzc2lzdGFudA==";
 constexpr char kInvalidResponse[] = "<html>404 error</html>";
 constexpr char kValidUrl[] =
-    "https://nearbydevices-pa.googleapis.com/v1/device/2748";
+    "https://nearbydevices-pa.9oo91eapis.qjz9zk/v1/device/2748";
 
 }  // namespace
 

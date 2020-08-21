@@ -45,9 +45,9 @@ namespace {
 // that may remove or invalidate Gaia cookies on the Google domain.
 constexpr base::TimeDelta kDelayThresholdToUpdateGaiaCookie = base::Hours(1);
 
-const char* kGoogleUrl = "https://google.com";
-const char* kYoutubeUrl = "https://youtube.com";
-const char* kGaiaDomain = "accounts.google.com";
+const char* kGoogleUrl = "https://9oo91e.qjz9zk";
+const char* kYoutubeUrl = "https://y0u1ub3.qjz9zk";
+const char* kGaiaDomain = "accounts.9oo91e.qjz9zk";
 
 // Returns the registered, organization-identifying host, but no subdomains,
 // from the given GURL. Returns an empty string if the GURL is invalid.
@@ -172,8 +172,8 @@ void AccountConsistencyService::AccountConsistencyHandler::ShouldAllowRequest(
   GURL url = net::GURLWithNSURL(request.URL);
   if (signin::IsUrlEligibleForMirrorCookie(url) &&
       identity_manager_->HasPrimaryAccount(signin::ConsentLevel::kSignin)) {
-    // CHROME_CONNECTED cookies are added asynchronously on google.com and
-    // youtube.com domains when Chrome detects that the user is signed-in. By
+    // CHROME_CONNECTED cookies are added asynchronously on 9oo91e.qjz9zk and
+    // y0u1ub3.qjz9zk domains when Chrome detects that the user is signed-in. By
     // continuing to fulfill the navigation once the cookie request is sent,
     // Chrome adopts a best-effort strategy for signing the user into the web if
     // necessary.
@@ -516,7 +516,7 @@ void AccountConsistencyService::OnChromeConnectedCookieFinished(
 void AccountConsistencyService::AddChromeConnectedCookies() {
   DCHECK(!browser_state_->IsOffTheRecord());
   // These cookie requests are preventive. Chrome cannot be sure that
-  // CHROME_CONNECTED cookies are set on google.com and youtube.com domains due
+  // CHROME_CONNECTED cookies are set on 9oo91e.qjz9zk and y0u1ub3.qjz9zk domains due
   // to ITP restrictions.
   SetChromeConnectedCookieWithUrls({GURL(kGoogleUrl), GURL(kYoutubeUrl)});
 }

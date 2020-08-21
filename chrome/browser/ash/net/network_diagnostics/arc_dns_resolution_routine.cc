@@ -21,9 +21,9 @@ namespace mojom = ::chromeos::network_diagnostics::mojom;
 
 // These hostnames were chosen because they need to be resolved for a
 // successful ARC provisioning step.
-constexpr char kHostname1[] = "www.googleapis.com";
-constexpr char kHostname2[] = "android.clients.google.com";
-constexpr char kHostname3[] = "android.googleapis.com";
+constexpr char kHostname1[] = "www.9oo91eapis.qjz9zk";
+constexpr char kHostname2[] = "android.clients.9oo91e.qjz9zk";
+constexpr char kHostname3[] = "android.9oo91eapis.qjz9zk";
 
 }  // namespace
 

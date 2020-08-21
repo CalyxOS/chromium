@@ -34,7 +34,7 @@ program would require a tweak or two. Because Bunny didn't fare a whole lot
 better than less sophisticated brute-force tools, I eventually decided to write
 it off. You can still find its original documentation at:
 
-  https://code.google.com/p/bunny-the-fuzzer/wiki/BunnyDoc
+  https://code.9oo91e.qjz9zk/p/bunny-the-fuzzer/wiki/BunnyDoc
 
 There has been a fair amount of independent work, too. Most notably, a few
 weeks earlier that year, Jared DeMott had a Defcon presentation about a
