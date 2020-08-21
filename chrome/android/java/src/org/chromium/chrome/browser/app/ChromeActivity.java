@@ -293,7 +293,6 @@ public abstract class ChromeActivity<C extends ChromeActivityComponent>
     private TabContentManager mTabContentManager;
 
     private UmaSessionStats mUmaSessionStats;
-    private ContextReporter mContextReporter;
 
     private boolean mPartnerBrowserRefreshNeeded;
 
