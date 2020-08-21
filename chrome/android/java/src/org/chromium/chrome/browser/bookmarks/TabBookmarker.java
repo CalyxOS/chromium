@@ -19,6 +19,12 @@ import org.chromium.components.bookmarks.BookmarkItem;
 import org.chromium.components.bookmarks.BookmarkType;
 import org.chromium.components.browser_ui.bottomsheet.BottomSheetController;
 
+import org.chromium.chrome.browser.profiles.Profile;
+import org.chromium.chrome.browser.profiles.ProfileManager;
+import org.chromium.chrome.browser.suggestions.SuggestionsDependencyFactory;
+import org.chromium.chrome.browser.suggestions.mostvisited.MostVisitedSites;
+import org.chromium.url.GURL;
+
 /**
  * Helper class for managing the UI flow for bookmarking the active tab and kicking off the backend.
  * Shows a snackbar if a new bookmark was added. If the bookmark already exists, kicks off edit
@@ -30,6 +36,7 @@ public class TabBookmarker {
     private final Supplier<BottomSheetController> mBottomSheetControllerSupplier;
     private final Supplier<SnackbarManager> mSnackbarManagerSupplier;
     private final boolean mIsCustomTab;
+    private MostVisitedSites mMostVisitedSites;
 
     /**
      * Constructor.
@@ -104,6 +111,13 @@ public class TabBookmarker {
         if (tabToBookmark == null || tabToBookmark.isFrozen()) {
             return;
         }
+
+	    // remove blocklisted URL from most visited sites
+	    if (mMostVisitedSites == null) {
+            mMostVisitedSites =
+                SuggestionsDependencyFactory.getInstance().createMostVisitedSites(ProfileManager.getLastUsedRegularProfile());
+        }
+        mMostVisitedSites.removeBlocklistedUrl(tabToBookmark.getOriginalUrl());
 
         // Defense in depth against the UI being erroneously enabled.
         final BookmarkModel bookmarkModel = mBookmarkModelSupplier.get();
