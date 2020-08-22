@@ -4534,9 +4534,14 @@ void Document::SetURL(const KURL& url) {
                          TRACE_EVENT_FLAG_FLOW_IN | TRACE_EVENT_FLAG_FLOW_OUT,
                          "url", new_url.GetString().Utf8());
 
+  // If text fragment identifiers are enabled, we strip the fragment directive
+  // from the URL fragment.
+  // E.g. "#id:~:text=a" --> "#id"
+  if (RuntimeEnabledFeatures::TextFragmentIdentifiersEnabled(domWindow())) {
   // Strip the fragment directive from the URL fragment. E.g. "#id:~:text=a"
   // --> "#id". See https://github.com/WICG/scroll-to-text-fragment.
   new_url = fragment_directive_->ConsumeFragmentDirective(new_url);
+  }
 
   url_ = new_url;
   UpdateBaseURL();
