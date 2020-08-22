@@ -278,6 +278,8 @@ void SetRuntimeFeaturesFromChromiumFeatures() {
 #endif
           {wf::EnableTouchDragAndContextMenu,
            raw_ref(features::kTouchDragAndContextMenu)},
+          {wf::EnableTextFragmentIdentifiers,
+           raw_ref(blink::features::kTextFragmentAnchor)},
           {wf::EnableWebAuthenticationAmbient,
            raw_ref(device::kWebAuthnAmbientSignin)},
           {wf::EnableWebAuthenticationConditionalCreate,
