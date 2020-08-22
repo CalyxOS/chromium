@@ -496,6 +496,10 @@ BASE_FEATURE(kDropInputEventsBeforeFirstPaint,
              "DropInputEventsBeforeFirstPaint",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+// Enable text snippets in URL fragments. https://crbug.com/919204.
+const base::Feature kTextFragmentAnchor{"TextFragmentAnchor",
+                                        base::FEATURE_DISABLED_BY_DEFAULT};
+
 // File handling icons. https://crbug.com/1218213
 BASE_FEATURE(kFileHandlingIcons,
              "FileHandlingIcons",
