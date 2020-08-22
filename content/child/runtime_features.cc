@@ -291,6 +291,8 @@ void SetRuntimeFeaturesFromChromiumFeatures() {
 #endif
           {wf::EnableTouchDragAndContextMenu,
            raw_ref(features::kTouchDragAndContextMenu)},
+          {wf::EnableTextFragmentIdentifiers,
+           raw_ref(blink::features::kTextFragmentAnchor)},
           {wf::EnableUserActivationSameOriginVisibility,
            raw_ref(features::kUserActivationSameOriginVisibility)},
           {wf::EnableWebBluetooth, raw_ref(features::kWebBluetooth),
