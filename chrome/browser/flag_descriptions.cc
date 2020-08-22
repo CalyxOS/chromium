@@ -1496,6 +1496,10 @@ const char kDropInputEventsBeforeFirstPaintDescription[] =
     "intentionally interact with elements on that page. By dropping the events "
     "we prevent accidental interaction with a page the user has not seen yet.";
 
+const char kEnableTextFragmentAnchorName[] = "Enable Text Fragment Anchor.";
+const char kEnableTextFragmentAnchorDescription[] =
+    "Enables scrolling to text specified in URL's fragment.";
+
 const char kEnableCssSelectorFragmentAnchorName[] =
     "Enables CSS selector fragment anchors";
 const char kEnableCssSelectorFragmentAnchorDescription[] =
