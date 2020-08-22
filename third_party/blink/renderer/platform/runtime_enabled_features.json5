@@ -2836,10 +2836,9 @@
     },
     {
       name: "TextFragmentIdentifiers",
-      origin_trial_feature_name: "TextFragmentIdentifiers",
       public: true,
-      status: "stable",
-      base_feature: "TextFragmentAnchor",
+      status: "test",
+      origin_trial_feature_name: "TextFragmentIdentifiers"
     },
     {
       name: "TextFragmentTapOpensContextMenu",
