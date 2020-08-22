@@ -826,6 +826,9 @@ extern const char kExperimentalRgbKeyboardPatternsDescription[];
 
 extern const char kRetailCouponsName[];
 extern const char kRetailCouponsDescription[];
+extern const char kEnableTextFragmentAnchorName[];
+extern const char kEnableTextFragmentAnchorDescription[];
+
 
 extern const char kDropInputEventsBeforeFirstPaintName[];
 extern const char kDropInputEventsBeforeFirstPaintDescription[];
