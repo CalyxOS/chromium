@@ -501,6 +501,11 @@ BASE_FEATURE(kDroppedTouchSequenceIncludesTouchEnd,
              "DroppedTouchSequenceIncludesTouchEnd",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+// Enable text snippets in URL fragments. https://crbug.com/919204.
+BASE_FEATURE(kTextFragmentAnchor,
+             "TextFragmentAnchor",
+             base::FEATURE_DISABLED_BY_DEFAULT);
+
 // File handling icons. https://crbug.com/1218213
 BASE_FEATURE(kFileHandlingIcons,
              "FileHandlingIcons",
