@@ -525,6 +525,22 @@ const FeatureEntry::FeatureVariation kReaderModeDiscoverabilityVariations[] = {
 #endif  // BUILDFLAG(IS_ANDROID)
 
 #if BUILDFLAG(IS_ANDROID)
+const FeatureEntry::Choice kOmniboxAutocompleteFiltering[] = {
+    {flags_ui::kGenericExperimentChoiceDefault, "", ""},
+    {"Search suggestions only",
+     "omnibox-autocomplete-filtering",
+     "search"},
+    {"Search suggestions and bookmarks",
+     "omnibox-autocomplete-filtering",
+     "search-bookmarks"},
+    {"Search suggestions and internal chrome pages",
+     "omnibox-autocomplete-filtering",
+     "search-chrome"},
+    {"Search suggestions, bookmarks, and internal chrome pages",
+     "omnibox-autocomplete-filtering",
+     "search-bookmarks-chrome"},
+};
+
 const FeatureEntry::FeatureParam kAdaptiveButton_AlwaysNone[] = {
     {"mode", "always-none"}};
 const FeatureEntry::FeatureParam kAdaptiveButton_AlwaysNewTab[] = {
@@ -4371,7 +4387,11 @@ const FeatureEntry kFeatureEntries[] = {
      kOsMac | kOsLinux | kOsWin,
      FEATURE_VALUE_TYPE(features::kSystemNotifications)},
 #endif  // BUILDFLAG(ENABLE_SYSTEM_NOTIFICATIONS) && !BUILDFLAG(IS_CHROMEOS_ASH)
-#if BUILDFLAG(IS_ANDROID)
+#if BUILDFLAG(IS_ANDROID) // Bromite autocomplete filtering
+    {"omnibox-autocomplete-filtering",
+     "Omnibox Autocomplete Filtering",
+     "Restrict omnibox autocomplete results to a combination of search suggestions (if enabled), bookmarks, and internal chrome pages.",
+     kOsAll, MULTI_VALUE_TYPE(kOmniboxAutocompleteFiltering)},
     {"adaptive-button-in-top-toolbar",
      flag_descriptions::kAdaptiveButtonInTopToolbarName,
      flag_descriptions::kAdaptiveButtonInTopToolbarDescription, kOsAndroid,

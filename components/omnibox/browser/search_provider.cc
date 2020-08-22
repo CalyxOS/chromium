@@ -12,6 +12,7 @@
 #include "base/base64.h"
 #include "base/bind.h"
 #include "base/callback.h"
+#include "base/command_line.h"
 #include "base/feature_list.h"
 #include "base/i18n/break_iterator.h"
 #include "base/i18n/case_conversion.h"
@@ -677,6 +678,9 @@ void SearchProvider::Run(bool query_is_private) {
 }
 
 void SearchProvider::DoHistoryQuery(bool minimal_changes) {
+  if (base::CommandLine::ForCurrentProcess()->HasSwitch("omnibox-autocomplete-filtering"))
+    return;
+
   // The history query results are synchronous, so if minimal_changes is true,
   // we still have the last results and don't need to do anything.
   if (minimal_changes)
