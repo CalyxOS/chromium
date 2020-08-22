@@ -2712,6 +2712,11 @@
     "expiry_milestone": 130
   },
   {
+    "name": "enable-text-fragment-anchor",
+    "owners": [ "bokan", "input-dev" ],
+    "expiry_milestone": -1
+  },
+  {
     "name": "enable-neural-stylus-palm-rejection",
     "owners": [ "robsc", "napper", "adlr" ],
     // We add a neural net to change how fingers are handled. We set a milestone
