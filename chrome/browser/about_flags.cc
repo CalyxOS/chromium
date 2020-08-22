@@ -6913,6 +6913,11 @@ const FeatureEntry kFeatureEntries[] = {
          "")},
 #endif
 
+    {"enable-text-fragment-anchor",
+     flag_descriptions::kEnableTextFragmentAnchorName,
+     flag_descriptions::kEnableTextFragmentAnchorDescription, kOsAll,
+     FEATURE_VALUE_TYPE(blink::features::kTextFragmentAnchor)},
+
     {"legacy-tech-report-top-level-url",
      flag_descriptions::kLegacyTechReportTopLevelUrlName,
      flag_descriptions::kLegacyTechReportTopLevelUrlDescription, kOsAll,
