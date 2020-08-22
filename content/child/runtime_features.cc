@@ -273,6 +273,7 @@ void SetRuntimeFeaturesFromChromiumFeatures() {
      features::kSharedArrayBufferOnDesktop},
     {wf::EnableSharedAutofill, autofill::features::kAutofillSharedAutofill},
     {wf::EnableTouchDragAndContextMenu, features::kTouchDragAndContextMenu},
+    {wf::EnableTextFragmentIdentifiers, blink::features::kTextFragmentAnchor},
     {wf::EnableUserActivationSameOriginVisibility,
      features::kUserActivationSameOriginVisibility},
     {wf::EnableVideoPlaybackQuality, features::kVideoPlaybackQuality},
