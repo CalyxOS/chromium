@@ -6870,6 +6870,11 @@ const FeatureEntry kFeatureEntries[] = {
          "")},
 #endif
 
+    {"enable-text-fragment-anchor",
+     flag_descriptions::kEnableTextFragmentAnchorName,
+     flag_descriptions::kEnableTextFragmentAnchorDescription, kOsAll,
+     FEATURE_VALUE_TYPE(blink::features::kTextFragmentAnchor)},
+
 #if BUILDFLAG(IS_CHROMEOS_ASH)
     {"enable-web-authentication-chromeos-authenticator",
      flag_descriptions::kEnableWebAuthenticationChromeOSAuthenticatorName,

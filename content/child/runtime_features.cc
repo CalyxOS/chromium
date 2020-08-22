@@ -284,6 +284,8 @@ void SetRuntimeFeaturesFromChromiumFeatures() {
     {wf::EnableSharedAutofill, raw_ref(features::kAutofillSharedAutofill)},
     {wf::EnableTouchDragAndContextMenu,
      raw_ref(features::kTouchDragAndContextMenu)},
+    {wf::EnableTextFragmentIdentifiers,
+     raw_ref(blink::features::kTextFragmentAnchor)},
     {wf::EnableUserActivationSameOriginVisibility,
      raw_ref(features::kUserActivationSameOriginVisibility)},
     {wf::EnableVideoPlaybackQuality, raw_ref(features::kVideoPlaybackQuality)},
