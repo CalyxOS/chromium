@@ -154,10 +154,6 @@ void DialRegistry::StartPeriodicDiscovery() {
     return;
 
   dial_ = CreateDialService();
-  DoDiscovery();
-  repeating_timer_ = std::make_unique<base::RepeatingTimer>();
-  repeating_timer_->Start(FROM_HERE, refresh_interval_delta_, this,
-                          &DialRegistry::DoDiscovery);
   // Always send the current device list with the next discovery request.  This
   // may not be necessary, but is done to match previous behavior.
   ++registry_generation_;
@@ -174,8 +170,6 @@ void DialRegistry::StopPeriodicDiscovery() {
   if (!dial_)
     return;
 
-  repeating_timer_->Stop();
-  repeating_timer_.reset();
   ClearDialService();
 }
 
