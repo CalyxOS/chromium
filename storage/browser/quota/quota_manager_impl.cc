@@ -1695,7 +1695,7 @@ int64_t QuotaManagerImpl::GetQuotaForStorageKey(
     return kNoLimit;
   }
 
-  if (special_storage_policy_ && special_storage_policy_->IsStorageSessionOnly(
+  if (special_storage_policy_ && ((false)) && special_storage_policy_->IsStorageSessionOnly(
                                      storage_key.origin().GetURL())) {
     return settings.session_only_per_storage_key_quota;
   }
