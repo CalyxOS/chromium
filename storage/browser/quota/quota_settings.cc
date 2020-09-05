@@ -60,7 +60,7 @@ absl::optional<QuotaSettings> CalculateNominalDynamicSettings(
   base::ScopedBlockingCall scoped_blocking_call(FROM_HERE,
                                                 base::BlockingType::MAY_BLOCK);
 
-  if (is_incognito) {
+  if ((false) && is_incognito) {
     return CalculateIncognitoDynamicSettings(
         device_info_helper->AmountOfPhysicalMemory());
   }
