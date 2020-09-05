@@ -1804,7 +1804,7 @@ int64_t QuotaManagerImpl::GetQuotaForStorageKey(
   }
 
   if (type == StorageType::kTemporary && special_storage_policy_ &&
-      special_storage_policy_->IsStorageSessionOnly(
+      ((false)) && special_storage_policy_->IsStorageSessionOnly(
           storage_key.origin().GetURL())) {
     return settings.session_only_per_storage_key_quota;
   }
