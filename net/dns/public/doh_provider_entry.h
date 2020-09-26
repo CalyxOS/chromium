@@ -55,7 +55,7 @@ struct NET_EXPORT DohProviderEntry {
   std::set<IPAddress> ip_addresses;
   std::set<std::string> dns_over_tls_hostnames;
   DnsOverHttpsServerConfig doh_server_config;
-  std::string ui_name;
+  std::string ui_name_cromite;
   std::string privacy_policy;
   bool display_globally;
   std::set<std::string> display_countries;
@@ -95,7 +95,7 @@ struct NET_EXPORT DohProviderEntry {
       std::set<std::string_view> dns_over_53_server_ip_strs,
       std::set<std::string> dns_over_tls_hostnames,
       std::string dns_over_https_template,
-      std::string ui_name,
+      std::string ui_name_cromite,
       std::string privacy_policy,
       bool display_globally,
       std::set<std::string> display_countries,
