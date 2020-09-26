@@ -371,16 +371,13 @@ DohProviderEntry::DohProviderEntry(
       doh_server_config(
           ParseValidDohTemplate(std::move(dns_over_https_template),
                                 dns_over_https_server_ip_strs)),
-      ui_name(ui_name),
+      ui_name_cromite(ui_name),
       privacy_policy(privacy_policy),
-      display_globally(display_globally),
+      display_globally(true),
       display_countries(std::move(display_countries)),
       logging_level(logging_level) {
   DCHECK(!display_globally || this->display_countries.empty());
-  if (display_globally || !this->display_countries.empty()) {
-    DCHECK(!this->ui_name.empty());
-    DCHECK(!this->privacy_policy.empty());
-  }
+  if (this->privacy_policy.empty()) this->display_globally = false;
   for (const auto& display_country : this->display_countries) {
     DCHECK_EQ(2u, display_country.size());
   }
