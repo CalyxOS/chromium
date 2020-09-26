@@ -27,7 +27,7 @@ std::optional<net::SecureDnsMode> SecureDnsConfig::ParseMode(
   if (name == kModeSecure) {
     return net::SecureDnsMode::kSecure;
   } else if (name == kModeAutomatic) {
-    return net::SecureDnsMode::kAutomatic;
+    return net::SecureDnsMode::kSecure;
   } else if (name == kModeOff) {
     return net::SecureDnsMode::kOff;
   }
