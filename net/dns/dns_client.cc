@@ -242,11 +242,14 @@ class DnsClientImpl : public DnsClient {
  private:
   absl::optional<DnsConfig> BuildEffectiveConfig() const {
     DnsConfig config;
-    if (config_overrides_.OverridesEverything()) {
+    // in Bromite it is sufficient to have secure DoH enabled to give the overrides priority
+    if (config_overrides_.dns_over_https_config && config_overrides_.secure_dns_mode) {
       config = config_overrides_.ApplyOverrides(DnsConfig());
     } else {
-      if (!system_config_)
+      if (!system_config_) {
+        LOG(WARNING) << "BuildEffectiveConfig(): no system configuration";
         return absl::nullopt;
+      }
 
       config = config_overrides_.ApplyOverrides(system_config_.value());
     }
@@ -261,8 +264,10 @@ class DnsClientImpl : public DnsClient {
     if (config.unhandled_options)
       config.nameservers.clear();
 
-    if (!config.IsValid())
+    if (!config.IsValid()) {
+        LOG(WARNING) << "BuildEffectiveConfig(): invalid configuration";
       return absl::nullopt;
+    }
 
     return config;
   }
