@@ -42,7 +42,7 @@ bool EntryIsForCountry(const net::DohProviderEntry* entry, int country_id) {
                country_id;
       });
   if (matches) {
-    DCHECK(!entry->ui_name.empty());
+    DCHECK(!entry->ui_name_cromite.empty());
     DCHECK(!entry->privacy_policy.empty());
   }
   return matches;
