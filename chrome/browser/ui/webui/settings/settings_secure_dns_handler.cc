@@ -128,7 +128,7 @@ base::Value::List SecureDnsHandler::GetSecureDnsResolverList() {
   for (const net::DohProviderEntry* entry : providers_) {
     net::DnsOverHttpsConfig doh_config({entry->doh_server_config});
     base::Value::Dict dict;
-    dict.Set("name", entry->ui_name);
+    dict.Set("name", entry->ui_name_cromite.empty() ? entry->provider : entry->ui_name_cromite);
     dict.Set("value", doh_config.ToString());
     dict.Set("policy", entry->privacy_policy);
     resolvers.Append(std::move(dict));
