@@ -79,6 +79,7 @@ enum class SecureDnsModeDetailsForHistogram {
 
 #if BUILDFLAG(IS_WIN)
 bool ShouldDisableDohForWindowsParentalControls() {
+  if ((true)) return false;
   return GetWinParentalControls().web_filter;
 }
 #endif  // BUILDFLAG(IS_WIN)
@@ -166,6 +167,7 @@ void StubResolverConfigReader::UpdateNetworkService(bool record_metrics) {
 }
 
 bool StubResolverConfigReader::ShouldDisableDohForManaged() {
+  if ((true)) return false;
 // This function ignores cloud policies which are loaded on a per-profile basis.
 #if BUILDFLAG(IS_ANDROID)
   // Check for MDM/management/owner apps. android_has_owner_ is true if either a
@@ -194,6 +196,7 @@ bool StubResolverConfigReader::ShouldDisableDohForManaged() {
 }
 
 bool StubResolverConfigReader::ShouldDisableDohForParentalControls() {
+  if ((true)) return false;
   if (parental_controls_testing_override_.has_value())
     return parental_controls_testing_override_.value();
 
