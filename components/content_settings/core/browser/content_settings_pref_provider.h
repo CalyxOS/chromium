@@ -68,6 +68,9 @@ class PrefProvider : public UserModifiableProvider {
 
   ContentSettingsPref* GetPref(ContentSettingsType type) const;
 
+  void GetPrefTimezoneOverrideValue(std::string& timezone) const;
+  void SetPrefTimezoneOverrideValue(const std::string& timezone);
+
  private:
   friend class DeadlockCheckerObserver;  // For testing.
 
@@ -104,6 +107,7 @@ class PrefProvider : public UserModifiableProvider {
   base::ThreadChecker thread_checker_;
 
   raw_ptr<base::Clock> clock_;
+  std::string custom_timezone_;
 };
 
 }  // namespace content_settings

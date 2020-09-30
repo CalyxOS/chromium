@@ -14,6 +14,12 @@ found in the LICENSE file.
     <org.chromium.components.browser_ui.settings.TextMessagePreference
         android:key="info_text"/>
 
+  <!-- A text message describing timeoverride settings. -->
+  <org.chromium.components.browser_ui.settings.TextMessagePreference
+      android:key="timeoverride_info_text"
+      android:summary="@string/website_settings_timeoverride_info"/>
+
+
     <!-- A common binary toggle, only shown for specific categories that allow
          turning default values for that category on/off.-->
     <org.chromium.components.browser_ui.settings.ChromeSwitchPreference
@@ -30,6 +36,10 @@ found in the LICENSE file.
     <!-- A three state toggle for third-party cookies preferences, only shown for the ThirdPartyCookies category. -->
     <org.chromium.components.browser_ui.site_settings.TriStateCookieSettingsPreference
         android:key="tri_state_cookie_toggle" />
+    <!-- A specific state toggle for time override preferences, only shown for the TimeOverride category. -->
+    <org.chromium.components.browser_ui.site_settings.TimezoneOverrideSiteSettingsPreference
+        android:key="timeoverride_state_toggle" />
+
     <!-- A checkbox for enabling a quiet ui for notification prompts. Only shown in the Notifications category. -->
     <org.chromium.components.browser_ui.settings.ChromeBaseCheckBoxPreference
         android:key="notifications_quiet_ui"
