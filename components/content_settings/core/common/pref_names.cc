@@ -218,4 +218,7 @@ const char kDesktopSiteDisplaySettingEnabled[] = "desktop_site.display_setting";
 const char kDesktopSiteWindowSettingEnabled[] = "desktop_site.window_setting";
 #endif
 
+const char kContentSettingsCustomTimezone[] =
+    "profile.content_settings.custom_timezone";
+
 }  // namespace prefs
