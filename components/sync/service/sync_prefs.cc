@@ -726,7 +726,7 @@ bool SyncPrefs::IsTypeSupportedInTransportMode(UserSelectableType type) {
       return base::FeatureList::IsEnabled(kReplaceSyncPromosWithSignInPromos) &&
              base::FeatureList::IsEnabled(kEnablePreferencesAccountStorage);
     case UserSelectableType::kPasswords:
-      return true;
+      return false;
     case UserSelectableType::kAutofill:
       return true;
     case UserSelectableType::kPayments:
