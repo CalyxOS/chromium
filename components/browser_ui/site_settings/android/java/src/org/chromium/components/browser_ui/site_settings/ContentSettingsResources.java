@@ -302,6 +302,12 @@ public class ContentSettingsResources {
                         R.string.vr_permission_title, ContentSettingValues.ASK,
                         ContentSettingValues.BLOCK, R.string.website_settings_category_vr_ask,
                         R.string.website_settings_category_vr_blocked);
+
+            case ContentSettingsType.TIMEZONE_OVERRIDE:
+                return new ResourceItem(R.drawable.web_asset, R.string.timezone_override_permission_title,
+                            ContentSettingValues.ALLOW, ContentSettingValues.BLOCK,
+                            R.string.website_settings_category_timezone_override_custom,
+                            R.string.website_settings_category_timezone_override_random);
         }
         assert false; // NOTREACHED
         return null;
@@ -468,6 +474,23 @@ public class ContentSettingsResources {
         }
     }
 
+    public static int getCategorySummary(int contentType, @Nullable @ContentSettingValues int value) {
+        if (contentType == ContentSettingsType.TIMEZONE_OVERRIDE) {
+            switch (value) {
+                case ContentSettingValues.ALLOW:
+                    return R.string.website_settings_category_timezone_override_allowed;
+                case ContentSettingValues.ASK:
+                    return R.string.website_settings_category_timezone_override_custom;
+                case ContentSettingValues.BLOCK:
+                    return R.string.website_settings_category_timezone_override_random;
+                default:
+                    return 0;
+            }
+        }
+        else
+            return getCategorySummary(value);
+    }
+
     /**
      * Returns the string resource id for a content type to show with a permission category.
      * @param enabled Whether the content type is enabled.
@@ -485,6 +508,9 @@ public class ContentSettingsResources {
      */
     public static int getSiteSummary(@ContentSettingValues @Nullable Integer value,
             @ContentSettingsType int contentSettingsType) {
+        if (contentSettingsType == ContentSettingsType.TIMEZONE_OVERRIDE)
+            return getCategorySummary(contentSettingsType, value);
+
         switch (value) {
             case ContentSettingValues.ALLOW:
                 return contentSettingsType == ContentSettingsType.REQUEST_DESKTOP_SITE
@@ -609,6 +635,13 @@ public class ContentSettingsResources {
                     R.string.website_settings_category_protected_content_ask,
                     R.string.website_settings_category_protected_content_blocked};
             return descriptionIDs;
+        }
+        else if (contentType == ContentSettingsType.TIMEZONE_OVERRIDE) {
+          int[] descriptionIDs = {
+                  R.string.website_settings_category_timezone_override_allowed, // ALLOWED
+                  R.string.website_settings_category_timezone_override_custom,  // ASK
+                  R.string.website_settings_category_timezone_override_random}; // BLOCKED
+          return descriptionIDs;
         }
 
         assert false;
