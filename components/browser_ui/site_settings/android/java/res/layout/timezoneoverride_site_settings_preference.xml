@@ -1,0 +1,68 @@
+<!--
+    This file is part of Bromite.
+
+    Bromite is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Bromite is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Bromite. If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<!-- Layout used by the TimezoneOverrideSettingsPreference. -->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="false"
+    android:orientation="vertical">
+
+  <org.chromium.components.browser_ui.widget.RadioButtonWithDescriptionLayout
+      android:id="@+id/radio_button_layout"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+    <org.chromium.components.browser_ui.widget.RadioButtonWithDescription
+        android:id="@+id/allowed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+        app:primaryText="@string/website_settings_category_timezone_override_allowed" />
+
+    <org.chromium.components.browser_ui.widget.RadioButtonWithDescription
+        android:id="@+id/blocked"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+        app:primaryText="@string/website_settings_category_timezone_override_random" />
+
+    <org.chromium.components.browser_ui.widget.RadioButtonWithEditText
+        android:id="@+id/ask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+        android:inputType="text"
+        android:hint="@string/website_settings_category_timezone_override_custom_hint"
+        app:descriptionText="@string/website_settings_category_timezone_override_custom" />
+
+  </org.chromium.components.browser_ui.widget.RadioButtonWithDescriptionLayout>
+
+  <org.chromium.ui.widget.ButtonCompat
+    android:id="@+id/select_button"
+    style="@style/TextButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="16dp"
+    android:paddingTop="16dp"
+    android:text="@string/website_settings_select_button"
+    app:verticalInset="0dp" />
+
+</LinearLayout>
