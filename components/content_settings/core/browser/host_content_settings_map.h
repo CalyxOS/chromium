@@ -329,6 +329,9 @@ class HostContentSettingsMap : public content_settings::Observer,
     allow_invalid_secondary_pattern_for_testing_ = allow;
   }
 
+  void GetTimezoneOverrideValue(std::string& custom_timezone) const;
+  void SetTimezoneOverrideValue(const std::string& custom_timezone);
+
  private:
   friend class base::RefCountedThreadSafe<HostContentSettingsMap>;
   friend class content_settings::TestUtils;

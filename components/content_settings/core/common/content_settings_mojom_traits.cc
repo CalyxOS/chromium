@@ -102,7 +102,9 @@ bool StructTraits<content_settings::mojom::RendererContentSettingRulesDataView,
          data.ReadScriptRules(&out->script_rules) &&
          data.ReadPopupRedirectRules(&out->popup_redirect_rules) &&
          data.ReadMixedContentRules(&out->mixed_content_rules) &&
-         data.ReadAutoDarkContentRules(&out->auto_dark_content_rules);
+         data.ReadAutoDarkContentRules(&out->auto_dark_content_rules) &&
+         data.ReadTimezoneOverrideRules(&out->timezone_override_rules) &&
+         data.ReadTimezoneOverrideValue(&out->timezone_override_value);
 }
 
 }  // namespace mojo

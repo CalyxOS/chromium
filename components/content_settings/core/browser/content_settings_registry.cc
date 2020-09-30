@@ -645,6 +645,18 @@ void ContentSettingsRegistry::Init() {
            ContentSettingsInfo::PERSISTENT,
            ContentSettingsInfo::EXCEPTIONS_ON_SECURE_AND_INSECURE_ORIGINS);
 
+  Register(ContentSettingsType::TIMEZONE_OVERRIDE, "timezone-override", CONTENT_SETTING_ALLOW,
+           WebsiteSettingsInfo::SYNCABLE,
+           AllowlistedSchemes(kChromeUIScheme, kChromeDevToolsScheme),
+           ValidSettings(CONTENT_SETTING_ALLOW,   // use system time
+                         CONTENT_SETTING_ASK,     // custom timezone, default UTC
+                         CONTENT_SETTING_BLOCK),  // random
+           WebsiteSettingsInfo::TOP_ORIGIN_ONLY_SCOPE,
+           WebsiteSettingsRegistry::PLATFORM_ANDROID,
+           ContentSettingsInfo::INHERIT_IN_INCOGNITO,
+           ContentSettingsInfo::PERSISTENT,
+           ContentSettingsInfo::EXCEPTIONS_ON_SECURE_AND_INSECURE_ORIGINS);
+
   Register(ContentSettingsType::FEDERATED_IDENTITY_API, "webid-api",
            CONTENT_SETTING_ALLOW, WebsiteSettingsInfo::UNSYNCABLE,
            AllowlistedSchemes(),
