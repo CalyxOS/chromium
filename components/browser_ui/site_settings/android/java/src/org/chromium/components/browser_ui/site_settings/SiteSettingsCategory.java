@@ -47,7 +47,7 @@ public class SiteSettingsCategory {
             Type.PROTECTED_MEDIA, Type.SENSORS, Type.SOUND, Type.USB, Type.VIRTUAL_REALITY,
             Type.USE_STORAGE, Type.AUTO_DARK_WEB_CONTENT, Type.REQUEST_DESKTOP_SITE,
             Type.FEDERATED_IDENTITY_API, Type.THIRD_PARTY_COOKIES, Type.SITE_DATA,
-            Type.NUM_ENTRIES})
+            Type.NUM_ENTRIES, Type.TIMEZONE_OVERRIDE})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Type {
         // All updates here must also be reflected in {@link #preferenceKey(int)
@@ -80,10 +80,11 @@ public class SiteSettingsCategory {
         int FEDERATED_IDENTITY_API = 25;
         int THIRD_PARTY_COOKIES = 26;
         int SITE_DATA = 27;
+        int TIMEZONE_OVERRIDE = 28;
         /**
          * Number of handled categories used for calculating array sizes.
          */
-        int NUM_ENTRIES = 28;
+        int NUM_ENTRIES = 29;
     }
 
     private final BrowserContextHandle mBrowserContextHandle;
@@ -210,6 +211,8 @@ public class SiteSettingsCategory {
                 return ContentSettingsType.USB_GUARD;
             case Type.VIRTUAL_REALITY:
                 return ContentSettingsType.VR;
+            case Type.TIMEZONE_OVERRIDE:
+                return ContentSettingsType.TIMEZONE_OVERRIDE;
             case Type.ALL_SITES:
             case Type.USE_STORAGE:
                 return ContentSettingsType.DEFAULT; // Conversion unavailable.
@@ -295,6 +298,8 @@ public class SiteSettingsCategory {
                 return "site_data";
             case Type.THIRD_PARTY_COOKIES:
                 return "third_party_cookies";
+            case Type.TIMEZONE_OVERRIDE:
+                return "timezone_override";
             default:
                 assert false;
                 return "";

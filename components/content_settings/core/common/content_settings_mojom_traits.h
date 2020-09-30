@@ -150,6 +150,16 @@ struct StructTraits<
     return r.auto_dark_content_rules;
   }
 
+  static const std::vector<ContentSettingPatternSource>& timezone_override_rules(
+      const RendererContentSettingRules& r) {
+    return r.timezone_override_rules;
+  }
+
+  static const std::string& timezone_override_value(
+      const RendererContentSettingRules& r) {
+    return r.timezone_override_value;
+  }
+
   static bool Read(
       content_settings::mojom::RendererContentSettingRulesDataView data,
       RendererContentSettingRules* out);
