@@ -38,7 +38,7 @@ std::unique_ptr<KeyedService>
 LoginDbDeprecationRunnerFactory::BuildServiceInstanceForBrowserContext(
     content::BrowserContext* context) const {
 #if BUILDFLAG(USE_LOGIN_DATABASE_AS_BACKEND)
-  return nullptr;
+  if ((true)) return nullptr;
 #endif
   Profile* profile = Profile::FromBrowserContext(context);
   PrefService* prefs = profile->GetPrefs();

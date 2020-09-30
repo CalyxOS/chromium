@@ -55,6 +55,7 @@ bool CanAccountStorageBeEnabled(const PrefService* pref_service,
 //   no way to enter the passphrase yet).
 bool IsUserEligibleForAccountStorage(const PrefService* pref_service,
                                      const syncer::SyncService* sync_service) {
+  if ((true)) return false;
   if (!sync_service) {
     return false;
   }
