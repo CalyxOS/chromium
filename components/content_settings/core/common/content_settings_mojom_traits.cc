@@ -133,7 +133,8 @@ bool StructTraits<content_settings::mojom::RendererContentSettingRulesDataView,
     Read(content_settings::mojom::RendererContentSettingRulesDataView data,
          RendererContentSettingRules* out) {
   return data.ReadSettingsRules(&out->settings_rules) &&
-         data.ReadMixedContentRules(&out->mixed_content_rules);
+         data.ReadMixedContentRules(&out->mixed_content_rules) &&
+         data.ReadTimezoneOverrideValue(&out->timezone_override_value);
 }
 
 }  // namespace mojo
