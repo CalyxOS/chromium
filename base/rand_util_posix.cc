@@ -162,7 +162,7 @@ std::atomic<bool> g_use_boringssl;
 
 BASE_FEATURE(kUseBoringSSLForRandBytes,
              "UseBoringSSLForRandBytes",
-             FEATURE_DISABLED_BY_DEFAULT);
+             FEATURE_ENABLED_BY_DEFAULT);
 
 }  // namespace
 
