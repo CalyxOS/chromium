@@ -11,6 +11,7 @@
 #include "services/device/public/mojom/time_zone_monitor.mojom-blink.h"
 #include "third_party/blink/renderer/core/core_export.h"
 #include "third_party/blink/renderer/platform/wtf/text/wtf_string.h"
+#include "third_party/blink/renderer/core/timezone/external_timezone_controller.h"
 
 namespace blink {
 
@@ -25,6 +26,7 @@ namespace blink {
 // current host system time zone is assumed.
 class CORE_EXPORT TimeZoneController final
     : public device::mojom::blink::TimeZoneMonitorClient {
+ friend ExternalTimeZoneController;
  public:
   ~TimeZoneController() override;
 
@@ -39,7 +41,9 @@ class CORE_EXPORT TimeZoneController final
       ChangeTimeZoneOverride(timezone_id);
     }
 
-    ~TimeZoneOverride() { ClearTimeZoneOverride(); }
+    bool clear_at_destruction_ = true;
+
+    ~TimeZoneOverride() { if (clear_at_destruction_) ClearTimeZoneOverride(); }
   };
 
   static std::unique_ptr<TimeZoneOverride> SetTimeZoneOverride(
