@@ -108,6 +108,7 @@ struct RendererContentSettingRules {
   bool operator==(const RendererContentSettingRules& other) const;
 
   ContentSettingsForOneType mixed_content_rules;
+  std::string timezone_override_value;
 };
 
 namespace content_settings {
