@@ -471,6 +471,14 @@ public class WebsitePreferenceBridge {
                 .toHostOnlyPattern(pattern);
     }
 
+    public static String getCustomTimezone(BrowserContextHandle browserContextHandle) {
+        return WebsitePreferenceBridgeJni.get().getCustomTimezone(browserContextHandle);
+    }
+
+    public static void setCustomTimezone(BrowserContextHandle browserContextHandle, String custom_timezone) {
+        WebsitePreferenceBridgeJni.get().setCustomTimezone(browserContextHandle, custom_timezone);
+    }
+
     @NativeMethods
     public interface Natives {
         boolean isNotificationEmbargoedForOrigin(
@@ -622,5 +630,7 @@ public class WebsitePreferenceBridge {
         String toDomainWildcardPattern(String pattern);
 
         String toHostOnlyPattern(String pattern);
+        String getCustomTimezone(BrowserContextHandle browserContextHandle);
+        void setCustomTimezone(BrowserContextHandle browserContextHandle, String custom_timezone);
     }
 }
