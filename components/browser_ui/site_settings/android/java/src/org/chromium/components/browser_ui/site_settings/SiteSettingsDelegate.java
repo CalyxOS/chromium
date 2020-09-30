@@ -163,6 +163,8 @@ public interface SiteSettingsDelegate {
      */
     String getFirstPartySetOwner(String memberOrigin);
 
+    void launchTimeZoneOverrideHelpAndFeedbackActivity(Activity currentActivity);
+
     /**
      * Returns whether the current implementation of the delegate is able to launch the Clear
      * Browsing Data dialog in Settings.

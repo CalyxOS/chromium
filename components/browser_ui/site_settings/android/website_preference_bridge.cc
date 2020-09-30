@@ -1019,3 +1019,19 @@ JNI_WebsitePreferenceBridge_ToHostOnlyPattern(
           ContentSettingsPattern::FromString(pattern_string));
   return ConvertUTF8ToJavaString(env, host_only_pattern.ToString());
 }
+
+static void JNI_WebsitePreferenceBridge_SetCustomTimezone(
+    JNIEnv* env,
+    const JavaParamRef<jobject>& jbrowser_context_handle,
+    const JavaParamRef<jstring>& custom_timezone) {
+  std::string new_timezone = ConvertJavaStringToUTF8(env, custom_timezone);
+  GetHostContentSettingsMap(jbrowser_context_handle)->SetTimezoneOverrideValue(new_timezone);
+}
+
+static base::android::ScopedJavaLocalRef<jstring> JNI_WebsitePreferenceBridge_GetCustomTimezone(
+    JNIEnv* env,
+    const JavaParamRef<jobject>& jbrowser_context_handle) {
+  std::string custom_timezone;
+  GetHostContentSettingsMap(jbrowser_context_handle)->GetTimezoneOverrideValue(custom_timezone);
+  return ConvertUTF8ToJavaString(env, custom_timezone);
+}

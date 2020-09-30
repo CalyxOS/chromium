@@ -19138,6 +19138,9 @@ Called by update_net_error_codes.py.-->
   <int value="100" label="Cookies setting"/>
   <int value="101" label="Get Display Media Set Select All Screens"/>
   <int value="102" label="MIDI"/>
+
+  <!-- Bromite-added. Starts at 9001 to avoid upstream conflicts. -->
+  <int value="9001" label="Timezone Override"/>
 </enum>
 
 <enum name="ContentTypeParseableResult">

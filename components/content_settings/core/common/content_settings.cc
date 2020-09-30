@@ -125,6 +125,9 @@ constexpr auto kHistogramValue = base::MakeFixedFlatMap<ContentSettingsType,
     {ContentSettingsType::GET_DISPLAY_MEDIA_SET_SELECT_ALL_SCREENS, 101},
     {ContentSettingsType::MIDI, 102},
 
+    // Bromite-added. Starts at 9001 to avoid upstream conflicts.
+    {ContentSettingsType::TIMEZONE_OVERRIDE, 9001},
+
     // As mentioned at the top, please don't forget to update ContentType in
     // enums.xml when you add entries here!
 });
@@ -225,7 +228,8 @@ bool RendererContentSettingRules::IsRendererContentSetting(
          content_type == ContentSettingsType::JAVASCRIPT ||
          content_type == ContentSettingsType::POPUPS ||
          content_type == ContentSettingsType::MIXEDSCRIPT ||
-         content_type == ContentSettingsType::AUTO_DARK_WEB_CONTENT;
+         content_type == ContentSettingsType::AUTO_DARK_WEB_CONTENT ||
+         content_type == ContentSettingsType::TIMEZONE_OVERRIDE;
 }
 
 void RendererContentSettingRules::FilterRulesByOutermostMainFrameURL(
@@ -235,6 +239,7 @@ void RendererContentSettingRules::FilterRulesByOutermostMainFrameURL(
   FilterRulesForType(popup_redirect_rules, outermost_main_frame_url);
   FilterRulesForType(mixed_content_rules, outermost_main_frame_url);
   FilterRulesForType(auto_dark_content_rules, outermost_main_frame_url);
+  FilterRulesForType(timezone_override_rules, outermost_main_frame_url);
 }
 
 RendererContentSettingRules::RendererContentSettingRules() = default;
