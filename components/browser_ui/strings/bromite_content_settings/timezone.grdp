@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grit-part>
+  <message name="IDS_SITE_SETTINGS_TIMEZONE_OVERRIDE_TITLE" desc="Description of the timezone override content setting page title.">
+    Timezone override
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_TIMEOVERRIDE_INFO" desc="Primary text explaining the timezone override feature." formatter_data="android_java">
+    Override timezone with a custom or random one, or use the system timezone
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_TIMEZONE_OVERRIDE_ALLOWED_TEXT" desc="Primary text explaining that sites are allowed to access the system timezone." formatter_data="android_java">
+    None (use system timezone)
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_TIMEZONE_OVERRIDE_RANDOM_TEXT" desc="Primary text for random timezone override." formatter_data="android_java">
+    Random
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_TIMEZONE_OVERRIDE_ALLOWED" desc="Summary text explaining that sites are allowed to access the system timezone." formatter_data="android_java">
+    System timezone
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_TIMEZONE_OVERRIDE_CUSTOM" desc="Summary text explaining that sites use custom timezone." formatter_data="android_java">
+    Custom timezone
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_TIMEZONE_OVERRIDE_CUSTOM_HINT" desc="Hint text for edit custom timezone." formatter_data="android_java">
+    Specify a custom timezone (default UTC)
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_TIMEZONE_OVERRIDE_RANDOM" desc="Summary text for random timezone override." formatter_data="android_java">
+    Random (for each page)
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_SELECT_BUTTON" desc="Primary button text for choosing a timezone from a list." formatter_data="android_java">
+    Choose Timezone...
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_SELECT_DIALOG_TITLE" desc="Text of the dialog to choose a timezone." formatter_data="android_java">
+    Choose Timezone
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_SELECT_DIALOG_BUTTON" desc="Primary button text in the dialog used to choose the custom timezone." formatter_data="android_java">
+    Select
+  </message>
+  <message name="IDS_TIMEZONE_OVERRIDE_PERMISSION_TITLE" desc="Title of the permission to use TimeZone Override [CHAR-LIMIT=32]" formatter_data="android_java">
+    Timezone override
+  </message>
+</grit-part>
