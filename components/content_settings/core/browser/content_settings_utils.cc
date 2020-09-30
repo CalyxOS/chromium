@@ -151,6 +151,11 @@ void GetRendererContentSettingRules(const HostContentSettingsMap* map,
       ContentSettingToValue(CONTENT_SETTING_BLOCK), ProviderType::kNone,
       map->IsOffTheRecord()));
 #endif
+
+  // pass custom timezone value to the render process
+  std::string timezone;
+  map->GetTimezoneOverrideValue(timezone);
+  rules->timezone_override_value = timezone;
 }
 
 bool IsMorePermissive(ContentSetting a, ContentSetting b) {
