@@ -5,4 +5,6 @@
 blink_core_sources_timezone = [
   "timezone_controller.cc",
   "timezone_controller.h",
+  "external_timezone_controller.cc",
+  "external_timezone_controller.h",
 ]
