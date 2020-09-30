@@ -131,7 +131,7 @@ public class SiteSettings extends SiteSettingsPreferenceFragment
             } else if (Type.AUTO_DARK_WEB_CONTENT == prefCategory) {
                 p.setSummary(ContentSettingsResources.getAutoDarkWebContentListSummary(checked));
             } else if (requiresTriStateSetting) {
-                p.setSummary(ContentSettingsResources.getCategorySummary(setting));
+                p.setSummary(ContentSettingsResources.getCategorySummary(contentType, setting));
             } else {
                 p.setSummary(ContentSettingsResources.getCategorySummary(contentType, checked));
             }
