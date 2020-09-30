@@ -243,6 +243,17 @@ public final class Website implements WebsiteEntry {
             } else {
                 RecordUserAction.record("SoundContentSetting.UnmuteBy.SiteSettings");
             }
+        } else if (type == ContentSettingsType.TIMEZONE_OVERRIDE) {
+            // It is possible to set the permission without having an existing exception,
+            // because we can show the ALLOW state even when this permission is set to the
+            // default. In that case, just set an exception now to ALLOW to enable changing the
+            // permission.
+            if (exception == null) {
+                exception = new ContentSettingException(
+                        ContentSettingsType.TIMEZONE_OVERRIDE, getAddress().getHost(), value, "",
+                        /*isEmbargoed=*/false);
+                setContentSettingException(type, exception);
+            }
         }
         // We want to call setContentSetting even after explicitly setting
         // mContentSettingException above because this will trigger the actual change

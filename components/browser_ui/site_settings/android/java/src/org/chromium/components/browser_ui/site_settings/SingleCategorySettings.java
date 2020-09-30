@@ -68,6 +68,10 @@ import org.chromium.ui.widget.Toast;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import android.app.Activity;
+import android.content.Intent;
+import org.chromium.components.browser_ui.site_settings.TimezoneOverrideSiteSettingsPreference;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -167,6 +171,7 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
     public static final String BINARY_TOGGLE_KEY = "binary_toggle";
     public static final String TRI_STATE_TOGGLE_KEY = "tri_state_toggle";
     public static final String FOUR_STATE_COOKIE_TOGGLE_KEY = "four_state_cookie_toggle";
+    public static final String TIMEOVERRIDE_STATE_TOGGLE_KEY = "timeoverride_state_toggle";
 
     // Keys for category-specific preferences (toggle, link, button etc.), dynamically shown.
     public static final String NOTIFICATIONS_VIBRATE_TOGGLE_KEY = "notifications_vibrate";
@@ -176,6 +181,7 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
     public static final String EXPLAIN_PROTECTED_MEDIA_KEY = "protected_content_learn_more";
     public static final String ADD_EXCEPTION_KEY = "add_exception";
     public static final String COOKIE_INFO_TEXT_KEY = "cookie_info_text";
+    public static final String TIMEOVERRIDE_INFO_TEXT = "timeoverride_info_text";
 
     // Keys for Allowed/Blocked preference groups/headers.
     private static final String ALLOWED_GROUP = "allowed_group";
@@ -242,7 +248,11 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
         Integer contentSetting = website.site().getContentSetting(
                 browserContextHandle, mCategory.getContentSettingsType());
         if (contentSetting != null) {
-            return ContentSettingValues.BLOCK == contentSetting;
+            if (mCategory.getContentSettingsType() == SiteSettingsCategory.Type.TIMEZONE_OVERRIDE) {
+                return ContentSettingValues.ALLOW != contentSetting;
+            } else {
+                return ContentSettingValues.BLOCK == contentSetting;
+            }
         }
         return false;
     }
@@ -416,7 +426,8 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
             if (queryHasChanged) getInfoForOrigins();
         });
 
-        if (getSiteSettingsDelegate().isHelpAndFeedbackEnabled()) {
+        if (getSiteSettingsDelegate().isHelpAndFeedbackEnabled() ||
+                mCategory.getType() == SiteSettingsCategory.Type.TIMEZONE_OVERRIDE) {
             MenuItem help = menu.add(
                     Menu.NONE, R.id.menu_id_site_settings_help, Menu.NONE, R.string.menu_help);
             help.setIcon(VectorDrawableCompat.create(
@@ -427,7 +438,10 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_id_site_settings_help) {
-            if (mCategory.getType() == SiteSettingsCategory.Type.PROTECTED_MEDIA) {
+            if (mCategory.getType() == SiteSettingsCategory.Type.TIMEZONE_OVERRIDE) {
+                getSiteSettingsDelegate()
+                        .launchTimeZoneOverrideHelpAndFeedbackActivity(getActivity());
+            } else if (mCategory.getType() == SiteSettingsCategory.Type.PROTECTED_MEDIA) {
                 getSiteSettingsDelegate().launchProtectedContentHelpAndFeedbackActivity(
                         getActivity());
             } else {
@@ -525,6 +539,12 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
             int setting = (int) newValue;
             WebsitePreferenceBridge.setDefaultContentSetting(
                     browserContextHandle, mCategory.getContentSettingsType(), setting);
+            getInfoForOrigins();
+        } else if (TIMEOVERRIDE_STATE_TOGGLE_KEY.equals(preference.getKey())) {
+            @ContentSettingValues
+            int setting = (int) newValue;
+            WebsitePreferenceBridge.setDefaultContentSetting(
+                    browserContextHandle, ContentSettingsType.TIMEZONE_OVERRIDE, setting);
             getInfoForOrigins();
         } else if (FOUR_STATE_COOKIE_TOGGLE_KEY.equals(preference.getKey())) {
             setCookieSettingsPreference((CookieSettingsState) newValue);
@@ -641,6 +661,8 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
                                browserContextHandle, ContentSettingsType.REQUEST_DESKTOP_SITE)
                     ? R.string.website_settings_blocked_group_heading_request_desktop_site
                     : R.string.website_settings_allowed_group_heading_request_desktop_site;
+        } else if (mCategory.getType() == SiteSettingsCategory.Type.TIMEZONE_OVERRIDE) {
+            resource = R.string.website_settings_category_timezone_override_allowed;
         }
         assert resource > 0;
         return getString(resource);
@@ -681,6 +703,13 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
         if (mCategory.getType() == SiteSettingsCategory.Type.COOKIES && mRequiresFourStateSetting) {
             setting = cookieSettingsExceptionShouldBlock() ? ContentSettingValues.BLOCK
                                                            : ContentSettingValues.ALLOW;
+        } else if (mRequiresTriStateSetting) {
+            setting = WebsitePreferenceBridge.getDefaultContentSetting(browserContextHandle, mCategory.getContentSettingsType());
+            if (setting == ContentSettingValues.ALLOW) {
+              setting = ContentSettingValues.BLOCK;
+            } else {
+              setting = ContentSettingValues.ALLOW;
+            }
         } else {
             setting = (WebsitePreferenceBridge.isCategoryEnabled(
                               browserContextHandle, mCategory.getContentSettingsType()))
@@ -744,6 +773,8 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
         } else if (mCategory.getType() == SiteSettingsCategory.Type.REQUEST_DESKTOP_SITE
                 && ContentFeatureList.isEnabled(
                         ContentFeatureList.REQUEST_DESKTOP_SITE_EXCEPTIONS)) {
+            allowSpecifyingExceptions = true;
+        } else if (mCategory.getType() == SiteSettingsCategory.Type.TIMEZONE_OVERRIDE) {
             allowSpecifyingExceptions = true;
         }
         if (allowSpecifyingExceptions) {
@@ -916,7 +947,14 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
             TriStateSiteSettingsPreference triStateToggle =
                     (TriStateSiteSettingsPreference) getPreferenceScreen().findPreference(
                             TRI_STATE_TOGGLE_KEY);
-            return (triStateToggle.getCheckedSetting() == ContentSettingValues.BLOCK);
+            if (triStateToggle != null)
+              return (triStateToggle.getCheckedSetting() == ContentSettingValues.BLOCK);
+
+            TimezoneOverrideSiteSettingsPreference timeOverrideStatePreference =
+                    (TimezoneOverrideSiteSettingsPreference) getPreferenceScreen().findPreference(
+                            TIMEOVERRIDE_STATE_TOGGLE_KEY);
+            if (timeOverrideStatePreference != null)
+              return (timeOverrideStatePreference.getCheckedSetting() != ContentSettingValues.ALLOW);
         } else if (mRequiresFourStateSetting) {
             FourStateCookieSettingsPreference fourStateCookieToggle =
                     (FourStateCookieSettingsPreference) getPreferenceScreen().findPreference(
@@ -945,6 +983,9 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
                 (FourStateCookieSettingsPreference) screen.findPreference(
                         FOUR_STATE_COOKIE_TOGGLE_KEY);
         // TODO(crbug.com/1104836): Remove the old third-party cookie blocking UI
+        TimezoneOverrideSiteSettingsPreference timeOverrideStatePreference =
+                (TimezoneOverrideSiteSettingsPreference) screen.findPreference(
+                        TIMEOVERRIDE_STATE_TOGGLE_KEY);
         Preference notificationsVibrate = screen.findPreference(NOTIFICATIONS_VIBRATE_TOGGLE_KEY);
         mNotificationsQuietUiPref = screen.findPreference(NOTIFICATIONS_QUIET_UI_TOGGLE_KEY);
         mDesktopSitePeripheralPref = screen.findPreference(DESKTOP_SITE_PERIPHERAL_TOGGLE_KEY);
@@ -958,19 +999,31 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
         if (mRequiresTriStateSetting) {
             screen.removePreference(binaryToggle);
             screen.removePreference(fourStateCookieToggle);
-            configureTriStateToggle(triStateToggle, contentType);
+            if (mCategory.getType() == SiteSettingsCategory.Type.TIMEZONE_OVERRIDE) {
+              screen.removePreference(triStateToggle);
+              configureTimeOverrideStateToggle(timeOverrideStatePreference);
+            }
+            else {
+              screen.removePreference(timeOverrideStatePreference);
+              configureTriStateToggle(triStateToggle, contentType);
+            }
         } else if (mRequiresFourStateSetting) {
             screen.removePreference(binaryToggle);
             screen.removePreference(triStateToggle);
+            screen.removePreference(timeOverrideStatePreference);
             configureFourStateCookieToggle(fourStateCookieToggle);
         } else {
             screen.removePreference(triStateToggle);
             screen.removePreference(fourStateCookieToggle);
+            screen.removePreference(timeOverrideStatePreference);
             configureBinaryToggle(binaryToggle, contentType);
         }
 
         if (mCategory.getType() != SiteSettingsCategory.Type.COOKIES) {
             screen.removePreference(screen.findPreference(COOKIE_INFO_TEXT_KEY));
+        }
+        if (mCategory.getType() != SiteSettingsCategory.Type.TIMEZONE_OVERRIDE) {
+            screen.removePreference(screen.findPreference(TIMEOVERRIDE_INFO_TEXT));
         }
 
         if (permissionBlockedByOs) {
@@ -1104,6 +1157,15 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
         int[] descriptionIds =
                 ContentSettingsResources.getTriStateSettingDescriptionIDs(contentType);
         triStateToggle.initialize(setting, descriptionIds);
+    }
+
+    private void configureTimeOverrideStateToggle(
+            TimezoneOverrideSiteSettingsPreference timeOverrideStateToggle) {
+        timeOverrideStateToggle.setOnPreferenceChangeListener(this);
+        @ContentSettingValues
+        int setting = WebsitePreferenceBridge.getDefaultContentSetting(
+                getSiteSettingsDelegate().getBrowserContextHandle(), ContentSettingsType.TIMEZONE_OVERRIDE);
+        timeOverrideStateToggle.initialize(setting, getSiteSettingsDelegate().getBrowserContextHandle());
     }
 
     private void configureBinaryToggle(ChromeSwitchPreference binaryToggle, int contentType) {
