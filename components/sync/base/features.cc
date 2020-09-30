@@ -91,6 +91,7 @@ BASE_FEATURE(kEnablePasswordsAccountStorageForNonSyncingUsers,
              base::FEATURE_ENABLED_BY_DEFAULT
 #endif
 );
+SET_CROMITE_FEATURE_DISABLED(kEnablePasswordsAccountStorageForNonSyncingUsers);
 
 BASE_FEATURE(kSyncEnableContactInfoDataTypeForDasherUsers,
              "SyncEnableContactInfoDataTypeForDasherUsers",
