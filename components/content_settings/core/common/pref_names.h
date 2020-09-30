@@ -234,6 +234,9 @@ inline constexpr char kDesktopSiteWindowSettingEnabled[] =
     "desktop_site.window_setting";
 #endif
 
+inline constexpr char kContentSettingsCustomTimezone[] =
+    "profile.content_settings.custom_timezone";
+
 }  // namespace prefs
 
 #endif  // COMPONENTS_CONTENT_SETTINGS_CORE_COMMON_PREF_NAMES_H_
