@@ -93,4 +93,5 @@ struct ContentSettingPatternSource {
 struct RendererContentSettingRules {
   array<ContentSettingRuleSource> settings_rules;
   array<ContentSettingPatternSource> mixed_content_rules;
+  string timezone_override_value;
 };
