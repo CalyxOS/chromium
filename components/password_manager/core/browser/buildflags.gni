@@ -9,7 +9,7 @@ declare_args() {
   # The legacy password store backend is supported on android but usually disabled
   # in favor of a downstream implementation. Important: the support for this flag
   # is planned to be removed in November 2024.
-  use_login_database_as_backend = !is_android
+  use_login_database_as_backend = true
 }
 
 # Drawables from the downstream clank/ repository are
