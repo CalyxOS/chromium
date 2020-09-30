@@ -104,6 +104,7 @@ android_library("java") {
     "java/src/org/chromium/components/browser_ui/site_settings/WebsitePreference.java",
     "java/src/org/chromium/components/browser_ui/site_settings/WebsitePreferenceBridge.java",
     "java/src/org/chromium/components/browser_ui/site_settings/WebsiteRowPreference.java",
+    "java/src/org/chromium/components/browser_ui/site_settings/TimezoneOverrideSiteSettingsPreference.java"
   ]
 
   resources_package = "org.chromium.components.browser_ui.site_settings"
@@ -278,6 +279,8 @@ android_resources("java_resources") {
     "java/res/xml/site_settings_preferences.xml",
     "java/res/xml/storage_access_settings.xml",
     "java/res/xml/website_preferences.xml",
+    "java/res/layout/timezoneoverride_site_settings_preference.xml",
+    "java/res/layout/time_zone_select_dialog.xml",
   ]
 
   deps = [
