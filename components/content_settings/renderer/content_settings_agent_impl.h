@@ -25,6 +25,11 @@
 #include "url/gurl.h"
 #include "url/origin.h"
 
+#include "third_party/blink/renderer/core/inspector/locale_controller.h"
+#include "third_party/blink/renderer/core/timezone/external_timezone_controller.h"
+#include "third_party/icu/source/common/unicode/strenum.h"
+#include "third_party/icu/source/i18n/unicode/timezone.h"
+
 namespace blink {
 class WebFrame;
 class WebURL;
@@ -166,6 +171,12 @@ class ContentSettingsAgentImpl
   std::unique_ptr<Delegate> delegate_;
 
   mojo::AssociatedReceiverSet<mojom::ContentSettingsAgent> receivers_;
+
+  std::unique_ptr<blink::ExternalTimeZoneController::TimeZoneOverride> timezone_override_;
+
+  bool UpdateOverrides();
+  bool UpdateTimeZoneOverride(ContentSetting setting, const std::string& timezone_override_value);
+  bool UpdateLocaleOverride(ContentSetting setting);
 };
 
 }  // namespace content_settings
