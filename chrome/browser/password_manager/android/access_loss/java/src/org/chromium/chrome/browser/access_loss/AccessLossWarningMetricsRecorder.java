@@ -116,6 +116,7 @@ public class AccessLossWarningMetricsRecorder {
     public static void logExportFlowLastStepMetric(
             @PasswordAccessLossWarningType int warningType,
             @PasswordAccessLossWarningExportStep int exportStep) {
+        if ((true)) return;
         RecordHistogram.recordEnumeratedHistogram(
                 getExportFlowFinalStepHistogramName(warningType),
                 exportStep,
