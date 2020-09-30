@@ -226,6 +226,9 @@ enum class ContentSettingsType : int32_t {
   // by the File System Access API.
   FILE_SYSTEM_LAST_PICKED_DIRECTORY,
 
+  // Content setting for timezone customization functionality.
+  TIMEZONE_OVERRIDE,
+
   // Controls access to the getDisplayMedia API when {preferCurrentTab: true}
   // is specified.
   // TODO(crbug.com/1150788): Also apply this when getDisplayMedia() is called
