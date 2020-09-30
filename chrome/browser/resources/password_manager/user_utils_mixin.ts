@@ -129,11 +129,11 @@ export const UserUtilMixin = dedupingMixin(
         }
 
         private computeIsEligibleForAccountStorage_(): boolean {
-          return !!this.syncInfo_ && this.syncInfo_.isEligibleForAccountStorage;
+          return !!this.syncInfo_ && !!this.syncInfo_.isEligibleForAccountStorage;
         }
 
         private computeIsSyncingPasswords_(): boolean {
-          return !!this.syncInfo_ && this.syncInfo_.isSyncingPasswords;
+          return !!this.syncInfo_ && !!this.syncInfo_.isSyncingPasswords;
         }
 
         private computeAccountEmail_(): string {
