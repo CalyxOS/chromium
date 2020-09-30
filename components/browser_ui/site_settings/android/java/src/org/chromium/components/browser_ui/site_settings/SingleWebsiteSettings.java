@@ -141,6 +141,8 @@ public class SingleWebsiteSettings extends SiteSettingsPreferenceFragment
                 return "popup_permission_list";
             case ContentSettingsType.SOUND:
                 return "sound_permission_list";
+            case ContentSettingsType.TIMEZONE_OVERRIDE:
+                return "timezone_override_permission_list";
             case ContentSettingsType.AR:
                 return "ar_permission_list";
             case ContentSettingsType.MEDIASTREAM_CAMERA:
@@ -945,11 +947,13 @@ public class SingleWebsiteSettings extends SiteSettingsPreferenceFragment
         if (value == null) return;
         setUpPreferenceCommon(preference, value);
 
+        int content_type = getContentSettingsTypeFromPreferenceKey(preference.getKey());
+
         ChromeSwitchPreference switchPreference = (ChromeSwitchPreference) preference;
         switchPreference.setChecked(value == ContentSettingValues.ALLOW);
         switchPreference.setSummary(isEmbargoed
                         ? getString(R.string.automatically_blocked)
-                        : getString(ContentSettingsResources.getCategorySummary(value)));
+                        : getString(ContentSettingsResources.getCategorySummary(content_type, value)));
         switchPreference.setOnPreferenceChangeListener(this);
         @ContentSettingsType
         int contentType = getContentSettingsTypeFromPreferenceKey(preference.getKey());
@@ -1149,7 +1153,7 @@ public class SingleWebsiteSettings extends SiteSettingsPreferenceFragment
         }
 
         mSite.setContentSetting(browserContextHandle, type, permission);
-        preference.setSummary(getString(ContentSettingsResources.getCategorySummary(permission)));
+        preference.setSummary(getString(ContentSettingsResources.getCategorySummary(type, permission)));
         preference.setIcon(getContentSettingsIcon(type, permission));
 
         if (mWebsiteSettingsObserver != null) {
