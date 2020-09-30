@@ -741,6 +741,7 @@ BASE_FEATURE(kAutofillBetterLocalHeuristicPlaceholderSupport,
 BASE_FEATURE(kAutofillDeepLinkAutofillOptions,
              "AutofillDeepLinkAutofillOptions",
              base::FEATURE_ENABLED_BY_DEFAULT);
+SET_CROMITE_FEATURE_DISABLED(kAutofillDeepLinkAutofillOptions);
 
 // Controls if Chrome Autofill UI surfaces ignore touch events if something is
 // fully or partially obscuring the Chrome window.
