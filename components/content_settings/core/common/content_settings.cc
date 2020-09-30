@@ -210,7 +210,8 @@ bool RendererContentSettingRules::IsRendererContentSetting(
          content_type == ContentSettingsType::JAVASCRIPT ||
          content_type == ContentSettingsType::POPUPS ||
          content_type == ContentSettingsType::MIXEDSCRIPT ||
-         content_type == ContentSettingsType::AUTO_DARK_WEB_CONTENT;
+         content_type == ContentSettingsType::AUTO_DARK_WEB_CONTENT ||
+         content_type == ContentSettingsType::TIMEZONE_OVERRIDE;
 }
 
 void RendererContentSettingRules::FilterRulesByOutermostMainFrameURL(
@@ -220,6 +221,7 @@ void RendererContentSettingRules::FilterRulesByOutermostMainFrameURL(
   FilterRulesForType(popup_redirect_rules, outermost_main_frame_url);
   FilterRulesForType(mixed_content_rules, outermost_main_frame_url);
   FilterRulesForType(auto_dark_content_rules, outermost_main_frame_url);
+  FilterRulesForType(timezone_override_rules, outermost_main_frame_url);
 }
 
 RendererContentSettingRules::RendererContentSettingRules() = default;
