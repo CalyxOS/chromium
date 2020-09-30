@@ -93,6 +93,8 @@ extern const char kDesktopSitePeripheralSettingEnabled[];
 extern const char kDesktopSiteDisplaySettingEnabled[];
 #endif
 
+extern const char kContentSettingsCustomTimezone[];
+
 }  // namespace prefs
 
 #endif  // COMPONENTS_CONTENT_SETTINGS_CORE_COMMON_PREF_NAMES_H_
