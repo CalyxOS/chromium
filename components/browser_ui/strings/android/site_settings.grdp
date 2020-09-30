@@ -109,6 +109,9 @@
   <message name="IDS_AUTO_DARK_WEB_CONTENT_TITLE" desc="Title of the permission auto darken web content [CHAR_LIMIT=32]">
     Dark theme for sites
   </message>
+  <message name="IDS_TIMEZONE_OVERRIDE_PERMISSION_TITLE" desc="Title of the permission to use TimeZone Override [CHAR-LIMIT=32]">
+    Timezone override
+  </message>
   <message name="IDS_DESKTOP_SITE_TITLE" desc="Title of the permission to request the desktop view of a site by default [CHAR_LIMIT=32]">
     Desktop site
   </message>
@@ -740,6 +743,38 @@
   </message>
   <message name="IDS_WEBSITE_SETTINGS_CATEGORY_PROTECTED_CONTENT_BLOCKED" desc="Summary text explaining that sites are blocked from playing protected content.">
     Block sites from playing protected content
+  </message>
+
+  <!-- Timezone override -->
+  <message name="IDS_WEBSITE_SETTINGS_TIMEOVERRIDE_INFO" desc="Primary text explaining the timezone override feature.">
+    Override timezone with a custom or random one, or use the system timezone
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_TIMEZONE_OVERRIDE_ALLOWED_TEXT" desc="Primary text explaining that sites are allowed to access the system timezone.">
+    None (use system timezone)
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_TIMEZONE_OVERRIDE_RANDOM_TEXT" desc="Primary text for random timezone override.">
+    Random
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_TIMEZONE_OVERRIDE_ALLOWED" desc="Summary text explaining that sites are allowed to access the system timezone.">
+    System timezone
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_TIMEZONE_OVERRIDE_CUSTOM" desc="Summary text explaining that sites use custom timezone.">
+    Custom timezone
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_TIMEZONE_OVERRIDE_CUSTOM_HINT" desc="Hint text for edit custom timezone.">
+    Specify a custom timezone (default UTC)
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_TIMEZONE_OVERRIDE_RANDOM" desc="Summary text for random timezone override.">
+    Random (for each page)
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_SELECT_BUTTON" desc="Primary button text for choosing a timezone from a list.">
+    Choose Timezone...
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_SELECT_DIALOG_TITLE" desc="Text of the dialog to choose a timezone.">
+    Choose Timezone
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_SELECT_DIALOG_BUTTON" desc="Primary button text in the dialog used to choose the custom timezone.">
+    Select
   </message>
 
   <!-- Sound -->
