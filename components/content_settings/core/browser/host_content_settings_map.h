@@ -370,6 +370,9 @@ class HostContentSettingsMap : public content_settings::Observer,
   // Returns the current time of the `clock_`.
   base::Time Now() const { return clock_->Now(); }
 
+  void GetTimezoneOverrideValue(std::string& custom_timezone) const;
+  void SetTimezoneOverrideValue(const std::string& custom_timezone);
+
  private:
   friend class base::RefCountedThreadSafe<HostContentSettingsMap>;
   friend class content_settings::TestUtils;
