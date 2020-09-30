@@ -134,6 +134,7 @@ public class AutofillClientProviderUtils {
 
     @CalledByNative
     public static void setAutofillOptionsDeepLinkPref(boolean featureOn) {
+        featureOn = false;
         Editor editor =
                 ContextUtils.getApplicationContext()
                         .getSharedPreferences(
