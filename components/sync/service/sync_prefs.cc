@@ -752,7 +752,7 @@ bool SyncPrefs::IsTypeSupportedInTransportMode(UserSelectableType type) {
           kSeparateLocalAndAccountSearchEngines);
 #endif
     case UserSelectableType::kPasswords:
-      return true;
+      return false;
     case UserSelectableType::kAutofill:
       return true;
     case UserSelectableType::kPayments:
