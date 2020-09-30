@@ -158,6 +158,11 @@ void GetRendererContentSettingRules(const HostContentSettingsMap* map,
       map->GetSettingsForOneType(ContentSettingsType::JAVASCRIPT);
   rules->popup_redirect_rules =
       map->GetSettingsForOneType(ContentSettingsType::POPUPS);
+
+  // pass custom timezone value to the render process
+  std::string timezone;
+  map->GetTimezoneOverrideValue(timezone);
+  rules->timezone_override_value = timezone;
 }
 
 bool IsMorePermissive(ContentSetting a, ContentSetting b) {
