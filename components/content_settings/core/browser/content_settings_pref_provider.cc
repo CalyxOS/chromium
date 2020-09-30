@@ -72,6 +72,8 @@ void PrefProvider::RegisterProfilePrefs(
                                      info->GetPrefRegistrationFlags());
   }
 
+  registry->RegisterStringPref(prefs::kContentSettingsCustomTimezone, std::string());
+
   // Obsolete prefs ----------------------------------------------------------
 
   // These prefs have been removed, but need to be registered so they can
@@ -137,6 +139,10 @@ PrefProvider::PrefProvider(PrefService* prefs,
     event_args->set_number_of_exceptions(
         num_exceptions);  // PrefProvider::PrefProvider.
   });
+
+  custom_timezone_ =
+    prefs_->GetString(
+          prefs::kContentSettingsCustomTimezone);
 }
 
 PrefProvider::~PrefProvider() {
@@ -396,6 +402,16 @@ void PrefProvider::DiscardOrMigrateObsoletePreferences() {
 
 void PrefProvider::SetClockForTesting(base::Clock* clock) {
   clock_ = clock;
+}
+
+void PrefProvider::GetPrefTimezoneOverrideValue(std::string& timezone) const {
+  timezone = custom_timezone_;
+}
+
+void PrefProvider::SetPrefTimezoneOverrideValue(const std::string& timezone) {
+  prefs_->SetString(
+        prefs::kContentSettingsCustomTimezone, timezone);
+  custom_timezone_ = timezone;
 }
 
 }  // namespace content_settings
