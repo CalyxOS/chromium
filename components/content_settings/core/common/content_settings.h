@@ -108,6 +108,7 @@ struct RendererContentSettingRules {
   ContentSettingsForOneType popup_redirect_rules;
   ContentSettingsForOneType mixed_content_rules;
   ContentSettingsForOneType auto_dark_content_rules;
+  std::string timezone_override_value;
 };
 
 namespace content_settings {
