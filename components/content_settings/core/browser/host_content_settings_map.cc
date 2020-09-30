@@ -605,6 +605,14 @@ void HostContentSettingsMap::SetClockForTesting(base::Clock* clock) {
     provider->SetClockForTesting(clock);
 }
 
+void HostContentSettingsMap::GetTimezoneOverrideValue(std::string& custom_timezone) const {
+  GetPrefProvider()->GetPrefTimezoneOverrideValue(custom_timezone);
+}
+
+void HostContentSettingsMap::SetTimezoneOverrideValue(const std::string& custom_timezone) {
+  GetPrefProvider()->SetPrefTimezoneOverrideValue(custom_timezone);
+}
+
 void HostContentSettingsMap::RecordExceptionMetrics() {
   auto* content_setting_registry =
       content_settings::ContentSettingsRegistry::GetInstance();
