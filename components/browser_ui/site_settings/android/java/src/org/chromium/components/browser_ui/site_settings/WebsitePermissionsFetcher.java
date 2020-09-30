@@ -75,6 +75,7 @@ public class WebsitePermissionsFetcher {
             case ContentSettingsType.POPUPS:
             case ContentSettingsType.REQUEST_DESKTOP_SITE:
             case ContentSettingsType.SOUND:
+            case ContentSettingsType.TIMEZONE_OVERRIDE:
                 return WebsitePermissionsType.CONTENT_SETTING_EXCEPTION;
             case ContentSettingsType.AR:
             case ContentSettingsType.CLIPBOARD_READ_WRITE:
@@ -212,6 +213,7 @@ public class WebsitePermissionsFetcher {
             for (@ContentSettingsType int type = 0; type < ContentSettingsType.NUM_TYPES; type++) {
                 addFetcherForContentSettingsType(queue, type);
             }
+            queue.add(new ExceptionInfoFetcher(ContentSettingsType.TIMEZONE_OVERRIDE));
         }
 
         /**

@@ -8,8 +8,10 @@
 
 #include "base/feature_list.h"
 #include "base/functional/bind.h"
+#include "base/logging.h"
 #include "base/metrics/histogram_macros.h"
 #include "base/strings/string_number_conversions.h"
+#include "base/rand_util.h"
 #include "components/content_settings/core/common/content_settings.h"
 #include "components/content_settings/core/common/content_settings.mojom.h"
 #include "components/content_settings/core/common/content_settings_pattern.h"
@@ -321,6 +323,10 @@ bool ContentSettingsAgentImpl::AllowScript(bool enabled_per_settings) {
   allow = allow || IsAllowlistedForContentSettings();
 
   cached_script_permissions_[frame] = allow;
+
+  if (allow)
+    UpdateOverrides();
+
   return allow;
 }
 
@@ -455,6 +461,83 @@ bool ContentSettingsAgentImpl::IsAllowlistedForContentSettings() const {
     return GURL(document_url).ExtractFileName().empty();
   }
   return false;
+}
+
+bool ContentSettingsAgentImpl::UpdateOverrides() {
+  // Evaluate the content setting rules
+  ContentSetting setting = CONTENT_SETTING_ALLOW;
+
+  if (content_setting_rules_) {
+    blink::WebLocalFrame* frame = render_frame()->GetWebFrame();
+
+    setting = GetContentSettingFromRules(
+        content_setting_rules_->timezone_override_rules,
+        url::Origin(frame->GetDocument().GetSecurityOrigin()).GetURL());
+  }
+  return UpdateTimeZoneOverride(
+      setting, content_setting_rules_->timezone_override_value);
+  //&& UpdateLocaleOverride(setting);
+}
+
+bool ContentSettingsAgentImpl::UpdateTimeZoneOverride(
+    ContentSetting setting,
+    const std::string& timezone_override_value) {
+  // base/i18n/icu_util.cc # 329
+
+  /* timezone_id: third_party/icu/source/i18n/timezone.cpp
+      We first try to lookup the zone ID in our system list.  If this
+      * fails, we try to parse it as a custom string GMT[+-]hh:mm.  If
+      * all else fails, we return GMT, which is probably not what the
+      * user wants, but at least is a functioning TimeZone object.
+      */
+  String timezone_id;
+
+  if (setting == CONTENT_SETTING_ALLOW) {
+    // system time
+    if (timezone_override_) {
+      timezone_override_.reset();
+    }
+    return true;
+  } else if (setting == CONTENT_SETTING_BLOCK) {
+    // timezone random
+    UErrorCode ec = U_ZERO_ERROR;
+    int32_t rawOffset = base::RandInt(-12, 11) * 3600 * 1000;
+    icu::StringEnumeration* timezones = icu::TimeZone::createEnumeration(
+        rawOffset);  // Obtain timezones by GMT timezone offset
+    if (timezones) {
+      const char* tzID;
+      int32_t length;
+      if ((tzID = timezones->next(&length, ec)) != NULL) {
+        timezone_id = String(tzID);
+      }
+      delete timezones;
+    }
+  } else if (setting == CONTENT_SETTING_ASK) {
+    if (timezone_override_value.empty())
+      timezone_id = "Europe/London";
+    else
+      timezone_id = String(timezone_override_value.c_str());
+  }
+
+  if (blink::TimeZoneController::HasTimeZoneOverride() == false) {
+    timezone_override_.reset();
+    timezone_override_ =
+        blink::TimeZoneController::SetTimeZoneOverride(timezone_id);
+    if (!timezone_override_) {
+      LOG(WARNING) << "UpdateTimeZoneOverride - Invalid timezone id '"
+                   << timezone_id << "'";
+      return false;
+    } else {
+      LOG(INFO)
+          << "UpdateTimeZoneOverride - setting to '"
+          << timezone_id << "'";
+      return true;
+    }
+  } else {
+    LOG(INFO)
+        << "UpdateTimeZoneOverride: already set";
+    return false;
+  }
 }
 
 }  // namespace content_settings

@@ -46,6 +46,10 @@ import org.chromium.url.GURL;
 
 import java.util.Set;
 
+import android.content.Intent;
+import android.provider.Browser;
+import android.net.Uri;
+
 /**
  * A SiteSettingsDelegate instance that contains Chrome-specific Site Settings logic.
  */
@@ -265,6 +269,18 @@ public class ChromeSiteSettingsDelegate implements SiteSettingsDelegate {
     @Override
     public String getFirstPartySetOwner(String memberOrigin) {
         return PrivacySandboxBridge.getFirstPartySetOwner(memberOrigin);
+    }
+
+    // open wiki page for documentation about the timezone override feature
+    @Override
+    public void launchTimeZoneOverrideHelpAndFeedbackActivity(Activity currentActivity) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/bromite/bromite/wiki/TimezoneOverride"));
+        // Let Chromium know that this intent is from Chromium, so that it does not close the app when
+        // the user presses 'back' button.
+        intent.putExtra(Browser.EXTRA_APPLICATION_ID, currentActivity.getPackageName());
+        intent.putExtra(Browser.EXTRA_CREATE_NEW_TAB, true);
+        intent.setPackage(currentActivity.getPackageName());
+        currentActivity.startActivity(intent);
     }
 
     @Override
