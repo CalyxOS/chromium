@@ -436,6 +436,10 @@ For more settings that use data to improve your Chrome experience, go to <ph nam
         Automatically sends usage statistics and crash reports to Google
       </message>
 
+      <message name="IDS_SERVICES_CATEGORY_TITLE" desc="Title for the group of preferences that control non-personalized Google services. This group contains preferences for data that is not tied to user's Google Account.">
+        Other services
+      </message>
+
       <!-- Search engine settings -->
       <message name="IDS_SEARCH_ENGINE_SETTINGS" desc="Title for Search Engine settings. [CHAR_LIMIT=32]">
         Search engine
