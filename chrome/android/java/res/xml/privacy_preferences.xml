@@ -91,6 +91,19 @@ found in the LICENSE file.
         android:key="secure_dns"
         android:title="@string/settings_secure_dns_title"
         android:fragment="org.chromium.chrome.browser.privacy.secure_dns.SecureDnsSettings" />
+    <PreferenceCategory
+        android:key="services_category"
+        android:title="@string/services_category_title">
+      <org.chromium.components.browser_ui.settings.ChromeSwitchPreference
+          android:key="search_suggestions"
+          android:title="@string/improve_search_suggestions_title"
+          android:summary="@string/improve_search_suggestions_summary"
+          android:persistent="false"/>
+      <org.chromium.components.browser_ui.settings.ChromeBasePreference
+          android:key="contextual_search"
+          android:title="@string/contextual_search_title"
+          android:fragment="org.chromium.chrome.browser.contextualsearch.ContextualSearchSettingsFragment"/>
+    </PreferenceCategory>
     <org.chromium.components.browser_ui.settings.ChromeBasePreference
         android:key="javascript_optimizer"
         android:title="@string/website_settings_privacy_and_security_javascript_optimizer_row_label"
