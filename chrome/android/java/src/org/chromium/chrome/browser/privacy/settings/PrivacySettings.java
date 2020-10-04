@@ -40,6 +40,7 @@ import org.chromium.chrome.browser.sync.settings.GoogleServicesSettings;
 import org.chromium.chrome.browser.sync.settings.ManageSyncSettings;
 import org.chromium.chrome.browser.usage_stats.UsageStatsConsentDialog;
 import org.chromium.components.browser_ui.settings.ChromeSwitchPreference;
+import org.chromium.components.browser_ui.settings.ManagedPreferenceDelegate;
 import org.chromium.components.browser_ui.settings.SettingsLauncher;
 import org.chromium.components.browser_ui.settings.SettingsUtils;
 import org.chromium.components.browser_ui.site_settings.ContentSettingsResources;
@@ -50,6 +51,12 @@ import org.chromium.components.signin.identitymanager.ConsentLevel;
 import org.chromium.components.user_prefs.UserPrefs;
 import org.chromium.ui.text.NoUnderlineClickableSpan;
 import org.chromium.ui.text.SpanApplier;
+
+import androidx.annotation.Nullable;
+import androidx.preference.PreferenceCategory;
+import org.chromium.chrome.browser.contextualsearch.ContextualSearchManager;
+import org.chromium.chrome.browser.preferences.SharedPreferencesManager;
+import org.chromium.components.browser_ui.settings.ChromeSwitchPreference;
 
 /**
  * Fragment to keep track of the all the privacy related preferences.
@@ -70,6 +77,17 @@ public class PrivacySettings
     private static final String PREF_INCOGNITO_LOCK = "incognito_lock";
     private static final String PREF_THIRD_PARTY_COOKIES = "third_party_cookies";
 
+    // moved from SyncAndServicesSettings.java
+    private static final String PREF_SERVICES_CATEGORY = "services_category";
+    private static final String PREF_SEARCH_SUGGESTIONS = "search_suggestions";
+    private static final String PREF_CONTEXTUAL_SEARCH = "contextual_search";
+    private ChromeSwitchPreference mSearchSuggestions;
+    private @Nullable Preference mContextualSearch;
+    private final SharedPreferencesManager mSharedPreferencesManager =
+            SharedPreferencesManager.getInstance();
+    private final PrefService prefService = UserPrefs.get(Profile.getLastUsedRegularProfile());
+
+    private ManagedPreferenceDelegate mManagedPreferenceDelegate;
     private IncognitoLockSettings mIncognitoLockSettings;
 
     @Override
@@ -125,6 +143,18 @@ public class PrivacySettings
         });
 
         setHasOptionsMenu(true);
+
+        mManagedPreferenceDelegate = createManagedPreferenceDelegate();
+
+        mSearchSuggestions = (ChromeSwitchPreference) findPreference(PREF_SEARCH_SUGGESTIONS);
+        mSearchSuggestions.setOnPreferenceChangeListener(this);
+        mSearchSuggestions.setManagedPreferenceDelegate(mManagedPreferenceDelegate);
+
+        mContextualSearch = findPreference(PREF_CONTEXTUAL_SEARCH);
+        boolean isContextualSearchEnabled =
+                !ContextualSearchManager.isContextualSearchDisabled();
+        mContextualSearch.setSummary(
+                isContextualSearchEnabled ? R.string.text_on : R.string.text_off);
 
         ChromeSwitchPreference canMakePaymentPref =
                 (ChromeSwitchPreference) findPreference(PREF_CAN_MAKE_PAYMENT);
@@ -209,6 +239,9 @@ public class PrivacySettings
         } else if (PREF_HTTPS_FIRST_MODE.equals(key)) {
             UserPrefs.get(Profile.getLastUsedRegularProfile())
                     .setBoolean(Pref.HTTPS_ONLY_MODE_ENABLED, (boolean) newValue);
+        } else if (PREF_SEARCH_SUGGESTIONS.equals(key)) {
+            UserPrefs.get(Profile.getLastUsedRegularProfile())
+                    .setBoolean(Pref.SEARCH_SUGGEST_ENABLED, (boolean) newValue);
         }
         return true;
     }
@@ -223,7 +256,7 @@ public class PrivacySettings
      * Updates the preferences.
      */
     public void updatePreferences() {
-        PrefService prefService = UserPrefs.get(Profile.getLastUsedRegularProfile());
+        mSearchSuggestions.setChecked(prefService.getBoolean(Pref.SEARCH_SUGGEST_ENABLED));
 
         ChromeSwitchPreference canMakePaymentPref =
                 (ChromeSwitchPreference) findPreference(PREF_CAN_MAKE_PAYMENT);
@@ -289,6 +322,17 @@ public class PrivacySettings
             thirdPartyCookies.setSummary(ContentSettingsResources.getThirdPartyCookieListSummary(
                     prefService.getInteger(COOKIE_CONTROLS_MODE)));
         }
+    }
+
+    private ChromeManagedPreferenceDelegate createManagedPreferenceDelegate() {
+        return preference -> {
+            String key = preference.getKey();
+            if (PREF_HTTPS_FIRST_MODE.equals(key)) {
+                return UserPrefs.get(Profile.getLastUsedRegularProfile())
+                        .isManagedPreference(Pref.HTTPS_ONLY_MODE_ENABLED);
+            }
+            return false;
+        };
     }
 
     @Override
