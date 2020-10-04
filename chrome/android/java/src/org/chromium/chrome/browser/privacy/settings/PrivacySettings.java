@@ -54,6 +54,14 @@ import org.chromium.components.signin.identitymanager.ConsentLevel;
 import org.chromium.components.user_prefs.UserPrefs;
 import org.chromium.ui.text.SpanApplier;
 
+import androidx.annotation.Nullable;
+import androidx.preference.PreferenceCategory;
+import org.chromium.chrome.browser.contextualsearch.ContextualSearchManager;
+import org.chromium.base.shared_preferences.SharedPreferencesManager;
+import org.chromium.chrome.browser.preferences.ChromeSharedPreferences;
+import org.chromium.components.browser_ui.settings.ChromeSwitchPreference;
+import org.chromium.components.browser_ui.settings.ManagedPreferenceDelegate;
+
 /** Fragment to keep track of the all the privacy related preferences. */
 public class PrivacySettings extends ChromeBaseSettingsFragment
         implements Preference.OnPreferenceChangeListener {
@@ -69,6 +77,16 @@ public class PrivacySettings extends ChromeBaseSettingsFragment
     private static final String PREF_INCOGNITO_LOCK = "incognito_lock";
     @VisibleForTesting static final String PREF_CLEAR_BROWSING_DATA = "clear_browsing_data";
     @VisibleForTesting static final String PREF_DO_NOT_TRACK = "do_not_track";
+    // moved from SyncAndServicesSettings.java
+    private static final String PREF_SERVICES_CATEGORY = "services_category";
+    private static final String PREF_SEARCH_SUGGESTIONS = "search_suggestions";
+    private static final String PREF_CONTEXTUAL_SEARCH = "contextual_search";
+    private ChromeSwitchPreference mSearchSuggestions;
+    private @Nullable Preference mContextualSearch;
+    private final SharedPreferencesManager mSharedPreferencesManager =
+            ChromeSharedPreferences.getInstance();
+
+    private ManagedPreferenceDelegate mManagedPreferenceDelegate;
     @VisibleForTesting static final String PREF_FP_PROTECTION = "fp_protection";
     @VisibleForTesting static final String PREF_IP_PROTECTION = "ip_protection";
     @VisibleForTesting static final String PREF_THIRD_PARTY_COOKIES = "third_party_cookies";
@@ -159,6 +177,16 @@ public class PrivacySettings extends ChromeBaseSettingsFragment
                 });
 
         setHasOptionsMenu(true);
+
+        mSearchSuggestions = (ChromeSwitchPreference) findPreference(PREF_SEARCH_SUGGESTIONS);
+        mSearchSuggestions.setOnPreferenceChangeListener(this);
+        mSearchSuggestions.setManagedPreferenceDelegate(mManagedPreferenceDelegate);
+
+        mContextualSearch = findPreference(PREF_CONTEXTUAL_SEARCH);
+        boolean isContextualSearchEnabled =
+                !ContextualSearchManager.isContextualSearchDisabled(getProfile());
+        mContextualSearch.setSummary(
+                isContextualSearchEnabled ? R.string.text_on : R.string.text_off);
 
         ChromeSwitchPreference canMakePaymentPref =
                 (ChromeSwitchPreference) findPreference(PREF_CAN_MAKE_PAYMENT);
@@ -301,6 +329,9 @@ public class PrivacySettings extends ChromeBaseSettingsFragment
         } else if (PREF_HTTPS_FIRST_MODE.equals(key)) {
             UserPrefs.get(getProfile())
                     .setBoolean(Pref.HTTPS_ONLY_MODE_ENABLED, (boolean) newValue);
+        } else if (PREF_SEARCH_SUGGESTIONS.equals(key)) {
+            UserPrefs.get(getProfile())
+                    .setBoolean(Pref.SEARCH_SUGGEST_ENABLED, (boolean) newValue);
         }
         return true;
     }
@@ -313,6 +344,9 @@ public class PrivacySettings extends ChromeBaseSettingsFragment
 
     /** Updates the preferences. */
     public void updatePreferences() {
+        mSearchSuggestions.setChecked(
+            UserPrefs.get(getProfile()).getBoolean(Pref.SEARCH_SUGGEST_ENABLED));
+
         ChromeSwitchPreference canMakePaymentPref =
                 (ChromeSwitchPreference) findPreference(PREF_CAN_MAKE_PAYMENT);
         if (canMakePaymentPref != null) {
