@@ -49,6 +49,19 @@ found in the LICENSE file.
         android:key="privacy_sandbox"
         android:title="@string/prefs_privacy_sandbox"
         android:fragment="org.chromium.chrome.browser.privacy_sandbox.PrivacySandboxSettingsFragmentV3"/>
+    <PreferenceCategory
+        android:key="services_category"
+        android:title="@string/services_category_title">
+      <org.chromium.components.browser_ui.settings.ChromeSwitchPreference
+          android:key="search_suggestions"
+          android:title="@string/autocomplete_searches_and_urls_title"
+          android:summary="@string/autocomplete_searches_and_urls_summary"
+          android:persistent="false"/>
+      <org.chromium.components.browser_ui.settings.ChromeBasePreference
+          android:key="contextual_search"
+          android:title="@string/contextual_search_title"
+          android:fragment="org.chromium.chrome.browser.contextualsearch.ContextualSearchPreferenceFragment"/>
+    </PreferenceCategory>
     <Preference
         android:key="phone_as_a_security_key"
         android:title="@string/cablev2_paask_title"
