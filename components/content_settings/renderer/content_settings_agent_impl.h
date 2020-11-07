@@ -96,6 +96,7 @@ class ContentSettingsAgentImpl
   void DidNotAllowScript() override;
   bool AllowRunningInsecureContent(bool allowed_per_settings,
                                    const blink::WebURL& url) override;
+  bool AllowAutoplay(bool default_value) override;
   bool AllowPopupsAndRedirects(bool default_value) override;
   bool ShouldAutoupgradeMixedContent() override;
 

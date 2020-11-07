@@ -110,6 +110,7 @@ ContentSettingsType kPermissionType[] = {
     ContentSettingsType::ADS,
     ContentSettingsType::BACKGROUND_SYNC,
     ContentSettingsType::SOUND,
+    ContentSettingsType::AUTOPLAY,
     ContentSettingsType::AUTOMATIC_DOWNLOADS,
 #if BUILDFLAG(IS_ANDROID) || BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_WIN)
     ContentSettingsType::PROTECTED_MEDIA_IDENTIFIER,
@@ -571,6 +572,7 @@ void PageInfo::OnSitePermissionChanged(
   // compare it against other kinds of actions in Page Info.
   HostContentSettingsMap* map = GetContentSettings();
   RecordPageInfoAction(PAGE_INFO_CHANGED_PERMISSION);
+
   if (type == ContentSettingsType::SOUND) {
     ContentSetting default_setting =
         map->GetDefaultContentSetting(ContentSettingsType::SOUND, nullptr);
@@ -1193,6 +1195,11 @@ bool PageInfo::ShouldShowPermission(
     }
 
     return delegate_->IsSubresourceFilterActivated(site_url_);
+  }
+
+  // Always show autoplay when it has a site-specific override
+  if (info.type == ContentSettingsType::AUTOPLAY) {
+     return true;
   }
 
   if (info.type == ContentSettingsType::SOUND) {

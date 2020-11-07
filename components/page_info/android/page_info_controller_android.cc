@@ -138,6 +138,7 @@ void PageInfoControllerAndroid::SetPermissionInfo(
   permissions_to_display.push_back(ContentSettingsType::ADS);
   permissions_to_display.push_back(
       ContentSettingsType::PROTECTED_MEDIA_IDENTIFIER);
+  permissions_to_display.push_back(ContentSettingsType::AUTOPLAY);
   permissions_to_display.push_back(ContentSettingsType::SOUND);
   if (base::FeatureList::IsEnabled(features::kWebNfc))
     permissions_to_display.push_back(ContentSettingsType::NFC);
