@@ -107,6 +107,7 @@ ContentSettingsType kPermissionType[] = {
     ContentSettingsType::ADS,
     ContentSettingsType::BACKGROUND_SYNC,
     ContentSettingsType::SOUND,
+    ContentSettingsType::AUTOPLAY,
     ContentSettingsType::AUTOMATIC_DOWNLOADS,
 #if BUILDFLAG(IS_ANDROID) || BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_WIN)
     ContentSettingsType::PROTECTED_MEDIA_IDENTIFIER,
@@ -148,6 +149,11 @@ bool ShouldShowPermission(const PageInfo::PermissionInfo& info,
     }
 
     return is_subresource_filter_activated;
+  }
+
+  // Always show autoplay when it has a site-specific override
+  if (info.type == ContentSettingsType::AUTOPLAY) {
+     return true;
   }
 
   if (info.type == ContentSettingsType::SOUND) {
