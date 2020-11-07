@@ -623,6 +623,8 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
         int resource = 0;
         if (mCategory.getType() == SiteSettingsCategory.Type.AUTOMATIC_DOWNLOADS) {
             resource = R.string.website_settings_add_site_description_automatic_downloads;
+        } else if (mCategory.getType() == SiteSettingsCategory.Type.AUTOPLAY) {
+            resource = R.string.website_settings_add_site_description_autoplay;
         } else if (mCategory.getType() == SiteSettingsCategory.Type.BACKGROUND_SYNC) {
             resource = R.string.website_settings_add_site_description_background_sync;
         } else if (mCategory.getType() == SiteSettingsCategory.Type.JAVASCRIPT) {
@@ -754,6 +756,8 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
                 getSiteSettingsDelegate().getBrowserContextHandle();
         boolean allowSpecifyingExceptions = false;
         if (mCategory.getType() == SiteSettingsCategory.Type.SOUND) {
+            allowSpecifyingExceptions = true;
+        } else if (mCategory.getType() == SiteSettingsCategory.Type.AUTOPLAY) {
             allowSpecifyingExceptions = true;
         } else if (mCategory.getType() == SiteSettingsCategory.Type.JAVASCRIPT) {
             allowSpecifyingExceptions = true;
