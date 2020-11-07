@@ -711,6 +711,9 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
             case SiteSettingsCategory.Type.AUTOMATIC_DOWNLOADS:
                 resource = R.string.website_settings_add_site_description_automatic_downloads;
                 break;
+            case SiteSettingsCategory.Type.AUTOPLAY:
+                resource = R.string.website_settings_add_site_description_autoplay;
+                break;
             case SiteSettingsCategory.Type.BACKGROUND_SYNC:
                 resource = R.string.website_settings_add_site_description_background_sync;
                 break;
@@ -863,6 +866,7 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
 
         switch (mCategory.getType()) {
             case SiteSettingsCategory.Type.SOUND:
+            case SiteSettingsCategory.Type.AUTOPLAY:
             case SiteSettingsCategory.Type.JAVASCRIPT:
             case SiteSettingsCategory.Type.COOKIES:
             case SiteSettingsCategory.Type.SITE_DATA:

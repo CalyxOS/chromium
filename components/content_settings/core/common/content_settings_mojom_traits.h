@@ -135,6 +135,11 @@ struct StructTraits<
     return r.script_rules;
   }
 
+  static const std::vector<ContentSettingPatternSource>& autoplay_rules(
+      const RendererContentSettingRules& r) {
+    return r.autoplay_rules;
+  }
+
   static const std::vector<ContentSettingPatternSource>& popup_redirect_rules(
       const RendererContentSettingRules& r) {
     return r.popup_redirect_rules;
