@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grit-part>
+  <message name="IDS_AUTOPLAY_PERMISSION_TITLE" desc='Title for the Autoplay settings screen [CHAR-LIMIT=32]' formatter_data="android_java">
+    Autoplay
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_ADD_SITE_DESCRIPTION_AUTOPLAY" desc="The description for the allow autoplay of muted videos for website dialog." formatter_data="android_java">
+    Allow autoplay for a specific site.
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_AUTOPLAY_ENABLED" desc="Summary text explaining that sites are allowed to automatically play muted videos." formatter_data="android_java">
+    Allow sites to automatically play muted videos
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_AUTOPLAY_DISABLED" desc="Summary text explaining that sites are not allowed to automatically play muted videos.." formatter_data="android_java">
+    Autoplay disabled
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_AUTOPLAY_A11Y" desc="The screen reader announcement describing a toggle with two states, controlling whether sites can automatically play muted videos. It is important to keep this string as two full sentences terminated by a period." formatter_data="android_java">
+    When on, sites can automatically play muted videos. When off, sites can't automatically play muted videos.
+  </message>
+  <message name="IDS_SETTINGS_SITE_SETTINGS_AUTOPLAY_ALLOWED_EXCEPTIONS" desc="Label for the allowed exceptions site list of the autoplay setting.">
+    Allowed to autoplay
+  </message>
+  <message name="IDS_SETTINGS_SITE_SETTINGS_AUTOPLAY_BLOCKED_EXCEPTIONS" desc="Label for the blocked exceptions site list of the autoplay setting.">
+    Not allowed to autoplay
+  </message>
+</grit-part>
