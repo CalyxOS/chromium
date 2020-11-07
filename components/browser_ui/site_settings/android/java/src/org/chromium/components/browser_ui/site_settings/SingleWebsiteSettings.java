@@ -133,6 +133,8 @@ public class SingleWebsiteSettings extends SiteSettingsPreferenceFragment
                 return "cookies_permission_list";
             case ContentSettingsType.FEDERATED_IDENTITY_API:
                 return "federated_identity_api_list";
+            case ContentSettingsType.AUTOPLAY:
+                return "autoplay_permission_list";
             case ContentSettingsType.IDLE_DETECTION:
                 return "idle_detection_permission_list";
             case ContentSettingsType.JAVASCRIPT:
@@ -510,6 +512,8 @@ public class SingleWebsiteSettings extends SiteSettingsPreferenceFragment
 
             if (type == ContentSettingsType.ADS) {
                 setUpAdsPreference(preference);
+            } else if (type == ContentSettingsType.AUTOPLAY) {
+               setUpAutoplayPreference(preference);
             } else if (type == ContentSettingsType.SOUND) {
                 setUpSoundPreference(preference);
             } else if (type == ContentSettingsType.JAVASCRIPT) {
@@ -1029,6 +1033,24 @@ public class SingleWebsiteSettings extends SiteSettingsPreferenceFragment
                     : ContentSettingValues.BLOCK;
         }
         // Not possible to embargo SOUND.
+        setupContentSettingsPreference(preference, currentValue, false /* isEmbargoed */);
+    }
+
+    private void setUpAutoplayPreference(Preference preference) {
+        @ContentSettingValues
+        @Nullable
+        Integer currentValue = mSite.getContentSetting(
+            getSiteSettingsDelegate().getBrowserContextHandle(), ContentSettingsType.AUTOPLAY);
+        // In order to always show the autoplay permission, set it up with the default value if it
+        // doesn't have a current value.
+        if (currentValue == null) {
+            currentValue = WebsitePreferenceBridge.isCategoryEnabled(
+                                   getSiteSettingsDelegate().getBrowserContextHandle(),
+                                   ContentSettingsType.AUTOPLAY)
+                    ? ContentSettingValues.ALLOW
+                    : ContentSettingValues.BLOCK;
+        }
+        // Not possible to embargo AUTOPLAY.
         setupContentSettingsPreference(preference, currentValue, false /* isEmbargoed */);
     }
 
