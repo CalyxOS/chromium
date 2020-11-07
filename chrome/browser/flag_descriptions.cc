@@ -4016,6 +4016,9 @@ const char kStartSurfaceRefactorName[] = "Start Surface Refactor";
 const char kStartSurfaceRefactorDescription[] =
     "Enable splitting Tab switcher from Start surface";
 
+const char kSimplifiedNtpName[] = "Simplified NTP";
+const char kSimplifiedNtpDescription[] = "Show a simplified New Tab Page.";
+
 const char kStrictSiteIsolationName[] = "Strict site isolation";
 const char kStrictSiteIsolationDescription[] =
     "Security mode that enables site isolation for all sites (SitePerProcess). "

@@ -2286,6 +2286,9 @@ extern const char kSiteIsolationForPasswordSitesDescription[];
 extern const char kSmartSuggestionForLargeDownloadsName[];
 extern const char kSmartSuggestionForLargeDownloadsDescription[];
 
+extern const char kSimplifiedNtpName[];
+extern const char kSimplifiedNtpDescription[];
+
 extern const char kStartSurfaceAndroidName[];
 extern const char kStartSurfaceAndroidDescription[];
 
