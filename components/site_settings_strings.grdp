@@ -136,6 +136,9 @@
   <message name="IDS_SITE_SETTINGS_TYPE_SOUND" desc="The label used for the sound site settings controls.">
     Sound
   </message>
+  <message name="IDS_SITE_SETTINGS_TYPE_AUTOPLAY" desc="The label used for the autoplay permission controls in the Page Info popup.">
+    Autoplay
+  </message>
   <message name="IDS_SITE_SETTINGS_TYPE_SOUND_MID_SENTENCE" desc="The label used for the sound site settings controls when used mid-sentence.">
     sound
   </message>
