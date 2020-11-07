@@ -376,6 +376,7 @@ public abstract class ChromeFeatureList {
     public static final String MESSAGES_FOR_ANDROID_ADS_BLOCKED = "MessagesForAndroidAdsBlocked";
     public static final String MESSAGES_FOR_ANDROID_CHROME_SURVEY =
             "MessagesForAndroidChromeSurvey";
+    public static final String SIMPLIFIED_NTP = "SimplifiedNTP";
     public static final String MESSAGES_FOR_ANDROID_INFRASTRUCTURE =
             "MessagesForAndroidInfrastructure";
     public static final String MESSAGES_FOR_ANDROID_PERMISSION_UPDATE =

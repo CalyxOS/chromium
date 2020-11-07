@@ -36,6 +36,7 @@ import org.chromium.chrome.browser.cryptids.ProbabilisticCryptidRenderer;
 import org.chromium.chrome.browser.feed.FeedSurfaceScrollDelegate;
 import org.chromium.chrome.browser.flags.ChromeFeatureList;
 import org.chromium.chrome.browser.lens.LensEntryPoint;
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
 import org.chromium.chrome.browser.lens.LensMetrics;
 import org.chromium.chrome.browser.lifecycle.ActivityLifecycleDispatcher;
 import org.chromium.chrome.browser.logo.LogoBridge.Logo;
@@ -95,6 +96,8 @@ public class NewTabPageLayout extends LinearLayout implements VrModeObserver {
     private Activity mActivity;
     private UiConfig mUiConfig;
     private CallbackController mCallbackController = new CallbackController();
+
+    private ViewGroup mShortcutsView;
 
     /**
      * Whether the tiles shown in the layout have finished loading.
@@ -198,6 +201,7 @@ public class NewTabPageLayout extends LinearLayout implements VrModeObserver {
         initializeMostVisitedTilesCoordinator(profile, lifecycleDispatcher, tileGroupDelegate,
                 touchEnabledDelegate, isScrollableMvtEnabled(), searchProviderIsGoogle);
         initializeSearchBoxBackground();
+        initializeShortcuts();
         initializeSearchBoxTextView();
         initializeVoiceSearchButton();
         initializeLensButton();
@@ -502,16 +506,22 @@ public class NewTabPageLayout extends LinearLayout implements VrModeObserver {
                     R.dimen.ntp_header_lateral_paddings_v2);
             marginLayoutParams.leftMargin = -lateralPaddingsForNTP;
             marginLayoutParams.rightMargin = -lateralPaddingsForNTP;
-            marginLayoutParams.topMargin = getResources().getDimensionPixelSize(shouldShowLogo()
+            // when simplified NTP is enabled the top marging is included in its view's padding
+            if (mShortcutsView == null) {
+                marginLayoutParams.topMargin = getResources().getDimensionPixelSize(shouldShowLogo()
                             ? R.dimen.tile_grid_layout_top_margin
                             : R.dimen.tile_grid_layout_no_logo_top_margin);
+            }
             marginLayoutParams.bottomMargin = getResources().getDimensionPixelOffset(
                     R.dimen.tile_carousel_layout_bottom_margin);
         } else {
             // Set a bit more top padding on the tile grid if there is no logo.
             ViewGroup.LayoutParams layoutParams = mMvTilesContainerLayout.getLayoutParams();
             layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-            marginLayoutParams.topMargin = getGridMvtTopMargin();
+            // when simplified NTP is enabled the top marging is included in its view's padding
+            if (mShortcutsView == null) {
+                marginLayoutParams.topMargin = getGridMvtTopMargin();
+            }
             marginLayoutParams.bottomMargin = getGridMvtBottomMargin();
         }
     }
@@ -846,6 +856,22 @@ public class NewTabPageLayout extends LinearLayout implements VrModeObserver {
         }
 
         return iphCommandBuilder;
+    }
+
+    private void initializeShortcuts() {
+        if (!ChromeFeatureList.isEnabled(ChromeFeatureList.SIMPLIFIED_NTP)) {
+            return;
+        }
+
+        ViewStub shortcutsStub = findViewById(R.id.shortcuts_stub);
+        mShortcutsView = (ViewGroup) shortcutsStub.inflate();
+
+        mShortcutsView.findViewById(R.id.bookmarks_button)
+                .setOnClickListener(view -> mManager.getNavigationDelegate().navigateToBookmarks());
+
+        mShortcutsView.findViewById(R.id.downloads_button)
+                .setOnClickListener(
+                        view -> mManager.getNavigationDelegate().navigateToDownloadManager());
     }
 
     /**

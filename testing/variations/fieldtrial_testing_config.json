@@ -5427,6 +5427,24 @@
             ]
         }
     ],
+    "SimplifiedNTP": [
+        {
+            "platforms": [
+                "android"
+            ],
+            "experiments": [
+                {
+                    "name": "Enabled_NoScrollToLoad",
+                    "enable_features": [
+                        "SimplifiedNTP"
+                    ],
+                    "disable_features": [
+                        "ContentSuggestionsScrollToLoad"
+                    ]
+                }
+            ]
+        }
+    ],
     "HelpAppLauncherSearch": [
         {
             "platforms": [
