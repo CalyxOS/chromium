@@ -4575,6 +4575,9 @@ const FeatureEntry kFeatureEntries[] = {
      SINGLE_VALUE_TYPE_AND_VALUE(
          switches::kForceShowUpdateMenuItemCustomSummary,
          "Custom Summary")},
+    {"simplified-ntp", flag_descriptions::kSimplifiedNtpName,
+     flag_descriptions::kSimplifiedNtpDescription, kOsAndroid,
+     FEATURE_VALUE_TYPE(chrome::android::kSimplifiedNTP)},
     {"force-show-update-menu-badge", flag_descriptions::kUpdateMenuBadgeName,
      flag_descriptions::kUpdateMenuBadgeDescription, kOsAndroid,
      SINGLE_VALUE_TYPE(switches::kForceShowUpdateMenuBadge)},
