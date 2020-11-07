@@ -4142,6 +4142,9 @@ const char kStartSurfaceWithAccessibilityName[] =
 const char kStartSurfaceWithAccessibilityDescription[] =
     "Enable Start Surface with Accessibility.";
 
+const char kSimplifiedNtpName[] = "Simplified NTP";
+const char kSimplifiedNtpDescription[] = "Show a simplified New Tab Page.";
+
 const char kStrictSiteIsolationName[] = "Strict site isolation";
 const char kStrictSiteIsolationDescription[] =
     "Security mode that enables site isolation for all sites (SitePerProcess). "

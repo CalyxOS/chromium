@@ -58,6 +58,7 @@ public class ChromeFeedbackCollector
         sources.add(new LowEndDeviceFeedbackSource());
         sources.add(new IMEFeedbackSource());
         sources.add(new PermissionFeedbackSource());
+        sources.add(new SimplifiedNtpFeedbackSource());
         sources.add(new FeedbackContextFeedbackSource(initParams.feedbackContext));
         sources.add(
                 new AutoDarkFeedbackSource(initParams.profile, activity, new GURL(initParams.url)));

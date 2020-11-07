@@ -119,6 +119,7 @@ BASE_DECLARE_FEATURE(kOmniboxConsumesImeInsets);
 BASE_DECLARE_FEATURE(kOmniboxModernizeVisualUpdate);
 BASE_DECLARE_FEATURE(kOptimizeGeolocationHeaderGeneration);
 BASE_DECLARE_FEATURE(kPageAnnotationsService);
+BASE_DECLARE_FEATURE(kSimplifiedNTP);
 BASE_DECLARE_FEATURE(kBookmarksImprovedSaveFlow);
 BASE_DECLARE_FEATURE(kBookmarksRefresh);
 BASE_DECLARE_FEATURE(kOpaqueOriginForIncomingIntents);

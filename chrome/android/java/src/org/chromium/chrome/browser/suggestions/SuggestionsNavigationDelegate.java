@@ -14,6 +14,11 @@ import org.chromium.chrome.browser.ui.native_page.NativePageHost;
 import org.chromium.content_public.browser.LoadUrlParams;
 import org.chromium.ui.base.PageTransition;
 
+import org.chromium.chrome.browser.bookmarks.BookmarkUtils;
+import org.chromium.chrome.browser.download.DownloadUtils;
+import org.chromium.chrome.browser.download.DownloadOpenSource;
+import org.chromium.chrome.browser.profiles.OTRProfileID;
+
 /**
  * Extension of {@link NativePageNavigationDelegate} with suggestions-specific methods.
  */
@@ -23,6 +28,18 @@ public class SuggestionsNavigationDelegate extends NativePageNavigationDelegateI
     public SuggestionsNavigationDelegate(Activity activity, Profile profile, NativePageHost host,
             TabModelSelector tabModelSelector, Tab tab) {
         super(activity, profile, host, tabModelSelector, tab);
+    }
+
+    public void navigateToBookmarks() {
+        BookmarkUtils.showBookmarkManager(mActivity, mTab.isIncognito());
+    }
+
+    public void navigateToDownloadManager() {
+        OTRProfileID otrProfileID = null;
+        if (mProfile != null && mTab != null && mTab.isIncognito()) {
+            otrProfileID = mProfile.getOTRProfileID();
+        }
+        DownloadUtils.showDownloadManager(mActivity, mTab, otrProfileID, DownloadOpenSource.NEW_TAB_PAGE);
     }
 
     /**
