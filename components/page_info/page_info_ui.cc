@@ -161,6 +161,7 @@ base::span<const PageInfoUI::PermissionUIInfo> GetContentSettingsUIInfo() {
 #endif
     {ContentSettingsType::ADS, IDS_SITE_SETTINGS_TYPE_ADS,
      IDS_SITE_SETTINGS_TYPE_ADS_MID_SENTENCE},
+    {ContentSettingsType::AUTOPLAY, IDS_SITE_SETTINGS_TYPE_AUTOPLAY},
     {ContentSettingsType::SOUND, IDS_SITE_SETTINGS_TYPE_SOUND,
      IDS_SITE_SETTINGS_TYPE_SOUND_MID_SENTENCE},
     {ContentSettingsType::CLIPBOARD_READ_WRITE,

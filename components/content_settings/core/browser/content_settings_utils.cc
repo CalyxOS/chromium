@@ -149,6 +149,8 @@ void GetRendererContentSettingRules(const HostContentSettingsMap* map,
 #endif
   map->GetSettingsForOneType(ContentSettingsType::JAVASCRIPT,
                              &(rules->script_rules));
+  map->GetSettingsForOneType(ContentSettingsType::AUTOPLAY,
+                             &(rules->autoplay_rules));
   map->GetSettingsForOneType(ContentSettingsType::POPUPS,
                              &(rules->popup_redirect_rules));
 
