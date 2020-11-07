@@ -68,6 +68,7 @@ public class WebsitePermissionsFetcher {
             case ContentSettingsType.AUTOMATIC_DOWNLOADS:
             case ContentSettingsType.BACKGROUND_SYNC:
             case ContentSettingsType.BLUETOOTH_SCANNING:
+            case ContentSettingsType.AUTOPLAY:
             case ContentSettingsType.COOKIES:
             case ContentSettingsType.FEDERATED_IDENTITY_API:
             case ContentSettingsType.JAVASCRIPT:
