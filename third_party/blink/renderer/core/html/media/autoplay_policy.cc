@@ -8,6 +8,7 @@
 #include "third_party/blink/public/mojom/autoplay/autoplay.mojom-blink.h"
 #include "third_party/blink/public/mojom/permissions_policy/permissions_policy.mojom-blink.h"
 #include "third_party/blink/public/mojom/webpreferences/web_preferences.mojom-blink.h"
+#include "third_party/blink/public/platform/web_content_settings_client.h"
 #include "third_party/blink/public/platform/web_media_player.h"
 #include "third_party/blink/public/web/web_local_frame.h"
 #include "third_party/blink/public/web/web_local_frame_client.h"
@@ -332,6 +333,8 @@ void AutoplayPolicy::TryUnlockingUserGesture() {
 }
 
 bool AutoplayPolicy::IsGestureNeededForPlayback() const {
+  if (!IsAutoplayAllowedPerSettings())
+    return true;
   if (!IsLockedPendingUserGesture())
     return false;
 
@@ -428,6 +431,17 @@ void AutoplayPolicy::MaybeSetAutoplayInitiated() {
     if (!permissions_policy_enabled)
       break;
   }
+}
+
+bool AutoplayPolicy::IsAutoplayAllowedPerSettings() const {
+  LocalFrame* frame = element_->GetDocument().GetFrame();
+  if (!frame)
+    return false;
+  if (auto* settings_client = frame->GetContentSettingsClient()) {
+    return settings_client->AllowContentSetting(
+        ContentSettingsType::AUTOPLAY, /*default_value*/ false);
+  }
+  return true;
 }
 
 bool AutoplayPolicy::ShouldAutoplay() {
