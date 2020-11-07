@@ -752,6 +752,12 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
             case SiteSettingsCategory.Type.BACKGROUND_SYNC:
                 resource = R.string.website_settings_add_site_description_background_sync;
                 break;
+            case SiteSettingsCategory.Type.AUTOPLAY:
+                resource = WebsitePreferenceBridge.isCategoryEnabled(
+                                   browserContextHandle, ContentSettingsType.AUTOPLAY)
+                        ? R.string.website_settings_add_site_description_autoplay
+                        : R.string.website_settings_add_site_description_autoplay;
+                break;
             case SiteSettingsCategory.Type.JAVASCRIPT:
                 resource = WebsitePreferenceBridge.isCategoryEnabled(
                                    browserContextHandle, ContentSettingsType.JAVASCRIPT)
@@ -1186,6 +1192,8 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
         Preference infoText = screen.findPreference(INFO_TEXT_KEY);
         if (mCategory.getType() == SiteSettingsCategory.Type.COOKIES) {
             infoText.setSummary(R.string.website_settings_cookie_info);
+        } else if (mCategory.getType() == SiteSettingsCategory.Type.AUTOPLAY) {
+            allowSpecifyingExceptions = true;
         } else if (mCategory.getType() == SiteSettingsCategory.Type.SITE_DATA) {
             infoText.setSummary(R.string.website_settings_site_data_page_description);
         } else if (mCategory.getType() == SiteSettingsCategory.Type.THIRD_PARTY_COOKIES) {
