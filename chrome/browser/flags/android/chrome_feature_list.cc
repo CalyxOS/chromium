@@ -241,6 +241,7 @@ const base::Feature* const kFeaturesExposedToJava[] = {
     &kIncognitoReauthenticationForAndroid,
     &kIncognitoScreenshot,
     &kInfobarScrollOptimization,
+    &kSimplifiedNTP,
     &kInstanceSwitcher,
     &kInstantStart,
     &kIsVoiceSearchEnabledCache,
@@ -811,6 +812,10 @@ BASE_FEATURE(kNotificationPermissionVariant,
 
 BASE_FEATURE(kInstanceSwitcher,
              "InstanceSwitcher",
+             base::FEATURE_ENABLED_BY_DEFAULT);
+
+BASE_FEATURE(kSimplifiedNTP,
+             "SimplifiedNTP",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kPageAnnotationsService,
