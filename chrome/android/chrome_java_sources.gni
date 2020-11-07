@@ -588,6 +588,7 @@ chrome_java_sources = [
   "java/src/org/chromium/chrome/browser/feedback/FeedFeedbackCollector.java",
   "java/src/org/chromium/chrome/browser/feedback/HelpAndFeedbackLauncherImpl.java",
   "java/src/org/chromium/chrome/browser/feedback/ScreenshotTask.java",
+  "java/src/org/chromium/chrome/browser/feedback/SimplifiedNtpFeedbackSource.java",
   "java/src/org/chromium/chrome/browser/findinpage/FindToolbar.java",
   "java/src/org/chromium/chrome/browser/findinpage/FindToolbarManager.java",
   "java/src/org/chromium/chrome/browser/findinpage/FindToolbarObserver.java",
