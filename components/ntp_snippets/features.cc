@@ -12,13 +12,17 @@
 #include "components/ntp_snippets/category_rankers/constant_category_ranker.h"
 #include "components/variations/variations_associated_data.h"
 
+#if BUILDFLAG(IS_ANDROID)
+#include "chrome/browser/flags/android/chrome_feature_list.h"
+#endif  // IS_ANDROID
+
 namespace ntp_snippets {
 
 namespace {
 // All platforms proxy for whether the simplified NTP is enabled.
 bool IsSimplifiedNtpEnabled() {
 #if BUILDFLAG(IS_ANDROID)
-  return true;
+  return base::FeatureList::IsEnabled(chrome::android::kSimplifiedNTP);
 #else
   return false;
 #endif  // BUILDFLAG(IS_ANDROID)

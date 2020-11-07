@@ -26,9 +26,9 @@ import org.chromium.ui.mojom.WindowOpenDisposition;
  */
 public class NativePageNavigationDelegateImpl implements NativePageNavigationDelegate {
     private static final String TAG = "PageNavDelegate";
-    private final Profile mProfile;
+    protected final Profile mProfile;
     private final TabModelSelector mTabModelSelector;
-    private final Tab mTab;
+    protected final Tab mTab;
 
     protected final Activity mActivity;
     protected final NativePageHost mHost;

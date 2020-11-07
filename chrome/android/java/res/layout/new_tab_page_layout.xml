@@ -44,6 +44,13 @@ found in the LICENSE file.
         android:layout_marginTop="16dp"
         android:visibility="gone"/>
 
+    <ViewStub
+        android:id="@+id/shortcuts_stub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inflatedId="@+id/shortcuts"
+        android:layout="@layout/ntp_shortcuts" />
+
     <!-- Middle spacer -->
     <View
         android:id="@+id/ntp_middle_spacer"
