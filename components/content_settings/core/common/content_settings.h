@@ -90,6 +90,7 @@ struct RendererContentSettingRules {
 
   ContentSettingsForOneType image_rules;
   ContentSettingsForOneType script_rules;
+  ContentSettingsForOneType autoplay_rules;
   ContentSettingsForOneType popup_redirect_rules;
   ContentSettingsForOneType mixed_content_rules;
   ContentSettingsForOneType auto_dark_content_rules;
