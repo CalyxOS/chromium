@@ -43,7 +43,7 @@ public class SiteSettingsCategory {
             Type.JAVASCRIPT, Type.MICROPHONE, Type.NFC, Type.NOTIFICATIONS, Type.POPUPS,
             Type.PROTECTED_MEDIA, Type.SENSORS, Type.SOUND, Type.USB, Type.VIRTUAL_REALITY,
             Type.USE_STORAGE, Type.AUTO_DARK_WEB_CONTENT, Type.REQUEST_DESKTOP_SITE,
-            Type.FEDERATED_IDENTITY_API, Type.TIMEZONE_OVERRIDE})
+            Type.FEDERATED_IDENTITY_API, Type.TIMEZONE_OVERRIDE, Type.AUTOPLAY})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Type {
         // All updates here must also be reflected in {@link #preferenceKey(int)
@@ -75,10 +75,11 @@ public class SiteSettingsCategory {
         int REQUEST_DESKTOP_SITE = 24;
         int FEDERATED_IDENTITY_API = 25;
         int TIMEZONE_OVERRIDE = 26;
+        int AUTOPLAY = 27;
         /**
          * Number of handled categories used for calculating array sizes.
          */
-        int NUM_ENTRIES = 27;
+        int NUM_ENTRIES = 28;
     }
 
     private final BrowserContextHandle mBrowserContextHandle;
@@ -191,6 +192,8 @@ public class SiteSettingsCategory {
                 return ContentSettingsType.NFC;
             case Type.NOTIFICATIONS:
                 return ContentSettingsType.NOTIFICATIONS;
+            case Type.AUTOPLAY:
+                return ContentSettingsType.AUTOPLAY;
             case Type.POPUPS:
                 return ContentSettingsType.POPUPS;
             case Type.PROTECTED_MEDIA:
@@ -271,6 +274,8 @@ public class SiteSettingsCategory {
                 return "nfc";
             case Type.NOTIFICATIONS:
                 return "notifications";
+            case Type.AUTOPLAY:
+                return "autoplay";
             case Type.POPUPS:
                 return "popups";
             case Type.PROTECTED_MEDIA:
