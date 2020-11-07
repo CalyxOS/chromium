@@ -125,7 +125,10 @@ public class ContentSettingsResources {
                 return new ResourceItem(R.drawable.infobar_downloading,
                         R.string.automatic_downloads_permission_title, ContentSettingValues.ASK,
                         ContentSettingValues.BLOCK, R.string.website_settings_category_ask, 0);
-
+            case ContentSettingsType.AUTOPLAY:
+                return new ResourceItem(R.drawable.settings_autoplay, R.string.autoplay_title,
+                            ContentSettingValues.ALLOW, ContentSettingValues.BLOCK,
+                            R.string.website_settings_category_autoplay_allowed, 0);
             case ContentSettingsType.AUTO_DARK_WEB_CONTENT:
                 return new ResourceItem(R.drawable.ic_brightness_medium_24dp,
                         R.string.auto_dark_web_content_title, ContentSettingValues.ALLOW,
