@@ -509,7 +509,7 @@ class NET_EXPORT HttpCache : public HttpTransactionFactory {
   // Generates a cache key given the various pieces used to construct the key.
   // Must not be called if a corresponding `CanGenerateCacheKeyForRequest`
   // returns false.
-  static std::string GenerateCacheKey(
+  static std::string GenerateCacheKey2(
       const GURL& url,
       int load_flags,
       const NetworkIsolationKey& network_isolation_key,
