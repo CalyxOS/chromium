@@ -1242,7 +1242,7 @@ bool GetHttpCacheBackendResetParam(PrefService* local_state) {
   field_trial = base::FeatureList::GetFieldTrial(
       net::features::kSplitCacheByIncludeCredentials);
   current_field_trial_status +=
-      (field_trial ? field_trial->group_name() : "None");
+      (field_trial ? field_trial->group_name() : "EnableFeatureForTests");
 
   if (disk_cache::InBackendExperiment()) {
     if (disk_cache::InSimpleBackendExperimentGroup()) {
