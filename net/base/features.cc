@@ -104,37 +104,37 @@ BASE_FEATURE(kSplitCacheByIncludeCredentials,
              "SplitCacheByIncludeCredentials",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
-BASE_FEATURE(kSplitCacheByNetworkIsolationKey,
-             "SplitCacheByNetworkIsolationKey",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+BASE_FEATURE(kSplitCacheByNetworkIsolationKey,             // must be enabled
+             "SplitCacheByNetworkIsolationKey",            // enabled
+             base::FEATURE_ENABLED_BY_DEFAULT);            // in Bromite
 
-BASE_FEATURE(kSplitCodeCacheByNetworkIsolationKey,
-             "SplitCodeCacheByNetworkIsolationKey",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+BASE_FEATURE(kSplitCodeCacheByNetworkIsolationKey,         // must be enabled
+             "SplitCodeCacheByNetworkIsolationKey",        // enabled
+             base::FEATURE_ENABLED_BY_DEFAULT);            // in Bromite
 
-BASE_FEATURE(kSplitHostCacheByNetworkIsolationKey,
-             "SplitHostCacheByNetworkIsolationKey",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+BASE_FEATURE(kSplitHostCacheByNetworkIsolationKey,         // must be
+             "SplitHostCacheByNetworkIsolationKey",        // enabled
+             base::FEATURE_ENABLED_BY_DEFAULT);            // in Bromite
 
-BASE_FEATURE(kPartitionConnectionsByNetworkIsolationKey,
-             "PartitionConnectionsByNetworkIsolationKey",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+BASE_FEATURE(kPartitionConnectionsByNetworkIsolationKey,   // must be
+             "PartitionConnectionsByNetworkIsolationKey",  // enabled
+             base::FEATURE_ENABLED_BY_DEFAULT);            // in Bromite
 
-BASE_FEATURE(kPartitionHttpServerPropertiesByNetworkIsolationKey,
-             "PartitionHttpServerPropertiesByNetworkIsolationKey",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+BASE_FEATURE(kPartitionHttpServerPropertiesByNetworkIsolationKey,     // must be
+             "PartitionHttpServerPropertiesByNetworkIsolationKey",    // enabled
+             base::FEATURE_ENABLED_BY_DEFAULT);                       // in Bromite
 
-BASE_FEATURE(kPartitionSSLSessionsByNetworkIsolationKey,
-             "PartitionSSLSessionsByNetworkIsolationKey",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+BASE_FEATURE(kPartitionSSLSessionsByNetworkIsolationKey,              // must be
+             "PartitionSSLSessionsByNetworkIsolationKey",             // enabled
+             base::FEATURE_ENABLED_BY_DEFAULT);                       // in Bromite
 
-BASE_FEATURE(kPartitionNelAndReportingByNetworkIsolationKey,
-             "PartitionNelAndReportingByNetworkIsolationKey",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+BASE_FEATURE(kPartitionNelAndReportingByNetworkIsolationKey,          // must be
+             "PartitionNelAndReportingByNetworkIsolationKey",         // enabled
+             base::FEATURE_ENABLED_BY_DEFAULT);                       // in Bromite
 
-BASE_FEATURE(kEnableCrossSiteFlagNetworkIsolationKey,
-             "EnableCrossSiteFlagNetworkIsolationKey",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+BASE_FEATURE(kEnableCrossSiteFlagNetworkIsolationKey,             // must be
+             "EnableCrossSiteFlagNetworkIsolationKey",            // disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);                  // in Bromite
 BASE_FEATURE(kEnableFrameSiteSharedOpaqueNetworkIsolationKey,
              "EnableFrameSiteSharedOpaqueNetworkIsolationKey",
              base::FEATURE_DISABLED_BY_DEFAULT);
