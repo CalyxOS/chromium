@@ -500,8 +500,6 @@ public class WebViewChromiumFactoryProvider implements WebViewFactoryProvider {
                 }
             }
 
-            mAwInit.startVariationsInit();
-
             mShouldDisableThreadChecking = shouldDisableThreadChecking(ctx);
 
             setSingleton(this);
