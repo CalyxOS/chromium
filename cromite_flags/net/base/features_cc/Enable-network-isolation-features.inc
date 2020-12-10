@@ -1,0 +1,3 @@
+SET_CROMITE_FEATURE_ENABLED(kSplitCacheByNetworkIsolationKey);
+SET_CROMITE_FEATURE_ENABLED(kSplitCodeCacheByNetworkIsolationKey);
+SET_CROMITE_FEATURE_ENABLED(kPartitionConnectionsByNetworkIsolationKey);
