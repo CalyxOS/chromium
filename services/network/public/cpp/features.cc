@@ -90,7 +90,7 @@ BASE_FEATURE(kCoopRestrictPropertiesOriginTrial,
 // HttpAuthCache.
 BASE_FEATURE(kSplitAuthCacheByNetworkIsolationKey,
              "SplitAuthCacheByNetworkIsolationKey",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             base::FEATURE_ENABLED_BY_DEFAULT);
 
 // Enable usage of hardcoded DoH upgrade mapping for use in automatic mode.
 BASE_FEATURE(kDnsOverHttpsUpgrade,
