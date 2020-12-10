@@ -1264,7 +1264,7 @@ bool GetHttpCacheBackendResetParam(PrefService* local_state) {
   field_trial = base::FeatureList::GetFieldTrial(
       net::features::kSplitCacheByIncludeCredentials);
   current_field_trial_status +=
-      (field_trial ? field_trial->group_name() : "None");
+      (field_trial ? field_trial->group_name() : "EnableFeatureForTests");
 
   // For the HTTP Cache keying experiments, if a flag indicates that the user is
   // in an experiment group, modify `current_field_trial_status` to ensure that
