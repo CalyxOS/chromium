@@ -1,0 +1,9 @@
+SET_CROMITE_FEATURE_ENABLED(kSplitCodeCacheByNetworkIsolationKey);
+SET_CROMITE_FEATURE_ENABLED(kPartitionConnectionsByNetworkIsolationKey);
+
+SET_CROMITE_FEATURE_ENABLED(kSplitCacheByIncludeCredentials);
+
+// enable http cache partition
+SET_CROMITE_FEATURE_ENABLED(kSplitCacheByNetworkIsolationKey);
+// but disable cache for cross-site main frame navigation
+SET_CROMITE_FEATURE_ENABLED(kSplitCacheByCrossSiteMainFrameNavigationBoolean);
