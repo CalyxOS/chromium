@@ -653,7 +653,7 @@ bool HttpCache::CanGenerateCacheKeyForRequest(const HttpRequestInfo* request) {
 
 // static
 // Generate a key that can be used inside the cache.
-std::string HttpCache::GenerateCacheKey(
+std::string HttpCache::GenerateCacheKey2(
     const GURL& url,
     int load_flags,
     const NetworkIsolationKey& network_isolation_key,
@@ -690,8 +690,8 @@ std::string HttpCache::GenerateCacheKey(
       const bool is_initiator_cross_site =
           !net::SchemefulSite::IsSameSite(*initiator, url::Origin::Create(url));
       if (is_initiator_cross_site) {
-        is_cross_site_main_frame_navigation_prefix =
-            kCrossSiteMainFrameNavigationPrefix;
+        // LOG(INFO) << "---initiator_site cs=" << base::StrCat({"ni_", initiator->Serialize(), " "});
+        return "";
       }
     }
     isolation_key = base::StrCat(
@@ -706,9 +706,11 @@ std::string HttpCache::GenerateCacheKey(
   // Strip out the reference, username, and password sections of the URL and
   // concatenate with the credential_key, the post_key, and the network
   // isolation key if we are splitting the cache.
-  return base::StringPrintf("%c/%" PRId64 "/%s%s", credential_key,
+  auto key = base::StringPrintf("%c/%" PRId64 "/%s%s", credential_key,
                             upload_data_identifier, isolation_key.c_str(),
                             HttpUtil::SpecForRequest(url).c_str());
+  // LOG(INFO) << "---key=" << key;
+  return key;
 }
 
 // static
@@ -731,10 +733,12 @@ HttpCache::GenerateCacheKeyForRequestWithAlternateURL(
   const int64_t upload_data_identifier =
       request->upload_data_stream ? request->upload_data_stream->identifier()
                                   : int64_t(0);
-  return GenerateCacheKey(
+  auto key = GenerateCacheKey2(
       url, request->load_flags, request->network_isolation_key,
       upload_data_identifier, request->is_subframe_document_resource,
       request->is_main_frame_navigation, request->initiator);
+  if (key.empty()) return std::nullopt;
+  return key;
 }
 
 // static
