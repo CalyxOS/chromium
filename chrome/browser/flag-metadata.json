@@ -4648,6 +4648,10 @@
     "expiry_milestone": 105
   },
   {
+    "name": "num-raster-threads",
+    "expiry_milestone": -1
+  },
+  {
     "name": "messages-preinstall",
     "owners": [ "jonmann", "jshikaram" ],
     "expiry_milestone": 106

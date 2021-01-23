@@ -1117,6 +1117,13 @@ extern const char kOriginAgentClusterDefaultDescription[];
 extern const char kOmitCorsClientCertName[];
 extern const char kOmitCorsClientCertDescription[];
 
+extern const char kNumRasterThreadsName[];
+extern const char kNumRasterThreadsDescription[];
+extern const char kNumRasterThreadsOne[];
+extern const char kNumRasterThreadsTwo[];
+extern const char kNumRasterThreadsThree[];
+extern const char kNumRasterThreadsFour[];
+
 extern const char kOmniboxAdaptiveSuggestionsCountName[];
 extern const char kOmniboxAdaptiveSuggestionsCountDescription[];
 

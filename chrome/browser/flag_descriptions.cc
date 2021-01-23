@@ -1966,6 +1966,14 @@ const char kOmitCorsClientCertDescription[] =
     "credential mode disallows. Without this flag enabled, Chrome will always "
     "try sending client certificates regardless of the credential mode.";
 
+const char kNumRasterThreadsName[] = "Number of raster threads";
+const char kNumRasterThreadsDescription[] =
+    "Specify the number of raster threads.";
+const char kNumRasterThreadsOne[] = "1";
+const char kNumRasterThreadsTwo[] = "2";
+const char kNumRasterThreadsThree[] = "3";
+const char kNumRasterThreadsFour[] = "4";
+
 const char kOmniboxAdaptiveSuggestionsCountName[] =
     "Adaptive Omnibox Suggestions count";
 const char kOmniboxAdaptiveSuggestionsCountDescription[] =

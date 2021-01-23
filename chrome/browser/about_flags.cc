@@ -356,6 +356,15 @@ const FeatureEntry::Choice kOverlayStrategiesChoices[] = {
      "single-fullscreen,single-on-top,underlay"},
 };
 
+const FeatureEntry::Choice kNumRasterThreadsChoices[] = {
+    {flags_ui::kGenericExperimentChoiceDefault, "", ""},
+    {flag_descriptions::kNumRasterThreadsOne, blink::switches::kNumRasterThreads, "1"},
+    {flag_descriptions::kNumRasterThreadsTwo, blink::switches::kNumRasterThreads, "2"},
+    {flag_descriptions::kNumRasterThreadsThree, blink::switches::kNumRasterThreads,
+     "3"},
+    {flag_descriptions::kNumRasterThreadsFour, blink::switches::kNumRasterThreads,
+     "4"}};
+
 const FeatureEntry::Choice kTouchTextSelectionStrategyChoices[] = {
     {flags_ui::kGenericExperimentChoiceDefault, "", ""},
     {flag_descriptions::kTouchSelectionStrategyCharacter,
@@ -4559,6 +4568,9 @@ const FeatureEntry kFeatureEntries[] = {
      FEATURE_VALUE_TYPE(mojo::core::kMojoLinuxChannelSharedMem)},
 #endif
 #if BUILDFLAG(IS_ANDROID)
+    {"num-raster-threads", flag_descriptions::kNumRasterThreadsName,
+     flag_descriptions::kNumRasterThreadsDescription, kOsAll,
+     MULTI_VALUE_TYPE(kNumRasterThreadsChoices)},
     {"enable-site-isolation-for-password-sites",
      flag_descriptions::kSiteIsolationForPasswordSitesName,
      flag_descriptions::kSiteIsolationForPasswordSitesDescription, kOsAndroid,
