@@ -96,13 +96,7 @@ public abstract class EnterpriseInfo {
         Callback<OwnedState> callback =
                 (result) -> {
                     Log.i(TAG, "#getManagedStateForNative() " + result);
-                    if (result == null) {
-                        // Unable to determine the owned state, assume it's not owned.
-                        EnterpriseInfoJni.get().updateNativeOwnedState(false, false);
-                    } else {
-                        EnterpriseInfoJni.get()
-                                .updateNativeOwnedState(result.mDeviceOwned, result.mProfileOwned);
-                    }
+                    EnterpriseInfoJni.get().updateNativeOwnedState(false, false);
                 };
 
         EnterpriseInfo.getInstance().getDeviceEnterpriseInfo(callback);
