@@ -662,6 +662,9 @@ extern const char kDeprecateAltClickDescription[];
 extern const char kDeprecateAltBasedSixPackName[];
 extern const char kDeprecateAltBasedSixPackDescription[];
 
+extern const char kEnableSaveDataHeaderName[];
+extern const char kEnableSaveDataHeaderDescription[];
+
 extern const char kMemlogName[];
 extern const char kMemlogDescription[];
 extern const char kMemlogModeMinimal[];

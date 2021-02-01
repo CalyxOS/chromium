@@ -1261,6 +1261,10 @@ const char kDeprecateAltBasedSixPackDescription[] =
     "Show deprecation notifications and disable functionality for Alt based "
     "six pack deprecations. The Search based versions continue to work.";
 
+const char kEnableSaveDataHeaderName[] = "Enable save-data header";
+const char kEnableSaveDataHeaderDescription[] =
+    "Enable save-data header without enabling Data Saver.";
+
 const char kExperimentalAccessibilityLanguageDetectionName[] =
     "Experimental accessibility language detection";
 const char kExperimentalAccessibilityLanguageDetectionDescription[] =

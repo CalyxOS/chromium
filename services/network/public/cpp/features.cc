@@ -20,6 +20,11 @@ BASE_FEATURE(kExpectCTReporting,
              "ExpectCTReporting",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+
+// Enable save-data header separately (without enabled data reduction service).
+const base::Feature kEnableSaveDataHeader{"EnableSaveDataHeader",
+                                           base::FEATURE_DISABLED_BY_DEFAULT};
+
 BASE_FEATURE(kNetworkErrorLogging,
              "NetworkErrorLogging",
              base::FEATURE_ENABLED_BY_DEFAULT);

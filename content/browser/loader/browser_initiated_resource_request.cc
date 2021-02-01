@@ -4,6 +4,9 @@
 
 #include "content/browser/loader/browser_initiated_resource_request.h"
 
+#include "base/feature_list.h"
+#include "services/network/public/cpp/features.h"
+
 #include "content/public/browser/browser_context.h"
 #include "content/public/browser/browser_thread.h"
 #include "content/public/browser/content_browser_client.h"
@@ -37,8 +40,13 @@ void UpdateAdditionalHeadersForBrowserInitiatedRequest(
   // Save-Data was previously included in hints for workers, thus we cannot
   // remove it for the time being. If you're reading this, consider building
   // permissions policies for workers and/or deprecating this inclusion.
+  bool setHeader = false;
   if (is_for_worker_script &&
       GetContentClient()->browser()->IsDataSaverEnabled(browser_context)) {
+    setHeader = true;
+  }
+  setHeader |= base::FeatureList::IsEnabled(network::features::kEnableSaveDataHeader);
+  if (setHeader) {
     if (should_update_existing_headers) {
       headers->RemoveHeader("Save-Data");
     }

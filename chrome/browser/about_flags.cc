@@ -4981,7 +4981,10 @@ const FeatureEntry kFeatureEntries[] = {
     {"force-text-direction", flag_descriptions::kForceTextDirectionName,
      flag_descriptions::kForceTextDirectionDescription, kOsAll,
      MULTI_VALUE_TYPE(kForceTextDirectionChoices)},
-#if BUILDFLAG(IS_ANDROID)
+#if BUILDFLAG(IS_ANDROID) // Bromite save data header
+    {"enable-save-data-header", flag_descriptions::kEnableSaveDataHeaderName,
+     flag_descriptions::kEnableSaveDataHeaderDescription, kOsAndroid,
+     FEATURE_VALUE_TYPE(network::features::kEnableSaveDataHeader)},
     {"force-update-menu-type", flag_descriptions::kUpdateMenuTypeName,
      flag_descriptions::kUpdateMenuTypeDescription, kOsAndroid,
      MULTI_VALUE_TYPE(kForceUpdateMenuTypeChoices)},
