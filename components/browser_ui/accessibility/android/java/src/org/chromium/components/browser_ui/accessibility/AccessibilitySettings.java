@@ -30,6 +30,8 @@ public class AccessibilitySettings
     public static final String PREF_READER_FOR_ACCESSIBILITY = "reader_for_accessibility";
     public static final String PREF_CAPTIONS = "captions";
 
+    private BooleanPreferenceDelegate mForceTabletUIDelegate;
+    static final String PREF_FORCE_TABLET_UI = "force_tablet_ui";
     private TextScalePreference mTextScalePref;
     private PageZoomPreference mPageZoomDefaultZoomPref;
     private ChromeSwitchPreference mPageZoomAlwaysShowPref;
@@ -105,6 +107,12 @@ public class AccessibilitySettings
             getPreferenceScreen().removePreference(readerForAccessibilityPref);
         }
 
+        ChromeBaseCheckBoxPreference forceTabletUiPref =
+                (ChromeBaseCheckBoxPreference) findPreference(PREF_FORCE_TABLET_UI);
+        mForceTabletUIDelegate = mDelegate.getForceTabletUIDelegate();
+        forceTabletUiPref.setChecked(mForceTabletUIDelegate.isEnabled());
+        forceTabletUiPref.setOnPreferenceChangeListener(this);
+
         ChromeBaseCheckBoxPreference accessibilityTabSwitcherPref =
                 (ChromeBaseCheckBoxPreference) findPreference(
                         AccessibilityConstants.ACCESSIBILITY_TAB_SWITCHER);
@@ -153,6 +161,8 @@ public class AccessibilitySettings
             mFontSizePrefs.setUserFontScaleFactor((Float) newValue);
         } else if (PREF_FORCE_ENABLE_ZOOM.equals(preference.getKey())) {
             mFontSizePrefs.setForceEnableZoomFromUser((Boolean) newValue);
+        } else if (PREF_FORCE_TABLET_UI.equals(preference.getKey())) {
+            mForceTabletUIDelegate.setEnabled((Boolean) newValue);
         } else if (PREF_READER_FOR_ACCESSIBILITY.equals(preference.getKey())) {
             if (mReaderForAccessibilityDelegate != null) {
                 mReaderForAccessibilityDelegate.setEnabled((Boolean) newValue);

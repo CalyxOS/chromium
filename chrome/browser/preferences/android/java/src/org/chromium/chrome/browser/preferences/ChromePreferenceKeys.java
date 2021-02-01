@@ -430,6 +430,7 @@ public final class ChromePreferenceKeys {
             AccessibilityConstants.FONT_USER_SET_FORCE_ENABLE_ZOOM;
 
     public static final String HISTORY_SHOW_HISTORY_INFO = "history_home_show_info";
+    public static final String FLAGS_FORCE_TABLET_UI_ENABLED = "force_tablet_ui_enabled";
 
     /** Keys used to save settings related to homepage. */
     public static final String HOMEPAGE_CUSTOM_URI = "homepage_custom_uri";

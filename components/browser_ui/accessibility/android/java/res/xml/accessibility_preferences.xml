@@ -36,6 +36,11 @@ found in the LICENSE file.
         android:summary="@string/accessibility_tab_switcher_summary"
         android:title="@string/accessibility_tab_switcher_title" />
 
+    <org.chromium.components.browser_ui.settings.ChromeBaseCheckBoxPreference
+        android:key="force_tablet_ui"
+        android:summary="@string/force_tablet_ui_summary"
+        android:title="@string/force_tablet_ui_title" />
+
     <Preference
         android:key="captions"
         android:title="@string/accessibility_captions_title"/>

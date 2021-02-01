@@ -376,7 +376,7 @@ public class LocationBarCoordinator implements LocationBar, NativeInitObserver,
     // OmniboxSuggestionsDropdownEmbedder implementation
     @Override
     public boolean isTablet() {
-        return DeviceFormFactor.isWindowOnTablet(mWindowAndroid);
+        return DeviceFormFactor.isWindowOnTablet(mWindowAndroid) || isTabletLayout();
     }
 
     @Override

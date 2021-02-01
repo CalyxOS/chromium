@@ -67,6 +67,7 @@ public class LegacyChromePreferenceKeys {
                 ChromePreferenceKeys.FLAGS_CACHED_SWAP_PIXEL_FORMAT_TO_FIX_CONVERT_FROM_TRANSLUCENT,
                 ChromePreferenceKeys.FLAGS_CACHED_TAB_GROUPS_ANDROID_ENABLED,
                 ChromePreferenceKeys.FONT_USER_FONT_SCALE_FACTOR,
+                ChromePreferenceKeys.FLAGS_FORCE_TABLET_UI_ENABLED,
                 ChromePreferenceKeys.FONT_USER_SET_FORCE_ENABLE_ZOOM,
                 ChromePreferenceKeys.HISTORY_SHOW_HISTORY_INFO,
                 ChromePreferenceKeys.HOMEPAGE_CUSTOM_URI,

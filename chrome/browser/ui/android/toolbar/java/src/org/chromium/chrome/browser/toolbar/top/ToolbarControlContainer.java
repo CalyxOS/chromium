@@ -138,22 +138,6 @@ public class ToolbarControlContainer extends OptimizedFrameLayout implements Con
         mToolbarContainer.setPostInitializationDependencies(mToolbar, constraintsSupplier,
                 tabSupplier, compositorInMotionSupplier,
                 browserStateBrowserControlsVisibilityDelegate, isVisible);
-
-        View toolbarView = findViewById(R.id.toolbar);
-        assert toolbarView != null;
-
-        if (toolbarView instanceof ToolbarTablet) {
-            // On tablet, draw a fake tab strip and toolbar until the compositor is
-            // ready to draw the real tab strip. (On phone, the toolbar is made entirely
-            // of Android views, which are already initialized.)
-            final Drawable backgroundDrawable =
-                    AppCompatResources.getDrawable(getContext(), R.drawable.toolbar_background)
-                            .mutate();
-            backgroundDrawable.setTint(
-                    ChromeColors.getDefaultThemeColor(getContext(), isIncognito));
-            backgroundDrawable.setTintMode(PorterDuff.Mode.MULTIPLY);
-            setBackground(backgroundDrawable);
-        }
     }
 
     @Override

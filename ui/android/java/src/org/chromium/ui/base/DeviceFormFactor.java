@@ -12,6 +12,8 @@ import androidx.annotation.VisibleForTesting;
 import org.chromium.base.ContextUtils;
 import org.chromium.base.ThreadUtils;
 import org.chromium.base.annotations.CalledByNative;
+import org.chromium.chrome.browser.preferences.ChromePreferenceKeys;
+import org.chromium.chrome.browser.preferences.SharedPreferencesManager;
 import org.chromium.ui.R;
 import org.chromium.ui.display.DisplayAndroid;
 import org.chromium.ui.display.DisplayUtil;
@@ -62,6 +64,9 @@ public class DeviceFormFactor {
      *         E.g. http://developer.samsung.com/samsung-dex/testing
      */
     public static boolean isNonMultiDisplayContextOnTablet(Context context) {
+        if (SharedPreferencesManager.getInstance().readBoolean(
+                ChromePreferenceKeys.FLAGS_FORCE_TABLET_UI_ENABLED, false))
+            return true;
         return detectScreenWidthBucket(context) >= SCREEN_BUCKET_TABLET;
     }
 

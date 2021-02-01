@@ -44,6 +44,8 @@ public interface AccessibilitySettingsDelegate {
      */
     BooleanPreferenceDelegate getReaderForAccessibilityDelegate();
 
+    BooleanPreferenceDelegate getForceTabletUIDelegate();
+
     /**
      * Allows the embedder to add more preferences to the preference screen.
      *

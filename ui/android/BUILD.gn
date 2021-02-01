@@ -374,6 +374,8 @@ android_library("ui_no_recycler_view_java") {
   deps = [
     ":ui_java_resources",
     ":ui_utils_java",
+    # dependency for ui_no_recycler_view_java
+    "//chrome/browser/preferences:java",
     "//base:base_java",
     "//base:jni_java",
     "//build/android:build_java",

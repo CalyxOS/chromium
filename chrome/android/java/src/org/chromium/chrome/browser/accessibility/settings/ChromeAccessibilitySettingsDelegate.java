@@ -68,6 +68,25 @@ public class ChromeAccessibilitySettingsDelegate implements AccessibilitySetting
         return new ReaderForAccessibilityDelegate();
     }
 
+    private static class ForceTabletUIDelegate implements BooleanPreferenceDelegate {
+        @Override
+        public boolean isEnabled() {
+            return SharedPreferencesManager.getInstance().readBoolean(
+                      ChromePreferenceKeys.FLAGS_FORCE_TABLET_UI_ENABLED, false);
+        }
+
+        @Override
+        public void setEnabled(boolean value) {
+            SharedPreferencesManager.getInstance().writeBoolean(
+                      ChromePreferenceKeys.FLAGS_FORCE_TABLET_UI_ENABLED, value);
+        }
+    }
+
+    @Override
+    public BooleanPreferenceDelegate getForceTabletUIDelegate() {
+        return new ForceTabletUIDelegate();
+    }
+
     @Override
     public void addExtraPreferences(PreferenceFragmentCompat fragment) {
         if (ImageDescriptionsController.getInstance().shouldShowImageDescriptionsMenuItem()) {
