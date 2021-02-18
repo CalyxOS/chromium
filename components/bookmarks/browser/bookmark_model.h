@@ -122,6 +122,12 @@ class BookmarkModel : public BookmarkUndoProvider,
     return mobile_node_;
   }
 
+  // Returns the 'mobile' node. This is NULL until loaded.
+  const BookmarkNode* tabs_collection_node() const {
+    DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
+    return tabs_collection_node_;
+  }
+
   bool is_root_node(const BookmarkNode* node) const {
     DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
     return node == root_;
@@ -445,6 +451,7 @@ class BookmarkModel : public BookmarkUndoProvider,
   raw_ptr<BookmarkPermanentNode> bookmark_bar_node_ = nullptr;
   raw_ptr<BookmarkPermanentNode> other_node_ = nullptr;
   raw_ptr<BookmarkPermanentNode> mobile_node_ = nullptr;
+  raw_ptr<BookmarkPermanentNode> tabs_collection_node_ = nullptr;
 
   // The maximum ID assigned to the bookmark nodes in the model.
   int64_t next_node_id_ = 1;

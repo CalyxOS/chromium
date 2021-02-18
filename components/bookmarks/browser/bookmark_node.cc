@@ -61,6 +61,10 @@ const char BookmarkNode::kMobileBookmarksNodeGuid[] =
     "4cf2e351-0e85-532b-bb37-df045d8f8d0f";
 
 // static
+const char BookmarkNode::kTabsCollectionBookmarksNodeGuid[] =
+    "00000000-0000-4000-a000-000000000006";
+
+// static
 const char BookmarkNode::kManagedNodeGuid[] =
     "323123f4-9381-5aee-80e6-ea5fca2f7672";
 
@@ -272,6 +276,17 @@ BookmarkPermanentNode::CreateMobileBookmarks(int64_t id,
   return base::WrapUnique(new BookmarkPermanentNode(
       id, MOBILE, base::GUID::ParseLowercase(kMobileBookmarksNodeGuid),
       l10n_util::GetStringUTF16(IDS_BOOKMARK_BAR_MOBILE_FOLDER_NAME),
+      visible_when_empty));
+}
+
+// static
+std::unique_ptr<BookmarkPermanentNode>
+BookmarkPermanentNode::CreateTabsCollectionBookmarks(int64_t id,
+                                             bool visible_when_empty) {
+  // base::WrapUnique() used because the constructor is private.
+  return base::WrapUnique(new BookmarkPermanentNode(
+      id, TABS_COLLECTION, base::GUID::ParseLowercase(kTabsCollectionBookmarksNodeGuid),
+      l10n_util::GetStringUTF16(IDS_BOOKMARK_BAR_TABS_COLLECTION_FOLDER_NAME),
       visible_when_empty));
 }
 

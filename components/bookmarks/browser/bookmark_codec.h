@@ -48,6 +48,7 @@ class BookmarkCodec {
   base::Value Encode(
       const BookmarkNode* bookmark_bar_node,
       const BookmarkNode* other_folder_node,
+      const BookmarkNode* tabs_folder_node,
       const BookmarkNode* mobile_folder_node,
       const BookmarkNode::MetaInfoMap* model_meta_info_map,
       const BookmarkNode::MetaInfoMap* model_unsynced_meta_info_map,
@@ -62,6 +63,7 @@ class BookmarkCodec {
               BookmarkNode* bb_node,
               BookmarkNode* other_folder_node,
               BookmarkNode* mobile_folder_node,
+              BookmarkNode* tabs_folder_node,
               int64_t* max_node_id,
               std::string* sync_metadata_str);
 
@@ -113,6 +115,7 @@ class BookmarkCodec {
   // Allows the BookmarkClient to read and a write a string blob from the JSON
   // file. That string captures the bookmarks sync metadata.
   static const char kSyncMetadata[];
+  static const char kTabsBookmarkFolderNameKey[];
   static const char kDateLastUsed[];
 
   // Possible values for kTypeKey.
@@ -130,6 +133,7 @@ class BookmarkCodec {
   bool DecodeHelper(BookmarkNode* bb_node,
                     BookmarkNode* other_folder_node,
                     BookmarkNode* mobile_folder_node,
+                    BookmarkNode* tabs_folder_node,
                     const base::Value& value,
                     std::string* sync_metadata_str);
 
@@ -141,7 +145,8 @@ class BookmarkCodec {
   // Reassigns bookmark IDs for all nodes.
   void ReassignIDs(BookmarkNode* bb_node,
                    BookmarkNode* other_node,
-                   BookmarkNode* mobile_node);
+                   BookmarkNode* mobile_node,
+                   BookmarkNode* tabs_folder_node);
 
   // Helper to recursively reassign IDs.
   void ReassignIDsHelper(BookmarkNode* node);

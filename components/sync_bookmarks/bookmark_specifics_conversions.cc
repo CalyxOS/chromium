@@ -446,6 +446,7 @@ sync_pb::BookmarkSpecifics::Type GetProtoTypeFromBookmarkNode(
     case bookmarks::BookmarkNode::BOOKMARK_BAR:
     case bookmarks::BookmarkNode::OTHER_NODE:
     case bookmarks::BookmarkNode::MOBILE:
+    case bookmarks::BookmarkNode::TABS_COLLECTION:
       DCHECK(node->is_folder());
       return sync_pb::BookmarkSpecifics::FOLDER;
   }

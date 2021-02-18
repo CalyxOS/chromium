@@ -144,6 +144,8 @@ bool ChromeBookmarkClient::IsPermanentNodeVisibleWhenEmpty(
       return !is_mobile;
     case bookmarks::BookmarkNode::MOBILE:
       return is_mobile;
+    case bookmarks::BookmarkNode::TABS_COLLECTION:
+      return is_mobile;
   }
 
   return false;

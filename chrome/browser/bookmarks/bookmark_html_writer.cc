@@ -190,6 +190,8 @@ class Writer : public base::RefCountedThreadSafe<Writer> {
         roots->FindDictKey(BookmarkCodec::kOtherBookmarkFolderNameKey);
     base::Value* mobile_folder_value =
         roots->FindDictKey(BookmarkCodec::kMobileBookmarkFolderNameKey);
+    base::Value* tabs_collection_value =
+        roots->FindDictKey(BookmarkCodec::kTabsBookmarkFolderNameKey);
     DCHECK(root_folder_value);
     DCHECK(other_folder_value);
     DCHECK(mobile_folder_value);
@@ -201,7 +203,9 @@ class Writer : public base::RefCountedThreadSafe<Writer> {
         !WriteNode(*static_cast<base::DictionaryValue*>(other_folder_value),
                    BookmarkNode::OTHER_NODE) ||
         !WriteNode(*static_cast<base::DictionaryValue*>(mobile_folder_value),
-                   BookmarkNode::MOBILE)) {
+                   BookmarkNode::MOBILE) ||
+        !WriteNode(*static_cast<base::DictionaryValue*>(tabs_collection_value),
+                   BookmarkNode::TABS_COLLECTION)) {
       NotifyOnFinish(BookmarksExportObserver::Result::kCouldNotWriteNodes);
       return;
     }
@@ -466,6 +470,8 @@ void BookmarkFaviconFetcher::ExportBookmarks() {
       BookmarkModelFactory::GetForBrowserContext(profile_)->other_node());
   ExtractUrls(
       BookmarkModelFactory::GetForBrowserContext(profile_)->mobile_node());
+  ExtractUrls(
+      BookmarkModelFactory::GetForBrowserContext(profile_)->tabs_collection_node());
   if (!bookmark_urls_.empty())
     FetchNextFavicon();
   else

@@ -20,6 +20,9 @@
     <message name="IDS_BOOKMARK_BAR_MOBILE_FOLDER_NAME" desc="Name shown in the tree for the mobile bookmarks folder">
       Mobile bookmarks
     </message>
+    <message name="IDS_BOOKMARK_BAR_TABS_COLLECTION_FOLDER_NAME" desc="Name shown in the tree for the tabs collection bookmarks folder">
+      Tabs collection
+    </message>
     <message name="IDS_BOOKMARK_BAR_OTHER_FOLDER_NAME" desc="Name shown in the tree for the other bookmarks folder">
       Other bookmarks
     </message>
@@ -33,6 +36,9 @@
   <if expr="use_titlecase">
     <message name="IDS_BOOKMARK_BAR_MOBILE_FOLDER_NAME" desc="In Title Case: Name shown in the tree for the mobile bookmarks folder">
       Mobile Bookmarks
+    </message>
+    <message name="IDS_BOOKMARK_BAR_TABS_COLLECTION_FOLDER_NAME" desc="Name shown in the tree for the tabs collection bookmarks folder">
+      Tabs Collection
     </message>
     <message name="IDS_BOOKMARK_BAR_OTHER_FOLDER_NAME" desc="In Title Case: Name shown in the tree for the other bookmarks folder">
       Other Bookmarks

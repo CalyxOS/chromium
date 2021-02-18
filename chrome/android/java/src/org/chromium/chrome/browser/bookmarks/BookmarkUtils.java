@@ -648,6 +648,7 @@ public class BookmarkUtils {
         List<BookmarkId> topLevelFolders = new ArrayList<>();
         BookmarkId desktopNodeId = bookmarkModel.getDesktopFolderId();
         BookmarkId mobileNodeId = bookmarkModel.getMobileFolderId();
+        BookmarkId tabsCollectionNodeId = bookmarkModel.getTabsCollectionFolderId();
         BookmarkId othersNodeId = bookmarkModel.getOtherFolderId();
 
         List<BookmarkId> specialFoldersIds =
@@ -672,6 +673,9 @@ public class BookmarkUtils {
         // Adds normal bookmark top level folders.
         if (bookmarkModel.isFolderVisible(mobileNodeId)) {
             topLevelFolders.add(mobileNodeId);
+        }
+        if (bookmarkModel.isFolderVisible(tabsCollectionNodeId)) {
+            topLevelFolders.add(tabsCollectionNodeId);
         }
         if (bookmarkModel.isFolderVisible(desktopNodeId)) {
             topLevelFolders.add(desktopNodeId);

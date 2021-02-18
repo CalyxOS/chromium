@@ -670,7 +670,7 @@ bool BookmarkModel::HasBookmarks() {
 bool BookmarkModel::HasNoUserCreatedBookmarksOrFolders() {
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
   return bookmark_bar_node_->children().empty() &&
-         other_node_->children().empty() && mobile_node_->children().empty();
+         other_node_->children().empty() && mobile_node_->children().empty() && tabs_collection_node_->children().empty();
 }
 
 bool BookmarkModel::IsBookmarked(const GURL& url) {
@@ -926,6 +926,7 @@ void BookmarkModel::DoneLoading(std::unique_ptr<BookmarkLoadDetails> details) {
   bookmark_bar_node_ = details->bb_node();
   other_node_ = details->other_folder_node();
   mobile_node_ = details->mobile_folder_node();
+  tabs_collection_node_ = details->tabs_collection_folder_node();
 
   titled_url_index_->SetNodeSorter(
       std::make_unique<TypedCountSorter>(client_.get()));

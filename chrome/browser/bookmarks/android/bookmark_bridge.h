@@ -121,6 +121,10 @@ class BookmarkBridge : public bookmarks::BaseBookmarkModelObserver,
       JNIEnv* env,
       const base::android::JavaParamRef<jobject>& obj);
 
+  base::android::ScopedJavaLocalRef<jobject> GetTabsCollectionFolderId(
+      JNIEnv* env,
+      const base::android::JavaParamRef<jobject>& obj);
+
   base::android::ScopedJavaLocalRef<jobject> GetOtherFolderId(
       JNIEnv* env,
       const base::android::JavaParamRef<jobject>& obj);

@@ -35,6 +35,7 @@ class BookmarkNode : public ui::TreeNode<BookmarkNode>, public TitledUrlNode {
     FOLDER,
     BOOKMARK_BAR,
     OTHER_NODE,
+    TABS_COLLECTION,
     MOBILE
   };
 
@@ -52,6 +53,7 @@ class BookmarkNode : public ui::TreeNode<BookmarkNode>, public TitledUrlNode {
   static const char kBookmarkBarNodeGuid[];
   static const char kOtherBookmarksNodeGuid[];
   static const char kMobileBookmarksNodeGuid[];
+  static const char kTabsCollectionBookmarksNodeGuid[];
   static const char kManagedNodeGuid[];
 
   // A bug in sync caused some problematic GUIDs to be produced.
@@ -268,6 +270,9 @@ class BookmarkPermanentNode : public BookmarkNode {
       int64_t id,
       bool visible_when_empty);
   static std::unique_ptr<BookmarkPermanentNode> CreateMobileBookmarks(
+      int64_t id,
+      bool visible_when_empty);
+  static std::unique_ptr<BookmarkPermanentNode> CreateTabsCollectionBookmarks(
       int64_t id,
       bool visible_when_empty);
 

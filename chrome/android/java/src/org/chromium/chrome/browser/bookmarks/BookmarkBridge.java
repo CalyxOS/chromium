@@ -29,6 +29,7 @@ import com.google.common.primitives.UnsignedLongs;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import org.chromium.base.ContextUtils;
+import org.chromium.base.Log;
 import org.chromium.base.ObserverList;
 import org.chromium.base.ThreadUtils;
 import org.chromium.base.annotations.CalledByNative;
@@ -40,6 +41,10 @@ import org.chromium.chrome.browser.partnerbookmarks.PartnerBookmarksShim;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.read_later.ReadingListUtils;
 import org.chromium.chrome.browser.tab.Tab;
+import org.chromium.chrome.browser.ui.messages.snackbar.Snackbar;
+import org.chromium.chrome.browser.ui.messages.snackbar.SnackbarManager;
+import org.chromium.chrome.browser.ui.messages.snackbar.SnackbarManager.SnackbarController;
+import org.chromium.chrome.R;
 import org.chromium.components.bookmarks.BookmarkId;
 import org.chromium.components.bookmarks.BookmarkItem;
 import org.chromium.components.bookmarks.BookmarkType;
@@ -86,6 +91,8 @@ import java.io.File;
  * bookmark model stored in native.
  */
 class BookmarkBridge {
+    private static final String TAG = "BookmarkBridge";
+
     private final Profile mProfile;
     private boolean mIsDestroyed;
     private boolean mIsDoingExtensiveChanges;
@@ -390,6 +397,16 @@ class BookmarkBridge {
         ThreadUtils.assertOnUiThread();
         assert mIsNativeBookmarkModelLoaded;
         return BookmarkBridgeJni.get().getMobileFolderId(
+                mNativeBookmarkBridge, BookmarkBridge.this);
+    }
+
+    /**
+     * @return The BookmarkId for the Tabs collecction folder node
+     */
+    public BookmarkId getTabsCollectionFolderId() {
+        ThreadUtils.assertOnUiThread();
+        assert mIsNativeBookmarkModelLoaded;
+        return BookmarkBridgeJni.get().getTabsCollectionFolderId(
                 mNativeBookmarkBridge, BookmarkBridge.this);
     }
 
@@ -1030,6 +1047,49 @@ class BookmarkBridge {
                 mNativeBookmarkBridge, BookmarkBridge.this, title, url);
     }
 
+    // Used to bookmark all tabs in a specific folder, created if not existing
+    public BookmarkId addToTabsCollection(Context context, Tab tab) {
+        BookmarkId parent = getTabsCollectionFolderId();
+        BookmarkId existingId = getUserBookmarkIdForTab(tab);
+        if (existingId != null && existingId.getId() != BookmarkId.INVALID_ID) {
+            BookmarkId existingBookmarkId = new BookmarkId(existingId.getId(), BookmarkType.NORMAL);
+            BookmarkItem existingBookmark = getBookmarkById(existingBookmarkId);
+            if (parent.equals(existingBookmark.getParentId())) {
+                // bookmark already exists in the tabs collection folder
+                return existingBookmarkId;
+            }
+        }
+        BookmarkId bookmarkId =
+                addBookmark(parent, getChildCount(parent), tab.getTitle(), tab.getUrl());
+
+        if (bookmarkId == null) {
+            Log.e(TAG,
+                    "Failed to add bookmarks: parentTypeAndId %s", parent);
+        }
+        return bookmarkId;
+     }
+
+     public void finishedAddingToTabsCollection(Activity activity, SnackbarManager snackbarManager) {
+        BookmarkId parent = getTabsCollectionFolderId();
+
+        BookmarkItem bookmarkItem = getBookmarkById(parent);
+        String folderName;
+        if (bookmarkItem != null) {
+            folderName = bookmarkItem.getTitle();
+        } else {
+            folderName = "";
+        }
+        SnackbarController snackbarController = new SnackbarController() {
+            @Override
+            public void onAction(Object actionData) {
+            }
+        };
+        Snackbar snackbar = Snackbar.make(folderName, snackbarController, Snackbar.TYPE_ACTION,
+                        Snackbar.UMA_BOOKMARK_ADDED)
+                        .setTemplateText(activity.getString(R.string.bookmark_page_saved_folder));
+        snackbarManager.showSnackbar(snackbar);
+    }
+
     /**
      * @param url The URL of the reading list item.
      * @return The reading list item with the URL, or null if no such reading list item.
@@ -1327,6 +1387,7 @@ class BookmarkBridge {
         void getAllFoldersWithDepths(long nativeBookmarkBridge, BookmarkBridge caller,
                 List<BookmarkId> folderList, List<Integer> depthList);
         BookmarkId getRootFolderId(long nativeBookmarkBridge, BookmarkBridge caller);
+        BookmarkId getTabsCollectionFolderId(long nativeBookmarkBridge, BookmarkBridge caller);
         BookmarkId getMobileFolderId(long nativeBookmarkBridge, BookmarkBridge caller);
         BookmarkId getOtherFolderId(long nativeBookmarkBridge, BookmarkBridge caller);
         BookmarkId getDesktopFolderId(long nativeBookmarkBridge, BookmarkBridge caller);

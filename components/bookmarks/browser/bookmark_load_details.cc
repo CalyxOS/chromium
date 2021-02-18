@@ -37,6 +37,10 @@ BookmarkLoadDetails::BookmarkLoadDetails(BookmarkClient* client)
       root_node_->Add(BookmarkPermanentNode::CreateMobileBookmarks(
           max_id_++,
           client->IsPermanentNodeVisibleWhenEmpty(BookmarkNode::MOBILE))));
+  tabs_collection_folder_node_ = static_cast<BookmarkPermanentNode*>(
+      root_node_->Add(BookmarkPermanentNode::CreateTabsCollectionBookmarks(
+          max_id_++,
+          client->IsPermanentNodeVisibleWhenEmpty(BookmarkNode::TABS_COLLECTION))));
 }
 
 BookmarkLoadDetails::~BookmarkLoadDetails() = default;

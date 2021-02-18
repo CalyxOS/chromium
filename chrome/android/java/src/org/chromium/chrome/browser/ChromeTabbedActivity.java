@@ -77,6 +77,7 @@ import org.chromium.chrome.browser.back_press.MinimizeAppAndCloseTabBackPressHan
 import org.chromium.chrome.browser.bookmarks.BookmarkUtils;
 import org.chromium.chrome.browser.browserservices.intents.WebappConstants;
 import org.chromium.chrome.browser.compositor.CompositorViewHolder;
+import org.chromium.chrome.browser.bookmarks.BookmarkModel;
 import org.chromium.chrome.browser.compositor.layouts.Layout;
 import org.chromium.chrome.browser.compositor.layouts.LayoutManagerChrome;
 import org.chromium.chrome.browser.compositor.layouts.LayoutManagerChromePhone;
@@ -2203,6 +2204,8 @@ public class ChromeTabbedActivity extends ChromeActivity<ChromeActivityComponent
             CloseAllTabsDialog.show(this, getModalDialogManagerSupplier(),
                     () -> getTabModelSelector().closeAllTabs(), /*isIncognito=*/false);
             RecordUserAction.record("MobileMenuCloseAllTabs");
+        } else if (id == R.id.bookmark_all_tabs_menu_id) {
+            bookmarkAllTabs();
         } else if (id == R.id.close_all_incognito_tabs_menu_id) {
             // Close only incognito tabs
             CloseAllTabsDialog.show(this, getModalDialogManagerSupplier(),
@@ -2253,6 +2256,27 @@ public class ChromeTabbedActivity extends ChromeActivity<ChromeActivityComponent
 
     private void onOmniboxFocusChanged(boolean hasFocus) {
         mTabModalHandler.onOmniboxFocusChanged(hasFocus);
+    }
+
+    private void bookmarkAllTabs() {
+        TabModel tabModel = getTabModelSelector().getCurrentModel();
+        int count = tabModel.getCount();
+        Log.i(TAG, "bookmarkAllTabs(): %d tabs to bookmark", count);
+        if (count == 0) {
+            return;
+        }
+
+        final BookmarkModel bookmarkModel = mBookmarkModelSupplier.get();
+        bookmarkModel.finishLoadingBookmarkModel(() -> {
+            for (int i = 0; i < tabModel.getCount(); i++) {
+                Tab tab = tabModel.getTabAt(i);
+                if (tab.isNativePage()) {
+                    continue;
+                }
+                bookmarkModel.addToTabsCollection(this, tab);
+            }
+            bookmarkModel.finishedAddingToTabsCollection(this, getSnackbarManager());
+        });
     }
 
     private void recordLauncherShortcutAction(boolean isIncognito) {

@@ -437,6 +437,11 @@ void BookmarkBridge::GetTopLevelFolderIDs(
         top_level_folders.push_back(node.get());
     }
 
+    for (const auto& node : bookmark_model_->tabs_collection_node()->children()) {
+      if (node->is_folder())
+        top_level_folders.push_back(node.get());
+    }
+
     for (const auto& node : bookmark_model_->bookmark_bar_node()->children()) {
       if (node->is_folder())
         top_level_folders.push_back(node.get());
@@ -484,6 +489,7 @@ void BookmarkBridge::GetAllFoldersWithDepths(
   // Vector to temporarily contain all child bookmarks at same level for sorting
   std::vector<const BookmarkNode*> bookmarks = {
       bookmark_model_->mobile_node(),
+      bookmark_model_->tabs_collection_node(),
       bookmark_model_->bookmark_bar_node(),
       bookmark_model_->other_node(),
   };
@@ -533,6 +539,17 @@ ScopedJavaLocalRef<jobject> BookmarkBridge::GetMobileFolderId(
   const BookmarkNode* mobile_node = bookmark_model_->mobile_node();
   ScopedJavaLocalRef<jobject> folder_id_obj = JavaBookmarkIdCreateBookmarkId(
       env, mobile_node->id(), GetBookmarkType(mobile_node));
+  return folder_id_obj;
+}
+
+ScopedJavaLocalRef<jobject> BookmarkBridge::GetTabsCollectionFolderId(
+    JNIEnv* env,
+    const JavaParamRef<jobject>& obj) {
+  DCHECK_CURRENTLY_ON(BrowserThread::UI);
+  const BookmarkNode* tabs_collection_node = bookmark_model_->tabs_collection_node();
+  ScopedJavaLocalRef<jobject> folder_id_obj =
+      JavaBookmarkIdCreateBookmarkId(
+          env, tabs_collection_node->id(), GetBookmarkType(tabs_collection_node));
   return folder_id_obj;
 }
 

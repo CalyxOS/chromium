@@ -58,7 +58,8 @@ void LoadBookmarks(const base::FilePath& path,
       std::string sync_metadata_str;
       BookmarkCodec codec;
       codec.Decode(*root, details->bb_node(), details->other_folder_node(),
-                   details->mobile_folder_node(), &max_node_id,
+                   details->mobile_folder_node(),
+                   details->tabs_collection_folder_node(), &max_node_id,
                    &sync_metadata_str);
       details->set_sync_metadata_str(std::move(sync_metadata_str));
       details->set_max_id(std::max(max_node_id, details->max_id()));

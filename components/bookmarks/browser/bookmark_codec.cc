@@ -35,6 +35,7 @@ const char BookmarkCodec::kBookmarkBarFolderNameKey[] = "bookmark_bar";
 const char BookmarkCodec::kOtherBookmarkFolderNameKey[] = "other";
 // The value is left as 'synced' for historical reasons.
 const char BookmarkCodec::kMobileBookmarkFolderNameKey[] = "synced";
+const char BookmarkCodec::kTabsBookmarkFolderNameKey[] = "tabs";
 const char BookmarkCodec::kVersionKey[] = "version";
 const char BookmarkCodec::kChecksumKey[] = "checksum";
 const char BookmarkCodec::kIdKey[] = "id";
@@ -78,7 +79,8 @@ BookmarkCodec::~BookmarkCodec() = default;
 base::Value BookmarkCodec::Encode(BookmarkModel* model,
                                   std::string sync_metadata_str) {
   return Encode(model->bookmark_bar_node(), model->other_node(),
-                model->mobile_node(), model->root_node()->GetMetaInfoMap(),
+                model->mobile_node(), model->tabs_collection_node(),
+                model->root_node()->GetMetaInfoMap(),
                 model->root_node()->GetUnsyncedMetaInfoMap(),
                 std::move(sync_metadata_str));
 }
@@ -87,6 +89,7 @@ base::Value BookmarkCodec::Encode(
     const BookmarkNode* bookmark_bar_node,
     const BookmarkNode* other_folder_node,
     const BookmarkNode* mobile_folder_node,
+    const BookmarkNode* tabs_folder_node,
     const BookmarkNode::MetaInfoMap* model_meta_info_map,
     const BookmarkNode::MetaInfoMap* model_unsynced_meta_info_map,
     std::string sync_metadata_str) {
@@ -109,6 +112,7 @@ base::Value BookmarkCodec::Encode(
   roots.SetKey(kBookmarkBarFolderNameKey, EncodeNode(bookmark_bar_node));
   roots.SetKey(kOtherBookmarkFolderNameKey, EncodeNode(other_folder_node));
   roots.SetKey(kMobileBookmarkFolderNameKey, EncodeNode(mobile_folder_node));
+  roots.SetKey(kTabsBookmarkFolderNameKey, EncodeNode(tabs_folder_node));
   if (model_meta_info_map)
     roots.SetKey(kMetaInfo, EncodeMetaInfo(*model_meta_info_map));
   if (model_unsynced_meta_info_map) {
@@ -130,6 +134,7 @@ bool BookmarkCodec::Decode(const base::Value& value,
                            BookmarkNode* bb_node,
                            BookmarkNode* other_folder_node,
                            BookmarkNode* mobile_folder_node,
+                           BookmarkNode* tabs_folder_node,
                            int64_t* max_id,
                            std::string* sync_metadata_str) {
   ids_.clear();
@@ -137,7 +142,8 @@ bool BookmarkCodec::Decode(const base::Value& value,
             base::GUID::ParseLowercase(BookmarkNode::kBookmarkBarNodeGuid),
             base::GUID::ParseLowercase(BookmarkNode::kOtherBookmarksNodeGuid),
             base::GUID::ParseLowercase(BookmarkNode::kMobileBookmarksNodeGuid),
-            base::GUID::ParseLowercase(BookmarkNode::kManagedNodeGuid)};
+            base::GUID::ParseLowercase(BookmarkNode::kManagedNodeGuid),
+            base::GUID::ParseLowercase(BookmarkNode::kTabsCollectionBookmarksNodeGuid)};
   ids_reassigned_ = false;
   guids_reassigned_ = false;
   ids_valid_ = true;
@@ -145,12 +151,13 @@ bool BookmarkCodec::Decode(const base::Value& value,
   stored_checksum_.clear();
   InitializeChecksum();
   bool success = DecodeHelper(bb_node, other_folder_node, mobile_folder_node,
+                              tabs_folder_node,
                               value, sync_metadata_str);
   FinalizeChecksum();
   // If either the checksums differ or some IDs were missing/not unique,
   // reassign IDs.
   if (!ids_valid_ || computed_checksum() != stored_checksum())
-    ReassignIDs(bb_node, other_folder_node, mobile_folder_node);
+    ReassignIDs(bb_node, other_folder_node, mobile_folder_node, tabs_folder_node);
   *max_id = maximum_id_ + 1;
   return success;
 }
@@ -207,6 +214,7 @@ base::Value BookmarkCodec::EncodeMetaInfo(
 bool BookmarkCodec::DecodeHelper(BookmarkNode* bb_node,
                                  BookmarkNode* other_folder_node,
                                  BookmarkNode* mobile_folder_node,
+                                 BookmarkNode* tabs_folder_node,
                                  const base::Value& value,
                                  std::string* sync_metadata_str) {
   if (!value.is_dict())
@@ -238,6 +246,12 @@ bool BookmarkCodec::DecodeHelper(BookmarkNode* bb_node,
     return false;
 
   DecodeNode(*bb_value, nullptr, bb_node);
+  const base::DictionaryValue* tabs_folder_d_value = nullptr;
+  const base::Value* tabs_folder_value =
+      roots->FindDictKey(kTabsBookmarkFolderNameKey);
+  if (tabs_folder_value && tabs_folder_value->GetAsDictionary(&tabs_folder_d_value))
+    DecodeNode(*tabs_folder_d_value, nullptr, tabs_folder_node);
+
   DecodeNode(*other_folder_value, nullptr, other_folder_node);
   DecodeNode(*mobile_folder_value, nullptr, mobile_folder_node);
 
@@ -508,11 +522,13 @@ void BookmarkCodec::DecodeMetaInfoHelper(
 
 void BookmarkCodec::ReassignIDs(BookmarkNode* bb_node,
                                 BookmarkNode* other_node,
-                                BookmarkNode* mobile_node) {
+                                BookmarkNode* mobile_node,
+                                BookmarkNode* tabs_folder_node) {
   maximum_id_ = 0;
   ReassignIDsHelper(bb_node);
   ReassignIDsHelper(other_node);
   ReassignIDsHelper(mobile_node);
+  ReassignIDsHelper(tabs_folder_node);
   ids_reassigned_ = true;
 }
 
