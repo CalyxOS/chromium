@@ -155,6 +155,8 @@ public class KeyboardShortcuts {
                 KeyEvent.KEYCODE_F, KeyEvent.META_CTRL_ON);
         addShortcut(context, chromeFeatureShortcutGroup, R.string.keyboard_shortcut_address_bar,
                 KeyEvent.KEYCODE_L, KeyEvent.META_CTRL_ON);
+        addShortcut(context, chromeFeatureShortcutGroup, R.string.keyboard_shortcut_address_bar,
+                KeyEvent.KEYCODE_D, KeyEvent.META_ALT_ON);
         shortcutGroups.add(chromeFeatureShortcutGroup);
 
         KeyboardShortcutGroup webpageShortcutGroup = new KeyboardShortcutGroup(
