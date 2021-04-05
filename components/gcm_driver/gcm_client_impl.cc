@@ -463,6 +463,7 @@ void GCMClientImpl::StartGCM() {
 
 void GCMClientImpl::InitializeMCSClient() {
   DCHECK(network_connection_tracker_);
+  return;
   std::vector<GURL> endpoints;
   endpoints.push_back(gservices_settings_.GetMCSMainEndpoint());
   GURL fallback_endpoint = gservices_settings_.GetMCSFallbackEndpoint();
@@ -657,6 +658,7 @@ void GCMClientImpl::AddHeartbeatInterval(const std::string& scope,
                                          int interval_ms) {
   DCHECK(io_task_runner_->RunsTasksInCurrentSequence());
   DCHECK(mcs_client_);
+  return;
   mcs_client_->AddHeartbeatInterval(scope, interval_ms);
 }
 
@@ -668,6 +670,7 @@ void GCMClientImpl::RemoveHeartbeatInterval(const std::string& scope) {
 
 void GCMClientImpl::StartCheckin() {
   DCHECK(io_task_runner_->RunsTasksInCurrentSequence());
+  return;
 
   // Make sure no checkin is in progress.
   if (checkin_request_)
@@ -750,6 +753,7 @@ void GCMClientImpl::SetGServicesSettingsCallback(bool success) {
 
 void GCMClientImpl::SchedulePeriodicCheckin() {
   DCHECK(io_task_runner_->RunsTasksInCurrentSequence());
+  return;
 
   // Make sure no checkin is in progress.
   if (checkin_request_.get() || !device_checkin_info_.accounts_set)

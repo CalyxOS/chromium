@@ -19,7 +19,6 @@ import org.chromium.base.Log;
 import org.chromium.chrome.browser.flags.ChromeFeatureList;
 import org.chromium.chrome.browser.language.AppLocaleUtils;
 import org.chromium.chrome.browser.language.GlobalAppLocaleController;
-import org.chromium.chrome.browser.language.LanguageSplitInstaller;
 import org.chromium.chrome.browser.language.R;
 import org.chromium.chrome.browser.preferences.Pref;
 import org.chromium.chrome.browser.preferences.PrefChangeRegistrar;
@@ -128,11 +127,6 @@ public class LanguageSettings extends PreferenceFragmentCompat
      * translate target language, and detailed translate preferences.
      */
     private void createDetailedPreferences(Bundle savedInstanceState, String rootKey) {
-        // Log currently installed language splits.
-        String installedLanguages =
-                TextUtils.join(",", LanguageSplitInstaller.getInstance().getInstalledLanguages());
-        Log.i(TAG, TextUtils.concat("Installed Languages: ", installedLanguages).toString());
-
         SettingsUtils.addPreferencesFromResource(this, R.xml.languages_detailed_preferences);
 
         setupAppLanguageSection();

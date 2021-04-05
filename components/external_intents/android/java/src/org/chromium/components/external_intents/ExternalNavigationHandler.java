@@ -2533,14 +2533,6 @@ public class ExternalNavigationHandler {
      * @return Whether the given intent is going to open an Instant App.
      */
     private static boolean isIntentToInstantApp(Intent intent) {
-        if (INSTANT_APP_SUPERVISOR_PKG.equals(intent.getPackage())) return true;
-
-        String intentAction = intent.getAction();
-        for (String action : INSTANT_APP_START_ACTIONS) {
-            if (action.equals(intentAction)) {
-                return true;
-            }
-        }
         return false;
     }
 }

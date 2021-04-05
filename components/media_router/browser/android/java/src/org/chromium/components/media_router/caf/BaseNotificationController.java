@@ -6,10 +6,6 @@ package org.chromium.components.media_router.caf;
 
 import android.content.Intent;
 
-import com.google.android.gms.cast.CastDevice;
-import com.google.android.gms.cast.MediaStatus;
-import com.google.android.gms.cast.framework.media.RemoteMediaClient;
-
 import org.chromium.components.browser_ui.media.MediaNotificationInfo;
 import org.chromium.components.browser_ui.media.MediaNotificationListener;
 import org.chromium.components.browser_ui.media.MediaNotificationManager;
@@ -62,20 +58,6 @@ public abstract class BaseNotificationController
     public void onStatusUpdated() {
         if (mNotificationBuilder == null) return;
         if (!mSessionController.isConnected()) return;
-
-        MediaStatus mediaStatus = mSessionController.getRemoteMediaClient().getMediaStatus();
-        if (mediaStatus == null) return;
-
-        int playerState = mediaStatus.getPlayerState();
-        if (playerState == MediaStatus.PLAYER_STATE_PAUSED
-                || playerState == MediaStatus.PLAYER_STATE_PLAYING) {
-            mNotificationBuilder.setPaused(playerState != MediaStatus.PLAYER_STATE_PLAYING);
-            mNotificationBuilder.setActions(
-                    MediaNotificationInfo.ACTION_STOP | MediaNotificationInfo.ACTION_PLAY_PAUSE);
-        } else {
-            mNotificationBuilder.setActions(MediaNotificationInfo.ACTION_STOP);
-        }
-        MediaRouterClient.getInstance().showNotification(mNotificationBuilder.build());
     }
 
     /** Called when media metadata updated. */
@@ -91,30 +73,6 @@ public abstract class BaseNotificationController
         mNotificationBuilder.setMetadata(notificationMetadata);
 
         if (!mSessionController.isConnected()) return;
-
-        CastDevice castDevice = mSessionController.getSession().getCastDevice();
-        if (castDevice != null) notificationMetadata.setTitle(castDevice.getFriendlyName());
-
-        RemoteMediaClient remoteMediaClient = mSessionController.getRemoteMediaClient();
-
-        com.google.android.gms.cast.MediaInfo info = remoteMediaClient.getMediaInfo();
-        if (info == null) return;
-
-        com.google.android.gms.cast.MediaMetadata metadata = info.getMetadata();
-        if (metadata == null) return;
-
-        String title = metadata.getString(com.google.android.gms.cast.MediaMetadata.KEY_TITLE);
-        if (title != null) notificationMetadata.setTitle(title);
-
-        String artist = metadata.getString(com.google.android.gms.cast.MediaMetadata.KEY_ARTIST);
-        if (artist == null) {
-            artist = metadata.getString(com.google.android.gms.cast.MediaMetadata.KEY_ALBUM_ARTIST);
-        }
-        if (artist != null) notificationMetadata.setArtist(artist);
-
-        String album =
-                metadata.getString(com.google.android.gms.cast.MediaMetadata.KEY_ALBUM_TITLE);
-        if (album != null) notificationMetadata.setAlbum(album);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -122,20 +80,10 @@ public abstract class BaseNotificationController
 
     @Override
     public void onPlay(int actionSource) {
-        if (!mSessionController.isConnected()) return;
-
-        mSessionController.getRemoteMediaClient().play();
-        MediaRouteUmaRecorder.recordCastNotificationControlsAction(
-                MediaRouteUmaRecorder.CastNotificationControls.RESUME);
     }
 
     @Override
     public void onPause(int actionSource) {
-        if (!mSessionController.isConnected()) return;
-
-        mSessionController.getRemoteMediaClient().pause();
-        MediaRouteUmaRecorder.recordCastNotificationControlsAction(
-                MediaRouteUmaRecorder.CastNotificationControls.PAUSE);
     }
 
     @Override

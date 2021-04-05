@@ -17,8 +17,6 @@ import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.google.android.gms.common.GooglePlayServicesUtil;
-
 import org.chromium.base.BuildInfo;
 import org.chromium.base.Callback;
 import org.chromium.base.ContextUtils;
@@ -328,13 +326,7 @@ public class UpdateStatusProvider {
         }
 
         private boolean isGooglePlayStoreAvailable(Context context) {
-            try {
-                context.getPackageManager().getPackageInfo(
-                        GooglePlayServicesUtil.GOOGLE_PLAY_STORE_PACKAGE, 0);
-            } catch (PackageManager.NameNotFoundException e) {
-                return false;
-            }
-            return true;
+            return false;
         }
 
         private long getSize(StatFs statFs) {

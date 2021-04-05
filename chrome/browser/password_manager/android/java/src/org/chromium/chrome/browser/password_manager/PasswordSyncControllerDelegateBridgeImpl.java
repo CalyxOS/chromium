@@ -4,8 +4,6 @@
 
 package org.chromium.chrome.browser.password_manager;
 
-import com.google.android.gms.common.api.ApiException;
-
 import org.chromium.base.annotations.CalledByNative;
 import org.chromium.base.annotations.NativeMethods;
 import org.chromium.components.signin.base.CoreAccountInfo;
@@ -67,11 +65,6 @@ class PasswordSyncControllerDelegateBridgeImpl {
 
         if (exception instanceof PasswordStoreAndroidBackend.BackendException) {
             error = ((PasswordStoreAndroidBackend.BackendException) exception).errorCode;
-        }
-
-        if (exception instanceof ApiException) {
-            error = AndroidBackendErrorType.EXTERNAL_ERROR;
-            apiErrorCode = ((ApiException) exception).getStatusCode();
         }
 
         PasswordSyncControllerDelegateBridgeImplJni.get().onCredentialManagerError(

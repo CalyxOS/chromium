@@ -122,8 +122,7 @@ class PasswordStoreAndroidBackendBridgeImpl {
         @AndroidBackendErrorType
         int error = PasswordManagerAndroidBackendUtil.getBackendError(exception);
         int apiErrorCode = PasswordManagerAndroidBackendUtil.getApiErrorCode(exception);
-        Integer connectionResultCode =
-                PasswordManagerAndroidBackendUtil.getConnectionResultCode(exception);
+        Integer connectionResultCode = null;
 
         PasswordStoreAndroidBackendBridgeImplJni.get().onError(mNativeBackendBridge, jobId, error,
                 apiErrorCode, connectionResultCode != null,

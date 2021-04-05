@@ -129,6 +129,8 @@ public class GoogleCloudMessagingV2 implements GoogleCloudMessagingSubscriber {
     }
 
     private Intent registerRpc(Bundle data) throws IOException {
+        if ((true))
+            throw new IOException("Google Play Services missing");
         if (Looper.getMainLooper() == Looper.myLooper()) {
             throw new IOException(ERROR_MAIN_THREAD);
         }

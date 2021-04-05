@@ -13,10 +13,6 @@ import android.util.SparseArray;
 import androidx.annotation.VisibleForTesting;
 import androidx.collection.ArrayMap;
 
-import com.google.android.gms.cast.ApplicationMetadata;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.Status;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -345,49 +341,7 @@ public class CafMessageHandler {
             final int sequenceNumber) throws JSONException {
         if (volumeMessage == null) return false;
         if (!mSessionController.isConnected()) return false;
-        boolean shouldWaitForVolumeChange = false;
-        try {
-            if (!volumeMessage.isNull("muted")) {
-                boolean newMuted = volumeMessage.getBoolean("muted");
-                if (mSessionController.getSession().isMute() != newMuted) {
-                    mSessionController.getSession().setMute(newMuted);
-                    shouldWaitForVolumeChange = true;
-                }
-            }
-            if (!volumeMessage.isNull("level")) {
-                double newLevel = volumeMessage.getDouble("level");
-                double currentLevel = mSessionController.getSession().getVolume();
-                if (!Double.isNaN(currentLevel)
-                        && Math.abs(currentLevel - newLevel)
-                                > CastSessionUtil.MIN_VOLUME_LEVEL_DELTA) {
-                    mSessionController.getSession().setVolume(newLevel);
-                    shouldWaitForVolumeChange = true;
-                }
-            }
-        } catch (IOException | IllegalStateException e) {
-            Log.e(TAG, "Failed to send volume command: " + e);
-            return false;
-        }
-
-        // For each successful volume message we need to respond with an empty "v2_message" so the
-        // Cast Web SDK can call the success callback of the page. If we expect the volume to change
-        // as the result of the command, we're relying on {@link Cast.CastListener#onVolumeChanged}
-        // to get called by the Android Cast SDK when the receiver status is updated. We keep the
-        // sequence number until then. If the volume doesn't change as the result of the command, we
-        // won't get notified by the Android SDK
-        if (shouldWaitForVolumeChange) {
-            mVolumeRequests.add(new RequestRecord(clientId, sequenceNumber));
-        } else {
-            // It's usually bad to have request and response on the same call stack so post the
-            // response to the Android message loop.
-            mHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    onVolumeChanged(clientId, sequenceNumber);
-                }
-            });
-        }
-        return true;
+        return false;
     }
 
     @VisibleForTesting
@@ -675,19 +629,11 @@ public class CafMessageHandler {
         try {
             // "volume" is a part of "receiver" initialized below.
             JSONObject jsonVolume = new JSONObject();
-            jsonVolume.put("level", mSessionController.getSession().getVolume());
-            jsonVolume.put("muted", mSessionController.getSession().isMute());
 
             // "receiver" is a part of "message" initialized below.
             JSONObject jsonReceiver = new JSONObject();
-            jsonReceiver.put(
-                    "label", mSessionController.getSession().getCastDevice().getDeviceId());
-            jsonReceiver.put("friendlyName",
-                    mSessionController.getSession().getCastDevice().getFriendlyName());
             jsonReceiver.put("capabilities", toJSONArray(mSessionController.getCapabilities()));
             jsonReceiver.put("volume", jsonVolume);
-            jsonReceiver.put(
-                    "isActiveInput", mSessionController.getSession().getActiveInputState());
             jsonReceiver.put("displayStatus", null);
             jsonReceiver.put("receiverType", "cast");
 
@@ -700,23 +646,14 @@ public class CafMessageHandler {
 
             JSONObject jsonMessage = new JSONObject();
             jsonMessage.put("sessionId", mSessionController.getSessionId());
-            jsonMessage.put("statusText", mSessionController.getSession().getApplicationStatus());
             jsonMessage.put("receiver", jsonReceiver);
             jsonMessage.put("namespaces", jsonNamespaces);
             jsonMessage.put("media", toJSONArray(new ArrayList<>()));
             jsonMessage.put("status", "connected");
             jsonMessage.put("transportId", "web-4");
 
-            ApplicationMetadata applicationMetadata =
-                    mSessionController.getSession().getApplicationMetadata();
-            if (applicationMetadata != null) {
-                jsonMessage.put("appId", applicationMetadata.getApplicationId());
-            } else {
-                jsonMessage.put("appId",
-                        mSessionController.getRouteCreationInfo().source.getApplicationId());
-            }
-            jsonMessage.put("displayName",
-                    mSessionController.getSession().getCastDevice().getFriendlyName());
+            jsonMessage.put("appId",
+                    mSessionController.getRouteCreationInfo().source.getApplicationId());
 
             return jsonMessage.toString();
         } catch (JSONException e) {
@@ -797,32 +734,6 @@ public class CafMessageHandler {
     boolean sendStringCastMessage(
             String message, String namespace, String clientId, int sequenceNumber) {
         if (!mSessionController.isConnected()) return false;
-
-        PendingResult<Status> pendingResult =
-                mSessionController.getSession().sendMessage(namespace, message);
-        if (!TextUtils.equals(namespace, CastSessionUtil.MEDIA_NAMESPACE)) {
-            // Media commands wait for the media status update as a result.
-            pendingResult.setResultCallback(
-                    (Status result) -> onSendAppMessageResult(result, clientId, sequenceNumber));
-        }
-        return true;
-    }
-
-    /**
-     * Notifies a client that an app message has been sent.
-     * @param clientId The client id the message is sent from.
-     * @param sequenceNumber The sequence number of the message.
-     */
-    void onSendAppMessageResult(Status result, String clientId, int sequenceNumber) {
-        if (!result.isSuccess()) {
-            // TODO(avayvod): should actually report back to the page.
-            // See https://crbug.com/550445.
-            Log.e(TAG, "Failed to send the message: " + result);
-            return;
-        }
-
-        // App messages wait for the empty message with the sequence
-        // number.
-        sendEnclosedMessageToClient(clientId, "app_message", null, sequenceNumber);
+        return false;
     }
 }

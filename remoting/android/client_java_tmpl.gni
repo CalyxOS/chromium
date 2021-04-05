@@ -105,9 +105,6 @@ template("remoting_android_client_java_tmpl") {
 
     if (defined(invoker.play_services_package)) {
       deps += [
-        "${invoker.play_services_package}:google_play_services_auth_base_java",
-        "${invoker.play_services_package}:google_play_services_base_java",
-        "${invoker.play_services_package}:google_play_services_basement_java",
       ]
     }
 

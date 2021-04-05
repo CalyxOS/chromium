@@ -49,9 +49,6 @@ public class CafRemotingMediaRouteProvider extends CafBaseMediaRouteProvider {
     @Override
     public void detachRoute(String routeId) {
         super.detachRoute(routeId);
-        MediaRouteUmaRecorder.recordRemoteSessionTimeWithoutMediaElementPercentage(
-                mSessionController.getFlingingController().getApproximateCurrentTime(),
-                mSessionController.getFlingingController().getDuration());
     }
 
     @Override
@@ -74,6 +71,6 @@ public class CafRemotingMediaRouteProvider extends CafBaseMediaRouteProvider {
 
         if (!mRoutes.containsKey(routeId)) return null;
 
-        return sessionController().getFlingingController();
+        return null;
     }
 }

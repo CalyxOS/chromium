@@ -12,10 +12,6 @@ import androidx.mediarouter.media.MediaRouteSelector;
 import androidx.mediarouter.media.MediaRouter;
 import androidx.mediarouter.media.MediaRouter.RouteInfo;
 
-import com.google.android.gms.cast.framework.CastSession;
-import com.google.android.gms.cast.framework.SessionManagerListener;
-import com.google.android.gms.cast.framework.media.RemoteMediaClient;
-
 import org.chromium.base.Log;
 import org.chromium.components.media_router.DiscoveryCallback;
 import org.chromium.components.media_router.DiscoveryDelegate;
@@ -39,7 +35,7 @@ import java.util.Set;
  * A base provider containing common implementation for CAF-based {@link MediaRouteProvider}s.
  */
 public abstract class CafBaseMediaRouteProvider
-        implements MediaRouteProvider, DiscoveryDelegate, SessionManagerListener<CastSession> {
+        implements MediaRouteProvider, DiscoveryDelegate {
     private static final String TAG = "CafMR";
 
     protected static final List<MediaSink> NO_SINKS = Collections.emptyList();
@@ -155,7 +151,6 @@ public abstract class CafBaseMediaRouteProvider
             // current session and clean up the routes (can't wait for session ending as the signal
             // might be delayed).
             sessionController().endSession();
-            handleSessionEnd();
         }
         if (mPendingCreateRouteRequestInfo != null) {
             cancelPendingRequest("Request replaced");
@@ -184,9 +179,6 @@ public abstract class CafBaseMediaRouteProvider
             mManager.onCreateRouteRequestError("The sink does not exist", nativeRequestId);
         }
 
-        CastUtils.getCastContext().getSessionManager().addSessionManagerListener(
-                this, CastSession.class);
-
         mPendingCreateRouteRequestInfo = new CreateRouteRequestInfo(source, sink, presentationId,
                 origin, tabId, isOffTheRecord, nativeRequestId, targetRouteInfo);
 
@@ -211,110 +203,6 @@ public abstract class CafBaseMediaRouteProvider
     @Override
     public void detachRoute(String routeId) {
         removeRoute(routeId, /* error= */ null);
-    }
-
-    ///////////////////////////////////////////////////////
-    // SessionManagerListener implementation begin
-    ///////////////////////////////////////////////////////
-
-    @Override
-    public final void onSessionStarting(CastSession session) {
-        // The session is not connected yet at this point so this is no-op.
-    }
-
-    @Override
-    public void onSessionStartFailed(CastSession session, int error) {
-        removeAllRoutes("Launch error");
-        cancelPendingRequest("Launch error");
-    }
-
-    @Override
-    public void onSessionStarted(CastSession session, String sessionId) {
-        Log.d(TAG, "onSessionStarted");
-
-        if (session != CastUtils.getCastContext().getSessionManager().getCurrentCastSession()) {
-            // Sometimes the session start signal might come in for an earlier launch request, which
-            // should be ignored.
-            return;
-        }
-
-        if (session == sessionController().getSession() || mPendingCreateRouteRequestInfo == null) {
-            // Early return for any possible case that the session start signal comes in twice for
-            // the same session.
-            return;
-        }
-        handleSessionStart(session, sessionId);
-    }
-
-    @Override
-    public final void onSessionResumed(CastSession session, boolean wasSuspended) {
-        sessionController().attachToCastSession(session);
-    }
-
-    @Override
-    public final void onSessionResuming(CastSession session, String sessionId) {}
-
-    @Override
-    public final void onSessionResumeFailed(CastSession session, int error) {}
-
-    @Override
-    public final void onSessionEnding(CastSession session) {
-        RemoteMediaClient client = session.getRemoteMediaClient();
-        if (client != null) {
-            MediaRouteUmaRecorder.castEndedTimeRemaining(
-                    client.getApproximateStreamPosition(), client.getStreamDuration());
-        }
-        handleSessionEnd();
-    }
-
-    @Override
-    public final void onSessionEnded(CastSession session, int error) {
-        Log.d(TAG, "Session ended with error code " + error);
-        RemoteMediaClient client = session.getRemoteMediaClient();
-        if (client != null) {
-            MediaRouteUmaRecorder.castEndedTimeRemaining(
-                    client.getApproximateStreamPosition(), client.getStreamDuration());
-        }
-        handleSessionEnd();
-    }
-
-    @Override
-    public final void onSessionSuspended(CastSession session, int reason) {
-        sessionController().detachFromCastSession();
-    }
-
-    ///////////////////////////////////////////////////////
-    // SessionManagerListener implementation end
-    ///////////////////////////////////////////////////////
-
-    protected void handleSessionStart(CastSession session, String sessionId) {
-        sessionController().attachToCastSession(session);
-        sessionController().onSessionStarted();
-
-        MediaSink sink = mPendingCreateRouteRequestInfo.sink;
-        MediaSource source = mPendingCreateRouteRequestInfo.source;
-        MediaRoute route = new MediaRoute(
-                sink.getId(), source.getSourceId(), mPendingCreateRouteRequestInfo.presentationId);
-        addRoute(route, mPendingCreateRouteRequestInfo.origin, mPendingCreateRouteRequestInfo.tabId,
-                mPendingCreateRouteRequestInfo.nativeRequestId, /* wasLaunched= */ true);
-
-        mPendingCreateRouteRequestInfo = null;
-    }
-
-    private void handleSessionEnd() {
-        if (mPendingCreateRouteRequestInfo != null) {
-            // The Cast SDK notifies about session ending when a route is unselected, even when
-            // there's no current session. Because CastSessionController unselects the route to set
-            // the receiver app ID, this needs to be guarded by a pending request null check to make
-            // sure the listener is not unregistered during a session relaunch.
-            return;
-        }
-        sessionController().onSessionEnded();
-        sessionController().detachFromCastSession();
-        getAndroidMediaRouter().selectRoute(getAndroidMediaRouter().getDefaultRoute());
-        terminateAllRoutes();
-        CastUtils.getCastContext().getSessionManager().removeSessionManagerListener(
-                this, CastSession.class);
     }
 
     private void cancelPendingRequest(String error) {

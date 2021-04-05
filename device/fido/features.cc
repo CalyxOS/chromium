@@ -39,12 +39,12 @@ BASE_FEATURE(kWebAuthnGoogleCorpRemoteDesktopClientPrivilege,
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kWebAuthPasskeysUI,
-             "WebAuthenticationPasskeysUI",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "WebAuthenticationPasskeysUI",                     // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);                // in Bromite
 
-BASE_FEATURE(kWebAuthnNewDiscoverableCredentialsUi,
-             "WebAuthenticationNewDiscoverableCredentialsUi",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+BASE_FEATURE(kWebAuthnNewDiscoverableCredentialsUi,             // disabled by default
+             "WebAuthenticationNewDiscoverableCredentialsUi",   // in Bromite
+             base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kWebAuthnNoEmptyDisplayNameCBOR,
              "WebAuthenticationNoEmptyDisplayNameCBOR",

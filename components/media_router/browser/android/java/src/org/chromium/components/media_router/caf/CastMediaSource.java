@@ -9,8 +9,6 @@ import android.net.Uri;
 import androidx.annotation.Nullable;
 import androidx.mediarouter.media.MediaRouteSelector;
 
-import com.google.android.gms.cast.CastMediaControlIntent;
-
 import org.chromium.components.media_router.MediaSource;
 
 import java.util.Arrays;
@@ -106,13 +104,7 @@ public class CastMediaSource implements MediaSource {
      */
     @Override
     public MediaRouteSelector buildRouteSelector() {
-        try {
-            return new MediaRouteSelector.Builder()
-                    .addControlCategory(CastMediaControlIntent.categoryForCast(mApplicationId))
-                    .build();
-        } catch (IllegalArgumentException e) {
-            return null;
-        }
+        return null;
     }
 
     /**

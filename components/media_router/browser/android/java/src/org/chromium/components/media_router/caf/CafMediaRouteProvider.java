@@ -11,8 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.mediarouter.media.MediaRouter;
 
-import com.google.android.gms.cast.framework.CastSession;
-
 import org.chromium.base.Log;
 import org.chromium.components.media_router.BrowserMediaRouter;
 import org.chromium.components.media_router.ClientRecord;
@@ -148,20 +146,6 @@ public class CafMediaRouteProvider extends CafBaseMediaRouteProvider {
     @NonNull
     public CafMessageHandler getMessageHandler() {
         return mMessageHandler;
-    }
-
-    @Override
-    protected void handleSessionStart(CastSession session, String sessionId) {
-        super.handleSessionStart(session, sessionId);
-
-        for (ClientRecord clientRecord : mClientIdToRecords.values()) {
-            // Should be exactly one instance of MediaRoute/ClientRecord at this moment.
-            mMessageHandler.sendReceiverActionToClient(clientRecord.routeId,
-                    sessionController().getSink(), clientRecord.clientId, "cast");
-        }
-
-        mMessageHandler.onSessionStarted();
-        sessionController().getSession().getRemoteMediaClient().requestStatus();
     }
 
     @Override

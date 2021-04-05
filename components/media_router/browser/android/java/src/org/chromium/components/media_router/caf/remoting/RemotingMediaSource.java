@@ -13,8 +13,6 @@ import android.util.Base64;
 import androidx.annotation.Nullable;
 import androidx.mediarouter.media.MediaRouteSelector;
 
-import com.google.android.gms.cast.CastMediaControlIntent;
-
 import org.chromium.base.ContextUtils;
 import org.chromium.base.Log;
 import org.chromium.components.media_router.MediaSource;
@@ -84,9 +82,7 @@ public class RemotingMediaSource implements MediaSource {
      */
     @Override
     public MediaRouteSelector buildRouteSelector() {
-        return new MediaRouteSelector.Builder()
-                .addControlCategory(CastMediaControlIntent.categoryForCast(getApplicationId()))
-                .build();
+        return null;
     }
 
     /**
@@ -113,7 +109,7 @@ public class RemotingMediaSource implements MediaSource {
 
             sApplicationId = (customAppId != null && !customAppId.isEmpty())
                     ? customAppId
-                    : CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID;
+                    :  "CC1AD845"; /*DEFAULT_MEDIA_RECEIVER_APPLICATION_ID*/
         }
 
         return sApplicationId;

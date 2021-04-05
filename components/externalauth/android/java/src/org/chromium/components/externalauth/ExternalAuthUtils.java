@@ -15,9 +15,6 @@ import android.text.TextUtils;
 import androidx.annotation.VisibleForTesting;
 import androidx.annotation.WorkerThread;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-
 import org.chromium.base.ContextUtils;
 import org.chromium.base.Log;
 import org.chromium.base.StrictModeContext;
@@ -25,7 +22,6 @@ import org.chromium.base.TraceEvent;
 import org.chromium.base.task.PostTask;
 import org.chromium.components.embedder_support.util.Origin;
 import org.chromium.content_public.browser.UiThreadTaskTraits;
-import org.chromium.gms.ChromiumPlayServicesAvailability;
 
 /**
  * Utility class for external authentication tools.
@@ -171,9 +167,7 @@ public class ExternalAuthUtils {
      *         when it is updating.
      */
     public boolean isGooglePlayServicesMissing(final Context context) {
-        final int resultCode = checkGooglePlayServicesAvailable(context);
-        return (resultCode == ConnectionResult.SERVICE_MISSING
-                || resultCode == ConnectionResult.SERVICE_INVALID);
+        return true;
     }
 
     /**
@@ -190,7 +184,6 @@ public class ExternalAuthUtils {
     public boolean canUseGooglePlayServices(final UserRecoverableErrorHandler errorHandler) {
         Context context = ContextUtils.getApplicationContext();
         final int resultCode = checkGooglePlayServicesAvailable(context);
-        if (resultCode == ConnectionResult.SUCCESS) return true;
         // resultCode is some kind of error.
         Log.v(TAG, "Unable to use Google Play Services: %s", describeError(resultCode));
         if (isUserRecoverableError(resultCode)) {
@@ -261,11 +254,7 @@ public class ExternalAuthUtils {
      * @return The code produced by calling the external code
      */
     protected int checkGooglePlayServicesAvailable(final Context context) {
-        // TODO(crbug.com/577190): Temporarily allowing disk access until more permanent fix is in.
-        try (StrictModeContext ignored = StrictModeContext.allowDiskWrites();
-                TraceEvent e = TraceEvent.scoped("checkGooglePlayServicesAvailable")) {
-            return ChromiumPlayServicesAvailability.getGooglePlayServicesConnectionResult(context);
-        }
+        return 1; /*SERVICE_MISSING*/
     }
 
     /**
@@ -276,7 +265,7 @@ public class ExternalAuthUtils {
      * @return true If the code represents a user-recoverable error
      */
     protected boolean isUserRecoverableError(final int errorCode) {
-        return GoogleApiAvailability.getInstance().isUserResolvableError(errorCode);
+        return false;
     }
 
     /**
@@ -286,7 +275,7 @@ public class ExternalAuthUtils {
      * @return a textual description of the error code
      */
     protected String describeError(final int errorCode) {
-        return GoogleApiAvailability.getInstance().getErrorString(errorCode);
+        return "";
     }
 
     /**

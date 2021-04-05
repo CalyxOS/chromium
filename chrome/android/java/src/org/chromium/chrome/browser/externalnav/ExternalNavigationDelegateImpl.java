@@ -176,12 +176,8 @@ public class ExternalNavigationDelegateImpl implements ExternalNavigationDelegat
 
     @Override
     public void maybeAdjustInstantAppExtras(Intent intent, boolean isIntentToInstantApp) {
-        if (isIntentToInstantApp) {
-            intent.putExtra(InstantAppsHandler.IS_GOOGLE_SEARCH_REFERRER, true);
-        } else {
-            // Make sure this extra is not sent unless we've done the verification.
-            intent.removeExtra(InstantAppsHandler.IS_GOOGLE_SEARCH_REFERRER);
-        }
+        // Always remove this extra
+        intent.removeExtra(InstantAppsHandler.IS_GOOGLE_SEARCH_REFERRER);
     }
 
     @Override

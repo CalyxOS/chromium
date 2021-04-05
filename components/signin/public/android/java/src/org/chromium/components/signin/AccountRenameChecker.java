@@ -11,10 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.annotation.WorkerThread;
 
-import com.google.android.gms.auth.AccountChangeEvent;
-import com.google.android.gms.auth.GoogleAuthException;
-import com.google.android.gms.auth.GoogleAuthUtil;
-
 import org.chromium.base.ContextUtils;
 import org.chromium.base.Log;
 import org.chromium.base.Promise;
@@ -51,18 +47,6 @@ public final class AccountRenameChecker {
          */
         @Override
         public @Nullable String getNewNameOfRenamedAccount(String accountEmail) {
-            final Context context = ContextUtils.getApplicationContext();
-            try {
-                final List<AccountChangeEvent> accountChangeEvents =
-                        GoogleAuthUtil.getAccountChangeEvents(context, 0, accountEmail);
-                for (AccountChangeEvent event : accountChangeEvents) {
-                    if (event.getChangeType() == GoogleAuthUtil.CHANGE_TYPE_ACCOUNT_RENAMED_TO) {
-                        return event.getChangeData();
-                    }
-                }
-            } catch (IOException | GoogleAuthException e) {
-                Log.w(TAG, "Failed to get change events", e);
-            }
             return null;
         }
     }

@@ -205,12 +205,7 @@ bool AuthenticatorMechanismSelectorSheetModel::IsManageDevicesButtonVisible()
     const {
   // If any phones are shown then also show a button that goes to the settings
   // page to manage them.
-  return base::ranges::any_of(
-      dialog_model()->mechanisms(),
-      [](const AuthenticatorRequestDialogModel::Mechanism& mechanism) {
-        return absl::holds_alternative<
-            AuthenticatorRequestDialogModel::Mechanism::Phone>(mechanism.type);
-      });
+  return false;
 }
 
 void AuthenticatorMechanismSelectorSheetModel::OnManageDevices() {

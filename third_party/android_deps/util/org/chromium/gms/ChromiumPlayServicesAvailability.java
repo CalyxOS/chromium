@@ -5,9 +5,6 @@ package org.chromium.gms;
 
 import android.content.Context;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-
 // Refer to go/doubledown-play-services#new-apis for more detail.
 public final class ChromiumPlayServicesAvailability {
     /**
@@ -30,9 +27,7 @@ public final class ChromiumPlayServicesAvailability {
      * PM/UX.
      */
     public static boolean isGooglePlayServicesAvailable(final Context context) {
-        return GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(
-                       context, GMS_VERSION_NUMBER)
-                == ConnectionResult.SUCCESS;
+       return false;
     }
 
     /**
@@ -50,7 +45,6 @@ public final class ChromiumPlayServicesAvailability {
      * PM/UX.
      */
     public static int getGooglePlayServicesConnectionResult(final Context context) {
-        return GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(
-                context, GMS_VERSION_NUMBER);
+        return 16; // API_UNAVAILABLE
     }
 }

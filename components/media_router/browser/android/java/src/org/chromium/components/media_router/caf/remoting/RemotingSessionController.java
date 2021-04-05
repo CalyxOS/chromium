@@ -4,8 +4,6 @@
 
 package org.chromium.components.media_router.caf.remoting;
 
-import com.google.android.gms.cast.framework.CastSession;
-
 import org.chromium.base.Log;
 import org.chromium.components.media_router.CastSessionUtil;
 import org.chromium.components.media_router.caf.BaseNotificationController;
@@ -34,34 +32,10 @@ public class RemotingSessionController extends BaseSessionController {
     }
 
     @Override
-    public void attachToCastSession(CastSession session) {
-        super.attachToCastSession(session);
-
-        try {
-            getSession().setMessageReceivedCallbacks(
-                    CastSessionUtil.MEDIA_NAMESPACE, this::onMessageReceived);
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to register namespace listener for %s",
-                    CastSessionUtil.MEDIA_NAMESPACE, e);
-        }
-    }
-
-    @Override
     public void onSessionStarted() {
         super.onSessionStarted();
         RemotingMediaSource source = (RemotingMediaSource) getSource();
         mFlingingControllerAdapter = new FlingingControllerAdapter(this, source.getMediaUrl());
-    }
-
-    @Override
-    protected void onStatusUpdated() {
-        mFlingingControllerAdapter.onStatusUpdated();
-        super.onStatusUpdated();
-    }
-
-    @Override
-    public FlingingControllerAdapter getFlingingController() {
-        return mFlingingControllerAdapter;
     }
 
     @Override

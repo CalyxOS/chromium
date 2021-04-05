@@ -45,60 +45,35 @@ public class CafExpandedControllerActivity
     private MediaController.Delegate mControllerDelegate = new MediaController.Delegate() {
         @Override
         public void play() {
-            if (!mSessionController.isConnected()) return;
-
-            mSessionController.getSession().getRemoteMediaClient().play();
-            MediaRouteUmaRecorder.recordFullscreenControlsAction(
-                    MediaRouteUmaRecorder.FullScreenControls.RESUME);
         }
 
         @Override
         public void pause() {
-            if (!mSessionController.isConnected()) return;
-
-            mSessionController.getSession().getRemoteMediaClient().pause();
-            MediaRouteUmaRecorder.recordFullscreenControlsAction(
-                    MediaRouteUmaRecorder.FullScreenControls.PAUSE);
         }
 
         @Override
         public long getDuration() {
-            if (!mSessionController.isConnected()) return 0;
-            return mSessionController.getFlingingController().getDuration();
+            return 0;
         }
 
         @Override
         public long getPosition() {
-            if (!mSessionController.isConnected()) return 0;
-            return mSessionController.getFlingingController().getApproximateCurrentTime();
+            return 0;
         }
 
         @Override
         public void seekTo(long pos) {
-            if (!mSessionController.isConnected()) return;
-
-            mSessionController.getSession().getRemoteMediaClient().seek(pos);
-            MediaRouteUmaRecorder.recordFullscreenControlsAction(
-                    MediaRouteUmaRecorder.FullScreenControls.SEEK);
         }
 
         @Override
         public boolean isPlaying() {
-            if (!mSessionController.isConnected()) return false;
-
-            return mSessionController.getSession().getRemoteMediaClient().isPlaying();
+            return false;
         }
 
         @Override
         public long getActionFlags() {
             long flags =
                     PlaybackStateCompat.ACTION_REWIND | PlaybackStateCompat.ACTION_FAST_FORWARD;
-            if (mSessionController.isConnected()
-                    && mSessionController.getSession().getRemoteMediaClient().isPlaying()) {
-                flags |= PlaybackStateCompat.ACTION_PAUSE;
-            } else {
-                flags |= PlaybackStateCompat.ACTION_PLAY;
-            }
             return flags;
         }
     };
@@ -187,20 +162,10 @@ public class CafExpandedControllerActivity
     private void updateUi() {
         if (!mSessionController.isConnected()) return;
 
-        String deviceName = mSessionController.getSession().getCastDevice().getFriendlyName();
-        String titleText = "";
-        if (deviceName != null) {
-            titleText = getResources().getString(R.string.cast_casting_video, deviceName);
-        }
-        mTitleView.setText(titleText);
-
         mMediaController.refresh();
         mMediaController.updateProgress();
 
         cancelProgressUpdateTask();
-        if (mSessionController.getSession().getRemoteMediaClient().isPlaying()) {
-            scheduleProgressUpdateTask();
-        }
     }
 
     private void scheduleProgressUpdateTask() {

@@ -6,9 +6,6 @@ package org.chromium.chrome.browser.gcore;
 
 import android.content.Context;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-
 import org.chromium.base.Log;
 import org.chromium.base.TraceEvent;
 import org.chromium.components.externalauth.ExternalAuthUtils;
@@ -22,7 +19,6 @@ public class ChromeGoogleApiClientImpl implements ChromeGoogleApiClient {
     private static final String TAG = "Icing";
 
     private final Context mApplicationContext;
-    private final GoogleApiClient mClient;
     private final ExternalAuthUtils mExternalAuthUtils;
 
     /**
@@ -32,10 +28,9 @@ public class ChromeGoogleApiClientImpl implements ChromeGoogleApiClient {
      * @param requireFirstPartyBuild true if the given client can only be used in a first-party
      *            build.
      */
-    public ChromeGoogleApiClientImpl(Context context, GoogleApiClient client,
+    public ChromeGoogleApiClientImpl(Context context,
             boolean requireFirstPartyBuild) {
         mApplicationContext = context.getApplicationContext();
-        mClient = client;
         mExternalAuthUtils = ExternalAuthUtils.getInstance();
         if (requireFirstPartyBuild && !mExternalAuthUtils.isChromeGoogleSigned()) {
             throw new IllegalStateException("GoogleApiClient requires first-party build");
@@ -44,7 +39,6 @@ public class ChromeGoogleApiClientImpl implements ChromeGoogleApiClient {
 
     @Override
     public void disconnect() {
-        mClient.disconnect();
     }
 
     @Override
@@ -60,24 +54,11 @@ public class ChromeGoogleApiClientImpl implements ChromeGoogleApiClient {
     @Override
     public boolean connectWithTimeout(long timeout) {
         TraceEvent.begin("ChromeGoogleApiClientImpl:connectWithTimeout");
-        try {
-            ConnectionResult result = mClient.blockingConnect(timeout, TimeUnit.MILLISECONDS);
-            if (!result.isSuccess()) {
-                Log.e(TAG, "Connection to GmsCore unsuccessful. Error %d", result.getErrorCode());
-            } else {
-                Log.d(TAG, "Connection to GmsCore successful.");
-            }
-            return result.isSuccess();
-        } finally {
-            TraceEvent.end("ChromeGoogleApiClientImpl:connectWithTimeout");
-        }
+        TraceEvent.end("ChromeGoogleApiClientImpl:connectWithTimeout");
+        return false;
     }
 
     public Context getApplicationContext() {
         return mApplicationContext;
-    }
-
-    public GoogleApiClient getApiClient() {
-        return mClient;
     }
 }

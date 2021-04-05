@@ -1130,10 +1130,6 @@ void AuthenticatorRequestDialogModel::PopulateMechanisms(
   if (cable_ui_type_) {
     switch (*cable_ui_type_) {
       case AuthenticatorRequestDialogModel::CableUIType::CABLE_V2_2ND_FACTOR:
-        if (base::Contains(transport_availability_.available_transports,
-                           kCable)) {
-          include_add_phone_option = true;
-        }
         break;
 
       case AuthenticatorRequestDialogModel::CableUIType::CABLE_V2_SERVER_LINK:

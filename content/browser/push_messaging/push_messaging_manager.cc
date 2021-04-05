@@ -801,7 +801,7 @@ void PushMessagingManager::GetSubscriptionInfo(
 }
 
 PushMessagingService* PushMessagingManager::GetService() {
-  return render_process_host_.GetBrowserContext()->GetPushMessagingService();
+  return nullptr;
 }
 
 }  // namespace content

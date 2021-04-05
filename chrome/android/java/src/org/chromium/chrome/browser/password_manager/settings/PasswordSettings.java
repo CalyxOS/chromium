@@ -120,7 +120,6 @@ public class PasswordSettings extends PreferenceFragmentCompat
     private Preference mLinkPref;
     private Menu mMenu;
 
-    private @Nullable PasswordCheck mPasswordCheck;
     private @ManagePasswordsReferrer int mManagePasswordsReferrer;
 
     /**
@@ -182,7 +181,6 @@ public class PasswordSettings extends PreferenceFragmentCompat
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPasswordCheck = PasswordCheckFactory.getOrCreate(new SettingsLauncherImpl());
         computeTrustedVaultBannerState();
     }
 
@@ -287,9 +285,6 @@ public class PasswordSettings extends PreferenceFragmentCompat
 
         createSavePasswordsSwitch();
         createAutoSignInCheckbox();
-        if (mPasswordCheck != null) {
-            createCheckPasswords();
-        }
 
         if (mTrustedVaultBannerState == TrustedVaultBannerState.OPTED_IN) {
             createTrustedVaultBanner(R.string.android_trusted_vault_banner_sub_label_opted_in,
@@ -464,10 +459,6 @@ public class PasswordSettings extends PreferenceFragmentCompat
         // by the system.
         if (getActivity().isFinishing()) {
             PasswordManagerHandlerProvider.getInstance().removeObserver(this);
-            if (mPasswordCheck != null
-                    && mManagePasswordsReferrer != ManagePasswordsReferrer.CHROME_SETTINGS) {
-                PasswordCheckFactory.destroy();
-            }
         }
     }
 

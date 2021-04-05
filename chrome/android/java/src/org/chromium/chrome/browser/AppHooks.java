@@ -10,9 +10,6 @@ import android.content.pm.PackageManager;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-
 import org.chromium.base.ContextUtils;
 import org.chromium.base.annotations.CalledByNative;
 import org.chromium.chrome.browser.customtabs.CustomTabsConnection;
@@ -220,16 +217,7 @@ public abstract class AppHooks {
      * same as {@link GoogleApiAvailability#isGooglePlayServicesAvailable()}.
      */
     public int isGoogleApiAvailableWithMinApkVersion(int minApkVersion) {
-        try {
-            PackageInfo gmsPackageInfo =
-                    ContextUtils.getApplicationContext().getPackageManager().getPackageInfo(
-                            GoogleApiAvailability.GOOGLE_PLAY_SERVICES_PACKAGE, /* flags= */ 0);
-            int apkVersion = gmsPackageInfo.versionCode;
-            if (apkVersion >= minApkVersion) return ConnectionResult.SUCCESS;
-        } catch (PackageManager.NameNotFoundException e) {
-            return ConnectionResult.SERVICE_MISSING;
-        }
-        return ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED;
+        return 1;  /* SERVICE_MISSING*/
     }
 
     /**

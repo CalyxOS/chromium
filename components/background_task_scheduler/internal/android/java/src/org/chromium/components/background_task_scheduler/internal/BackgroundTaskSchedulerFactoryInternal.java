@@ -21,11 +21,7 @@ public final class BackgroundTaskSchedulerFactoryInternal {
     private static BackgroundTaskFactory sBackgroundTaskFactory;
 
     static BackgroundTaskSchedulerDelegate getSchedulerDelegateForSdk(int sdkInt) {
-        if (sdkInt >= Build.VERSION_CODES.M) {
-            return new BackgroundTaskSchedulerJobService();
-        } else {
-            return new BackgroundTaskSchedulerGcmNetworkManager();
-        }
+        return new BackgroundTaskSchedulerJobService();
     }
 
     /**

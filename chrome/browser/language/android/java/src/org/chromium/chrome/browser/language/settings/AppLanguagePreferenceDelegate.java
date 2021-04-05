@@ -87,14 +87,6 @@ public class AppLanguagePreferenceDelegate {
 
         // Disable preference so a second downloaded cannot be started while one is in progress.
         mPreference.setEnabled(false);
-
-        AppLocaleUtils.setAppLanguagePref(code, (success) -> {
-            if (success) {
-                languageSplitDownloadComplete();
-            } else {
-                languageSplitDownloadFailed();
-            }
-        });
     }
 
     /**

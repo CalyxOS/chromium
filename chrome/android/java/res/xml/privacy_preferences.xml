@@ -57,9 +57,4 @@ found in the LICENSE file.
           android:summary="@string/autocomplete_searches_and_urls_summary"
           android:persistent="false"/>
     </PreferenceCategory>
-    <Preference
-        android:key="phone_as_a_security_key"
-        android:title="@string/cablev2_paask_title"
-        android:summary="@string/cablev2_paask_body"
-        android:fragment="org.chromium.chrome.browser.webauthn.PrivacySettingsFragment"/>
 </PreferenceScreen>

@@ -18,7 +18,6 @@
 #include "chrome/browser/image_fetcher/image_fetcher_service_factory.h"
 #include "chrome/browser/net/system_network_context_manager.h"
 #include "chrome/browser/offline_pages/offline_page_model_factory.h"
-#include "chrome/browser/offline_pages/prefetch/gcm_token.h"
 #include "chrome/browser/offline_pages/prefetch/offline_metrics_collector_impl.h"
 #include "chrome/browser/offline_pages/prefetch/prefetch_background_task_handler_impl.h"
 #include "chrome/browser/profiles/profile.h"
@@ -68,21 +67,6 @@ void SwitchToFullBrowserImageFetcher(PrefetchServiceImpl* prefetch_service,
 }
 
 void OnProfileCreated(PrefetchServiceImpl* prefetch_service, Profile* profile) {
-  if (IsPrefetchingOfflinePagesEnabled()) {
-    // Trigger an update of the cached GCM token. This needs to be post tasked
-    // because otherwise leads to circular dependency between
-    // PrefetchServiceFactory and GCMProfileServiceFactory. See
-    // https://crbug.com/944952
-    // Update is not a priority so make sure it happens after the critical
-    // startup path.
-    content::GetUIThreadTaskRunner({base::TaskPriority::BEST_EFFORT})
-        ->PostTask(FROM_HERE,
-                   base::BindOnce(
-                       &GetGCMToken, profile, kPrefetchingOfflinePagesAppId,
-                       base::BindOnce(&PrefetchServiceImpl::GCMTokenReceived,
-                                      prefetch_service->GetWeakPtr())));
-  }
-
   SwitchToFullBrowserImageFetcher(prefetch_service, profile->GetProfileKey());
 }
 

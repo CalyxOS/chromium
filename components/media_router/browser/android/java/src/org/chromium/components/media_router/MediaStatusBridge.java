@@ -4,10 +4,6 @@
 
 package org.chromium.components.media_router;
 
-import com.google.android.gms.cast.MediaInfo;
-import com.google.android.gms.cast.MediaMetadata;
-import com.google.android.gms.cast.MediaStatus;
-
 import org.chromium.base.annotations.CalledByNative;
 import org.chromium.base.annotations.JNINamespace;
 
@@ -17,11 +13,6 @@ import org.chromium.base.annotations.JNINamespace;
  */
 @JNINamespace("media_router")
 public class MediaStatusBridge {
-    private MediaStatus mStatus;
-
-    public MediaStatusBridge(MediaStatus status) {
-        mStatus = status;
-    }
 
     /**
      * Gets the play state of the stream. Return values are defined as such:
@@ -34,7 +25,7 @@ public class MediaStatusBridge {
      */
     @CalledByNative
     public int playerState() {
-        return mStatus.getPlayerState();
+        return 0;
     }
 
     /**
@@ -48,7 +39,7 @@ public class MediaStatusBridge {
      */
     @CalledByNative
     public int idleReason() {
-        return mStatus.getIdleReason();
+        return 0;
     }
 
     /**
@@ -57,13 +48,7 @@ public class MediaStatusBridge {
      */
     @CalledByNative
     public String title() {
-        MediaInfo info = mStatus.getMediaInfo();
-        if (info == null) return "";
-
-        MediaMetadata metadata = info.getMetadata();
-        if (metadata == null) return "";
-
-        return metadata.getString(MediaMetadata.KEY_TITLE);
+        return "";
     }
 
     /**
@@ -71,7 +56,7 @@ public class MediaStatusBridge {
      */
     @CalledByNative
     public boolean canPlayPause() {
-        return mStatus.isMediaCommandSupported(MediaStatus.COMMAND_PAUSE);
+        return false;
     }
 
     /**
@@ -79,7 +64,7 @@ public class MediaStatusBridge {
      */
     @CalledByNative
     public boolean canMute() {
-        return mStatus.isMediaCommandSupported(MediaStatus.COMMAND_TOGGLE_MUTE);
+        return false;
     }
 
     /**
@@ -87,7 +72,7 @@ public class MediaStatusBridge {
      */
     @CalledByNative
     public boolean canSetVolume() {
-        return mStatus.isMediaCommandSupported(MediaStatus.COMMAND_SET_VOLUME);
+        return false;
     }
 
     /**
@@ -95,7 +80,7 @@ public class MediaStatusBridge {
      */
     @CalledByNative
     public boolean canSeek() {
-        return mStatus.isMediaCommandSupported(MediaStatus.COMMAND_SEEK);
+        return false;
     }
 
     /**
@@ -103,7 +88,7 @@ public class MediaStatusBridge {
      */
     @CalledByNative
     public boolean isMuted() {
-        return mStatus.isMute();
+        return false;
     }
 
     /**
@@ -113,7 +98,7 @@ public class MediaStatusBridge {
      */
     @CalledByNative
     public double volume() {
-        return mStatus.getStreamVolume();
+        return 0.0;
     }
 
     /**
@@ -122,10 +107,7 @@ public class MediaStatusBridge {
      */
     @CalledByNative
     public long duration() {
-        MediaInfo info = mStatus.getMediaInfo();
-        if (info == null) return 0;
-
-        return info.getStreamDuration();
+        return 0;
     }
 
     /**
@@ -133,6 +115,6 @@ public class MediaStatusBridge {
      */
     @CalledByNative
     public long currentTime() {
-        return mStatus.getStreamPosition();
+        return 0;
     }
 }

@@ -9,10 +9,6 @@ import android.app.PendingIntent;
 
 import androidx.annotation.Nullable;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.ResolvableApiException;
-
 import org.chromium.base.Log;
 import org.chromium.chrome.browser.password_manager.CredentialManagerLauncher.CredentialManagerError;
 
@@ -29,9 +25,6 @@ class PasswordManagerAndroidBackendUtil {
         if (exception instanceof PasswordStoreAndroidBackend.BackendException) {
             return ((PasswordStoreAndroidBackend.BackendException) exception).errorCode;
         }
-        if (exception instanceof ApiException) {
-            return AndroidBackendErrorType.EXTERNAL_ERROR;
-        }
         return AndroidBackendErrorType.UNCATEGORIZED;
     }
 
@@ -40,44 +33,10 @@ class PasswordManagerAndroidBackendUtil {
             return ((PasswordCheckupClientHelper.PasswordCheckBackendException) exception)
                     .errorCode;
         }
-        if (exception instanceof ApiException) {
-            return CredentialManagerError.API_ERROR;
-        }
         return CredentialManagerError.UNCATEGORIZED;
     }
 
     static int getApiErrorCode(Exception exception) {
-        if (exception instanceof ApiException) {
-            return ((ApiException) exception).getStatusCode();
-        }
-        return 0; // '0' means SUCCESS.
-    }
-
-    @Nullable
-    static Integer getConnectionResultCode(Exception exception) {
-        if (!(exception instanceof ApiException)) return null;
-
-        ConnectionResult connectionResult =
-                ((ApiException) exception).getStatus().getConnectionResult();
-        if (connectionResult == null) return null;
-
-        return connectionResult.getErrorCode();
-    }
-
-    static void handleResolvableApiException(ResolvableApiException exception) {
-        if (!usesUnifiedPasswordManagerUI()) return;
-
-        // No special resolution for the authentication errors is needed since the user has already
-        // been prompted to reauthenticate by Google services and Sync in Chrome.
-        if (exception.getStatusCode() == ChromeSyncStatusCode.AUTH_ERROR_RESOLVABLE) return;
-
-        // For all other resolvable errors, an intent is launched allowing the user to fix the
-        // broken state.
-        PendingIntent pendingIntent = exception.getResolution();
-        try {
-            pendingIntent.send();
-        } catch (PendingIntent.CanceledException e) {
-            Log.e(TAG, "Can not launch error resolution intent", e);
-        }
+        return 13; // '13' means ERROR
     }
 }

@@ -10,9 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.mediarouter.media.MediaRouter;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-
 import org.chromium.base.ContextUtils;
 import org.chromium.base.Log;
 import org.chromium.base.StrictModeContext;
@@ -42,20 +39,7 @@ public class BrowserMediaRouter implements MediaRouteManager {
             new MediaRouteProvider.Factory() {
                 @Override
                 public void addProviders(MediaRouteManager manager) {
-                    int googleApiAvailabilityResult =
-                            GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(
-                                    ContextUtils.getApplicationContext(),
-                                    MIN_GOOGLE_PLAY_SERVICES_APK_VERSION);
-                    if (googleApiAvailabilityResult != ConnectionResult.SUCCESS) {
-                        GoogleApiAvailability.getInstance().showErrorNotification(
-                                ContextUtils.getApplicationContext(), googleApiAvailabilityResult);
-                        return;
-                    }
-                    MediaRouteProvider cafProvider = CafMediaRouteProvider.create(manager);
-                    manager.addMediaRouteProvider(cafProvider);
-                    MediaRouteProvider remotingProvider =
-                            CafRemotingMediaRouteProvider.create(manager);
-                    manager.addMediaRouteProvider(remotingProvider);
+                    return;
                 }
             };
 

@@ -4,18 +4,10 @@
 
 package org.chromium.components.media_router.caf;
 
-import com.google.android.gms.cast.framework.CastContext;
-
 import org.chromium.components.media_router.MediaRouterClient;
 
 /** Utility methods for Cast. */
 public class CastUtils {
-    /** Helper method to return the {@link CastContext} instance. */
-    public static CastContext getCastContext() {
-        return CastContext.getSharedInstance(
-                MediaRouterClient.getInstance().getContextForRemoting());
-    }
-
     /**
      * Compares two origins. Empty origin strings correspond to unique origins in
      * url::Origin.

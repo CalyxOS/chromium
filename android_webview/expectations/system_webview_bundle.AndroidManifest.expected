@@ -19,10 +19,6 @@
       android:label="Android System WebView"
       android:multiArch="true"
       android:use32bitAbi="true">
-    <activity  # DIFF-ANCHOR: ea1a94af
-        android:name="com.google.android.gms.common.api.GoogleApiActivity"
-        android:exported="false"
-        android:theme="@android:style/Theme.Translucent.NoTitleBar">
     </activity>  # DIFF-ANCHOR: ea1a94af
     <activity  # DIFF-ANCHOR: a4438884
         android:name="org.chromium.android_webview.devui.MainActivity"
@@ -66,7 +62,6 @@
         android:visibleToInstantApps="true">
     </activity-alias>  # DIFF-ANCHOR: b7cc06e9
     <meta-data android:name="$PACKAGE.WebViewLibrary" android:value="libwebviewchromium.so"/>
-    <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
     <meta-data android:name="org.chromium.content.browser.NUM_PRIVILEGED_SERVICES" android:value="0"/>
     <meta-data android:name="org.chromium.content.browser.NUM_SANDBOXED_SERVICES" android:value="40"/>
     <provider  # DIFF-ANCHOR: a5e78e63

@@ -14,7 +14,6 @@ import androidx.annotation.RequiresApi;
 
 import org.chromium.base.Callback;
 import org.chromium.base.ContextUtils;
-import org.chromium.base.PackageUtils;
 import org.chromium.base.metrics.RecordHistogram;
 import org.chromium.blink.mojom.Authenticator;
 import org.chromium.blink.mojom.AuthenticatorStatus;
@@ -57,9 +56,6 @@ public final class AuthenticatorImpl implements Authenticator {
     /** The payment information to be added to the "clientDataJson". */
     private PaymentOptions mPayment;
 
-    /** Caches the GMS Core package version. */
-    private int mGmsCorePackageVersion;
-
     private MakeCredential_Response mMakeCredentialCallback;
     private GetAssertion_Response mGetAssertionCallback;
     // A queue is used to store pending IsUserVerifyingPlatformAuthenticatorAvailable request
@@ -68,9 +64,6 @@ public final class AuthenticatorImpl implements Authenticator {
     // situation does not matter because all pending requests will return the same value.
     private Queue<org.chromium.mojo.bindings.Callbacks.Callback1<Boolean>>
             mIsUserVerifyingPlatformAuthenticatorAvailableCallbackQueue = new LinkedList<>();
-    private Fido2CredentialRequest mPendingFido2CredentialRequest;
-
-    private static Fido2CredentialRequest sFido2CredentialRequestOverrideForTesting;
 
     /**
      * Builds the Authenticator service implementation.
@@ -95,21 +88,6 @@ public final class AuthenticatorImpl implements Authenticator {
         mRenderFrameHost = renderFrameHost;
         mSupportLevel = supportLevel;
         mOrigin = mRenderFrameHost.getLastCommittedOrigin();
-
-        Context context = ContextUtils.getApplicationContext();
-        mGmsCorePackageVersion = PackageUtils.getPackageVersion(context, GMSCORE_PACKAGE_NAME);
-    }
-
-    public static void overrideFido2CredentialRequestForTesting(Fido2CredentialRequest request) {
-        sFido2CredentialRequestOverrideForTesting = request;
-    }
-
-    private Fido2CredentialRequest getFido2CredentialRequest() {
-        if (sFido2CredentialRequestOverrideForTesting != null) {
-            return sFido2CredentialRequestOverrideForTesting;
-        }
-
-        return new Fido2CredentialRequest(mIntentSender, mSupportLevel);
     }
 
     /**
@@ -139,17 +117,9 @@ public final class AuthenticatorImpl implements Authenticator {
 
         mMakeCredentialCallback = callback;
         mIsOperationPending = true;
-        if (mGmsCorePackageVersion < GMSCORE_MIN_VERSION) {
-            onError(AuthenticatorStatus.NOT_IMPLEMENTED);
-            return;
-        }
 
-        mPendingFido2CredentialRequest = getFido2CredentialRequest();
-        mPendingFido2CredentialRequest.handleMakeCredentialRequest(options, mRenderFrameHost,
-                mOrigin,
-                (status, response)
-                        -> onRegisterResponse(status, response),
-                status -> onError(status));
+        // Fido2 not supported on Bromite
+        onError(AuthenticatorStatus.NOT_IMPLEMENTED);
     }
 
     @Override
@@ -163,15 +133,8 @@ public final class AuthenticatorImpl implements Authenticator {
         mGetAssertionCallback = callback;
         mIsOperationPending = true;
 
-        if (mGmsCorePackageVersion < GMSCORE_MIN_VERSION) {
-            onError(AuthenticatorStatus.NOT_IMPLEMENTED);
-            return;
-        }
-
-        mPendingFido2CredentialRequest = getFido2CredentialRequest();
-        mPendingFido2CredentialRequest.handleGetAssertionRequest(options, mRenderFrameHost, mOrigin,
-                mPayment,
-                (status, response) -> onSignResponse(status, response), status -> onError(status));
+        // Fido2 not supported on Bromite
+        onError(AuthenticatorStatus.NOT_IMPLEMENTED);
     }
 
     @Override
@@ -184,15 +147,8 @@ public final class AuthenticatorImpl implements Authenticator {
             callback.call(isUvpaa);
         };
 
-        if (mGmsCorePackageVersion < GMSCORE_MIN_VERSION) {
-            decoratedCallback.call(false);
-            return;
-        }
-
-        mIsUserVerifyingPlatformAuthenticatorAvailableCallbackQueue.add(decoratedCallback);
-        getFido2CredentialRequest().handleIsUserVerifyingPlatformAuthenticatorAvailableRequest(
-                mRenderFrameHost,
-                isUvpaa -> onIsUserVerifyingPlatformAuthenticatorAvailableResponse(isUvpaa));
+        decoratedCallback.call(false);
+        return;
     }
 
     /**
@@ -201,7 +157,7 @@ public final class AuthenticatorImpl implements Authenticator {
      * version.
      */
     public boolean isGetMatchingCredentialIdsSupported() {
-        return mGmsCorePackageVersion >= GMSCORE_MIN_VERSION_GET_MATCHING_CRED_IDS;
+        return false;
     }
 
     /**
@@ -215,33 +171,13 @@ public final class AuthenticatorImpl implements Authenticator {
      */
     public void getMatchingCredentialIds(String relyingPartyId, byte[][] credentialIds,
             boolean requireThirdPartyPayment, GetMatchingCredentialIdsResponseCallback callback) {
-        if (mGmsCorePackageVersion < GMSCORE_MIN_VERSION_GET_MATCHING_CRED_IDS) {
-            callback.onResponse(new ArrayList<byte[]>());
-            return;
-        }
-
-        getFido2CredentialRequest().handleGetMatchingCredentialIdsRequest(mRenderFrameHost,
-                relyingPartyId, credentialIds, requireThirdPartyPayment, callback,
-                status -> onError(status));
+        callback.onResponse(new ArrayList<byte[]>());
     }
 
     @Override
     public void isConditionalMediationAvailable(
             final IsConditionalMediationAvailable_Response callback) {
-        if (mGmsCorePackageVersion < GMSCORE_MIN_VERSION) {
-            callback.call(false);
-            return;
-        }
-
-        // The WebAuthenticationConditionalUI feature will only be enabled on Android when gmscore
-        // supports silent discovery. If the gmscore and chromium versions are out of sync for some
-        // reason, this method will return true but chrome will ignore conditional requests.
-        // Android surfaces only platform credentials on conditional requests, use IsUVPAA as a
-        // proxy for availability.
-        mIsUserVerifyingPlatformAuthenticatorAvailableCallbackQueue.add(callback);
-        getFido2CredentialRequest().handleIsUserVerifyingPlatformAuthenticatorAvailableRequest(
-                mRenderFrameHost,
-                isUvpaa -> onIsUserVerifyingPlatformAuthenticatorAvailableResponse(isUvpaa));
+        callback.call(false);
     }
 
     @Override
@@ -251,8 +187,6 @@ public final class AuthenticatorImpl implements Authenticator {
         if (!mIsOperationPending || mGetAssertionCallback == null) {
             return;
         }
-
-        mPendingFido2CredentialRequest.cancelConditionalGetAssertion(mRenderFrameHost);
     }
 
     /**
@@ -302,7 +236,6 @@ public final class AuthenticatorImpl implements Authenticator {
         mIsOperationPending = false;
         mMakeCredentialCallback = null;
         mGetAssertionCallback = null;
-        mPendingFido2CredentialRequest = null;
     }
 
     @Override

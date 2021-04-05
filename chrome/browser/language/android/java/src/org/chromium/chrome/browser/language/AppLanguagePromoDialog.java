@@ -531,12 +531,6 @@ public class AppLanguagePromoDialog {
 
         mLoadingModal.set(ModalDialogProperties.CUSTOM_VIEW, customView);
 
-        // Only show the modal if the selected language is not installed.
-        if (!LanguageSplitInstaller.getInstance().isLanguageSplitInstalled(
-                    selectedLanguage.getCode())) {
-            mModalDialogManager.showDialog(mLoadingModal, ModalDialogManager.ModalDialogType.APP);
-        }
-
         boolean isSelectedCurrentUI = AppLocaleUtils.isAppLanguagePref(selectedLanguage.getCode());
         if (!isSelectedCurrentUI) {
             // Only record isTopLanguage if the app language has changed.
@@ -544,23 +538,6 @@ public class AppLanguagePromoDialog {
         }
         AndroidLanguageMetricsBridge.reportAppLanguagePromptLanguage(
                 selectedLanguage.isSystemDefault() ? "" : selectedLanguage.getCode());
-
-        // Create call back for after language split install completes.
-        AppLocaleUtils.setAppLanguagePref(selectedLanguage.getCode(), (success) -> {
-            if (success) {
-                if (!isSelectedCurrentUI) {
-                    // Only restart if the new language is different than the current UI.
-                    mRestartAction.restart();
-                }
-            } else {
-                // The loading language modal will always already be shown if a download fails.
-                CharSequence failedText = mActivity.getResources().getString(
-                        R.string.languages_split_failed, selectedLanguage.getDisplayName());
-                messageView.setText(failedText);
-                mLoadingModal.set(ModalDialogProperties.POSITIVE_BUTTON_TEXT,
-                        mActivity.getText(R.string.ok).toString());
-            }
-        });
     }
 
     /**

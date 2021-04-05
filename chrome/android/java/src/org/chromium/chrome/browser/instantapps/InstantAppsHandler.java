@@ -45,24 +45,10 @@ public class InstantAppsHandler {
     // TODO(mariakhomenko): Use system once we roll to O SDK.
     private static final int FLAG_DO_NOT_LAUNCH = 0x00000200;
 
-    // TODO(mariakhomenko): Depend directly on the constants once we roll to v8 libraries.
-    private static final String DO_NOT_LAUNCH_EXTRA =
-            "com.google.android.gms.instantapps.DO_NOT_LAUNCH_INSTANT_APP";
-
-    protected static final String IS_REFERRER_TRUSTED_EXTRA =
-            "com.google.android.gms.instantapps.IS_REFERRER_TRUSTED";
-
-    protected static final String IS_USER_CONFIRMED_LAUNCH_EXTRA =
-            "com.google.android.gms.instantapps.IS_USER_CONFIRMED_LAUNCH";
-
-    protected static final String TRUSTED_REFERRER_PKG_EXTRA =
-            "com.google.android.gms.instantapps.TRUSTED_REFERRER_PKG";
-
-    public static final String IS_GOOGLE_SEARCH_REFERRER =
-            "com.google.android.gms.instantapps.IS_GOOGLE_SEARCH_REFERRER";
-
-    private static final String BROWSER_LAUNCH_REASON =
-            "com.google.android.gms.instantapps.BROWSER_LAUNCH_REASON";
+     // this is kept to always remove it from intents
+     // TODO: remove also others?
+     public static final String IS_GOOGLE_SEARCH_REFERRER =
+             "com.google.android.gms.instantapps.IS_GOOGLE_SEARCH_REFERRER";
 
     // Only two possible call sources for fallback intents, set boundary at n+1.
     private static final int SOURCE_BOUNDARY = 3;
@@ -108,20 +94,6 @@ public class InstantAppsHandler {
      * @param intent The current intent.
      */
     private void maybeRecordFallbackStats(Intent intent) {
-        Long startTime = IntentUtils.safeGetLongExtra(intent, INSTANT_APP_START_TIME_EXTRA, 0);
-        if (startTime > 0) {
-            RecordHistogram.recordTimesHistogram("Android.InstantApps.FallbackDuration",
-                    SystemClock.elapsedRealtime() - startTime);
-            intent.removeExtra(INSTANT_APP_START_TIME_EXTRA);
-        }
-        int callSource = IntentUtils.safeGetIntExtra(intent, BROWSER_LAUNCH_REASON, 0);
-        if (callSource > 0 && callSource < SOURCE_BOUNDARY) {
-            RecordHistogram.recordEnumeratedHistogram(
-                    "Android.InstantApps.CallSource", callSource, SOURCE_BOUNDARY);
-            intent.removeExtra(BROWSER_LAUNCH_REASON);
-        } else if (callSource >= SOURCE_BOUNDARY) {
-            Log.e(TAG, "Unexpected call source constant for Instant Apps: " + callSource);
-        }
     }
 
     /**
@@ -156,14 +128,6 @@ public class InstantAppsHandler {
             return false;
         }
 
-        if (IntentUtils.safeGetBooleanExtra(intent, DO_NOT_LAUNCH_EXTRA, false)
-                || (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
-                           && (intent.getFlags() & FLAG_DO_NOT_LAUNCH) != 0)) {
-            maybeRecordFallbackStats(intent);
-            Log.i(TAG, "Not handling with Instant Apps (DO_NOT_LAUNCH_EXTRA)");
-            return false;
-        }
-
         if (IntentUtils.safeGetBooleanExtra(
                     intent, IntentHandler.EXTRA_OPEN_NEW_INCOGNITO_TAB, false)
                 || IntentUtils.safeHasExtra(intent, WebappConstants.EXTRA_SOURCE)
@@ -189,7 +153,6 @@ public class InstantAppsHandler {
         }
 
         Intent callbackIntent = new Intent(intent);
-        callbackIntent.putExtra(DO_NOT_LAUNCH_EXTRA, true);
         callbackIntent.putExtra(INSTANT_APP_START_TIME_EXTRA, startTime);
 
         return tryLaunchingInstantApp(context, intent, isCustomTabsIntent, callbackIntent);
@@ -291,12 +254,9 @@ public class InstantAppsHandler {
         Intent iaIntent = data.getIntent();
         if (data.getReferrer() != null) {
             iaIntent.putExtra(Intent.EXTRA_REFERRER, data.getReferrer());
-            iaIntent.putExtra(IS_REFERRER_TRUSTED_EXTRA, true);
         }
 
         Context appContext = ContextUtils.getApplicationContext();
-        iaIntent.putExtra(TRUSTED_REFERRER_PKG_EXTRA, appContext.getPackageName());
-        iaIntent.putExtra(IS_USER_CONFIRMED_LAUNCH_EXTRA, true);
 
         try {
             appContext.startActivity(iaIntent);

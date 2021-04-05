@@ -7,11 +7,6 @@ package org.chromium.chrome.browser.gcore;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
-import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-
 import org.chromium.base.ApplicationStatus;
 import org.chromium.base.ApplicationStatus.ApplicationStateListener;
 import org.chromium.base.Log;
@@ -67,28 +62,14 @@ import org.chromium.base.ThreadUtils;
  * }
  * </pre>
  */
-public class GoogleApiClientHelper
-        implements OnConnectionFailedListener, ConnectionCallbacks {
+public class GoogleApiClientHelper {
     private static final String TAG = "GCore";
 
     private int mResolutionAttempts;
     private boolean mWasConnectedBefore;
     private final Handler mHandler = new Handler(ThreadUtils.getUiThreadLooper());
-    private final GoogleApiClient mClient;
     private long mDisconnectionDelayMs;
     private Runnable mPendingDisconnect;
-
-    /**
-     * Creates a helper and enrolls it in the various connection management features.
-     * See the class documentation for {@link GoogleApiClientHelper} for more information.
-     *
-     * @param client The client to wrap.
-     */
-    public GoogleApiClientHelper(GoogleApiClient client) {
-        mClient = client;
-        enableConnectionRetrying(true);
-        enableLifecycleManagement(true);
-    }
 
     /**
      * Opts in or out of lifecycle management. The client's connection will be closed and reopened
@@ -116,13 +97,6 @@ public class GoogleApiClientHelper
      * Enabling or disabling it while it is already enabled or disabled has no effect.
      */
     public void enableConnectionRetrying(boolean enabled) {
-        if (enabled) {
-            mClient.registerConnectionCallbacks(this);
-            mClient.registerConnectionFailedListener(this);
-        } else {
-            mClient.unregisterConnectionCallbacks(this);
-            mClient.unregisterConnectionFailedListener(this);
-        }
     }
 
     /**
@@ -155,21 +129,11 @@ public class GoogleApiClientHelper
         // Cancel and reschedule the disconnection if we are in the background. We do it early to
         // avoid race conditions between a disconnect on the UI thread and the connect below.
         if (!ApplicationStatus.hasVisibleActivities()) scheduleDisconnection();
-
-        // The client might be disconnected if we were idle in the background for too long.
-        if (!mClient.isConnected() && !mClient.isConnecting()) {
-            Log.d(TAG, "Reconnecting the client.");
-            mClient.connect();
-        }
     }
 
     void restoreConnectedState() {
         // If we go back to the foreground before a delayed disconnect happens, cancel it.
         cancelPendingDisconnection();
-
-        if (mWasConnectedBefore) {
-            mClient.connect();
-        }
     }
 
     /**
@@ -192,12 +156,6 @@ public class GoogleApiClientHelper
     }
 
     private void disconnect() {
-        if (mClient.isConnected() || mClient.isConnecting()) {
-            mWasConnectedBefore = true;
-        }
-
-        // We always call disconnect to abort possibly pending connection requests.
-        mClient.disconnect();
     }
 
     private void cancelPendingDisconnection() {
@@ -207,43 +165,7 @@ public class GoogleApiClientHelper
         mPendingDisconnect = null;
     }
 
-    @Override
-    public void onConnectionFailed(ConnectionResult result) {
-        if (!isErrorRecoverableByRetrying(result.getErrorCode())) {
-            Log.d(TAG, "Not retrying managed client connection. Unrecoverable error: %d",
-                    result.getErrorCode());
-            return;
-        }
-
-        if (mResolutionAttempts < ConnectedTask.RETRY_NUMBER_LIMIT) {
-            Log.d(TAG, "Retrying managed client connection. attempt %d/%d - errorCode: %d",
-                    mResolutionAttempts, ConnectedTask.RETRY_NUMBER_LIMIT, result.getErrorCode());
-            mResolutionAttempts += 1;
-
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mClient.connect();
-                }
-            }, ConnectedTask.CONNECTION_RETRY_TIME_MS);
-        }
-    }
-
-    @Override
-    public void onConnected(Bundle connectionHint) {
-        mResolutionAttempts = 0;
-    }
-
-    @Override
-    public void onConnectionSuspended(int cause) {
-        // GoogleApiClient handles retrying on suspension itself. Logging in case it didn't succeed
-        // for some reason.
-        Log.w(TAG, "Managed client connection suspended. Cause: %d", cause);
-    }
-
     private static boolean isErrorRecoverableByRetrying(int errorCode) {
-        return errorCode == ConnectionResult.INTERNAL_ERROR
-                || errorCode == ConnectionResult.NETWORK_ERROR
-                || errorCode == ConnectionResult.SERVICE_UPDATING;
+        return false;
     }
 }

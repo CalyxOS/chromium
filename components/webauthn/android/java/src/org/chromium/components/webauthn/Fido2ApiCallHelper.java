@@ -8,10 +8,6 @@ import android.os.Parcel;
 
 import androidx.annotation.VisibleForTesting;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-
 import org.chromium.base.ContextUtils;
 
 import java.util.List;
@@ -36,22 +32,5 @@ public class Fido2ApiCallHelper {
             sInstance = new Fido2ApiCallHelper();
         }
         return sInstance;
-    }
-
-    public void invokeFido2GetCredentials(String relyingPartyId, int supportLevel,
-            OnSuccessListener<List<WebAuthnCredentialDetails>> successCallback,
-            OnFailureListener failureCallback) {
-        Fido2ApiCall call = new Fido2ApiCall(ContextUtils.getApplicationContext(), supportLevel);
-        Parcel args = call.start();
-        Fido2ApiCall.WebAuthnCredentialDetailsListResult result =
-                new Fido2ApiCall.WebAuthnCredentialDetailsListResult();
-        args.writeStrongBinder(result);
-        args.writeString(relyingPartyId);
-
-        Task<List<WebAuthnCredentialDetails>> task =
-                call.run(Fido2ApiCall.METHOD_BROWSER_GETCREDENTIALS,
-                        Fido2ApiCall.TRANSACTION_GETCREDENTIALS, args, result);
-        task.addOnSuccessListener(successCallback);
-        task.addOnFailureListener(failureCallback);
     }
 }

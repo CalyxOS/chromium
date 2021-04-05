@@ -27,7 +27,6 @@ public class InstanceIDBridge {
      * Underlying InstanceIDWithSubtype. May be shared by multiple InstanceIDBridges. Must be
      * initialized on a background thread.
      */
-    private InstanceIDWithSubtype mInstanceID;
 
     private static boolean sBlockOnAsyncTasksForTesting;
 
@@ -72,7 +71,7 @@ public class InstanceIDBridge {
         new BridgeAsyncTask<String>() {
             @Override
             protected String doBackgroundWork() {
-                return mInstanceID.getId();
+                return "";
             }
             @Override
             protected void sendResultToNative(String id) {
@@ -88,7 +87,7 @@ public class InstanceIDBridge {
         new BridgeAsyncTask<Long>() {
             @Override
             protected Long doBackgroundWork() {
-                return mInstanceID.getCreationTime();
+                return 0L;
             }
             @Override
             protected void sendResultToNative(Long creationTime) {
@@ -110,21 +109,7 @@ public class InstanceIDBridge {
         new BridgeAsyncTask<String>() {
             @Override
             protected String doBackgroundWork() {
-                try {
-                    // TODO(crbug.com/1247170): Migrate stored LazySubscriptionsManager data to
-                    // SubscriptionFlagManager.
-                    LazySubscriptionsManager.storeLazinessInformation(
-                            LazySubscriptionsManager.buildSubscriptionUniqueId(
-                                    mSubtype, authorizedEntity),
-                            (flags & InstanceIDFlags.IS_LAZY) == InstanceIDFlags.IS_LAZY);
-                    SubscriptionFlagManager.setFlags(
-                            SubscriptionFlagManager.buildSubscriptionUniqueId(
-                                    mSubtype, authorizedEntity),
-                            flags);
-                    return mInstanceID.getToken(authorizedEntity, scope);
-                } catch (IOException ex) {
                     return "";
-                }
             }
             @Override
             protected void sendResultToNative(String token) {
@@ -141,21 +126,7 @@ public class InstanceIDBridge {
         new BridgeAsyncTask<Boolean>() {
             @Override
             protected Boolean doBackgroundWork() {
-                try {
-                    mInstanceID.deleteToken(authorizedEntity, scope);
-                    String subscriptionId = LazySubscriptionsManager.buildSubscriptionUniqueId(
-                            mSubtype, authorizedEntity);
-                    if (LazySubscriptionsManager.isSubscriptionLazy(subscriptionId)) {
-                        LazySubscriptionsManager.deletePersistedMessagesForSubscriptionId(
-                                subscriptionId);
-                    }
-                    SubscriptionFlagManager.clearFlags(
-                            SubscriptionFlagManager.buildSubscriptionUniqueId(
-                                    mSubtype, authorizedEntity));
-                    return true;
-                } catch (IOException ex) {
-                    return false;
-                }
+                return false;
             }
             @Override
             protected void sendResultToNative(Boolean success) {
@@ -171,12 +142,7 @@ public class InstanceIDBridge {
         new BridgeAsyncTask<Boolean>() {
             @Override
             protected Boolean doBackgroundWork() {
-                try {
-                    mInstanceID.deleteInstanceID();
-                    return true;
-                } catch (IOException ex) {
-                    return false;
-                }
+                return true;
             }
             @Override
             protected void sendResultToNative(Boolean success) {
@@ -206,11 +172,6 @@ public class InstanceIDBridge {
                 @Override
                 @SuppressWarnings("NoSynchronizedThisCheck") // Only used/accessible by native.
                 protected Result doInBackground() {
-                    synchronized (InstanceIDBridge.this) {
-                        if (mInstanceID == null) {
-                            mInstanceID = InstanceIDWithSubtype.getInstance(mSubtype);
-                        }
-                    }
                     return doBackgroundWork();
                 }
                 @Override
