@@ -3436,6 +3436,7 @@ void RenderProcessHostImpl::PropagateBrowserCommandLineToRenderer(
     switches::kLacrosUseChromeosProtectedMedia,
     switches::kLacrosUseChromeosProtectedAv1,
 #endif
+    switches::kDesktopModeViewportMetaEnabled,
   };
   renderer_cmd->CopySwitchesFrom(browser_cmd, kSwitchNames,
                                  std::size(kSwitchNames));

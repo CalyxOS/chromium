@@ -28,7 +28,11 @@ import org.chromium.base.annotations.CalledByNative;
 import org.chromium.base.annotations.NativeMethods;
 import org.chromium.base.metrics.RecordHistogram;
 import org.chromium.base.metrics.RecordUserAction;
+import org.chromium.content_public.browser.NavigationController;
 import org.chromium.base.supplier.ObservableSupplierImpl;
+import org.chromium.chrome.browser.preferences.ChromePreferenceKeys;
+import org.chromium.chrome.browser.preferences.SharedPreferencesManager;
+import org.chromium.components.embedder_support.util.UrlUtilities;
 import org.chromium.base.supplier.Supplier;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.ActivityUtils;
@@ -528,6 +532,32 @@ public class TabImpl implements Tab, TabObscuringHandler.Observer {
             } else {
                 // Fall back to the Url in webContents for site level setting.
                 params.setOverrideUserAgent(calculateUserAgentOverrideOption(null));
+            }
+
+            final boolean stickyDesktopModeEnabled = SharedPreferencesManager.getInstance().readBoolean(
+                ChromePreferenceKeys.USERAGENT_STICKY_DESKTOP_MODE, false);
+            if (stickyDesktopModeEnabled) {
+                boolean alwaysDesktopModeEnabled = SharedPreferencesManager.getInstance().readBoolean(
+                    ChromePreferenceKeys.USERAGENT_ALWAYS_DESKTOP_MODE, false);
+
+                if (UrlUtilities.isInternalScheme(UrlFormatter.fixupUrl(params.getUrl()))) {
+                    alwaysDesktopModeEnabled = false;
+                }
+
+                WebContents webContents = this.getWebContents();
+                if (webContents != null) {
+                    NavigationController navigationController = webContents.getNavigationController();
+                    boolean currentUseDesktopUserAgent = navigationController.getUseDesktopUserAgent();
+                    if (currentUseDesktopUserAgent != alwaysDesktopModeEnabled)
+                        navigationController.setUseDesktopUserAgent(alwaysDesktopModeEnabled, false,
+                            UseDesktopUserAgentCaller.OTHER);
+                }
+
+                if (alwaysDesktopModeEnabled) {
+                    params.setOverrideUserAgent((int)UserAgentOverrideOption.TRUE);
+                } else {
+                    params.setOverrideUserAgent((int)UserAgentOverrideOption.FALSE);
+                }
             }
 
             @TabLoadStatus
@@ -1418,8 +1448,15 @@ public class TabImpl implements Tab, TabObscuringHandler.Observer {
 
             mWebContents.setImportance(mImportance);
 
-            ContentUtils.setUserAgentOverride(mWebContents,
-                    calculateUserAgentOverrideOption(null) == UserAgentOverrideOption.TRUE);
+            if (SharedPreferencesManager.getInstance().readBoolean(
+                        ChromePreferenceKeys.USERAGENT_STICKY_DESKTOP_MODE, false) &&
+                SharedPreferencesManager.getInstance().readBoolean(
+                        ChromePreferenceKeys.USERAGENT_ALWAYS_DESKTOP_MODE, false)) {
+                ContentUtils.setUserAgentOverride(mWebContents, true);
+            } else {
+                ContentUtils.setUserAgentOverride(mWebContents,
+                        calculateUserAgentOverrideOption(null) == UserAgentOverrideOption.TRUE);
+            }
 
             mContentView.addOnAttachStateChangeListener(mAttachStateChangeListener);
             updateInteractableState();
@@ -1577,6 +1614,10 @@ public class TabImpl implements Tab, TabObscuringHandler.Observer {
             if (mWebContents != null) mWebContents.getNavigationController().loadIfNecessary();
             mIsBeingRestored = true;
             for (TabObserver observer : mObservers) observer.onRestoreStarted(this);
+            if(overrideUserAgentWhenUnFrozen != UserAgentOverrideOption.INHERIT) {
+                SetOverrideUserAgent(overrideUserAgentWhenUnFrozen == (int)UserAgentOverrideOption.TRUE ? true : false,
+                    /*forcedByUser*/ true);
+            }
         } finally {
             TraceEvent.end("Tab.restoreIfNeeded");
         }
@@ -1713,6 +1754,13 @@ public class TabImpl implements Tab, TabObscuringHandler.Observer {
     }
 
     private @UserAgentOverrideOption int calculateUserAgentOverrideOption(@Nullable GURL url) {
+        if (SharedPreferencesManager.getInstance().readBoolean(
+                    ChromePreferenceKeys.USERAGENT_STICKY_DESKTOP_MODE, false) &&
+                SharedPreferencesManager.getInstance().readBoolean(
+                    ChromePreferenceKeys.USERAGENT_ALWAYS_DESKTOP_MODE, false)) {
+            return UserAgentOverrideOption.INHERIT;
+        }
+
         WebContents webContents = getWebContents();
         boolean currentRequestDesktopSite = TabUtils.isUsingDesktopUserAgent(webContents);
         @TabUserAgent
@@ -1771,6 +1819,43 @@ public class TabImpl implements Tab, TabObscuringHandler.Observer {
                 getWebContents().getNavigationController().getUseDesktopUserAgent();
         TabUtils.switchUserAgent(this, /* switchToDesktop */ !usingDesktopUserAgent,
                 /* forcedByUser */ false, caller);
+    }
+
+    int overrideUserAgentWhenUnFrozen = (int)UserAgentOverrideOption.INHERIT;
+
+    public void SetOverrideUserAgent(boolean usingDesktopUserAgent, boolean forcedByUser) {
+        WebContents webContents = this.getWebContents();
+        overrideUserAgentWhenUnFrozen = UserAgentOverrideOption.INHERIT;
+
+        if (usingDesktopUserAgent) {
+            GURL url = this.getUrl();
+            if (webContents == null && this.getPendingLoadParams() != null) {
+                url = UrlFormatter.fixupUrl(this.getPendingLoadParams().getUrl());
+            }
+            if (UrlUtilities.isInternalScheme(url) == true)
+                usingDesktopUserAgent = false;
+        }
+
+        if (webContents != null) {
+            ContentUtils.setUserAgentOverride(webContents, /*forcedByUser*/ true);
+
+            NavigationController navigationController = webContents.getNavigationController();
+            navigationController.setUseDesktopUserAgent(
+                usingDesktopUserAgent, !this.isNativePage(), UseDesktopUserAgentCaller.OTHER);
+            if (forcedByUser) CriticalPersistedTabData.from(this).setUserAgent(TabUserAgent.DESKTOP);
+        }
+        else if (this.getPendingLoadParams() != null) {
+            if (usingDesktopUserAgent) {
+                this.getPendingLoadParams().setOverrideUserAgent((int)UserAgentOverrideOption.TRUE);
+            }
+            else {
+                this.getPendingLoadParams().setOverrideUserAgent((int)UserAgentOverrideOption.FALSE);
+            }
+        }
+        else {
+            overrideUserAgentWhenUnFrozen = usingDesktopUserAgent ? UserAgentOverrideOption.TRUE :
+                                                                    UserAgentOverrideOption.FALSE;
+        }
     }
 
     @NativeMethods

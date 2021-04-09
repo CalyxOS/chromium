@@ -81,6 +81,14 @@ public interface PrivacyPreferencesManager extends CrashReportingPermissionManag
      */
     boolean isMetricsReportingEnabled();
 
+    void updateOverrideUserAgent();
+    boolean isOverrideUserAgentEnabled(boolean desktopMode);
+    void setOverrideUserAgentEnabled(boolean enabled, boolean desktopMode);
+    String getOverrideUserAgentValue(boolean desktopMode);
+    void setOverrideUserAgentValue(String user_agent, boolean desktopMode);
+    boolean isDesktopModeViewportMetaEnabled();
+    void setDesktopModeViewportMetaEnabled(boolean enabled);
+
     /**
      * Sets whether the usage and crash reporting pref should be enabled.
      */

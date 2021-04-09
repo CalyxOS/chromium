@@ -87,6 +87,7 @@ class CONTENT_EXPORT NavigationControllerAndroid {
       jboolean can_load_local_resources,
       jboolean is_renderer_initiated,
       jboolean should_replace_current_entry,
+      jint user_agent_override_option,
       const base::android::JavaParamRef<jobject>& j_initiator_origin,
       jboolean has_user_gesture,
       jboolean should_clear_history_list,

@@ -14,6 +14,7 @@
 
 #include "base/allocator/partition_alloc_features.h"
 #include "base/allocator/partition_allocator/starscan/pcscan.h"
+#include "base/base_switches.h"
 #include "base/bind.h"
 #include "base/check_op.h"
 #include "base/command_line.h"
@@ -2799,6 +2800,9 @@ const blink::web_pref::WebPreferences WebContentsImpl::ComputeWebPreferences() {
         !renderer_preferences_.user_agent_override.ua_metadata_override->mobile)
 #endif
       prefs.viewport_meta_enabled = false;
+    if (!command_line.HasSwitch(switches::kDesktopModeViewportMetaEnabled)) {
+      prefs.viewport_meta_enabled = false;
+    }
   }
 
   prefs.spatial_navigation_enabled =

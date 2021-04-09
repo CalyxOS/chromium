@@ -36,6 +36,10 @@ import org.chromium.ui.base.WindowAndroid;
 import org.chromium.ui.display.DisplayAndroidManager;
 import org.chromium.url.GURL;
 
+import org.chromium.chrome.browser.app.tabmodel.TabWindowManagerSingleton;
+import org.chromium.chrome.browser.preferences.ChromePreferenceKeys;
+import org.chromium.chrome.browser.preferences.SharedPreferencesManager;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -140,17 +144,15 @@ public class TabUtils {
      */
     public static void switchUserAgent(
             Tab tab, boolean switchToDesktop, boolean forcedByUser, int caller) {
-        final boolean reloadOnChange = !tab.isNativePage();
-        tab.getWebContents().getNavigationController().setUseDesktopUserAgent(
-                switchToDesktop, reloadOnChange, caller);
-        if (forcedByUser) {
-            @TabUserAgent
-            int tabUserAgent = switchToDesktop ? TabUserAgent.DESKTOP : TabUserAgent.MOBILE;
-            if (isDesktopSiteGlobalEnabled(Profile.fromWebContents(tab.getWebContents()))
-                    == switchToDesktop) {
-                tabUserAgent = TabUserAgent.DEFAULT;
-            }
-            CriticalPersistedTabData.from(tab).setUserAgent(tabUserAgent);
+        SharedPreferencesManager.getInstance().writeBoolean(
+            ChromePreferenceKeys.USERAGENT_ALWAYS_DESKTOP_MODE, switchToDesktop);
+
+        final boolean stickyDesktopModeEnabled = SharedPreferencesManager.getInstance().readBoolean(
+                ChromePreferenceKeys.USERAGENT_STICKY_DESKTOP_MODE, false);
+        if (stickyDesktopModeEnabled) {
+            TabWindowManagerSingleton.getInstance().SetOverrideUserAgentForAllTabs(switchToDesktop);
+        } else {
+            tab.SetOverrideUserAgent(switchToDesktop, forcedByUser);
         }
     }
 

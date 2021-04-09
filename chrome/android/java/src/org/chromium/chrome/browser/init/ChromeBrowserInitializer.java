@@ -50,6 +50,7 @@ import org.chromium.content_public.browser.DeviceUtils;
 import org.chromium.content_public.browser.SpeechRecognition;
 import org.chromium.content_public.browser.UiThreadTaskTraits;
 import org.chromium.net.NetworkChangeNotifier;
+import org.chromium.chrome.browser.privacy.settings.PrivacyPreferencesManagerImpl;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -319,11 +320,13 @@ public class ChromeBrowserInitializer {
 
                         @Override
                         public void onSuccess() {
+                            PrivacyPreferencesManagerImpl.getInstance().updateOverrideUserAgent();
                             tasks.start(false);
                         }
                     });
         } else {
             startChromeBrowserProcessesSync();
+            PrivacyPreferencesManagerImpl.getInstance().updateOverrideUserAgent();
             tasks.start(true);
         }
     }

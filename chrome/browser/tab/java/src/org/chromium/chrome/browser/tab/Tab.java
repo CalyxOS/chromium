@@ -280,6 +280,8 @@ public interface Tab extends TabLifecycle {
      */
     void setIsTabSaveEnabled(boolean isSaveEnabled);
 
+    void SetOverrideUserAgent(boolean usingDesktopUserAgent, boolean forcedByUser);
+
     /**
      * @return true if the {@link Tab} is a custom tab.
      */

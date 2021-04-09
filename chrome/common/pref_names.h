@@ -1250,6 +1250,14 @@ extern const char kDesktopSharingHubEnabled[];
 #if !BUILDFLAG(IS_ANDROID)
 extern const char kLastWhatsNewVersion[];
 #endif
+#if BUILDFLAG(IS_ANDROID)
+extern const char kOverrideUserAgentEnabled[];
+extern const char kOverrideUserAgent[];
+extern const char kOverrideUserAgentDesktopModeEnabled[];
+extern const char kOverrideUserAgentDesktopMode[];
+extern const char kDesktopModeViewportMetaEnabled[];
+#endif
+
 
 #if !BUILDFLAG(IS_ANDROID)
 extern const char kLensRegionSearchEnabled[];

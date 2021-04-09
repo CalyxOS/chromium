@@ -898,6 +898,7 @@ chrome_java_sources = [
   "java/src/org/chromium/chrome/browser/payments/ui/DimmingDialog.java",
   "java/src/org/chromium/chrome/browser/payments/ui/LineItem.java",
   "java/src/org/chromium/chrome/browser/payments/ui/PaymentAppComparator.java",
+  "java/src/org/chromium/chrome/browser/settings/UserAgentPreferences.java",
   "java/src/org/chromium/chrome/browser/payments/ui/PaymentInformation.java",
   "java/src/org/chromium/chrome/browser/payments/ui/PaymentRequestBottomBar.java",
   "java/src/org/chromium/chrome/browser/payments/ui/PaymentRequestHeader.java",

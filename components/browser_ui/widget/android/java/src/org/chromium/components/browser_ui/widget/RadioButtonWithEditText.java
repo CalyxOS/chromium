@@ -167,6 +167,17 @@ public class RadioButtonWithEditText extends RadioButtonWithDescription {
             mEditText.setCursorVisible(false);
             KeyboardVisibilityDelegate.getInstance().hideKeyboard(mEditText);
         }
+        if (mRadioButtonWithEditTextFocusListener != null) {
+            mRadioButtonWithEditTextFocusListener.onRadioButtonWithEditTextFocusChanged(hasFocus);
+        }
+    }
+
+    public interface RadioButtonWithEditTextFocusListener {
+        void onRadioButtonWithEditTextFocusChanged(boolean hasFocus);
+    }
+    private RadioButtonWithEditTextFocusListener mRadioButtonWithEditTextFocusListener;
+    public void setFocusChangeListener(RadioButtonWithEditTextFocusListener listener) {
+        mRadioButtonWithEditTextFocusListener = listener;
     }
 
     /**

@@ -70,6 +70,8 @@ extern const char kEnableCrashpad[];
 extern const char kSchedulerBoostUrgent[];
 #endif
 
+extern const char kDesktopModeViewportMetaEnabled[];
+
 }  // namespace switches
 
 #endif  // BASE_BASE_SWITCHES_H_

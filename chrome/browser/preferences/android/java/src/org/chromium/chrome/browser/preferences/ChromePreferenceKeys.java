@@ -1034,6 +1034,9 @@ public final class ChromePreferenceKeys {
     public static final String BLUETOOTH_NOTIFICATION_IDS = "Chrome.Bluetooth.NotificationIds";
     public static final String USB_NOTIFICATION_IDS = "Chrome.USB.NotificationIds";
 
+    public static final String USERAGENT_STICKY_DESKTOP_MODE = "Chrome.UserAgent.StickyDesktopMode";
+    public static final String USERAGENT_ALWAYS_DESKTOP_MODE = "Chrome.UserAgent.AlwaysDesktopMode";
+
     /**
      * These values are currently used as SharedPreferences keys, along with the keys in
      * {@link LegacyChromePreferenceKeys#getKeysInUse()}. Add new SharedPreferences keys
@@ -1179,6 +1182,8 @@ public final class ChromePreferenceKeys {
                 SYNC_PROMO_TOTAL_SHOW_COUNT,
                 START_NEXT_SHOW_ON_STARTUP_DECISION_MS,
                 SEARCH_RESUMPTION_MODULE_COLLAPSE_ON_NTP,
+                USERAGENT_STICKY_DESKTOP_MODE,
+                USERAGENT_ALWAYS_DESKTOP_MODE,
                 START_SHOW_ON_STARTUP,
                 TAP_FEED_CARDS_COUNT,
                 TAP_MV_TILES_COUNT,

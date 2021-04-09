@@ -89,6 +89,8 @@ public interface TabWindowManager {
      */
     Tab getTabById(int tabId);
 
+    void SetOverrideUserAgentForAllTabs(boolean usingDesktopUserAgent);
+
     /**
      * Finds the {@link TabModelSelector} bound to an Activity instance of a given index.
      * @param index The index of {@link TabModelSelector} to get.

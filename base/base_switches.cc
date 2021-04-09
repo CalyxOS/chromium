@@ -177,6 +177,8 @@ const char kForceFieldTrialParams[] = "force-fieldtrial-params";
 extern const char kEnableCrashpad[] = "enable-crashpad";
 #endif
 
+const char kDesktopModeViewportMetaEnabled[] = "dm-viewport-meta-enabled";
+
 #if BUILDFLAG(IS_CHROMEOS)
 // Override the default scheduling boosting value for urgent tasks.
 // This can be adjusted if a specific chromeos device shows better perf/power

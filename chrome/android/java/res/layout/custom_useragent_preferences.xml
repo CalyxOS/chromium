@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    This file is part of Bromite.
+
+    Bromite is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Bromite is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Bromite. If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<!-- Layout used by the UserAgentPreferences. -->
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:orientation="vertical"
+        android:divider="?android:dividerHorizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AccessibilityTextPreference"
+            android:background="@color/default_bg_color_secondary"
+            android:padding="16dp"
+            android:text="@string/custom_ua_text"/>
+
+        <org.chromium.components.browser_ui.widget.RadioButtonWithDescriptionLayout
+        android:id="@+id/ua_radio_button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+            <org.chromium.components.browser_ui.widget.RadioButtonWithDescription
+                android:id="@+id/default_ua_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+                app:primaryText="@string/custom_ua_flag_off" />
+
+            <org.chromium.components.browser_ui.widget.RadioButtonWithEditText
+                android:id="@+id/custom_ua_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+                android:inputType="text"
+                android:hint="@string/custom_ua_placeholder"
+                app:descriptionText="@string/custom_ua_flag_on" />
+
+        </org.chromium.components.browser_ui.widget.RadioButtonWithDescriptionLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AccessibilityTextPreference"
+            android:background="@color/default_bg_color_secondary"
+            android:padding="16dp"
+            android:text="@string/custom_desktop_ua_text"/>
+
+        <org.chromium.components.browser_ui.widget.RadioButtonWithDescriptionLayout
+        android:id="@+id/ua_radio_button_layout_dm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+            <org.chromium.components.browser_ui.widget.RadioButtonWithDescription
+                android:id="@+id/default_ua_switch_dm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+                app:primaryText="@string/custom_ua_flag_off" />
+
+            <org.chromium.components.browser_ui.widget.RadioButtonWithEditText
+                android:id="@+id/custom_ua_switch_dm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+                android:inputType="text"
+                android:hint="@string/custom_ua_placeholder"
+                app:descriptionText="@string/custom_ua_flag_on" />
+
+        </org.chromium.components.browser_ui.widget.RadioButtonWithDescriptionLayout>
+
+        <CheckBox
+            android:id="@+id/desktop_mode_viewportmeta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="?android:attr/listPreferredItemPaddingStart"
+            android:text="@string/desktop_mode_viewportmeta_checkbox" />
+
+    </LinearLayout>
+
+</ScrollView>

@@ -134,6 +134,24 @@ public class TabWindowManagerImpl implements ActivityStateListener, TabWindowMan
     }
 
     @Override
+    public void SetOverrideUserAgentForAllTabs(boolean usingDesktopUserAgent) {
+        for (int selectorIndex = 0; selectorIndex < mSelectors.size(); selectorIndex++) {
+            TabModelSelector selector = mSelectors.get(selectorIndex);
+            if (selector != null) {
+                List<TabModel> models = selector.getModels();
+                for (int modelIndex = 0; modelIndex < models.size(); modelIndex++) {
+                    TabModel model = models.get(modelIndex);
+
+                    for (int tabIdex = 0; tabIdex < model.getCount(); tabIdex++) {
+                        Tab theTab = model.getTabAt(tabIdex);
+                        theTab.SetOverrideUserAgent(usingDesktopUserAgent, /*forcedByUser*/ true);
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
     public Tab getTabById(int tabId) {
         for (int i = 0; i < mSelectors.size(); i++) {
             TabModelSelector selector = mSelectors.get(i);

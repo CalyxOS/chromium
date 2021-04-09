@@ -183,6 +183,7 @@ import org.chromium.url.Origin;
                     params.getBaseUrl(), params.getVirtualUrlForDataUrl(),
                     params.getDataUrlAsString(), params.getCanLoadLocalResources(),
                     params.getIsRendererInitiated(), params.getShouldReplaceCurrentEntry(),
+                    params.getUserAgentOverrideOption(),
                     params.getInitiatorOrigin(), params.getHasUserGesture(),
                     params.getShouldClearHistoryList(), inputStart,
                     params.getNavigationUIDataSupplier() == null
@@ -375,7 +376,7 @@ import org.chromium.url.Origin;
                 String referrerUrl, int referrerPolicy, int uaOverrideOption, String extraHeaders,
                 ResourceRequestBody postData, String baseUrlForDataUrl, String virtualUrlForDataUrl,
                 String dataUrlAsString, boolean canLoadLocalResources, boolean isRendererInitiated,
-                boolean shouldReplaceCurrentEntry, Origin initiatorOrigin, boolean hasUserGesture,
+                boolean shouldReplaceCurrentEntry, int userAgentOverrideOption, Origin initiatorOrigin, boolean hasUserGesture,
                 boolean shouldClearHistoryList, long inputStart, long navigationUIDataPtr);
         void clearHistory(long nativeNavigationControllerAndroid, NavigationControllerImpl caller);
         int getNavigationHistory(long nativeNavigationControllerAndroid,

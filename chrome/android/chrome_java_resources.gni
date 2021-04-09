@@ -659,4 +659,6 @@ chrome_java_resources = [
   "java/res/xml/privacy_preferences.xml",
   "java/res/xml/search_widget_info.xml",
   "java/res/xml/tracing_preferences.xml",
+  "java/res/xml/useragent_preferences.xml",
+  "java/res/layout/custom_useragent_preferences.xml",
 ]

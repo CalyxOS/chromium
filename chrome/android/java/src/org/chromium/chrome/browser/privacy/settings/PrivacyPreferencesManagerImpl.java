@@ -191,10 +191,52 @@ public class PrivacyPreferencesManagerImpl implements PrivacyPreferencesManager 
         PrivacyPreferencesManagerImplJni.get().setMetricsReportingEnabled(enabled);
     }
 
+    @Override
+    public void updateOverrideUserAgent() {
+        PrivacyPreferencesManagerImplJni.get().updateOverrideUserAgent();
+    }
+
+    @Override
+    public boolean isOverrideUserAgentEnabled(boolean desktopMode) {
+        return PrivacyPreferencesManagerImplJni.get().isOverrideUserAgentEnabled(desktopMode);
+    }
+
+    @Override
+    public void setOverrideUserAgentEnabled(boolean enabled, boolean desktopMode) {
+        PrivacyPreferencesManagerImplJni.get().setOverrideUserAgentEnabled(enabled, desktopMode);
+    }
+
+    @Override
+    public String getOverrideUserAgentValue(boolean desktopMode) {
+        return PrivacyPreferencesManagerImplJni.get().getOverrideUserAgentValue(desktopMode);
+    }
+
+    @Override
+    public void setOverrideUserAgentValue(String user_agent, boolean desktopMode) {
+        PrivacyPreferencesManagerImplJni.get().setOverrideUserAgentValue(user_agent, desktopMode);
+    }
+
+    @Override
+    public boolean isDesktopModeViewportMetaEnabled() {
+        return PrivacyPreferencesManagerImplJni.get().isDesktopModeViewportMetaEnabled();
+    }
+
+    @Override
+    public void setDesktopModeViewportMetaEnabled(boolean enabled) {
+        PrivacyPreferencesManagerImplJni.get().setDesktopModeViewportMetaEnabled(enabled);
+    }
+
     @NativeMethods
     public interface Natives {
         boolean isMetricsReportingEnabled();
         void setMetricsReportingEnabled(boolean enabled);
         boolean isMetricsReportingDisabledByPolicy();
+        void updateOverrideUserAgent();
+        boolean isOverrideUserAgentEnabled(boolean desktopMode);
+        void setOverrideUserAgentEnabled(boolean enabled, boolean desktopMode);
+        String getOverrideUserAgentValue(boolean desktopMode);
+        void setOverrideUserAgentValue(String user_agent, boolean desktopMode);
+        boolean isDesktopModeViewportMetaEnabled();
+        void setDesktopModeViewportMetaEnabled(boolean enabled);
     }
 }

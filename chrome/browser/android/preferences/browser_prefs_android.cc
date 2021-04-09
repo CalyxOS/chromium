@@ -11,12 +11,19 @@
 #include "components/content_settings/core/common/pref_names.h"
 #include "components/pref_registry/pref_registry_syncable.h"
 #include "components/prefs/pref_registry_simple.h"
+#include "chrome/common/pref_names.h"
 
 namespace android {
 
 void RegisterPrefs(PrefRegistrySimple* registry) {
   RegisterClipboardAndroidPrefs(registry);
   webauthn::authenticator::RegisterLocalState(registry);
+
+  registry->RegisterBooleanPref(prefs::kOverrideUserAgentEnabled, false);
+  registry->RegisterStringPref(prefs::kOverrideUserAgent, "");
+  registry->RegisterBooleanPref(prefs::kOverrideUserAgentDesktopModeEnabled, false);
+  registry->RegisterStringPref(prefs::kOverrideUserAgentDesktopMode, "");
+  registry->RegisterBooleanPref(prefs::kDesktopModeViewportMetaEnabled, false);
 }
 
 void RegisterUserProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {

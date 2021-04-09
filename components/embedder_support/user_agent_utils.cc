@@ -430,6 +430,13 @@ std::string GetUserAgent(
 
 std::string GetReducedUserAgent(
     ForceMajorVersionToMinorPosition force_major_to_minor) {
+  base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
+  if (command_line->HasSwitch(kUserAgent)) {
+    std::string ua = command_line->GetSwitchValueASCII(kUserAgent);
+    if (net::HttpUtil::IsValidHeaderValue(ua))
+      return ua;
+    LOG(WARNING) << "Ignored invalid value for flag --" << kUserAgent;
+  }
   return content::GetReducedUserAgent(
       base::CommandLine::ForCurrentProcess()->HasSwitch(
           switches::kUseMobileUserAgent),
@@ -602,6 +609,10 @@ blink::UserAgentMetadata GetUserAgentMetadata(const PrefService* pref_service) {
           policy::policy_prefs::kUserAgentClientHintsGREASEUpdateEnabled);
     ua_options.force_major_to_minor = GetMajorToMinorFromPrefs(pref_service);
   }
+  if (base::CommandLine::ForCurrentProcess()->HasSwitch(kUserAgent)) {
+    //NOTE: metadata is not updated with custom UA information
+    return metadata;
+  }
   metadata.brand_version_list = GetBrandMajorVersionList(
       enable_updated_grease_by_policy, ua_options.force_major_to_minor);
   metadata.brand_full_version_list = GetBrandFullVersionList(
@@ -639,7 +650,9 @@ void SetDesktopUserAgentOverride(content::WebContents* web_contents,
 
   blink::UserAgentOverride spoofed_ua;
   spoofed_ua.ua_string_override = content::BuildUserAgentFromOSAndProduct(
-      kLinuxInfoStr, GetProductAndVersion());
+      kLinuxInfoStr,
+      GetProductAndVersion(ForceMajorVersionToMinorPosition::kDefault,
+                           UserAgentReductionEnterprisePolicyState::kForceEnabled));
   spoofed_ua.ua_metadata_override = metadata;
   spoofed_ua.ua_metadata_override->platform = "Linux";
   spoofed_ua.ua_metadata_override->platform_version =

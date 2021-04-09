@@ -229,6 +229,41 @@ CHAR_LIMIT guidelines:
         Visit help page
       </message>
 
+      <!-- User Agent settings -->
+      <message name="IDS_PREFS_USERAGENT_SETTINGS" desc="Title of the User Agent preference. [CHAR-LIMIT=32]">
+        User Agent
+      </message>
+      <message name="IDS_USERAGENT_SETTINGS_TITLE" desc="Title of the User Agent screen. [CHAR-LIMIT=32]">
+        Customize User Agent
+      </message>
+      <message name="IDS_OPTION_DESKTOP_FLAG" desc="The label of the option that allows users to sticky desktop mode view flag under hambuger menu.">
+        Current behaviour for desktop mode toggle in hamburger menu
+      </message>
+      <message name="IDS_OPTION_DESKTOP_FLAG_ON" desc="The label of the option that allows users to sticky desktop mode view flag under hambuger menu. [CHAR-LIMIT=32]">
+        Applies to all tabs (sticky mode)
+      </message>
+      <message name="IDS_OPTION_DESKTOP_FLAG_OFF" desc="The label of the option that revert the hambuger menu flag to actual behaviour. [CHAR-LIMIT=32]">
+        Applies to current tab only
+      </message>
+      <message name="IDS_CUSTOM_UA_FLAG_ON" desc="The label of the option that allows users to define custom user agent.">
+        Use custom user agent
+      </message>
+      <message name="IDS_CUSTOM_UA_FLAG_OFF" desc="The label of the option that revert the user agent to actual value.">
+        Use standard user agent
+      </message>
+      <message name="IDS_CUSTOM_UA_PLACEHOLDER" desc="The label of the placeholder for user agent textbox.">
+        Insert a valid user agent
+      </message>
+      <message name="IDS_CUSTOM_UA_TEXT" desc="The label of the placeholder for user agent textbox.">
+        Mobile User Agent
+      </message>
+      <message name="IDS_CUSTOM_DESKTOP_UA_TEXT" desc="The label of the placeholder for user agent textbox.">
+        Desktop Mode User Agent
+      </message>
+      <message name="IDS_DESKTOP_MODE_VIEWPORTMETA_CHECKBOX" desc="The label of the enable viewport meta checkbox for user desktop mode.">
+        Enable processing of the viewport meta tag also for desktop mode
+      </message>
+
       <!-- Notification channels -->
       <message name="IDS_NOTIFICATION_CATEGORY_GROUP_GENERAL" desc='Subheading for "General" section of a list of notification categories. [CHAR_LIMIT=32]'>
         General

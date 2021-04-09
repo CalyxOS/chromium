@@ -445,6 +445,19 @@ const char kAllowJavascriptAppleEvents[] =
 
 #endif
 
+#if BUILDFLAG(IS_ANDROID)
+const char kOverrideUserAgentEnabled[] =
+    "override_user_agent_enabled";
+const char kOverrideUserAgent[] =
+    "override_user_agent";
+const char kOverrideUserAgentDesktopModeEnabled[] =
+    "override_user_agent_dm_enabled";
+const char kOverrideUserAgentDesktopMode[] =
+    "override_user_agent_dm";
+const char kDesktopModeViewportMetaEnabled[] =
+    "dm-viewport-meta-enabled";
+#endif
+
 // Boolean which specifies whether we should ask the user if we should download
 // a file (true) or just download it automatically.
 const char kPromptForDownload[] = "download.prompt_for_download";
