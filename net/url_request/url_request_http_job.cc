@@ -383,6 +383,11 @@ std::unique_ptr<URLRequestJob> URLRequestHttpJob::Create(URLRequest* request) {
       }
     }
 
+    if (base::FeatureList::IsEnabled(net::features::kIsCleartextPermitted) == false) {
+      return std::make_unique<URLRequestErrorJob>(request,
+                                                  ERR_CLEARTEXT_NOT_PERMITTED);
+    }
+
 #if BUILDFLAG(IS_ANDROID)
     // Check whether the app allows cleartext traffic to this host, and return
     // ERR_CLEARTEXT_NOT_PERMITTED if not.
