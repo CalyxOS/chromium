@@ -9070,6 +9070,10 @@ const FeatureEntry kFeatureEntries[] = {
      flag_descriptions::kRequestDesktopSiteExceptionsName,
      flag_descriptions::kRequestDesktopSiteExceptionsDescription, kOsAndroid,
      FEATURE_VALUE_TYPE(features::kRequestDesktopSiteExceptions)},
+    {"cleartext-permitted",
+     flag_descriptions::kIsCleartextPermittedName,
+     flag_descriptions::kIsCleartextPermittedDescription, kOsAndroid,
+     FEATURE_VALUE_TYPE(net::features::kIsCleartextPermitted)},
 #endif
 
     {"export-bookmarks-use-saf",

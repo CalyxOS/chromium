@@ -1710,6 +1710,10 @@ const char kHttpsOnlyModeDescription[] =
     "Adds a setting under chrome://settings/security to opt-in to HTTPS-First "
     "Mode.";
 
+const char kIsCleartextPermittedName[] = "Allow cleartext traffic";
+const char kIsCleartextPermittedDescription[] =
+    "Allow insecure connections over HTTP";
+
 const char kIgnoreGpuBlocklistName[] = "Override software rendering list";
 const char kIgnoreGpuBlocklistDescription[] =
     "Overrides the built-in software rendering list and enables "

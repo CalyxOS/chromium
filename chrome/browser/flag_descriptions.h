@@ -960,6 +960,9 @@ extern const char kHideShelfControlsInTabletModeDescription[];
 extern const char kHttpsOnlyModeName[];
 extern const char kHttpsOnlyModeDescription[];
 
+extern const char kIsCleartextPermittedName[];
+extern const char kIsCleartextPermittedDescription[];
+
 extern const char kIgnoreGpuBlocklistName[];
 extern const char kIgnoreGpuBlocklistDescription[];
 

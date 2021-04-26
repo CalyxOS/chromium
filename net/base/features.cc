@@ -113,6 +113,9 @@ BASE_FEATURE(kPartitionNelAndReportingByNetworkIsolationKey,
              "PartitionNelAndReportingByNetworkIsolationKey",         // must be enabled
              base::FEATURE_ENABLED_BY_DEFAULT);                       // in Bromite
 
+const base::Feature kIsCleartextPermitted{"IsCleartextPermitted",
+                                      base::FEATURE_ENABLED_BY_DEFAULT};
+
 BASE_FEATURE(kEnableDoubleKeyNetworkAnonymizationKey,
              "EnableDoubleKeyNetworkAnonymizationKey",
              base::FEATURE_DISABLED_BY_DEFAULT);
