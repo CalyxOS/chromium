@@ -50,6 +50,7 @@ public class CachedFeatureFlags {
             ImmutableMap.<String, Boolean>builder()
                     .put(ChromeFeatureList.ANONYMOUS_UPDATE_CHECKS, true)
                     .put(ChromeFeatureList.APP_MENU_MOBILE_SITE_OPTION, false)
+                    .put(ChromeFeatureList.ALLOW_USER_CERTIFICATES, false)
                     .put(ChromeFeatureList.BACK_GESTURE_REFACTOR, false)
                     .put(ChromeFeatureList.CCT_BRAND_TRANSPARENCY, false)
                     .put(ChromeFeatureList.CCT_INCOGNITO, true)

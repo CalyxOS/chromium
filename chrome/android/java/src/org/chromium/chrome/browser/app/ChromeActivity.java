@@ -226,6 +226,7 @@ import org.chromium.content_public.browser.ScreenOrientationProvider;
 import org.chromium.content_public.browser.SelectionPopupController;
 import org.chromium.content_public.browser.WebContents;
 import org.chromium.content_public.common.ContentSwitches;
+import org.chromium.net.X509Util;
 import org.chromium.printing.PrintManagerDelegateImpl;
 import org.chromium.printing.PrintingController;
 import org.chromium.printing.PrintingControllerImpl;
@@ -951,6 +952,8 @@ public abstract class ChromeActivity<C extends ChromeActivityComponent>
         UpdateMenuItemHelper.getInstance().onStart();
         ChromeActivitySessionTracker.getInstance().onStartWithNative();
         ChromeCachedFlags.getInstance().cacheNativeFlags();
+        X509Util.AllowUserCertificates = ChromeFeatureList.isEnabled(
+                                            ChromeFeatureList.ALLOW_USER_CERTIFICATES);
         OfflineIndicatorController.initialize();
 
         // postDeferredStartupIfNeeded() is called in TabModelSelectorTabObsever#onLoadStopped(),

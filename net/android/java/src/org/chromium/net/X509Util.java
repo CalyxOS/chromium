@@ -437,6 +437,8 @@ public class X509Util {
         return false;
     }
 
+    public static boolean AllowUserCertificates = false;
+
     public static AndroidCertVerifyResult verifyServerCertificates(byte[][] certChain,
                                                                    String authType,
                                                                    String host)
@@ -516,6 +518,9 @@ public class X509Util {
                 X509Certificate root = verifiedChain.get(verifiedChain.size() - 1);
                 isIssuedByKnownRoot = isKnownRoot(root);
             }
+
+            if (AllowUserCertificates == false && isIssuedByKnownRoot == false)
+                return new AndroidCertVerifyResult(CertVerifyStatusAndroid.NO_TRUSTED_ROOT);
 
             return new AndroidCertVerifyResult(CertVerifyStatusAndroid.OK,
                                                isIssuedByKnownRoot, verifiedChain);

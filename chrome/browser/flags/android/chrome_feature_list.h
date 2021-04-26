@@ -12,6 +12,7 @@
 namespace chrome {
 namespace android {
 
+extern const base::Feature kAllowUserCertificates;
 // Alphabetical:
 BASE_DECLARE_FEATURE(kAdaptiveButtonInTopToolbar);
 BASE_DECLARE_FEATURE(kAdaptiveButtonInTopToolbarCustomizationV2);

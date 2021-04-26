@@ -13,6 +13,11 @@
 
 namespace flag_descriptions {
 
+const char kAllowUserCertificatesName[] = "Allow user certificates";
+const char kAllowUserCertificatesDescription[] =
+    "Allow user CA certificates during "
+    "validation of the certificate chain";
+
 const char kAccelerated2dCanvasName[] = "Accelerated 2D canvas";
 const char kAccelerated2dCanvasDescription[] =
     "Enables the use of the GPU to perform 2d canvas rendering instead of "

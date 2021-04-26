@@ -78,6 +78,7 @@ public class ChromeCachedFlags {
                 add(ChromeFeatureList.sAndroidAuxiliarySearch);
                 add(ChromeFeatureList.sAnonymousUpdateChecks);
                 add(ChromeFeatureList.sAppMenuMobileSiteOption);
+                add(ChromeFeatureList.sAllowUserCertificates);
                 add(ChromeFeatureList.sBackGestureRefactorAndroid);
                 add(ChromeFeatureList.sCctBrandTransparency);
                 add(ChromeFeatureList.sCctIncognito);

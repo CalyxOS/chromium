@@ -8830,6 +8830,10 @@ const FeatureEntry kFeatureEntries[] = {
      FEATURE_VALUE_TYPE(features::kWin10TabSearchCaptionButton)},
 #endif  // BUILDFLAG(IS_WIN)
 
+    {"allow-user-certificates",
+     flag_descriptions::kAllowUserCertificatesName,
+     flag_descriptions::kAllowUserCertificatesDescription, kOsAndroid,
+     FEATURE_VALUE_TYPE(chrome::android::kAllowUserCertificates)},
     {"omnibox-updated-connection-security-indicators",
      flag_descriptions::kOmniboxUpdatedConnectionSecurityIndicatorsName,
      flag_descriptions::kOmniboxUpdatedConnectionSecurityIndicatorsDescription,

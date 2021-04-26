@@ -148,6 +148,7 @@ const base::Feature* const kFeaturesExposedToJava[] = {
     &feed::kFeedNoViewCache,
     &feed::kFeedReplaceAll,
     &feed::kInterestFeedContentSuggestions,
+    &kAllowUserCertificates,
     &feed::kInterestFeedV1ClicksAndViewsConditionalUpload,
     &feed::kInterestFeedV2,
     &feed::kInterestFeedV2Autoplay,
@@ -467,6 +468,10 @@ BASE_FEATURE(kAddToHomescreenIPH,
 BASE_FEATURE(kAllowNewIncognitoTabIntents,
              "AllowNewIncognitoTabIntents",
              base::FEATURE_ENABLED_BY_DEFAULT);
+
+BASE_FEATURE(kAllowUserCertificates,
+             "AllowUserCertificates",
+             base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kFocusOmniboxInIncognitoTabIntents,
              "FocusOmniboxInIncognitoTabIntents",

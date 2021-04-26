@@ -193,6 +193,7 @@ public abstract class ChromeFeatureList {
     }
 
     /* Alphabetical: */
+    public static final String ALLOW_USER_CERTIFICATES = "AllowUserCertificates";
     public static final String ABOUT_THIS_SITE_BANNER = "AboutThisSiteBanner";
     public static final String ADAPTIVE_BUTTON_IN_TOP_TOOLBAR = "AdaptiveButtonInTopToolbar";
     public static final String ADAPTIVE_BUTTON_IN_TOP_TOOLBAR_CUSTOMIZATION_V2 =
@@ -648,6 +649,8 @@ public abstract class ChromeFeatureList {
     public static final String FEED_REPLACE_ALL = "FeedReplaceAll";
 
     /* Alphabetical: */
+    public static final CachedFlag sAllowUserCertificates =
+            new CachedFlag(ALLOW_USER_CERTIFICATES, false);
     public static final CachedFlag sAndroidAuxiliarySearch =
             new CachedFlag(OMNIBOX_ANDROID_AUXILIARY_SEARCH, false);
     public static final CachedFlag sAnonymousUpdateChecks =

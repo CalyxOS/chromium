@@ -40,6 +40,9 @@ namespace flag_descriptions {
 
 // Cross-platform -------------------------------------------------------------
 
+extern const char kAllowUserCertificatesName[];
+extern const char kAllowUserCertificatesDescription[];
+
 extern const char kAccelerated2dCanvasName[];
 extern const char kAccelerated2dCanvasDescription[];
 
