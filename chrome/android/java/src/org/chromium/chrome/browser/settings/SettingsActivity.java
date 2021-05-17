@@ -68,6 +68,7 @@ import org.chromium.components.browser_ui.bottomsheet.BottomSheetControllerFacto
 import org.chromium.components.browser_ui.modaldialog.AppModalPresenter;
 import org.chromium.components.browser_ui.settings.FragmentSettingsLauncher;
 import org.chromium.components.browser_ui.settings.SettingsLauncher;
+import org.chromium.components.browser_ui.settings.SettingsUtils;
 import org.chromium.components.browser_ui.site_settings.SiteSettingsPreferenceFragment;
 import org.chromium.components.browser_ui.widget.displaystyle.UiConfig;
 import org.chromium.components.browser_ui.widget.displaystyle.ViewResizer;
@@ -331,9 +332,13 @@ public class SettingsActivity extends ChromeBaseAppCompatActivity
             finish();
             return true;
         } else if (item.getItemId() == R.id.menu_id_general_help) {
-            HelpAndFeedbackLauncherImpl.getInstance().show(this,
-                    getString(R.string.help_context_settings), Profile.getLastUsedRegularProfile(),
-                    null);
+            if (mainFragment instanceof SettingsUtils.ISupportHelpAndFeedback) {
+                ((SettingsUtils.ISupportHelpAndFeedback)mainFragment).onHelpAndFeebackPressed();
+            } else {
+                HelpAndFeedbackLauncherImpl.getInstance().show(this,
+                        getString(R.string.help_context_settings), Profile.getLastUsedRegularProfile(),
+                        null);
+            }
             return true;
         }
         return super.onOptionsItemSelected(item);
