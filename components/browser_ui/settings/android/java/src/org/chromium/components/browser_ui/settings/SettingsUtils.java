@@ -97,4 +97,8 @@ public class SettingsUtils {
         ToolbarUtils.setOverflowMenuVisibility(toolbar, visibility);
         return true;
     }
+
+    public interface ISupportHelpAndFeedback {
+        void onHelpAndFeebackPressed();
+    }
 }
