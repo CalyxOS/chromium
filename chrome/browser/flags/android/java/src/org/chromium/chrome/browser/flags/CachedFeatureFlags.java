@@ -102,7 +102,7 @@ public class CachedFeatureFlags {
                     .put(ChromeFeatureList.STORE_HOURS, false)
                     .put(ChromeFeatureList.SWAP_PIXEL_FORMAT_TO_FIX_CONVERT_FROM_TRANSLUCENT, true)
                     .put(ChromeFeatureList.TAB_GRID_LAYOUT_ANDROID, true)
-                    .put(ChromeFeatureList.TAB_GROUPS_ANDROID, true)
+                    .put(ChromeFeatureList.TAB_GROUPS_ANDROID, false)
                     .put(ChromeFeatureList.TAB_GROUPS_CONTINUATION_ANDROID, false)
                     .put(ChromeFeatureList.TAB_GROUPS_FOR_TABLETS, false)
                     .put(ChromeFeatureList.TAB_SELECTION_EDITOR_V2, false)

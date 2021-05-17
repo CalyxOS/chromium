@@ -977,16 +977,16 @@ BASE_FEATURE(kTabEngagementReportingAndroid,
              base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kTabGroupsAndroid,
-             "TabGroupsAndroid",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "TabGroupsAndroid",                   // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);   // in Bromite
 
 BASE_FEATURE(kTabGroupsContinuationAndroid,
              "TabGroupsContinuationAndroid",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kTabGroupsUiImprovementsAndroid,
-             "TabGroupsUiImprovementsAndroid",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "TabGroupsUiImprovementsAndroid",     // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);   // in Bromite
 
 BASE_FEATURE(kTabGroupsForTablets,
              "TabGroupsForTablets",
