@@ -3849,6 +3849,11 @@ const FeatureEntry kFeatureEntries[] = {
     {"ui-disable-partial-swap", flag_descriptions::kUiPartialSwapName,
      flag_descriptions::kUiPartialSwapDescription, kOsAll,
      SINGLE_DISABLE_VALUE_TYPE(switches::kUIDisablePartialSwap)},
+#if BUILDFLAG(IS_ANDROID)
+    {"allow-external-intent-requests", flag_descriptions::kDisableExternalIntentRequestsName,
+     flag_descriptions::kDisableExternalIntentRequestsDescription, kOsAll,
+     SINGLE_DISABLE_VALUE_TYPE("disable-external-intent-requests")},
+#endif
     {"disable-webrtc-hw-decoding", flag_descriptions::kWebrtcHwDecodingName,
      flag_descriptions::kWebrtcHwDecodingDescription, kOsAndroid | kOsCrOS,
      SINGLE_DISABLE_VALUE_TYPE(switches::kDisableWebRtcHWDecoding)},
