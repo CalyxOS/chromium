@@ -19,6 +19,7 @@ import org.chromium.base.IntentUtils;
 import org.chromium.base.PackageManagerUtils;
 import org.chromium.base.supplier.Supplier;
 import org.chromium.chrome.browser.ChromeTabbedActivity2;
+import org.chromium.chrome.browser.flags.cromite.sAllowExternalIntentRequests;
 import org.chromium.chrome.browser.IntentHandler;
 import org.chromium.chrome.browser.tab.EmptyTabObserver;
 import org.chromium.chrome.browser.tab.Tab;
@@ -103,7 +104,8 @@ public class ExternalNavigationDelegateImpl implements ExternalNavigationDelegat
 
     @Override
     public boolean shouldDisableExternalIntentRequestsForUrl(GURL url) {
-        return false;
+        if ("tel".equals(url.getScheme())) return false;
+        return !sAllowExternalIntentRequests.getInstance().isEnabled();
     }
 
     @Override
