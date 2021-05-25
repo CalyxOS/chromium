@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grit-part>
+    <message name="IDS_ALLOW_EXTERNAL_INTENT_REQUESTS_TITLE" desc="">
+        Allow forward URL requests to external intents
+    </message>
+    <message name="IDS_ALLOW_EXTERNAL_INTENT_REQUESTS_SUMMARY" desc="">
+        If disabled, URL requests will never allow redirection to an external intent, such as open application. Caution: since no verification is possible on the information, allows linkage between browser browsing and activity on the application.
+    </message>
+</grit-part>

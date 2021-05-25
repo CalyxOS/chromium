@@ -27,7 +27,6 @@ namespace {
 const base::Feature* kFeaturesExposedToJava[] = {
     &kExternalNavigationDebugLogs, &kBlockFrameRenavigations,
     &kBlockIntentsToSelf, &kTrustedClientGestureBypass};
-
 }  // namespace
 
 // Alphabetical:
@@ -48,7 +47,13 @@ BASE_FEATURE(kTrustedClientGestureBypass,
              "TrustedClientGestureBypass",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+CROMITE_FEATURE(kIntentBlockExternalFormRedirectsNoGesture,
+                "IntentBlockExternalFormRedirectsNoGesture",
+                base::FEATURE_ENABLED_BY_DEFAULT);
+
 static jlong JNI_ExternalIntentsFeatures_GetFeature(JNIEnv* env, jint ordinal) {
+  if (ordinal == -1)
+    return reinterpret_cast<jlong>(&kIntentBlockExternalFormRedirectsNoGesture);
   return reinterpret_cast<jlong>(kFeaturesExposedToJava[ordinal]);
 }
 
