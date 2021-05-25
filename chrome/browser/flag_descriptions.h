@@ -2225,6 +2225,9 @@ extern const char kQueryTilesNTPDescription[];
 extern const char kQueryTilesOnStartName[];
 extern const char kQueryTilesOnStartDescription[];
 extern const char kQueryTilesSingleTierName[];
+extern const char kDisableExternalIntentRequestsName[];
+extern const char kDisableExternalIntentRequestsDescription[];
+
 extern const char kQueryTilesSingleTierDescription[];
 extern const char kQueryTilesEnableQueryEditingName[];
 extern const char kQueryTilesEnableQueryEditingDescription[];
