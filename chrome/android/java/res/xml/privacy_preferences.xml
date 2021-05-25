@@ -77,7 +77,12 @@ found in the LICENSE file.
         android:title="@string/settings_incognito_tab_lock_title"
         android:summary="@string/settings_incognito_tab_lock_summary_android_setting_off"
         android:persistent="false" />
-
+    <org.chromium.components.browser_ui.settings.ChromeSwitchPreference
+        android:key="allow_external_intent_requests"
+        android:title="@string/allow_external_intent_requests_title"
+        android:summary="@string/allow_external_intent_requests_summary"
+        app:featureName="AllowExternalIntentRequests"
+        app:needRestart="false" />
     <PreferenceCategory
         android:key="security_section"
         android:title="@string/security_section_title" />
