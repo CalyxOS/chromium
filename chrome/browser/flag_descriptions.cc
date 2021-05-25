@@ -3827,6 +3827,12 @@ const char kPersistShareHubOnAppSwitchName[] = "Persist sharing hub";
 const char kPersistShareHubOnAppSwitchDescription[] =
     "Persist the sharing hub across app pauses/resumes.";
 
+const char kDisableExternalIntentRequestsName[] =
+    "Never forward URL requests to external intents";
+const char kDisableExternalIntentRequestsDescription[] =
+    "URL requests will never"
+    "allow for redirecting to an external intent.";
+
 const char kQueryTilesName[] = "Show query tiles";
 const char kQueryTilesDescription[] = "Shows query tiles in Chrome";
 const char kQueryTilesNTPName[] = "Show query tiles in NTP";
