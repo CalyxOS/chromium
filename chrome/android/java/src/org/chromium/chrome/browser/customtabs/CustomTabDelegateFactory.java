@@ -36,6 +36,7 @@ import org.chromium.chrome.browser.ephemeraltab.EphemeralTabCoordinator;
 import org.chromium.chrome.browser.externalnav.ExternalNavigationDelegateImpl;
 import org.chromium.chrome.browser.flags.ActivityType;
 import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.cromite.sAllowExternalIntentRequests;
 import org.chromium.chrome.browser.fullscreen.BrowserControlsManager;
 import org.chromium.chrome.browser.fullscreen.FullscreenManager;
 import org.chromium.chrome.browser.init.ChromeActivityNativeDelegate;
@@ -127,6 +128,7 @@ public class CustomTabDelegateFactory implements TabDelegateFactory {
 
         @Override
         public boolean shouldDisableAllExternalIntents() {
+            if (!sAllowExternalIntentRequests.getInstance().isEnabled()) return true;
             return mActivityType == ActivityType.AUTH_TAB
                     && ChromeFeatureList.sCctAuthTabDisableAllExternalIntents.isEnabled();
         }
