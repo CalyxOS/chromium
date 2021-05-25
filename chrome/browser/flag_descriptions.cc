@@ -4221,6 +4221,12 @@ const char kPasswordGenerationBottomSheetName[] =
 const char kPasswordGenerationBottomSheetDescription[] =
     "Enabled showing the password generation bottom sheet.";
 
+const char kDisableExternalIntentRequestsName[] =
+    "Allow forward URL requests to external intents";
+const char kDisableExternalIntentRequestsDescription[] =
+    "If disabled, URL requests will never"
+    "allow for redirecting to an external intent.";
+
 const char kQueryTilesName[] = "Show query tiles";
 const char kQueryTilesDescription[] = "Shows query tiles in Chrome";
 const char kQueryTilesNTPName[] = "Show query tiles in NTP";
