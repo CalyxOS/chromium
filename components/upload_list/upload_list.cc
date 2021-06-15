@@ -99,6 +99,11 @@ std::vector<const UploadList::UploadInfo*> UploadList::GetUploads(
   return uploads;
 }
 
+void UploadList::RequestNewExtraction() {
+  // only available for Android. overrided in crash_upload_list_android.cc
+  NOTREACHED();
+}
+
 void UploadList::OnLoadComplete(
     std::vector<std::unique_ptr<UploadInfo>> uploads) {
   uploads_ = std::move(uploads);
@@ -110,4 +115,13 @@ void UploadList::OnLoadComplete(
 void UploadList::OnClearComplete() {
   if (!clear_callback_.is_null())
     std::move(clear_callback_).Run();
+}
+
+std::string UploadList::GetFilePathByLocalId(const std::string& local_id) {
+  for (const std::unique_ptr<UploadList::UploadInfo>& info : uploads_) {
+    if (info->local_id == local_id) {
+      return info->file_path;
+    }
+  }
+  return std::string();
 }
