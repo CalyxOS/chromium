@@ -12,7 +12,7 @@ import './strings.m.js';
 import {assert} from 'chrome://resources/js/assert.js';
 import {addWebUiListener} from 'chrome://resources/js/cr.js';
 import {loadTimeData} from 'chrome://resources/js/load_time_data.js';
-import {appendParam, getRequiredElement} from 'chrome://resources/js/util.js';
+import {getRequiredElement} from 'chrome://resources/js/util.js';
 
 /* Id for tracking automatic refresh of crash list.  */
 let refreshCrashListId: number|undefined = undefined;
@@ -63,10 +63,7 @@ interface CrashData {
 interface UpdateCrashListParams {
   enabled: boolean;
   dynamicBackend: boolean;
-  manualUploads: boolean;
   crashes: CrashData[];
-  version: string;
-  os: string;
   isGoogleAccount: boolean;
 }
 
@@ -76,10 +73,7 @@ interface UpdateCrashListParams {
 function updateCrashList({
   enabled,
   dynamicBackend,
-  manualUploads,
   crashes,
-  version,
-  os,
   isGoogleAccount,
 }: UpdateCrashListParams) {
   getRequiredElement('crashesCount').textContent = loadTimeData.getStringF(
@@ -89,6 +83,7 @@ function updateCrashList({
 
   getRequiredElement('disabledMode').hidden = enabled;
   getRequiredElement('crashUploadStatus').hidden = !enabled || !dynamicBackend;
+  getRequiredElement('spinner').hidden = true;
 
   const template = crashList.querySelector('template');
   assert(template);
@@ -169,22 +164,16 @@ function updateCrashList({
       assert(uploadTimeCell);
       uploadTimeCell.textContent = crash.upload_time || '';
 
-      sendNowButton.remove();
-      fileBugButton.onclick = () => fileBug(crash.id, os, version);
+      fileBugButton.remove();
     } else {
       uploadId.remove();
       uploadTime.remove();
       fileBugButton.remove();
-      // Do not allow crash submission if the Chromium build does not support
-      // it, or if the user already requested it.
-      if (!manualUploads || crash.state === State.PENDING_USER_REQUESTED) {
-        sendNowButton.remove();
-      }
-      sendNowButton.onclick = (_e: Event) => {
-        sendNowButton.disabled = true;
-        chrome.send('requestSingleCrashUpload', [crash.local_id]);
-      };
     }
+    sendNowButton.onclick = (_e: Event) => {
+      sendNowButton.disabled = true;
+      chrome.send('requestSingleCrashUpload', [crash.local_id]);
+    };
 
     const fileSize = clone.querySelector('.file-size');
     assert(fileSize);
@@ -203,52 +192,6 @@ function updateCrashList({
 }
 
 /**
- * Opens a new tab/window to report the crash to crbug.
- * @param The crash report ID.
- * @param The OS name.
- * @param The product version.
- */
-function fileBug(crashId: string, os: string, version: string) {
-  const commentLines = [
-    'IMPORTANT: Your crash has already been automatically reported ' +
-        'to our crash system. Please file this bug only if you can provide ' +
-        'more information about it.',
-    '',
-    '',
-    'Chrome Version: ' + version,
-    'Operating System: ' + os,
-    '',
-    'URL (if applicable) where crash occurred:',
-    '',
-    'Can you reproduce this crash?',
-    '',
-    'What steps will reproduce this crash? (If it\'s not ' +
-        'reproducible, what were you doing just before the crash?)',
-    '1.',
-    '2.',
-    '3.',
-    '',
-    '****DO NOT CHANGE BELOW THIS LINE****',
-    'Crash ID: crash/' + crashId,
-  ];
-  const params: {[key: string]: string} = {
-    template: 'Crash Report',
-    comment: commentLines.join('\n'),
-    // TODO(scottmg): Use add_labels to add 'User-Submitted' rather than
-    // duplicating the template's labels (the first two) once
-    // https://bugs.chromium.org/p/monorail/issues/detail?id=1488 is done.
-    labels:
-        'Restrict-View-EditIssue,Stability-Crash,User-Submitted,Pri-3,Type-Bug',
-  };
-  let href = 'https://bugs.chromium.org/p/chromium/issues/entry';
-  for (const param in params) {
-    href = appendParam(href, param, params[param]!);
-  }
-
-  window.open(href);
-}
-
-/**
  * Request crashes get uploaded in the background.
  */
 function requestCrashUpload() {
@@ -259,6 +202,27 @@ function requestCrashUpload() {
   // Trigger a refresh in 5 seconds.  Clear any previous requests.
   clearTimeout(refreshCrashListId);
   refreshCrashListId = setTimeout(requestCrashes, 5000);
+}
+
+/**
+ * Request new log extraction.
+ */
+function requestNewExtraction() {
+  chrome.send('requestNewExtraction');
+
+  // show spinner
+  getRequiredElement('spinner').hidden = false;
+
+  // Trigger a refresh in 3 seconds.  Clear any previous requests.
+  clearTimeout(refreshCrashListId);
+  refreshCrashListId = setTimeout(requestCrashes, 3000);
+}
+
+/**
+ * Request remove all crash files.
+ */
+ function requestClearAll() {
+  chrome.send('requestClearAll');
 }
 
 /**
@@ -275,5 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
   addWebUiListener('update-crash-list', updateCrashList);
   getRequiredElement('uploadCrashes').onclick = requestCrashUpload;
   getRequiredElement('showDevDetails').onclick = toggleDevDetails;
+  getRequiredElement('clearAll').onclick = requestClearAll;
+  getRequiredElement('newExtraction').onclick = requestNewExtraction;
   requestCrashes();
 });
