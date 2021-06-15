@@ -168,6 +168,7 @@ std::unique_ptr<UploadList::UploadInfo> TextLogUploadList::TryParseCsvLogEntry(
   }
   auto info = std::make_unique<TextLogUploadList::UploadInfo>(components[1],
                                                               upload_time);
+  info->file_path = components[1];
 
   // Add local ID if present.
   if (components.size() > 2)
