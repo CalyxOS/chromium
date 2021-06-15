@@ -39,6 +39,8 @@ const CrashesUILocalizedString kCrashesUILocalizedStrings[] = {
     {"uploadId", IDS_CRASH_REPORT_UPLOADED_ID},
     {"uploadNowLinkText", IDS_CRASH_UPLOAD_NOW_LINK_TEXT},
     {"uploadTime", IDS_CRASH_REPORT_UPLOADED_TIME},
+    {"clearAll", IDS_CRASH_CLEAR_ALL_TEXT},
+    {"extractNow", IDS_CRASH_EXTRACT_NOW_TEXT},
 };
 
 const size_t kCrashesUILocalizedStringsCount =
@@ -52,6 +54,8 @@ const char kCrashesUIRequestCrashUpload[] = "requestCrashUpload";
 const char kCrashesUIShortProductName[] = "shortProductName";
 const char kCrashesUIUpdateCrashList[] = "update-crash-list";
 const char kCrashesUIRequestSingleCrashUpload[] = "requestSingleCrashUpload";
+const char kCrashesUIHandleClearAll[] = "requestClearAll";
+const char kCrashesUIHandleRequestNewExtraction[] = "requestNewExtraction";
 
 std::string UploadInfoStateAsString(UploadList::UploadInfo::State state) {
   switch (state) {
