@@ -70,6 +70,9 @@ class UploadList : public base::RefCountedThreadSafe<UploadList> {
 
     // File size for locally stored data.
     std::optional<int64_t> file_size;
+
+    // path of crash file
+    std::string file_path;
   };
 
   UploadList();
@@ -99,6 +102,12 @@ class UploadList : public base::RefCountedThreadSafe<UploadList> {
   // Must be called only after a Load() callback has been received.
   // The |UploadInfo| pointers are still owned by this |UploadList| instance.
   std::vector<const UploadInfo*> GetUploads(size_t max_count) const;
+
+  // Get full path of crash file for local_id
+  std::string GetFilePathByLocalId(const std::string& local_id);
+
+  // Request new log extraction
+  virtual void RequestNewExtraction();
 
  protected:
   virtual ~UploadList();
