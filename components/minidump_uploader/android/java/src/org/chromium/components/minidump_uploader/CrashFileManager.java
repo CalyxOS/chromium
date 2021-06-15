@@ -107,6 +107,8 @@ public class CrashFileManager {
 
     private static final Pattern TMP_PATTERN = Pattern.compile("\\.tmp\\z");
 
+    private static final String SAVED_MINIDUMP_ZIP_SUFFIX = ".zip";
+
     // The maximum number of non-uploaded crashes that may be kept in the crash reports directory.
     // Chosen to attempt to balance between keeping a generous number of crashes, and not using up
     // too much filesystem storage space for obsolete crash reports.
@@ -115,7 +117,7 @@ public class CrashFileManager {
     // The maximum age, in days, considered acceptable for a crash report. Reports older than this
     // age will be removed. The constant is chosen to be quite conservative, while still allowing
     // users to eventually reclaim filesystem storage space from obsolete crash reports.
-    private static final int MAX_CRASH_REPORT_AGE_IN_DAYS = 30;
+    private static final int MAX_CRASH_REPORT_AGE_IN_DAYS = 5;
 
     // The maximum number of non-uploaded crashes to copy to the crash reports directory. The
     // difference between this value and MAX_CRASH_REPORTS_TO_KEEP is that TO_KEEP is only checked
@@ -599,6 +601,9 @@ public class CrashFileManager {
                     && !f.getName().contains(UPLOAD_FORCED_MINIDUMP_SUFFIX)) {
                 continue;
             }
+            // as above, zip files must also be excluded
+            if (f.getName().endsWith(SAVED_MINIDUMP_ZIP_SUFFIX))
+                continue;
 
             String filenameSansExtension = f.getName().split("\\.")[0];
             if (filenameSansExtension.endsWith(localId)) {
