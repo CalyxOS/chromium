@@ -49,6 +49,7 @@ function updateCrashList({
 
   $('disabledMode').hidden = enabled;
   $('crashUploadStatus').hidden = !enabled || !dynamicBackend;
+  $('spinner').hidden = true;
 
   const template = crashList.getElementsByTagName('template')[0];
 
@@ -115,22 +116,16 @@ function updateCrashList({
 
       uploadTime.querySelector('.value').textContent = crash.upload_time;
 
-      sendNowButton.remove();
-      fileBugButton.onclick = () => fileBug(crash.id, os, version);
+      fileBugButton.remove();
     } else {
       uploadId.remove();
       uploadTime.remove();
       fileBugButton.remove();
-      // Do not allow crash submission if the Chromium build does not support
-      // it, or if the user already requested it.
-      if (!manualUploads || crash.state === 'pending_user_requested') {
-        sendNowButton.remove();
-      }
-      sendNowButton.onclick = (e) => {
-        e.target.disabled = true;
-        chrome.send('requestSingleCrashUpload', [crash.local_id]);
-      };
     }
+    sendNowButton.onclick = (e) => {
+      e.target.disabled = true;
+      chrome.send('requestSingleCrashUpload', [crash.local_id]);
+    };
 
     const fileSize = crashRow.querySelector('.file-size');
     if (crash.file_size === '') {
@@ -204,6 +199,27 @@ function requestCrashUpload() {
 }
 
 /**
+ * Request new log extraction.
+ */
+ function requestNewExtraction() {
+  chrome.send('requestNewExtraction');
+
+  // show spinner
+  $('spinner').hidden = false;
+
+  // Trigger a refresh in 3 seconds.  Clear any previous requests.
+  clearTimeout(refreshCrashListId);
+  refreshCrashListId = setTimeout(requestCrashes, 3000);
+}
+
+/**
+ * Request remove all crash files.
+ */
+ function requestClearAll() {
+  chrome.send('requestClearAll');
+}
+
+/**
  * Toggles hiding/showing the developer details of a crash report, depending
  * on the value of the check box.
  * @param {Event} The DOM event for onclick.
@@ -216,5 +232,7 @@ document.addEventListener('DOMContentLoaded', function() {
   addWebUIListener('update-crash-list', updateCrashList);
   $('uploadCrashes').onclick = requestCrashUpload;
   $('showDevDetails').onclick = toggleDevDetails;
+  $('clearAll').onclick = requestClearAll;
+  $('newExtraction').onclick = requestNewExtraction;
   requestCrashes();
 });
