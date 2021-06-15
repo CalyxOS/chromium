@@ -51,6 +51,8 @@ inline constexpr CrashesUILocalizedString kCrashesUILocalizedStrings[] = {
     {"uploadId", IDS_CRASH_REPORT_UPLOADED_ID},
     {"uploadNowLinkText", IDS_CRASH_UPLOAD_NOW_LINK_TEXT},
     {"uploadTime", IDS_CRASH_REPORT_UPLOADED_TIME},
+    {"clearAll", IDS_CRASH_CLEAR_ALL_TEXT},
+    {"extractNow", IDS_CRASH_EXTRACT_NOW_TEXT},
 };
 
 // Strings used by the WebUI resources.
@@ -61,6 +63,8 @@ inline constexpr char kCrashesUIShortProductName[] = "shortProductName";
 inline constexpr char kCrashesUIUpdateCrashList[] = "update-crash-list";
 inline constexpr char kCrashesUIRequestSingleCrashUpload[] =
     "requestSingleCrashUpload";
+inline constexpr char kCrashesUIHandleClearAll[] = "requestClearAll";
+inline constexpr char kCrashesUIHandleRequestNewExtraction[] = "requestNewExtraction";
 
 // Converts and appends the most recent uploads to |out_value|.
 void UploadListToValue(UploadList* upload_list, base::Value::List* out_value);
