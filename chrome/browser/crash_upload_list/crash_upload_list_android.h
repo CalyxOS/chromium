@@ -35,6 +35,7 @@ class CrashUploadListAndroid : public TextLogUploadList {
   std::vector<std::unique_ptr<UploadList::UploadInfo>> LoadUploadList()
       override;
   void RequestSingleUpload(const std::string& local_id) override;
+  void RequestNewExtraction() override;
 
  private:
   void LoadUnsuccessfulUploadList(
