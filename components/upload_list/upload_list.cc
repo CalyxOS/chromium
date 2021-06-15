@@ -55,7 +55,8 @@ UploadList::UploadInfo::UploadInfo(const UploadInfo& upload_info)
       capture_time(upload_info.capture_time),
       state(upload_info.state),
       source(upload_info.source),
-      file_size(upload_info.file_size) {}
+      file_size(upload_info.file_size),
+      file_path(upload_info.file_path) {}
 
 UploadList::UploadInfo::~UploadInfo() = default;
 
@@ -108,6 +109,11 @@ void UploadList::RequestSingleUpload(const std::string& local_id) {
   NOTREACHED();
 }
 
+void UploadList::RequestNewExtraction() {
+  // only available for Android. overrided in crash_upload_list_android.cc
+  NOTREACHED();
+}
+
 void UploadList::OnLoadComplete(const std::vector<UploadInfo>& uploads) {
   uploads_ = uploads;
   if (!load_callback_.is_null())
@@ -117,4 +123,13 @@ void UploadList::OnLoadComplete(const std::vector<UploadInfo>& uploads) {
 void UploadList::OnClearComplete() {
   if (!clear_callback_.is_null())
     std::move(clear_callback_).Run();
+}
+
+std::string UploadList::GetFilePathByLocalId(const std::string& local_id) {
+  for (auto info : uploads_) {
+    if (info.local_id == local_id) {
+      return info.file_path;
+    }
+  }
+  return std::string();
 }

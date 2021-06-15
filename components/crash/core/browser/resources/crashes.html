@@ -1,6 +1,7 @@
 <!doctype html>
 <html dir="$i18n{textdirection}" lang="$i18n{language}">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="utf-8">
 
 <if expr="is_ios">
@@ -39,6 +40,22 @@
         <input type="checkbox" id="showDevDetails">
         $i18n{showDeveloperDetails}
       </label>
+      <div style="clear: both"></div>
+      <div>
+        <button class="button" id="clearAll">
+          $i18n{clearAll}
+        </button>
+        <button class="button" id="newExtraction">
+          $i18n{extractNow}
+        </button>
+        <div class="spinner" id="spinner" hidden>
+          <div class="rect1"></div>
+          <div class="rect2"></div>
+          <div class="rect3"></div>
+          <div class="rect4"></div>
+          <div class="rect5"></div>
+        </div>
+    </div>
     </h2>
 
     <div id="crashList">
