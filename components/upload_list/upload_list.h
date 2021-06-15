@@ -65,6 +65,9 @@ class UploadList : public base::RefCountedThreadSafe<UploadList> {
 
     // Formatted file size for locally stored data.
     std::u16string file_size;
+
+    // path of crash file
+    std::string file_path;
   };
 
   UploadList();
@@ -93,6 +96,12 @@ class UploadList : public base::RefCountedThreadSafe<UploadList> {
   // in reverse chronological order.
   // Must be called only after a Load() callback has been received.
   void GetUploads(size_t max_count, std::vector<UploadInfo>* uploads);
+
+  // Get full path of crash file for local_id
+  std::string GetFilePathByLocalId(const std::string& local_id);
+
+  // Request new log extraction
+  virtual void RequestNewExtraction();
 
  protected:
   virtual ~UploadList();
