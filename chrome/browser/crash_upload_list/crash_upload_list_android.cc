@@ -15,6 +15,7 @@
 
 // Must come after all headers that specialize FromJniType() / ToJniType().
 #include "chrome/android/chrome_jni_headers/MinidumpUploadServiceImpl_jni.h"
+#include "base/strings/string_util.h"
 
 namespace {
 
@@ -75,16 +76,26 @@ void CrashUploadListAndroid::RequestSingleUpload(const std::string& local_id) {
   Java_MinidumpUploadServiceImpl_tryUploadCrashDumpWithLocalId(env, local_id);
 }
 
+void CrashUploadListAndroid::RequestNewExtraction() {
+  JNIEnv* env = base::android::AttachCurrentThread();
+  Java_MinidumpUploadServiceImpl_requestNewExtraction(env);
+}
+
 void CrashUploadListAndroid::LoadUnsuccessfulUploadList(
     std::vector<std::unique_ptr<UploadInfo>>* uploads) {
   const char pending_uploads[] = ".dmp";
   const char skipped_uploads[] = ".skipped";
   const char manually_forced_uploads[] = ".forced";
+  const char zipped_uploads[] = ".zip";
 
   base::FileEnumerator files(upload_log_path().DirName(), false,
                              base::FileEnumerator::FILES);
   for (base::FilePath file = files.Next(); !file.empty(); file = files.Next()) {
     UploadList::UploadInfo::State upload_state;
+    if (base::EndsWith(file.value(), zipped_uploads, base::CompareCase::INSENSITIVE_ASCII)) {
+      // skip zip files
+      continue;
+    }
     if (file.value().find(manually_forced_uploads) != std::string::npos) {
       RecordUnsuccessfulUploadListState(UnsuccessfulUploadListState::FORCED);
       upload_state = UploadList::UploadInfo::State::Pending_UserRequested;
@@ -116,6 +127,8 @@ void CrashUploadListAndroid::LoadUnsuccessfulUploadList(
       continue;
     }
 
+    std::string file_path = file.value();
+
     // Crash reports can have multiple extensions (e.g. foo.dmp, foo.dmp.try1,
     // foo.skipped.try0).
     file = file.BaseName();
@@ -135,7 +148,9 @@ void CrashUploadListAndroid::LoadUnsuccessfulUploadList(
     RecordUnsuccessfulUploadListState(
         UnsuccessfulUploadListState::ADDING_AN_UPLOAD_ENTRY);
     id = id.substr(pos + 1);
-    uploads->push_back(std::make_unique<UploadList::UploadInfo>(
-        id, info.creation_time, upload_state, file_size.value()));
+    auto upload = std::make_unique<UploadList::UploadInfo>(
+        id, info.creation_time, upload_state, file_size.value());
+    upload->file_path = file_path;
+    uploads->push_back(std::move(upload));
   }
 }
