@@ -70,30 +70,8 @@ public class MinidumpUploadCallable implements Callable<Integer> {
         if (mPermManager.isUploadEnabledForTests()) {
             Log.i(TAG, "Minidump upload enabled for tests, skipping other checks.");
         } else if (!CrashFileManager.isForcedUpload(mFileToUpload)) {
-            if (!mPermManager.isUsageAndCrashReportingPermitted()) {
-                Log.i(
-                        TAG,
-                        "Minidump upload is not permitted. Marking file as skipped "
-                                + "for cleanup to prevent future uploads.");
-                CrashFileManager.markUploadSkipped(mFileToUpload);
-                return MinidumpUploadStatus.USER_DISABLED;
-            }
-
-            if (!mPermManager.isClientInSampleForCrashes()) {
-                Log.i(
-                        TAG,
-                        "Minidump upload skipped due to sampling. Marking file as skipped for "
-                                + "cleanup to prevent future uploads.");
-                CrashFileManager.markUploadSkipped(mFileToUpload);
-                return MinidumpUploadStatus.DISABLED_BY_SAMPLING;
-            }
-
-            if (!mPermManager.isNetworkAvailableForCrashUploads()) {
-                Log.i(TAG, "Minidump cannot currently be uploaded due to network constraints.");
-                return MinidumpUploadStatus.FAILURE;
-            }
+            return MinidumpUploadStatus.USER_DISABLED;
         }
-
         MinidumpUploader.Result result = mMinidumpUploader.upload(mFileToUpload);
         if (result.isSuccess()) {
             String uploadId = result.message();
