@@ -47,6 +47,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.chromium.base.task.AsyncTask;
+import org.chromium.base.task.PostTask;
+import org.chromium.base.task.TaskTraits;
+import org.chromium.chrome.browser.crash.LogcatExtractionRunnable;
+
 /** Service that is responsible for uploading crash minidumps to the Google crash server. */
 public class MinidumpUploadServiceImpl extends MinidumpUploadService.Impl {
     private static final String TAG = "MinidmpUploadService";
@@ -88,6 +93,23 @@ public class MinidumpUploadServiceImpl extends MinidumpUploadService.Impl {
     @Override
     protected void onServiceSet() {
         getService().setIntentRedelivery(true);
+    }
+
+    @CalledByNative
+    public static void requestNewExtraction() {
+        CrashFileManager crashFileManager =
+                new CrashFileManager(ContextUtils.getApplicationContext().getCacheDir());
+
+        // Append logcat output to minidumps where are missing
+        // getMinidumpsSansLogcat() also extract new files from crashpad
+        File[] minidumpsSansLogcat = crashFileManager.getMinidumpsSansLogcat();
+        if (minidumpsSansLogcat.length >= 1) {
+            for (int i = 0; i < minidumpsSansLogcat.length; ++i) {
+                File minidump = minidumpsSansLogcat[i];
+                AsyncTask.THREAD_POOL_EXECUTOR.execute(
+                        new LogcatExtractionRunnable(minidump));
+            }
+        }
     }
 
     /** Schedules uploading of all pending minidumps, using the JobScheduler API. */
