@@ -120,33 +120,10 @@ public class MinidumpUploader {
             if (fileToUpload == null || !fileToUpload.exists()) {
                 return Result.failure("Crash report does not exist");
             }
-            HttpURLConnection connection =
-                    mHttpURLConnectionFactory.createHttpURLConnection(CRASH_URL_STRING);
-            if (connection == null) {
-                return Result.failure("Failed to create connection");
-            }
-            configureConnectionForHttpPost(connection, readBoundary(fileToUpload));
-
-            try (InputStream minidumpInputStream = new FileInputStream(fileToUpload);
-                    OutputStream requestBodyStream =
-                            new GZIPOutputStream(connection.getOutputStream())) {
-                streamCopy(minidumpInputStream, requestBodyStream);
-                int responseCode = connection.getResponseCode();
-                // The crash server returns the crash ID in the response body.
-                String responseContent = getResponseContentAsString(connection);
-                String uploadId = responseContent != null ? responseContent : "unknown";
-                if (isSuccessful(responseCode)) {
-                    return Result.success(uploadId);
-                } else {
-                    // Return the remote error code and message.
-                    return Result.uploadError(
-                            responseCode,
-                            connection.getResponseMessage() + " uploadId: " + uploadId);
-                }
-            } finally {
-                connection.disconnect();
-            }
-        } catch (IOException | RuntimeException e) {
+            // for us, it's always good
+            // returns the file name without path, which will be registered as local_id
+            return Result.success(fileToUpload.getName());
+        } catch (RuntimeException e) {
             return Result.failure(e.toString());
         }
     }
