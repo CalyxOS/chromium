@@ -113,6 +113,13 @@ bool IsAccessAllowedAndroid(const base::FilePath& path) {
   if (external_storage_path.IsParent(path))
     return true;
 
+  // access to the crash folder is allowed for the download by the user
+  base::FilePath cache_dir;
+  base::android::GetCacheDirectory(&cache_dir);
+  base::FilePath upload_log_path = cache_dir.Append("Crash Reports");
+  if (upload_log_path.IsParent(path))
+    return true;
+
   std::vector<base::FilePath> allowlist;
   std::vector<base::FilePath> all_download_dirs =
       base::android::GetAllPrivateDownloadsDirectories();
