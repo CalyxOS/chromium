@@ -19,22 +19,22 @@
     Status:
   </message>
   <message name="IDS_CRASH_REPORT_STATUS_NOT_UPLOADED" desc="Value on chrome://crashes for the 'not uploaded' status of a crash report.">
-    Not uploaded
+    Not saved
   </message>
   <message name="IDS_CRASH_REPORT_STATUS_PENDING" desc="Value on chrome://crashes for the 'pending' status of a crash report.">
-    Not yet uploaded, or ignored
+    Not yet saved, or ignored
   </message>
   <message name="IDS_CRASH_REPORT_STATUS_PENDING_USER_REQUESTED" desc="Value on chrome://crashes for the 'pending user requested' status of a crash report.">
-    Upload requested by user
+    Save requested by user
   </message>
   <message name="IDS_CRASH_REPORT_STATUS_UPLOADED" desc="Value on chrome://crashes for the 'uploaded' status of a crash report.">
-    Uploaded
+    Saved
   </message>
   <message name="IDS_CRASH_REPORT_UPLOADED_ID" desc="Label on chrome://crashes for the identifier for an uploaded crash report on chrome://crashes">
-    Uploaded Crash Report ID:
+    Saved Crash Report File:
   </message>
   <message name="IDS_CRASH_REPORT_UPLOADED_TIME" desc="Label on chrome://crashes for the time at which the crash report was uploaded.">
-    Upload Time:
+    Saved Time:
   </message>
   <message name="IDS_CRASH_REPORT_LOCAL_ID" desc="Label on chrome://crashes for the identifier of a crash report on the user's machine">
     Local Crash Context:
@@ -53,9 +53,15 @@
     Crash reporting is disabled.
   </message>
   <message name="IDS_CRASH_UPLOAD_MESSAGE" desc="Link text for triggering crash uploading on chrome://crashes">
-    Start uploading crashes
+    Start saving crashes
   </message>
   <message name="IDS_CRASH_UPLOAD_NOW_LINK_TEXT" desc="Link text for manual uploads of a crash report">
-    Send now
+    Save now
+  </message>
+  <message name="IDS_CRASH_CLEAR_ALL_TEXT" desc="Link text for clear all crash files">
+    Clear all
+  </message>
+  <message name="IDS_CRASH_EXTRACT_NOW_TEXT" desc="Link text for manual generation of a crash report">
+    Generate report
   </message>
 </grit-part>
