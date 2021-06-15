@@ -707,6 +707,7 @@ static_library("ui") {
     "//third_party/re2",
     "//third_party/webrtc_overrides:webrtc_component",
     "//third_party/zlib",
+    "//third_party/zlib/google:zip",
     "//ui/accessibility",
     "//ui/base",
     "//ui/base:data_exchange",
