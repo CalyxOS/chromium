@@ -29,6 +29,7 @@
 #include "third_party/blink/renderer/core/frame/local_frame.h"
 #include "third_party/blink/renderer/core/frame/navigator.h"
 #include "third_party/blink/renderer/core/page/page.h"
+#include "third_party/blink/renderer/platform/runtime_enabled_features.h"
 
 // Maximum number of entries in a vibration pattern.
 const unsigned kVibrationPatternLengthMax = 99;
@@ -151,6 +152,8 @@ bool VibrationController::vibrate(Navigator& navigator,
   // There will be no frame if the window has been closed, but a JavaScript
   // reference to |window| or |navigator| was retained in another window.
   if (!navigator.DomWindow())
+    return false;
+  if (!RuntimeEnabledFeatures::VibrationEnabled())
     return false;
   return From(navigator).Vibrate(pattern);
 }

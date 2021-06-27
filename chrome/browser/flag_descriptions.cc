@@ -6463,6 +6463,9 @@ extern const char kLacrosScreenCoordinatesDescription[];
 
 #endif  // #if BUILDFLAG(IS_CHROMEOS_LACROS)
 
+const char kEnableVibrationName[] = "Vibration";
+const char kEnableVibrationDescription[] = "Enable vibration API; an user gesture will still be needed.";
+
 #if BUILDFLAG(IS_CHROMEOS)
 const char kAllowDefaultWebAppMigrationForChromeOsManagedUsersName[] =
     "Allow default web app migration for ChromeOS managed users";

@@ -52,6 +52,10 @@ void WebRuntimeFeatures::EnableTestOnlyFeatures(bool enable) {
   RuntimeEnabledFeatures::SetTestFeaturesEnabled(enable);
 }
 
+void WebRuntimeFeatures::EnableVibration(bool enable) {
+  RuntimeEnabledFeatures::SetVibrationEnabled(enable);
+}
+
 void WebRuntimeFeatures::EnableOriginTrialControlledFeatures(bool enable) {
   RuntimeEnabledFeatures::SetOriginTrialControlledFeaturesEnabled(enable);
 }

@@ -7467,6 +7467,10 @@ const FeatureEntry kFeatureEntries[] = {
      FEATURE_VALUE_TYPE(features::kNewMacNotificationAPI)},
 #endif
 
+    {"enable-vibration", flag_descriptions::kEnableVibrationName,
+     flag_descriptions::kEnableVibrationDescription, kOsAll,
+     FEATURE_VALUE_TYPE(features::kVibration)},
+
 #if BUILDFLAG(IS_CHROMEOS_ASH)
     {"exo-gamepad-vibration", flag_descriptions::kExoGamepadVibrationName,
      flag_descriptions::kExoGamepadVibrationDescription, kOsCrOS,

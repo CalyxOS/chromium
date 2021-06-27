@@ -322,6 +322,8 @@ CONTENT_EXPORT extern const base::FeatureParam<base::TimeDelta>
     kCompositorLockTimeout;
 
 #endif  // BUILDFLAG(IS_ANDROID)
+CONTENT_EXPORT extern const base::Feature kVibration;
+
 
 #if BUILDFLAG(IS_MAC)
 CONTENT_EXPORT BASE_DECLARE_FEATURE(kDeviceMonitorMac);

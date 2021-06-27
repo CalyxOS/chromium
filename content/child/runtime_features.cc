@@ -101,6 +101,7 @@ void SetRuntimeFeatureDefaultsForPlatform(
 #if BUILDFLAG(IS_ANDROID)
   if (command_line.HasSwitch(switches::kDisableMediaSessionAPI))
     WebRuntimeFeatures::EnableMediaSession(false);
+  WebRuntimeFeatures::EnableVibration(base::FeatureList::IsEnabled(features::kVibration));
 #endif
 
 #if BUILDFLAG(IS_ANDROID)

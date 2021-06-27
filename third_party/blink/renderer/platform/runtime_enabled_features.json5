@@ -1828,6 +1828,10 @@
       status: {"Android": "stable"},
     },
     {
+      name: "Vibration",
+      status: "stable",
+    },
+    {
       name: "OriginIsolationHeader",
       status: "stable",
     },

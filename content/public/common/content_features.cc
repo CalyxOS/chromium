@@ -130,6 +130,10 @@ BASE_FEATURE(kBackForwardCacheMemoryControls,
 #endif
 );
 
+// Enables vibration; an user gesture will still be required if enabled.
+const base::Feature kVibration{"Vibration",
+                                    base::FEATURE_DISABLED_BY_DEFAULT};
+
 // When this feature is enabled, private network requests initiated from
 // non-secure contexts in the `public` address space  are blocked.
 //
