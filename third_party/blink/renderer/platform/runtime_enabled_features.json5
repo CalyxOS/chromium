@@ -401,6 +401,11 @@
       status: "test",
     },
     {
+      name: "UserAgentClientHint",
+      status: "stable",
+      base_feature: "UserAgentClientHint",
+    },
+    {
       name: "AriaRowColIndexText",
       status: "stable",
     },
