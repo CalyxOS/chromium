@@ -3379,8 +3379,9 @@
       public: true,
     },
     {
-      name: "UserAgentClientHint",
-      status: "stable",
+      name: "UserAgentClientHint",  // always disabled
+      status: "experimental",       // in bromite
+      base_feature: "UserAgentClientHint",
     },
     {
       name: "UserAgentReduction",
