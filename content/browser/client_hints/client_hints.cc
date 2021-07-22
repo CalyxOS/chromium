@@ -485,7 +485,8 @@ void AddPrefersReducedMotionHeader(net::HttpRequestHeaders* headers,
                         : network::kPrefersReducedMotionNoPreference);
 }
 
-bool IsValidURLForClientHints(const url::Origin& origin) {
+bool IsValidURLForClientHints(const url::Origin& origin) { // disabled in Bromite
+  if ((true)) return false;
   return network::IsOriginPotentiallyTrustworthy(origin);
 }
 
