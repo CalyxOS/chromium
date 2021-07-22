@@ -219,6 +219,7 @@ ScriptPromise<UADataValues> NavigatorUAData::getHighEntropyValues(
   Dactyloscoper::RecordDirectSurface(
       GetExecutionContext(), WebFeature::kNavigatorUAData_Platform, platform());
 
+  if ((false))
   for (const String& hint : hints) {
     if (hint == "platformVersion") {
       values->setPlatformVersion(platform_version_);
