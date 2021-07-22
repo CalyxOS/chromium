@@ -181,7 +181,7 @@ BASE_FEATURE(kWebSocketReassembleShortMessages,
 // Enable support for ACCEPT_CH H2/3 frame as part of Client Hint Reliability.
 // See:
 // https://tools.ietf.org/html/draft-davidben-http-client-hint-reliability-02#section-4.3
-BASE_FEATURE(kAcceptCHFrame, "AcceptCHFrame", base::FEATURE_ENABLED_BY_DEFAULT);
+BASE_FEATURE(kAcceptCHFrame, "AcceptCHFrame", base::FEATURE_DISABLED_BY_DEFAULT);  // disabled by default in Bromite
 
 // Enable
 BASE_FEATURE(kGetCookiesStringUma,
