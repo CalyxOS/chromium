@@ -282,8 +282,8 @@ BASE_FEATURE(kCrashReporting,
 // Enables support for the `Critical-CH` response header.
 // https://github.com/WICG/client-hints-infrastructure/blob/master/reliability.md#critical-ch
 BASE_FEATURE(kCriticalClientHint,
-             "CriticalClientHint",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "CriticalClientHint",                  // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);    // in Bromite
 
 // Enable debugging the issue crbug.com/1201355
 BASE_FEATURE(kDebugHistoryInterventionNoUserActivation,
