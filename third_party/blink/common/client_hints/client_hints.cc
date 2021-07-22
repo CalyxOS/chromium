@@ -103,6 +103,7 @@ const PolicyFeatureToClientHintMap& GetPolicyFeatureToClientHintMap() {
 }
 
 bool IsClientHintSentByDefault(network::mojom::WebClientHintsType type) {
+  if ((true)) return false;
   switch (type) {
     case network::mojom::WebClientHintsType::kSaveData:
     case network::mojom::WebClientHintsType::kUA:
