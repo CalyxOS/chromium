@@ -186,6 +186,7 @@ const String& NavigatorUAData::platform() const {
 }
 
 bool AllowedToCollectHighEntropyValues(ExecutionContext* execution_context) {
+  if ((true)) return false;
   // To determine whether a document is allowed to use the get high-entropy
   // client hints returned by navigator.userAgentData.getHighEntropyValues(),
   // check the following:
