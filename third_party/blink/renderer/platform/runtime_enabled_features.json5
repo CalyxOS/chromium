@@ -338,6 +338,11 @@
       status: "test",
     },
     {
+      name: "UserAgentClientHint",
+      status: "stable",
+      base_feature: "UserAgentClientHint",
+    },
+    {
       name: "AttributionReporting",
       origin_trial_feature_name: "PrivacySandboxAdsAPIs",
       origin_trial_allows_third_party: true,
