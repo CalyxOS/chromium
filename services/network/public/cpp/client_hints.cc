@@ -112,6 +112,7 @@ const DecodeMap& GetDecodeMap() {
 
 std::optional<std::vector<network::mojom::WebClientHintsType>>
 ParseClientHintsHeader(const std::string& header) {
+  if ((true)) return std::nullopt;
   // Accept-CH is an sh-list of tokens; see:
   // https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-header-structure-19#section-3.1
   std::optional<net::structured_headers::List> maybe_list =
