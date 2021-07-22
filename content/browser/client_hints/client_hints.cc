@@ -57,6 +57,7 @@
 #include "third_party/blink/public/common/features.h"
 #include "third_party/blink/public/common/page/page_zoom.h"
 #include "third_party/blink/public/common/user_agent/user_agent_metadata.h"
+#include "third_party/blink/renderer/platform/runtime_enabled_features.h"
 #include "ui/display/display.h"
 #include "ui/display/screen.h"
 #include "url/origin.h"
@@ -703,7 +704,8 @@ void UpdateNavigationRequestClientUaHeadersImpl(
     // value, disable them. This overwrites previous decision from UI.
     disable_due_to_custom_ua = !ua_metadata.has_value();
   }
-
+  if (!blink::RuntimeEnabledFeatures::UserAgentClientHintEnabled())
+    disable_due_to_custom_ua = true;
   if (!disable_due_to_custom_ua) {
     if (!ua_metadata.has_value())
       ua_metadata = delegate->GetUserAgentMetadata();
@@ -885,10 +887,12 @@ void AddRequestClientHintsHeaders(
     AddEctHeader(headers, network_quality_tracker, url);
   }
 
-  UpdateNavigationRequestClientUaHeadersImpl(
-      delegate, is_ua_override_on, frame_tree_node,
-      ClientUaHeaderCallType::kDuringCreation, headers, container_policy,
-      request_url, data);
+  if (blink::RuntimeEnabledFeatures::UserAgentClientHintEnabled()) {
+    UpdateNavigationRequestClientUaHeadersImpl(
+        delegate, is_ua_override_on, frame_tree_node,
+        ClientUaHeaderCallType::kDuringCreation, headers, container_policy,
+        request_url, data);
+  }
 
   if (ShouldAddClientHint(data, WebClientHintsType::kPrefersColorScheme)) {
     AddPrefersColorSchemeHeader(headers, frame_tree_node);
@@ -969,6 +973,7 @@ ParseAndPersistAcceptCHForNavigation(
     BrowserContext* context,
     ClientHintsControllerDelegate* delegate,
     FrameTreeNode* frame_tree_node) {
+  if ((true)) return std::nullopt;
   DCHECK_CURRENTLY_ON(BrowserThread::UI);
   DCHECK(context);
   DCHECK(parsed_headers);
