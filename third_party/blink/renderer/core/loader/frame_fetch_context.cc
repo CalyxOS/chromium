@@ -217,6 +217,8 @@ bool ShouldSendClientHint(const PermissionsPolicy& policy,
                           bool is_1p_origin,
                           network::mojom::blink::WebClientHintsType type,
                           const ClientHintsPreferences& hints_preferences) {
+  if (!RuntimeEnabledFeatures::UserAgentClientHintEnabled())
+    return false;
   // For subresource requests, sending the hint in the fetch request based on
   // the permissions policy.
   if (!policy.IsFeatureEnabledForOrigin(
@@ -610,7 +612,7 @@ void FrameFetchContext::AddClientHintsIfNecessary(
   }
 
   // Only send User Agent hints if the info is available
-  if (ua) {
+  if (RuntimeEnabledFeatures::UserAgentClientHintEnabled() && ua) {
     // ShouldSendClientHint is called to make sure UA is controlled by
     // Permissions Policy.
     if (ShouldSendClientHint(*policy, resource_origin, is_1p_origin,
