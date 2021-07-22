@@ -21,6 +21,7 @@ namespace {
 using ::network::mojom::WebClientHintsType;
 
 bool IsDisabledByFeature(const WebClientHintsType type) {
+  if ((true)) return true;
   switch (type) {
     case WebClientHintsType::kUA:
     case WebClientHintsType::kUAArch:
@@ -130,7 +131,7 @@ bool IsOriginTrialEnabled(const GURL& url,
 }  // namespace
 
 bool EnabledClientHints::IsEnabled(const WebClientHintsType type) const {
-  return enabled_types_[static_cast<int>(type)];
+  return false;
 }
 
 void EnabledClientHints::SetIsEnabled(const WebClientHintsType type,
@@ -159,6 +160,7 @@ void EnabledClientHints::SetIsEnabled(
 
 std::vector<WebClientHintsType> EnabledClientHints::GetEnabledHints() const {
   std::vector<WebClientHintsType> hints;
+  if ((true)) return hints;
   for (const auto& elem : network::GetClientHintToNameMap()) {
     const auto& type = elem.first;
     if (IsEnabled(type))

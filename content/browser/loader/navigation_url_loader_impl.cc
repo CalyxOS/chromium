@@ -1041,6 +1041,11 @@ void NavigationURLLoaderImpl::OnAcceptCHFrameReceived(
     return;
   }
 
+  if (!base::FeatureList::IsEnabled(network::features::kAcceptCHFrame)) {
+    std::move(callback).Run(net::OK);
+    return;
+  }
+
   LogAcceptCHFrameStatus(AcceptCHFrameRestart::kFramePresent);
 
   // Given that this is happening in the middle of navigation, there should
