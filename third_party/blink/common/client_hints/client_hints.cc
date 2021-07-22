@@ -14,6 +14,7 @@
 #include "base/strings/string_util.h"
 #include "services/network/public/cpp/client_hints.h"
 #include "third_party/blink/public/common/features.h"
+#include "third_party/blink/public/common/features_generated.h"
 #include "third_party/blink/public/common/permissions_policy/permissions_policy.h"
 #include "url/origin.h"
 
@@ -106,11 +107,12 @@ const PolicyFeatureToClientHintMap& GetPolicyFeatureToClientHintMap() {
 
 bool IsClientHintSentByDefault(network::mojom::WebClientHintsType type) {
   switch (type) {
-    case network::mojom::WebClientHintsType::kSaveData:
     case network::mojom::WebClientHintsType::kUA:
     case network::mojom::WebClientHintsType::kUAMobile:
     case network::mojom::WebClientHintsType::kUAPlatform:
-      return true;
+      return base::FeatureList::IsEnabled(blink::features::kUserAgentClientHint);
+    case network::mojom::WebClientHintsType::kSaveData:
+      return false;
     default:
       return false;
   }
