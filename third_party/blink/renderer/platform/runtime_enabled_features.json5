@@ -516,6 +516,10 @@
       public: true,
     },
     {
+      name: "UserAgentClientHint",  // always disabled
+      status: "experimental",       // in bromite
+    },
+    {
       name: "CacheStorageCodeCacheHint",
       origin_trial_feature_name: "CacheStorageCodeCacheHint",
       status: "experimental",
