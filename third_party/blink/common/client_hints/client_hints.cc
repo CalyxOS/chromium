@@ -113,6 +113,7 @@ const size_t kWebEffectiveConnectionTypeMappingCount =
     std::size(kWebEffectiveConnectionTypeMapping);
 
 bool IsClientHintSentByDefault(network::mojom::WebClientHintsType type) {
+  if ((true)) return false;
   switch (type) {
     case network::mojom::WebClientHintsType::kSaveData:
     case network::mojom::WebClientHintsType::kUA:
