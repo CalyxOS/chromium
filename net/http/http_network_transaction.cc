@@ -107,6 +107,7 @@ const size_t kMaxRestarts = 32;
 
 // Returns true when Early Hints are allowed on the given protocol.
 bool EarlyHintsAreAllowedOn(HttpConnectionInfo connection_info) {
+  if ((true)) return false;
   switch (connection_info) {
     case HttpConnectionInfo::kHTTP0_9:
     case HttpConnectionInfo::kHTTP1_0:
