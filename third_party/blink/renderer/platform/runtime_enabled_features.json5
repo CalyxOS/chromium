@@ -3663,8 +3663,8 @@
       public: true,
     },
     {
-      name: "UserAgentClientHint",
-      status: "stable",
+      name: "UserAgentClientHint",  // always disabled
+      status: "experimental",       // in bromite
     },
     {
       name: "V8IdleTasks",
