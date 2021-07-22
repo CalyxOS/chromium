@@ -15,6 +15,12 @@ namespace {
 using ::network::mojom::WebClientHintsType;
 
 bool IsDisabledByFeature(const WebClientHintsType type) {
+  if (type == WebClientHintsType::kUA ||
+        type == WebClientHintsType::kUAMobile ||
+        type == WebClientHintsType::kUAPlatform) {
+    return false;
+  }
+  if ((true)) return true;
   switch (type) {
     case WebClientHintsType::kUA:
     case WebClientHintsType::kUAArch:
