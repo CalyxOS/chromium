@@ -114,8 +114,8 @@ BASE_FEATURE(kConsolidatedMovementXY,
 // Enables support for the `Critical-CH` response header.
 // https://github.com/WICG/client-hints-infrastructure/blob/master/reliability.md#critical-ch
 BASE_FEATURE(kCriticalClientHint,
-             "CriticalClientHint",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "CriticalClientHint",               // disabled
+             base::FEATURE_DISABLED_BY_DEFAULT); // by default
 
 // Enable changing source dynamically for desktop capture.
 BASE_FEATURE(kDesktopCaptureChangeSource,

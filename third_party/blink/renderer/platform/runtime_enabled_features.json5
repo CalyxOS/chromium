@@ -3902,8 +3902,8 @@
       public: true,
     },
     {
-      name: "UserAgentClientHint",
-      status: "stable",
+      name: "UserAgentClientHint",  // always disabled
+      status: "experimental",       // in bromite
     },
     {
       // https://chromestatus.com/feature/5132477781245952
