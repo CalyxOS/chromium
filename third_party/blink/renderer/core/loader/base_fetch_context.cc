@@ -167,7 +167,7 @@ void BaseFetchContext::AddClientHintsIfNecessary(
   // specifying accomponying client hints, in which case we disable sending
   // them.
   using network::mojom::blink::WebClientHintsType;
-  if (ua) {
+  if (RuntimeEnabledFeatures::UserAgentClientHintEnabled() && ua) {
     // ShouldSendClientHint is called to make sure UA is controlled by
     // Permissions Policy.
     if (ShouldSendClientHint(policy, resource_origin, is_1p_origin,
@@ -329,7 +329,7 @@ void BaseFetchContext::AddClientHintsIfNecessary(
   }
 
   // Only send User Agent hints if the info is available
-  if (ua) {
+  if (RuntimeEnabledFeatures::UserAgentClientHintEnabled() && ua) {
     if (ShouldSendClientHint(policy, resource_origin, is_1p_origin,
                              WebClientHintsType::kUAArch, hints_preferences)) {
       SetHttpHeader(WebClientHintsType::kUAArch,
@@ -656,6 +656,8 @@ bool BaseFetchContext::ShouldSendClientHint(
     bool is_1p_origin,
     network::mojom::blink::WebClientHintsType type,
     const ClientHintsPreferences& hints_preferences) const {
+  if (!RuntimeEnabledFeatures::UserAgentClientHintEnabled())
+    return false;
   // For subresource requests, sending the hint in the fetch request based on
   // the permissions policy.
   if ((!policy ||
