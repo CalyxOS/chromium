@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grit-part>
+
+  <!-- Preferences -->
+  <message name="IDS_PREFS_USERSCRIPTS_SETTINGS"
+           desc="."
+           formatter_data="android_java">
+    User Scripts
+  </message>
+
+  <message name="IDS_OPTION_USERSCRIPT_FLAG" desc="." formatter_data="android_java">
+    Activate User Scripts
+  </message>
+
+  <message name="IDS_OPTION_USERSCRIPT_FLAG_ON" desc=". [CHAR-LIMIT=32]" formatter_data="android_java">
+    ON
+  </message>
+  <message name="IDS_OPTION_USERSCRIPT_FLAG_OFF" desc=". [CHAR-LIMIT=32]" formatter_data="android_java">
+    OFF
+  </message>
+
+  <message name="IDS_ADD_SCRIPT" desc=". [CHAR-LIMIT=32]" formatter_data="android_java">
+    Add script
+  </message>
+  <message name="IDS_SCRIPTS_LIST_DESCRIPTION" desc="." formatter_data="android_java">
+    Experimental support for Greasemonkey-style user scripts.
+  </message>
+
+  <message name="IDS_SCRIPTS_ITEM_VERSION" desc="." formatter_data="android_java">
+    Version:
+  </message>
+  <message name="IDS_SCRIPTS_ITEM_FILENAME" desc="." formatter_data="android_java">
+    File:
+  </message>
+  <message name="IDS_SCRIPTS_ITEM_URL" desc="." formatter_data="android_java">
+    Url:
+  </message>
+
+  <message name="IDS_SCRIPTS_VIEW_SOURCE" desc=". [CHAR-LIMIT=32]" formatter_data="android_java">
+    View source
+  </message>
+
+  <message name="IDS_ASK_TO_INSTALL" desc=". [CHAR-LIMIT=32]" formatter_data="android_java">
+    Do you want to install this user script from following location?
+
+<ph name="FILE">%s</ph>
+
+NOTE: only install user scripts that you have verified are secure, user scripts can steal your credentials and data.
+  </message>
+  <message name="IDS_NO" desc=". [CHAR-LIMIT=32]" formatter_data="android_java">
+    No
+  </message>
+
+</grit-part>

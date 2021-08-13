@@ -738,6 +738,12 @@
   "components/autofill/core/browser/autofill_address_rewriter_resources.grd":{
     "includes": [3720]
   },
+  "components/user_scripts/renderer/resources/user_scripts_renderer_resources.grd": {
+    "includes": [6000],
+  },
+  "components/user_scripts/browser/resources/browser_resources.grd": {
+    "includes": [6020],
+  },
   # END components/ section.
 
   # START ios/ section.

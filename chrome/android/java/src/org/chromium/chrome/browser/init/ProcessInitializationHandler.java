@@ -120,6 +120,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import org.chromium.chrome.browser.user_scripts.UserScriptsUtils;
+
 /**
  * Handles the initialization dependences of the browser process.  This is meant to handle the
  * initialization that is not tied to any particular Activity, and the logic that should only be
@@ -308,6 +310,7 @@ public class ProcessInitializationHandler {
 
                 DefaultBrowserInfo.initBrowserFetcher();
 
+                UserScriptsUtils.Initialize();
                 AfterStartupTaskUtils.setStartupComplete();
 
                 PartnerBrowserCustomizations.getInstance().setOnInitializeAsyncFinished(

@@ -3838,6 +3838,9 @@ extern const char kQuickCommandsDescription[];
 #endif  // BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX) ||
         // defined (OS_FUCHSIA)
 
+extern const char kEnableLoggingUserScriptsName[];
+extern const char kEnableLoggingUserScriptsDescription[];
+
 #if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_MAC)
 extern const char kWebShareName[];
 extern const char kWebShareDescription[];

@@ -50,6 +50,7 @@ source_set("profile") {
     "//components/profile_metrics",
     "//components/sync/driver",
     "//components/variations",
+    "//components/user_scripts/browser",
     "//content/public/browser",
     "//extensions/buildflags",
   ]

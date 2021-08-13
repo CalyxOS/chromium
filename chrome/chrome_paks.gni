@@ -107,6 +107,7 @@ template("chrome_extra_paks") {
       "$root_gen_dir/skia/skia_resources.pak",
       "$root_gen_dir/third_party/blink/public/resources/blink_resources.pak",
       "$root_gen_dir/third_party/blink/public/resources/inspector_overlay_resources.pak",
+      "$root_gen_dir/chrome/userscripts_browser_resources.pak",
       "$root_gen_dir/ui/resources/webui_generated_resources.pak",
     ]
     deps = [
@@ -129,6 +130,7 @@ template("chrome_extra_paks") {
       "//third_party/blink/public:devtools_inspector_resources",
       "//third_party/blink/public:resources",
       "//ui/resources",
+      "//components/user_scripts/browser:userscripts_browser_resources_grit",
     ]
     if (defined(invoker.deps)) {
       deps += invoker.deps

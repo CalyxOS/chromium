@@ -141,6 +141,7 @@ static_library("renderer") {
     "//components/content_capture/common",
     "//components/content_capture/renderer",
     "//components/content_settings/common:mojom",
+    "//components/user_scripts/renderer",
     "//components/content_settings/renderer",
     "//components/continuous_search/renderer",
     "//components/dom_distiller/content/renderer",

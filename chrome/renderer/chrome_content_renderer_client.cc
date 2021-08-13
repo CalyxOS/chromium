@@ -250,6 +250,9 @@
 #include "chrome/renderer/supervised_user/supervised_user_error_page_controller_delegate_impl.h"
 #endif
 
+#include "components/user_scripts/common/user_scripts_features.h"
+#include "components/user_scripts/renderer/user_scripts_renderer_client.h"
+
 using autofill::AutofillAgent;
 using autofill::PasswordAutofillAgent;
 using autofill::PasswordGenerationAgent;
@@ -431,6 +434,12 @@ void ChromeContentRendererClient::RenderThreadStarted() {
       WebString::FromASCII(extensions::kExtensionScheme));
 #endif
 
+  user_scripts::UserScriptsRendererClient* userscript_client =
+    user_scripts::UserScriptsRendererClient::GetInstance();
+  if (userscript_client) {
+    userscript_client->RenderThreadStarted();
+  }
+
 #if BUILDFLAG(ENABLE_SPELLCHECK)
   if (!spellcheck_)
     InitSpellCheck();
@@ -586,6 +595,13 @@ void ChromeContentRendererClient::RenderFrameCreated(
   ChromeExtensionsRendererClient::GetInstance()->RenderFrameCreated(
       render_frame, registry);
 #endif
+
+  user_scripts::UserScriptsRendererClient* userscript_client =
+    user_scripts::UserScriptsRendererClient::GetInstance();
+  if (userscript_client) {
+    userscript_client->RenderFrameCreated(
+      render_frame, registry);
+  }
 
 #if BUILDFLAG(ENABLE_PPAPI)
   new PepperHelper(render_frame);
@@ -1556,7 +1572,14 @@ void ChromeContentRendererClient::RunScriptsAtDocumentStart(
   ChromeExtensionsRendererClient::GetInstance()->RunScriptsAtDocumentStart(
       render_frame);
   // |render_frame| might be dead by now.
+  static_assert(false, "Compiler error: extensions cannot be enabled with user scripts");
 #endif
+  user_scripts::UserScriptsRendererClient* userscript_client =
+    user_scripts::UserScriptsRendererClient::GetInstance();
+  if (userscript_client) {
+    userscript_client->RunScriptsAtDocumentStart(
+      render_frame);
+  }
 }
 
 void ChromeContentRendererClient::RunScriptsAtDocumentEnd(
@@ -1565,7 +1588,14 @@ void ChromeContentRendererClient::RunScriptsAtDocumentEnd(
   ChromeExtensionsRendererClient::GetInstance()->RunScriptsAtDocumentEnd(
       render_frame);
   // |render_frame| might be dead by now.
+  static_assert(false, "Compiler error: extensions cannot be enabled with user scripts");
 #endif
+  user_scripts::UserScriptsRendererClient* userscript_client =
+    user_scripts::UserScriptsRendererClient::GetInstance();
+  if (userscript_client) {
+    userscript_client->RunScriptsAtDocumentEnd(
+      render_frame);
+  }
 }
 
 void ChromeContentRendererClient::RunScriptsAtDocumentIdle(
@@ -1574,7 +1604,14 @@ void ChromeContentRendererClient::RunScriptsAtDocumentIdle(
   ChromeExtensionsRendererClient::GetInstance()->RunScriptsAtDocumentIdle(
       render_frame);
   // |render_frame| might be dead by now.
+  static_assert(false, "Compiler error: extensions cannot be enabled with user scripts");
 #endif
+  user_scripts::UserScriptsRendererClient* userscript_client =
+    user_scripts::UserScriptsRendererClient::GetInstance();
+  if (userscript_client) {
+    userscript_client->RunScriptsAtDocumentIdle(
+      render_frame);
+  }
 }
 
 void ChromeContentRendererClient::

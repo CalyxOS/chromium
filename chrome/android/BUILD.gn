@@ -303,6 +303,9 @@ if (current_toolchain == default_toolchain) {
       "//third_party/androidx:androidx_gridlayout_gridlayout_java",
       "//third_party/androidx:androidx_preference_preference_java",
     ]
+    # this need to be into android_resources("chrome_app_java_resources") section because
+    # android:java_resources are packed *_percent.pak and placed in the executable folder
+    deps += [ "//components/user_scripts/android:java_resources" ]
   }
 
   if (enable_vr) {
@@ -607,6 +610,7 @@ if (current_toolchain == default_toolchain) {
       "//components/ukm/android:java",
       "//components/url_formatter/android:url_formatter_java",
       "//components/user_prefs/android:java",
+      "//components/user_scripts/android:java",
       "//components/variations:variations_java",
       "//components/variations/android:variations_java",
       "//components/version_info/android:version_constants_java",

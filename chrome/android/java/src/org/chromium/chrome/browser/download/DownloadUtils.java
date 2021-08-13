@@ -72,6 +72,7 @@ import org.chromium.content_public.browser.WebContents;
 import org.chromium.ui.base.DeviceFormFactor;
 import org.chromium.ui.widget.Toast;
 import org.chromium.url.GURL;
+import org.chromium.chrome.browser.user_scripts.UserScriptsUtils;
 
 import java.io.File;
 
@@ -423,6 +424,11 @@ public class DownloadUtils {
     public static boolean openFile(String filePath, String mimeType, String downloadGuid,
             OTRProfileID otrProfileID, String originalUrl, String referrer,
             @DownloadOpenSource int source, Context context) {
+        if (UserScriptsUtils.getInstance().openFile(filePath, mimeType, downloadGuid,
+                                                    originalUrl, referrer,
+                                                    getUriForItem(filePath))) {
+            return true;
+        }
         DownloadMetrics.recordDownloadOpen(source, mimeType);
         DownloadManagerService service = DownloadManagerService.getDownloadManagerService();
 

@@ -1,0 +1,81 @@
+# This file is part of Bromite.
+
+# Bromite is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# Bromite is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with Bromite. If not, see <https://www.gnu.org/licenses/>.
+
+import("//build/config/features.gni")
+import("//tools/grit/grit_rule.gni")
+
+group("browser") {
+  public_deps = [
+    "//components/user_scripts/browser:browser_sources",
+  ]
+}
+
+source_set("browser_sources") {
+  visibility = [ "./*" ]
+
+  sources = [
+    "file_task_runner.cc",
+    "file_task_runner.h",
+    "userscripts_browser_client.cc",
+    "userscripts_browser_client.h",
+    "user_script_loader.cc",
+    "user_script_loader.h",
+    "user_script_prefs.cc",
+    "user_script_prefs.h",
+    "user_script_pref_info.cc",
+    "user_script_pref_info.h",
+    "ui/user_scripts_ui.h",
+    "ui/user_scripts_ui.cc",
+  ]
+
+  deps = [
+    ":userscripts_browser_resources",
+    "//base:i18n",
+    "//components/keyed_service/content",
+    "//components/keyed_service/core",
+    "//components/pref_registry",
+    "//components/prefs",
+    "//content/public/browser",
+    "//components/user_scripts/common",
+    "//services/device/public/mojom",
+    "//services/preferences/public/cpp",
+    "//services/service_manager/public/cpp",
+    "//third_party/blink/public/common",
+    "//ui/display",
+  ]
+
+  public_deps = [
+    "//content/public/common",
+  ]
+
+  configs += [
+    "//build/config:precompiled_headers",
+    "//build/config/compiler:wexit_time_destructors",
+  ]
+}
+
+group("closure_compile") {
+  deps = [ "resources/user-script-ui:closure_compile" ]
+}
+
+grit("userscripts_browser_resources") {
+  source = "resources/browser_resources.grd"
+
+  output_dir = "$root_gen_dir/chrome"
+  outputs = [
+    "grit/userscripts_browser_resources.h",
+    "userscripts_browser_resources.pak",
+  ]
+}

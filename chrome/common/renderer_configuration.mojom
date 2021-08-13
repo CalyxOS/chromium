@@ -12,6 +12,7 @@ struct DynamicParams {
   bool force_safe_search = true;
   int32 youtube_restrict = 0;
   string allowed_domains_for_apps;
+  bool allow_userscript = false;
 };
 
 interface ChromeOSListener {

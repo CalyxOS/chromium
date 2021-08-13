@@ -57,6 +57,8 @@
 #include "third_party/blink/public/web/web_security_policy.h"
 #include "third_party/blink/public/web/web_view.h"
 
+#include "components/user_scripts/renderer/user_scripts_renderer_client.h"
+
 #if BUILDFLAG(ENABLE_EXTENSIONS)
 #include "extensions/renderer/localization_peer.h"
 #endif
@@ -259,6 +261,7 @@ void ChromeRenderThreadObserver::SetInitialConfiguration(
 void ChromeRenderThreadObserver::SetConfiguration(
     chrome::mojom::DynamicParamsPtr params) {
   *GetDynamicConfigParams() = std::move(*params);
+  user_scripts::UserScriptsRendererClient::GetInstance()->ConfigurationUpdated();
 }
 
 void ChromeRenderThreadObserver::OnRendererConfigurationAssociatedRequest(

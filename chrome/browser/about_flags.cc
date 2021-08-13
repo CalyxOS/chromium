@@ -156,6 +156,7 @@
 #include "components/translate/core/browser/translate_ranker_impl.h"
 #include "components/translate/core/common/translate_util.h"
 #include "components/ui_devtools/switches.h"
+#include "components/user_scripts/common/user_scripts_features.h"
 #include "components/version_info/version_info.h"
 #include "components/viz/common/features.h"
 #include "components/viz/common/switches.h"
@@ -7748,6 +7749,10 @@ const FeatureEntry kFeatureEntries[] = {
      FEATURE_VALUE_TYPE(
          chromeos::features::kClipboardHistoryNudgeSessionReset)},
 #endif  // BUILDFLAG(IS_CHROMEOS_ASH)
+
+    {"enable-userscripts-log", flag_descriptions::kEnableLoggingUserScriptsName,
+     flag_descriptions::kEnableLoggingUserScriptsDescription, kOsDesktop | kOsAndroid,
+     FEATURE_VALUE_TYPE(user_scripts::features::kEnableLoggingUserScripts)},
 
 #if BUILDFLAG(IS_WIN)
     {"enable-media-foundation-video-capture",

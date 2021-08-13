@@ -93,6 +93,7 @@ class RendererUpdater : public KeyedService,
 
   // Prefs that we sync to the renderers.
   BooleanPrefMember force_google_safesearch_;
+  BooleanPrefMember activate_userscripts_;
   IntegerPrefMember force_youtube_restrict_;
   StringPrefMember allowed_domains_for_apps_;
 };

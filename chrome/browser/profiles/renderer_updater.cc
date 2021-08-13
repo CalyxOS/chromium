@@ -31,6 +31,8 @@
 #include "chrome/browser/ash/login/signin/oauth2_login_manager_factory.h"
 #endif
 
+#include "components/user_scripts/browser/user_script_prefs.h"
+
 RendererUpdater::RendererUpdater(Profile* profile)
     : profile_(profile),
       is_off_the_record_(profile_->IsOffTheRecord()),
@@ -51,6 +53,7 @@ RendererUpdater::RendererUpdater(Profile* profile)
   force_google_safesearch_.Init(prefs::kForceGoogleSafeSearch, pref_service);
   force_youtube_restrict_.Init(prefs::kForceYouTubeRestrict, pref_service);
   allowed_domains_for_apps_.Init(prefs::kAllowedDomainsForApps, pref_service);
+  activate_userscripts_.Init(user_scripts::prefs::kUserScriptsEnabled, pref_service);
 
   pref_change_registrar_.Init(pref_service);
   pref_change_registrar_.Add(
@@ -63,6 +66,10 @@ RendererUpdater::RendererUpdater(Profile* profile)
                           base::Unretained(this)));
   pref_change_registrar_.Add(
       prefs::kAllowedDomainsForApps,
+      base::BindRepeating(&RendererUpdater::UpdateAllRenderers,
+                          base::Unretained(this)));
+  pref_change_registrar_.Add(
+      user_scripts::prefs::kUserScriptsEnabled,
       base::BindRepeating(&RendererUpdater::UpdateAllRenderers,
                           base::Unretained(this)));
 }
@@ -188,5 +195,6 @@ chrome::mojom::DynamicParamsPtr RendererUpdater::CreateRendererDynamicParams()
     const {
   return chrome::mojom::DynamicParams::New(
       force_google_safesearch_.GetValue(), force_youtube_restrict_.GetValue(),
-      allowed_domains_for_apps_.GetValue());
+      allowed_domains_for_apps_.GetValue(),
+          activate_userscripts_.GetValue());
 }

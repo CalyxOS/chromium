@@ -6697,6 +6697,11 @@ const char kFollowingFeedSidepanelDescription[] =
 #endif  // BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX) ||
         // BUILDFLAG(IS_FUCHSIA) || BUILDFLAG(IS_CHROMEOS)
 
+const char kEnableLoggingUserScriptsName[] = "Enable logging user scripts component";
+const char kEnableLoggingUserScriptsDescription[] =
+    "Enables logging for troubleshooting feature. "
+    "Enabling logs may make browsing slower.";
+
 #if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_MAC)
 const char kWebShareName[] = "Web Share";
 const char kWebShareDescription[] =
