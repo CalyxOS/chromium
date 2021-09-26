@@ -726,8 +726,8 @@ BASE_FEATURE(kDuetTabStripIntegrationAndroid,
              base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kExperimentsForAgsa,
-             "ExperimentsForAgsa",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "ExperimentsForAgsa",                 // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);   // in Bromite
 
 BASE_FEATURE(kExploreSites, "ExploreSites", base::FEATURE_DISABLED_BY_DEFAULT);
 

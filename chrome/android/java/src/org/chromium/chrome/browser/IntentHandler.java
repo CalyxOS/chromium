@@ -43,7 +43,6 @@ import org.chromium.chrome.browser.document.ChromeLauncherActivity;
 import org.chromium.chrome.browser.externalnav.IntentWithRequestMetadataHandler;
 import org.chromium.chrome.browser.externalnav.IntentWithRequestMetadataHandler.RequestMetadata;
 import org.chromium.chrome.browser.flags.ChromeFeatureList;
-import org.chromium.chrome.browser.gsa.GSAState;
 import org.chromium.chrome.browser.offlinepages.OfflinePageUtils;
 import org.chromium.chrome.browser.omnibox.suggestions.AutocompleteCoordinator;
 import org.chromium.chrome.browser.profiles.Profile;
@@ -266,8 +265,6 @@ public class IntentHandler {
     private static Pair<Integer, String> sPendingReferrer;
     private static int sReferrerId;
     private static String sPendingIncognitoUrl;
-
-    public static final String PACKAGE_GSA = GSAState.PACKAGE_NAME;
 
     private static final String PACKAGE_GMAIL = "com.google.android.gm";
     private static final String PACKAGE_PLUS = "com.google.android.apps.plus";
@@ -498,8 +495,6 @@ public class IntentHandler {
             return ExternalAppId.LINE;
         } else if (packageName.equals(PACKAGE_WHATSAPP)) {
             return ExternalAppId.WHATSAPP;
-        } else if (packageName.equals(PACKAGE_GSA)) {
-            return ExternalAppId.GSA;
         } else if (packageName.equals(ContextUtils.getApplicationContext().getPackageName())) {
             return ExternalAppId.CHROME;
         } else if (packageName.startsWith(WEBAPK_PACKAGE_PREFIX)) {

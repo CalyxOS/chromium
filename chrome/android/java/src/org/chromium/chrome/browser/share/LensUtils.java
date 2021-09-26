@@ -10,7 +10,6 @@ import android.text.TextUtils;
 
 import org.chromium.chrome.browser.IntentHandler;
 import org.chromium.chrome.browser.flags.ChromeFeatureList;
-import org.chromium.chrome.browser.gsa.GSAState;
 import org.chromium.chrome.browser.lens.LensController;
 import org.chromium.components.externalauth.ExternalAuthUtils;
 
@@ -57,12 +56,7 @@ public class LensUtils {
             if (context == null) {
                 return "";
             }
-            String agsaVersion = GSAState.getInstance().getAgsaVersionName();
-            if (agsaVersion == null) {
                 return "";
-            } else {
-                return agsaVersion;
-            }
         }
     }
 
@@ -114,11 +108,7 @@ public class LensUtils {
      * @return Whether the package is valid.
      */
     public static boolean isValidAgsaPackage(final ExternalAuthUtils externalAuthUtils) {
-        if (sFakePassableLensEnvironmentForTesting) {
-            return true;
-        }
-
-        return externalAuthUtils.isGoogleSigned(IntentHandler.PACKAGE_GSA);
+        return false;
     }
 
     /**

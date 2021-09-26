@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 
-import org.chromium.chrome.browser.gsa.GSAState;
 import org.chromium.chrome.browser.lens.LensController;
 import org.chromium.chrome.browser.lens.LensEntryPoint;
 import org.chromium.chrome.browser.lens.LensIntentParams;

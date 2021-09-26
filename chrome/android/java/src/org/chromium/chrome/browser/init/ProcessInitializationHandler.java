@@ -363,14 +363,6 @@ public class ProcessInitializationHandler {
         deferredStartupHandler.addDeferredTask(new Runnable() {
             @Override
             public void run() {
-                // Starts syncing with GSA.
-                AppHooks.get().createGsaHelper().startSync();
-            }
-        });
-
-        deferredStartupHandler.addDeferredTask(new Runnable() {
-            @Override
-            public void run() {
                 // Record the saved restore state in a histogram
                 ChromeBackupAgentImpl.recordRestoreHistogram();
             }

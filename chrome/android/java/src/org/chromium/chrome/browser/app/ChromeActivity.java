@@ -113,10 +113,6 @@ import org.chromium.chrome.browser.fullscreen.BrowserControlsManager;
 import org.chromium.chrome.browser.fullscreen.BrowserControlsManagerSupplier;
 import org.chromium.chrome.browser.fullscreen.FullscreenBackPressHandler;
 import org.chromium.chrome.browser.fullscreen.FullscreenManager;
-import org.chromium.chrome.browser.gsa.ContextReporter;
-import org.chromium.chrome.browser.gsa.GSAAccountChangeListener;
-import org.chromium.chrome.browser.gsa.GSAContextDisplaySelection;
-import org.chromium.chrome.browser.gsa.GSAState;
 import org.chromium.chrome.browser.history.HistoryManagerUtils;
 import org.chromium.chrome.browser.init.AsyncInitializationActivity;
 import org.chromium.chrome.browser.init.ProcessInitializationHandler;
@@ -375,8 +371,6 @@ public abstract class ChromeActivity<C extends ChromeActivityComponent>
     private BottomContainer mBottomContainer;
 
     private LaunchCauseMetrics mLaunchCauseMetrics;
-
-    private GSAAccountChangeListener mGSAAccountChangeListener;
 
     // TODO(972867): Pull MenuOrKeyboardActionController out of ChromeActivity.
     private List<MenuOrKeyboardActionController.MenuOrKeyboardActionHandler> mMenuActionHandlers =
@@ -1169,10 +1163,6 @@ public abstract class ChromeActivity<C extends ChromeActivityComponent>
 
     @Override
     public void onStopWithNative() {
-        if (GSAState.getInstance().isGsaAvailable() && !SysUtils.isLowEndDevice()) {
-            if (mGSAAccountChangeListener != null) mGSAAccountChangeListener.disconnect();
-        }
-
         super.onStopWithNative();
     }
 
@@ -1263,23 +1253,6 @@ public abstract class ChromeActivity<C extends ChromeActivityComponent>
             FontSizePrefs.getInstance(Profile.getLastUsedRegularProfile())
                     .recordUserFontPrefOnStartup();
         });
-
-        // GSA connection is not needed on low-end devices because Icing is disabled.
-        if (!SysUtils.isLowEndDevice()) {
-            if (isActivityFinishingOrDestroyed()) return;
-            DeferredStartupHandler.getInstance().addDeferredTask(() -> {
-                if (!GSAState.getInstance().isGsaAvailable()) {
-                    ContextReporter.reportStatus(ContextReporter.STATUS_GSA_NOT_AVAILABLE);
-                    return;
-                }
-
-                if (mGSAAccountChangeListener == null) {
-                    mGSAAccountChangeListener =
-                            GSAAccountChangeListener.create(AppHooks.get().createGsaHelper());
-                }
-                mGSAAccountChangeListener.connect();
-            });
-        }
 
         DeferredStartupHandler.getInstance().addDeferredTask(
                 () -> { MemoryPurgeManager.getInstance().start(); });
