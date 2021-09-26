@@ -72,7 +72,7 @@ public class CachedFeatureFlags {
                     .put(ChromeFeatureList.EARLY_LIBRARY_LOAD, true)
                     .put(ChromeFeatureList.ELASTIC_OVERSCROLL, true)
                     .put(ChromeFeatureList.ELIDE_PRIORITIZATION_OF_PRE_NATIVE_BOOTSTRAP_TASKS, true)
-                    .put(ChromeFeatureList.EXPERIMENTS_FOR_AGSA, true)
+                    .put(ChromeFeatureList.EXPERIMENTS_FOR_AGSA, false)
                     .put(ChromeFeatureList.FEED_LOADING_PLACEHOLDER, false)
                     .put(ChromeFeatureList.GRID_TAB_SWITCHER_FOR_TABLETS, true)
                     .put(ChromeFeatureList.IMMERSIVE_UI_MODE, false)
