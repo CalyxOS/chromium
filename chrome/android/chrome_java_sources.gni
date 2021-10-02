@@ -5,6 +5,7 @@
 import("//content/public/common/features.gni")
 
 chrome_java_sources = [
+  "java/src/org/chromium/chrome/browser/AlwaysIncognitoLinkInterceptor.java",
   "java/src/com/google/android/apps/chrome/appwidget/bookmarks/BookmarkThumbnailWidgetProvider.java",
   "java/src/org/chromium/chrome/browser/ActivityTabProvider.java",
   "java/src/org/chromium/chrome/browser/ActivityUtils.java",
@@ -948,6 +949,7 @@ chrome_java_sources = [
   "java/src/org/chromium/chrome/browser/privacy/settings/IncognitoLockSettings.java",
   "java/src/org/chromium/chrome/browser/privacy/settings/PrivacyPreferencesManagerImpl.java",
   "java/src/org/chromium/chrome/browser/privacy/settings/PrivacySettings.java",
+  "java/src/org/chromium/chrome/browser/privacy/settings/IncognitoSettings.java",
   "java/src/org/chromium/chrome/browser/privacy_sandbox/CctHandler.java",
   "java/src/org/chromium/chrome/browser/privacy_sandbox/ChromeTrackingProtectionDelegate.java",
   "java/src/org/chromium/chrome/browser/privacy_sandbox/PrivacySandboxSurveyController.java",
