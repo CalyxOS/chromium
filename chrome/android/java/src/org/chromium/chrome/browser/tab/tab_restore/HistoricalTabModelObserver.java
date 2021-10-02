@@ -22,6 +22,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
+
 /** A tab model observer for managing bulk closures. */
 public class HistoricalTabModelObserver implements TabModelObserver {
     private final TabGroupModelFilter mTabGroupModelFilter;
@@ -53,9 +55,10 @@ public class HistoricalTabModelObserver implements TabModelObserver {
         if (tabs.isEmpty() || !canRestore) return;
 
         if (tabs.size() == 1) {
+            boolean is_always_incognito = AlwaysIncognitoLinkInterceptor.isAlwaysIncognito();
             Tab tab = tabs.get(0);
             if (!isTabGroupWithOneTab(tab)) {
-                mHistoricalTabSaver.createHistoricalTab(tab);
+                mHistoricalTabSaver.createHistoricalTab(tab, is_always_incognito);
                 return;
             }
         }

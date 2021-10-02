@@ -270,6 +270,7 @@ struct ContentSettingEntry {
 
 HostContentSettingsMap::HostContentSettingsMap(PrefService* prefs,
                                                bool is_off_the_record,
+                                               bool force_save_site_settings,
                                                bool store_last_modified,
                                                bool restore_session,
                                                bool should_record_metrics)
@@ -279,6 +280,7 @@ HostContentSettingsMap::HostContentSettingsMap(PrefService* prefs,
 #endif
       prefs_(prefs),
       is_off_the_record_(is_off_the_record),
+      force_save_site_settings_(force_save_site_settings),
       store_last_modified_(store_last_modified),
       allow_invalid_secondary_pattern_for_testing_(false),
       clock_(base::DefaultClock::GetInstance()) {
@@ -292,7 +294,7 @@ HostContentSettingsMap::HostContentSettingsMap(PrefService* prefs,
   policy_provider->AddObserver(this);
 
   auto pref_provider_ptr = std::make_unique<content_settings::PrefProvider>(
-      prefs_, is_off_the_record_, store_last_modified_, restore_session);
+      prefs_, is_off_the_record_, force_save_site_settings_, store_last_modified_, restore_session);
   pref_provider_ = pref_provider_ptr.get();
   content_settings_providers_[ProviderType::kPrefProvider] =
       std::move(pref_provider_ptr);
