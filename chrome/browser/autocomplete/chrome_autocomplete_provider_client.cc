@@ -358,6 +358,15 @@ ChromeAutocompleteProviderClient::GetProviderStateService() const {
   return ProviderStateServiceFactory::GetForProfile(profile_);
 }
 
+bool ChromeAutocompleteProviderClient::IsAlwaysIncognitoEnabled() const {
+#if BUILDFLAG(IS_ANDROID)
+  if (profile_->GetPrefs()->GetBoolean(prefs::kAlwaysIncognitoEnabled)) {
+    return true;
+  }
+#endif
+  return false;
+}
+
 bool ChromeAutocompleteProviderClient::IsOffTheRecord() const {
   return profile_->IsOffTheRecord();
 }
