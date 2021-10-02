@@ -114,10 +114,12 @@ void PrefProvider::RegisterProfilePrefs(
 
 PrefProvider::PrefProvider(PrefService* prefs,
                            bool off_the_record,
+                           bool force_save_site_settings,
                            bool store_last_modified,
                            bool restore_session)
     : prefs_(prefs),
       off_the_record_(off_the_record),
+      force_save_site_settings_(force_save_site_settings),
       store_last_modified_(store_last_modified),
       clock_(base::DefaultClock::GetInstance()) {
   TRACE_EVENT_BEGIN("startup", "PrefProvider::PrefProvider");
@@ -140,11 +142,13 @@ PrefProvider::PrefProvider(PrefService* prefs,
   WebsiteSettingsRegistry* website_settings =
       WebsiteSettingsRegistry::GetInstance();
   for (const WebsiteSettingsInfo* info : *website_settings) {
+    bool save_site_settings = force_save_site_settings_ &&
+      info->incognito_behavior() == WebsiteSettingsInfo::INHERIT_IN_INCOGNITO;
     content_settings_prefs_.insert(std::make_pair(
         info->type(),
         std::make_unique<ContentSettingsPref>(
             info->type(), prefs_, &pref_change_registrar_, info->pref_name(),
-            info->partitioned_pref_name(), off_the_record_, restore_session,
+            info->partitioned_pref_name(), off_the_record_ && !save_site_settings, restore_session,
             base::BindRepeating(&PrefProvider::Notify,
                                 base::Unretained(this)))));
   }

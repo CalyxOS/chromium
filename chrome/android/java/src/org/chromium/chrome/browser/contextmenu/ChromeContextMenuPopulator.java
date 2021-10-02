@@ -30,6 +30,7 @@ import org.chromium.base.metrics.RecordHistogram;
 import org.chromium.base.shared_preferences.SharedPreferencesManager;
 import org.chromium.base.supplier.Supplier;
 import org.chromium.chrome.R;
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
 import org.chromium.chrome.browser.contextmenu.ChromeContextMenuItem.Item;
 import org.chromium.chrome.browser.contextmenu.ContextMenuCoordinator.ListItemType;
 import org.chromium.chrome.browser.download.DownloadUtils;
@@ -339,6 +340,9 @@ public class ChromeContextMenuPopulator implements ContextMenuPopulator {
     public List<Pair<Integer, ModelList>> buildContextMenu() {
         mShowEphemeralTabNewLabel = null;
 
+        boolean always_incognito =
+            AlwaysIncognitoLinkInterceptor.isAlwaysIncognito();
+
         List<Pair<Integer, ModelList>> groupedItems = new ArrayList<>();
 
         if (mParams.isAnchor()) {
@@ -349,6 +353,7 @@ public class ChromeContextMenuPopulator implements ContextMenuPopulator {
                 if (mMode == ContextMenuMode.NORMAL) {
                     linkGroup.add(createListItem(Item.OPEN_IN_NEW_TAB_IN_GROUP));
                     linkGroup.add(createListItem(Item.OPEN_IN_NEW_TAB));
+
                     if (!mItemDelegate.isIncognito() && mItemDelegate.isIncognitoSupported()) {
                         linkGroup.add(createListItem(Item.OPEN_IN_INCOGNITO_TAB));
                     }
@@ -379,7 +384,7 @@ public class ChromeContextMenuPopulator implements ContextMenuPopulator {
                 }
             }
             if (FirstRunStatus.getFirstRunFlowComplete()) {
-                if (!mItemDelegate.isIncognito()
+                if ((always_incognito || !mItemDelegate.isIncognito())
                         && UrlUtilities.isDownloadableScheme(mParams.getLinkUrl())) {
                     linkGroup.add(
                             createListItem(

@@ -45,6 +45,9 @@
 #include "components/feed/core/v2/public/feed_api.h"      // nogncheck
 #include "components/feed/core/v2/public/feed_service.h"  // nogncheck
 #include "content/public/browser/web_contents.h"
+#include "chrome/common/pref_names.h"
+#include "components/prefs/pref_registry_simple.h"
+#include "components/prefs/pref_service.h"
 #else
 #include "chrome/browser/ui/browser.h"
 #include "chrome/browser/ui/browser_finder.h"
@@ -492,11 +495,28 @@ void HistoryTabHelper::TitleWasSet(NavigationEntry* entry) {
 history::HistoryService* HistoryTabHelper::GetHistoryService() {
   Profile* profile =
       Profile::FromBrowserContext(web_contents()->GetBrowserContext());
+
+#if BUILDFLAG(IS_ANDROID)
+  if (profile->GetOriginalProfile()->GetPrefs()->GetBoolean(prefs::kIncognitoTabHistoryEnabled)) {
+    return HistoryServiceFactory::GetForProfile(profile, ServiceAccessType::IMPLICIT_ACCESS);
+  }
+#endif
+
   if (profile->IsOffTheRecord())
     return nullptr;
 
   return HistoryServiceFactory::GetForProfile(
       profile, ServiceAccessType::IMPLICIT_ACCESS);
+}
+
+// static
+void HistoryTabHelper::RegisterProfilePrefs(PrefRegistrySimple* registry) {
+#if BUILDFLAG(IS_ANDROID)
+  registry->RegisterBooleanPref(prefs::kIncognitoTabHistoryEnabled,
+                                /*default_value=*/false);
+  registry->RegisterBooleanPref(prefs::kIncognitoSaveSiteSettingEnabled,
+                                /*default_value=*/false);
+#endif
 }
 
 void HistoryTabHelper::WebContentsDestroyed() {
