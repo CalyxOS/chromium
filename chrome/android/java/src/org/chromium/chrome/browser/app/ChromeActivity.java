@@ -94,6 +94,7 @@ import org.chromium.chrome.browser.compositor.layouts.SceneChangeObserver;
 import org.chromium.chrome.browser.compositor.layouts.content.TabContentManagerHandler;
 import org.chromium.chrome.browser.contextualsearch.ContextualSearchManager;
 import org.chromium.chrome.browser.device.DeviceClassManager;
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
 import org.chromium.chrome.browser.dom_distiller.DomDistillerUiUtils;
 import org.chromium.chrome.browser.download.DownloadManagerService;
 import org.chromium.chrome.browser.download.DownloadUtils;
@@ -1952,6 +1953,9 @@ public abstract class ChromeActivity extends AsyncInitializationActivity
         if (!areTabModelsInitialized()) {
             throw new IllegalStateException(
                     "Attempting to access TabCreator before initialization");
+        }
+        if (AlwaysIncognitoLinkInterceptor.isAlwaysIncognito()) {
+            incognito = true;
         }
         return mTabCreatorManagerSupplier.get().getTabCreator(incognito);
     }
