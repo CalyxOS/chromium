@@ -90,6 +90,11 @@ import org.chromium.ui.base.WindowAndroid;
 import org.chromium.ui.interpolators.Interpolators;
 import org.chromium.url.GURL;
 
+import org.chromium.components.user_prefs.UserPrefs;
+import org.chromium.components.prefs.PrefService;
+import org.chromium.chrome.browser.profiles.ProfileManager;
+import org.chromium.chrome.browser.preferences.Pref;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BooleanSupplier;
@@ -1243,10 +1248,13 @@ class LocationBarMediator
         }
         Tab tab = mLocationBarDataProvider.getTab();
         if (tab == null) return false;
+        PrefService prefService = UserPrefs.get(ProfileManager.getLastUsedRegularProfile());
+        boolean historyEnabledInIncognito =
+                prefService.getBoolean(Pref.INCOGNITO_TAB_HISTORY_ENABLED);
         // The save offline button should not be shown on native pages. Currently, trying to
         // save an offline page in incognito crashes, so don't show it on incognito either.
         return shouldShowPageActionButtons()
-                && (!tab.isOffTheRecord()
+                && (!tab.isOffTheRecord() || historyEnabledInIncognito
                         || ChromeFeatureList.isEnabled(
                                 ChromeFeatureList.ENABLE_SAVE_PACKAGE_FOR_OFF_THE_RECORD));
     }
