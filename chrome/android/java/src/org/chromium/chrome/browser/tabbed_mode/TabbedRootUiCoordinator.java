@@ -154,6 +154,8 @@ import org.chromium.components.webapps.bottomsheet.PwaBottomSheetControllerFacto
 import org.chromium.ui.InsetObserver;
 import org.chromium.ui.base.ActivityWindowAndroid;
 import org.chromium.ui.base.DeviceFormFactor;
+import org.chromium.base.ContextUtils;
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
 import org.chromium.ui.base.IntentRequestTracker;
 import org.chromium.ui.dragdrop.DragDropGlobalState;
 import org.chromium.ui.modaldialog.ModalDialogManager;
@@ -1045,7 +1047,7 @@ public class TabbedRootUiCoordinator extends RootUiCoordinator {
                             () -> {
                                 mTabCreatorManagerSupplier
                                         .get()
-                                        .getTabCreator(/* incognito= */ false)
+                                        .getTabCreator(AlwaysIncognitoLinkInterceptor.isAlwaysIncognito())
                                         .launchUrl(
                                                 NewTabPageUtils.encodeNtpUrl(
                                                         NewTabPageLaunchOrigin.WEB_FEED),
