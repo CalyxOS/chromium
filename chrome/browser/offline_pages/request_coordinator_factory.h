@@ -18,7 +18,7 @@ namespace offline_pages {
 class RequestCoordinator;
 
 // A factory to create one unique RequestCoordinator.
-class RequestCoordinatorFactory : public ProfileKeyedServiceFactory {
+class RequestCoordinatorFactory : public BrowserContextKeyedServiceFactory {
  public:
   static RequestCoordinatorFactory* GetInstance();
   static RequestCoordinator* GetForBrowserContext(
@@ -35,6 +35,8 @@ class RequestCoordinatorFactory : public ProfileKeyedServiceFactory {
   ~RequestCoordinatorFactory() override {}
 
   std::unique_ptr<KeyedService> BuildServiceInstanceForBrowserContext(
+      content::BrowserContext* context) const override;
+  content::BrowserContext* GetBrowserContextToUse(
       content::BrowserContext* context) const override;
 };
 
