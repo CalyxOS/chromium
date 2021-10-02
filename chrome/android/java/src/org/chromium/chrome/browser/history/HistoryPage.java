@@ -17,6 +17,14 @@ import org.chromium.chrome.browser.ui.native_page.NativePageHost;
 import org.chromium.components.browser_ui.bottomsheet.BottomSheetController;
 import org.chromium.components.embedder_support.util.UrlConstants;
 
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
+import org.chromium.chrome.browser.profiles.Profile;
+import org.chromium.chrome.browser.profiles.ProfileManager;
+import org.chromium.base.ContextUtils;
+import org.chromium.components.prefs.PrefService;
+import org.chromium.components.user_prefs.UserPrefs;
+import org.chromium.chrome.browser.preferences.Pref;
+
 /** Native page for managing browsing history. */
 public class HistoryPage extends BasicNativePage {
     private HistoryManager mHistoryManager;
@@ -44,6 +52,14 @@ public class HistoryPage extends BasicNativePage {
             Supplier<Tab> tabSupplier,
             String url) {
         super(host);
+
+        if (profile.isOffTheRecord() &&
+                AlwaysIncognitoLinkInterceptor.isAlwaysIncognito()) {
+            PrefService prefService = UserPrefs.get(ProfileManager.getLastUsedRegularProfile());
+            boolean historyEnabledInIncognito =
+                prefService.getBoolean(Pref.INCOGNITO_TAB_HISTORY_ENABLED);
+            if (historyEnabledInIncognito == true) profile = profile.getOriginalProfile();
+        }
 
         Uri uri = Uri.parse(url);
         assert uri.getHost().equals(UrlConstants.HISTORY_HOST);

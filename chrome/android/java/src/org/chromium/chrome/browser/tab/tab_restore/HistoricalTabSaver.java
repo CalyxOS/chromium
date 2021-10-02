@@ -32,7 +32,7 @@ public interface HistoricalTabSaver {
      *
      * @param tab The {@link Tab} to create an entry for.
      */
-    void createHistoricalTab(Tab tab);
+    void createHistoricalTab(Tab tab, boolean is_always_incognito);
 
     /**
      * Creates a Group or Tab entry in TabRestoreService.
