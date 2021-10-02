@@ -45,6 +45,9 @@
 #include "content/public/browser/web_contents.h"
 #include "net/base/filename_util.h"
 #include "url/android/gurl_android.h"
+#include "components/prefs/pref_registry_simple.h"
+#include "components/prefs/pref_service.h"
+#include "chrome/common/pref_names.h"
 
 // Must come after all headers that specialize FromJniType() / ToJniType().
 #include "chrome/android/chrome_jni_headers/OfflinePageBridge_jni.h"
@@ -758,9 +761,15 @@ void OfflinePageBridge::GetPageByOfflineIdDone(
   }
 
   if (offline_page_model_->IsArchiveInInternalDir(offline_page->file_path)) {
+    bool is_trusted = true;
+    // in always incognito, never trust input file (show file name in url)
+    ProfileKey* profile_key = ProfileKey::FromSimpleFactoryKey(key_);
+    if (profile_key->GetPrefs()->GetBoolean(prefs::kIncognitoTabHistoryEnabled))
+      is_trusted = false;
+
     ValidateFileCallback(launch_location, j_callback_obj,
                          offline_page->offline_id, offline_page->url,
-                         offline_page->file_path, true /* is_trusted*/);
+                         offline_page->file_path, is_trusted);
     return;
   }
 
