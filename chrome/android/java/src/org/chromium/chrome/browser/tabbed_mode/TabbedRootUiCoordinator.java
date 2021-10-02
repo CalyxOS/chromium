@@ -180,6 +180,8 @@ import org.chromium.ui.InsetObserver;
 import org.chromium.ui.UiUtils;
 import org.chromium.ui.base.ActivityWindowAndroid;
 import org.chromium.ui.base.DeviceFormFactor;
+import org.chromium.base.ContextUtils;
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
 import org.chromium.ui.base.IntentRequestTracker;
 import org.chromium.ui.base.LocalizationUtils;
 import org.chromium.ui.dragdrop.DragDropGlobalState;
@@ -1078,7 +1080,7 @@ public class TabbedRootUiCoordinator extends RootUiCoordinator {
                             () -> {
                                 mTabCreatorManagerSupplier
                                         .get()
-                                        .getTabCreator(/* incognito= */ false)
+                                        .getTabCreator(AlwaysIncognitoLinkInterceptor.isAlwaysIncognito())
                                         .launchUrl(
                                                 NewTabPageUtils.encodeNtpUrl(
                                                         NewTabPageLaunchOrigin.WEB_FEED),
