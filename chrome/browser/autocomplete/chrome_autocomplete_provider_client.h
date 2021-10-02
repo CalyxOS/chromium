@@ -96,6 +96,7 @@ class ChromeAutocompleteProviderClient : public AutocompleteProviderClient {
   ProviderStateService* GetProviderStateService() const override;
   tab_groups::TabGroupSyncService* GetTabGroupSyncService() const override;
   bool IsOffTheRecord() const override;
+  bool IsAlwaysIncognitoEnabled() const override;
   bool IsIncognitoProfile() const override;
   bool IsGuestSession() const override;
   bool SearchSuggestEnabled() const override;

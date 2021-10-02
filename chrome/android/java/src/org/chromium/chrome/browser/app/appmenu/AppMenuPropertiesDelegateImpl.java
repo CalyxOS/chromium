@@ -89,6 +89,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
+
 /**
  * Base implementation of {@link AppMenuPropertiesDelegate} that handles hiding and showing menu
  * items based on activity state.
@@ -494,8 +496,9 @@ public abstract class AppMenuPropertiesDelegateImpl implements AppMenuProperties
                 && !isNativePage
                 && !isFileScheme
                 && !isContentScheme
-                && !isIncognito
-                && !url.isEmpty();
+                && !url.isEmpty()
+                && (!isIncognito ||
+                    AlwaysIncognitoLinkInterceptor.isAlwaysIncognito());
     }
 
     /**

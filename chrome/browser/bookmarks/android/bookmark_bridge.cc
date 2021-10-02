@@ -35,6 +35,7 @@
 #include "base/numerics/safe_conversions.h"
 #include "base/strings/utf_string_conversions.h"
 #include "base/uuid.h"
+#include "chrome/common/pref_names.h"
 #include "chrome/browser/bookmarks/bookmark_model_factory.h"
 #include "chrome/browser/bookmarks/managed_bookmark_service_factory.h"
 #include "chrome/browser/commerce/shopping_service_factory.h"
@@ -215,6 +216,12 @@ ScopedJavaLocalRef<jobject> JNI_BookmarkBridge_NativeGetForProfile(
   if (!profile)
     return nullptr;
 
+#if BUILDFLAG(IS_ANDROID)
+  if (profile->GetOriginalProfile()
+             ->GetPrefs()->GetBoolean(prefs::kAlwaysIncognitoEnabled)) {
+    profile = profile->GetOriginalProfile();
+  }
+#endif
   BookmarkModel* model = BookmarkModelFactory::GetForBrowserContext(profile);
   if (!model)
     return nullptr;

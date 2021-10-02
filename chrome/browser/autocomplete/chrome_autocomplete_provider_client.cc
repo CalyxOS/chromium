@@ -409,6 +409,15 @@ ChromeAutocompleteProviderClient::GetTabGroupSyncService() const {
   return tab_groups::TabGroupSyncServiceFactory::GetForProfile(profile_);
 }
 
+bool ChromeAutocompleteProviderClient::IsAlwaysIncognitoEnabled() const {
+#if BUILDFLAG(IS_ANDROID)
+  if (profile_->GetPrefs()->GetBoolean(prefs::kAlwaysIncognitoEnabled)) {
+    return true;
+  }
+#endif
+  return false;
+}
+
 bool ChromeAutocompleteProviderClient::IsOffTheRecord() const {
   return profile_->IsOffTheRecord();
 }
