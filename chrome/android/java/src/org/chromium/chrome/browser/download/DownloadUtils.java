@@ -36,6 +36,7 @@ import org.chromium.base.FileUtils;
 import org.chromium.base.IntentUtils;
 import org.chromium.base.Log;
 import org.chromium.chrome.R;
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
 import org.chromium.chrome.browser.ChromeTabbedActivity;
 import org.chromium.chrome.browser.IntentHandler;
 import org.chromium.chrome.browser.app.download.home.DownloadActivityLauncher;
@@ -77,6 +78,10 @@ import org.chromium.ui.widget.Toast;
 import org.chromium.url.GURL;
 
 import java.io.File;
+
+import org.chromium.components.prefs.PrefService;
+import org.chromium.components.user_prefs.UserPrefs;
+import org.chromium.chrome.browser.preferences.Pref;
 
 /** A class containing some utility static methods. */
 public class DownloadUtils {
@@ -299,7 +304,16 @@ public class DownloadUtils {
         // Offline pages isn't supported in Incognito. This should be checked before calling
         // OfflinePageBridge.getForProfile because OfflinePageBridge instance will not be found
         // for incognito profile.
-        if (tab.isIncognito()) return false;
+        boolean always_incognito = AlwaysIncognitoLinkInterceptor.isAlwaysIncognito();
+        if (always_incognito) {
+            PrefService prefService = UserPrefs.get(ProfileManager.getLastUsedRegularProfile());
+            boolean historyEnabledInIncognito =
+                prefService.getBoolean(Pref.INCOGNITO_TAB_HISTORY_ENABLED);
+            if (historyEnabledInIncognito == false)
+                return false;
+        } else {
+            if (tab.isIncognito()) return false;
+        }
 
         // Check if the page url is supported for saving. Only HTTP and HTTPS pages are allowed.
         if (!OfflinePageBridge.canSavePage(tab.getUrl())) return false;
