@@ -163,6 +163,7 @@ public class LocationBarModel implements ToolbarDataProvider, LocationBarDataPro
     protected GURL mVisibleGurl = GURL.emptyGURL();
     protected String mFormattedFullUrl;
     protected String mUrlForDisplay;
+    private boolean mIsAlwaysIncognito;
 
     // notifyUrlChanged and notifySecurityStateChanged are usually called 3 times across a same
     // document navigation. The first call is usually necessary, which updates the UrlBar to reflect
@@ -186,7 +187,9 @@ public class LocationBarModel implements ToolbarDataProvider, LocationBarDataPro
             Context context,
             NewTabPageDelegate newTabPageDelegate,
             UrlFormatter urlFormatter,
-            OfflineStatus offlineStatus) {
+            OfflineStatus offlineStatus,
+            boolean isAlwaysIncognito) {
+        mIsAlwaysIncognito = isAlwaysIncognito; // (uazo) to do, check
         mContext = context;
         mNtpDelegate = newTabPageDelegate;
         mUrlFormatter = urlFormatter;
