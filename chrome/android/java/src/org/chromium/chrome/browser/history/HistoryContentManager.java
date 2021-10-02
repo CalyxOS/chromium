@@ -300,7 +300,9 @@ public class HistoryContentManager implements SignInStateObserver, PrefObserver 
         mHistoryAdapter.generateFooterItems();
 
         // Listen to changes in sign in state.
-        IdentityServicesProvider.get().getSigninManager(profile).addSignInStateObserver(this);
+        // getSigninManager is null in incognito
+        if (IdentityServicesProvider.get().getSigninManager(profile) != null)
+            IdentityServicesProvider.get().getSigninManager(profile).addSignInStateObserver(this);
 
         // Create PrefChangeRegistrar to receive notifications on preference changes.
         mPrefChangeRegistrar = PrefServiceUtil.createFor(profile);
@@ -376,7 +378,8 @@ public class HistoryContentManager implements SignInStateObserver, PrefObserver 
         mHistoryAdapter.onDestroyed();
         mLargeIconBridge.destroy();
         mLargeIconBridge = null;
-        IdentityServicesProvider.get().getSigninManager(mProfile).removeSignInStateObserver(this);
+        if (IdentityServicesProvider.get().getSigninManager(mProfile) != null)
+            IdentityServicesProvider.get().getSigninManager(mProfile).removeSignInStateObserver(this);
         mPrefChangeRegistrar.destroy();
         if (mHistorySyncPromoCoordinator != null) {
             mHistorySyncPromoCoordinator.destroy();

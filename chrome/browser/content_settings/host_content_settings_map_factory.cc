@@ -17,6 +17,7 @@
 #include "chrome/browser/search_engines/template_url_service_factory.h"
 #include "chrome/browser/supervised_user/supervised_user_settings_service_factory.h"
 #include "chrome/common/buildflags.h"
+#include "chrome/common/pref_names.h"
 #include "components/content_settings/core/browser/content_settings_pref_provider.h"
 #include "components/content_settings/core/browser/host_content_settings_map.h"
 #include "components/permissions/features.h"
@@ -105,9 +106,25 @@ scoped_refptr<RefcountedKeyedService>
     GetForProfile(original_profile);
 
   bool should_record_metrics = profiles::IsRegularUserProfile(profile);
+  bool always_incognito_enabled = false;
+  bool force_save_site_settings = false;
+
+#if BUILDFLAG(IS_ANDROID)
+  PrefService* prefService = original_profile->GetPrefs();
+  if (prefService->GetBoolean(prefs::kAlwaysIncognitoEnabled)) {
+    always_incognito_enabled = true;
+  }
+
+  if (prefService->GetBoolean(prefs::kIncognitoSaveSiteSettingEnabled)) {
+    profile = original_profile;
+    force_save_site_settings = true;
+  }
+#endif
+
   scoped_refptr<HostContentSettingsMap> settings_map(new HostContentSettingsMap(
       profile->GetPrefs(),
-      profile->IsOffTheRecord() || profile->IsGuestSession(),
+      !force_save_site_settings && (profile->IsOffTheRecord() || profile->IsGuestSession()),
+      force_save_site_settings,
       /*store_last_modified=*/true, profile->ShouldRestoreOldSessionCookies(),
       should_record_metrics));
 
@@ -115,6 +132,9 @@ scoped_refptr<RefcountedKeyedService>
       WebUIAllowlist::GetOrCreate(profile));
   settings_map->RegisterProvider(ProviderType::kWebuiAllowlistProvider,
                                  std::move(allowlist_provider));
+
+  if (always_incognito_enabled)
+    return settings_map;
 
 #if BUILDFLAG(ENABLE_EXTENSIONS)
   // These must be registered before before the HostSettings are passed over to
