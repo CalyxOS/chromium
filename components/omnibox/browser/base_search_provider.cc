@@ -394,7 +394,7 @@ bool BaseSearchProvider::CanSendSuggestRequest(
 
   // Don't make a suggest request if in incognito mode; unless for the Lens
   // searchboxes.
-  if (client->IsOffTheRecord() &&
+  if (client->IsOffTheRecord() && !client->IsAlwaysIncognitoEnabled() &&
       !omnibox::IsLensSearchbox(page_classification)) {
     return false;
   }
