@@ -643,6 +643,7 @@ chrome_java_resources = [
   "java/res/xml/main_preferences_legacy.xml",
   "java/res/xml/manage_sync_preferences.xml",
   "java/res/xml/personalize_google_services_preferences.xml",
+  "java/res/xml/incognito_preferences.xml",
   "java/res/xml/privacy_preferences.xml",
   "java/res/xml/search_widget_info.xml",
   "java/res/xml/tracing_preferences.xml",

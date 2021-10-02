@@ -5,6 +5,9 @@
 #include "chrome/browser/profiles/profile_selections.h"
 
 #include "base/memory/ptr_util.h"
+#include "components/prefs/pref_registry_simple.h"
+#include "components/prefs/pref_service.h"
+#include "chrome/common/pref_names.h"
 #include "chrome/browser/profiles/profile.h"
 #include "components/profile_metrics/browser_profile_type.h"
 
@@ -112,6 +115,13 @@ Profile* ProfileSelections::ApplyProfileSelection(Profile* profile) const {
       return nullptr;
     case ProfileSelection::kOriginalOnly:
       return profile->IsOffTheRecord() ? nullptr : profile;
+#if BUILDFLAG(IS_ANDROID)
+    case ProfileSelection::kOriginalOnlyAndAlwaysIncognito:
+      return profile->IsOffTheRecord() &&
+             !(profile->GetOriginalProfile()
+              ->GetPrefs()
+              ->GetBoolean(prefs::kAlwaysIncognitoEnabled)) ? nullptr : profile;
+#endif
     case ProfileSelection::kOwnInstance:
       return profile;
     case ProfileSelection::kRedirectedToOriginal:

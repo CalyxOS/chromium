@@ -91,6 +91,11 @@ found in the LICENSE file.
         android:key="secure_dns"
         android:title="@string/settings_secure_dns_title"
         android:fragment="org.chromium.chrome.browser.privacy.secure_dns.SecureDnsSettings" />
+    <Preference
+        android:key="incognito_settings"
+        android:title="@string/incognito_settings_title"
+        android:summary="@string/incognito_settings_summary"
+        android:fragment="org.chromium.chrome.browser.privacy.settings.IncognitoSettings"/>
     <PreferenceCategory
         android:key="services_category"
         android:title="@string/services_category_title">
