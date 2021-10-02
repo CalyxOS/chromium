@@ -12,6 +12,7 @@ import androidx.annotation.VisibleForTesting;
 
 import org.chromium.base.supplier.OneshotSupplier;
 import org.chromium.base.supplier.Supplier;
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
 import org.chromium.chrome.browser.flags.ActivityType;
 import org.chromium.chrome.browser.flags.ChromeFeatureList;
 import org.chromium.chrome.browser.ntp.RecentlyClosedBridge;
@@ -118,6 +119,8 @@ public class TabModelSelectorImpl extends TabModelSelectorBase implements TabMod
 
         ProfileProvider profileProvider = mProfileProviderSupplier.get();
         assert profileProvider != null;
+
+        AlwaysIncognitoLinkInterceptor.migrateSettingToNative();
 
         TabCreator regularTabCreator = getTabCreatorManager().getTabCreator(false);
         TabCreator incognitoTabCreator = getTabCreatorManager().getTabCreator(true);

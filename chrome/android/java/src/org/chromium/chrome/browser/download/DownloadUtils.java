@@ -36,6 +36,7 @@ import org.chromium.base.FileUtils;
 import org.chromium.base.IntentUtils;
 import org.chromium.base.Log;
 import org.chromium.chrome.R;
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
 import org.chromium.chrome.browser.ChromeTabbedActivity;
 import org.chromium.chrome.browser.IntentHandler;
 import org.chromium.chrome.browser.app.download.home.DownloadActivityLauncher;
@@ -77,6 +78,10 @@ import org.chromium.ui.widget.Toast;
 import org.chromium.url.GURL;
 
 import java.io.File;
+
+import org.chromium.components.prefs.PrefService;
+import org.chromium.components.user_prefs.UserPrefs;
+import org.chromium.chrome.browser.preferences.Pref;
 
 /** A class containing some utility static methods. */
 public class DownloadUtils {
@@ -302,7 +307,13 @@ public class DownloadUtils {
     public static boolean isAllowedToDownloadPage(Tab tab) {
         if (tab == null) return false;
 
-        if (tab.isIncognito()
+        boolean historyEnabledInIncognito = false;
+        if (AlwaysIncognitoLinkInterceptor.isAlwaysIncognito()) {
+            PrefService prefService = UserPrefs.get(ProfileManager.getLastUsedRegularProfile());
+            historyEnabledInIncognito =
+                prefService.getBoolean(Pref.INCOGNITO_TAB_HISTORY_ENABLED);
+        }
+        if (tab.isIncognito() && !historyEnabledInIncognito
                 && !ChromeFeatureList.isEnabled(
                         ChromeFeatureList.ENABLE_SAVE_PACKAGE_FOR_OFF_THE_RECORD)) {
             return false;

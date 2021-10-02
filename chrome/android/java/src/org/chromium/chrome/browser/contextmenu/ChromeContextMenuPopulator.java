@@ -31,6 +31,7 @@ import org.chromium.base.metrics.RecordUserAction;
 import org.chromium.base.shared_preferences.SharedPreferencesManager;
 import org.chromium.base.supplier.Supplier;
 import org.chromium.chrome.R;
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
 import org.chromium.chrome.browser.bookmarks.BookmarkUtils;
 import org.chromium.chrome.browser.contextmenu.ChromeContextMenuItem.Item;
 import org.chromium.chrome.browser.contextmenu.ContextMenuCoordinator.ListItemType;
@@ -347,6 +348,9 @@ public class ChromeContextMenuPopulator implements ContextMenuPopulator {
     public List<Pair<Integer, ModelList>> buildContextMenu() {
         mShowEphemeralTabNewLabel = null;
 
+        boolean always_incognito =
+            AlwaysIncognitoLinkInterceptor.isAlwaysIncognito();
+
         List<Pair<Integer, ModelList>> groupedItems = new ArrayList<>();
 
         if (mParams.isPage() && shouldShowEmptySpaceContextMenu()) {
@@ -417,7 +421,7 @@ public class ChromeContextMenuPopulator implements ContextMenuPopulator {
                 }
             }
             if (FirstRunStatus.getFirstRunFlowComplete()) {
-                if (!mItemDelegate.isIncognito()
+                if ((always_incognito || !mItemDelegate.isIncognito())
                         && UrlUtilities.isDownloadableScheme(mParams.getLinkUrl())) {
                     linkGroup.add(
                             createListItem(

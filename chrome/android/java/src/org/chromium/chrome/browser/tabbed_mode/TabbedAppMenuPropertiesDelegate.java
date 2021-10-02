@@ -24,6 +24,7 @@ import org.chromium.base.supplier.Supplier;
 import org.chromium.build.BuildConfig;
 import org.chromium.build.annotations.Nullable;
 import org.chromium.chrome.R;
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
 import org.chromium.chrome.browser.ActivityTabProvider;
 import org.chromium.chrome.browser.ai.AiAssistantService;
 import org.chromium.chrome.browser.app.appmenu.AppMenuPropertiesDelegateImpl;
@@ -316,6 +317,13 @@ public class TabbedAppMenuPropertiesDelegate extends AppMenuPropertiesDelegateIm
     }
 
     private void prepareCommonMenuItems(Menu menu, @MenuGroup int menuGroup, boolean isIncognito) {
+        boolean always_incognito = AlwaysIncognitoLinkInterceptor.isAlwaysIncognito();
+        if (always_incognito) {
+            final MenuItem newTabOption = menu.findItem(R.id.new_tab_menu_id);
+            if (newTabOption != null)
+                newTabOption.setVisible(false);
+        }
+
         // We have to iterate all menu items since same menu item ID may be associated with more
         // than one menu items.
         boolean isOverviewModeMenu = menuGroup == MenuGroup.OVERVIEW_MODE_MENU;
@@ -375,7 +383,14 @@ public class TabbedAppMenuPropertiesDelegate extends AppMenuPropertiesDelegateIm
             }
 
             if (item.getItemId() == R.id.recent_tabs_menu_id) {
-                item.setVisible(!isIncognito);
+                if (always_incognito) {
+                    boolean historyEnabledInIncognito =
+                        UserPrefs.get(currentTab.getProfile()).getBoolean(Pref.INCOGNITO_TAB_HISTORY_ENABLED);
+                    item.setVisible(historyEnabledInIncognito);
+                }
+                else {
+                    item.setVisible(!isIncognito);
+                }
             }
             if (item.getItemId() == R.id.menu_select_tabs) {
                 item.setVisible(isMenuSelectTabsVisible);
