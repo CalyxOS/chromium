@@ -39,6 +39,15 @@ import org.chromium.components.signin.metrics.SigninAccessPoint;
 import org.chromium.components.sync.SyncService;
 import org.chromium.url.GURL;
 
+import android.content.Intent;
+import android.provider.Browser;
+import android.net.Uri;
+import org.chromium.base.ContextUtils;
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
+import org.chromium.chrome.browser.IntentHandler;
+import org.chromium.ui.mojom.WindowOpenDisposition;
+import org.chromium.components.embedder_support.util.UrlUtilities;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -105,7 +114,8 @@ public class RecentTabsManager
             Profile profile,
             Context context,
             Runnable showHistoryManager) {
-        mProfile = profile;
+        mProfile = profile.getOriginalProfile();
+        profile = mProfile;
         mActiveTab = tab;
         mTabModelSelector = tabModelSelector;
         mShowHistoryManager = showHistoryManager;
@@ -273,6 +283,22 @@ public class RecentTabsManager
      */
     public void openRecentlyClosedTab(RecentlyClosedTab tab, int windowDisposition) {
         if (mIsDestroyed) return;
+        if (AlwaysIncognitoLinkInterceptor.isAlwaysIncognito()) {
+            // allow only http/https urls
+            if (!UrlUtilities.isHttpOrHttps(tab.getUrl())) return;
+
+            Context context = ContextUtils.getApplicationContext();
+            Intent intent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse(tab.getUrl().getSpec()));
+            intent.putExtra(Browser.EXTRA_APPLICATION_ID, context.getPackageName());
+            if (windowDisposition != WindowOpenDisposition.CURRENT_TAB) {
+                intent.putExtra(IntentHandler.EXTRA_OPEN_NEW_INCOGNITO_TAB, true);
+            }
+            intent.setPackage(context.getPackageName());
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            IntentHandler.startActivityForTrustedIntent(intent);
+            return;
+        }
         mTabSessionIdsRestored.put(tab.getSessionId(), true);
         RecordUserAction.record("MobileRecentTabManagerRecentTabOpened");
         // Window disposition will select which tab to open.

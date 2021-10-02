@@ -15,6 +15,8 @@ import org.chromium.url.GURL;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import org.chromium.base.ContextUtils;
+
 /** An interface for pages that will be using Android views instead of html/rendered Web content. */
 public interface NativePage {
 
@@ -176,7 +178,8 @@ public interface NativePage {
      */
     static boolean isNativePageUrl(GURL url, boolean isIncognito, boolean hasPdfDownload) {
         return url != null
-                && nativePageType(url, null, isIncognito, hasPdfDownload) != NativePageType.NONE;
+                && nativePageType(url, null, isIncognito, hasPdfDownload, /*isAlwaysIncognito*/ false)
+                        != NativePageType.NONE;
     }
 
     /**
@@ -186,7 +189,7 @@ public interface NativePage {
      *     not have chrome or chrome-native scheme.
      */
     static boolean isChromePageUrl(GURL url, boolean isIncognito) {
-        return url != null && chromePageType(url, null, isIncognito) != NativePageType.NONE;
+        return url != null && chromePageType(url, null, isIncognito, /*isAlwaysIncognito*/false) != NativePageType.NONE;
     }
 
     /**
@@ -198,11 +201,12 @@ public interface NativePage {
      */
     // TODO(crbug.com/40549331) - Convert to using GURL.
     static @NativePageType int nativePageType(
-            String url, NativePage candidatePage, boolean isIncognito, boolean hasPdfDownload) {
+            String url, NativePage candidatePage, boolean isIncognito, boolean hasPdfDownload,
+            boolean isAlwaysIncognito) {
         if (url == null) return NativePageType.NONE;
 
         GURL gurl = new GURL(url);
-        return nativePageType(gurl, candidatePage, isIncognito, hasPdfDownload);
+        return nativePageType(gurl, candidatePage, isIncognito, hasPdfDownload, isAlwaysIncognito);
     }
 
     /**
@@ -213,7 +217,8 @@ public interface NativePage {
      * @return Type of the native page defined in {@link NativePageType}.
      */
     private static @NativePageType int nativePageType(
-            GURL url, NativePage candidatePage, boolean isIncognito, boolean hasPdfDownload) {
+            GURL url, NativePage candidatePage, boolean isIncognito, boolean hasPdfDownload,
+            boolean isAlwaysIncognito) {
         if (hasPdfDownload) {
             // For navigation with associated pdf download (e.g. open a pdf link), pdf page should
             // be created.
@@ -231,7 +236,7 @@ public interface NativePage {
             // created after the pdf document is re-downloaded in other parts of the code.
             return NativePageType.NONE;
         } else {
-            return chromePageType(url, candidatePage, isIncognito);
+            return chromePageType(url, candidatePage, isIncognito, isAlwaysIncognito);
         }
     }
 
@@ -243,7 +248,7 @@ public interface NativePage {
      *     which do not have chrome or chrome-native scheme.
      */
     private static @NativePageType int chromePageType(
-            GURL url, NativePage candidatePage, boolean isIncognito) {
+            GURL url, NativePage candidatePage, boolean isIncognito, boolean isAlwaysIncognito) {
         String host = url.getHost();
         String scheme = url.getScheme();
         if (!UrlConstants.CHROME_NATIVE_SCHEME.equals(scheme)
@@ -263,7 +268,8 @@ public interface NativePage {
             return NativePageType.DOWNLOADS;
         } else if (UrlConstants.HISTORY_HOST.equals(host)) {
             return NativePageType.HISTORY;
-        } else if (UrlConstants.RECENT_TABS_HOST.equals(host) && !isIncognito) {
+        } else if (UrlConstants.RECENT_TABS_HOST.equals(host) &&
+                  (!isIncognito || isAlwaysIncognito)) {
             return NativePageType.RECENT_TABS;
         } else if (UrlConstants.EXPLORE_HOST.equals(host)) {
             return NativePageType.EXPLORE;

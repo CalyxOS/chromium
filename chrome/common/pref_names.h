@@ -4211,6 +4211,12 @@ inline constexpr char kOutOfProcessSystemDnsResolutionEnabled[] =
     "net.out_of_process_system_dns_resolution_enabled";
 #endif  // BUILDFLAG(IS_ANDROID) || BUILDFLAG(IS_LINUX)
 
+#if BUILDFLAG(IS_ANDROID)
+inline constexpr char kAlwaysIncognitoEnabled[] = "always_incognito_enabled";
+inline constexpr char kIncognitoSaveSiteSettingEnabled[] = "incognito_tab_history_enabled";
+inline constexpr char kIncognitoTabHistoryEnabled[] = "incognito_site_setting_enabled";
+#endif
+
 // A list of hostnames to disable HTTPS Upgrades / HTTPS-First Mode warnings on.
 inline constexpr char kHttpAllowlist[] = "https_upgrades.policy.http_allowlist";
 
