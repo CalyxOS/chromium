@@ -3,6 +3,7 @@
 # found in the LICENSE file.
 
 chrome_java_sources = [
+  "java/src/org/chromium/chrome/browser/AlwaysIncognitoLinkInterceptor.java",
   "java/src/com/google/android/apps/chrome/appwidget/bookmarks/BookmarkThumbnailWidgetProvider.java",
   "java/src/org/chromium/chrome/browser/ActivityTabProvider.java",
   "java/src/org/chromium/chrome/browser/ActivityUtils.java",
@@ -968,6 +969,7 @@ chrome_java_sources = [
   "java/src/org/chromium/chrome/browser/privacy_sandbox/TrackingProtectionOnboardingType.java",
   "java/src/org/chromium/chrome/browser/privacy_sandbox/TrackingProtectionOnboardingView.java",
   "java/src/org/chromium/chrome/browser/privacy_sandbox/TrackingProtectionSnackbarController.java",
+  "java/src/org/chromium/chrome/browser/privacy/settings/IncognitoSettings.java",
   "java/src/org/chromium/chrome/browser/provider/BaseColumns.java",
   "java/src/org/chromium/chrome/browser/provider/BookmarkColumns.java",
   "java/src/org/chromium/chrome/browser/provider/ChromeBrowserProviderImpl.java",

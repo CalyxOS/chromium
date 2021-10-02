@@ -4,6 +4,7 @@
 
 #include "chrome/browser/autocomplete/remote_suggestions_service_factory.h"
 
+#include "build/build_config.h"
 #include "base/no_destructor.h"
 #include "chrome/browser/autocomplete/document_suggestions_service_factory.h"
 #include "chrome/browser/profiles/profile.h"
@@ -40,7 +41,11 @@ RemoteSuggestionsServiceFactory::RemoteSuggestionsServiceFactory()
     : ProfileKeyedServiceFactory(
           "RemoteSuggestionsService",
           ProfileSelections::Builder()
+#if BUILDFLAG(IS_ANDROID)
+              .WithRegular(ProfileSelection::kOriginalOnlyAndAlwaysIncognito)
+#else
               .WithRegular(ProfileSelection::kOriginalOnly)
+#endif
               // TODO(crbug.com/40257657): Check if this service is needed in
               // Guest mode.
               .WithGuest(ProfileSelection::kOriginalOnly)

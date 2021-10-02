@@ -37,6 +37,8 @@ import org.chromium.base.supplier.OneshotSupplier;
 import org.chromium.base.supplier.Supplier;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.ActivityTabProvider;
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
+import org.chromium.chrome.browser.profiles.ProfileManager;
 import org.chromium.chrome.browser.bookmarks.BookmarkModel;
 import org.chromium.chrome.browser.bookmarks.PowerBookmarkUtils;
 import org.chromium.chrome.browser.commerce.ShoppingFeatures;
@@ -98,6 +100,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import org.chromium.components.prefs.PrefService;
+import org.chromium.components.user_prefs.UserPrefs;
+import org.chromium.chrome.browser.preferences.Pref;
 
 /**
  * Base implementation of {@link AppMenuPropertiesDelegate} that handles hiding and showing menu
@@ -594,6 +600,13 @@ public class AppMenuPropertiesDelegateImpl implements AppMenuPropertiesDelegate 
     }
 
     private void prepareCommonMenuItems(Menu menu, @MenuGroup int menuGroup, boolean isIncognito) {
+        boolean always_incognito = AlwaysIncognitoLinkInterceptor.isAlwaysIncognito();
+        if (always_incognito) {
+            final MenuItem newTabOption = menu.findItem(R.id.new_tab_menu_id);
+            if (newTabOption != null)
+                newTabOption.setVisible(false);
+        }
+
         // We have to iterate all menu items since same menu item ID may be associated with more
         // than one menu items.
         boolean isOverviewModeMenu = menuGroup == MenuGroup.OVERVIEW_MODE_MENU;
@@ -657,7 +670,15 @@ public class AppMenuPropertiesDelegateImpl implements AppMenuPropertiesDelegate 
             }
 
             if (item.getItemId() == R.id.recent_tabs_menu_id) {
-                item.setVisible(!isIncognito);
+                if (always_incognito) {
+                    PrefService prefService =
+                        UserPrefs.get(ProfileManager.getLastUsedRegularProfile());
+                    boolean historyEnabledInIncognito =
+                        prefService.getBoolean(Pref.INCOGNITO_TAB_HISTORY_ENABLED);
+                    item.setVisible(historyEnabledInIncognito);
+                }
+                else
+                    item.setVisible(!isIncognito);
             }
             if (item.getItemId() == R.id.menu_select_tabs) {
                 item.setVisible(isMenuSelectTabsVisible);
@@ -866,8 +887,9 @@ public class AppMenuPropertiesDelegateImpl implements AppMenuPropertiesDelegate 
                 && !isNativePage
                 && !isFileScheme
                 && !isContentScheme
-                && !isIncognito
-                && !url.isEmpty();
+                && !url.isEmpty()
+                && (!isIncognito ||
+                    AlwaysIncognitoLinkInterceptor.isAlwaysIncognito());
     }
 
     /**

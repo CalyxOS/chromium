@@ -83,6 +83,7 @@ class HostContentSettingsMap : public content_settings::Observer,
   // profile or a guest session.
   HostContentSettingsMap(PrefService* prefs,
                          bool is_off_the_record,
+                         bool force_save_site_settings,
                          bool store_last_modified,
                          bool restore_session,
                          bool should_record_metrics);
@@ -506,6 +507,8 @@ class HostContentSettingsMap : public content_settings::Observer,
 
   // Whether this settings map is for an incognito or guest session.
   bool is_off_the_record_;
+
+  bool force_save_site_settings_ = false;
 
   // Whether ContentSettings in the PrefProvider will store a last_modified
   // timestamp.
