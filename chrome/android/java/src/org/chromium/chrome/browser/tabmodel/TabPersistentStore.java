@@ -48,6 +48,8 @@ import org.chromium.chrome.browser.tabpersistence.TabStateFileManager;
 import org.chromium.components.embedder_support.util.UrlUtilities;
 import org.chromium.content_public.browser.LoadUrlParams;
 
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
+
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
@@ -777,6 +779,13 @@ public class TabPersistentStore {
                 }
             }
         }
+        if (AlwaysIncognitoLinkInterceptor.isAlwaysIncognito()) {
+            if (!isIncognito) {
+                Log.w(TAG, "Failed to restore tab: not in incognito mode.");
+                return;
+            }
+        }
+
         TabModel model = mTabModelSelector.getModel(isIncognito);
 
         if (model.isIncognito() != isIncognito) {

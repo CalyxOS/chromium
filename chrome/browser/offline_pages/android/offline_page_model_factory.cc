@@ -24,6 +24,9 @@
 #include "components/keyed_service/core/simple_dependency_manager.h"
 #include "components/offline_pages/core/model/offline_page_model_taskified.h"
 #include "components/offline_pages/core/offline_page_metadata_store.h"
+#include "components/prefs/pref_registry_simple.h"
+#include "components/prefs/pref_service.h"
+#include "chrome/common/pref_names.h"
 
 namespace offline_pages {
 
@@ -55,13 +58,15 @@ std::unique_ptr<KeyedService> OfflinePageModelFactory::BuildServiceInstanceFor(
   scoped_refptr<base::SequencedTaskRunner> background_task_runner =
       base::ThreadPool::CreateSequencedTaskRunner({base::MayBlock()});
 
+  ProfileKey* profile_key = ProfileKey::FromSimpleFactoryKey(key)->GetOriginalKey();
+
   base::FilePath store_path =
-      key->GetPath().Append(chrome::kOfflinePageMetadataDirname);
+      profile_key->GetPath().Append(chrome::kOfflinePageMetadataDirname);
   std::unique_ptr<OfflinePageMetadataStore> metadata_store(
       new OfflinePageMetadataStore(background_task_runner, store_path));
 
   base::FilePath persistent_archives_dir =
-      key->GetPath().Append(chrome::kOfflinePageArchivesDirname);
+      profile_key->GetPath().Append(chrome::kOfflinePageArchivesDirname);
   // If base::PathService::Get returns false, the temporary_archives_dir will be
   // empty, and no temporary pages will be saved during this chrome lifecycle.
   base::FilePath temporary_archives_dir;
@@ -70,7 +75,6 @@ std::unique_ptr<KeyedService> OfflinePageModelFactory::BuildServiceInstanceFor(
         temporary_archives_dir.Append(chrome::kOfflinePageArchivesDirname);
   }
 
-  ProfileKey* profile_key = ProfileKey::FromSimpleFactoryKey(key);
   auto archive_manager = std::make_unique<DownloadArchiveManager>(
       temporary_archives_dir, persistent_archives_dir,
       DownloadPrefs::GetDefaultDownloadDirectory(), background_task_runner,
@@ -86,6 +90,16 @@ std::unique_ptr<KeyedService> OfflinePageModelFactory::BuildServiceInstanceFor(
           std::move(publisher), background_task_runner);
 
   return model;
+}
+
+SimpleFactoryKey* OfflinePageModelFactory::GetKeyToUse(
+    SimpleFactoryKey* key) const {
+  ProfileKey* profile_key = ProfileKey::FromSimpleFactoryKey(key);
+  if (profile_key->GetPrefs()->GetBoolean(prefs::kIncognitoTabHistoryEnabled) == false) {
+    return SimpleKeyedServiceFactory::GetKeyToUse(key);
+  }
+
+  return profile_key->GetOriginalKey();
 }
 
 }  // namespace offline_pages

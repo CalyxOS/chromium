@@ -161,6 +161,7 @@ public class LocationBarModel implements ToolbarDataProvider, LocationBarDataPro
     protected String mFormattedFullUrl;
     protected String mUrlForDisplay;
     private boolean mOmniboxUpdatedConnectionSecurityIndicatorsEnabled;
+    private boolean mIsAlwaysIncognito;
 
     // notifyUrlChanged and notifySecurityStateChanged are usually called 3 times across a same
     // document navigation. The first call is usually necessary, which updates the UrlBar to reflect
@@ -184,7 +185,9 @@ public class LocationBarModel implements ToolbarDataProvider, LocationBarDataPro
             Context context,
             NewTabPageDelegate newTabPageDelegate,
             @NonNull UrlFormatter urlFormatter,
-            @NonNull OfflineStatus offlineStatus) {
+            @NonNull OfflineStatus offlineStatus,
+            boolean isAlwaysIncognito) {
+        mIsAlwaysIncognito = isAlwaysIncognito; // (uazo) to do, check
         mContext = context;
         mNtpDelegate = newTabPageDelegate;
         mUrlFormatter = urlFormatter;

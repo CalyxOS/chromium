@@ -71,45 +71,6 @@ public class CustomTabActivityLifecycleUmaTracker
     private boolean mIsInitialResume = true;
 
     private void recordIncognitoLaunchReason() {
-        // TODO(crbug.com/352525607): Separate Ephemeral and Incognito CCT metrics.
-        @IntentHandler.IncognitoCCTCallerId int incognitoCCTCallerId;
-        if (mIntentDataProvider.getCustomTabMode() == CustomTabProfileType.INCOGNITO) {
-            incognitoCCTCallerId =
-                    ((IncognitoCustomTabIntentDataProvider) mIntentDataProvider)
-                            .getFeatureIdForMetricsCollection();
-        } else {
-            incognitoCCTCallerId =
-                    ((EphemeralCustomTabIntentDataProvider) mIntentDataProvider)
-                            .getFeatureIdForMetricsCollection();
-        }
-
-        RecordHistogram.recordEnumeratedHistogram(
-                "CustomTabs.IncognitoCCTCallerId",
-                incognitoCCTCallerId,
-                IntentHandler.IncognitoCCTCallerId.NUM_ENTRIES);
-
-        // Record which 1P app launched Incognito CCT.
-        if (incognitoCCTCallerId == IntentHandler.IncognitoCCTCallerId.GOOGLE_APPS) {
-            String sendersPackageName = mIntentDataProvider.getClientPackageName();
-            @IntentHandler.ExternalAppId
-            int externalId = IntentHandler.mapPackageToExternalAppId(sendersPackageName);
-            if (externalId != IntentHandler.ExternalAppId.OTHER) {
-                RecordHistogram.recordEnumeratedHistogram(
-                        "CustomTabs.ClientAppId.Incognito",
-                        externalId,
-                        IntentHandler.ExternalAppId.NUM_ENTRIES);
-            } else {
-                // Using package name didn't give any meaningful insight on who launched the
-                // Incognito CCT, falling back to check if they provided EXTRA_APPLICATION_ID.
-                externalId =
-                        IntentHandler.determineExternalIntentSource(
-                                mIntentDataProvider.getIntent());
-                RecordHistogram.recordEnumeratedHistogram(
-                        "CustomTabs.ClientAppId.Incognito",
-                        externalId,
-                        IntentHandler.ExternalAppId.NUM_ENTRIES);
-            }
-        }
     }
 
     private void recordUserAction() {

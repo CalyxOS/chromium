@@ -778,7 +778,9 @@ bool SearchProvider::IsQuerySuitableForSuggest(bool* query_is_private) const {
   // keyword input to a keyword suggest server, if any.)
   const TemplateURL* default_url = providers_.GetDefaultProviderURL();
   const TemplateURL* keyword_url = providers_.GetKeywordProviderURL();
-  return !client()->IsOffTheRecord() && client()->SearchSuggestEnabled() &&
+  return (client()->IsOffTheRecord() == false ||
+                client()->IsAlwaysIncognitoEnabled() == true) &&
+         client()->SearchSuggestEnabled() &&
          ((default_url && !default_url->suggestions_url().empty() &&
            !*query_is_private) ||
           (keyword_url && !keyword_url->suggestions_url().empty()));
