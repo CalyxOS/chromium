@@ -106,8 +106,10 @@ class RecentTabHelper
 
   bool EnsureInitialized();
   void ContinueSnapshotWithIdsToPurge(SnapshotProgressInfo* snapshot_info,
+                                      bool user_requested,
                                       const std::vector<int64_t>& page_ids);
   void ContinueSnapshotAfterPurge(SnapshotProgressInfo* snapshot_info,
+                                  bool user_requested,
                                   OfflinePageModel::DeletePageResult result);
   void SavePageCallback(SnapshotProgressInfo* snapshot_info,
                         OfflinePageModel::SavePageResult result,
@@ -128,6 +130,9 @@ class RecentTabHelper
   // If false, never make snapshots off the attached WebContents.
   // Not page-specific.
   bool snapshots_enabled_ = false;
+
+  // If true, tab history in incognito mode is enabled
+  bool incognito_tab_history_enabled_ = false;
 
   // Snapshot progress information for an ongoing snapshot requested by
   // downloads. Null if there's no ongoing request.

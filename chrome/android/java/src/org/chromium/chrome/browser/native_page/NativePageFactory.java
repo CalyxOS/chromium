@@ -18,6 +18,7 @@ import org.chromium.base.supplier.ObservableSupplier;
 import org.chromium.base.supplier.OneshotSupplier;
 import org.chromium.base.supplier.Supplier;
 import org.chromium.chrome.R;
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
 import org.chromium.chrome.browser.app.ChromeActivity;
 import org.chromium.chrome.browser.app.download.home.DownloadPage;
 import org.chromium.chrome.browser.bookmarks.BookmarkPage;
@@ -316,7 +317,8 @@ public class NativePageFactory {
             String url, NativePage candidatePage, Tab tab, boolean isIncognito, PdfInfo pdfInfo) {
         NativePage page;
 
-        switch (NativePage.nativePageType(url, candidatePage, isIncognito, pdfInfo != null)) {
+        boolean isAlwaysIncognito = AlwaysIncognitoLinkInterceptor.isAlwaysIncognito();
+        switch (NativePage.nativePageType(url, candidatePage, isIncognito, pdfInfo != null, isAlwaysIncognito)) {
             case NativePageType.NONE:
                 return null;
             case NativePageType.CANDIDATE:
