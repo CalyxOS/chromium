@@ -912,7 +912,8 @@ std::unique_ptr<network::SimpleURLLoader> SearchProvider::CreateSuggestLoader(
   // is required.
   // Request for suggestions in OTR contexts is not allowed; except for the Lens
   // searchboxes.
-  DCHECK(!client()->IsOffTheRecord() ||
+  if (!client()->IsAlwaysIncognitoEnabled())
+    DCHECK(!client()->IsOffTheRecord() ||
          omnibox::IsLensSearchbox(input.current_page_classification()));
   return client()
       ->GetRemoteSuggestionsService(/*create_if_necessary=*/true)

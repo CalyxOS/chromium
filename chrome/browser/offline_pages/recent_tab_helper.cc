@@ -28,6 +28,11 @@
 #include "content/public/browser/navigation_entry.h"
 #include "content/public/browser/navigation_handle.h"
 
+#include "chrome/browser/profiles/profile.h"
+#include "components/prefs/pref_registry_simple.h"
+#include "components/prefs/pref_service.h"
+#include "chrome/common/pref_names.h"
+
 namespace {
 class DefaultRecentTabHelperDelegate
     : public offline_pages::RecentTabHelper::Delegate {
@@ -179,6 +184,14 @@ bool RecentTabHelper::EnsureInitialized() {
   // WebContents with its origin as well.
   snapshots_enabled_ = !tab_id_.empty() &&
                        !web_contents()->GetBrowserContext()->IsOffTheRecord();
+  if (!tab_id_.empty() && web_contents()->GetBrowserContext()->IsOffTheRecord()) {
+    if (Profile::FromBrowserContext(web_contents()->GetBrowserContext())
+          ->GetOriginalProfile()
+          ->GetPrefs()->GetBoolean(prefs::kIncognitoTabHistoryEnabled)) {
+      snapshots_enabled_ = true;
+      incognito_tab_history_enabled_ = true;
+    }
+  }
 
   if (snapshots_enabled_) {
     page_model_ = OfflinePageModelFactory::GetForBrowserContext(
@@ -338,7 +351,8 @@ void RecentTabHelper::WebContentsWasHidden() {
       GetRecentPagesClientId(),
       base::BindOnce(&RecentTabHelper::ContinueSnapshotWithIdsToPurge,
                      weak_ptr_factory_.GetWeakPtr(),
-                     last_n_ongoing_snapshot_info_.get()));
+                     last_n_ongoing_snapshot_info_.get(),
+                     /*user_requested*/ false));
 
   last_n_latest_saved_snapshot_info_.reset();
 }
@@ -402,11 +416,12 @@ void RecentTabHelper::SaveSnapshotForDownloads(bool replace_latest) {
         downloads_latest_saved_snapshot_info_->request_id,
         downloads_latest_saved_snapshot_info_->origin);
     std::vector<int64_t> ids{downloads_latest_saved_snapshot_info_->request_id};
-    ContinueSnapshotWithIdsToPurge(downloads_ongoing_snapshot_info_.get(), ids);
+    ContinueSnapshotWithIdsToPurge(downloads_ongoing_snapshot_info_.get(), /*user_requested*/ true, ids);
   } else {
     // Otherwise go straight to saving the page.
     DCHECK(downloads_ongoing_snapshot_info_);
     ContinueSnapshotAfterPurge(downloads_ongoing_snapshot_info_.get(),
+                               /*user_requested*/ true,
                                OfflinePageModel::DeletePageResult::SUCCESS);
   }
 }
@@ -423,6 +438,7 @@ void RecentTabHelper::SaveSnapshotForDownloads(bool replace_latest) {
 // for early termination in case of errors.
 void RecentTabHelper::ContinueSnapshotWithIdsToPurge(
     SnapshotProgressInfo* snapshot_info,
+    bool user_requested,
     const std::vector<int64_t>& page_ids) {
   DCHECK(snapshot_info);
 
@@ -432,13 +448,20 @@ void RecentTabHelper::ContinueSnapshotWithIdsToPurge(
   criteria.offline_ids = page_ids;
   page_model_->DeletePagesWithCriteria(
       criteria, base::BindOnce(&RecentTabHelper::ContinueSnapshotAfterPurge,
-                               weak_ptr_factory_.GetWeakPtr(), snapshot_info));
+                               weak_ptr_factory_.GetWeakPtr(), snapshot_info,
+                               user_requested));
 }
 
 void RecentTabHelper::ContinueSnapshotAfterPurge(
     SnapshotProgressInfo* snapshot_info,
+    bool user_requested,
     OfflinePageModel::DeletePageResult result) {
-  if (result != OfflinePageModel::DeletePageResult::SUCCESS) {
+  // remove snapshot save of recent tab if always incognito mode is active
+  // so recents tab list is empty at every startup
+  // the user can choose to disable the feature
+  if ((incognito_tab_history_enabled_ || !base::FeatureList::IsEnabled(offline_pages::kOfflinePagesAutoSaveFeature)
+         || result != OfflinePageModel::DeletePageResult::SUCCESS)
+       && !user_requested) {
     ReportSnapshotCompleted(snapshot_info, false);
     return;
   }
