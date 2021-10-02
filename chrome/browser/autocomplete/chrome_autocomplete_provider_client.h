@@ -80,6 +80,7 @@ class ChromeAutocompleteProviderClient : public AutocompleteProviderClient {
       const override;
   signin::IdentityManager* GetIdentityManager() const override;
   bool IsOffTheRecord() const override;
+  bool IsAlwaysIncognitoEnabled() const override;
   bool SearchSuggestEnabled() const override;
   bool AllowDeletingBrowserHistory() const override;
   bool IsPersonalizedUrlDataCollectionActive() const override;

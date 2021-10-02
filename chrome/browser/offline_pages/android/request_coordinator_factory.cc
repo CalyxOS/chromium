@@ -19,6 +19,7 @@
 #include "chrome/browser/ui/android/tab_model/tab_model.h"
 #include "chrome/browser/ui/android/tab_model/tab_model_list.h"
 #include "chrome/common/chrome_constants.h"
+#include "components/keyed_service/content/browser_context_dependency_manager.h"
 #include "components/offline_pages/core/background/offliner.h"
 #include "components/offline_pages/core/background/offliner_policy.h"
 #include "components/offline_pages/core/background/request_coordinator.h"
@@ -27,6 +28,11 @@
 #include "components/offline_pages/core/background/scheduler.h"
 #include "components/offline_pages/core/offline_page_feature.h"
 #include "content/public/browser/web_contents.h"
+
+#include "chrome/browser/profiles/incognito_helpers.h"
+#include "components/prefs/pref_registry_simple.h"
+#include "components/prefs/pref_service.h"
+#include "chrome/common/pref_names.h"
 
 namespace network {
 class NetworkQualityTracker;
@@ -61,7 +67,8 @@ class ActiveTabInfo : public RequestCoordinator::ActiveTabInfo {
 };
 
 RequestCoordinatorFactory::RequestCoordinatorFactory()
-    : ProfileKeyedServiceFactory("OfflineRequestCoordinator") {
+    : BrowserContextKeyedServiceFactory("OfflineRequestCoordinator",
+                      BrowserContextDependencyManager::GetInstance()) {
   // Depends on OfflinePageModelFactory in SimpleDependencyManager.
 }
 
@@ -79,6 +86,12 @@ RequestCoordinator* RequestCoordinatorFactory::GetForBrowserContext(
 
 KeyedService* RequestCoordinatorFactory::BuildServiceInstanceFor(
     content::BrowserContext* context) const {
+  if (context->IsOffTheRecord() &&
+      Profile::FromBrowserContext(context)->GetOriginalProfile()
+        ->GetPrefs()->GetBoolean(prefs::kIncognitoTabHistoryEnabled) == false) {
+    // do not track history in incognito mode if preference is disabled
+    return nullptr;
+  }
   std::unique_ptr<OfflinerPolicy> policy(new OfflinerPolicy());
   std::unique_ptr<Offliner> offliner;
   OfflinePageModel* model =
@@ -110,5 +123,17 @@ KeyedService* RequestCoordinatorFactory::BuildServiceInstanceFor(
 
   return request_coordinator;
 }
+
+content::BrowserContext*
+RequestCoordinatorFactory::GetBrowserContextToUse(
+    content::BrowserContext* context) const {
+  if (Profile::FromBrowserContext(context)->GetOriginalProfile()
+        ->GetPrefs()->GetBoolean(prefs::kIncognitoTabHistoryEnabled) == false) {
+    return BrowserContextKeyedServiceFactory::GetBrowserContextToUse(context);
+  }
+
+  return chrome::GetBrowserContextRedirectedInIncognito(context);
+}
+
 
 }  // namespace offline_pages

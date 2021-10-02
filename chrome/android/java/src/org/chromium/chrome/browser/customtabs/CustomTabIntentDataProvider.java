@@ -49,6 +49,9 @@ import org.chromium.components.embedder_support.util.UrlConstants;
 import org.chromium.components.version_info.VersionInfo;
 import org.chromium.device.mojom.ScreenOrientationLockType;
 
+import org.chromium.base.ContextUtils;
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
@@ -855,7 +858,7 @@ public class CustomTabIntentDataProvider extends BrowserServicesIntentDataProvid
 
     @Override
     public boolean isIncognito() {
-        return false;
+        return AlwaysIncognitoLinkInterceptor.isAlwaysIncognito();
     }
 
     @Nullable

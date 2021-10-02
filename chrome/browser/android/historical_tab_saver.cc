@@ -26,6 +26,11 @@
 #include "components/sessions/core/tab_restore_service.h"
 #include "content/public/browser/web_contents.h"
 
+#include "chrome/common/pref_names.h"
+#include "components/prefs/pref_registry_simple.h"
+#include "components/prefs/pref_service.h"
+#include "historical_tab_saver.h"
+
 using base::android::JavaParamRef;
 using base::android::ScopedJavaLocalRef;
 
@@ -38,7 +43,8 @@ constexpr int kInvalidGroupId = -1;
 
 void CreateHistoricalTab(
     TabAndroid* tab_android,
-    WebContentsStateByteBuffer web_contents_state_byte_buffer) {
+    WebContentsStateByteBuffer web_contents_state_byte_buffer,
+    bool is_always_incognito) {
   if (!tab_android) {
     return;
   }
@@ -49,9 +55,14 @@ void CreateHistoricalTab(
     return;
   }
 
+  auto* profile = Profile::FromBrowserContext(scoped_web_contents->web_contents()->GetBrowserContext());
+  if (is_always_incognito) {
+    if (profile->GetOriginalProfile()->GetPrefs()->GetBoolean(prefs::kIncognitoTabHistoryEnabled))
+      profile = profile->GetOriginalProfile();
+  }
+
   sessions::TabRestoreService* service =
-      TabRestoreServiceFactory::GetForProfile(Profile::FromBrowserContext(
-          scoped_web_contents->web_contents()->GetBrowserContext()));
+      TabRestoreServiceFactory::GetForProfile(profile);
   if (!service) {
     return;
   }
@@ -243,14 +254,15 @@ static void JNI_HistoricalTabSaverImpl_CreateHistoricalTab(
     JNIEnv* env,
     const JavaParamRef<jobject>& jtab_android,
     const JavaParamRef<jobject>& state,
-    jint saved_state_version) {
+    jint saved_state_version,
+    jboolean is_always_incognito) {
   void* data = env->GetDirectBufferAddress(state);
   int size = env->GetDirectBufferCapacity(state);
 
   WebContentsStateByteBuffer web_contents_state =
       WebContentsStateByteBuffer(data, size, (int)saved_state_version);
   CreateHistoricalTab(TabAndroid::GetNativeTab(env, jtab_android),
-                      std::move(web_contents_state));
+                      std::move(web_contents_state), is_always_incognito);
 }
 
 // static

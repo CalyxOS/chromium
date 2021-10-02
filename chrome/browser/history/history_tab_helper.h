@@ -12,6 +12,8 @@
 #include "components/translate/core/browser/translate_driver.h"
 #include "content/public/browser/web_contents_observer.h"
 #include "content/public/browser/web_contents_user_data.h"
+#include "components/prefs/pref_registry_simple.h"
+#include "components/prefs/pref_service.h"
 
 namespace history {
 struct HistoryAddPageArgs;
@@ -51,6 +53,11 @@ class HistoryTabHelper
     force_eligible_tab_for_testing_ = force;
   }
 
+  static void RegisterProfilePrefs(PrefRegistrySimple* registry);
+
+  // Helper function to return the history service.  May return null.
+  history::HistoryService* GetHistoryService();
+
  private:
   explicit HistoryTabHelper(content::WebContents* web_contents);
   friend class content::WebContentsUserData<HistoryTabHelper>;
@@ -82,9 +89,6 @@ class HistoryTabHelper
   // TranslateDriver::LanguageDetectionObserver implementation.
   void OnLanguageDetermined(
       const translate::LanguageDetectionDetails& details) override;
-
-  // Helper function to return the history service.  May return null.
-  history::HistoryService* GetHistoryService();
 
   // Returns true if our observed web contents is an eligible tab.
   bool IsEligibleTab(const history::HistoryAddPageArgs& add_page_args) const;

@@ -34,6 +34,7 @@ import org.chromium.base.supplier.ObservableSupplier;
 import org.chromium.base.supplier.OneshotSupplier;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.ActivityTabProvider;
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
 import org.chromium.chrome.browser.banners.AppMenuVerbiage;
 import org.chromium.chrome.browser.bookmarks.BookmarkFeatures;
 import org.chromium.chrome.browser.bookmarks.BookmarkModel;
@@ -98,6 +99,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import org.chromium.components.prefs.PrefService;
+import org.chromium.components.user_prefs.UserPrefs;
+import org.chromium.chrome.browser.preferences.Pref;
 
 /**
  * Base implementation of {@link AppMenuPropertiesDelegate} that handles hiding and showing menu
@@ -560,6 +565,13 @@ public class AppMenuPropertiesDelegateImpl implements AppMenuPropertiesDelegate 
     }
 
     private void prepareCommonMenuItems(Menu menu, @MenuGroup int menuGroup, boolean isIncognito) {
+        boolean always_incognito = AlwaysIncognitoLinkInterceptor.isAlwaysIncognito();
+        if (always_incognito) {
+            final MenuItem newTabOption = menu.findItem(R.id.new_tab_menu_id);
+            if (newTabOption != null)
+                newTabOption.setVisible(false);
+        }
+
         // We have to iterate all menu items since same menu item ID may be associated with more
         // than one menu items.
         boolean isOverviewModeMenu = menuGroup == MenuGroup.OVERVIEW_MODE_MENU;
@@ -636,7 +648,15 @@ public class AppMenuPropertiesDelegateImpl implements AppMenuPropertiesDelegate 
             }
 
             if (item.getItemId() == R.id.recent_tabs_menu_id) {
-                item.setVisible(!isIncognito);
+                if (always_incognito) {
+                    PrefService prefService =
+                                                            UserPrefs.get(Profile.getLastUsedRegularProfile());
+                    boolean historyEnabledInIncognito =
+                        prefService.getBoolean(Pref.INCOGNITO_TAB_HISTORY_ENABLED);
+                    item.setVisible(historyEnabledInIncognito);
+                }
+                else
+                    item.setVisible(!isIncognito);
             }
             if (item.getItemId() == R.id.menu_group_tabs) {
                 item.setVisible(isMenuGroupTabsVisible);
@@ -876,7 +896,9 @@ public class AppMenuPropertiesDelegateImpl implements AppMenuPropertiesDelegate 
         //                is not persisted when adding to the homescreen.
         // * If creating shortcuts it not supported by the current home screen.
         return WebappsUtils.isAddToHomeIntentSupported() && !isChromeScheme && !isFileScheme
-                && !isContentScheme && !isIncognito && !url.isEmpty();
+                && !isContentScheme && !url.isEmpty()
+                && (!isIncognito ||
+                    AlwaysIncognitoLinkInterceptor.isAlwaysIncognito());
     }
 
     /**

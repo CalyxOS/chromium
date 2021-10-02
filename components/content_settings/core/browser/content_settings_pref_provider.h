@@ -37,6 +37,7 @@ class PrefProvider : public UserModifiableProvider {
 
   PrefProvider(PrefService* prefs,
                bool off_the_record,
+               bool force_save_site_settings,
                bool store_last_modified,
                bool restore_session);
 
@@ -88,6 +89,7 @@ class PrefProvider : public UserModifiableProvider {
   raw_ptr<PrefService> prefs_;
 
   const bool off_the_record_;
+  const bool force_save_site_settings_;
 
   bool store_last_modified_;
 

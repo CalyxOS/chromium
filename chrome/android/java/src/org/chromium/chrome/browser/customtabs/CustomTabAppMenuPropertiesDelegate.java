@@ -21,6 +21,7 @@ import org.chromium.base.ContextUtils;
 import org.chromium.base.supplier.ObservableSupplier;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.ActivityTabProvider;
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
 import org.chromium.chrome.browser.DefaultBrowserInfo;
 import org.chromium.chrome.browser.app.appmenu.AppMenuPropertiesDelegateImpl;
 import org.chromium.chrome.browser.app.appmenu.DividerLineMenuItemViewBinder;
@@ -175,6 +176,9 @@ public class CustomTabAppMenuPropertiesDelegate extends AppMenuPropertiesDelegat
                 addToHomeScreenVisible = false;
                 downloadItemVisible = false;
                 openInChromeItemVisible = false;
+            }
+            if (AlwaysIncognitoLinkInterceptor.isAlwaysIncognito()) {
+                downloadItemVisible = true;
             }
 
             boolean isChromeScheme = url.getScheme().equals(UrlConstants.CHROME_SCHEME)

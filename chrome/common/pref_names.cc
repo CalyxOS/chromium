@@ -3458,6 +3458,12 @@ const char kShowCaretBrowsingDialog[] =
 const char kLacrosLaunchSwitch[] = "lacros_launch_switch";
 #endif
 
+#if BUILDFLAG(IS_ANDROID)
+const char kAlwaysIncognitoEnabled[] = "always_incognito_enabled";
+const char kIncognitoTabHistoryEnabled[] = "incognito_tab_history_enabled";
+const char kIncognitoSaveSiteSettingEnabled[] = "incognito_site_setting_enabled";
+#endif
+
 #if BUILDFLAG(IS_CHROMEOS_ASH)
 // String enum pref determining what should happen when a user who authenticates
 // via a security token is removing this token. "IGNORE" - nothing happens

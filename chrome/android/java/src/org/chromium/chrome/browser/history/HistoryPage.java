@@ -11,6 +11,7 @@ import androidx.annotation.VisibleForTesting;
 
 import org.chromium.base.supplier.Supplier;
 import org.chromium.chrome.R;
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
 import org.chromium.chrome.browser.history_clusters.HistoryClustersConstants;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.tab.Tab;
@@ -18,6 +19,12 @@ import org.chromium.chrome.browser.ui.messages.snackbar.SnackbarManager;
 import org.chromium.chrome.browser.ui.native_page.BasicNativePage;
 import org.chromium.chrome.browser.ui.native_page.NativePageHost;
 import org.chromium.components.embedder_support.util.UrlConstants;
+
+import org.chromium.chrome.browser.profiles.Profile;
+import org.chromium.base.ContextUtils;
+import org.chromium.components.prefs.PrefService;
+import org.chromium.components.user_prefs.UserPrefs;
+import org.chromium.chrome.browser.preferences.Pref;
 
 /**
  * Native page for managing browsing history.
@@ -40,6 +47,15 @@ public class HistoryPage extends BasicNativePage {
     public HistoryPage(Activity activity, NativePageHost host, SnackbarManager snackbarManager,
             boolean isIncognito, Supplier<Tab> tabSupplier, String url) {
         super(host);
+
+        if (isIncognito &&
+                AlwaysIncognitoLinkInterceptor.isAlwaysIncognito()) {
+            PrefService prefService = UserPrefs.get(Profile.getLastUsedRegularProfile());
+            boolean historyEnabledInIncognito =
+                prefService.getBoolean(Pref.INCOGNITO_TAB_HISTORY_ENABLED);
+            if (historyEnabledInIncognito == true) isIncognito = false;
+        }
+
 
         Uri uri = Uri.parse(url);
         assert uri.getHost().equals(UrlConstants.HISTORY_HOST);

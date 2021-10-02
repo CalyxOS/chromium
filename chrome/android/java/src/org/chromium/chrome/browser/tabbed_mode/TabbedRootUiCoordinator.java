@@ -122,6 +122,8 @@ import org.chromium.components.webapps.bottomsheet.PwaBottomSheetControllerFacto
 import org.chromium.content_public.browser.WebContents;
 import org.chromium.ui.base.ActivityWindowAndroid;
 import org.chromium.ui.base.DeviceFormFactor;
+import org.chromium.base.ContextUtils;
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
 import org.chromium.ui.base.IntentRequestTracker;
 import org.chromium.ui.modaldialog.ModalDialogManager;
 
@@ -482,7 +484,7 @@ public class TabbedRootUiCoordinator extends RootUiCoordinator {
                     mAppMenuCoordinator == null ? null : mAppMenuCoordinator.getAppMenuHandler();
             mEmptyBackgroundViewWrapper =
                     new EmptyBackgroundViewWrapper(mTabModelSelectorSupplier.get(),
-                            mTabCreatorManagerSupplier.get().getTabCreator(false), mActivity,
+                            mTabCreatorManagerSupplier.get().getTabCreator(AlwaysIncognitoLinkInterceptor.isAlwaysIncognito()), mActivity,
                             appMenuHandler, mSnackbarManagerSupplier.get(), mLayoutManagerSupplier);
             mEmptyBackgroundViewWrapper.initialize();
         }

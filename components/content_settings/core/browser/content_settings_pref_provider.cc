@@ -122,10 +122,12 @@ void PrefProvider::RegisterProfilePrefs(
 
 PrefProvider::PrefProvider(PrefService* prefs,
                            bool off_the_record,
+                           bool force_save_site_settings,
                            bool store_last_modified,
                            bool restore_session)
     : prefs_(prefs),
       off_the_record_(off_the_record),
+      force_save_site_settings_(force_save_site_settings),
       store_last_modified_(store_last_modified),
       clock_(base::DefaultClock::GetInstance()) {
   TRACE_EVENT_BEGIN("startup", "PrefProvider::PrefProvider");
@@ -159,7 +161,9 @@ PrefProvider::PrefProvider(PrefService* prefs,
       content_settings_prefs_.insert(std::make_pair(
           info->type(), std::make_unique<ContentSettingsPref>(
                             info->type(), prefs_, &pref_change_registrar_,
-                            info->pref_name(), off_the_record_, restore_session,
+                            info->pref_name(),
+                            off_the_record_ || (!content_type_info && force_save_site_settings_),
+                            restore_session,
                             base::BindRepeating(&PrefProvider::Notify,
                                                 base::Unretained(this)))));
     }

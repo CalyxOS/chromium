@@ -3907,6 +3907,12 @@ const char kOfflinePagesLivePageSharingDescription[] =
     "Enables to share current loaded page as offline page by saving as MHTML "
     "first.";
 
+const char kOfflinePagesAutoSaveFeatureName[] =
+    "Enables autosave of offline page";
+const char kOfflinePagesAutoSaveFeatureDescription[] =
+    "Enables autosave of offline page, as automatic switching in case "
+    "the device goes offline.";
+
 const char kPageInfoHistoryName[] = "Page info history";
 const char kPageInfoHistoryDescription[] =
     "Enable a history sub page to the page info menu, and a button to forget "

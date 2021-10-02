@@ -32,6 +32,9 @@ import org.chromium.chrome.browser.flags.ActivityType;
 import org.chromium.components.browser_ui.widget.TintedDrawable;
 import org.chromium.device.mojom.ScreenOrientationLockType;
 
+import org.chromium.base.ContextUtils;
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
+
 /**
  * Stores info about a web app.
  */
@@ -44,6 +47,8 @@ public class WebappIntentDataProvider extends BrowserServicesIntentDataProvider 
     private final @ActivityType int mActivityType;
     private final Intent mIntent;
     private final ColorProviderImpl mColorProvider;
+
+    private boolean mIsIncognito = false;
 
     /**
      * Returns the toolbar color to use if a custom color is not specified by the webapp.
@@ -67,6 +72,10 @@ public class WebappIntentDataProvider extends BrowserServicesIntentDataProvider 
         mWebappExtras = webappExtras;
         mWebApkExtras = webApkExtras;
         mActivityType = (webApkExtras != null) ? ActivityType.WEB_APK : ActivityType.WEBAPP;
+
+        if (AlwaysIncognitoLinkInterceptor.isAlwaysIncognito()) {
+            mIsIncognito = true;
+        }
     }
 
     @Override
@@ -153,6 +162,11 @@ public class WebappIntentDataProvider extends BrowserServicesIntentDataProvider 
     @Nullable
     public WebApkExtras getWebApkExtras() {
         return mWebApkExtras;
+    }
+
+    @Override
+    public boolean isIncognito() {
+        return mIsIncognito;
     }
 
     @Override

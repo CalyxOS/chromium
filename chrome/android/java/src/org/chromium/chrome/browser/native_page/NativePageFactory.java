@@ -15,6 +15,7 @@ import org.chromium.base.jank_tracker.JankTracker;
 import org.chromium.base.supplier.BooleanSupplier;
 import org.chromium.base.supplier.DestroyableObservableSupplier;
 import org.chromium.base.supplier.Supplier;
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
 import org.chromium.chrome.browser.app.ChromeActivity;
 import org.chromium.chrome.browser.app.download.home.DownloadPage;
 import org.chromium.chrome.browser.bookmarks.BookmarkPage;
@@ -251,7 +252,8 @@ public class NativePageFactory {
             String url, NativePage candidatePage, Tab tab, boolean isIncognito) {
         NativePage page;
 
-        switch (NativePage.nativePageType(url, candidatePage, isIncognito)) {
+        boolean isAlwaysIncognito = AlwaysIncognitoLinkInterceptor.isAlwaysIncognito();
+        switch (NativePage.nativePageType(url, candidatePage, isIncognito, isAlwaysIncognito)) {
             case NativePageType.NONE:
                 return null;
             case NativePageType.CANDIDATE:

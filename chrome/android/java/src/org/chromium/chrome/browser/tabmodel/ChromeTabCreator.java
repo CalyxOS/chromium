@@ -41,6 +41,10 @@ import org.chromium.ui.base.PageTransition;
 import org.chromium.ui.base.WindowAndroid;
 import org.chromium.url.GURL;
 
+import org.chromium.base.ContextUtils;
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
+import org.chromium.chrome.browser.tab.TabObserver;
+
 /**
  * This class creates various kinds of new tabs and adds them to the right {@link TabModel}.
  */
@@ -312,7 +316,6 @@ public class ChromeTabCreator extends TabCreator {
     // TODO(crbug.com/1081924): Clean up the launches from SearchActivity/Chrome.
     public Tab launchUrlFromExternalApp(
             LoadUrlParams loadUrlParams, String appId, boolean forceNewTab, Intent intent) {
-        assert !mIncognito;
         // Don't re-use tabs for intents from Chrome. Note that this can be spoofed so shouldn't be
         // relied on for anything security sensitive.
         boolean isLaunchedFromChrome = TextUtils.equals(appId, mActivity.getPackageName());

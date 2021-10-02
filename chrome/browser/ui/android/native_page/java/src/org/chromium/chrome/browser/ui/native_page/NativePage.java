@@ -16,6 +16,8 @@ import org.chromium.url.GURL;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import org.chromium.base.ContextUtils;
+
 /**
  * An interface for pages that will be using Android views instead of html/rendered Web content.
  */
@@ -130,12 +132,12 @@ public interface NativePage {
      */
     @Deprecated // Use GURL-variant instead.
     public static boolean isNativePageUrl(String url, boolean isIncognito) {
-        return nativePageType(url, null, isIncognito) != NativePageType.NONE;
+        return nativePageType(url, null, isIncognito, false) != NativePageType.NONE;
     }
 
     public static boolean isNativePageUrl(GURL url, boolean isIncognito) {
         return url != null
-                && nativePageType(url.getSpec(), null, isIncognito) != NativePageType.NONE;
+                && nativePageType(url.getSpec(), null, isIncognito, false) != NativePageType.NONE;
     }
 
     /**
@@ -146,7 +148,8 @@ public interface NativePage {
      */
     // TODO(crbug/783819) - Convert to using GURL.
     public static @NativePageType int nativePageType(
-            String url, NativePage candidatePage, boolean isIncognito) {
+            String url, NativePage candidatePage, boolean isIncognito,
+            boolean isAlwaysIncognito) {
         if (url == null) return NativePageType.NONE;
 
         Uri uri = Uri.parse(url);
@@ -168,7 +171,8 @@ public interface NativePage {
             return NativePageType.DOWNLOADS;
         } else if (UrlConstants.HISTORY_HOST.equals(host)) {
             return NativePageType.HISTORY;
-        } else if (UrlConstants.RECENT_TABS_HOST.equals(host) && !isIncognito) {
+        } else if (UrlConstants.RECENT_TABS_HOST.equals(host) &&
+                  (!isIncognito || isAlwaysIncognito)) {
             return NativePageType.RECENT_TABS;
         } else if (UrlConstants.EXPLORE_HOST.equals(host)) {
             return NativePageType.EXPLORE;

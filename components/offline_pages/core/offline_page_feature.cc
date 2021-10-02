@@ -52,6 +52,9 @@ BASE_FEATURE(kOfflinePagesNetworkStateLikelyUnknown,
              "OfflinePagesNetworkStateLikelyUnknown",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+const base::Feature kOfflinePagesAutoSaveFeature{
+    "OfflinePagesAutoSaveEnabled", base::FEATURE_DISABLED_BY_DEFAULT};
+
 const char kPrefetchingOfflinePagesExperimentsOption[] = "exp";
 
 bool IsOfflinePagesCTEnabled() {

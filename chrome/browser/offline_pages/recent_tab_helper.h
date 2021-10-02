@@ -145,6 +145,9 @@ class RecentTabHelper
   // Not page-specific.
   bool snapshots_enabled_ = false;
 
+  // If true, tab history in incognito mode is enabled
+  bool incognito_tab_history_enabled_ = false;
+
   // Snapshot progress information for an ongoing snapshot requested by
   // downloads. Null if there's no ongoing request.
   std::unique_ptr<SnapshotProgressInfo> downloads_ongoing_snapshot_info_;

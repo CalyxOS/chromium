@@ -35,6 +35,7 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener;
 import org.chromium.base.metrics.RecordHistogram;
 import org.chromium.base.metrics.RecordUserAction;
 import org.chromium.base.supplier.ObservableSupplier;
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
 import org.chromium.base.supplier.ObservableSupplierImpl;
 import org.chromium.base.supplier.Supplier;
 import org.chromium.chrome.R;
@@ -76,6 +77,12 @@ import org.chromium.url.GURL;
 import java.io.Serializable;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
+
+import org.chromium.chrome.browser.profiles.Profile;
+import org.chromium.base.ContextUtils;
+import org.chromium.components.prefs.PrefService;
+import org.chromium.components.user_prefs.UserPrefs;
+import org.chromium.chrome.browser.preferences.Pref;
 
 /**
  * Combines and manages the different UI components of browsing history.
@@ -551,7 +558,16 @@ public class HistoryManager implements OnMenuItemClickListener, SelectionObserve
         return mRootView;
     }
 
-    private boolean shouldShowIncognitoPlaceholder() {
+    public boolean isIncognito() { return mIsIncognito; }
+
+    public boolean shouldShowIncognitoPlaceholder() {
+        if (mIsIncognito &&
+                AlwaysIncognitoLinkInterceptor.isAlwaysIncognito()) {
+            PrefService prefService = UserPrefs.get(Profile.getLastUsedRegularProfile());
+            boolean historyEnabledInIncognito =
+                prefService.getBoolean(Pref.INCOGNITO_TAB_HISTORY_ENABLED);
+            if (historyEnabledInIncognito) return false;
+        }
         return mIsIncognito
                 && ChromeFeatureList.isEnabled(
                         ChromeFeatureList.UPDATE_HISTORY_ENTRY_POINTS_IN_INCOGNITO);

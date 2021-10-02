@@ -93,6 +93,7 @@ import org.chromium.chrome.browser.compositor.layouts.content.ContentOffsetProvi
 import org.chromium.chrome.browser.compositor.layouts.content.TabContentManager;
 import org.chromium.chrome.browser.compositor.layouts.content.TabContentManagerHandler;
 import org.chromium.chrome.browser.dependency_injection.ChromeActivityCommonsModule;
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
 import org.chromium.chrome.browser.dependency_injection.ChromeActivityComponent;
 import org.chromium.chrome.browser.dependency_injection.ModuleFactoryOverrides;
 import org.chromium.chrome.browser.device.DeviceClassManager;
@@ -1807,6 +1808,9 @@ public abstract class ChromeActivity<C extends ChromeActivityComponent>
         if (!mTabModelOrchestrator.areTabModelsInitialized()) {
             throw new IllegalStateException(
                     "Attempting to access TabCreator before initialization");
+        }
+        if (AlwaysIncognitoLinkInterceptor.isAlwaysIncognito()) {
+            incognito = true;
         }
         return mTabCreatorManagerSupplier.get().getTabCreator(incognito);
     }

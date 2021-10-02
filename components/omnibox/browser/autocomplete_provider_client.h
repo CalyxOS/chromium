@@ -128,6 +128,7 @@ class AutocompleteProviderClient : public OmniboxAction::Client {
   virtual signin::IdentityManager* GetIdentityManager() const = 0;
 
   virtual bool IsOffTheRecord() const = 0;
+  virtual bool IsAlwaysIncognitoEnabled() const = 0;
   virtual bool SearchSuggestEnabled() const = 0;
 
   // True for almost all users except ones with a specific enterprise policy.

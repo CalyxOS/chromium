@@ -561,8 +561,8 @@ BASE_FEATURE(kCCTNewDownloadTab,
 BASE_FEATURE(kCCTIncognito, "CCTIncognito", base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kCCTIncognitoAvailableToThirdParty,
-             "CCTIncognitoAvailableToThirdParty",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "CCTIncognitoAvailableToThirdParty",           // must be enabled
+             base::FEATURE_ENABLED_BY_DEFAULT);             // in Bromite
 
 BASE_FEATURE(kCCTPackageNameRecording,
              "CCTPackageNameRecording",

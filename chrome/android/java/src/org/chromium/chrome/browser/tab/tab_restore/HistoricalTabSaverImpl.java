@@ -27,6 +27,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
+
 /**
  * Creates historical entries in TabRestoreService.
  */
@@ -60,10 +62,10 @@ public class HistoricalTabSaverImpl implements HistoricalTabSaver {
 
     // HistoricalTabSaver implementation.
     @Override
-    public void createHistoricalTab(Tab tab) {
+    public void createHistoricalTab(Tab tab, boolean is_always_incognito) {
         if (!shouldSave(tab)) return;
 
-        createHistoricalTabInternal(tab);
+        createHistoricalTabInternal(tab, is_always_incognito);
     }
 
     @Override
@@ -115,7 +117,7 @@ public class HistoricalTabSaverImpl implements HistoricalTabSaver {
 
         // If there is only a single valid tab remaining save it individually.
         if (validEntries.size() == 1 && validEntries.get(0).isSingleTab()) {
-            createHistoricalTabInternal(allTabs.get(0));
+            createHistoricalTabInternal(allTabs.get(0), false);
             return;
         }
 
@@ -140,11 +142,12 @@ public class HistoricalTabSaverImpl implements HistoricalTabSaver {
                 CollectionUtil.integerListToIntArray(savedStateVersions));
     }
 
-    private void createHistoricalTabInternal(Tab tab) {
+    private void createHistoricalTabInternal(Tab tab, boolean is_always_incognito) {
         RecordHistogram.recordEnumeratedHistogram("Tabs.RecentlyClosed.HistoricalSaverCloseType",
                 HistoricalSaverCloseType.TAB, HistoricalSaverCloseType.COUNT);
         HistoricalTabSaverImplJni.get().createHistoricalTab(
-                tab, getWebContentsState(tab).buffer(), getWebContentsState(tab).version());
+                tab, getWebContentsState(tab).buffer(), getWebContentsState(tab).version(),
+                is_always_incognito);
     }
 
     /**
@@ -152,7 +155,7 @@ public class HistoricalTabSaverImpl implements HistoricalTabSaver {
      * internal Chrome scheme, about:blank, or a native page and it cannot be incognito.
      */
     private boolean shouldSave(Tab tab) {
-        if (tab.isIncognito()) return false;
+        if (tab.isIncognito() && !AlwaysIncognitoLinkInterceptor.isAlwaysIncognito()) return false;
 
         // {@link GURL#getScheme()} is not available in unit tests.
         if (mIgnoreUrlSchemesForTesting) return true;
@@ -225,7 +228,7 @@ public class HistoricalTabSaverImpl implements HistoricalTabSaver {
 
     @NativeMethods
     interface Natives {
-        void createHistoricalTab(Tab tab, ByteBuffer state, int savedStateVersion);
+        void createHistoricalTab(Tab tab, ByteBuffer state, int savedStateVersion, boolean is_always_incognito);
         void createHistoricalGroup(TabModel model, String title, Tab[] tabs,
                 ByteBuffer[] byteBuffers, int[] savedStationsVersions);
         void createHistoricalBulkClosure(TabModel model, int[] groupIds, String[] titles,

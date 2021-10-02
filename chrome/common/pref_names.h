@@ -1219,6 +1219,8 @@ extern const char kDiscountConsentShowInterestIn[];
 
 #if BUILDFLAG(IS_ANDROID)
 extern const char kWebXRImmersiveArEnabled[];
+extern const char kAlwaysIncognitoEnabled[];
+extern const char kIncognitoSaveSiteSettingEnabled[];
 #endif
 
 #if !BUILDFLAG(IS_ANDROID)
@@ -1255,6 +1257,10 @@ extern const char kSidePanelHorizontalAlignment[];
 extern const char kPrivacyGuideViewed[];
 
 extern const char kCorsNonWildcardRequestHeadersSupport[];
+
+#if BUILDFLAG(IS_ANDROID)
+extern const char kIncognitoTabHistoryEnabled[];
+#endif
 
 extern const char kOriginAgentClusterDefaultEnabled[];
 

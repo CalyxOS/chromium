@@ -58,6 +58,7 @@ import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.profiles.ProfileManagerUtils;
 import org.chromium.chrome.browser.search_engines.settings.SearchEngineSettings;
 import org.chromium.chrome.browser.site_settings.ChromeSiteSettingsDelegate;
+import org.chromium.chrome.browser.ui.messages.snackbar.INeedSnackbarManager;
 import org.chromium.chrome.browser.ui.messages.snackbar.SnackbarManager;
 import org.chromium.chrome.browser.ui.messages.snackbar.SnackbarManager.SnackbarManageable;
 import org.chromium.components.browser_ui.accessibility.AccessibilitySettings;
@@ -253,6 +254,9 @@ public class SettingsActivity extends ChromeBaseAppCompatActivity
         }
         if (fragment instanceof AdPersonalizationRemovedFragment) {
             ((AdPersonalizationRemovedFragment) fragment).setSnackbarManager(getSnackbarManager());
+        }
+        if (fragment instanceof INeedSnackbarManager) {
+            ((INeedSnackbarManager)fragment).setSnackbarManager(mSnackbarManager);
         }
     }
 

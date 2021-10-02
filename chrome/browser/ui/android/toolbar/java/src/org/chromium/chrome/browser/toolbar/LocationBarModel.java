@@ -178,6 +178,7 @@ public class LocationBarModel implements ToolbarDataProvider, LocationBarDataPro
     protected GURL mVisibleGurl = GURL.emptyGURL();
     protected String mFormattedFullUrl;
     protected String mUrlForDisplay;
+    private boolean mIsAlwaysIncognito;
 
     /**
      * Default constructor for this class.
@@ -192,7 +193,8 @@ public class LocationBarModel implements ToolbarDataProvider, LocationBarDataPro
     public LocationBarModel(Context context, NewTabPageDelegate newTabPageDelegate,
             @NonNull UrlFormatter urlFormatter, @NonNull ProfileProvider profileProvider,
             @NonNull OfflineStatus offlineStatus,
-            @NonNull SearchEngineLogoUtils searchEngineLogoUtils) {
+            @NonNull SearchEngineLogoUtils searchEngineLogoUtils,
+            boolean isAlwaysIncognito) {
         mContext = context;
         mNtpDelegate = newTabPageDelegate;
         mUrlFormatter = urlFormatter;
@@ -200,6 +202,7 @@ public class LocationBarModel implements ToolbarDataProvider, LocationBarDataPro
         mOfflineStatus = offlineStatus;
         mPrimaryColor = ChromeColors.getDefaultThemeColor(context, false);
         mSearchEngineLogoUtils = searchEngineLogoUtils;
+        mIsAlwaysIncognito = isAlwaysIncognito;
     }
 
     /**
@@ -207,7 +210,7 @@ public class LocationBarModel implements ToolbarDataProvider, LocationBarDataPro
      */
     public void initializeWithNative() {
         mOptimizationsEnabled =
-                ChromeFeatureList.isEnabled(ChromeFeatureList.ANDROID_SCROLL_OPTIMIZATIONS);
+                ChromeFeatureList.isEnabled(ChromeFeatureList.ANDROID_SCROLL_OPTIMIZATIONS) && !mIsAlwaysIncognito;
         mLastUsedNonOTRProfile = Profile.getLastUsedRegularProfile();
         mNativeLocationBarModelAndroid = LocationBarModelJni.get().init(LocationBarModel.this);
 

@@ -38,6 +38,7 @@ import org.chromium.base.supplier.OneshotSupplier;
 import org.chromium.base.supplier.Supplier;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.ActivityTabProvider;
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
 import org.chromium.chrome.browser.IntentHandler;
 import org.chromium.chrome.browser.app.tab_activity_glue.TabReparentingController;
 import org.chromium.chrome.browser.app.tabmodel.TabWindowManagerSingleton;
@@ -523,7 +524,8 @@ public class ToolbarManager implements UrlFocusChangeListener, ThemeColorObserve
                         return ret;
                     }
                 },
-                SearchEngineLogoUtils.getInstance());
+                SearchEngineLogoUtils.getInstance(),
+                AlwaysIncognitoLinkInterceptor.isAlwaysIncognito());
         mControlContainer = controlContainer;
         assert mControlContainer != null;
 

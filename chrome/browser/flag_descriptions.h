@@ -2227,6 +2227,9 @@ extern const char kNotificationPermissionRationaleDescription[];
 extern const char kOfflinePagesLivePageSharingName[];
 extern const char kOfflinePagesLivePageSharingDescription[];
 
+extern const char kOfflinePagesAutoSaveFeatureName[];
+extern const char kOfflinePagesAutoSaveFeatureDescription[];
+
 extern const char kPageInfoHistoryName[];
 extern const char kPageInfoHistoryDescription[];
 

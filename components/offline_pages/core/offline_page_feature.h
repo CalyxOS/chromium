@@ -21,6 +21,7 @@ BASE_DECLARE_FEATURE(kOfflinePagesDescriptiveFailStatusFeature);
 BASE_DECLARE_FEATURE(kOfflineIndicatorFeature);
 BASE_DECLARE_FEATURE(kOnTheFlyMhtmlHashComputationFeature);
 BASE_DECLARE_FEATURE(kOfflinePagesNetworkStateLikelyUnknown);
+extern const base::Feature kOfflinePagesAutoSaveFeature;
 
 // The parameter name used to find the experiment tag for prefetching offline
 // pages.

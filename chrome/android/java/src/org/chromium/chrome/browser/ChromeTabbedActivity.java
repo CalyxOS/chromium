@@ -58,6 +58,7 @@ import org.chromium.base.task.PostTask;
 import org.chromium.build.annotations.UsedByReflection;
 import org.chromium.cc.input.BrowserControlsState;
 import org.chromium.chrome.R;
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
 import org.chromium.chrome.browser.IntentHandler.IntentHandlerDelegate;
 import org.chromium.chrome.browser.IntentHandler.TabOpenType;
 import org.chromium.chrome.browser.accessibility_tab_switcher.OverviewListLayout;
@@ -578,8 +579,9 @@ public class ChromeTabbedActivity extends ChromeActivity<ChromeActivityComponent
             mTabModelOrchestrator.onNativeLibraryReady(getTabContentManager());
 
             // For saving non-incognito tab closures for Recent Tabs.
+            boolean alwaysIncognito = AlwaysIncognitoLinkInterceptor.isAlwaysIncognito();
             mHistoricalTabModelObserver =
-                    new HistoricalTabModelObserver(mTabModelSelector.getModel(false));
+                    new HistoricalTabModelObserver(mTabModelSelector.getModel(alwaysIncognito));
 
             if (TabUiFeatureUtilities.isTabletGridTabSwitcherEnabled(this)) {
                 mTabModelSelector.addObserver(new TabModelSelectorObserver() {
@@ -1904,8 +1906,9 @@ public class ChromeTabbedActivity extends ChromeActivity<ChromeActivityComponent
         Bundle savedInstanceState = getSavedInstanceState();
 
         // We determine the model as soon as possible so every systems get initialized coherently.
-        boolean startIncognito = savedInstanceState != null
-                && savedInstanceState.getBoolean(IS_INCOGNITO_SELECTED, false);
+        boolean startIncognito = AlwaysIncognitoLinkInterceptor.isAlwaysIncognito()
+                || (savedInstanceState != null
+                && savedInstanceState.getBoolean(IS_INCOGNITO_SELECTED, false));
 
         mNextTabPolicySupplier = new ChromeNextTabPolicySupplier(mLayoutStateProviderSupplier);
 
