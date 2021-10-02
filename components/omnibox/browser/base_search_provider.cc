@@ -351,7 +351,7 @@ bool BaseSearchProvider::CanSendSuggestRequestWithoutPageURL(
   }
 
   // Don't make a suggest request if in incognito mode.
-  if (client->IsOffTheRecord()) {
+  if (client->IsOffTheRecord() && client->IsAlwaysIncognitoEnabled() == false) {
     return false;
   }
 

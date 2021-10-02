@@ -54,6 +54,14 @@ import org.chromium.ui.base.Clipboard;
 
 import java.util.List;
 
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
+import org.chromium.chrome.browser.profiles.Profile;
+import org.chromium.chrome.browser.profiles.ProfileManager;
+import org.chromium.base.ContextUtils;
+import org.chromium.components.prefs.PrefService;
+import org.chromium.components.user_prefs.UserPrefs;
+import org.chromium.chrome.browser.preferences.Pref;
+
 /** Combines and manages the different UI components of browsing history. */
 public class HistoryManager
         implements OnMenuItemClickListener,
@@ -166,7 +174,7 @@ public class HistoryManager
 
         mUmaRecorder.recordOpenHistory();
         // If incognito placeholder is shown, we don't need to create History UI elements.
-        if (mIsIncognito) {
+        if (shouldShowIncognitoPlaceholder()) {
             mSelectableListLayout = null;
             mRootView = getIncognitoHistoryPlaceholderView();
             return;
@@ -407,9 +415,22 @@ public class HistoryManager
         onBackPressStateChanged();
     }
 
+    public boolean isIncognito() { return mIsIncognito; }
+
+    public boolean shouldShowIncognitoPlaceholder() {
+        if (mIsIncognito &&
+                AlwaysIncognitoLinkInterceptor.isAlwaysIncognito()) {
+            PrefService prefService = UserPrefs.get(ProfileManager.getLastUsedRegularProfile());
+            boolean historyEnabledInIncognito =
+                prefService.getBoolean(Pref.INCOGNITO_TAB_HISTORY_ENABLED);
+            if (historyEnabledInIncognito) return false;
+        }
+        return mIsIncognito;
+    }
+
     /** Called when the activity/native page is destroyed. */
     public void onDestroyed() {
-        if (mIsIncognito) {
+        if (shouldShowIncognitoPlaceholder()) {
             // If Incognito placeholder is shown no need to call any destroy method.
             return;
         }
@@ -469,7 +490,7 @@ public class HistoryManager
      * @return True if manager handles this event, false if it decides to ignore.
      */
     private boolean onBackPressed() {
-        if (mIsIncognito || mSelectableListLayout == null) {
+        if (shouldShowIncognitoPlaceholder() || mSelectableListLayout == null) {
             // If Incognito placeholder is shown, the back press should handled by HistoryActivity.
             return false;
         }

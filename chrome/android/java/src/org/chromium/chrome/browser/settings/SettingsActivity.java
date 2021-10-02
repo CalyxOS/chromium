@@ -85,6 +85,7 @@ import org.chromium.chrome.browser.sync.settings.AccountManagementFragment;
 import org.chromium.chrome.browser.sync.settings.GoogleServicesSettings;
 import org.chromium.chrome.browser.sync.settings.ManageSyncSettings;
 import org.chromium.chrome.browser.ui.device_lock.MissingDeviceLockLauncher;
+import org.chromium.chrome.browser.ui.messages.snackbar.INeedSnackbarManager;
 import org.chromium.chrome.browser.ui.messages.snackbar.SnackbarManager;
 import org.chromium.chrome.browser.ui.messages.snackbar.SnackbarManager.SnackbarManageable;
 import org.chromium.components.browser_ui.bottomsheet.BottomSheetController;
@@ -370,6 +371,9 @@ public class SettingsActivity extends ChromeBaseAppCompatActivity
         if (fragment instanceof PrivacySandboxSettingsBaseFragment) {
             ((PrivacySandboxSettingsBaseFragment) fragment)
                     .setSnackbarManager(getSnackbarManager());
+        }
+        if (fragment instanceof INeedSnackbarManager) {
+            ((INeedSnackbarManager)fragment).setSnackbarManager(mSnackbarManager);
         }
         if (fragment instanceof ClearBrowsingDataFragment) {
             ((ClearBrowsingDataFragment) fragment).setSnackbarManager(mSnackbarManager);
