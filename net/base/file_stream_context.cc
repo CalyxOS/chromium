@@ -165,7 +165,7 @@ FileStream::Context::OpenResult FileStream::Context::OpenFileImpl(
     const base::FilePath& path, int open_flags) {
 #if BUILDFLAG(IS_POSIX)
   // Always use blocking IO.
-  open_flags &= ~base::File::FLAG_ASYNC;
+  open_flags &= ~base::File::FLAG_ASYNC & ~base::File::FLAG_WIN_EXCLUSIVE_READ;
 #endif
   base::File file;
 #if BUILDFLAG(IS_ANDROID)
