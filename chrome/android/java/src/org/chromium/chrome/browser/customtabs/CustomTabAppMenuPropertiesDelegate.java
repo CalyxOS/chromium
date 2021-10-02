@@ -22,6 +22,7 @@ import org.chromium.base.supplier.ObservableSupplier;
 import org.chromium.base.supplier.Supplier;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.ActivityTabProvider;
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
 import org.chromium.chrome.browser.DefaultBrowserInfo;
 import org.chromium.chrome.browser.app.appmenu.AppMenuPropertiesDelegateImpl;
 import org.chromium.chrome.browser.app.appmenu.DividerLineMenuItemViewBinder;
@@ -217,6 +218,9 @@ public class CustomTabAppMenuPropertiesDelegate extends AppMenuPropertiesDelegat
                 downloadItemVisible = false;
                 openInChromeItemVisible = false;
                 tryAddingReadAloud = false;
+            }
+            if (AlwaysIncognitoLinkInterceptor.isAlwaysIncognito()) {
+                downloadItemVisible = true;
             }
 
             boolean isNativePage =

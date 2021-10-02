@@ -33,6 +33,8 @@ import org.chromium.components.browser_ui.widget.TintedDrawable;
 import org.chromium.device.mojom.ScreenOrientationLockType;
 import org.chromium.ui.util.ColorUtils;
 
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
+
 /** Stores info about a web app. */
 public class WebappIntentDataProvider extends BrowserServicesIntentDataProvider {
     private final Drawable mCloseButtonIcon;
@@ -44,6 +46,8 @@ public class WebappIntentDataProvider extends BrowserServicesIntentDataProvider 
     private final Intent mIntent;
     private final ColorProviderImpl mColorProvider;
     private final ColorProviderImpl mDarkColorProvider;
+
+    private boolean mIsIncognito = false;
 
     /** Returns the toolbar color to use if a custom color is not specified by the webapp. */
     public static int getDefaultToolbarColor() {
@@ -80,6 +84,10 @@ public class WebappIntentDataProvider extends BrowserServicesIntentDataProvider 
         mWebappExtras = webappExtras;
         mWebApkExtras = webApkExtras;
         mActivityType = (webApkExtras != null) ? ActivityType.WEB_APK : ActivityType.WEBAPP;
+
+        if (AlwaysIncognitoLinkInterceptor.isAlwaysIncognito()) {
+            mIsIncognito = true;
+        }
     }
 
     @Override
@@ -173,6 +181,13 @@ public class WebappIntentDataProvider extends BrowserServicesIntentDataProvider 
     @Override
     public @Nullable WebApkExtras getWebApkExtras() {
         return mWebApkExtras;
+    }
+
+    @Override
+    public @CustomTabProfileType int getCustomTabMode() {
+        return mIsIncognito
+                ? CustomTabProfileType.INCOGNITO
+                : CustomTabProfileType.REGULAR;
     }
 
     @Override
