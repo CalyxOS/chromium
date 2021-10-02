@@ -53,6 +53,7 @@ import org.chromium.chrome.browser.sync.settings.AccountManagementFragment;
 import org.chromium.chrome.browser.sync.settings.GoogleServicesSettings;
 import org.chromium.chrome.browser.sync.settings.ManageSyncSettings;
 import org.chromium.chrome.browser.ui.messages.snackbar.SnackbarManager;
+import org.chromium.chrome.browser.ui.messages.snackbar.INeedSnackbarManager;
 import org.chromium.components.browser_ui.accessibility.AccessibilitySettings;
 import org.chromium.components.browser_ui.bottomsheet.BottomSheetController;
 import org.chromium.components.browser_ui.settings.FragmentSettingsNavigation;
@@ -237,6 +238,9 @@ public class FragmentDependencyProvider extends FragmentManager.FragmentLifecycl
                             mProfile,
                             mModalDialogManagerSupplier,
                             SigninAndHistorySyncActivityLauncherImpl.get()));
+        }
+        if (fragment instanceof INeedSnackbarManager) {
+            ((INeedSnackbarManager)fragment).setSnackbarManagerSupplier(mSnackbarManagerSupplier);
         }
         if (fragment instanceof AccountManagementFragment) {
             ((AccountManagementFragment) fragment)
