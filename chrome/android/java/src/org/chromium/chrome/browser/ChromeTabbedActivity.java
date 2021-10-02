@@ -70,6 +70,10 @@ import org.chromium.base.task.TaskTraits;
 import org.chromium.build.annotations.UsedByReflection;
 import org.chromium.cc.input.BrowserControlsState;
 import org.chromium.chrome.R;
+import org.chromium.components.prefs.PrefService;
+import org.chromium.components.user_prefs.UserPrefs;
+import org.chromium.chrome.browser.preferences.Pref;
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
 import org.chromium.chrome.browser.IntentHandler.TabOpenType;
 import org.chromium.chrome.browser.app.ChromeActivity;
 import org.chromium.chrome.browser.app.metrics.LaunchCauseMetrics;
@@ -689,12 +693,17 @@ public class ChromeTabbedActivity extends ChromeActivity<ChromeActivityComponent
 
             Profile profile = mTabModelSelector.getCurrentModel().getProfile();
             // For saving non-incognito tab closures for Recent Tabs.
-            mHistoricalTabModelObserver =
-                    new HistoricalTabModelObserver(
-                            mTabModelSelector.getTabModelFilterProvider().getTabModelFilter(false));
-            mHistoricalTabModelObserver.addSecodaryTabModelSupplier(
-                    ArchivedTabModelOrchestrator.getForProfile(profile)::getTabModel);
-
+            boolean alwaysIncognito = AlwaysIncognitoLinkInterceptor.isAlwaysIncognito();
+            PrefService prefService = UserPrefs.get(ProfileManager.getLastUsedRegularProfile());
+            boolean historyEnabledInIncognito =
+                prefService.getBoolean(Pref.INCOGNITO_TAB_HISTORY_ENABLED);
+            if ((alwaysIncognito && historyEnabledInIncognito) || !alwaysIncognito) {
+                mHistoricalTabModelObserver =
+                        new HistoricalTabModelObserver(
+                                mTabModelSelector.getTabModelFilterProvider().getTabModelFilter(alwaysIncognito));
+                mHistoricalTabModelObserver.addSecodaryTabModelSupplier(
+                        ArchivedTabModelOrchestrator.getForProfile(profile)::getTabModel);
+            }
             // Defer creation of this helper so it triggers after TabModelFilter observers.
             mUndoRefocusHelper =
                     new UndoRefocusHelper(
@@ -2384,8 +2393,9 @@ public class ChromeTabbedActivity extends ChromeActivity<ChromeActivityComponent
 
         // We determine the model as soon as possible so every systems get initialized coherently.
         boolean startIncognito =
-                savedInstanceState != null
-                        && savedInstanceState.getBoolean(IS_INCOGNITO_SELECTED, false);
+                AlwaysIncognitoLinkInterceptor.isAlwaysIncognito()
+                || (savedInstanceState != null
+                        && savedInstanceState.getBoolean(IS_INCOGNITO_SELECTED, false));
 
         mNextTabPolicySupplier = new ChromeNextTabPolicySupplier(mLayoutStateProviderSupplier);
 

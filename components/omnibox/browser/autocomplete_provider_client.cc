@@ -46,3 +46,7 @@ base::WeakPtr<AutocompleteProviderClient>
 AutocompleteProviderClient::GetWeakPtr() {
   return nullptr;
 }
+
+bool AutocompleteProviderClient::IsAlwaysIncognitoEnabled() const {
+  return false;
+}

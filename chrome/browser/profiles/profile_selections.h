@@ -6,7 +6,7 @@
 #define CHROME_BROWSER_PROFILES_PROFILE_SELECTIONS_H_
 
 #include <memory>
-
+#include "build/build_config.h"
 class Profile;
 
 // A helper function that checks whether Keyed Services should be created for
@@ -25,6 +25,11 @@ bool AreKeyedServicesDisabledForProfileByDefault(const Profile* profile);
 enum class ProfileSelection {
   kNone,                  // Original: No Profile  --  OTR: No Profile
   kOriginalOnly,          // Original: Self        --  OTR: No Profile
+#if BUILDFLAG(IS_ANDROID)
+  kOriginalOnlyAndAlwaysIncognito,
+                          // Original: Self        --  OTR: Self (with AlwaysIncognito ON)
+                          //                       --  OTR: No Profile (with AlwaysIncognito OFF)
+#endif
   kOwnInstance,           // Original: Self        --  OTR: Self
   kRedirectedToOriginal,  // Original: Self        --  OTR: Original
   kOffTheRecordOnly       // Original: No Profile  --  OTR: Self
