@@ -12,6 +12,7 @@
 #include "chrome/browser/search_engines/template_url_fetcher_factory.h"
 #include "chrome/browser/search_engines/template_url_service_factory.h"
 #include "chrome/browser/ui/search_engines/edit_search_engine_controller.h"
+#include "chrome/common/pref_names.h"
 #include "chrome/common/url_constants.h"
 #include "components/search_engines/template_url.h"
 #include "components/search_engines/template_url_fetcher.h"
@@ -165,6 +166,11 @@ void SearchEngineTabHelper::PageHasOpenSearchDescriptionDocument(
 
   // Download the OpenSearch description document. If this is successful, a
   // new keyword will be created when done.
+#if BUILDFLAG(IS_ANDROID)
+  if (profile->GetOriginalProfile()->GetPrefs()->GetBoolean(prefs::kIncognitoTabHistoryEnabled)) {
+    is_off_the_record = false;
+  }
+#endif
   TemplateURLFetcherFactory::GetForProfile(profile)->ScheduleDownload(
       keyword, osdd_url, entry->GetFavicon().url,
       frame->GetLastCommittedOrigin(), url_loader_factory.get(),

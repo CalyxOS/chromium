@@ -33,6 +33,11 @@
 // Must come after all headers that specialize FromJniType() / ToJniType().
 #include "chrome/android/chrome_jni_headers/HistoricalTabSaverImpl_jni.h"
 
+#include "chrome/common/pref_names.h"
+#include "components/prefs/pref_registry_simple.h"
+#include "components/prefs/pref_service.h"
+#include "historical_tab_saver.h"
+
 using base::android::JavaParamRef;
 using base::android::JavaRef;
 using base::android::ScopedJavaLocalRef;
@@ -104,7 +109,8 @@ std::vector<std::optional<base::Uuid>> StringsToUuids(
 
 void CreateHistoricalTab(
     TabAndroid* tab_android,
-    WebContentsStateByteBuffer web_contents_state_byte_buffer) {
+    WebContentsStateByteBuffer web_contents_state_byte_buffer,
+    bool is_always_incognito) {
   if (!tab_android) {
     return;
   }
@@ -115,9 +121,14 @@ void CreateHistoricalTab(
     return;
   }
 
+  auto* profile = Profile::FromBrowserContext(scoped_web_contents->web_contents()->GetBrowserContext());
+  if (is_always_incognito) {
+    if (profile->GetOriginalProfile()->GetPrefs()->GetBoolean(prefs::kIncognitoTabHistoryEnabled))
+      profile = profile->GetOriginalProfile();
+  }
+
   sessions::TabRestoreService* service =
-      TabRestoreServiceFactory::GetForProfile(Profile::FromBrowserContext(
-          scoped_web_contents->web_contents()->GetBrowserContext()));
+      TabRestoreServiceFactory::GetForProfile(profile);
   if (!service) {
     return;
   }
@@ -181,7 +192,7 @@ void CreateHistoricalBulkClosure(
         per_tab_optional_tab_group_ids,
     std::vector<raw_ptr<TabAndroid, VectorExperimental>> tabs,
     std::vector<WebContentsStateByteBuffer> web_contents_state) {
-  DCHECK(model);
+  if (!model) return;
   DCHECK_EQ(tab_group_ids.size(), group_titles.size());
   DCHECK_EQ(tab_group_ids.size(), group_colors.size());
   DCHECK_EQ(tab_group_ids.size(), tab_group_ids.size());
@@ -294,11 +305,12 @@ static void JNI_HistoricalTabSaverImpl_CreateHistoricalTab(
     JNIEnv* env,
     const JavaParamRef<jobject>& jtab_android,
     const JavaParamRef<jobject>& state,
-    jint saved_state_version) {
+    jint saved_state_version,
+    jboolean is_always_incognito) {
   WebContentsStateByteBuffer web_contents_state = WebContentsStateByteBuffer(
       ScopedJavaLocalRef<jobject>(state), (int)saved_state_version);
   CreateHistoricalTab(TabAndroid::GetNativeTab(env, jtab_android),
-                      std::move(web_contents_state));
+                      std::move(web_contents_state), is_always_incognito);
 }
 
 static void JNI_HistoricalTabSaverImpl_CreateHistoricalGroup(
