@@ -48,6 +48,7 @@ class OfflinePageModelFactory : public SimpleKeyedServiceFactory {
 
   std::unique_ptr<KeyedService> BuildServiceInstanceFor(
       SimpleFactoryKey* key) const override;
+  SimpleFactoryKey* GetKeyToUse(SimpleFactoryKey* key) const override;
 };
 
 }  // namespace offline_pages
