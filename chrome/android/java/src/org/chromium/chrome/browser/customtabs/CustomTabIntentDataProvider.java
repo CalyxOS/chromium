@@ -88,6 +88,9 @@ import org.chromium.components.embedder_support.util.Origin;
 import org.chromium.components.embedder_support.util.UrlConstants;
 import org.chromium.device.mojom.ScreenOrientationLockType;
 
+import org.chromium.base.ContextUtils;
+import org.chromium.chrome.browser.AlwaysIncognitoLinkInterceptor;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
@@ -1192,6 +1195,13 @@ public class CustomTabIntentDataProvider extends BrowserServicesIntentDataProvid
     public boolean isPartialWidthCustomTab() {
         if (BuildInfo.getInstance().isAutomotive) return false;
         return getInitialActivityWidth() > 0;
+    }
+
+    @Override
+    public @CustomTabProfileType int getCustomTabMode() {
+        return AlwaysIncognitoLinkInterceptor.isAlwaysIncognito()
+                ? CustomTabProfileType.INCOGNITO
+                : CustomTabProfileType.REGULAR;
     }
 
     @Override
