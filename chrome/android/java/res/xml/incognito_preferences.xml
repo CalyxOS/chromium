@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    This file is part of Bromite.
+
+    Bromite is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Bromite is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Bromite. If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <org.chromium.components.browser_ui.settings.ChromeSwitchPreference
+        android:key="always_incognito"
+        android:title="@string/always_incognito_title"
+        android:summary="@string/always_incognito_summary"
+        android:defaultValue="false" />
+    <org.chromium.components.browser_ui.settings.ChromeSwitchPreference
+        android:key="incognito_history"
+        android:title="@string/incognito_history_enabled_title"
+        android:summary="@string/incognito_history_enabled_summary"
+        android:defaultValue="false" />
+    <org.chromium.components.browser_ui.settings.ChromeSwitchPreference
+        android:key="incognito_save_site_setting"
+        android:title="@string/incognito_save_site_setting_enabled_title"
+        android:summary="@string/incognito_save_site_setting_enabled_summary"
+        android:defaultValue="false" />
+</PreferenceScreen>
