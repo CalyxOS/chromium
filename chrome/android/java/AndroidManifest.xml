@@ -754,6 +754,24 @@ by a child template that "extends" this file.
         </activity>
 
         <activity
+            android:name="org.chromium.chrome.browser.sharing.shared_intent.SharedIntentShareActivity"
+            android:icon="@drawable/ic_launcher"
+            android:roundIcon="@drawable/ic_launcher_round"
+            android:label="@string/shared_intent_share_activity_title"
+            android:enabled="false"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:noHistory="true"
+            android:theme="@style/Theme.BrowserUI.Translucent.NoTitleBar"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|mcc|mnc|screenLayout|smallestScreenSize" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name="org.chromium.chrome.browser.vr.VrCancelAnimationActivity"
             android:exported="false"
             android:theme="@style/Theme.BrowserUI.NoDisplay"

@@ -2783,6 +2783,11 @@ const char kIsolateOriginsDescription[] =
     "Requires dedicated processes for an additional set of origins, "
     "specified as a comma-separated list.";
 
+const char kSharedIntentUIName[] =
+    "Enable shared feature";
+const char kSharedIntentUIDescription[] =
+    "Enables shared feature";
+
 const char kIsolationByDefaultName[] =
     "Change web-facing behaviors that prevent origin-level isolation";
 const char kIsolationByDefaultDescription[] =

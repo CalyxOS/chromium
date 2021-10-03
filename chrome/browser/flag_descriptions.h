@@ -1576,6 +1576,9 @@ extern const char kIsolateOriginsDescription[];
 
 extern const char kIsolationByDefaultName[];
 extern const char kIsolationByDefaultDescription[];
+extern const char kSharedIntentUIName[];
+extern const char kSharedIntentUIDescription[];
+
 
 extern const char kWebViewTagSiteIsolationName[];
 extern const char kWebViewTagSiteIsolationDescription[];

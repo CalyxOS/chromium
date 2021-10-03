@@ -6783,6 +6783,10 @@ const FeatureEntry kFeatureEntries[] = {
 #endif  // BUILDFLAG(IS_CHROMEOS)
 
 #if BUILDFLAG(IS_ANDROID)
+    {"shared-intent-ui", flag_descriptions::kSharedIntentUIName,
+     flag_descriptions::kSharedIntentUIDescription, kOsAll,
+     FEATURE_VALUE_TYPE(chrome::android::kSharedIntentUI)},
+
     {"ntp-tiles-title-wrap-around",
      flag_descriptions::kNewTabPageTilesTitleWrapAroundName,
      flag_descriptions::kNewTabPageTilesTitleWrapAroundDescription, kOsAndroid,

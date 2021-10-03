@@ -273,6 +273,7 @@ const base::Feature* const kFeaturesExposedToJava[] = {
     &kRelatedSearchesAlternateUx,
     &kRelatedSearchesInBar,
     &kRelatedSearchesSimplifiedUx,
+    &kSharedIntentUI,
     &kRelatedSearchesUi,
     &kRequestDesktopSiteDefaults,
     &kRequestDesktopSiteDefaultsControl,
@@ -935,6 +936,10 @@ BASE_FEATURE(kRequestDesktopSiteDefaultsDowngrade,
 BASE_FEATURE(kSafeModeForCachedFlags,
              "SafeModeForCachedFlags",
              base::FEATURE_DISABLED_BY_DEFAULT);
+
+BASE_FEATURE(kSharedIntentUI,
+             "SharedIntentUI",
+             base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kShareButtonInTopToolbar,
              "ShareButtonInTopToolbar",

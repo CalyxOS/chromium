@@ -82,6 +82,7 @@ import org.chromium.chrome.browser.searchwidget.SearchWidgetProvider;
 import org.chromium.chrome.browser.tab.state.PersistedTabData;
 import org.chromium.chrome.browser.tab.state.ShoppingPersistedTabData;
 import org.chromium.chrome.browser.ui.searchactivityutils.SearchActivityPreferencesManager;
+import org.chromium.chrome.browser.sharing.shared_intent.SharedIntentShareActivity;
 import org.chromium.chrome.browser.usb.UsbNotificationManager;
 import org.chromium.chrome.browser.util.AfterStartupTaskUtils;
 import org.chromium.chrome.browser.webapps.WebappRegistry;
@@ -417,6 +418,8 @@ public class ProcessInitializationHandler {
                         .resolveClearDataDialogResultRecorder()::makeDeferredRecordings);
         deferredStartupHandler.addDeferredTask(WebApkUninstallUmaTracker::recordDeferredUma);
 
+        deferredStartupHandler.addDeferredTask(
+                () -> SharedIntentShareActivity.updateComponentEnabledState());
         deferredStartupHandler.addDeferredTask(
                 () -> IncognitoTabLauncher.updateComponentEnabledState());
         deferredStartupHandler.addDeferredTask(
