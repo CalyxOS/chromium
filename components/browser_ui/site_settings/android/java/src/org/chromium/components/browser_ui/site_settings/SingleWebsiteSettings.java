@@ -141,6 +141,8 @@ public class SingleWebsiteSettings extends SiteSettingsPreferenceFragment
                 return "autoplay_permission_list";
             case ContentSettingsType.IDLE_DETECTION:
                 return "idle_detection_permission_list";
+            case ContentSettingsType.IMAGES:
+                return "images_permission_list";
             case ContentSettingsType.JAVASCRIPT:
                 return "javascript_permission_list";
             case ContentSettingsType.POPUPS:
@@ -533,6 +535,8 @@ public class SingleWebsiteSettings extends SiteSettingsPreferenceFragment
                 setUpJavascriptPreference(preference);
             } else if (type == ContentSettingsType.GEOLOCATION) {
                 setUpLocationPreference(preference);
+            } else if (type == ContentSettingsType.IMAGES) {
+                setUpImagesPreference(preference);
             } else if (type == ContentSettingsType.NOTIFICATIONS) {
                 setUpNotificationsPreference(preference, mSite.isEmbargoed(type));
             } else if (type == ContentSettingsType.REQUEST_DESKTOP_SITE) {
@@ -1139,6 +1143,24 @@ public class SingleWebsiteSettings extends SiteSettingsPreferenceFragment
                 mSite.getContentSetting(getSiteSettingsDelegate().getBrowserContextHandle(),
                         ContentSettingsType.REQUEST_DESKTOP_SITE),
                 mSite.isEmbargoed(ContentSettingsType.REQUEST_DESKTOP_SITE));
+    }
+
+    private void setUpImagesPreference(Preference preference) {
+        BrowserContextHandle browserContextHandle =
+                getSiteSettingsDelegate().getBrowserContextHandle();
+        @ContentSettingValues
+        @Nullable
+        Integer currentValue =
+                mSite.getContentSetting(browserContextHandle, ContentSettingsType.IMAGES);
+        // Always show the Images permission
+        if (currentValue == null) {
+            currentValue = WebsitePreferenceBridge.isCategoryEnabled(
+                                   browserContextHandle, ContentSettingsType.IMAGES)
+                    ? ContentSettingValues.ALLOW
+                    : ContentSettingValues.BLOCK;
+        }
+        // Not possible to embargo IMAGES.
+        setupContentSettingsPreference(preference, currentValue, false /* isEmbargoed */);
     }
 
     private String getDSECategorySummary(@ContentSettingValues int value) {
