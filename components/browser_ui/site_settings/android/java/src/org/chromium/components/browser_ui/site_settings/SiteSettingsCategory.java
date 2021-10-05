@@ -47,7 +47,7 @@ public class SiteSettingsCategory {
             Type.PROTECTED_MEDIA, Type.SENSORS, Type.SOUND, Type.USB, Type.VIRTUAL_REALITY,
             Type.USE_STORAGE, Type.AUTO_DARK_WEB_CONTENT, Type.REQUEST_DESKTOP_SITE,
             Type.FEDERATED_IDENTITY_API, Type.THIRD_PARTY_COOKIES, Type.SITE_DATA, Type.ANTI_ABUSE,
-            Type.TIMEZONE_OVERRIDE, Type.AUTOPLAY,
+            Type.TIMEZONE_OVERRIDE, Type.AUTOPLAY, Type.IMAGES,
             Type.NUM_ENTRIES})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Type {
@@ -84,10 +84,11 @@ public class SiteSettingsCategory {
         int ANTI_ABUSE = 28;
         int TIMEZONE_OVERRIDE = 29;
         int AUTOPLAY = 30;
+        int IMAGES = 31;
         /**
          * Number of handled categories used for calculating array sizes.
          */
-        int NUM_ENTRIES = 31;
+        int NUM_ENTRIES = 32;
     }
 
     private final BrowserContextHandle mBrowserContextHandle;
@@ -196,6 +197,8 @@ public class SiteSettingsCategory {
                 return ContentSettingsType.FEDERATED_IDENTITY_API;
             case Type.IDLE_DETECTION:
                 return ContentSettingsType.IDLE_DETECTION;
+            case Type.IMAGES:
+                return ContentSettingsType.IMAGES;
             case Type.JAVASCRIPT:
                 return ContentSettingsType.JAVASCRIPT;
             case Type.MICROPHONE:
@@ -283,6 +286,8 @@ public class SiteSettingsCategory {
                 return "idle_detection";
             case Type.JAVASCRIPT:
                 return "javascript";
+            case Type.IMAGES:
+                return "images";
             case Type.MICROPHONE:
                 return "microphone";
             case Type.NFC:
