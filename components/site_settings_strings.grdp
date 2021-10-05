@@ -157,6 +157,12 @@
   <message name="IDS_SITE_SETTINGS_TYPE_VR_MID_SENTENCE" desc="The label used for the VR site settings controls when used mid-sentence.">
     virtual reality
   </message>
+  <message name="IDS_SITE_SETTINGS_TYPE_IMAGES" desc="The label used for images site settings controls.">
+    Images
+  </message>
+  <message name="IDS_SITE_SETTINGS_TYPE_IMAGES_MID_SENTENCE" desc="The label used for images site settings controls when used mid-sentence.">
+    images
+  </message>
 
   <!-- Site Settings desktop-only -->
   <if expr="not is_android">
@@ -183,12 +189,6 @@
   </message>
   <message name="IDS_SITE_SETTINGS_TYPE_HID_DEVICES_MID_SENTENCE" desc="The label used for the HID site settings controls when used mid-sentence.">
     HID devices
-  </message>
-  <message name="IDS_SITE_SETTINGS_TYPE_IMAGES" desc="The label used for images site settings controls.">
-    Images
-  </message>
-  <message name="IDS_SITE_SETTINGS_TYPE_IMAGES_MID_SENTENCE" desc="The label used for images site settings controls when used mid-sentence.">
-    images
   </message>
   <message name="IDS_SITE_SETTINGS_TYPE_INSECURE_CONTENT" desc="The label used for the insecure content site settings controls. This setting controls whether HTTP content will be displayed on HTTPS sites.">
     Insecure content
