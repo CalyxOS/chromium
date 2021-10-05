@@ -214,6 +214,13 @@ public final class Website implements WebsiteEntry {
                         /*isEmbargoed=*/false);
                 setContentSettingException(type, exception);
             }
+        } else if (type == ContentSettingsType.IMAGES) {
+            if (exception == null) {
+                exception = new ContentSettingException(
+                        ContentSettingsType.IMAGES, getAddress().getHost(), value, "",
+                        /*isEmbargoed=*/false);
+                setContentSettingException(type, exception);
+            }
         } else if (type == ContentSettingsType.JAVASCRIPT) {
             // It is possible to set the permission without having an existing exception,
             // because we show the javascript permission in Site Settings if javascript
