@@ -364,6 +364,21 @@ bool ContentSettingsAgentImpl::AllowStorageAccessSync(
   return result;
 }
 
+bool ContentSettingsAgentImpl::AllowImage(bool enabled_per_settings,
+                                          const WebURL& image_url) {
+  bool allow = enabled_per_settings;
+  if (enabled_per_settings) {
+    allow = allow || IsAllowlistedForContentSettings();
+    if (content_setting_rules_) {
+      allow = AllowContentSetting(ContentSettingsType::IMAGES,
+                                  image_url, enabled_per_settings);
+    }
+  }
+  if (!allow)
+    DidBlockContentType(ContentSettingsType::IMAGES);
+  return allow;
+}
+
 bool ContentSettingsAgentImpl::AllowReadFromClipboard() {
   return delegate_->AllowReadFromClipboard();
 }
