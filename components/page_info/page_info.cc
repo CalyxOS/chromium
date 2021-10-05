@@ -99,9 +99,7 @@ ContentSettingsType kPermissionType[] = {
     ContentSettingsType::SENSORS,
     ContentSettingsType::NOTIFICATIONS,
     ContentSettingsType::JAVASCRIPT,
-#if !BUILDFLAG(IS_ANDROID)
     ContentSettingsType::IMAGES,
-#endif
     ContentSettingsType::POPUPS,
     ContentSettingsType::WINDOW_MANAGEMENT,
     ContentSettingsType::ADS,
@@ -153,6 +151,11 @@ bool ShouldShowPermission(const PageInfo::PermissionInfo& info,
 
   // Always show autoplay when it has a site-specific override
   if (info.type == ContentSettingsType::AUTOPLAY) {
+     return true;
+  }
+
+  // Always show images when it has a site-specific override
+  if (info.type == ContentSettingsType::IMAGES) {
      return true;
   }
 
