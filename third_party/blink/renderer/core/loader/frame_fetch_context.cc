@@ -244,6 +244,7 @@ ResourceFetcher* FrameFetchContext::CreateFetcherForCommittedDocument(
   fetcher->SetResourceLoadObserver(
       MakeGarbageCollected<ResourceLoadObserverForFrame>(
           loader, document, fetcher->GetProperties()));
+  fetcher->SetImagesEnabled(frame->GetSettings()->GetImagesEnabled());
   fetcher->SetAutoLoadImages(
       frame->GetSettings()->GetLoadsImagesAutomatically());
   fetcher->SetEarlyHintsPreloadedResources(
@@ -418,16 +419,11 @@ void FrameFetchContext::AddResourceTiming(
       ->AddResourceTiming(std::move(info), initiator_type);
 }
 
-bool FrameFetchContext::AllowImage() const {
+bool FrameFetchContext::AllowImage(bool images_enabled, const KURL& url) const {
   if (GetResourceFetcherProperties().IsDetached())
     return true;
-
-  bool images_enabled = GetFrame()->ImagesEnabled();
-  if (!images_enabled) {
-    if (auto* settings_client = GetContentSettingsClient()) {
-      settings_client->DidNotAllowImage();
-    }
-  }
+  if (auto* settings_client = GetContentSettingsClient())
+    images_enabled = settings_client->AllowImage(images_enabled, url);
   return images_enabled;
 }
 
