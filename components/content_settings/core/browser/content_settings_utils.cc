@@ -145,12 +145,7 @@ void GetRendererContentSettingRules(const HostContentSettingsMap* map,
       ContentSettingToValue(CONTENT_SETTING_ALLOW), std::string(),
       map->IsOffTheRecord()));
 #else
-  // Android doesn't use image content settings, so ALLOW rule is added for
-  // all origins.
-  rules->image_rules.push_back(ContentSettingPatternSource(
-      ContentSettingsPattern::Wildcard(), ContentSettingsPattern::Wildcard(),
-      ContentSettingToValue(CONTENT_SETTING_ALLOW), std::string(),
-      map->IsOffTheRecord()));
+  rules->image_rules = map->GetSettingsForOneType(ContentSettingsType::IMAGES);
   // In Android active mixed content is hard blocked, with no option to allow
   // it.
   rules->mixed_content_rules.push_back(ContentSettingPatternSource(
