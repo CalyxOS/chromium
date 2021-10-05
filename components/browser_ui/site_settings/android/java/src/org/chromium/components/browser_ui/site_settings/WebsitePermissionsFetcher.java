@@ -70,6 +70,7 @@ public class WebsitePermissionsFetcher {
             case ContentSettingsType.AUTOPLAY:
             case ContentSettingsType.COOKIES:
             case ContentSettingsType.FEDERATED_IDENTITY_API:
+            case ContentSettingsType.IMAGES:
             case ContentSettingsType.JAVASCRIPT:
             case ContentSettingsType.JAVASCRIPT_JIT:
             case ContentSettingsType.POPUPS:
