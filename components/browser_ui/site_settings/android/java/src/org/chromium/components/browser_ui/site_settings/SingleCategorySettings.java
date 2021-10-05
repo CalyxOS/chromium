@@ -729,6 +729,9 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
                         ? R.string.website_settings_add_site_description_sound_block
                         : R.string.website_settings_add_site_description_sound_allow;
                 break;
+            case SiteSettingsCategory.Type.IMAGES:
+                resource = R.string.website_settings_add_site_description_images;
+                break;
             case SiteSettingsCategory.Type.COOKIES:
                 resource = getCookieSettingsState() == CookieSettingsState.ALLOW
                         ? R.string.website_settings_add_site_description_cookies_block
@@ -868,6 +871,7 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
             case SiteSettingsCategory.Type.SOUND:
             case SiteSettingsCategory.Type.AUTOPLAY:
             case SiteSettingsCategory.Type.JAVASCRIPT:
+            case SiteSettingsCategory.Type.IMAGES:
             case SiteSettingsCategory.Type.COOKIES:
             case SiteSettingsCategory.Type.SITE_DATA:
             case SiteSettingsCategory.Type.FEDERATED_IDENTITY_API:

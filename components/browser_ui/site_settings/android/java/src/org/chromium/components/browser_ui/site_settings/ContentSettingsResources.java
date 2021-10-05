@@ -129,6 +129,10 @@ public class ContentSettingsResources {
                 return new ResourceItem(R.drawable.settings_bluetooth, 0, ContentSettingValues.ASK,
                         ContentSettingValues.BLOCK, 0, 0);
 
+            case ContentSettingsType.IMAGES:
+                return new ResourceItem(R.drawable.permission_images, R.string.images_permission_title,
+                        ContentSettingValues.ALLOW, ContentSettingValues.BLOCK, 0, 0);
+
             case ContentSettingsType.BLUETOOTH_GUARD:
                 return new ResourceItem(R.drawable.settings_bluetooth,
                         R.string.website_settings_bluetooth, ContentSettingValues.ASK,
