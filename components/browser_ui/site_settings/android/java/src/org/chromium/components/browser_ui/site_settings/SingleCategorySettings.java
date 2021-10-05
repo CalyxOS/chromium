@@ -770,6 +770,12 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
                         ? R.string.website_settings_add_site_description_sound_block
                         : R.string.website_settings_add_site_description_sound_allow;
                 break;
+            case SiteSettingsCategory.Type.IMAGES:
+                resource =  WebsitePreferenceBridge.isCategoryEnabled(
+                                   browserContextHandle, ContentSettingsType.IMAGES)
+                        ? R.string.website_settings_add_site_description_images
+                        : R.string.website_settings_add_site_description_images;
+                break;
             case SiteSettingsCategory.Type.COOKIES:
                 resource = getCookieSettingsState() == CookieSettingsState.ALLOW
                         ? R.string.website_settings_add_site_description_cookies_block
@@ -929,6 +935,12 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
                 allowSpecifyingExceptions = getCookieControlsMode() != CookieControlsMode.OFF;
                 break;
             case SiteSettingsCategory.Type.TIMEZONE_OVERRIDE:
+                allowSpecifyingExceptions = true;
+                break;
+            case SiteSettingsCategory.Type.AUTOPLAY:
+                allowSpecifyingExceptions = true;
+                break;
+            case SiteSettingsCategory.Type.IMAGES:
                 allowSpecifyingExceptions = true;
                 break;
             default:
@@ -1192,8 +1204,6 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
         Preference infoText = screen.findPreference(INFO_TEXT_KEY);
         if (mCategory.getType() == SiteSettingsCategory.Type.COOKIES) {
             infoText.setSummary(R.string.website_settings_cookie_info);
-        } else if (mCategory.getType() == SiteSettingsCategory.Type.AUTOPLAY) {
-            allowSpecifyingExceptions = true;
         } else if (mCategory.getType() == SiteSettingsCategory.Type.SITE_DATA) {
             infoText.setSummary(R.string.website_settings_site_data_page_description);
         } else if (mCategory.getType() == SiteSettingsCategory.Type.THIRD_PARTY_COOKIES) {
