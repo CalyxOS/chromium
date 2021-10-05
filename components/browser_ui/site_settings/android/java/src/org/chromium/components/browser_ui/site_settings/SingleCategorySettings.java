@@ -777,6 +777,12 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
                         ? R.string.website_settings_add_site_description_sound_block
                         : R.string.website_settings_add_site_description_sound_allow;
                 break;
+            case SiteSettingsCategory.Type.IMAGES:
+                resource =  WebsitePreferenceBridge.isCategoryEnabled(
+                                   browserContextHandle, ContentSettingsType.IMAGES)
+                        ? R.string.website_settings_add_site_description_images
+                        : R.string.website_settings_add_site_description_images;
+                break;
             case SiteSettingsCategory.Type.COOKIES:
                 resource = getCookieSettingsState() == CookieSettingsState.ALLOW
                         ? R.string.website_settings_add_site_description_cookies_block
@@ -939,6 +945,9 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
                 allowSpecifyingExceptions = true;
                 break;
             case SiteSettingsCategory.Type.AUTOPLAY:
+                allowSpecifyingExceptions = true;
+                break;
+            case SiteSettingsCategory.Type.IMAGES:
                 allowSpecifyingExceptions = true;
                 break;
             default:

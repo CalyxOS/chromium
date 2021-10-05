@@ -34,6 +34,7 @@ public class SiteSettingsUtil {
             ContentSettingsType.SOUND,
             ContentSettingsType.MIDI_SYSEX,
             ContentSettingsType.CLIPBOARD_READ_WRITE,
+            ContentSettingsType.IMAGES,
             ContentSettingsType.NFC,
             ContentSettingsType.BLUETOOTH_SCANNING,
             ContentSettingsType.VR,
