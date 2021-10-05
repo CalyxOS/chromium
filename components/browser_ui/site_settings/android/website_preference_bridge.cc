@@ -822,6 +822,7 @@ static void JNI_WebsitePreferenceBridge_SetContentSettingEnabled(
       case ContentSettingsType::BACKGROUND_SYNC:
       case ContentSettingsType::COOKIES:
       case ContentSettingsType::FEDERATED_IDENTITY_API:
+      case ContentSettingsType::IMAGES:
       case ContentSettingsType::JAVASCRIPT:
       case ContentSettingsType::POPUPS:
       case ContentSettingsType::REQUEST_DESKTOP_SITE:
