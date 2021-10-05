@@ -4040,19 +4040,6 @@ bool LocalFrame::IsSameOrigin() {
   return security_origin->IsSameOriginWith(top_security_origin);
 }
 
-bool LocalFrame::ImagesEnabled() {
-  DCHECK(!IsDetached());
-  // If this is called in the middle of detach, GetDocumentLoader() might
-  // already be nullptr.
-  if (!loader_.GetDocumentLoader()) {
-    return false;
-  }
-  bool allow_image_renderer = GetSettings()->GetImagesEnabled();
-  bool allow_image_content_setting =
-      loader_.GetDocumentLoader()->GetContentSettings()->allow_image;
-  return allow_image_renderer && allow_image_content_setting;
-}
-
 bool LocalFrame::ScriptEnabled() {
   DCHECK(!IsDetached());
   // If this is called in the middle of detach, GetDocumentLoader() might
