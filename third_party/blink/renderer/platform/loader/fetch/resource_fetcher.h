@@ -229,6 +229,7 @@ class PLATFORM_EXPORT ResourceFetcher
   bool StartLoad(Resource*, bool is_potentially_unused_preload = false);
 
   void SetAutoLoadImages(bool);
+  void SetImagesEnabled(bool);
 
   FetchContext& Context() const;
   void ClearContext();
@@ -700,6 +701,7 @@ class PLATFORM_EXPORT ResourceFetcher
   bool is_in_request_resource_ = false;
 
   bool auto_load_images_ : 1;
+  bool images_enabled_ : 1;
   bool allow_stale_resources_ : 1;
   bool image_fetched_ : 1;
   bool stale_while_revalidate_enabled_ : 1;
