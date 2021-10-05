@@ -229,6 +229,10 @@ absl::optional<ContentSetting> PageInfoControllerAndroid::GetSettingToDisplay(
     // audio since last navigation.
     if (web_contents_->WasEverAudible())
       return permission.default_setting;
+  } else if (permission.type == ContentSettingsType::IMAGES) {
+    // The images content setting should show up if it is blocked globally
+    // to give users an easy way to create exceptions.
+    return permission.default_setting;
   }
 
   // TODO(crbug.com/1077766): Also return permissions that are non

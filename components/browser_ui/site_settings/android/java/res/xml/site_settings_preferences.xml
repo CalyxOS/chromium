@@ -43,6 +43,10 @@ found in the LICENSE file.
     <org.chromium.components.browser_ui.settings.ChromeBasePreference
         android:fragment="org.chromium.components.browser_ui.site_settings.SingleCategorySettings"
         android:key="javascript" />
+    <!-- Images -->
+    <org.chromium.components.browser_ui.settings.ChromeBasePreference
+        android:key="images"
+        android:fragment="org.chromium.components.browser_ui.site_settings.SingleCategorySettings" />
     <!-- Timezone Override -->
     <org.chromium.components.browser_ui.settings.ChromeBasePreference
         android:key="timezone_override"
