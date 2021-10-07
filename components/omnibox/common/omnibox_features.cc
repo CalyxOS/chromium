@@ -448,8 +448,8 @@ BASE_FEATURE(kSiteSearchStarterPack,
 
 // Experiment to introduce new security indicators for HTTPS.
 BASE_FEATURE(kUpdatedConnectionSecurityIndicators,
-             "OmniboxUpdatedConnectionSecurityIndicators",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "OmniboxUpdatedConnectionSecurityIndicators",    // enabled by default
+             base::FEATURE_ENABLED_BY_DEFAULT);               // in Bromite
 
 // Feature used to default typed navigations to use HTTPS instead of HTTP.
 // This only applies to navigations that don't have a scheme such as
