@@ -2242,6 +2242,9 @@ if (enable_java_templates) {
       if (defined(testonly) && testonly) {
         defines += [ "_IS_FOR_TEST" ]
       }
+
+      # add arch to org.chromium.build.BuildConfig
+      defines += [ "_BUILD_TARGET_CPU=\"${target_cpu}\"" ]
     }
   }
 

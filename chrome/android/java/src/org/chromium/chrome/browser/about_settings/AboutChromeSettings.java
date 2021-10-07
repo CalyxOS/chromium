@@ -21,14 +21,20 @@ import org.chromium.ui.widget.Toast;
 
 import java.util.Calendar;
 
+import android.content.SharedPreferences;
+import org.chromium.chrome.browser.omaha.OmahaBase;
+import org.chromium.components.browser_ui.settings.ChromeSwitchPreference;
+
 /**
  * Settings fragment that displays information about Chrome.
  */
 public class AboutChromeSettings
-        extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener {
+        extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener,
+                                                    Preference.OnPreferenceChangeListener {
     private static final int TAPS_FOR_DEVELOPER_SETTINGS = 7;
 
     private static final String PREF_APPLICATION_VERSION = "application_version";
+    private static final String PREF_ALLOW_INLINE_UPDATE = "allow_inline_update"; // switch preference
     private static final String PREF_OS_VERSION = "os_version";
     private static final String PREF_LEGAL_INFORMATION = "legal_information";
 
@@ -59,6 +65,13 @@ public class AboutChromeSettings
         p = findPreference(PREF_LEGAL_INFORMATION);
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
         p.setSummary(getString(R.string.legal_information_summary, currentYear));
+
+        ChromeSwitchPreference allowInlineUpdate =
+                (ChromeSwitchPreference) findPreference(PREF_ALLOW_INLINE_UPDATE);
+        allowInlineUpdate.setChecked(
+            OmahaBase.getSharedPreferences()
+                    .getBoolean(OmahaBase.PREF_ALLOW_INLINE_UPDATE, false));
+        allowInlineUpdate.setOnPreferenceChangeListener(this);
     }
 
     /**
@@ -119,6 +132,19 @@ public class AboutChromeSettings
             mToast =
                     Toast.makeText(getActivity(), MSG_DEVELOPER_ALREADY_ENABLED, Toast.LENGTH_LONG);
             mToast.show();
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        String key = preference.getKey();
+        if (PREF_ALLOW_INLINE_UPDATE.equals(key)) {
+            SharedPreferences.Editor sharedPreferenceEditor = OmahaBase.getSharedPreferences().edit();
+            sharedPreferenceEditor.putBoolean(OmahaBase.PREF_ALLOW_INLINE_UPDATE, (boolean) newValue);
+            sharedPreferenceEditor.apply();
+
+            OmahaBase.resetUpdatePrefs();
         }
         return true;
     }

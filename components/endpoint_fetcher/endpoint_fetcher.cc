@@ -17,6 +17,11 @@
 #include "services/network/public/cpp/simple_url_loader.h"
 #include "services/network/public/mojom/url_response_head.mojom.h"
 
+// used for the Bromite customization
+#include "net/base/load_flags.h"
+#include "net/http/http_status_code.h"
+#include "services/network/public/cpp/resource_request.h"
+
 namespace {
 const char kContentTypeKey[] = "Content-Type";
 const char kDeveloperKey[] = "X-Developer-Key";
@@ -61,6 +66,7 @@ EndpointFetcher::EndpointFetcher(
       http_method_(http_method),
       content_type_(content_type),
       timeout_ms_(timeout_ms),
+      intercept_redirect_(false),
       post_data_(post_data),
       headers_(headers),
       annotation_tag_(annotation_tag),
@@ -78,6 +84,7 @@ EndpointFetcher::EndpointFetcher(
       http_method_("GET"),
       content_type_(std::string()),
       timeout_ms_(0),
+      intercept_redirect_(false),
       post_data_(std::string()),
       annotation_tag_(annotation_tag),
       url_loader_factory_(url_loader_factory),
@@ -101,6 +108,7 @@ EndpointFetcher::EndpointFetcher(
       http_method_(http_method),
       content_type_(content_type),
       timeout_ms_(timeout_ms),
+      intercept_redirect_(false),
       post_data_(post_data),
       annotation_tag_(annotation_tag),
       url_loader_factory_(url_loader_factory),
@@ -127,6 +135,7 @@ EndpointFetcher::EndpointFetcher(
       http_method_(http_method),
       content_type_(content_type),
       timeout_ms_(timeout_ms),
+      intercept_redirect_(false),
       post_data_(post_data),
       headers_(headers),
       cors_exempt_headers_(cors_exempt_headers),
@@ -138,9 +147,27 @@ EndpointFetcher::EndpointFetcher(
 EndpointFetcher::EndpointFetcher(
     const net::NetworkTrafficAnnotationTag& annotation_tag)
     : timeout_ms_(kDefaultTimeOutMs),
+      intercept_redirect_(false),
       annotation_tag_(annotation_tag),
       identity_manager_(nullptr),
       sanitize_response_(true) {}
+
+// constructor used by Bromite
+EndpointFetcher::EndpointFetcher(
+    const scoped_refptr<network::SharedURLLoaderFactory>& url_loader_factory,
+    const GURL& url,
+    const std::string& http_method,
+    int64_t timeout_ms,
+    const bool intercept_redirect,
+    const net::NetworkTrafficAnnotationTag& annotation_tag)
+    : url_(url),
+      http_method_(http_method),
+      timeout_ms_(timeout_ms),
+      intercept_redirect_(intercept_redirect),
+      annotation_tag_(annotation_tag),
+      url_loader_factory_(url_loader_factory),
+      identity_manager_(nullptr),
+      sanitize_response_(false) {}
 
 EndpointFetcher::~EndpointFetcher() = default;
 
@@ -198,6 +225,8 @@ void EndpointFetcher::PerformRequest(
   resource_request->method = http_method_;
   resource_request->url = url_;
   resource_request->credentials_mode = network::mojom::CredentialsMode::kOmit;
+  resource_request->load_flags = net::LOAD_BYPASS_CACHE | net::LOAD_DISABLE_CACHE
+                                  | net::LOAD_DO_NOT_SAVE_COOKIES;
   if (base::EqualsCaseInsensitiveASCII(http_method_, "POST")) {
     resource_request->headers.SetHeader(kContentTypeKey, content_type_);
   }
@@ -228,25 +257,52 @@ void EndpointFetcher::PerformRequest(
     default:
       break;
   }
+
+  if (intercept_redirect_ == true) {
+    // will need manual mode to capture the landing page URL
+    resource_request->redirect_mode = network::mojom::RedirectMode::kManual; // default is kFollow
+  }
+
   // TODO(crbug.com/997018) Make simple_url_loader_ local variable passed to
   // callback
   simple_url_loader_ = network::SimpleURLLoader::Create(
       std::move(resource_request), annotation_tag_);
+  simple_url_loader_->SetTimeoutDuration(base::Milliseconds(timeout_ms_));
+  simple_url_loader_->SetAllowHttpErrorResults(true);
+
+  if (!response_) {
+    //RFC: what is this for?
+    response_ = std::make_unique<EndpointResponse>();
+  }
+  if (intercept_redirect_ == true) {
+    // use a callback to capture landing page URL
+    simple_url_loader_->SetOnRedirectCallback(base::BindRepeating(
+      &EndpointFetcher::OnSimpleLoaderRedirect, base::Unretained(this)));
+  }
 
   if (base::EqualsCaseInsensitiveASCII(http_method_, "POST")) {
     simple_url_loader_->AttachStringForUpload(post_data_, content_type_);
   }
   simple_url_loader_->SetRetryOptions(kNumRetries,
                                       network::SimpleURLLoader::RETRY_ON_5XX);
-  simple_url_loader_->SetTimeoutDuration(base::Milliseconds(timeout_ms_));
-  simple_url_loader_->SetAllowHttpErrorResults(true);
-  network::SimpleURLLoader::BodyAsStringCallback body_as_string_callback =
+
+  LOG(INFO) << "performing " << http_method_ << " request to " << url_;
+  if (base::EqualsCaseInsensitiveASCII(http_method_, "HEAD")) {
+    endpoint_fetcher_callback_ = std::move(endpoint_fetcher_callback);
+
+    simple_url_loader_->DownloadHeadersOnly(
+        url_loader_factory_.get(),
+        base::BindOnce(&EndpointFetcher::OnURLLoadComplete,
+                     base::Unretained(this)));
+  } else {
+      network::SimpleURLLoader::BodyAsStringCallback body_as_string_callback =
       base::BindOnce(&EndpointFetcher::OnResponseFetched,
                      weak_ptr_factory_.GetWeakPtr(),
                      std::move(endpoint_fetcher_callback));
-  simple_url_loader_->DownloadToString(
-      url_loader_factory_.get(), std::move(body_as_string_callback),
-      network::SimpleURLLoader::kMaxBoundedStringDownloadSize);
+      simple_url_loader_->DownloadToString(
+         url_loader_factory_.get(), std::move(body_as_string_callback),
+         network::SimpleURLLoader::kMaxBoundedStringDownloadSize);
+  }
 }
 
 void EndpointFetcher::OnResponseFetched(
@@ -314,4 +370,38 @@ void EndpointFetcher::OnSanitizationResult(
 
 std::string EndpointFetcher::GetUrlForTesting() {
   return url_.spec();
+}
+
+void EndpointFetcher::OnSimpleLoaderRedirect(
+    const net::RedirectInfo& redirect_info,
+    const network::mojom::URLResponseHead& response_head,
+    std::vector<std::string>* removed_headers) {
+  url_ = redirect_info.new_url;
+  if (response_->redirect_url.empty()) {
+    response_->redirect_url = url_.spec();
+    response_->response = std::to_string(redirect_info.status_code);
+  } else {
+    LOG(INFO) << "BromiteUpdater: redirect URL is not empty, status code is " << redirect_info.status_code;
+  }
+
+  std::move(endpoint_fetcher_callback_).Run(std::move(response_));
+}
+
+void EndpointFetcher::OnURLLoadComplete(
+    scoped_refptr<net::HttpResponseHeaders> headers) {
+  if (!endpoint_fetcher_callback_)
+    return;
+
+  if (headers) {
+    if (response_->redirect_url.empty()) {
+      std::string location;
+      if (simple_url_loader_->ResponseInfo()->headers->IsRedirect(&location)) {
+        response_->redirect_url = location;
+      }
+    }
+  }
+
+  std::string net_error = net::ErrorToString(simple_url_loader_->NetError());
+ response_->response = net_error;
+  std::move(endpoint_fetcher_callback_).Run(std::move(response_));
 }

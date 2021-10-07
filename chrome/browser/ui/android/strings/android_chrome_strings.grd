@@ -1837,6 +1837,12 @@ Your Google account may have other forms of browsing history like searches and a
       <message name="IDS_DEPRECATION_WARNING" desc="Warning about Chrome updates no longer being supported">
         Chrome updates are no longer supported for this version of Android
       </message>
+      <message name="IDS_ALLOW_INLINE_UPDATE_TITLE" desc="Title for allow inline update preference">
+        Allow checking for updates
+      </message>
+      <message name="IDS_ALLOW_INLINE_UPDATE_SUMMARY" desc="Summary for allow inline update preference">
+        Notify about new releases by periodically checking for their availability
+      </message>
 
       <!-- Account management UI strings. -->
       <message name="IDS_ACCOUNT_MANAGEMENT_TITLE" desc="Header title for the account management screen. [CHAR_LIMIT=32]">
@@ -3453,7 +3459,10 @@ To change this setting, <ph name="BEGIN_LINK">&lt;resetlink&gt;</ph>reset sync<p
 
       <!-- Main menu items -->
       <message name="IDS_MENU_UPDATE" desc="Menu item for updating chrome. [CHAR_LIMIT=24]">
-        Update Chrome
+        Update Bromite
+      </message>
+      <message name="IDS_MENU_UPDATE_SUMMARY_VULNERABLE" desc="Content description for the menu button when it is covered by the update icon that is displayed when the current version of Bromite is vulnerable.">
+        Update not available. Read more
       </message>
       <message name="IDS_MENU_UPDATE_SUMMARY_DEFAULT" desc="Summary string for update menu item explaining that a newer version of Chrome is available. [CHAR_LIMIT=30]">
         Newer version is available
@@ -3463,6 +3472,18 @@ To change this setting, <ph name="BEGIN_LINK">&lt;resetlink&gt;</ph>reset sync<p
       </message>
       <message name="IDS_MENU_UPDATE_UNSUPPORTED_SUMMARY_DEFAULT" desc="Summary string for update menu item explaining that the Android version on the device is unsupported. [CHAR_LIMIT=30]">
         Android version is unsupported
+      </message>
+      <message name="IDS_MENU_INLINE_UPDATE_DOWNLOADING" desc="Menu item for when Chrome is in the process of updating. [CHAR_LIMIT=24]">
+        Downloading…
+      </message>
+      <message name="IDS_MENU_INLINE_UPDATE_FAILED" desc="Menu item for when Chrome failed to download an update. [CHAR_LIMIT=24]">
+        Couldn’t download
+      </message>
+      <message name="IDS_MENU_INLINE_UPDATE_READY" desc="Menu item text that is shown when Chrome has downloaded an update for itself and is ready to be restarted, which will apply the update. [CHAR_LIMIT=24]">
+        Update ready
+      </message>
+      <message name="IDS_MENU_INLINE_UPDATE_READY_SUMMARY" desc="Summary text that is shown when Chrome has downloaded an update for itself and is ready to be restarted, which will apply the update.  This lets the user know the update will restart. [CHAR_LIMIT=24]">
+        Restart Bromite
       </message>
       <message name="IDS_MENU_NEW_WINDOW" desc="Menu item for opening a new window. [CHAR_LIMIT=27]">
         New window

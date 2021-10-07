@@ -16,6 +16,8 @@
 #include "net/traffic_annotation/network_traffic_annotation.h"
 #include "services/data_decoder/public/cpp/json_sanitizer.h"
 #include "third_party/abseil-cpp/absl/types/optional.h"
+#include "services/network/public/cpp/resource_request.h"
+#include "services/network/public/mojom/url_response_head.mojom.h"
 
 namespace network {
 struct ResourceRequest;
@@ -38,6 +40,8 @@ enum class FetchErrorType {
 
 struct EndpointResponse {
   std::string response;
+  long last_modified;
+  std::string redirect_url;
   int http_status_code{-1};
   absl::optional<FetchErrorType> error_type;
 };
@@ -89,6 +93,14 @@ class EndpointFetcher {
       const scoped_refptr<network::SharedURLLoaderFactory>& url_loader_factory,
       const GURL& url,
       const net::NetworkTrafficAnnotationTag& annotation_tag);
+
+  // Constructor if no authentication is needed, with timeout
+  EndpointFetcher(const scoped_refptr<network::SharedURLLoaderFactory>& url_loader_factory,
+                  const GURL& url,
+                  const std::string& http_method,
+                  int64_t timeout_ms,
+                  const bool intercept_redirect,
+                  const net::NetworkTrafficAnnotationTag& annotation_tag);
 
   // Used for tests. Can be used if caller constructs their own
   // url_loader_factory and identity_manager.
@@ -144,6 +156,10 @@ class EndpointFetcher {
   void OnSanitizationResult(std::unique_ptr<EndpointResponse> response,
                             EndpointFetcherCallback endpoint_fetcher_callback,
                             data_decoder::JsonSanitizer::Result result);
+  void OnURLLoadComplete(scoped_refptr<net::HttpResponseHeaders> headers);
+  void OnSimpleLoaderRedirect(const net::RedirectInfo& redirect_info,
+                              const network::mojom::URLResponseHead& response_head,
+                              std::vector<std::string>* removed_headers);
 
   enum AuthType { CHROME_API_KEY, OAUTH, NO_AUTH };
   AuthType auth_type_;
@@ -151,10 +167,11 @@ class EndpointFetcher {
   // Members set in constructor to be passed to network::ResourceRequest or
   // network::SimpleURLLoader.
   const std::string oauth_consumer_name_;
-  const GURL url_;
+  GURL url_;
   const std::string http_method_;
   const std::string content_type_;
   int64_t timeout_ms_;
+  const bool intercept_redirect_;
   const std::string post_data_;
   const std::vector<std::string> headers_;
   const std::vector<std::string> cors_exempt_headers_;
@@ -171,6 +188,9 @@ class EndpointFetcher {
   std::unique_ptr<const signin::PrimaryAccountAccessTokenFetcher>
       access_token_fetcher_;
   std::unique_ptr<network::SimpleURLLoader> simple_url_loader_;
+
+  EndpointFetcherCallback endpoint_fetcher_callback_;
+  std::unique_ptr<EndpointResponse> response_;
 
   base::WeakPtrFactory<EndpointFetcher> weak_ptr_factory_{this};
 };

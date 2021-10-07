@@ -251,6 +251,7 @@ const base::Feature* const kFeaturesExposedToJava[] = {
     &kNewWindowAppMenu,
     &kNotificationPermissionVariant,
     &kPageAnnotationsService,
+    &kInlineUpdateFlow,
     &kBookmarksImprovedSaveFlow,
     &kBookmarksRefresh,
     &kBackGestureRefactorAndroid,
@@ -692,6 +693,10 @@ BASE_FEATURE(kContextMenuSearchAndShopWithGoogleLens,
 BASE_FEATURE(kContextMenuTranslateWithGoogleLens,
              "ContextMenuTranslateWithGoogleLens",
              base::FEATURE_DISABLED_BY_DEFAULT);
+
+BASE_FEATURE(kInlineUpdateFlow,
+             "InlineUpdateFlow",
+             base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kLensCameraAssistedSearch,
              "LensCameraAssistedSearch",

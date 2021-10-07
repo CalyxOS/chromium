@@ -9,6 +9,7 @@
 #include "base/android/jni_string.h"
 #include "chrome/browser/endpoint_fetcher/jni_headers/EndpointFetcher_jni.h"
 #include "chrome/browser/endpoint_fetcher/jni_headers/EndpointResponse_jni.h"
+#include "chrome/browser/endpoint_fetcher/jni_headers/EndpointHeaderResponse_jni.h"
 #include "chrome/browser/profiles/profile_android.h"
 #include "chrome/browser/signin/identity_manager_factory.h"
 #include "chrome/common/channel_info.h"
@@ -29,6 +30,24 @@ static void OnEndpointFetcherComplete(
                    base::android::ConvertUTF8ToJavaString(
                        base::android::AttachCurrentThread(),
                        std::move(endpoint_response->response))));
+}
+
+static void OnEndpointFetcherHeadComplete(
+    const base::android::JavaRef<jobject>& jcaller,
+    // Passing the endpoint_fetcher ensures the endpoint_fetcher's
+    // lifetime extends to the callback and is not destroyed
+    // prematurely (which would result in cancellation of the request).
+    std::unique_ptr<EndpointFetcher> endpoint_fetcher,
+    std::unique_ptr<EndpointResponse> endpoint_response) {
+  base::android::RunObjectCallbackAndroid(
+      jcaller, Java_EndpointHeaderResponse_createEndpointResponse(
+                   base::android::AttachCurrentThread(),
+                   base::android::ConvertUTF8ToJavaString(
+                       base::android::AttachCurrentThread(),
+                       std::move(endpoint_response->response)),
+                   base::android::ConvertUTF8ToJavaString(
+                       base::android::AttachCurrentThread(),
+                       std::move(endpoint_response->redirect_url))));
 }
 }  // namespace
 
@@ -109,18 +128,45 @@ static void JNI_EndpointFetcher_NativeFetchWithNoAuth(
     JNIEnv* env,
     const base::android::JavaParamRef<jobject>& jprofile,
     const base::android::JavaParamRef<jstring>& jurl,
-    jint jannotation_hash_code,
+    jlong jtimeout, jboolean intercept_redirect,
     const base::android::JavaParamRef<jobject>& jcallback) {
   auto endpoint_fetcher = std::make_unique<EndpointFetcher>(
       ProfileAndroid::FromProfileAndroid(jprofile)
           ->GetDefaultStoragePartition()
           ->GetURLLoaderFactoryForBrowserProcess(),
       GURL(base::android::ConvertJavaStringToUTF8(env, jurl)),
-      net::NetworkTrafficAnnotationTag::FromJavaAnnotation(
-          jannotation_hash_code));
+      "GET",
+      jtimeout,
+      intercept_redirect,
+      NO_TRAFFIC_ANNOTATION_YET);
   auto* const endpoint_fetcher_ptr = endpoint_fetcher.get();
   endpoint_fetcher_ptr->PerformRequest(
       base::BindOnce(&OnEndpointFetcherComplete,
+                     base::android::ScopedJavaGlobalRef<jobject>(jcallback),
+                     // unique_ptr endpoint_fetcher is passed until the callback
+                     // to ensure its lifetime across the request.
+                     std::move(endpoint_fetcher)),
+      nullptr);
+}
+
+static void JNI_EndpointFetcher_NativeHeadWithNoAuth(
+    JNIEnv* env,
+    const base::android::JavaParamRef<jobject>& jprofile,
+    const base::android::JavaParamRef<jstring>& jurl,
+    jlong jtimeout, jboolean intercept_redirect,
+    const base::android::JavaParamRef<jobject>& jcallback) {
+  auto endpoint_fetcher = std::make_unique<EndpointFetcher>(
+      ProfileAndroid::FromProfileAndroid(jprofile)
+        ->GetDefaultStoragePartition()
+        ->GetURLLoaderFactoryForBrowserProcess(),
+      GURL(base::android::ConvertJavaStringToUTF8(env, jurl)),
+      "HEAD",
+      jtimeout,
+      intercept_redirect,
+      NO_TRAFFIC_ANNOTATION_YET);
+  auto* const endpoint_fetcher_ptr = endpoint_fetcher.get();
+  endpoint_fetcher_ptr->PerformRequest(
+      base::BindOnce(&OnEndpointFetcherHeadComplete,
                      base::android::ScopedJavaGlobalRef<jobject>(jcallback),
                      // unique_ptr endpoint_fetcher is passed until the callback
                      // to ensure its lifetime across the request.

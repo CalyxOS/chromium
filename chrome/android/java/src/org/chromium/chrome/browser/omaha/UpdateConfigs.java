@@ -11,6 +11,7 @@ import androidx.annotation.IntDef;
 import androidx.annotation.Nullable;
 
 import org.chromium.base.CommandLine;
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
 import org.chromium.chrome.browser.flags.ChromeSwitches;
 import org.chromium.chrome.browser.omaha.UpdateStatusProvider.UpdateState;
 import org.chromium.components.variations.VariationsAssociatedData;
@@ -37,10 +38,12 @@ public class UpdateConfigs {
     private static final String UPDATE_AVAILABLE_SWITCH_VALUE = "update_available";
     private static final String UNSUPPORTED_OS_VERSION_SWITCH_VALUE = "unsupported_os_version";
 
+    private static final long DEFAULT_UPDATE_NOTIFICATION_INTERVAL = 3 * DateUtils.DAY_IN_MILLIS;
     private static final long DEFAULT_UPDATE_ATTRIBUTION_WINDOW_MS = 2 * DateUtils.DAY_IN_MILLIS;
 
     /** Possible update flow configurations. */
-    @IntDef({UpdateFlowConfiguration.NEVER_SHOW, UpdateFlowConfiguration.INTENT_ONLY})
+    @IntDef({UpdateFlowConfiguration.NEVER_SHOW, UpdateFlowConfiguration.INTENT_ONLY,
+            UpdateFlowConfiguration.INLINE_ONLY})
     @Retention(RetentionPolicy.SOURCE)
     public @interface UpdateFlowConfiguration {
         /** Turns off all update indicators. */
@@ -50,6 +53,12 @@ public class UpdateConfigs {
          * Requires Omaha to say an update is available, and only ever Intents out to Play Store.
          */
         int INTENT_ONLY = 2;
+
+        /**
+         * Inline updates that contact Bromite official GitHub repository to say whether an update is available.
+         * Only ever uses the inline update flow.
+         */
+        int INLINE_ONLY = 3;
     }
 
     /**
@@ -125,6 +134,13 @@ public class UpdateConfigs {
     }
 
     /**
+     * @return A time interval for scheduling update notification. Unit: mills.
+     */
+    public static long getUpdateNotificationInterval() {
+        return DEFAULT_UPDATE_NOTIFICATION_INTERVAL;
+    }
+
+    /**
      * Gets a String VariationsAssociatedData parameter. Also checks for a command-line switch
      * with the same name, for easy local testing.
      * @param paramName The name of the parameter (or command-line switch) to get a value for.
@@ -138,5 +154,15 @@ public class UpdateConfigs {
             value = VariationsAssociatedData.getVariationParamValue(FIELD_TRIAL_NAME, paramName);
         }
         return value;
+    }
+
+    @UpdateFlowConfiguration
+    public static int getConfiguration() {
+        if (!ChromeFeatureList.isEnabled(ChromeFeatureList.INLINE_UPDATE_FLOW)) {
+            // Always use the the old flow if the inline update flow feature is not enabled.
+            return UpdateFlowConfiguration.INLINE_ONLY;
+        }
+
+        return UpdateFlowConfiguration.NEVER_SHOW;
     }
 }

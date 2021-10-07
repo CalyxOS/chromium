@@ -92,4 +92,6 @@ public class BuildConfig {
 #else
     public static MAYBE_FINAL boolean IS_FOR_TEST MAYBE_FALSE;
 #endif
+
+    public static MAYBE_FINAL String BUILD_TARGET_CPU = _BUILD_TARGET_CPU;
 }

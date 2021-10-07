@@ -9,6 +9,11 @@ found in the LICENSE file.
     <Preference
         android:key="application_version"
         android:title="@string/application_version_title" />
+    <org.chromium.components.browser_ui.settings.ChromeSwitchPreference
+        android:key="allow_inline_update"
+        android:title="@string/allow_inline_update_title"
+        android:summary="@string/allow_inline_update_summary"
+        android:defaultValue="false" />
     <org.chromium.chrome.browser.about_settings.AboutChromePreferenceOSVersion
         android:key="os_version"
         android:title="@string/os_version_title" />

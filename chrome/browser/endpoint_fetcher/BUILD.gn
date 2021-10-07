@@ -17,6 +17,7 @@ android_library("java") {
   sources = [
     "java/src/org/chromium/chrome/browser/endpoint_fetcher/EndpointFetcher.java",
     "java/src/org/chromium/chrome/browser/endpoint_fetcher/EndpointResponse.java",
+    "java/src/org/chromium/chrome/browser/endpoint_fetcher/EndpointHeaderResponse.java",
   ]
   annotation_processor_deps = [ "//base/android/jni_generator:jni_processor" ]
 }
@@ -25,5 +26,6 @@ generate_jni("jni_headers") {
   sources = [
     "java/src/org/chromium/chrome/browser/endpoint_fetcher/EndpointFetcher.java",
     "java/src/org/chromium/chrome/browser/endpoint_fetcher/EndpointResponse.java",
+    "java/src/org/chromium/chrome/browser/endpoint_fetcher/EndpointHeaderResponse.java",
   ]
 }

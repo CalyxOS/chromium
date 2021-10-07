@@ -4,6 +4,7 @@
 
 package org.chromium.chrome.browser.omaha;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +17,11 @@ import android.text.TextUtils;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 
+import org.chromium.base.ActivityState;
+import org.chromium.base.ApplicationStatus;
+import org.chromium.base.ApplicationStatus.ActivityStateListener;
 import org.chromium.base.BuildInfo;
 import org.chromium.base.Callback;
 import org.chromium.base.ContextUtils;
@@ -26,6 +31,10 @@ import org.chromium.base.metrics.RecordHistogram;
 import org.chromium.base.task.AsyncTask;
 import org.chromium.base.task.AsyncTask.Status;
 import org.chromium.base.task.PostTask;
+import org.chromium.chrome.browser.app.ChromeActivity;
+import org.chromium.chrome.browser.omaha.inline.BromiteInlineUpdateController;
+import org.chromium.chrome.browser.omaha.inline.InlineUpdateController;
+import org.chromium.chrome.browser.omaha.inline.InlineUpdateControllerFactory;
 import org.chromium.chrome.browser.omaha.metrics.UpdateSuccessMetrics;
 import org.chromium.chrome.browser.preferences.ChromePreferenceKeys;
 import org.chromium.chrome.browser.preferences.SharedPreferencesManager;
@@ -36,30 +45,37 @@ import java.io.File;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import org.chromium.base.Log;
+import android.content.SharedPreferences;
+import android.os.Build;
+import org.chromium.build.BuildConfig;
+
 /**
  * Provides the current update state for Chrome.  This update state is asynchronously determined and
  * can change as Chrome runs.
  *
  * For manually testing this functionality, see {@link UpdateConfigs}.
  */
-public class UpdateStatusProvider {
+public class UpdateStatusProvider implements ActivityStateListener {
     /**
      * Possible update states.
      * Treat this as append only as it is used by UMA.
      */
-    @IntDef({UpdateState.NONE, UpdateState.UPDATE_AVAILABLE, UpdateState.UNSUPPORTED_OS_VERSION})
+    @IntDef({UpdateState.NONE, UpdateState.UPDATE_AVAILABLE, UpdateState.UNSUPPORTED_OS_VERSION,
+            UpdateState.INLINE_UPDATE_AVAILABLE, UpdateState.INLINE_UPDATE_DOWNLOADING,
+            UpdateState.INLINE_UPDATE_READY, UpdateState.INLINE_UPDATE_FAILED, UpdateState.VULNERABLE_VERSION})
     @Retention(RetentionPolicy.SOURCE)
     public @interface UpdateState {
         int NONE = 0;
         int UPDATE_AVAILABLE = 1;
         int UNSUPPORTED_OS_VERSION = 2;
-        // Inline updates are deprecated.
-        // int INLINE_UPDATE_AVAILABLE = 3;
-        // int INLINE_UPDATE_DOWNLOADING = 4;
-        // int INLINE_UPDATE_READY = 5;
-        // int INLINE_UPDATE_FAILED = 6;
+        int INLINE_UPDATE_AVAILABLE = 3;
+        int INLINE_UPDATE_DOWNLOADING = 4;
+        int INLINE_UPDATE_READY = 5;
+        int INLINE_UPDATE_FAILED = 6;
+        int VULNERABLE_VERSION = 7;
 
-        int NUM_ENTRIES = 7;
+        int NUM_ENTRIES = 8;
     }
 
     /** A set of properties that represent the current update state for Chrome. */
@@ -93,6 +109,12 @@ public class UpdateStatusProvider {
          */
         private boolean mIsSimulated;
 
+        /**
+         * Whether or not we are currently trying to simulate an inline flow.  Used to allow
+         * overriding Omaha update state, which usually supersedes inline update states.
+         */
+        private boolean mIsInlineSimulated;
+
         public UpdateStatus() {}
 
         UpdateStatus(UpdateStatus other) {
@@ -101,11 +123,13 @@ public class UpdateStatusProvider {
             latestVersion = other.latestVersion;
             latestUnsupportedVersion = other.latestUnsupportedVersion;
             mIsSimulated = other.mIsSimulated;
+            mIsInlineSimulated = other.mIsInlineSimulated;
         }
     }
 
     private final ObserverList<Callback<UpdateStatus>> mObservers = new ObserverList<>();
 
+    private final InlineUpdateController mInlineController;
     private final UpdateQuery mOmahaQuery;
     private final UpdateSuccessMetrics mMetrics;
     private @Nullable UpdateStatus mStatus;
@@ -174,18 +198,41 @@ public class UpdateStatusProvider {
     }
 
     /**
+     * Starts the inline update process, if possible.
+     * @param activity An {@link Activity} that will be used to interact with Play.
+     */
+    public void startInlineUpdate(Activity activity) {
+        if (mStatus == null || (mStatus.updateState != UpdateState.INLINE_UPDATE_AVAILABLE && mStatus.updateState != UpdateState.VULNERABLE_VERSION)) return;
+        mInlineController.startUpdate(activity);
+    }
+
+    /**
+     * Retries the inline update process, if possible.
+     * @param activity An {@link Activity} that will be used to interact with Play.
+     */
+    public void retryInlineUpdate(Activity activity) {
+        if (mStatus == null || (mStatus.updateState != UpdateState.INLINE_UPDATE_AVAILABLE && mStatus.updateState != UpdateState.VULNERABLE_VERSION)) return;
+        mInlineController.startUpdate(activity);
+    }
+
+    /** Finishes the inline update process, which may involve restarting the app. */
+    public void finishInlineUpdate() {
+        if (mStatus == null || mStatus.updateState != UpdateState.INLINE_UPDATE_READY) return;
+        mInlineController.completeUpdate();
+    }
+
+    /**
      * Starts the intent update process, if possible
      * @param context An {@link Context} that will be used to fire off the update intent.
      * @param newTask Whether or not to make the intent a new task.
      * @return        Whether or not the update intent was sent and had a valid handler.
      */
     public boolean startIntentUpdate(Context context, boolean newTask) {
+        // currently not used in Bromite
         if (mStatus == null || mStatus.updateState != UpdateState.UPDATE_AVAILABLE) return false;
         if (TextUtils.isEmpty(mStatus.updateUrl)) return false;
 
         try {
-            mMetrics.startUpdate();
-
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(mStatus.updateUrl));
             if (newTask) intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
@@ -196,9 +243,29 @@ public class UpdateStatusProvider {
         return true;
     }
 
+    // ApplicationStateListener implementation.
+    @Override
+    public void onActivityStateChange(Activity changedActivity, @ActivityState int newState) {
+        boolean hasActiveActivity = false;
+
+        for (Activity activity : ApplicationStatus.getRunningActivities()) {
+            if (activity == null || !(activity instanceof ChromeActivity)) continue;
+
+            hasActiveActivity |=
+                    ApplicationStatus.getStateForActivity(activity) == ActivityState.RESUMED;
+            if (hasActiveActivity) break;
+        }
+
+        mInlineController.setEnabled(hasActiveActivity);
+    }
+
     private UpdateStatusProvider() {
+        mInlineController = InlineUpdateControllerFactory.create(this::resolveStatus);
         mOmahaQuery = new UpdateQuery(this::resolveStatus);
         mMetrics = new UpdateSuccessMetrics();
+
+        // Note that as a singleton this class never unregisters.
+        ApplicationStatus.registerStateListenerForAllActivities(this);
     }
 
     private void pingObservers() {
@@ -206,21 +273,38 @@ public class UpdateStatusProvider {
     }
 
     private void resolveStatus() {
-        if (mOmahaQuery.getStatus() != Status.FINISHED) {
+        if (mOmahaQuery.getStatus() != Status.FINISHED || mInlineController.getStatus() == null) {
             return;
         }
 
         // We pull the Omaha result once as it will never change.
         if (mStatus == null) mStatus = new UpdateStatus(mOmahaQuery.getResult());
 
-        if (!mStatus.mIsSimulated) {
-            mStatus.updateState = mOmahaQuery.getResult().updateState;
+        if (mStatus.mIsSimulated) { // used only during tests
+            if (mStatus.mIsInlineSimulated) {
+                @UpdateState
+                int inlineState = mInlineController.getStatus();
+                String updateUrl = mInlineController.getUpdateUrl();
+
+                if (inlineState == UpdateState.NONE) {
+                    mStatus.updateState = mOmahaQuery.getResult().updateState;
+                } else {
+                    mStatus.updateState = inlineState;
+                    mStatus.updateUrl = updateUrl;
+                }
+            }
+        } else {
+            // used by Bromite to resolve update status
+            // ignores Omaha status
+            @UpdateState
+            int inlineState = mInlineController.getStatus();
+            mStatus.updateState = inlineState;
+            mStatus.updateUrl = mInlineController.getUpdateUrl();
         }
 
         if (!mRecordedInitialStatus) {
             RecordHistogram.recordEnumeratedHistogram(
                     "GoogleUpdate.StartUp.State", mStatus.updateState, UpdateState.NUM_ENTRIES);
-            mMetrics.analyzeFirstStatus();
             mRecordedInitialStatus = true;
         }
 
@@ -232,6 +316,7 @@ public class UpdateStatusProvider {
     }
 
     private static final class UpdateQuery extends AsyncTask<UpdateStatus> {
+        static final String TAG = "UpdateStatusProvider";
         private final Context mContext = ContextUtils.getApplicationContext();
         private final Runnable mCallback;
 
@@ -249,7 +334,7 @@ public class UpdateStatusProvider {
         protected UpdateStatus doInBackground() {
             UpdateStatus testStatus = getTestStatus();
             if (testStatus != null) return testStatus;
-            return getRealStatus(mContext);
+            return getActualStatus(mContext);
         }
 
         @Override
@@ -268,6 +353,8 @@ public class UpdateStatusProvider {
             status.mIsSimulated = true;
             status.updateState = forcedUpdateState;
 
+            status.mIsInlineSimulated = forcedUpdateState == UpdateState.INLINE_UPDATE_AVAILABLE;
+
             // Push custom configurations for certain update states.
             switch (forcedUpdateState) {
                 case UpdateState.UPDATE_AVAILABLE:
@@ -284,27 +371,33 @@ public class UpdateStatusProvider {
             return status;
         }
 
-        private UpdateStatus getRealStatus(Context context) {
+        private UpdateStatus getActualStatus(Context context) {
             UpdateStatus status = new UpdateStatus();
 
-            if (VersionNumberGetter.isNewerVersionAvailable(context)) {
-                status.updateUrl = MarketURLGetter.getMarketUrl();
-                status.latestVersion =
-                        VersionNumberGetter.getInstance().getLatestKnownVersion(context);
+            SharedPreferences preferences = OmahaBase.getSharedPreferences();
+            status.latestVersion = preferences.getString(OmahaBase.PREF_LATEST_MODIFIED_VERSION, "");
 
-                boolean allowedToUpdate =
-                        checkForSufficientStorage() && isGooglePlayStoreAvailable(context);
-                status.updateState =
-                        allowedToUpdate ? UpdateState.UPDATE_AVAILABLE : UpdateState.NONE;
-
-                SharedPreferencesManager.getInstance().removeKey(
-                        ChromePreferenceKeys.LATEST_UNSUPPORTED_VERSION);
-            } else if (!VersionNumberGetter.isCurrentOsVersionSupported()) {
-                status.updateState = UpdateState.UNSUPPORTED_OS_VERSION;
-                status.latestUnsupportedVersion = SharedPreferencesManager.getInstance().readString(
-                        ChromePreferenceKeys.LATEST_UNSUPPORTED_VERSION, null);
-            } else {
-                status.updateState = UpdateState.NONE;
+            status.updateState = UpdateState.NONE;
+            if (status.latestVersion != null && status.latestVersion.length() != 0) {
+                VersionNumber latestVersion = VersionNumber.fromString(status.latestVersion);
+                if (latestVersion == null) {
+                   Log.e(TAG, "BromiteUpdater: stored latest version '%s' is invalid", status.latestVersion);
+                } else if (OmahaBase.isNewVersionAvailableByVersion(latestVersion)) {
+                   status.updateState = UpdateState.INLINE_UPDATE_AVAILABLE;
+                   status.updateUrl = BromiteInlineUpdateController.getDownloadUrl();
+                   return status;
+                }
+                String latestUpstreamVersion = preferences.getString(OmahaBase.PREF_LATEST_UPSTREAM_VERSION, "");
+                if (latestUpstreamVersion != null && latestUpstreamVersion.length() != 0) {
+                   VersionNumber upstreamVersion = VersionNumber.fromString(latestUpstreamVersion);
+                   if (upstreamVersion == null) {
+                       Log.e(TAG, "BromiteUpdater: stored latest upstream version '%s' is invalid", latestUpstreamVersion);
+                   } else if (OmahaBase.isNewVersionAvailableByVersion(upstreamVersion)) {
+                       status.updateUrl = BromiteInlineUpdateController.VULNERABLE_VERSION_DOC_URL;
+                       status.updateState = UpdateState.VULNERABLE_VERSION;
+                       return status;
+                   }
+                }
             }
 
             return status;

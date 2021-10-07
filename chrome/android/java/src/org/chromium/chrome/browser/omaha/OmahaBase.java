@@ -33,6 +33,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Date;
 
+import org.chromium.build.BuildConfig;
+
 /**
  * Keeps tabs on the current state of Chrome, tracking if and when a request should be sent to the
  * Omaha Server.
@@ -99,7 +101,10 @@ public class OmahaBase {
     static final String PREF_TIMESTAMP_FOR_NEW_REQUEST = "timestampForNewRequest";
     static final String PREF_TIMESTAMP_FOR_NEXT_POST_ATTEMPT = "timestampForNextPostAttempt";
     static final String PREF_TIMESTAMP_OF_INSTALL = "timestampOfInstall";
-    static final String PREF_TIMESTAMP_OF_REQUEST = "timestampOfRequest";
+    public static final String PREF_TIMESTAMP_OF_REQUEST = "timestampOfRequest";
+    public static final String PREF_LATEST_MODIFIED_VERSION = "latestModifiedVersion";
+    public static final String PREF_LATEST_UPSTREAM_VERSION = "latestUpstreamVersion";
+    public static final String PREF_ALLOW_INLINE_UPDATE = "allowInlineUpdate";
 
     static final int MIN_API_JOB_SCHEDULER = Build.VERSION_CODES.M;
 
@@ -160,7 +165,8 @@ public class OmahaBase {
 
     /** See {@link #sIsDisabled}. */
     static boolean isDisabled() {
-        return sIsDisabled;
+        // do not enable version control via Omaha Update Server
+        return true;
     }
 
     /**
@@ -584,6 +590,10 @@ public class OmahaBase {
     /** Sends the request to the server and returns the response. */
     static String sendRequestToServer(HttpURLConnection urlConnection, String request)
             throws RequestFailureException {
+        if ((true)) {
+            throw new RequestFailureException("Requests to Omaha server are forbidden.",
+                        RequestFailureException.ERROR_CONNECTIVITY);
+        }
         try {
             OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
             OutputStreamWriter writer = new OutputStreamWriter(out);
@@ -653,5 +663,48 @@ public class OmahaBase {
                 sharedPref.getInt(OmahaBase.PREF_SERVER_DATE, -2),
                 // updateStatus is only used for the on-demand check.
                 null);
+    }
+
+    public static boolean isNewVersionAvailableByVersion(VersionNumber latestVersion) {
+        VersionNumber mCurrentProductVersion = VersionNumber.fromString(VersionInfo.getProductVersion());
+        if (mCurrentProductVersion == null) {
+            Log.e(TAG, "BromiteUpdater: current product version is null");
+            return false;
+        }
+
+        Log.i(TAG, "BromiteUpdater: currentProductVersion=%s, latestVersion=%s",
+                mCurrentProductVersion.toString(), latestVersion.toString());
+
+        return mCurrentProductVersion.isSmallerThan(latestVersion);
+    }
+
+    public static void updateLastPushedTimeStamp(long timeMillis) {
+        SharedPreferences preferences = OmahaBase.getSharedPreferences();
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putLong(OmahaBase.PREF_TIMESTAMP_OF_REQUEST, timeMillis);
+        editor.apply();
+    }
+
+    public static void setLatestModifiedVersion(String version) {
+        SharedPreferences preferences = OmahaBase.getSharedPreferences();
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(OmahaBase.PREF_LATEST_MODIFIED_VERSION, version);
+        editor.apply();
+    }
+
+    public static void setLatestUpstreamVersion(String version) {
+        SharedPreferences preferences = OmahaBase.getSharedPreferences();
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(OmahaBase.PREF_LATEST_UPSTREAM_VERSION, version);
+        editor.apply();
+    }
+
+    public static void resetUpdatePrefs() {
+        SharedPreferences preferences = OmahaBase.getSharedPreferences();
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putLong(OmahaBase.PREF_TIMESTAMP_OF_REQUEST, 0);
+        editor.putString(OmahaBase.PREF_LATEST_MODIFIED_VERSION, "");
+        editor.putString(OmahaBase.PREF_LATEST_UPSTREAM_VERSION, "");
+        editor.apply();
     }
 }

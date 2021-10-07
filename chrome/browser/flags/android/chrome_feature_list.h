@@ -91,6 +91,7 @@ BASE_DECLARE_FEATURE(kGridTabSwitcherForTablets);
 BASE_DECLARE_FEATURE(kHandleMediaIntents);
 BASE_DECLARE_FEATURE(kImmersiveUiMode);
 BASE_DECLARE_FEATURE(kIncognitoReauthenticationForAndroid);
+extern const base::Feature kInlineUpdateFlow;
 BASE_DECLARE_FEATURE(kIncognitoScreenshot);
 BASE_DECLARE_FEATURE(kInfobarScrollOptimization);
 BASE_DECLARE_FEATURE(kImprovedA2HS);

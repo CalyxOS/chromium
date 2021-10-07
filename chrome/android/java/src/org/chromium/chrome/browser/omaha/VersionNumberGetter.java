@@ -48,7 +48,8 @@ public class VersionNumberGetter {
     private static VersionNumberGetter sInstanceForTests;
 
     /** If false, OmahaClient will never report that a newer version is available. */
-    private static boolean sEnableUpdateDetection = true;
+    // it must be false to disable version control via Omaha server
+    private static boolean sEnableUpdateDetection = false;
 
     protected VersionNumberGetter() { }
 

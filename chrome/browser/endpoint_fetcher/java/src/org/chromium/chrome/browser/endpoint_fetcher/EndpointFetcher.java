@@ -70,6 +70,22 @@ public final class EndpointFetcher {
                 postData, timeout, headers, annotation.getHashCode(), callback);
     }
 
+    @MainThread
+    public static void nativeHeadWithNoAuth(
+            Callback<EndpointHeaderResponse> callback, Profile profile,
+            String url, long timeout, boolean allow_redirect) {
+        EndpointFetcherJni.get().nativeHeadWithNoAuth(
+                profile, url, timeout, allow_redirect, callback);
+    }
+
+    @MainThread
+    public static void nativeFetchWithNoAuth(
+            Callback<EndpointResponse> callback, Profile profile,
+            String url, long timeout, boolean allow_redirect) {
+        EndpointFetcherJni.get().nativeFetchWithNoAuth(
+                profile, url, timeout, allow_redirect, callback);
+    }
+
     @NativeMethods
     public interface Natives {
         void nativeFetchOAuth(Profile profile, String oathConsumerName, String url,
@@ -78,7 +94,11 @@ public final class EndpointFetcher {
         void nativeFetchChromeAPIKey(Profile profile, String url, String httpsMethod,
                 String contentType, String postData, long timeout, String[] headers,
                 int annotationHashCode, Callback<EndpointResponse> callback);
-        void nativeFetchWithNoAuth(Profile profile, String url, int annotationHashCode,
+        void nativeFetchWithNoAuth(
+                Profile profile, String url, long timeout, boolean allow_redirect,
                 Callback<EndpointResponse> callback);
+        void nativeHeadWithNoAuth(
+                Profile profile, String url, long timeout, boolean allow_redirect,
+                Callback<EndpointHeaderResponse> callback);
     }
 }

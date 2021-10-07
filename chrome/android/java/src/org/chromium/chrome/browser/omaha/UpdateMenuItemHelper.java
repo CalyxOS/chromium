@@ -11,6 +11,7 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.annotation.VisibleForTesting;
 
 import org.chromium.base.BuildInfo;
@@ -165,7 +166,20 @@ public class UpdateMenuItemHelper {
                     recordItemClickedHistogram(ITEM_CLICKED_INTENT_FAILED);
                 }
                 break;
+            case UpdateState.VULNERABLE_VERSION:
+            // Intentional fall through.
+            case UpdateState.INLINE_UPDATE_AVAILABLE:
+                UpdateStatusProvider.getInstance().startInlineUpdate(activity);
+                break;
+            case UpdateState.INLINE_UPDATE_READY:
+                UpdateStatusProvider.getInstance().finishInlineUpdate();
+                break;
+            case UpdateState.INLINE_UPDATE_FAILED:
+                UpdateStatusProvider.getInstance().retryInlineUpdate(activity);
+                break;
             case UpdateState.UNSUPPORTED_OS_VERSION:
+            // Intentional fall through.
+            case UpdateState.INLINE_UPDATE_DOWNLOADING:
             // Intentional fall through.
             default:
                 return;
@@ -215,7 +229,7 @@ public class UpdateMenuItemHelper {
 
         mMenuUiState = new MenuUiState();
         switch (mStatus.updateState) {
-            case UpdateState.UPDATE_AVAILABLE:
+            case UpdateState.UPDATE_AVAILABLE: // this is not used in Bromite
                 // The badge is hidden if the update menu item has been clicked until there is an
                 // even newer version of Chrome available.
                 showBadge |= !TextUtils.equals(
@@ -269,6 +283,72 @@ public class UpdateMenuItemHelper {
                         resources.getString(R.string.menu_update_unsupported_summary_default);
                 mMenuUiState.itemState.icon = R.drawable.ic_error_24dp_filled;
                 mMenuUiState.itemState.enabled = false;
+                break;
+            case UpdateState.VULNERABLE_VERSION:
+            // Intentional fall through.
+            case UpdateState.INLINE_UPDATE_AVAILABLE:
+                // The badge is hidden if the update menu item has been clicked until there is an
+                // even newer version of Chrome available.
+                @StringRes int defaultUpdateSummary = R.string.menu_update_summary_default;
+                if (mStatus.updateState == UpdateState.VULNERABLE_VERSION) {
+                    // always show badge in case of vulnerable version
+                    showBadge = true;
+                    mMenuUiState.buttonState = new MenuButtonState();
+                    mMenuUiState.buttonState.menuContentDescription = R.string.accessibility_toolbar_btn_menu_update;
+                    mMenuUiState.buttonState.darkBadgeIcon =
+                            R.drawable.ic_error_grey800_24dp_filled;
+                    mMenuUiState.buttonState.lightBadgeIcon = R.drawable.ic_error_white_24dp_filled;
+                    mMenuUiState.buttonState.adaptiveBadgeIcon = R.drawable.ic_error_24dp_filled;
+                    defaultUpdateSummary = R.string.menu_update_summary_vulnerable;
+                } else {
+                    showBadge |= !TextUtils.equals(
+                        getPrefService().getString(
+                                Pref.LATEST_VERSION_WHEN_CLICKED_UPDATE_MENU_ITEM),
+                        mStatus.latestUnsupportedVersion);
+                    if (showBadge) {
+                        mMenuUiState.buttonState = new MenuButtonState();
+                        mMenuUiState.buttonState.menuContentDescription = R.string.accessibility_toolbar_btn_menu_update;
+                        mMenuUiState.buttonState.darkBadgeIcon = R.drawable.badge_update_dark;
+                        mMenuUiState.buttonState.lightBadgeIcon = R.drawable.badge_update_light;
+                        mMenuUiState.buttonState.adaptiveBadgeIcon = R.drawable.badge_update;
+                    }
+                }
+
+                mMenuUiState.itemState = new MenuItemState();
+                mMenuUiState.itemState.title = R.string.menu_update;
+                mMenuUiState.itemState.titleColorId = R.color.default_text_color_blue_dark;
+                mMenuUiState.itemState.summary = UpdateConfigs.getCustomSummary();
+                if (TextUtils.isEmpty(mMenuUiState.itemState.summary)) {
+                    mMenuUiState.itemState.summary =
+                            resources.getString(defaultUpdateSummary);
+                }
+                mMenuUiState.itemState.icon = R.drawable.ic_history_googblue_24dp;
+                mMenuUiState.itemState.iconTintId = R.color.default_icon_color_blue_light;
+                mMenuUiState.itemState.enabled = true;
+                break;
+            case UpdateState.INLINE_UPDATE_DOWNLOADING:
+                mMenuUiState.itemState = new MenuItemState();
+                mMenuUiState.itemState.title = R.string.menu_inline_update_downloading;
+                mMenuUiState.itemState.titleColorId = R.color.default_text_color_secondary_dark;
+                break;
+            case UpdateState.INLINE_UPDATE_READY:
+                mMenuUiState.itemState = new MenuItemState();
+                mMenuUiState.itemState.title = R.string.menu_inline_update_ready;
+                mMenuUiState.itemState.titleColorId = R.color.default_text_color_blue_dark;
+                mMenuUiState.itemState.summary =
+                        resources.getString(R.string.menu_inline_update_ready_summary);
+                mMenuUiState.itemState.icon = R.drawable.infobar_chrome;
+                mMenuUiState.itemState.iconTintId = R.color.default_icon_color_blue_light;
+                mMenuUiState.itemState.enabled = true;
+                break;
+            case UpdateState.INLINE_UPDATE_FAILED:
+                mMenuUiState.itemState = new MenuItemState();
+                mMenuUiState.itemState.title = R.string.menu_inline_update_failed;
+                mMenuUiState.itemState.titleColorId = R.color.default_text_color_blue_dark;
+                mMenuUiState.itemState.summary = resources.getString(R.string.try_again);
+                mMenuUiState.itemState.icon = R.drawable.ic_history_googblue_24dp;
+                mMenuUiState.itemState.iconTintId = R.color.default_icon_color_blue_light;
+                mMenuUiState.itemState.enabled = true;
                 break;
             case UpdateState.NONE:
             // Intentional fall through.
