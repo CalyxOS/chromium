@@ -74,6 +74,17 @@ import org.chromium.ui.base.WindowAndroid;
 import org.chromium.ui.util.ColorUtils;
 import org.chromium.url.GURL;
 
+import android.os.Build;
+import android.util.SparseArray;
+import org.chromium.ui.base.EventOffsetHandler;
+import android.view.ViewStructure;
+import android.view.autofill.AutofillValue;
+import org.chromium.components.autofill.AutofillProvider;
+import org.chromium.components.autofill.AutofillActionModeCallback;
+import org.chromium.content_public.browser.SelectionPopupController;
+import org.chromium.chrome.browser.preferences.Pref;
+import org.chromium.components.user_prefs.UserPrefs;
+
 /**
  * Implementation of the interface {@link Tab}. Contains and manages a {@link ContentView}.
  * This class is not intended to be extended.
@@ -210,6 +221,8 @@ public class TabImpl implements Tab, TabObscuringHandler.Observer {
     private final TabThemeColorHelper mThemeColorHelper;
     private int mThemeColor;
     private boolean mUsedCriticalPersistedTabData;
+
+    AutofillProvider mAutofillProvider;
 
     /**
      * Creates an instance of a {@link TabImpl}.
@@ -774,6 +787,11 @@ public class TabImpl implements Tab, TabObscuringHandler.Observer {
 
         for (TabObserver observer : mObservers) observer.onDestroyed(this);
         mObservers.clear();
+
+        if (mAutofillProvider != null) {
+            mAutofillProvider.destroy();
+            mAutofillProvider = null;
+        }
 
         mUserDataHost.destroy();
         mTabViewManager.destroy();
@@ -1356,6 +1374,16 @@ public class TabImpl implements Tab, TabObscuringHandler.Observer {
         return tabsPtrArray;
     }
 
+    public void onProvideAutofillVirtualStructure(ViewStructure structure, int flags) {
+        if (mAutofillProvider != null)
+            mAutofillProvider.onProvideAutoFillVirtualStructure(structure, flags);
+    }
+
+    public void autofill(final SparseArray<AutofillValue> values) {
+        if (mAutofillProvider != null)
+            mAutofillProvider.autofill(values);
+    }
+
     /**
      * Initializes the {@link WebContents}. Completes the browser content components initialization
      * around a native WebContents pointer.
@@ -1405,6 +1433,27 @@ public class TabImpl implements Tab, TabObscuringHandler.Observer {
                             mDelegateFactory.createContextMenuPopulatorFactory(this), this));
 
             mWebContents.notifyRendererPreferenceUpdate();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                boolean autofillEnabled = false;
+                if (isIncognito()) {
+                    autofillEnabled = UserPrefs.get(Profile.getLastUsedRegularProfile())
+                                               .getBoolean(Pref.AUTOFILL_ANDROID_INCOGNITO_ENABLED);
+                } else {
+                    autofillEnabled = UserPrefs.get(Profile.getLastUsedRegularProfile())
+                                               .getBoolean(Pref.AUTOFILL_ANDROID_ENABLED);
+                }
+
+                if (autofillEnabled) {
+                    SelectionPopupController selectionController =
+                            SelectionPopupController.fromWebContents(mWebContents);
+                    mAutofillProvider = new AutofillProvider(getContext(), cv, webContents, "bromite");
+                    TabImplJni.get().initializeAutofillIfNecessary(mNativeTabAndroid);
+                    mAutofillProvider.setWebContents(webContents);
+                    cv.setWebContents(webContents);
+                    selectionController.setNonSelectionActionModeCallback(
+                            new AutofillActionModeCallback(mThemedApplicationContext, mAutofillProvider));
+                }
+            }
             TabHelpers.initWebContentsHelpers(this);
             notifyContentChanged();
         } finally {
@@ -1742,6 +1791,7 @@ public class TabImpl implements Tab, TabObscuringHandler.Observer {
         void setActiveNavigationEntryTitleForUrl(long nativeTabAndroid, String url, String title);
         void loadOriginalImage(long nativeTabAndroid);
         boolean handleNonNavigationAboutURL(GURL url);
+        void initializeAutofillIfNecessary(long nativeTabAndroid);
         void onShow(long nativeTabAndroid);
     }
 }

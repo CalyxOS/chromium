@@ -461,6 +461,7 @@ if (current_toolchain == default_toolchain) {
       "//chrome/browser/ui/android/layouts:java",
       "//chrome/browser/ui/android/layouts/glue:java",
       "//chrome/browser/ui/android/layouts/third_party/float_property:java",
+    "//components/android_autofill/browser:java",
       "//chrome/browser/ui/android/logo:java",
       "//chrome/browser/ui/android/management:java",
       "//chrome/browser/ui/android/multiwindow:java",

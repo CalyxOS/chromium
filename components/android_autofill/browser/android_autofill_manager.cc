@@ -19,7 +19,7 @@ void AndroidDriverInitHook(
     AutofillManager::EnableDownloadManager enable_download_manager,
     ContentAutofillDriver* driver) {
   driver->set_autofill_manager(base::WrapUnique(
-      new AndroidAutofillManager(driver, client, enable_download_manager)));
+      new AndroidAutofillManager(driver, client, enable_download_manager)), nullptr);
   driver->GetAutofillAgent()->SetUserGestureRequired(false);
   driver->GetAutofillAgent()->SetSecureContextRequired(true);
   driver->GetAutofillAgent()->SetFocusRequiresScroll(false);

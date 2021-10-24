@@ -34,6 +34,7 @@ class ContentAutofillDriver;
 // other implementations.
 void BrowserDriverInitHook(AutofillClient* client,
                            const std::string& app_locale,
+                           bool enable_secondary_autofill_manager,
                            ContentAutofillDriver* driver);
 
 // Manages lifetime of ContentAutofillDriver. One Factory per WebContents

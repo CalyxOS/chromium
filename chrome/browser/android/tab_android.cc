@@ -70,6 +70,13 @@
 #include "url/android/gurl_android.h"
 #include "url/gurl.h"
 
+#include "components/android_autofill/browser/android_autofill_manager.h"
+#include "components/android_autofill/browser/autofill_provider.h"
+#include "components/android_autofill/browser/autofill_provider_android.h"
+#include "components/autofill/content/browser/content_autofill_driver_factory.h"
+#include "chrome/browser/ui/autofill/chrome_autofill_client.h"
+#include "chrome/browser/browser_process.h"
+
 using base::android::AttachCurrentThread;
 using base::android::ConvertUTF8ToJavaString;
 using base::android::JavaParamRef;
@@ -504,4 +511,20 @@ static void JNI_TabImpl_Init(JNIEnv* env, const JavaParamRef<jobject>& obj) {
   TRACE_EVENT0("native", "TabAndroid::Init");
   // This will automatically bind to the Java object and pass ownership there.
   new TabAndroid(env, obj);
+}
+
+void TabAndroid::InitializeAutofillIfNecessary(JNIEnv* env) {
+  if (!autofill::ContentAutofillDriverFactory::FromWebContents(
+          web_contents_.get())) {
+     content::WebContents* web_contents = web_contents_.get();
+    autofill::ChromeAutofillClient::CreateForWebContents(web_contents);
+    autofill::ContentAutofillDriverFactory::CreateForWebContentsAndDelegate(
+        web_contents,
+        autofill::ChromeAutofillClient::FromWebContents(web_contents),
+        base::BindRepeating(
+            &autofill::BrowserDriverInitHook,
+            autofill::ChromeAutofillClient::FromWebContents(web_contents),
+            g_browser_process->GetApplicationLocale(),
+            /*enable_secondary_autofill_manager*/ true));
+  }
 }

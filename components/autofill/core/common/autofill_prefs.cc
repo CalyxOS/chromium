@@ -109,6 +109,10 @@ const char kAutofillWalletImportStorageCheckboxState[] =
 const char kAutocompleteLastVersionRetentionPolicy[] =
     "autocomplete.retention_policy_last_version";
 
+// Boolean that is true to enable native Android Autofill
+const char kAutofillAndroidEnabled[] = "autofill.android_autofill_enabled";
+const char kAutofillAndroidIncognitoEnabled[] = "autofill.android_autofill_incognito_enabled";
+
 void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
   // Synced prefs. Used for cross-device choices, e.g., credit card Autofill.
   registry->RegisterBooleanPref(
@@ -135,6 +139,10 @@ void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
   registry->RegisterBooleanPref(
       prefs::kAutofillCreditCardFidoAuthOfferCheckboxState, true);
 #endif
+  registry->RegisterBooleanPref(
+      prefs::kAutofillAndroidEnabled, true);
+  registry->RegisterBooleanPref(
+      prefs::kAutofillAndroidIncognitoEnabled, false);
   registry->RegisterIntegerPref(
       prefs::kAutofillCreditCardSigninPromoImpressionCount, 0);
   registry->RegisterBooleanPref(prefs::kAutofillWalletImportEnabled, true);

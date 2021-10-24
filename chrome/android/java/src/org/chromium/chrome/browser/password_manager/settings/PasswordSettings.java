@@ -55,13 +55,18 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.Locale;
 
+import org.chromium.chrome.browser.ui.messages.snackbar.SnackbarManager;
+import org.chromium.chrome.browser.ui.messages.snackbar.INeedSnackbarManager;
+import org.chromium.chrome.browser.ui.messages.snackbar.Snackbar;
+import org.chromium.chrome.browser.ApplicationLifetime;
+
 /**
  * The "Passwords" screen in Settings, which allows the user to enable or disable password saving,
  * to view saved passwords (just the username and URL), and to delete saved passwords.
  */
 public class PasswordSettings extends PreferenceFragmentCompat
         implements PasswordManagerHandler.PasswordListObserver,
-                   Preference.OnPreferenceClickListener {
+                   Preference.OnPreferenceClickListener, INeedSnackbarManager {
     @IntDef({TrustedVaultBannerState.NOT_SHOWN, TrustedVaultBannerState.OFFER_OPT_IN,
             TrustedVaultBannerState.OPTED_IN})
     @Retention(RetentionPolicy.SOURCE)
@@ -89,6 +94,12 @@ public class PasswordSettings extends PreferenceFragmentCompat
     public static final String PREF_KEY_MANAGE_ACCOUNT_LINK = "manage_account_link";
     public static final String PASSWORD_EXPORT_EVENT_HISTOGRAM =
             "PasswordManager.PasswordExport.Event";
+
+    public static final String PREF_ANDROID_AUTOFILL_SWITCH = "android_autofill_switch";
+    public static final String PREF_ANDROID_AUTOFILL_INCOGNITO_SWITCH = "android_autofill_incognito_switch";
+
+    private SnackbarManager mSnackbarManager;
+    private Snackbar mSnackbar;
 
     private static final String PREF_KEY_CATEGORY_SAVED_PASSWORDS = "saved_passwords";
     private static final String PREF_KEY_CATEGORY_EXCEPTIONS = "exceptions";
@@ -120,6 +131,8 @@ public class PasswordSettings extends PreferenceFragmentCompat
     private Preference mLinkPref;
     private Menu mMenu;
 
+    private ChromeSwitchPreference mEnableAndroidAutofillSwitch;
+    private ChromeSwitchPreference mEnableAndroidAutofillIncognitoSwitch;
     private @ManagePasswordsReferrer int mManagePasswordsReferrer;
 
     /**
@@ -284,6 +297,7 @@ public class PasswordSettings extends PreferenceFragmentCompat
         }
 
         createSavePasswordsSwitch();
+        createEnableAndroidAutofillSwitch();
         createAutoSignInCheckbox();
 
         if (mTrustedVaultBannerState == TrustedVaultBannerState.OPTED_IN) {
@@ -516,6 +530,71 @@ public class PasswordSettings extends PreferenceFragmentCompat
         // .setChecked() should be called after .addPreference()
         savePasswordsSwitch.setChecked(
                 getPrefService().getBoolean(Pref.CREDENTIALS_ENABLE_SERVICE));
+    }
+
+    private void createEnableAndroidAutofillSwitch() {
+        if (mSnackbar == null) {
+            mSnackbar = Snackbar.make(getActivity().getString(R.string.ui_relaunch_notice),
+                    new SnackbarManager.SnackbarController() {
+                            @Override
+                            public void onDismissNoAction(Object actionData) { }
+
+                            @Override
+                            public void onAction(Object actionData) {
+                                ApplicationLifetime.terminate(true);
+                            }
+                    }, Snackbar.TYPE_NOTIFICATION, Snackbar.UMA_UNKNOWN)
+                    .setSingleLine(false)
+                    .setAction(getActivity().getString(R.string.relaunch),
+                            /*actionData*/null)
+                    .setDuration(/*durationMs*/70000);
+        }
+
+        mEnableAndroidAutofillSwitch = new ChromeSwitchPreference(getStyledContext(), null);
+        mEnableAndroidAutofillSwitch.setKey(PREF_ANDROID_AUTOFILL_SWITCH);
+        mEnableAndroidAutofillSwitch.setTitle(R.string.enable_android_autofill);
+        mEnableAndroidAutofillSwitch.setOrder(ORDER_SWITCH);
+        mEnableAndroidAutofillSwitch.setSummaryOn(R.string.text_on);
+        mEnableAndroidAutofillSwitch.setSummaryOff(R.string.text_off);
+
+        try (StrictModeContext ignored = StrictModeContext.allowDiskReads()) {
+            getPreferenceScreen().addPreference(mEnableAndroidAutofillSwitch);
+        }
+
+        mEnableAndroidAutofillSwitch.setChecked(
+                getPrefService().getBoolean(Pref.AUTOFILL_ANDROID_ENABLED));
+
+        mEnableAndroidAutofillSwitch.setOnPreferenceChangeListener((preference, newValue) -> {
+            getPrefService().setBoolean(Pref.AUTOFILL_ANDROID_ENABLED, (boolean) newValue);
+            if (!mSnackbarManager.isShowing())
+                mSnackbarManager.showSnackbar(mSnackbar);
+            return true;
+        });
+
+        mEnableAndroidAutofillIncognitoSwitch = new ChromeSwitchPreference(getStyledContext(), null);
+        mEnableAndroidAutofillIncognitoSwitch.setKey(PREF_ANDROID_AUTOFILL_INCOGNITO_SWITCH);
+        mEnableAndroidAutofillIncognitoSwitch.setTitle(R.string.enable_android_autofill_incognito);
+        mEnableAndroidAutofillIncognitoSwitch.setOrder(ORDER_SWITCH);
+        mEnableAndroidAutofillIncognitoSwitch.setSummaryOn(R.string.text_on);
+        mEnableAndroidAutofillIncognitoSwitch.setSummaryOff(R.string.text_off);
+
+        try (StrictModeContext ignored = StrictModeContext.allowDiskReads()) {
+            getPreferenceScreen().addPreference(mEnableAndroidAutofillIncognitoSwitch);
+        }
+
+        mEnableAndroidAutofillIncognitoSwitch.setChecked(
+                getPrefService().getBoolean(Pref.AUTOFILL_ANDROID_INCOGNITO_ENABLED));
+
+        mEnableAndroidAutofillIncognitoSwitch.setOnPreferenceChangeListener((preference, newValue) -> {
+            getPrefService().setBoolean(Pref.AUTOFILL_ANDROID_INCOGNITO_ENABLED, (boolean) newValue);
+            if (!mSnackbarManager.isShowing())
+                mSnackbarManager.showSnackbar(mSnackbar);
+            return true;
+        });
+    }
+
+    public void setSnackbarManager(SnackbarManager manager) {
+        mSnackbarManager = manager;
     }
 
     private void createAutoSignInCheckbox() {

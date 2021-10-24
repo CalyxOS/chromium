@@ -168,6 +168,9 @@
 #include "chrome/browser/ui/javascript_dialogs/javascript_tab_modal_dialog_manager_delegate_android.h"
 #include "chrome/browser/video_tutorials/video_tutorial_tab_helper.h"
 #include "content/public/common/content_features.h"
+#include "components/android_autofill/browser/android_autofill_manager.h"
+#include "components/android_autofill/browser/autofill_provider.h"
+#include "components/android_autofill/browser/autofill_provider_android.h"
 #else
 #include "chrome/browser/accuracy_tips/accuracy_service_factory.h"
 #include "chrome/browser/banners/app_banner_manager_desktop.h"
@@ -330,7 +333,8 @@ void TabHelpers::AttachTabHelpers(WebContents* web_contents) {
       base::BindRepeating(
           &autofill::BrowserDriverInitHook,
           autofill::ChromeAutofillClient::FromWebContents(web_contents),
-          g_browser_process->GetApplicationLocale()));
+          g_browser_process->GetApplicationLocale(),
+          /*enable_secondary_autofill_manager*/true));
   if (breadcrumbs::IsEnabled())
     BreadcrumbManagerTabHelper::CreateForWebContents(web_contents);
   chrome_browser_net::NetErrorTabHelper::CreateForWebContents(web_contents);

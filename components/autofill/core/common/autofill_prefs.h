@@ -46,6 +46,8 @@ extern const char kAutofillUploadEventsLastResetTimestamp[];
 extern const char kAutofillWalletImportEnabled[];
 extern const char kAutofillWalletImportStorageCheckboxState[];
 extern const char kAutocompleteLastVersionRetentionPolicy[];
+extern const char kAutofillAndroidEnabled[];
+extern const char kAutofillAndroidIncognitoEnabled[];
 
 namespace sync_transport_opt_in {
 enum Flags {

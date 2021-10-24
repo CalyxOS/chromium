@@ -132,10 +132,13 @@ class ContentAutofillDriver : public AutofillDriver,
   ContentAutofillDriver& operator=(const ContentAutofillDriver&) = delete;
   ~ContentAutofillDriver() override;
 
-  void set_autofill_manager(std::unique_ptr<AutofillManager> autofill_manager) {
+  void set_autofill_manager(std::unique_ptr<AutofillManager> autofill_manager,
+      std::unique_ptr<AutofillManager> secondary_autofill_manager) {
     autofill_manager_ = std::move(autofill_manager);
+    secondary_autofill_manager_ = std::move(secondary_autofill_manager);
   }
   AutofillManager* autofill_manager() { return autofill_manager_.get(); }
+  AutofillManager* secondary_autofill_manager() { return secondary_autofill_manager_.get(); }
 
   content::RenderFrameHost* render_frame_host() { return render_frame_host_; }
 
@@ -363,6 +366,10 @@ class ContentAutofillDriver : public AutofillDriver,
   // AutofillManager instance via which this object drives the shared Autofill
   // code.
   std::unique_ptr<AutofillManager> autofill_manager_ = nullptr;
+
+  // adds a reference for AndroidAutofillManager, since native autofill works in
+  // conjunction with browser autofill in Bromite
+  std::unique_ptr<AutofillManager> secondary_autofill_manager_ = nullptr;
 
   content::RenderWidgetHost::KeyPressEventCallback key_press_handler_;
 

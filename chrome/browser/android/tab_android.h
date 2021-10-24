@@ -162,6 +162,8 @@ class TabAndroid : public base::SupportsUserData {
 
   void SetDevToolsAgentHost(scoped_refptr<content::DevToolsAgentHost> host);
 
+  void InitializeAutofillIfNecessary(JNIEnv* env);
+
  private:
   JavaObjectWeakGlobalRef weak_java_tab_;
 

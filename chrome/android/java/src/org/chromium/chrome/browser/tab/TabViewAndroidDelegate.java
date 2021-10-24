@@ -32,6 +32,10 @@ import org.chromium.ui.dragdrop.DragStateTracker;
 import org.chromium.ui.dragdrop.DropDataProviderImpl;
 import org.chromium.ui.dragdrop.DropDataProviderUtils;
 
+import android.util.SparseArray;
+import android.view.autofill.AutofillValue;
+import android.view.ViewStructure;
+
 /**
  * Implementation of the abstract class {@link ViewAndroidDelegate} for Chrome.
  */
@@ -215,5 +219,15 @@ public class TabViewAndroidDelegate extends ViewAndroidDelegate {
             }
             return intent;
         }
+    }
+
+    @Override
+    public void onProvideAutofillVirtualStructure(ViewStructure structure, int flags) {
+        mTab.onProvideAutofillVirtualStructure(structure, flags);
+    }
+
+    @Override
+    public void autofill(final SparseArray<AutofillValue> values) {
+        mTab.autofill(values);
     }
 }

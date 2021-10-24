@@ -13,6 +13,7 @@
 #include "components/autofill/content/browser/content_autofill_driver.h"
 #include "components/autofill/core/browser/browser_autofill_manager.h"
 #include "components/autofill/core/common/autofill_features.h"
+#include "components/android_autofill/browser/android_autofill_manager.h"
 #include "content/public/browser/global_routing_id.h"
 #include "content/public/browser/navigation_handle.h"
 #include "content/public/browser/render_frame_host.h"
@@ -41,10 +42,14 @@ bool ShouldEnableHeavyFormDataScraping(const version_info::Channel channel) {
 
 void BrowserDriverInitHook(AutofillClient* client,
                            const std::string& app_locale,
+                           bool enable_secondary_autofill_manager,
                            ContentAutofillDriver* driver) {
   driver->set_autofill_manager(std::make_unique<BrowserAutofillManager>(
       driver, client, app_locale,
-      AutofillManager::EnableDownloadManager(true)));
+      AutofillManager::EnableDownloadManager(false)),
+    enable_secondary_autofill_manager == false ? nullptr :
+      base::WrapUnique(new AndroidAutofillManager(driver, client,
+          AutofillManager::EnableDownloadManager(false))));
   if (client && ShouldEnableHeavyFormDataScraping(client->GetChannel()))
     driver->GetAutofillAgent()->EnableHeavyFormDataScraping();
 }

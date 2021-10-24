@@ -32,6 +32,10 @@ import org.chromium.ui.dragdrop.DragStateTracker;
 import org.chromium.ui.dragdrop.DropDataAndroid;
 import org.chromium.ui.mojom.CursorType;
 
+import android.util.SparseArray;
+import android.view.autofill.AutofillValue;
+import android.view.ViewStructure;
+
 /**
  * Class to acquire, position, and remove anchor views from the implementing View.
  */
@@ -597,4 +601,8 @@ public class ViewAndroidDelegate {
     public static void setDragAndDropDelegateForTest(DragAndDropDelegate testDelegate) {
         sDragAndDropTestDelegate = testDelegate;
     }
+
+    public void onProvideAutofillVirtualStructure(ViewStructure structure, int flags) {}
+
+    public void autofill(final SparseArray<AutofillValue> values) {}
 }

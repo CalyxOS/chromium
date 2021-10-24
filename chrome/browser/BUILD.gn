@@ -2494,6 +2494,13 @@ static_library("browser") {
     deps += [ "//chrome/browser/error_reporting" ]
   }
 
+  if (is_android) {
+    deps += [
+        "//components/android_autofill/browser",
+        "//components/android_autofill/browser:android"
+    ]
+  }
+
   if (use_ozone) {
     deps += [
       "//ui/events/ozone",

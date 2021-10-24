@@ -317,6 +317,8 @@ void ContentAutofillDriver::FormsSeen(
          const std::vector<FormData>& updated_forms,
          const std::vector<FormGlobalId>& removed_forms) {
         target->autofill_manager_->OnFormsSeen(updated_forms, removed_forms);
+        if (target->secondary_autofill_manager_)
+          target->secondary_autofill_manager_->OnFormsSeen(updated_forms, removed_forms);
       });
 }
 
@@ -343,6 +345,8 @@ void ContentAutofillDriver::FormSubmitted(
         }
         target->autofill_manager_->OnFormSubmitted(form, known_success,
                                                    submission_source);
+        if (target->secondary_autofill_manager_)
+          target->secondary_autofill_manager_->OnFormSubmitted(form, known_success, submission_source);
       });
 }
 
@@ -363,6 +367,8 @@ void ContentAutofillDriver::TextFieldDidChange(const FormData& raw_form,
          base::TimeTicks timestamp) {
         target->autofill_manager_->OnTextFieldDidChange(
             form, field, bounding_box, timestamp);
+        if (target->secondary_autofill_manager_)
+          target->secondary_autofill_manager_->OnTextFieldDidChange(form, field, bounding_box, timestamp);
       });
 }
 
@@ -381,6 +387,8 @@ void ContentAutofillDriver::TextFieldDidScroll(const FormData& raw_form,
          const FormFieldData& field, const gfx::RectF& bounding_box) {
         target->autofill_manager_->OnTextFieldDidScroll(form, field,
                                                         bounding_box);
+        if (target->secondary_autofill_manager_)
+          target->secondary_autofill_manager_->OnTextFieldDidScroll(form, field, bounding_box);
       });
 }
 
@@ -400,6 +408,8 @@ void ContentAutofillDriver::SelectControlDidChange(
          const FormFieldData& field, const gfx::RectF& bounding_box) {
         target->autofill_manager_->OnSelectControlDidChange(form, field,
                                                             bounding_box);
+        if (target->secondary_autofill_manager_)
+          target->secondary_autofill_manager_->OnSelectControlDidChange(form, field, bounding_box);
       });
 }
 
@@ -426,6 +436,10 @@ void ContentAutofillDriver::AskForValuesToFill(
         target->autofill_manager_->OnAskForValuesToFill(
             form, field, bounding_box, query_id, autoselect_first_suggestion,
             form_element_was_clicked);
+        if (target->secondary_autofill_manager_)
+          target->secondary_autofill_manager_->OnAskForValuesToFill(form, field, bounding_box, query_id,
+                                                autoselect_first_suggestion,
+                                                form_element_was_clicked);
       });
 }
 
@@ -436,12 +450,16 @@ void ContentAutofillDriver::HidePopup() {
     DCHECK(!target->IsPrerendering())
         << "We should never affect UI while prerendering";
     target->autofill_manager_->OnHidePopup();
+    if (target->secondary_autofill_manager_)
+      target->secondary_autofill_manager_->OnHidePopup();
   });
 }
 
 void ContentAutofillDriver::FocusNoLongerOnFormCallback(
     bool had_interacted_form) {
   autofill_manager_->OnFocusNoLongerOnForm(had_interacted_form);
+  if (secondary_autofill_manager_)
+    secondary_autofill_manager_->OnFocusNoLongerOnForm(had_interacted_form);
 }
 
 void ContentAutofillDriver::FocusNoLongerOnForm(bool had_interacted_form) {
@@ -469,6 +487,8 @@ void ContentAutofillDriver::FocusOnFormField(const FormData& raw_form,
          const FormFieldData& field, const gfx::RectF& bounding_box) {
         target->autofill_manager_->OnFocusOnFormField(form, field,
                                                       bounding_box);
+        if (target->secondary_autofill_manager_)
+          target->secondary_autofill_manager_->OnFocusOnFormField(form, field, bounding_box);
       });
 }
 
@@ -481,6 +501,8 @@ void ContentAutofillDriver::DidFillAutofillFormData(const FormData& raw_form,
       [](ContentAutofillDriver* target, const FormData& form,
          base::TimeTicks timestamp) {
         target->autofill_manager_->OnDidFillAutofillFormData(form, timestamp);
+        if (target->secondary_autofill_manager_)
+          target->secondary_autofill_manager_->OnDidFillAutofillFormData(form, timestamp);
       });
 }
 
@@ -490,6 +512,8 @@ void ContentAutofillDriver::DidPreviewAutofillFormData() {
   autofill_router().DidPreviewAutofillFormData(
       this, [](ContentAutofillDriver* target) {
         target->autofill_manager_->OnDidPreviewAutofillFormData();
+        if (target->secondary_autofill_manager_)
+          target->secondary_autofill_manager_->OnDidPreviewAutofillFormData();
       });
 }
 
@@ -499,6 +523,8 @@ void ContentAutofillDriver::DidEndTextFieldEditing() {
   autofill_router().DidEndTextFieldEditing(
       this, [](ContentAutofillDriver* target) {
         target->autofill_manager_->OnDidEndTextFieldEditing();
+        if (target->secondary_autofill_manager_)
+          target->secondary_autofill_manager_->OnDidEndTextFieldEditing();
       });
 }
 
@@ -510,6 +536,8 @@ void ContentAutofillDriver::SelectFieldOptionsDidChange(
       this, GetFormWithFrameAndFormMetaData(raw_form),
       [](ContentAutofillDriver* target, const FormData& form) {
         target->autofill_manager_->OnSelectFieldOptionsDidChange(form);
+        if (target->secondary_autofill_manager_)
+          target->secondary_autofill_manager_->OnSelectFieldOptionsDidChange(form);
       });
 }
 
@@ -597,6 +625,8 @@ void ContentAutofillDriver::DidNavigateFrame(
   if (autofill_router_)  // Can be nullptr only in tests.
     autofill_router_->UnregisterDriver(this);
   autofill_manager_->Reset();
+  if (secondary_autofill_manager_)
+    secondary_autofill_manager_->Reset();
 }
 
 const mojo::AssociatedRemote<mojom::AutofillAgent>&

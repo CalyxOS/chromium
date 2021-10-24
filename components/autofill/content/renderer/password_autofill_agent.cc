@@ -799,7 +799,10 @@ void PasswordAutofillAgent::UpdateStateForTextChange(
 
 void PasswordAutofillAgent::TrackAutofilledElement(
     const blink::WebFormControlElement& element) {
-  autofill_agent_->TrackAutofilledElement(element);
+  // fix for https://github.com/bromite/bromite/issues/1570
+  AutofillAgent* agent = autofill_agent_.get();
+  if (agent)
+    agent->TrackAutofilledElement(element);
 }
 
 bool PasswordAutofillAgent::FillSuggestion(

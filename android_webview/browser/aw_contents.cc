@@ -342,7 +342,8 @@ void AwContents::InitAutofillIfNecessary(bool autocomplete_enabled) {
                                 enable_download_manager)
           : base::BindRepeating(&autofill::BrowserDriverInitHook,
                                 AwAutofillClient::FromWebContents(web_contents),
-                                base::android::GetDefaultLocaleString());
+                                base::android::GetDefaultLocaleString(),
+                                /*enable_secondary_autofill_manager*/ false);
 
   ContentAutofillDriverFactory::CreateForWebContentsAndDelegate(
       web_contents, AwAutofillClient::FromWebContents(web_contents),

@@ -37,6 +37,11 @@ import org.chromium.content_public.browser.WebContentsAccessibility;
 import org.chromium.ui.base.EventForwarder;
 import org.chromium.ui.base.EventOffsetHandler;
 
+import org.chromium.base.Log;
+import android.util.SparseArray;
+import android.view.autofill.AutofillValue;
+import org.chromium.ui.base.ViewAndroidDelegate;
+
 /**
  * The containing view for {@link WebContents} that exists in the Android UI hierarchy and exposes
  * the various {@link View} functionality to it.
@@ -84,6 +89,8 @@ public class ContentView extends FrameLayout
      */
     public static ContentView createContentView(Context context,
             @Nullable EventOffsetHandler eventOffsetHandler, @Nullable WebContents webContents) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            return new ContentViewWithAutofill(context, eventOffsetHandler, webContents);
         return new ContentView(context, eventOffsetHandler, webContents);
     }
 
@@ -572,5 +579,44 @@ public class ContentView extends FrameLayout
 
     private boolean webContentsAttached() {
         return hasValidWebContents() && mWebContents.getTopLevelNativeWindow() != null;
+    }
+
+    /**
+    * API level 26 implementation that includes autofill.
+    */
+    public static class ContentViewWithAutofill extends ContentView {
+        private ViewAndroidDelegate viewAndroidDelegate;
+
+        private ContentViewWithAutofill(Context context, EventOffsetHandler eventOffsetHandler, WebContents webContents) {
+            super(context, eventOffsetHandler, webContents);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                // The Autofill system-level infrastructure has heuristics for which Views it considers
+                // important for autofill; only these Views will be queried for their autofill
+                // structure on notifications that a new (virtual) View was entered. By default,
+                // FrameLayout is not considered important for autofill. Thus, for ContentView to be
+                // queried for its autofill structure, we must explicitly inform the autofill system
+                // that this View is important for autofill.
+                setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_YES);
+            }
+        }
+
+        @Override
+        public void setWebContents(WebContents webContents) {
+            viewAndroidDelegate = webContents.getViewAndroidDelegate();
+            super.setWebContents(webContents);
+        }
+
+        @Override
+        public void onProvideAutofillVirtualStructure(ViewStructure structure, int flags) {
+            if (viewAndroidDelegate != null)
+                viewAndroidDelegate.onProvideAutofillVirtualStructure(structure, flags);
+        }
+
+        @Override
+        public void autofill(final SparseArray<AutofillValue> values) {
+            if (viewAndroidDelegate != null)
+                viewAndroidDelegate.autofill(values);
+        }
     }
 }

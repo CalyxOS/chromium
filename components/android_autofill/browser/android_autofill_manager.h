@@ -82,16 +82,16 @@ class AndroidAutofillManager : public AutofillManager {
   void SetCreditCardFillViaAutofillAssistantIntent(
       const autofill_assistant::AutofillAssistantIntent intent) override;
 
+  AndroidAutofillManager(
+      AutofillDriver* driver,
+      AutofillClient* client,
+      AutofillManager::EnableDownloadManager enable_download_manager);
+
  protected:
   friend void AndroidDriverInitHook(
       AutofillClient* client,
       AutofillManager::EnableDownloadManager enable_download_manager,
       ContentAutofillDriver* driver);
-
-  AndroidAutofillManager(
-      AutofillDriver* driver,
-      AutofillClient* client,
-      AutofillManager::EnableDownloadManager enable_download_manager);
 
   void OnFormSubmittedImpl(const FormData& form,
                            bool known_success,
