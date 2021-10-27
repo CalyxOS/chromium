@@ -1248,25 +1248,10 @@ public class TabPersistentStore {
                 continue;
             }
 
-            if (i == activeIndex) {
-                // If any non-active NTPs have been skipped, the serialized tab model index
-                // needs to be adjusted.
-                modelInfo.index = modelInfo.ids.size();
-            } else if (shouldSkipTab(tab)) {
-                continue;
-            }
             modelInfo.ids.add(tab.getId());
             modelInfo.urls.add(tab.getUrl().getSpec());
         }
         return modelInfo;
-    }
-
-    public static boolean shouldSkipTab(@NonNull Tab tab) {
-        boolean isNtp = tab.isNativePage() && UrlUtilities.isNtpUrl(tab.getUrl());
-        if (!isNtp) return false;
-
-        // Only skip NTP tabs that are not in a tab group.
-        return tab.getTabGroupId() == null;
     }
 
     private void saveListToFile(TabModelSelectorMetadata listData) {
