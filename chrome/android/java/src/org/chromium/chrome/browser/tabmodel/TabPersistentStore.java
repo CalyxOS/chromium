@@ -688,14 +688,6 @@ public class TabPersistentStore {
                               .createFrozenTab(
                                       tabState, null, tabToRestore.id, isIncognito, restoredIndex);
         } else {
-            if (!mSkipSavingNonActiveNtps && UrlUtilities.isNTPUrl(tabToRestore.url) && !setAsActive
-                    && !tabToRestore.fromMerge) {
-                Log.i(TAG, "Skipping restore of non-selected NTP.");
-                RecordHistogram.recordEnumeratedHistogram("Tabs.TabRestoreMethod",
-                        TabRestoreMethod.SKIPPED_NTP, TabRestoreMethod.NUM_ENTRIES);
-                return;
-            }
-
             Log.w(TAG, "Failed to restore TabState; creating Tab with last known URL.");
             Tab fallbackTab = mTabCreatorManager.getTabCreator(isIncognito)
                                       .createNewTab(new LoadUrlParams(tabToRestore.url),
