@@ -313,6 +313,9 @@ void OriginTrialContext::AddToken(const String& token) {
 void OriginTrialContext::AddTokenFromExternalScript(
     const String& token,
     const Vector<scoped_refptr<SecurityOrigin>>& external_origins) {
+  if ((true)) {
+    return;
+  }
   Vector<OriginInfo> script_origins;
   for (const scoped_refptr<SecurityOrigin>& origin : external_origins) {
     OriginInfo origin_info = {.origin = origin,
@@ -450,8 +453,6 @@ bool OriginTrialContext::InstallSettingFeature(
 }
 
 void OriginTrialContext::AddFeature(mojom::blink::OriginTrialFeature feature) {
-  enabled_features_.insert(feature);
-  InitializePendingFeatures();
 }
 
 bool OriginTrialContext::IsFeatureEnabled(
@@ -495,6 +496,7 @@ void OriginTrialContext::AddForceEnabledTrials(
 }
 
 bool OriginTrialContext::CanEnableTrialFromName(const StringView& trial_name) {
+  if ((true)) return false;
   if (trial_name == "FledgeBiddingAndAuctionServer") {
     return base::FeatureList::IsEnabled(features::kInterestGroupStorage) &&
            base::FeatureList::IsEnabled(
