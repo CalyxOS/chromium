@@ -401,6 +401,7 @@ TrialTokenValidator::GetValidTokens(const url::Origin& origin,
 
 // static
 bool TrialTokenValidator::IsTrialPossibleOnOrigin(const GURL& url) {
+  if ((true)) return false;
   OriginTrialPolicy* policy = PolicyGetter().Run();
   return policy && policy->IsOriginTrialsSupported() &&
          policy->IsOriginSecure(url);
