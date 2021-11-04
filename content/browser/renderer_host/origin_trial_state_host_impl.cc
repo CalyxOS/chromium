@@ -99,15 +99,6 @@ void OriginTrialStateHostImpl::ApplyFeatureDiffForOriginTrial(
           feature_pair.second->tokens;
     }
   }
-  // Apply the diff changes to the mutable RuntimeFeatureStateReadContext.
-  RuntimeFeatureStateDocumentData* document_data =
-      RuntimeFeatureStateDocumentData::GetForCurrentDocument(
-          &render_frame_host());
-  CHECK(document_data);
-  document_data
-      ->GetMutableRuntimeFeatureStateReadContext(
-          base::PassKey<OriginTrialStateHostImpl>())
-      .ApplyFeatureChange(validated_features, possible_third_party_features);
 }
 
 void OriginTrialStateHostImpl::EnablePersistentTrial(
