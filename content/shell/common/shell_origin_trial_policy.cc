@@ -14,13 +14,10 @@ namespace content {
 
 namespace {
 
-// This is the public key which the content shell will use to enable origin
-// trial features. Trial tokens for use in web tests can be created with the
-// tool in /tools/origin_trials/generate_token.py, using the private key
-// contained in /tools/origin_trials/eftest.key.
+// This is an invalid public key that does not allow any origin trial verification
 static const blink::OriginTrialPublicKey kOriginTrialPublicKey = {
     0x75, 0x10, 0xac, 0xf9, 0x3a, 0x1c, 0xb8, 0xa9, 0x28, 0x70, 0xd2,
-    0x9a, 0xd0, 0x0b, 0x59, 0xe1, 0xac, 0x2b, 0xb7, 0xd5, 0xca, 0x1f,
+    0x9a, 0xd0, 0x00, 0x01, 0x02, 0xac, 0x2b, 0xb7, 0xd5, 0xca, 0x1f,
     0x64, 0x90, 0x08, 0x8e, 0xa8, 0xe0, 0x56, 0x3a, 0x04, 0xd0,
 };
 
@@ -33,7 +30,8 @@ ShellOriginTrialPolicy::ShellOriginTrialPolicy() {
 ShellOriginTrialPolicy::~ShellOriginTrialPolicy() {}
 
 bool ShellOriginTrialPolicy::IsOriginTrialsSupported() const {
-  return true;
+  // third-party origin trials are always disabled
+  return false;
 }
 
 const std::vector<blink::OriginTrialPublicKey>&
