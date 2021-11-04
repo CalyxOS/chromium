@@ -195,13 +195,6 @@ namespace {
 Vector<mojom::blink::OriginTrialFeature> CopyInitiatorOriginTrials(
     const std::vector<int>& initiator_origin_trial_features) {
   Vector<mojom::blink::OriginTrialFeature> result;
-  for (auto feature : initiator_origin_trial_features) {
-    // Convert from int to OriginTrialFeature. These values are passed between
-    // blink navigations. OriginTrialFeature isn't visible outside of blink (and
-    // doesn't need to be) so the values are transferred outside of blink as
-    // ints and casted to OriginTrialFeature once being processed in blink.
-    result.push_back(static_cast<mojom::blink::OriginTrialFeature>(feature));
-  }
   return result;
 }
 
@@ -215,16 +208,13 @@ std::vector<int> CopyInitiatorOriginTrials(
 Vector<String> CopyForceEnabledOriginTrials(
     const std::vector<WebString>& force_enabled_origin_trials) {
   Vector<String> result;
-  result.ReserveInitialCapacity(
-      base::checked_cast<wtf_size_t>(force_enabled_origin_trials.size()));
-  for (const auto& trial : force_enabled_origin_trials)
-    result.push_back(trial);
   return result;
 }
 
 std::vector<WebString> CopyForceEnabledOriginTrials(
     const Vector<String>& force_enabled_origin_trials) {
-  return base::ToVector(force_enabled_origin_trials, ToWebString);
+  std::vector<WebString> result;
+  return result;
 }
 
 bool IsPagePopupRunningInWebTest(LocalFrame* frame) {
@@ -3280,10 +3270,6 @@ void DocumentLoader::CreateParserPostCommit() {
           mojom::blink::OriginTrialFeature::kGetAllScreensMedia);
     }
 #endif  // BUILDFLAG(IS_CHROMEOS)
-
-    // Enable any origin trials that have been force enabled for this commit.
-    window->GetOriginTrialContext()->AddForceEnabledTrials(
-        force_enabled_origin_trials_);
 
     OriginTrialContext::ActivateNavigationFeaturesFromInitiator(
         window, &initiator_origin_trial_features_);
