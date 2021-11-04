@@ -99,23 +99,6 @@ void OriginTrialStateHostImpl::ApplyFeatureDiffForOriginTrial(
           feature_pair.second->tokens;
     }
   }
-  // Apply the diff changes to the mutable RuntimeFeatureStateReadContext.
-  // TODO(crbug.com/347186599): CAVEAT EMPTOR - there are corner cases where
-  // RuntimeFeatureStateDocumentData::GetForCurrentDocument() returned a nullptr
-  // when it shouldn't have. To prevent CHECK failures, we have switched to
-  // GetOrCreateForCurrentDocument(), but this does not resolve the original
-  // corner case where the DocumentData is incorrectly created/deleted.
-  // This issue should be revisited to avoid silently dropping any feature
-  // overrides that are stored in the RFSDocumentData, in these corner cases
-  // when the data has become a nullptr.
-  RuntimeFeatureStateDocumentData* document_data =
-      RuntimeFeatureStateDocumentData::GetOrCreateForCurrentDocument(
-          &render_frame_host());
-  CHECK(document_data);
-  document_data
-      ->GetMutableRuntimeFeatureStateReadContext(
-          base::PassKey<OriginTrialStateHostImpl>())
-      .ApplyFeatureChange(validated_features, possible_third_party_features);
 }
 
 void OriginTrialStateHostImpl::EnablePersistentTrial(
