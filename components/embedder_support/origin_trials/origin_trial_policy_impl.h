@@ -34,6 +34,7 @@ class OriginTrialPolicyImpl : public blink::OriginTrialPolicy {
   bool IsTokenDisabled(std::string_view token_signature) const override;
   bool IsOriginSecure(const GURL& url) const override;
 
+ private:
   bool SetPublicKeysFromASCIIString(const std::string& ascii_public_key);
   bool SetDisabledFeatures(const std::string& disabled_feature_list);
   bool SetDisabledTokens(const std::vector<std::string>& tokens);
@@ -44,7 +45,6 @@ class OriginTrialPolicyImpl : public blink::OriginTrialPolicy {
   bool GetAllowOnlyDeprecationTrials() const;
   const std::set<std::string>* GetDisabledTokensForTesting() const override;
 
- private:
   std::vector<blink::OriginTrialPublicKey> public_keys_;
   std::set<std::string> disabled_features_;
   std::set<std::string> disabled_tokens_;
