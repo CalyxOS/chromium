@@ -168,13 +168,6 @@ namespace {
 Vector<OriginTrialFeature> CopyInitiatorOriginTrials(
     const WebVector<int>& initiator_origin_trial_features) {
   Vector<OriginTrialFeature> result;
-  for (auto feature : initiator_origin_trial_features) {
-    // Convert from int to OriginTrialFeature. These values are passed between
-    // blink navigations. OriginTrialFeature isn't visible outside of blink (and
-    // doesn't need to be) so the values are transferred outside of blink as
-    // ints and casted to OriginTrialFeature once being processed in blink.
-    result.push_back(static_cast<OriginTrialFeature>(feature));
-  }
   return result;
 }
 
@@ -187,18 +180,12 @@ WebVector<int> CopyInitiatorOriginTrials(
 Vector<String> CopyForceEnabledOriginTrials(
     const WebVector<WebString>& force_enabled_origin_trials) {
   Vector<String> result;
-  result.ReserveInitialCapacity(
-      base::checked_cast<wtf_size_t>(force_enabled_origin_trials.size()));
-  for (const auto& trial : force_enabled_origin_trials)
-    result.push_back(trial);
   return result;
 }
 
 WebVector<WebString> CopyForceEnabledOriginTrials(
     const Vector<String>& force_enabled_origin_trials) {
   WebVector<String> result;
-  for (const auto& trial : force_enabled_origin_trials)
-    result.emplace_back(trial);
   return result;
 }
 
@@ -2741,10 +2728,6 @@ void DocumentLoader::CreateParserPostCommit() {
       window->GetOriginTrialContext()->AddFeature(
           OriginTrialFeature::kTouchEventFeatureDetection);
     }
-
-    // Enable any origin trials that have been force enabled for this commit.
-    window->GetOriginTrialContext()->AddForceEnabledTrials(
-        force_enabled_origin_trials_);
 
     OriginTrialContext::ActivateNavigationFeaturesFromInitiator(
         window, &initiator_origin_trial_features_);
