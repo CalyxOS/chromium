@@ -128,7 +128,6 @@ blink::OriginTrialPolicy* AwContentClient::GetOriginTrialPolicy() {
   // flag to true after construction. This will work because trial token
   // validator will always get the current instance of policy when needed.
   if (IsDisableOriginTrialsSafeModeActionOn()) {
-    origin_trial_policy_->SetAllowOnlyDeprecationTrials(true);
   }
   return origin_trial_policy_.get();
 }
