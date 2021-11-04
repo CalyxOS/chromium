@@ -108,14 +108,6 @@ void OriginTrialStateHostImpl::ApplyFeatureDiffForOriginTrial(
   // This issue should be revisited to avoid silently dropping any feature
   // overrides that are stored in the RFSDocumentData, in these corner cases
   // when the data has become a nullptr.
-  RuntimeFeatureStateDocumentData* document_data =
-      RuntimeFeatureStateDocumentData::GetOrCreateForCurrentDocument(
-          &render_frame_host());
-  CHECK(document_data);
-  document_data
-      ->GetMutableRuntimeFeatureStateReadContext(
-          base::PassKey<OriginTrialStateHostImpl>())
-      .ApplyFeatureChange(validated_features, possible_third_party_features);
 }
 
 void OriginTrialStateHostImpl::EnablePersistentTrial(
