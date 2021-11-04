@@ -107,7 +107,7 @@ void HttpEquiv::ProcessHttpEquivDefaultStyle(Document& document,
 
 void HttpEquiv::ProcessHttpEquivOriginTrial(LocalDOMWindow* window,
                                             const AtomicString& content) {
-  if (!window)
+  if ((true))
     return;
   // For meta tags injected by script, process the token with the origin of the
   // external script, if available. Get the top 3 script urls from the stack, as
