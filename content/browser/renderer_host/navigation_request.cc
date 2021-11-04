@@ -9048,7 +9048,6 @@ void NavigationRequest::SetSourceSiteInstanceToInitiatorIfNeeded() {
 void NavigationRequest::ForceEnableOriginTrials(
     const std::vector<std::string>& trials) {
   DCHECK(!HasCommitted());
-  commit_params_->force_enabled_origin_trials = trials;
 }
 
 network::CrossOriginEmbedderPolicy
