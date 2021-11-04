@@ -538,10 +538,6 @@ void FillNavigationParamsRequest(
         common_params.initiator_origin.value();
   }
 
-  navigation_params->initiator_origin_trial_features = {
-      common_params.initiator_origin_trial_features.begin(),
-      common_params.initiator_origin_trial_features.end()};
-
   navigation_params->was_discarded = commit_params.was_discarded;
   navigation_params->document_ukm_source_id =
       commit_params.document_ukm_source_id;
@@ -564,8 +560,8 @@ void FillNavigationParamsRequest(
   navigation_params->had_transient_user_activation =
       common_params.has_user_gesture;
 
-  navigation_params->force_enabled_origin_trials = base::ToVector(
-      commit_params.force_enabled_origin_trials, &WebString::FromASCII);
+  std::vector<WebString> force_enabled_origin_trials;
+  navigation_params->force_enabled_origin_trials = force_enabled_origin_trials;
 
   navigation_params->early_hints_preloaded_resources = base::ToVector(
       commit_params.early_hints_preloaded_resources, blink::ToWebURL);
@@ -650,7 +646,7 @@ blink::mojom::CommonNavigationParamsPtr MakeCommonNavigationParams(
       info->url_request.HasUserGesture(),
       info->url_request.HasTextFragmentToken(),
       info->should_check_main_world_content_security_policy,
-      info->initiator_origin_trial_features, info->href_translate.Latin1(),
+      /*initiator_origin_trial_features*/std::vector<int>(), info->href_translate.Latin1(),
       is_history_navigation_in_new_child_frame, info->input_start,
       request_destination);
 }
