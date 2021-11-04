@@ -477,10 +477,6 @@ void FillNavigationParamsRequest(
         common_params.initiator_origin.value();
   }
 
-  navigation_params->initiator_origin_trial_features = {
-      common_params.initiator_origin_trial_features.begin(),
-      common_params.initiator_origin_trial_features.end()};
-
   navigation_params->was_discarded = commit_params.was_discarded;
   navigation_params->document_ukm_source_id =
       commit_params.document_ukm_source_id;
@@ -511,12 +507,6 @@ void FillNavigationParamsRequest(
       commit_params.web_bundle_physical_url;
   navigation_params->web_bundle_claimed_url =
       commit_params.web_bundle_claimed_url;
-
-  WebVector<WebString> web_origin_trials;
-  web_origin_trials.reserve(commit_params.force_enabled_origin_trials.size());
-  for (const auto& trial : commit_params.force_enabled_origin_trials)
-    web_origin_trials.emplace_back(WebString::FromASCII(trial));
-  navigation_params->force_enabled_origin_trials = web_origin_trials;
 
   if (!commit_params.early_hints_preloaded_resources.empty()) {
     navigation_params->early_hints_preloaded_resources = WebVector<WebURL>();
@@ -571,11 +561,6 @@ blink::mojom::CommonNavigationParamsPtr MakeCommonNavigationParams(
           info->url_request.GetURLRequestExtraData().get());
   DCHECK(url_request_extra_data);
 
-  // Convert from WebVector<int> to std::vector<int>.
-  std::vector<int> initiator_origin_trial_features(
-      info->initiator_origin_trial_features.begin(),
-      info->initiator_origin_trial_features.end());
-
   blink::NavigationDownloadPolicy download_policy;
   download_policy.ApplyDownloadFramePolicy(
       info->is_opener_navigation, info->url_request.HasUserGesture(),
@@ -593,7 +578,7 @@ blink::mojom::CommonNavigationParamsPtr MakeCommonNavigationParams(
       info->url_request.HasUserGesture(),
       info->url_request.HasTextFragmentToken(),
       info->should_check_main_world_content_security_policy,
-      initiator_origin_trial_features, info->href_translate.Latin1(),
+      /*initiator_origin_trial_features*/std::vector<int>(), info->href_translate.Latin1(),
       is_history_navigation_in_new_child_frame, info->input_start,
       request_destination);
 }
