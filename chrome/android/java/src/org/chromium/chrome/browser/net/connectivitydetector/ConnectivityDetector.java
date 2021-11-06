@@ -180,7 +180,8 @@ public class ConnectivityDetector implements NetworkChangeNotifier.ConnectionTyp
 
         @Override
         public boolean shouldSkipHttpProbes() {
-            return false;
+            // always assume that connection is valid on Android < M
+            return true;
         }
     }
 
