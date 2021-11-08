@@ -902,6 +902,11 @@ public class WebContentsAccessibilityImpl extends AccessibilityNodeProviderCompa
             structure.setChildCount(0);
             return;
         }
+        // Do not collect accessibility tree if disabled
+        if (!ContextUtils.getAppSharedPreferences().getBoolean("enable_accessibility", false)) {
+            structure.setChildCount(0);
+            return;
+        }
         structure.setChildCount(1);
         final ViewStructure viewRoot = structure.asyncNewChild(0);
         viewRoot.setClassName("");
