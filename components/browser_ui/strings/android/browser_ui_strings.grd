@@ -954,6 +954,12 @@
       <message name="IDS_ACCESSIBILITY_TAB_SWITCHER_SUMMARY" desc="Summary of the preference that allows the user to use a simplified tab switcher. The simplified tab switcher is recommended for use with TalkBack and Switch Access which are accessibility services provided by Android. TalkBack does not need to be translated. 'Switch Access' translation should match TC ID 382005103867249841.">
        Recommended when TalkBack or Switch Access are on
       </message>
+      <message name="IDS_ENABLE_ACCESSIBILITY_TITLE" desc="Title of enable accessibility settings, which allows the user to enable service. [CHAR_LIMIT=32]">
+        Enable Accessibility Service
+      </message>
+      <message name="IDS_ENABLE_ACCESSIBILITY_SUMMARY" desc="Summary of enable accessibility settings.">
+        Activates or deactivates the communication of all user activities in ui to the Accessibility provider
+      </message>
       <message name="IDS_ACCESSIBILITY_CAPTIONS_TITLE" desc="Title of the preference that allows the user to update caption settings.">
         Captions
       </message>
