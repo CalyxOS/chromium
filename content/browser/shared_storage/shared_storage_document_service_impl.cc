@@ -128,6 +128,15 @@ void SharedStorageDocumentServiceImpl::CreateWorklet(
       render_frame_host().GetLastCommittedOrigin().IsSameOriginWith(
           data_origin);
 
+  // A document can only create cross-origin worklets with
+  // `kSharedStorageAPIM125` enabled.
+  if (!is_same_origin) {
+    // This could indicate a compromised renderer, so let's terminate it.
+    receiver_.ReportBadMessage(
+        "Attempted to load a cross-origin module script.");
+    return;
+  }
+
   // `CreateWorklet()` cannot differentiate between calls from addModule() and
   // createWorklet(). Hence, we skip the mojom validation for opaque origin
   // context for addModule().

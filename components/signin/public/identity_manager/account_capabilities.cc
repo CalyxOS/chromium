@@ -88,7 +88,7 @@ signin::Tribool AccountCapabilities::
 
 signin::Tribool AccountCapabilities::can_run_chrome_privacy_sandbox_trials()
     const {
-  return GetCapabilityByName(kCanRunChromePrivacySandboxTrialsCapabilityName);
+  return signin::Tribool::kFalse;
 }
 
 signin::Tribool AccountCapabilities::is_opted_in_to_parental_supervision()
