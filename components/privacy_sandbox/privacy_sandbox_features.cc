@@ -253,4 +253,8 @@ BASE_FEATURE(kPrivacySandboxSentimentSurvey,
 const base::FeatureParam<std::string> kPrivacySandboxSentimentSurveyTriggerId{
     &kPrivacySandboxSentimentSurvey, "sentiment-survey-trigger-id", ""};
 
+SET_CROMITE_FEATURE_DISABLED(kPrivacySandboxSettings4);
+SET_CROMITE_FEATURE_ENABLED(kDisablePrivacySandboxPrompts);
+SET_CROMITE_FEATURE_DISABLED(kEnforcePrivacySandboxAttestations);
+SET_CROMITE_FEATURE_DISABLED(kPrivacySandboxFirstPartySetsUI);
 }  // namespace privacy_sandbox
