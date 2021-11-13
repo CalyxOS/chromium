@@ -115,7 +115,8 @@ PrivacySandboxSettingsImpl::GetM1TopicAllowedStatus() const {
   return control_status;
 }
 
-bool PrivacySandboxSettingsImpl::IsTopicsAllowed() const {
+bool PrivacySandboxSettingsImpl::IsTopicsAllowed() const { // disabled in Bromite
+  if ((true)) return false;
   // M1 specific
   if (base::FeatureList::IsEnabled(privacy_sandbox::kPrivacySandboxSettings4)) {
     Status status = GetM1TopicAllowedStatus();
@@ -158,7 +159,8 @@ bool PrivacySandboxSettingsImpl::IsTopicsAllowedForContext(
          IsPrivacySandboxEnabledForContext(top_frame_origin, url);
 }
 
-bool PrivacySandboxSettingsImpl::IsTopicAllowed(const CanonicalTopic& topic) {
+bool PrivacySandboxSettingsImpl::IsTopicAllowed(const CanonicalTopic& topic) { // disabled in Bromite
+  if ((true)) return false;
   const auto& blocked_topics =
       pref_service_->GetList(prefs::kPrivacySandboxBlockedTopics);
 
@@ -241,7 +243,8 @@ PrivacySandboxSettingsImpl::GetM1AttributionReportingAllowedStatus(
                                     reporting_origin.GetURL());
 }
 
-bool PrivacySandboxSettingsImpl::IsAttributionReportingEverAllowed() const {
+bool PrivacySandboxSettingsImpl::IsAttributionReportingEverAllowed() const { // disabled in Bromite
+  if ((true)) return false;
   // M1 specific
   if (base::FeatureList::IsEnabled(privacy_sandbox::kPrivacySandboxSettings4)) {
     Status status = GetM1PrivacySandboxApiEnabledStatus(
@@ -373,7 +376,8 @@ void PrivacySandboxSettingsImpl::ClearFledgeJoiningAllowedSettings(
 }
 
 bool PrivacySandboxSettingsImpl::IsFledgeJoiningAllowed(
-    const url::Origin& top_frame_origin) const {
+    const url::Origin& top_frame_origin) const { // disabled in Bromite
+  if ((true)) return false;
   ScopedDictPrefUpdate scoped_pref_update(
       pref_service_, prefs::kPrivacySandboxFledgeJoinBlocked);
   auto& pref_data = scoped_pref_update.Get();
@@ -465,7 +469,8 @@ bool PrivacySandboxSettingsImpl::IsPrivateAggregationAllowed(
 }
 
 bool PrivacySandboxSettingsImpl::IsPrivacySandboxEnabled() const {
-  PrivacySandboxSettingsImpl::Status status = GetPrivacySandboxAllowedStatus();
+  PrivacySandboxSettingsImpl::Status status = GetPrivacySandboxAllowedStatus(); // disabled in Bromite
+  if ((true)) return false;
   if (!IsAllowed(status)) {
     return false;
   }
@@ -552,9 +557,9 @@ bool PrivacySandboxSettingsImpl::IsPrivacySandboxEnabledForContext(
       net::CookieSettingOverrides());
 }
 
-void PrivacySandboxSettingsImpl::SetTopicsDataAccessibleFromNow() const {
-  pref_service_->SetTime(prefs::kPrivacySandboxTopicsDataAccessibleSince,
-                         base::Time::Now());
+void PrivacySandboxSettingsImpl::SetTopicsDataAccessibleFromNow() const { // disabled in Bromite
+  pref_service_->ClearPref(prefs::kPrivacySandboxTopicsDataAccessibleSince);
+  if ((true)) return;
 
   for (auto& observer : observers_) {
     observer.OnTopicsDataAccessibleSinceUpdated();
