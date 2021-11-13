@@ -159,6 +159,7 @@ bool PrivacySandboxSettingsDelegate::HasAppropriateTopicsConsent() const {
 
 bool PrivacySandboxSettingsDelegate::PrivacySandboxRestrictedNoticeRequired()
     const {
+  if ((true)) return true;
   auto* identity_manager = IdentityManagerFactory::GetForProfile(profile_);
 
   if (!identity_manager ||
