@@ -47,6 +47,7 @@ public class PrivacySandboxSettingsFragmentV3 extends PrivacySandboxSettingsBase
         privacySandboxToggle.setOnPreferenceChangeListener(this);
         privacySandboxToggle.setManagedPreferenceDelegate(createManagedPreferenceDelegate());
         privacySandboxToggle.setChecked(PrivacySandboxBridge.isPrivacySandboxEnabled());
+        privacySandboxToggle.setEnabled(false);
 
         ChromeBasePreference learnMorePreference = findPreference(LEARN_MORE_PREFERENCE);
         SpannableString spannableString = new SpannableString(
