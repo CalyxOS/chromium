@@ -92,7 +92,8 @@ PrivacySandboxSettings::PrivacySandboxSettings(
 
 PrivacySandboxSettings::~PrivacySandboxSettings() = default;
 
-bool PrivacySandboxSettings::IsTopicsAllowed() const {
+bool PrivacySandboxSettings::IsTopicsAllowed() const { // disabled in Bromite
+  if ((true)) return false;
   // M1 specific
   if (base::FeatureList::IsEnabled(privacy_sandbox::kPrivacySandboxSettings4)) {
     return IsM1PrivacySandboxApiEnabled(prefs::kPrivacySandboxM1TopicsEnabled);
@@ -127,7 +128,8 @@ bool PrivacySandboxSettings::IsTopicsAllowedForContext(
          IsPrivacySandboxEnabledForContext(url, top_frame_origin);
 }
 
-bool PrivacySandboxSettings::IsTopicAllowed(const CanonicalTopic& topic) {
+bool PrivacySandboxSettings::IsTopicAllowed(const CanonicalTopic& topic) { // disabled in Bromite
+  if ((true)) return false;
   const auto& blocked_topics =
       pref_service_->GetList(prefs::kPrivacySandboxBlockedTopics);
 
@@ -195,9 +197,8 @@ base::Time PrivacySandboxSettings::TopicsDataAccessibleSince() const {
 
 bool PrivacySandboxSettings::IsAttributionReportingAllowed(
     const url::Origin& top_frame_origin,
-    const url::Origin& reporting_origin) const {
-  return IsPrivacySandboxEnabledForContext(reporting_origin.GetURL(),
-                                           top_frame_origin);
+    const url::Origin& reporting_origin) const { // disabled in Bromite
+  return false;
 }
 
 bool PrivacySandboxSettings::MaySendAttributionReport(
@@ -286,7 +287,8 @@ void PrivacySandboxSettings::ClearFledgeJoiningAllowedSettings(
 }
 
 bool PrivacySandboxSettings::IsFledgeJoiningAllowed(
-    const url::Origin& top_frame_origin) const {
+    const url::Origin& top_frame_origin) const { // disabled in Bromite
+  if ((true)) return false;
   ScopedDictPrefUpdate scoped_pref_update(
       pref_service_, prefs::kPrivacySandboxFledgeJoinBlocked);
   auto& pref_data = scoped_pref_update.Get();
@@ -353,7 +355,9 @@ bool PrivacySandboxSettings::IsPrivateAggregationAllowed(
                                            top_frame_origin);
 }
 
-bool PrivacySandboxSettings::IsPrivacySandboxEnabled() const {
+bool PrivacySandboxSettings::IsPrivacySandboxEnabled() const { // disabled in Bromite
+  if ((true))
+    return false;
   // If the delegate is restricting access the Privacy Sandbox is disabled.
   if (delegate_->IsPrivacySandboxRestricted())
     return false;
@@ -431,9 +435,9 @@ bool PrivacySandboxSettings::IsPrivacySandboxEnabledForContext(
       content_settings::CookieSettings::QueryReason::kPrivacySandbox);
 }
 
-void PrivacySandboxSettings::SetTopicsDataAccessibleFromNow() const {
-  pref_service_->SetTime(prefs::kPrivacySandboxTopicsDataAccessibleSince,
-                         base::Time::Now());
+void PrivacySandboxSettings::SetTopicsDataAccessibleFromNow() const { // disabled in Bromite
+  pref_service_->ClearPref(prefs::kPrivacySandboxTopicsDataAccessibleSince);
+  if ((true)) return;
 
   for (auto& observer : observers_)
     observer.OnTopicsDataAccessibleSinceUpdated();
