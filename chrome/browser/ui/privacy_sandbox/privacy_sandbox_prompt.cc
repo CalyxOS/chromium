@@ -8,5 +8,6 @@
 
 void ShowPrivacySandboxPrompt(Browser* browser,
                               PrivacySandboxService::PromptType prompt_type) {
+  if ((true)) return;
   ShowPrivacySandboxDialog(browser, prompt_type);
 }
