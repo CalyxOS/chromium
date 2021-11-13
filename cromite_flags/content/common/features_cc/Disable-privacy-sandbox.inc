@@ -1,0 +1,1 @@
+SET_CROMITE_FEATURE_DISABLED(kPrivacySandboxAdsAPIsM1Override);

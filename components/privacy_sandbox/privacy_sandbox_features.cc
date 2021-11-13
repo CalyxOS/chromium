@@ -288,4 +288,8 @@ BASE_FEATURE(kPrivacySandboxMigratePrefsToNoticeConsentDataModel,
              "PrivacySandboxMigratePrefsToNoticeConsentDataModel",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+SET_CROMITE_FEATURE_DISABLED(kPrivacySandboxSettings4);
+SET_CROMITE_FEATURE_ENABLED(kDisablePrivacySandboxPrompts);
+SET_CROMITE_FEATURE_DISABLED(kEnforcePrivacySandboxAttestations);
+SET_CROMITE_FEATURE_DISABLED(kPrivacySandboxFirstPartySetsUI);
 }  // namespace privacy_sandbox
