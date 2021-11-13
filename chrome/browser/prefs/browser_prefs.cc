@@ -1407,7 +1407,7 @@ void RegisterProfilePrefsForMigration(
   registry->RegisterTimePref(kPlusAddressLastFetchedTime, base::Time());
 
   // Deprecated 03/2024.
-  registry->RegisterBooleanPref(kPrivacySandboxApisEnabled, true);
+  registry->RegisterBooleanPref(kPrivacySandboxApisEnabled, false);
 
   // Deprecated 03/2024.
   registry->RegisterBooleanPref(kShowInternalAccessibilityTree, false);
