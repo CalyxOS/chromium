@@ -24,7 +24,7 @@ void RegisterProfilePrefs(PrefRegistrySimple* registry) {
   registry->RegisterBooleanPref(prefs::kPrivacySandboxM1FledgeEnabled, false);
   registry->RegisterBooleanPref(prefs::kPrivacySandboxM1AdMeasurementEnabled,
                                 false);
-  registry->RegisterBooleanPref(prefs::kPrivacySandboxM1Restricted, false);
+  registry->RegisterBooleanPref(prefs::kPrivacySandboxM1Restricted, true);
 
   registry->RegisterTimePref(prefs::kPrivacySandboxTopicsDataAccessibleSince,
                              base::Time());
