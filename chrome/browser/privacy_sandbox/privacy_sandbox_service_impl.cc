@@ -519,7 +519,7 @@ bool PrivacySandboxServiceImpl::IsRestrictedNoticeEnabled() {
 void PrivacySandboxServiceImpl::SetFirstPartySetsDataAccessEnabled(
     bool enabled) {
   pref_service_->SetBoolean(prefs::kPrivacySandboxRelatedWebsiteSetsEnabled,
-                            enabled);
+                            false);
 }
 
 bool PrivacySandboxServiceImpl::IsFirstPartySetsDataAccessEnabled() const {
