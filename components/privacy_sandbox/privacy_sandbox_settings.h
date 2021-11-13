@@ -227,7 +227,6 @@ class PrivacySandboxSettings : public KeyedService {
   scoped_refptr<content_settings::CookieSettings> cookie_settings_;
   raw_ptr<PrefService, DanglingUntriaged> pref_service_;
   PrefChangeRegistrar pref_change_registrar_;
-  bool incognito_profile_;
 };
 
 }  // namespace privacy_sandbox
