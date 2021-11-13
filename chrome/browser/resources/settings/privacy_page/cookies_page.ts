@@ -249,7 +249,7 @@ export class SettingsCookiesPageElement extends SettingsCookiesPageElementBase {
   }
 
   private relatedWebsiteSetsToggleDisabled_() {
-    return this.getPref('profile.cookie_controls_mode').value !==
+    return ((true)) || this.getPref('profile.cookie_controls_mode').value !==
         CookieControlsMode.BLOCK_THIRD_PARTY;
   }
 
