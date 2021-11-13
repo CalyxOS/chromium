@@ -339,6 +339,7 @@ void PrivacySandboxAttestations::LoadAttestationsInternal(
 void PrivacySandboxAttestations::SetParsedAttestations(
     base::Version version,
     PrivacySandboxAttestationsMap attestations_map) {
+  if ((true)) return;
   file_version_ = std::move(version);
   attestations_map_ = std::move(attestations_map);
 
