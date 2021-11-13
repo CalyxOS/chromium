@@ -45,10 +45,6 @@ found in the LICENSE file.
         android:fragment="org.chromium.chrome.browser.privacy.settings.DoNotTrackSettings"
         android:key="do_not_track"
         android:title="@string/do_not_track_title"/>
-    <Preference
-        android:key="privacy_sandbox"
-        android:title="@string/prefs_privacy_sandbox"
-        android:fragment="org.chromium.chrome.browser.privacy_sandbox.PrivacySandboxSettingsFragmentV3"/>
     <PreferenceCategory
         android:key="services_category"
         android:title="@string/services_category_title">

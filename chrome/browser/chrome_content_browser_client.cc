@@ -3283,6 +3283,9 @@ bool ChromeContentBrowserClient::IsAttributionReportingOperationAllowed(
     const url::Origin* source_origin,
     const url::Origin* destination_origin,
     const url::Origin* reporting_origin) {
+  // make sure that this is always disabled in Bromite even if privacy sandbox is already disabled in the prefs
+  if ((true))
+    return false;
   Profile* profile = Profile::FromBrowserContext(browser_context);
 
   auto* privacy_sandbox_settings =
