@@ -24,9 +24,9 @@ void RegisterProfilePrefs(PrefRegistrySimple* registry) {
   // TODO(https://b/333527273): The following prefs should be deprecated.
   // Still in use for Mode B.
   registry->RegisterBooleanPref(
-      prefs::kBlockAll3pcToggleEnabled, false,
+      prefs::kBlockAll3pcToggleEnabled, false, // with true enables FPS
       user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
-  registry->RegisterBooleanPref(prefs::kTrackingProtection3pcdEnabled, false);
+  registry->RegisterBooleanPref(prefs::kTrackingProtection3pcdEnabled, false); // with true enables FPS
   registry->RegisterIntegerPref(
       prefs::kTrackingProtectionOnboardingStatus,
       static_cast<int>(TrackingProtectionOnboardingStatus::kIneligible));
