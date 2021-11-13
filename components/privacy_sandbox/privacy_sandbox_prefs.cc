@@ -12,7 +12,7 @@ namespace privacy_sandbox {
 
 void RegisterProfilePrefs(PrefRegistrySimple* registry) {
   registry->RegisterBooleanPref(
-      prefs::kPrivacySandboxApisEnabled, true,
+      prefs::kPrivacySandboxApisEnabled, false,
       user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
   registry->RegisterBooleanPref(prefs::kPrivacySandboxApisEnabledV2, false);
   registry->RegisterBooleanPref(prefs::kPrivacySandboxM1ConsentDecisionMade,
