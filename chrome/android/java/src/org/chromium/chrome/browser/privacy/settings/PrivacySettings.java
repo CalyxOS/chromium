@@ -71,7 +71,6 @@ public class PrivacySettings
     private static final String PREF_SAFE_BROWSING = "safe_browsing";
     private static final String PREF_SYNC_AND_SERVICES_LINK = "sync_and_services_link";
     private static final String PREF_CLEAR_BROWSING_DATA = "clear_browsing_data";
-    private static final String PREF_PRIVACY_SANDBOX = "privacy_sandbox";
     private static final String PREF_PRIVACY_GUIDE = "privacy_guide";
     private static final String PREF_INCOGNITO_LOCK = "incognito_lock";
     private static final String PREF_THIRD_PARTY_COOKIES = "third_party_cookies";
@@ -94,25 +93,6 @@ public class PrivacySettings
         PrivacyPreferencesManagerImpl privacyPrefManager =
                 PrivacyPreferencesManagerImpl.getInstance();
         getActivity().setTitle(R.string.prefs_privacy_security);
-
-        if (ChromeFeatureList.isEnabled(ChromeFeatureList.PRIVACY_SANDBOX_SETTINGS_4)) {
-            SettingsUtils.addPreferencesFromResource(this, R.xml.privacy_preferences_v2);
-        } else {
-            SettingsUtils.addPreferencesFromResource(this, R.xml.privacy_preferences);
-        }
-
-        Preference sandboxPreference = findPreference(PREF_PRIVACY_SANDBOX);
-        if (PrivacySandboxBridge.isPrivacySandboxRestricted()) {
-            // Hide the Privacy Sandbox if it is restricted.
-            getPreferenceScreen().removePreference(sandboxPreference);
-        } else {
-            // Overwrite the click listener to pass a correct referrer to the fragment.
-            sandboxPreference.setOnPreferenceClickListener(preference -> {
-                PrivacySandboxSettingsBaseFragment.launchPrivacySandboxSettings(getContext(),
-                        new SettingsLauncherImpl(), PrivacySandboxReferrer.PRIVACY_SETTINGS);
-                return true;
-            });
-        }
 
         Preference privacyGuidePreference = findPreference(PREF_PRIVACY_GUIDE);
         // Record the launch of PG from the S&P link-row entry point
@@ -285,13 +265,6 @@ public class PrivacySettings
             } else {
                 getPreferenceScreen().removePreference(usageStatsPref);
             }
-        }
-
-        Preference privacySandboxPreference = findPreference(PREF_PRIVACY_SANDBOX);
-        if (privacySandboxPreference != null
-                && !ChromeFeatureList.isEnabled(ChromeFeatureList.PRIVACY_SANDBOX_SETTINGS_4)) {
-            privacySandboxPreference.setSummary(
-                    PrivacySandboxSettingsBaseFragment.getStatusString(getContext()));
         }
 
         mIncognitoLockSettings.updateIncognitoReauthPreferenceIfNeeded(getActivity());
