@@ -1276,7 +1276,7 @@ bool PrivacySandboxServiceImpl::IsRestrictedNoticeEnabled() {
 void PrivacySandboxServiceImpl::SetRelatedWebsiteSetsDataAccessEnabled(
     bool enabled) {
   pref_service_->SetBoolean(prefs::kPrivacySandboxRelatedWebsiteSetsEnabled,
-                            enabled);
+                            false);
 }
 
 bool PrivacySandboxServiceImpl::IsRelatedWebsiteSetsDataAccessEnabled() const {
