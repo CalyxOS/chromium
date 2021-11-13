@@ -114,6 +114,7 @@ void RecordParsingStatusHistogram(ParsingStatus status) {
 // `installed_file_path` is the path to the attestations list file.
 base::expected<PrivacySandboxAttestationsMap, ParsingStatus>
 LoadAttestationsInternal(base::FilePath installed_file_path) {
+  if ((true)) return base::unexpected(ParsingStatus::kFileNotExist);
   // This function should only be called when the feature is enabled.
   CHECK(base::FeatureList::IsEnabled(
       privacy_sandbox::kEnforcePrivacySandboxAttestations));
