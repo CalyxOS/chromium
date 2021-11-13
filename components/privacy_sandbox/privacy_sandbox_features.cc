@@ -25,8 +25,8 @@ BASE_FEATURE(kPrivacySandboxSuppressDialogOnNonNormalBrowsers,
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kPrivacySandboxSettings4,
-             "PrivacySandboxSettings4",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "PrivacySandboxSettings4",          // must be disabled
+             base::FEATURE_DISABLED_BY_DEFAULT); // in bromite
 
 const char kPrivacySandboxSettings4ConsentRequiredName[] = "consent-required";
 const char kPrivacySandboxSettings4NoticeRequiredName[] = "notice-required";
@@ -92,7 +92,7 @@ BASE_FEATURE(kOverridePrivacySandboxSettingsLocalTesting,
 
 BASE_FEATURE(kDisablePrivacySandboxPrompts,
              "DisablePrivacySandboxPrompts",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kPrivacySandboxFirstPartySetsUI,
              "PrivacySandboxFirstPartySetsUI",
@@ -101,8 +101,8 @@ const base::FeatureParam<bool> kPrivacySandboxFirstPartySetsUISampleSets{
     &kPrivacySandboxFirstPartySetsUI, "use-sample-sets", false};
 
 BASE_FEATURE(kEnforcePrivacySandboxAttestations,
-             "EnforcePrivacySandboxAttestations",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "EnforcePrivacySandboxAttestations",  // if enabled
+             base::FEATURE_ENABLED_BY_DEFAULT);    // log to console
 
 BASE_FEATURE(kDefaultAllowPrivacySandboxAttestations,
              "DefaultAllowPrivacySandboxAttestations",
