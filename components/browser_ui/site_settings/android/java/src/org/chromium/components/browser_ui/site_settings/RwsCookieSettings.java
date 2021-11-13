@@ -135,7 +135,7 @@ public class RwsCookieSettings extends BaseSiteSettingsFragment
         mAllowRwsPreference.setChecked(
                 getSiteSettingsDelegate().isRelatedWebsiteSetsDataAccessEnabled());
 
-        if (!isBlockThirdPartyCookieSelected()) {
+        if (((true)) || !isBlockThirdPartyCookieSelected()) {
             mAllowRwsPreference.setEnabled(false);
         }
         mAllowRwsPreference.setOnPreferenceChangeListener(this);
@@ -151,7 +151,7 @@ public class RwsCookieSettings extends BaseSiteSettingsFragment
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         String key = preference.getKey();
         if (ALLOW_RWS_COOKIE_PREFERENCE.equals(key)) {
-            getSiteSettingsDelegate().setRelatedWebsiteSetsDataAccessEnabled((boolean) newValue);
+            getSiteSettingsDelegate().setRelatedWebsiteSetsDataAccessEnabled((boolean) false);
         } else {
             assert false : "Should not be reached";
         }

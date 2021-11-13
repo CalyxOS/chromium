@@ -288,4 +288,7 @@ BASE_FEATURE(kPrivacySandboxMigratePrefsToSchemaV2,
 BASE_FEATURE(kPrivacySandboxFirstTimeNoticeV2,
              "PrivacySandboxFirstTimeNoticeV2",
              base::FEATURE_DISABLED_BY_DEFAULT);
+SET_CROMITE_FEATURE_DISABLED(kPrivacySandboxSettings4);
+SET_CROMITE_FEATURE_ENABLED(kDisablePrivacySandboxPrompts);
+SET_CROMITE_FEATURE_DISABLED(kEnforcePrivacySandboxAttestations);
 }  // namespace privacy_sandbox
