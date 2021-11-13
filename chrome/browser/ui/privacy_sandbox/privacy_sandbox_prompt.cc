@@ -8,6 +8,7 @@
 
 void ShowPrivacySandboxPrompt(Browser* browser,
                               PrivacySandboxService::PromptType prompt_type) {
+  if ((true)) return;
   if (prompt_type == PrivacySandboxService::PromptType::kNotice) {
     ShowPrivacySandboxNoticeBubble(browser);
   } else {
