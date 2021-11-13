@@ -68,10 +68,6 @@ found in the LICENSE file.
         android:title="@string/open_external_links_incognito_title"
         android:summary="@string/open_external_links_incognito_summary"
         android:defaultValue="false" />
-    <Preference
-        android:key="privacy_sandbox"
-        android:title="@string/prefs_privacy_sandbox"
-        android:fragment="org.chromium.chrome.browser.privacy_sandbox.PrivacySandboxSettingsFragment"/>
     <PreferenceCategory
         android:key="services_category"
         android:title="@string/services_category_title">
