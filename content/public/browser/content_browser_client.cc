@@ -1677,7 +1677,7 @@ bool ContentBrowserClient::ShouldPreconnectNavigation(
 }
 
 bool ContentBrowserClient::IsFirstPartySetsEnabled() {
-  return true;
+  return false;
 }
 
 bool ContentBrowserClient::WillProvidePublicFirstPartySets() {

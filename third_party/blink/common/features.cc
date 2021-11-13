@@ -2845,6 +2845,7 @@ BASE_FEATURE(kNoReferrerForPreloadFromSubresource,
 // constants for features in the section above.
 
 bool IsAllowURNsInIframeEnabled() {
+  if ((true)) return false; // see https://chromium-review.googlesource.com/c/chromium/src/+/3690741
   return base::FeatureList::IsEnabled(blink::features::kAllowURNsInIframes);
 }
 

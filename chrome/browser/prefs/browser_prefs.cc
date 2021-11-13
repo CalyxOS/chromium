@@ -1219,7 +1219,7 @@ void RegisterProfilePrefsForMigration(
 #if BUILDFLAG(IS_CHROMEOS)
   // Deprecated 04/2024.
   registry->RegisterBooleanPref(kMetricsUserInheritOwnerConsent, true);
-  registry->RegisterBooleanPref(kGlanceablesEnabled, true);
+  registry->RegisterBooleanPref(kGlanceablesEnabled, false);
 
   // Deprecated 05/2024.
   registry->RegisterBooleanPref(kAccessibilityMouseKeysShortcutToPauseEnabled,
