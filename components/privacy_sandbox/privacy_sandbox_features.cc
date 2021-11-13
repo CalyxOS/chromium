@@ -175,4 +175,8 @@ BASE_FEATURE(kTrackingProtectionNoticeRequestTracking,
              base::FEATURE_DISABLED_BY_DEFAULT);
 #endif  // BUILDFLAG(IS_ANDROID)
 
+SET_CROMITE_FEATURE_DISABLED(kPrivacySandboxSettings4);
+SET_CROMITE_FEATURE_ENABLED(kDisablePrivacySandboxPrompts);
+SET_CROMITE_FEATURE_DISABLED(kEnforcePrivacySandboxAttestations);
+SET_CROMITE_FEATURE_DISABLED(kPrivacySandboxFirstPartySetsUI);
 }  // namespace privacy_sandbox
