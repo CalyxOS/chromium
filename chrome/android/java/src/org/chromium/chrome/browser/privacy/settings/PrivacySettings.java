@@ -55,7 +55,6 @@ public class PrivacySettings
     private static final String PREF_SECURE_DNS = "secure_dns";
     private static final String PREF_DO_NOT_TRACK = "do_not_track";
     private static final String PREF_CLEAR_BROWSING_DATA = "clear_browsing_data";
-    private static final String PREF_PRIVACY_SANDBOX = "privacy_sandbox";
     private static final String PREF_PRIVACY_GUIDE = "privacy_guide";
     private static final String PREF_INCOGNITO_LOCK = "incognito_lock";
 
@@ -76,21 +75,6 @@ public class PrivacySettings
                 PrivacyPreferencesManagerImpl.getInstance();
         SettingsUtils.addPreferencesFromResource(this, R.xml.privacy_preferences);
         getActivity().setTitle(R.string.prefs_privacy_security);
-
-        Preference sandboxPreference = findPreference(PREF_PRIVACY_SANDBOX);
-        // Hide the Privacy Sandbox if it is restricted.
-        if (PrivacySandboxBridge.isPrivacySandboxRestricted()) {
-            getPreferenceScreen().removePreference(sandboxPreference);
-        } else {
-            sandboxPreference.setSummary(
-                    PrivacySandboxSettingsFragment.getStatusString(getContext()));
-            // Overwrite the click listener to pass a correct referrer to the fragment.
-            sandboxPreference.setOnPreferenceClickListener(preference -> {
-                PrivacySandboxSettingsFragmentV3.launchPrivacySandboxSettings(getContext(),
-                        new SettingsLauncherImpl(), PrivacySandboxReferrer.PRIVACY_SETTINGS);
-                return true;
-            });
-        }
 
         Preference privacyGuidePreference = findPreference(PREF_PRIVACY_GUIDE);
         if (!ChromeFeatureList.isEnabled(ChromeFeatureList.PRIVACY_GUIDE)) {
@@ -179,12 +163,6 @@ public class PrivacySettings
         Preference secureDnsPref = findPreference(PREF_SECURE_DNS);
         if (secureDnsPref != null && secureDnsPref.isVisible()) {
             secureDnsPref.setSummary(SecureDnsSettings.getSummary(getContext()));
-        }
-
-        Preference privacySandboxPreference = findPreference(PREF_PRIVACY_SANDBOX);
-        if (privacySandboxPreference != null) {
-            privacySandboxPreference.setSummary(
-                    PrivacySandboxSettingsFragment.getStatusString(getContext()));
         }
 
         mIncognitoLockSettings.updateIncognitoReauthPreferenceIfNeeded(getActivity());
