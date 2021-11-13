@@ -485,8 +485,6 @@ void PrivacySandboxAttestations::OnAttestationsParsed(
   if (attestations_map.has_value() &&
       (!file_version_.IsValid() || file_version_.CompareTo(version) < 0)) {
     // Parsing succeeded and the attestations file has newer version.
-    file_version_ = std::move(version);
-    attestations_map_ = std::move(attestations_map.value());
   }
 
   attestations_parse_progress_ = Progress::kFinished;
