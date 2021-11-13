@@ -68,8 +68,7 @@ PrivacySandboxSettings::PrivacySandboxSettings(
     : delegate_(std::move(delegate)),
       host_content_settings_map_(host_content_settings_map),
       cookie_settings_(cookie_settings),
-      pref_service_(pref_service),
-      incognito_profile_(incognito_profile) {
+      pref_service_(pref_service) {
   DCHECK(pref_service_);
   DCHECK(host_content_settings_map_);
   DCHECK(cookie_settings_);
@@ -94,7 +93,8 @@ PrivacySandboxSettings::PrivacySandboxSettings(
 
 PrivacySandboxSettings::~PrivacySandboxSettings() = default;
 
-bool PrivacySandboxSettings::IsTopicsAllowed() const {
+bool PrivacySandboxSettings::IsTopicsAllowed() const { // disabled in Bromite
+  if ((true)) return false;
   // Topics API calculation should be prevented if the user has blocked 3PC
   // cookies, as there will be no context specific check.
   const auto cookie_controls_mode =
@@ -119,7 +119,8 @@ bool PrivacySandboxSettings::IsTopicsAllowedForContext(
          IsPrivacySandboxEnabledForContext(url, top_frame_origin);
 }
 
-bool PrivacySandboxSettings::IsTopicAllowed(const CanonicalTopic& topic) {
+bool PrivacySandboxSettings::IsTopicAllowed(const CanonicalTopic& topic) { // disabled in Bromite
+  if ((true)) return false;
   const auto& blocked_topics =
       pref_service_->GetList(prefs::kPrivacySandboxBlockedTopics);
 
@@ -187,9 +188,8 @@ base::Time PrivacySandboxSettings::TopicsDataAccessibleSince() const {
 
 bool PrivacySandboxSettings::IsAttributionReportingAllowed(
     const url::Origin& top_frame_origin,
-    const url::Origin& reporting_origin) const {
-  return IsPrivacySandboxEnabledForContext(reporting_origin.GetURL(),
-                                           top_frame_origin);
+    const url::Origin& reporting_origin) const { // disabled in Bromite
+  return false;
 }
 
 bool PrivacySandboxSettings::MaySendAttributionReport(
@@ -278,7 +278,8 @@ void PrivacySandboxSettings::ClearFledgeJoiningAllowedSettings(
 }
 
 bool PrivacySandboxSettings::IsFledgeJoiningAllowed(
-    const url::Origin& top_frame_origin) const {
+    const url::Origin& top_frame_origin) const { // disabled in Bromite
+  if ((true)) return false;
   ScopedDictPrefUpdate scoped_pref_update(
       pref_service_, prefs::kPrivacySandboxFledgeJoinBlocked);
   auto& pref_data = scoped_pref_update.Get();
@@ -334,7 +335,9 @@ bool PrivacySandboxSettings::IsPrivateAggregationAllowed(
                                            top_frame_origin);
 }
 
-bool PrivacySandboxSettings::IsPrivacySandboxEnabled() const {
+bool PrivacySandboxSettings::IsPrivacySandboxEnabled() const { // disabled in Bromite
+  if ((true))
+    return false;
   // If the delegate is restricting access the Privacy Sandbox is disabled.
   if (delegate_->IsPrivacySandboxRestricted())
     return false;
@@ -349,7 +352,7 @@ bool PrivacySandboxSettings::IsPrivacySandboxEnabled() const {
   // settings is available.
   if (base::FeatureList::IsEnabled(privacy_sandbox::kPrivacySandboxSettings3)) {
     // For Privacy Sandbox Settings 3, APIs are disabled in incognito.
-    if (incognito_profile_)
+    if ((true))
       return false;
 
     if (should_override_setting_for_local_testing) {
@@ -367,7 +370,8 @@ bool PrivacySandboxSettings::IsPrivacySandboxEnabled() const {
   return pref_service_->GetBoolean(prefs::kPrivacySandboxApisEnabled);
 }
 
-void PrivacySandboxSettings::SetPrivacySandboxEnabled(bool enabled) {
+void PrivacySandboxSettings::SetPrivacySandboxEnabled(bool enabled) { // disabled in Bromite
+  enabled = false;
   // Only apply the decision to the appropriate preference.
   if (base::FeatureList::IsEnabled(privacy_sandbox::kPrivacySandboxSettings3)) {
     pref_service_->SetBoolean(prefs::kPrivacySandboxApisEnabledV2, enabled);
@@ -376,7 +380,8 @@ void PrivacySandboxSettings::SetPrivacySandboxEnabled(bool enabled) {
   }
 }
 
-bool PrivacySandboxSettings::IsTrustTokensAllowed() {
+bool PrivacySandboxSettings::IsTrustTokensAllowed() { // disabled in Bromite
+  if ((true)) return false;
   // The PrivacySandboxSettings is only involved in Trust Token access
   // decisions when the Release 3 flag is enabled.
   if (!base::FeatureList::IsEnabled(privacy_sandbox::kPrivacySandboxSettings3))
@@ -441,9 +446,9 @@ bool PrivacySandboxSettings::IsPrivacySandboxEnabledForContext(
       content_settings::CookieSettings::QueryReason::kPrivacySandbox);
 }
 
-void PrivacySandboxSettings::SetTopicsDataAccessibleFromNow() const {
-  pref_service_->SetTime(prefs::kPrivacySandboxTopicsDataAccessibleSince,
-                         base::Time::Now());
+void PrivacySandboxSettings::SetTopicsDataAccessibleFromNow() const { // disabled in Bromite
+  pref_service_->ClearPref(prefs::kPrivacySandboxTopicsDataAccessibleSince);
+  if ((true)) return;
 
   for (auto& observer : observers_)
     observer.OnTopicsDataAccessibleSinceUpdated();
