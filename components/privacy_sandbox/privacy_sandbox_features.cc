@@ -7,8 +7,8 @@
 namespace privacy_sandbox {
 
 BASE_FEATURE(kPrivacySandboxSettings4,
-             "PrivacySandboxSettings4",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "PrivacySandboxSettings4",          // must be disabled
+             base::FEATURE_DISABLED_BY_DEFAULT); // in bromite
 
 const char kPrivacySandboxSettings4ConsentRequiredName[] = "consent-required";
 const char kPrivacySandboxSettings4NoticeRequiredName[] = "notice-required";
@@ -66,8 +66,8 @@ const base::FeatureParam<bool>
         true};
 
 BASE_FEATURE(kPrivacySandboxSettings3,
-             "PrivacySandboxSettings3",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "PrivacySandboxSettings3",          // must be disabled
+             base::FEATURE_DISABLED_BY_DEFAULT); // in bromite
 const base::FeatureParam<bool> kPrivacySandboxSettings3ConsentRequired{
     &kPrivacySandboxSettings3, "consent-required", false};
 const base::FeatureParam<bool> kPrivacySandboxSettings3NoticeRequired{
@@ -90,7 +90,7 @@ BASE_FEATURE(kOverridePrivacySandboxSettingsLocalTesting,
 
 BASE_FEATURE(kDisablePrivacySandboxPrompts,
              "DisablePrivacySandboxPrompts",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kPrivacySandboxFirstPartySetsUI,
              "PrivacySandboxFirstPartySetsUI",
