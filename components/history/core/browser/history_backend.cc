@@ -656,18 +656,7 @@ void HistoryBackend::SetBrowsingTopicsAllowed(ContextID context_id,
   if (!visit_id)
     return;
 
-  // Only add to the annotations table if the visit_id exists in the visits
-  // table.
-  VisitContentAnnotations annotations;
-  if (db_->GetContentAnnotationsForVisit(visit_id, &annotations)) {
-    annotations.annotation_flags |=
-        VisitContentAnnotationFlag::kBrowsingTopicsEligible;
-    db_->UpdateContentAnnotationsForVisit(visit_id, annotations);
-  } else {
-    annotations.annotation_flags |=
-        VisitContentAnnotationFlag::kBrowsingTopicsEligible;
-    db_->AddContentAnnotationsForVisit(visit_id, annotations);
-  }
+  // in Bromite disallow marking anything in history related to topics
   ScheduleCommit();
 }
 
