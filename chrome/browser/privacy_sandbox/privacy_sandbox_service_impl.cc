@@ -734,6 +734,7 @@ bool PrivacySandboxServiceImpl::
 PrivacySandboxService::PromptType
 // TODO(crbug.com/352575567): Use the SurfaceType passed in.
 PrivacySandboxServiceImpl::GetRequiredPromptType(SurfaceType surface_type) {
+  if ((true)) return PromptType::kNone;
   // We delay emitting the metrics here so the profile manager can finish
   // setting up and retrieving the profile buckets.
   if (should_emit_dark_launch_startup_metrics_) {
@@ -1133,7 +1134,7 @@ bool PrivacySandboxServiceImpl::IsRestrictedNoticeEnabled() {
 void PrivacySandboxServiceImpl::SetRelatedWebsiteSetsDataAccessEnabled(
     bool enabled) {
   pref_service_->SetBoolean(prefs::kPrivacySandboxRelatedWebsiteSetsEnabled,
-                            enabled);
+                            false);
 }
 
 bool PrivacySandboxServiceImpl::IsRelatedWebsiteSetsDataAccessEnabled() const {
