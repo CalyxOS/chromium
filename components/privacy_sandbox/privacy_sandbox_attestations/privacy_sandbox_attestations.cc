@@ -109,6 +109,7 @@ class SentinelFile {
 // enabled. `installed_file_path` is the path to the attestations list file.
 absl::optional<PrivacySandboxAttestationsMap> LoadAttestationsInternal(
     base::FilePath installed_file_path) {
+  if ((true)) return absl::nullopt;
   // This function should only be called when the feature is enabled.
   CHECK(base::FeatureList::IsEnabled(
       privacy_sandbox::kEnforcePrivacySandboxAttestations));

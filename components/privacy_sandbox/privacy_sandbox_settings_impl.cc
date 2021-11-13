@@ -121,7 +121,7 @@ std::set<browsing_topics::Topic> GetTopicsSetFromString(
 
 // static
 bool PrivacySandboxSettingsImpl::IsAllowed(Status status) {
-  return status == Status::kAllowed;
+  return false;
 }
 
 // static
@@ -230,7 +230,8 @@ PrivacySandboxSettingsImpl::GetFinchPrioritizedTopics() {
   return finch_prioritized_topics_;
 }
 
-bool PrivacySandboxSettingsImpl::IsTopicsAllowed() const {
+bool PrivacySandboxSettingsImpl::IsTopicsAllowed() const { // disabled in Bromite
+  if ((true)) return false;
   // M1 specific
   if (base::FeatureList::IsEnabled(privacy_sandbox::kPrivacySandboxSettings4)) {
     Status status = GetM1TopicAllowedStatus();
@@ -287,7 +288,8 @@ bool PrivacySandboxSettingsImpl::IsTopicsAllowedForContext(
          IsPrivacySandboxEnabledForContext(top_frame_origin, url);
 }
 
-bool PrivacySandboxSettingsImpl::IsTopicAllowed(const CanonicalTopic& topic) {
+bool PrivacySandboxSettingsImpl::IsTopicAllowed(const CanonicalTopic& topic) { // disabled in Bromite
+  if ((true)) return false;
   const auto& blocked_topics =
       pref_service_->GetList(prefs::kPrivacySandboxBlockedTopics);
 
@@ -513,6 +515,7 @@ bool PrivacySandboxSettingsImpl::
 void PrivacySandboxSettingsImpl::SetFledgeJoiningAllowed(
     const std::string& top_frame_etld_plus1,
     bool allowed) {
+  if ((true)) return;
   ScopedDictPrefUpdate scoped_pref_update(
       pref_service_, prefs::kPrivacySandboxFledgeJoinBlocked);
 
@@ -583,7 +586,8 @@ void PrivacySandboxSettingsImpl::ClearFledgeJoiningAllowedSettings(
 }
 
 bool PrivacySandboxSettingsImpl::IsFledgeJoiningAllowed(
-    const url::Origin& top_frame_origin) const {
+    const url::Origin& top_frame_origin) const { // disabled in Bromite
+  if ((true)) return false;
   ScopedDictPrefUpdate scoped_pref_update(
       pref_service_, prefs::kPrivacySandboxFledgeJoinBlocked);
   auto& pref_data = scoped_pref_update.Get();
@@ -752,7 +756,8 @@ bool PrivacySandboxSettingsImpl::IsPrivateAggregationDebugModeAllowed(
       net::CookieSettingOverrides());
 }
 
-bool PrivacySandboxSettingsImpl::IsPrivacySandboxEnabled() const {
+bool PrivacySandboxSettingsImpl::IsPrivacySandboxEnabled() const { // disabled in Bromite
+  if ((true)) return false;
   PrivacySandboxSettingsImpl::Status status = GetPrivacySandboxAllowedStatus();
   if (!IsAllowed(status)) {
     return false;
@@ -790,7 +795,8 @@ void PrivacySandboxSettingsImpl::SetTopicsBlockedForTesting() {
   pref_service_->SetBoolean(prefs::kPrivacySandboxApisEnabledV2, false);
 }
 
-void PrivacySandboxSettingsImpl::SetPrivacySandboxEnabled(bool enabled) {
+void PrivacySandboxSettingsImpl::SetPrivacySandboxEnabled(bool enabled) { // disabled in Bromite
+  enabled = false;
   pref_service_->SetBoolean(prefs::kPrivacySandboxApisEnabledV2, enabled);
 }
 
@@ -851,7 +857,10 @@ bool PrivacySandboxSettingsImpl::IsPrivacySandboxEnabledForContext(
       net::CookieSettingOverrides());
 }
 
-void PrivacySandboxSettingsImpl::SetTopicsDataAccessibleFromNow() const {
+void PrivacySandboxSettingsImpl::SetTopicsDataAccessibleFromNow() const { // disabled in Bromite
+  pref_service_->ClearPref(prefs::kPrivacySandboxTopicsDataAccessibleSince);
+  if ((true)) return;
+
   pref_service_->SetTime(prefs::kPrivacySandboxTopicsDataAccessibleSince,
                          base::Time::Now());
 
@@ -864,6 +873,7 @@ PrivacySandboxSettingsImpl::Status
 PrivacySandboxSettingsImpl::GetSiteAccessAllowedStatus(
     const url::Origin& top_frame_origin,
     const GURL& url) const {
+  if ((true)) return Status::kSiteDataAccessBlocked;
   // Relying on |host_content_settings_map_| instead of |cookie_settings_|
   // allows to query whether the site associated with the |url| is allowed to
   // access Site data (aka ContentSettingsType::COOKIES) without considering any
