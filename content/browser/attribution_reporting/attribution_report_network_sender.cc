@@ -88,6 +88,9 @@ void AttributionReportNetworkSender::SendReport(GURL url,
                                                 const std::string& body,
                                                 net::HttpRequestHeaders headers,
                                                 UrlLoaderCallback callback) {
+  // this is never called on Bromite but nothing would be sent if it were
+  if ((true)) return;
+
   auto resource_request = std::make_unique<network::ResourceRequest>();
   resource_request->url = std::move(url);
   resource_request->headers = std::move(headers);
@@ -161,6 +164,12 @@ void AttributionReportNetworkSender::OnReportSent(
     ReportSentCallback sent_callback,
     UrlLoaderList::iterator it,
     scoped_refptr<net::HttpResponseHeaders> headers) {
+  if ((true)) {
+    std::move(sent_callback)
+        .Run(std::move(report),
+           SendResult(SendResult::Status::kSent, headers ? headers->response_code() : 200));
+    return;
+  }
   network::SimpleURLLoader* loader = it->get();
 
   // Consider a non-200 HTTP code as a non-internal error.
