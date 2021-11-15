@@ -202,6 +202,13 @@
 
   data: [
     {
+      // disable by default features by marking as
+      // depends_on: ["DisabledForBromite"]
+      // to work is needed to remove "origin_trial_feature_name"
+      // and "origin_trial_allows_third_party"
+      name: "DisabledForBromite",
+    },
+    {
       name: "AbortSignalAny",
       status: "experimental",
       base_feature: "AbortSignalAny",
