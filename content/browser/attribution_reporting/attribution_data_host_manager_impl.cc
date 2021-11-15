@@ -508,10 +508,16 @@ void AttributionDataHostManagerImpl::ParseSource(
     Registrar registrar) {
   DCHECK(it != registrations_.end());
 
+  if ((true)) {
+    MaybeOnRegistrationsFinished(it);
+    return;
+  }
+
   network::mojom::AttributionSupport attribution_support =
       AttributionManager::GetAttributionSupport(
           content::WebContents::FromRenderFrameHost(
               RenderFrameHost::FromID(it->render_frame_id())));
+
   switch (registrar) {
     case Registrar::kWeb:
       if (!network::HasAttributionWebSupport(attribution_support)) {

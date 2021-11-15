@@ -67,14 +67,14 @@ bool AttributionOsLevelManager::ShouldInitializeApiState() {
   if (g_state.has_value()) {
     return false;
   }
-  g_state.emplace(ApiState::kDisabled);
+  g_state.emplace(ApiState::kDisabled);  // Must be disabled in Cromite
   return true;
 }
 
 // static
 ApiState AttributionOsLevelManager::GetApiState() {
   DCHECK_CALLED_ON_VALID_SEQUENCE(GetSequenceChecker());
-  return g_state.value_or(ApiState::kDisabled);
+  return g_state.value_or(ApiState::kDisabled);  // Must default disabled in Cromite
 }
 
 // static
@@ -82,7 +82,7 @@ void AttributionOsLevelManager::SetApiState(absl::optional<ApiState> state) {
   DCHECK_CALLED_ON_VALID_SEQUENCE(GetSequenceChecker());
 
   ApiState old_state = GetApiState();
-  g_state = state;
+  g_state = ApiState::kDisabled;  // Must only set disabled in Cromite
   ApiState new_state = GetApiState();
 
   base::UmaHistogramEnumeration("Conversions.AttributionOsLevelApiState",
