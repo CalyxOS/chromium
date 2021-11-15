@@ -20,4 +20,5 @@ BASE_FEATURE(kPrivacySandboxAggregationServiceReportPadding,
              "PrivacySandboxAggregationServiceReportPadding",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+SET_CROMITE_FEATURE_DISABLED(kPrivacySandboxAggregationService);
 }  // namespace content
