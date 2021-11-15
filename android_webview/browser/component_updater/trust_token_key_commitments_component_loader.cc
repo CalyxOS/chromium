@@ -20,6 +20,7 @@ namespace android_webview {
 // Tokens is enabled.
 void LoadTrustTokenKeyCommitmentsComponent(
     ComponentLoaderPolicyVector& policies) {
+  if ((true)) return;
   DVLOG(1)
       << "Registering Trust Token Key Commitments component for loading in "
          "embedded WebView.";

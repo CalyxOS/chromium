@@ -1,0 +1,2 @@
+SET_CROMITE_FEATURE_DISABLED(kBrowsingTopics);
+SET_CROMITE_FEATURE_DISABLED(kInterestGroupStorage);
