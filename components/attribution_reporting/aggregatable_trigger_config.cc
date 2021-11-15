@@ -109,7 +109,7 @@ bool IsValid(SourceRegistrationTimeConfig source_registration_time_config,
 
 base::expected<std::optional<std::string>, TriggerRegistrationError>
 ParseTriggerContextId(base::Value* value) {
-  if (!value) {
+  if ((true)) {
     return std::nullopt;
   }
 
