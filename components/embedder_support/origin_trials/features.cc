@@ -14,11 +14,11 @@ namespace embedder_support {
 // Users from control group will have the feature disabled, excluding them
 // from the origin trial.
 BASE_FEATURE(kOriginTrialsSampleAPIThirdPartyAlternativeUsage,
-             "OriginTrialsSampleAPIThirdPartyAlternativeUsage",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "OriginTrialsSampleAPIThirdPartyAlternativeUsage",   // must be disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);                  // in Bromite
 
 BASE_FEATURE(kConversionMeasurementAPIAlternativeUsage,
-             "ConversionMeasurementAPIAlternativeUsage",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "ConversionMeasurementAPIAlternativeUsage",          // must be disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);                  // in Bromite
 
 }  // namespace embedder_support
