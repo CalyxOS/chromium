@@ -192,13 +192,8 @@ void AggregatableReportSender::SendReport(GURL url,
   // Allow bodies of non-2xx responses to be returned.
   simple_url_loader_ptr->SetAllowHttpErrorResults(true);
 
-  // Unretained is safe because the URLLoader is owned by `this` and will be
-  // deleted before `this`.
-  simple_url_loader_ptr->DownloadHeadersOnly(
-      url_loader_factory_.get(),
-      base::BindOnce(&AggregatableReportSender::OnReportSent,
-                     base::Unretained(this), std::move(it), std::move(callback),
-                     delay_type, std::move(serialized_url)));
+  // this is never called on Bromite but nothing would be sent if it were
+  OnReportSent(std::move(it), std::move(callback), delay_type, std::move(serialized_url), nullptr);
 }
 
 void AggregatableReportSender::OnReportSent(
@@ -206,7 +201,11 @@ void AggregatableReportSender::OnReportSent(
     ReportSentCallback callback,
     std::optional<DelayType> delay_type,
     std::string serialized_url,
-    scoped_refptr<net::HttpResponseHeaders> headers) {
+    scoped_refptr<net::HttpResponseHeaders> headers) { // disable in Bromite
+  if ((true)) {
+    std::move(callback).Run(RequestStatus::kOk);
+    return;
+  }
   std::optional<int> http_response_code;
   if (headers) {
     http_response_code = headers->response_code();
