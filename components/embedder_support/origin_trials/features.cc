@@ -21,4 +21,6 @@ BASE_FEATURE(kConversionMeasurementAPIAlternativeUsage,
              "ConversionMeasurementAPIAlternativeUsage",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+SET_CROMITE_FEATURE_DISABLED(kOriginTrialsSampleAPIThirdPartyAlternativeUsage);
+SET_CROMITE_FEATURE_DISABLED(kConversionMeasurementAPIAlternativeUsage);
 }  // namespace embedder_support

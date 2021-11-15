@@ -24,4 +24,5 @@ BASE_FEATURE(kPrivacySandboxAggregationServiceFilteringIds,
              "PrivacySandboxAggregationServiceFilteringIds",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+SET_CROMITE_FEATURE_DISABLED(kPrivacySandboxAggregationService);
 }  // namespace content

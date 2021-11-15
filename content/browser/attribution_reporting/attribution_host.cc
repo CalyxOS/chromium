@@ -258,6 +258,7 @@ void AttributionHost::NotifyNavigationRegistrationData(
     return;
   }
 
+  if ((true)) return;
   auto* attribution_manager =
       AttributionManager::FromWebContents(web_contents());
   DCHECK(attribution_manager);
