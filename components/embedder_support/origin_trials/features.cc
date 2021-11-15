@@ -16,4 +16,5 @@ namespace embedder_support {
 BASE_FEATURE(kOriginTrialsSampleAPIThirdPartyAlternativeUsage,
              "OriginTrialsSampleAPIThirdPartyAlternativeUsage",
              base::FEATURE_ENABLED_BY_DEFAULT);
+SET_CROMITE_FEATURE_DISABLED(kOriginTrialsSampleAPIThirdPartyAlternativeUsage);
 }  // namespace embedder_support
