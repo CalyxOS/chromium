@@ -1288,6 +1288,10 @@ void NetworkContext::ClearTrustTokenData(mojom::ClearDataFilterPtr filter,
 
 void NetworkContext::ClearTrustTokenSessionOnlyData(
     ClearTrustTokenSessionOnlyDataCallback callback) {
+  if (!trust_token_store_) {
+    std::move(callback).Run(false);
+    return;
+  }
   // Only called when Private State Tokens is enabled, i.e.,
   // `trust_token_store_` is non-null.
   DCHECK(trust_token_store_);
@@ -2674,26 +2678,6 @@ URLRequestContextOwner NetworkContext::MakeURLRequestContext(
         network_service_->CreateHttpAuthHandlerFactory(this));
     builder.set_network_quality_estimator(
         network_service_->network_quality_estimator());
-  }
-  trust_token_store_ = std::make_unique<PendingTrustTokenStore>();
-
-  base::FilePath trust_token_path;
-  if (GetFullDataFilePath(
-          params_->file_paths,
-          &network::mojom::NetworkContextFilePaths::trust_token_database_name,
-          trust_token_path)) {
-    SQLiteTrustTokenPersister::CreateForFilePath(
-        base::ThreadPool::CreateSequencedTaskRunner(
-            {base::MayBlock(), kTrustTokenDatabaseTaskPriority,
-             base::TaskShutdownBehavior::BLOCK_SHUTDOWN}),
-        trust_token_path, kTrustTokenWriteBufferingWindow,
-        base::BindOnce(&NetworkContext::FinishConstructingTrustTokenStore,
-                       weak_factory_.GetWeakPtr()));
-  } else {
-    trust_token_store_->OnStoreReady(std::make_unique<TrustTokenStore>(
-        std::make_unique<InMemoryTrustTokenPersister>(),
-        std::make_unique<ExpiryInspectingRecordExpiryDelegate>(
-            network_service()->trust_token_key_commitments())));
   }
 
   std::unique_ptr<net::StaticHttpUserAgentSettings> user_agent_settings =
