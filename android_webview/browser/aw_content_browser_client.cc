@@ -1296,6 +1296,7 @@ network::mojom::AttributionSupport
 AwContentBrowserClient::GetAttributionSupport(
     AttributionReportingOsApiState state,
     bool client_os_disabled) {
+  if ((true)) return network::mojom::AttributionSupport::kNone;
   // WebView only supports OS-level attribution and not web-attribution.
   switch (state) {
     case AttributionReportingOsApiState::kDisabled:
@@ -1314,6 +1315,8 @@ bool AwContentBrowserClient::IsAttributionReportingOperationAllowed(
     const url::Origin* destination_origin,
     const url::Origin* reporting_origin,
     bool* can_bypass) {
+  if ((true))
+    return false;
   AwBrowserContext* aw_context =
       static_cast<AwBrowserContext*>(browser_context);
   // WebView only supports OS-level attribution and not web-attribution.
