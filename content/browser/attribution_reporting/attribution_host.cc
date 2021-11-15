@@ -186,6 +186,7 @@ void AttributionHost::DidRedirectNavigation(
   const auto impression = navigation_handle->GetImpression();
   DCHECK(impression.has_value());
 
+  if ((true)) return;
   auto* attribution_manager =
       AttributionManager::FromWebContents(web_contents());
   DCHECK(attribution_manager);
