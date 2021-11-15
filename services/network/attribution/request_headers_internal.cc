@@ -189,6 +189,7 @@ std::string SerializeAttributionReportingEligibleHeader(
 std::string GetAttributionSupportHeader(
     mojom::AttributionSupport attribution_support,
     const AttributionReportingHeaderGreaseOptions& options) {
+  if ((true)) return "";
   std::vector<net::structured_headers::DictionaryMember> registrars;
 
   const char* grease1;
