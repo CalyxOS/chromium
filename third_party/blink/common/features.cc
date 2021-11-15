@@ -543,8 +543,8 @@ BASE_FEATURE(kContentCaptureConstantStreaming,
 
 // Controls whether the Conversion Measurement API infrastructure is enabled.
 BASE_FEATURE(kConversionMeasurement,
-             "ConversionMeasurement",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "ConversionMeasurement",                 // must be disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);      // in Bromite
 
 BASE_FEATURE(kCorrectFloatExtensionTestForWebGL,
              "CorrectFloatExtensionTestForWebGL",
@@ -1352,16 +1352,16 @@ const base::FeatureParam<bool> kPrewarmFantasy = {&kPrewarmDefaultFontFamilies,
                                                   "prewarm_fantasy", false};
 #endif
 
-BASE_FEATURE(kPrivacySandboxAdsAPIs,
-             "PrivacySandboxAdsAPIs",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+BASE_FEATURE(kPrivacySandboxAdsAPIs,                // disabled
+             "PrivacySandboxAdsAPIs",               // by default
+             base::FEATURE_DISABLED_BY_DEFAULT);    // in bromite
 
 // Enables the Private Aggregation API. Note that this API also requires the
 // `kPrivacySandboxAggregationService` to be enabled to successfully send
 // reports.
 BASE_FEATURE(kPrivateAggregationApi,
-             "PrivateAggregationApi",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "PrivateAggregationApi",               // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);    // in bromite
 
 // Selectively allows the JavaScript API to be disabled in just one of the
 // contexts. The Protected Audience param's name has not been updated (from
