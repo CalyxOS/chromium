@@ -9888,6 +9888,7 @@ bool RenderFrameHostImpl::IsFencedFrameReportingFromRendererAllowed(
     return false;
   }
 
+  if ((true)) return false;
   if (!IsActive()) {
     // reportEvent is not allowed when this RenderFrameHost or one of its
     // ancestors is not active.
@@ -13638,6 +13639,16 @@ void RenderFrameHostImpl::BindTrustTokenQueryAnswerer(
     mojo::ReportBadMessage(
         "Attempted to get a TrustTokenQueryAnswerer for a non-trustworthy or "
         "non-HTTP/HTTPS top-frame origin.");
+    return;
+  }
+
+  // flags are enforced in benign renderers by the
+  // RuntimeEnabled=PrivateStateTokens IDL attribute (the base::Feature's value
+  // is tied to the RuntimeEnabledFeature's).
+  if ((false)) {
+    mojo::ReportBadMessage(
+        "Attempted to get a TrustTokenQueryAnswerer with Private State Tokens "
+        "disabled.");
     return;
   }
 
