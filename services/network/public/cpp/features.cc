@@ -151,9 +151,9 @@ BASE_FEATURE(kAttributionReportingReportVerification,
 
 // Gate access to Attribution Reporting cross app and web APIs that allow
 // registering with a native attribution API.
-BASE_FEATURE(kAttributionReportingCrossAppWeb,
-             "AttributionReportingCrossAppWeb",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+BASE_FEATURE(kAttributionReportingCrossAppWeb,    // in bromite
+             "AttributionReportingCrossAppWeb",   // disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);  // by default
 
 // Enables preprocessing requests with the Private State Tokens API Fetch flags
 // set, and handling their responses, according to the protocol.
