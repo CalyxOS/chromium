@@ -507,6 +507,8 @@ void AssignSourceForDeactivationOrDeletion(
   }
 }
 
+bool g_run_in_memory = true;
+
 }  // namespace
 
 // static
@@ -529,9 +531,9 @@ bool AttributionStorageSql::Transaction::Commit() {
 AttributionStorageSql::AttributionStorageSql(
     const base::FilePath& user_data_directory,
     AttributionResolverDelegate* delegate)
-    : path_to_database_(user_data_directory.empty()
-                            ? base::FilePath()
-                            : DatabasePath(user_data_directory)),
+    : path_to_database_(user_data_directory.empty() || g_run_in_memory
+                             ? base::FilePath()
+                             : DatabasePath(user_data_directory)),
       db_(sql::DatabaseOptions{.page_size = 4096, .cache_size = 32}),
       delegate_(delegate),
       rate_limit_table_(delegate_),
