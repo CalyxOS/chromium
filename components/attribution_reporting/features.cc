@@ -17,4 +17,5 @@ BASE_FEATURE(kAttributionAggregatableDebugReporting,
              "AttributionAggregatableDebugReporting",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+SET_CROMITE_FEATURE_DISABLED(kConversionMeasurement);
 }  // namespace attribution_reporting::features
