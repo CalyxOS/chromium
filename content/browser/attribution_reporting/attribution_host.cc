@@ -168,6 +168,7 @@ void AttributionHost::DidRedirectNavigation(
     return;
   }
 
+  if ((true)) return;
   AttributionManager* attribution_manager =
       AttributionManager::FromWebContents(web_contents());
   if (!attribution_manager)
