@@ -758,11 +758,9 @@ class AttributionDataHostManagerImpl::PendingRegistrationData {
         headers->GetNormalizedHeader(
             attribution_reporting::kAttributionReportingRegisterTriggerHeader);
 
-    std::optional<std::string> os_source_header = headers->GetNormalizedHeader(
-        attribution_reporting::kAttributionReportingRegisterOsSourceHeader);
+    std::optional<std::string> os_source_header;
 
-    std::optional<std::string> os_trigger_header = headers->GetNormalizedHeader(
-        attribution_reporting::kAttributionReportingRegisterOsTriggerHeader);
+    std::optional<std::string> os_trigger_header;
 
     const bool has_source =
         web_source_header.has_value() || os_source_header.has_value();
@@ -1121,6 +1119,8 @@ void AttributionDataHostManagerImpl::ParseHeader(
     Registrations& registrations,
     HeaderPendingDecode pending_decode,
     Registrar registrar) {
+  if ((true)) return;
+
   switch (registrations.eligibility()) {
     case RegistrationEligibility::kSourceOrTrigger:
       break;

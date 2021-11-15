@@ -209,8 +209,6 @@ struct AttributionSrcLoader::AttributionHeaders {
                      uint64_t request_id)
       : web_source(map.Get(http_names::kAttributionReportingRegisterSource)),
         web_trigger(map.Get(http_names::kAttributionReportingRegisterTrigger)),
-        os_source(map.Get(http_names::kAttributionReportingRegisterOSSource)),
-        os_trigger(map.Get(http_names::kAttributionReportingRegisterOSTrigger)),
         request_url(request_url),
         request_id(request_id) {}
 

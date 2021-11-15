@@ -525,9 +525,6 @@ RenderViewContextMenuBase::GetOpenURLParamsWithExtraHeaders(
 
   open_url_params.source_site_instance = site_instance_;
 
-  if (disposition != WindowOpenDisposition::OFF_THE_RECORD)
-    open_url_params.impression = params_.impression;
-
   return open_url_params;
 }
 
