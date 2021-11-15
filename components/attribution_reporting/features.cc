@@ -29,4 +29,5 @@ BASE_FEATURE(kAttributionScopes,
              "AttributionScopes",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+SET_CROMITE_FEATURE_DISABLED(kConversionMeasurement);
 }  // namespace attribution_reporting::features
