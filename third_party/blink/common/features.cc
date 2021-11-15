@@ -121,8 +121,8 @@ BASE_FEATURE(kBlockingDownloadsInAdFrameWithoutUserActivation,
 
 // Controls whether the Conversion Measurement API infrastructure is enabled.
 BASE_FEATURE(kConversionMeasurement,
-             "ConversionMeasurement",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "ConversionMeasurement",                 // must be disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);      // in Bromite
 
 // Controls whether LCP calculations should exclude low-entropy images. If
 // enabled, then the associated parameter sets the cutoff, expressed as the
