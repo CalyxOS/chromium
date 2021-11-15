@@ -12,17 +12,6 @@ import android.os.Process;
 import android.view.MotionEvent;
 
 import androidx.annotation.IntDef;
-import androidx.privacysandbox.ads.adservices.java.measurement.MeasurementManagerFutures;
-import androidx.privacysandbox.ads.adservices.measurement.DeletionRequest;
-import androidx.privacysandbox.ads.adservices.measurement.WebSourceParams;
-import androidx.privacysandbox.ads.adservices.measurement.WebSourceRegistrationRequest;
-import androidx.privacysandbox.ads.adservices.measurement.WebTriggerParams;
-import androidx.privacysandbox.ads.adservices.measurement.WebTriggerRegistrationRequest;
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
 
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
@@ -52,6 +41,8 @@ import java.util.concurrent.TimeoutException;
  */
 @JNINamespace("content")
 public class AttributionOsLevelManager {
+    private class MeasurementManagerFutures {}
+
     private static final String TAG = "AttributionManager";
     // TODO: replace with constant in android.Manifest.permission once it becomes available in U.
     private static final String PERMISSION_ACCESS_ADSERVICES_ATTRIBUTION =
@@ -116,7 +107,7 @@ public class AttributionOsLevelManager {
     }
 
     private static boolean supportsAttribution() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.R;
+        return false;
     }
 
     private static @OperationResult int convertToOperationResult(Throwable thrown) {
@@ -180,22 +171,7 @@ public class AttributionOsLevelManager {
     }
 
     private MeasurementManagerFutures getManager() {
-        if (!supportsAttribution()) {
-            return null;
-        }
-        if (sManagerForTesting != null) {
-            return sManagerForTesting;
-        }
-        if (mManager != null) {
-            return mManager;
-        }
-        try {
-            mManager = MeasurementManagerFutures.from(ContextUtils.getApplicationContext());
-        } catch (Throwable t) {
-            // An error may be thrown if android.ext.adservices is not loaded.
-            Log.i(TAG, "Failed to get measurement manager", t);
-        }
-        return mManager;
+        return null;
     }
 
     private void onRegistrationCompleted(
@@ -207,28 +183,6 @@ public class AttributionOsLevelManager {
                     .onRegistrationCompleted(
                             mNativePtr, requestId, result == OperationResult.SUCCESS);
         }
-    }
-
-    private void addRegistrationFutureCallback(
-            int requestId, @OperationType int type, ListenableFuture<?> future) {
-        if (!supportsAttribution()) {
-            return;
-        }
-        Futures.addCallback(
-                future,
-                new FutureCallback<Object>() {
-                    @Override
-                    public void onSuccess(Object result) {
-                        onRegistrationCompleted(requestId, type, OperationResult.SUCCESS);
-                    }
-
-                    @Override
-                    public void onFailure(Throwable thrown) {
-                        Log.w(TAG, "Failed to register", thrown);
-                        onRegistrationCompleted(requestId, type, convertToOperationResult(thrown));
-                    }
-                },
-                ContextUtils.getApplicationContext().getMainExecutor());
     }
 
     /**
@@ -249,25 +203,6 @@ public class AttributionOsLevelManager {
                     OperationResult.ERROR_VERSION_UNSUPPORTED);
             return;
         }
-        MeasurementManagerFutures mm = getManager();
-        if (mm == null) {
-            onRegistrationCompleted(
-                    requestId, OperationType.REGISTER_WEB_SOURCE, OperationResult.ERROR_INTERNAL);
-            return;
-        }
-        ListenableFuture<?> future =
-                mm.registerWebSourceAsync(
-                        new WebSourceRegistrationRequest(
-                                Arrays.asList(
-                                        new WebSourceParams(
-                                                Uri.parse(registrationUrl.getSpec()),
-                                                isDebugKeyAllowed)),
-                                Uri.parse(topLevelOrigin.getSpec()),
-                                /* inputEvent= */ event,
-                                /* appDestination= */ null,
-                                /* webDestination= */ null,
-                                /* verifiedDestination= */ null));
-        addRegistrationFutureCallback(requestId, OperationType.REGISTER_WEB_SOURCE, future);
     }
 
     /**
@@ -283,15 +218,6 @@ public class AttributionOsLevelManager {
                     OperationResult.ERROR_VERSION_UNSUPPORTED);
             return;
         }
-        MeasurementManagerFutures mm = getManager();
-        if (mm == null) {
-            onRegistrationCompleted(
-                    requestId, OperationType.REGISTER_SOURCE, OperationResult.ERROR_INTERNAL);
-            return;
-        }
-        ListenableFuture<?> future =
-                mm.registerSourceAsync(Uri.parse(registrationUrl.getSpec()), event);
-        addRegistrationFutureCallback(requestId, OperationType.REGISTER_SOURCE, future);
     }
 
     /**
@@ -308,22 +234,6 @@ public class AttributionOsLevelManager {
                     OperationResult.ERROR_VERSION_UNSUPPORTED);
             return;
         }
-
-        MeasurementManagerFutures mm = getManager();
-        if (mm == null) {
-            onRegistrationCompleted(
-                    requestId, OperationType.REGISTER_WEB_TRIGGER, OperationResult.ERROR_INTERNAL);
-            return;
-        }
-        ListenableFuture<?> future =
-                mm.registerWebTriggerAsync(
-                        new WebTriggerRegistrationRequest(
-                                Arrays.asList(
-                                        new WebTriggerParams(
-                                                Uri.parse(registrationUrl.getSpec()),
-                                                isDebugKeyAllowed)),
-                                Uri.parse(topLevelOrigin.getSpec())));
-        addRegistrationFutureCallback(requestId, OperationType.REGISTER_WEB_TRIGGER, future);
     }
 
     /**
@@ -339,15 +249,6 @@ public class AttributionOsLevelManager {
                     OperationResult.ERROR_VERSION_UNSUPPORTED);
             return;
         }
-
-        MeasurementManagerFutures mm = getManager();
-        if (mm == null) {
-            onRegistrationCompleted(
-                    requestId, OperationType.REGISTER_TRIGGER, OperationResult.ERROR_INTERNAL);
-            return;
-        }
-        ListenableFuture<?> future = mm.registerTriggerAsync(Uri.parse(registrationUrl.getSpec()));
-        addRegistrationFutureCallback(requestId, OperationType.REGISTER_TRIGGER, future);
     }
 
     private void onDataDeletionCompleted(int requestId) {
@@ -382,96 +283,7 @@ public class AttributionOsLevelManager {
             onDataDeletionCompleted(requestId);
             return;
         }
-
-        // Currently Android and Chromium have different matching behaviors when both
-        // `origins` and `domains` are empty.
-        // Chromium: Delete -> Delete nothing; Preserve -> Delete all.
-        // Android: Delete -> Delete all; Preserve -> Delete nothing.
-        // Android may fix the behavior in the future. As a workaround, Chromium will
-        // not call Android if it's to delete nothing (no-op), and call Android with
-        // both Delete and Preserve modes if it's to delete all. These two modes will
-        // be one no-op and one delete all in Android releases with and without the
-        // fix. See crbug.com/1442967.
-
-        ImmutableList<Integer> matchBehaviors = null;
-
-        if (origins.length == 0 && domains.length == 0) {
-            switch (matchBehavior) {
-                case DeletionRequest.MATCH_BEHAVIOR_DELETE:
-                    recordOperationResult(
-                            OperationType.DELETE_REGISTRATIONS, OperationResult.SUCCESS);
-                    onDataDeletionCompleted(requestId);
-                    return;
-                case DeletionRequest.MATCH_BEHAVIOR_PRESERVE:
-                    matchBehaviors =
-                            ImmutableList.of(
-                                    DeletionRequest.MATCH_BEHAVIOR_DELETE,
-                                    DeletionRequest.MATCH_BEHAVIOR_PRESERVE);
-                    break;
-                default:
-                    Log.e(TAG, "Received invalid match behavior: ", matchBehavior);
-                    recordOperationResult(
-                            OperationType.DELETE_REGISTRATIONS, OperationResult.ERROR_UNKNOWN);
-                    onDataDeletionCompleted(requestId);
-                    return;
-            }
-        } else {
-            matchBehaviors = ImmutableList.of(matchBehavior);
-        }
-
-        ArrayList<Uri> originUris = new ArrayList<Uri>(origins.length);
-        for (GURL origin : origins) {
-            originUris.add(Uri.parse(origin.getSpec()));
-        }
-
-        ArrayList<Uri> domainUris = new ArrayList<Uri>(domains.length);
-        for (String domain : domains) {
-            domainUris.add(Uri.parse(domain));
-        }
-
-        int numCalls = matchBehaviors.size();
-
-        FutureCallback<Object> callback =
-                new FutureCallback<Object>() {
-                    private int mNumPendingCalls = numCalls;
-
-                    private void onCall() {
-                        if (--mNumPendingCalls == 0) {
-                            onDataDeletionCompleted(requestId);
-                        }
-                    }
-
-                    @Override
-                    public void onSuccess(Object result) {
-                        recordOperationResult(
-                                OperationType.DELETE_REGISTRATIONS, OperationResult.SUCCESS);
-                        onCall();
-                    }
-
-                    @Override
-                    public void onFailure(Throwable thrown) {
-                        Log.w(TAG, "Failed to delete measurement API data", thrown);
-                        recordOperationResult(
-                                OperationType.DELETE_REGISTRATIONS,
-                                convertToOperationResult(thrown));
-                        onCall();
-                    }
-                };
-
-        for (int currMatchBehavior : matchBehaviors) {
-            ListenableFuture<?> future =
-                    mm.deleteRegistrationsAsync(
-                            new DeletionRequest(
-                                    deletionMode,
-                                    currMatchBehavior,
-                                    Instant.ofEpochMilli(startMs),
-                                    Instant.ofEpochMilli(endMs),
-                                    originUris,
-                                    domainUris));
-
-            Futures.addCallback(
-                    future, callback, ContextUtils.getApplicationContext().getMainExecutor());
-        }
+        onDataDeletionCompleted(requestId);
     }
 
     private static void onMeasurementStateReturned(int status, @OperationResult int result) {
@@ -487,6 +299,10 @@ public class AttributionOsLevelManager {
     private static void getMeasurementApiStatus() {
         ThreadUtils.assertOnBackgroundThread();
 
+        if ((true)) {
+            AttributionOsLevelManagerJni.get().onMeasurementStateReturned(0);
+            return;
+        }
         if (sManagerForTesting != null) {
             AttributionOsLevelManagerJni.get().onMeasurementStateReturned(1);
             return;
@@ -506,49 +322,6 @@ public class AttributionOsLevelManager {
             onMeasurementStateReturned(/* status= */ 0, OperationResult.ERROR_PERMISSION_UNGRANTED);
             return;
         }
-        MeasurementManagerFutures mm = null;
-        try {
-            mm = MeasurementManagerFutures.from(ContextUtils.getApplicationContext());
-        } catch (Throwable t) {
-            // An error may be thrown if android.ext.adservices is not loaded.
-            Log.i(TAG, "Failed to get measurement manager", t);
-        }
-
-        if (mm == null) {
-            onMeasurementStateReturned(/* status= */ 0, OperationResult.ERROR_INTERNAL);
-            return;
-        }
-
-        ListenableFuture<Integer> future = null;
-        try {
-            future = mm.getMeasurementApiStatusAsync();
-        } catch (IllegalStateException ex) {
-            // An illegal state exception may be thrown for some versions of the underlying
-            // Privacy Sandbox SDK.
-            Log.i(TAG, "Failed to get measurement API status", ex);
-        }
-
-        if (future == null) {
-            onMeasurementStateReturned(/* status= */ 0, OperationResult.ERROR_INTERNAL);
-            return;
-        }
-
-        Futures.addCallback(
-                future,
-                new FutureCallback<Integer>() {
-                    @Override
-                    public void onSuccess(Integer status) {
-                        onMeasurementStateReturned(status, OperationResult.SUCCESS);
-                    }
-
-                    @Override
-                    public void onFailure(Throwable thrown) {
-                        Log.w(TAG, "Failed to get measurement API status", thrown);
-                        onMeasurementStateReturned(
-                                /* status= */ 0, convertToOperationResult(thrown));
-                    }
-                },
-                ContextUtils.getApplicationContext().getMainExecutor());
     }
 
     @CalledByNative
