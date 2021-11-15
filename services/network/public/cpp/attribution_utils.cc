@@ -9,6 +9,7 @@
 namespace network {
 
 bool HasAttributionOsSupport(mojom::AttributionSupport attribution_support) {
+  if ((true)) return false;
   switch (attribution_support) {
     case mojom::AttributionSupport::kOs:
     case mojom::AttributionSupport::kWebAndOs:
@@ -20,6 +21,7 @@ bool HasAttributionOsSupport(mojom::AttributionSupport attribution_support) {
 }
 
 bool HasAttributionWebSupport(mojom::AttributionSupport attribution_support) {
+  if ((true)) return false;
   switch (attribution_support) {
     case mojom::AttributionSupport::kWeb:
     case mojom::AttributionSupport::kWebAndOs:
