@@ -677,8 +677,8 @@ BASE_FEATURE(kPrefetchNewLimits,
 // FLEDGE, Topics, along with a number of other features actively in development
 // within these APIs.
 BASE_FEATURE(kPrivacySandboxAdsAPIsOverride,
-             "PrivacySandboxAdsAPIsOverride",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "PrivacySandboxAdsAPIsOverride",       // must be disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);    // in bromite
 
 // Enables Private Network Access checks for all types of web workers.
 //

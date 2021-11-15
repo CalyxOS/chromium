@@ -36,14 +36,14 @@ BASE_FEATURE(kAcceleratedStaticBitmapImageSerialization,
 
 // Enable the Protected Audience's reporting with ad macro API.
 BASE_FEATURE(kAdAuctionReportingWithMacroApi,
-             "AdAuctionReportingWithMacroApi",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "AdAuctionReportingWithMacroApi",   // disabled
+             base::FEATURE_DISABLED_BY_DEFAULT); // by default
 
 // Controls the capturing of the Ad-Auction-Signals header, and the maximum
 // allowed Ad-Auction-Signals header value.
 BASE_FEATURE(kAdAuctionSignals,
-             "AdAuctionSignals",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "AdAuctionSignals",                 // disabled
+             base::FEATURE_DISABLED_BY_DEFAULT); // by default
 const base::FeatureParam<int> kAdAuctionSignalsMaxSizeBytes{
     &kAdAuctionSignals, "ad-auction-signals-max-size-bytes", 10000};
 
@@ -315,8 +315,8 @@ const base::FeatureParam<int> kBoostImagePriorityTightMediumLimit{
 // https://github.com/patcg-individual-drafts/topics
 // Kill switch for the Topics API.
 BASE_FEATURE(kBrowsingTopics,
-             "BrowsingTopics",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "BrowsingTopics",                      // disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);    // by default
 
 // If enabled, the check for whether the IP address is publicly routable will be
 // bypassed when determining the eligibility for a page to be included in topics
@@ -331,14 +331,14 @@ BASE_FEATURE(kBrowsingTopicsBypassIPIsPubliclyRoutableCheck,
 // either a valid Origin Trial token exists or `kPrivacySandboxAdsAPIsOverride`
 // is enabled.)
 BASE_FEATURE(kBrowsingTopicsDocumentAPI,
-             "BrowsingTopicsDocumentAPI",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "BrowsingTopicsDocumentAPI",           // disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);    // by default
 
 // Decoupled with the main `kBrowsingTopics` feature, so it allows us to
 // decouple the server side configs.
 BASE_FEATURE(kBrowsingTopicsParameters,
-             "BrowsingTopicsParameters",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "BrowsingTopicsParameters",            // disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);    // by default
 // The number of epochs from where to calculate the topics to give to a
 // requesting contexts.
 const base::FeatureParam<int> kBrowsingTopicsNumberOfEpochsToExpose{
@@ -839,8 +839,8 @@ BASE_FEATURE(kFledge, "Fledge", base::FEATURE_DISABLED_BY_DEFAULT);
 // See
 // https://github.com/WICG/turtledove/blob/main/FLEDGE_browser_bidding_and_auction_API.md
 BASE_FEATURE(kFledgeBiddingAndAuctionServer,
-             "FledgeBiddingAndAuctionServer",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "FledgeBiddingAndAuctionServer",       // disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);    // by default
 const base::FeatureParam<std::string> kFledgeBiddingAndAuctionKeyURL{
     &kFledgeBiddingAndAuctionServer, "FledgeBiddingAndAuctionKeyURL", ""};
 const base::FeatureParam<std::string> kFledgeBiddingAndAuctionKeyConfig{
@@ -1007,8 +1007,8 @@ const char kIntensiveWakeUpThrottling_GracePeriodSeconds_Name[] =
 // Kill switch for the Interest Group API, i.e. if disabled, the
 // API exposure will be disabled regardless of the OT config.
 BASE_FEATURE(kInterestGroupStorage,
-             "InterestGroupStorage",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "InterestGroupStorage",              // disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);  // by default
 // TODO(crbug.com/1197209): Adjust these limits in response to usage.
 const base::FeatureParam<int> kInterestGroupStorageMaxOwners{
     &kInterestGroupStorage, "max_owners", 1000};
@@ -1458,16 +1458,16 @@ const base::FeatureParam<bool> kPrewarmFantasy = {&kPrewarmDefaultFontFamilies,
                                                   "prewarm_fantasy", false};
 #endif
 
-BASE_FEATURE(kPrivacySandboxAdsAPIs,
-             "PrivacySandboxAdsAPIs",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+BASE_FEATURE(kPrivacySandboxAdsAPIs,                // disabled
+             "PrivacySandboxAdsAPIs",               // by default
+             base::FEATURE_DISABLED_BY_DEFAULT);    // in bromite
 
 // Enables the Private Aggregation API. Note that this API also requires the
 // `kPrivacySandboxAggregationService` to be enabled to successfully send
 // reports.
 BASE_FEATURE(kPrivateAggregationApi,
-             "PrivateAggregationApi",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "PrivateAggregationApi",               // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);    // in bromite
 
 // Selectively allows the JavaScript API to be disabled in just one of the
 // contexts. The Protected Audience param's name has not been updated (from
