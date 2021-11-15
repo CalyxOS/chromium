@@ -46,6 +46,7 @@ absl::optional<ApiState> g_state GUARDED_BY_CONTEXT(GetSequenceChecker());
 // static
 bool AttributionOsLevelManager::ShouldUseOsWebSource(
     GlobalRenderFrameHostId render_frame_id) {
+  if ((true)) return false;
   return GetContentClient()
       ->browser()
       ->ShouldUseOsWebSourceAttributionReporting(
@@ -74,7 +75,7 @@ bool AttributionOsLevelManager::ShouldInitializeApiState() {
 // static
 ApiState AttributionOsLevelManager::GetApiState() {
   DCHECK_CALLED_ON_VALID_SEQUENCE(GetSequenceChecker());
-  return g_state.value_or(ApiState::kDisabled);
+  return ApiState::kDisabled;
 }
 
 // static

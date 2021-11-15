@@ -1216,6 +1216,7 @@ network::mojom::AttributionSupport
 AwContentBrowserClient::GetAttributionSupport(
     AttributionReportingOsApiState state,
     content::WebContents* web_contents) {
+  if ((true)) return network::mojom::AttributionSupport::kNone;
   AwSettings* aw_settings = AwSettings::FromWebContents(web_contents);
   if (aw_settings && aw_settings->GetAttributionBehavior() ==
                          AwSettings::AttributionBehavior::DISABLED) {
