@@ -581,6 +581,7 @@ void ContentBrowserClient::OnAuctionComplete(
 network::mojom::AttributionSupport ContentBrowserClient::GetAttributionSupport(
     AttributionReportingOsApiState state,
     bool client_os_disabled) {
+  if ((true)) return network::mojom::AttributionSupport::kNone;
   switch (state) {
     case AttributionReportingOsApiState::kDisabled:
       return network::mojom::AttributionSupport::kWeb;
@@ -598,13 +599,13 @@ bool ContentBrowserClient::IsAttributionReportingOperationAllowed(
     const url::Origin* destination_origin,
     const url::Origin* reporting_origin,
     bool* can_bypass) {
-  return true;
+  return false;
 }
 
 ContentBrowserClient::AttributionReportingOsRegistrars
 ContentBrowserClient::GetAttributionReportingOsRegistrars(
     WebContents* web_contents) {
-  return {AttributionReportType::kWeb, AttributionReportType::kWeb};
+  return {AttributionReportType::kDisabled, AttributionReportType::kDisabled};
 }
 
 bool ContentBrowserClient::IsAttributionReportingAllowedForContext(
@@ -612,7 +613,7 @@ bool ContentBrowserClient::IsAttributionReportingAllowedForContext(
     content::RenderFrameHost* rfh,
     const url::Origin& context_origin,
     const url::Origin& reporting_origin) {
-  return true;
+  return false;
 }
 
 bool ContentBrowserClient::IsSharedStorageAllowed(
