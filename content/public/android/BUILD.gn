@@ -201,8 +201,6 @@ android_library("content_full_java") {
     "//third_party/androidx:androidx_appcompat_appcompat_resources_java",
     "//third_party/androidx:androidx_collection_collection_java",
     "//third_party/androidx:androidx_core_core_java",
-    "//third_party/androidx:androidx_privacysandbox_ads_ads_adservices_java",
-    "//third_party/androidx:androidx_privacysandbox_ads_ads_adservices_java_java",
     "//third_party/androidx/local_modifications/window:window_util_java",
     "//third_party/blink/public:blink_headers_java",
     "//third_party/blink/public/common:common_java",

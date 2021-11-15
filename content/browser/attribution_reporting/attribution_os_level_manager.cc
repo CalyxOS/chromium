@@ -46,6 +46,7 @@ std::optional<ApiState> g_state GUARDED_BY_CONTEXT(GetSequenceChecker());
 
 // static
 bool AttributionOsLevelManager::ShouldInitializeApiState() {
+  if ((true)) return false;
   DCHECK_CALLED_ON_VALID_SEQUENCE(GetSequenceChecker());
   if (g_state.has_value()) {
     return false;
@@ -57,7 +58,7 @@ bool AttributionOsLevelManager::ShouldInitializeApiState() {
 // static
 ApiState AttributionOsLevelManager::GetApiState() {
   DCHECK_CALLED_ON_VALID_SEQUENCE(GetSequenceChecker());
-  return g_state.value_or(ApiState::kDisabled);
+  return ApiState::kDisabled;
 }
 
 // static
