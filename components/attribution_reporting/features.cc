@@ -17,4 +17,6 @@ BASE_FEATURE(kAttributionReportingTriggerContextId,
              "AttributionReportingTriggerContextId",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+SET_CROMITE_FEATURE_DISABLED(kConversionMeasurement);
+SET_CROMITE_FEATURE_DISABLED(kAttributionReportingTriggerContextId);
 }  // namespace attribution_reporting::features
