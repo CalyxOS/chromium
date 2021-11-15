@@ -1824,7 +1824,7 @@ RenderThreadImpl::GetOsSupportForAttributionReporting() {
 
 void RenderThreadImpl::SetOsSupportForAttributionReporting(
     blink::mojom::AttributionOsSupport attribution_os_support) {
-  attribution_os_support_ = attribution_os_support;
+  attribution_os_support_ = blink::mojom::AttributionOsSupport::kDisabled;
 }
 
 }  // namespace content
