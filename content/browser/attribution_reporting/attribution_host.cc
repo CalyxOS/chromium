@@ -185,6 +185,7 @@ void AttributionHost::DidStartNavigation(NavigationHandle* navigation_handle) {
 
   const NavigationInfo& navigation_info = it->second;
 
+  if ((true)) return;
   auto* attribution_manager =
       AttributionManager::FromWebContents(web_contents());
   DCHECK(attribution_manager);
