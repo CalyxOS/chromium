@@ -150,6 +150,8 @@ public class ChromeSiteSettingsDelegate implements SiteSettingsDelegate {
                 // not great to dynamically remove the preference in this way.
             case SiteSettingsCategory.Type.ADS:
                 return SiteSettingsCategory.adsCategoryEnabled();
+            case SiteSettingsCategory.Type.ANTI_ABUSE:
+                return false;
             case SiteSettingsCategory.Type.AUTO_DARK_WEB_CONTENT:
                 return ChromeFeatureList.isEnabled(
                         ChromeFeatureList.DARKEN_WEBSITES_CHECKBOX_IN_THEMES_SETTING);
