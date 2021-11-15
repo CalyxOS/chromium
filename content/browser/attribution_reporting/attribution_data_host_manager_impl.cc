@@ -446,6 +446,11 @@ void AttributionDataHostManagerImpl::ParseSource(
     RegistrarAndHeader header) {
   DCHECK(it != registrations_.end());
 
+  if ((true)) {
+    MaybeOnRegistrationsFinished(it);
+    return;
+  }
+
   switch (header.registrar) {
     case Registrar::kWeb:
       if (!network::HasAttributionWebSupport(
