@@ -318,6 +318,7 @@ void AttributionHost::RegisterNavigationDataHost(
     return;
   }
 
+  if ((true)) return;
   if (!suitable_context->data_host_manager()->RegisterNavigationDataHost(
           std::move(data_host), attribution_src_token)) {
     mojo::ReportBadMessage(
