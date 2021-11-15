@@ -552,11 +552,7 @@ bool IsOperationAllowed(
 }
 
 std::unique_ptr<AttributionOsLevelManager> CreateOsLevelManager() {
-#if BUILDFLAG(IS_ANDROID)
-  return std::make_unique<AttributionOsLevelManagerAndroid>();
-#else
   return std::make_unique<NoOpAttributionOsLevelManager>();
-#endif
 }
 
 // Returns new report time if any.

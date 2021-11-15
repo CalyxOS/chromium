@@ -286,8 +286,8 @@
     },
     {
       // Interest Group JS API/runtimeflag.
-      name: "AdInterestGroupAPI",
-      status: "stable",
+      name: "AdInterestGroupAPI", // keep disabled
+      status: "experimental",     // keep disabled
       origin_trial_feature_name: "AdInterestGroupAPI",
       implied_by: ["Fledge", "Parakeet"],
       public: true,
@@ -458,8 +458,8 @@
       name: "AtomicMoveRangePreservation",
     },
     {
-      name: "AttributionReporting",
-      status: "stable",
+      name: "AttributionReporting", // keep disabled
+      status: "experimental",       // keep disabled
       base_feature: "none",
       public: true,
     },
@@ -3478,8 +3478,8 @@
       base_feature: "none",
     },
     {
-      name: "PrivateStateTokens",
-      status: "stable",
+      name: "PrivateStateTokens", // disabled
+      status: "experimental",     // by default
       base_feature: "none",
       public: true,
     },
@@ -4450,16 +4450,16 @@
       status: "experimental",
     },
     {
-      name: "TopicsAPI",
+      name: "TopicsAPI",       // keep disabled
+      status: "experimental",  // keep disabled
       base_feature: "none",
       public: true,
-      status: "stable",
     },
     {
-      name: "TopicsDocumentAPI",
+      name: "TopicsDocumentAPI", // keep disabled
+      status: "experimental",    // keep disabled
       base_feature: "none",
       public: true,
-      status: "stable",
     },
     {
       // This feature allows calling the Topics API via an image
