@@ -591,6 +591,8 @@ base::FilePath DatabasePath(const base::FilePath& user_data_directory) {
   return user_data_directory.Append(kDatabasePath);
 }
 
+bool g_run_in_memory = true;
+
 }  // namespace
 
 // static
@@ -602,7 +604,7 @@ bool AttributionStorageSql::DeleteStorageForTesting(
 AttributionStorageSql::AttributionStorageSql(
     const base::FilePath& user_data_directory,
     std::unique_ptr<AttributionStorageDelegate> delegate)
-    : path_to_database_(user_data_directory.empty()
+    : path_to_database_(user_data_directory.empty() || g_run_in_memory
                             ? base::FilePath()
                             : DatabasePath(user_data_directory)),
       db_(sql::DatabaseOptions{.exclusive_locking = true,
