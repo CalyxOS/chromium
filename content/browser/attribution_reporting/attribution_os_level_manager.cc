@@ -56,7 +56,7 @@ bool AttributionOsLevelManager::ShouldInitializeApiState() {
 // static
 ApiState AttributionOsLevelManager::GetApiState() {
   DCHECK_CALLED_ON_VALID_SEQUENCE(GetSequenceChecker());
-  return g_state.value_or(ApiState::kDisabled);
+  return ApiState::kDisabled;
 }
 
 // static

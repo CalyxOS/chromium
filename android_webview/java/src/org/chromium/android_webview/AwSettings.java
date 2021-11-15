@@ -167,7 +167,7 @@ public class AwSettings {
     private boolean mSpatialNavigationEnabled; // Default depends on device features.
     private boolean mEnableSupportedHardwareAcceleratedFeatures;
     private int mMixedContentMode = WebSettings.MIXED_CONTENT_NEVER_ALLOW;
-    private int mAttributionBehavior = AttributionBehavior.APP_SOURCE_AND_WEB_TRIGGER;
+    private int mAttributionBehavior = AttributionBehavior.DISABLED;
     private boolean mCSSHexAlphaColorEnabled;
     private boolean mScrollTopLeftInteropEnabled;
     private boolean mWillSuppressErrorPage;
@@ -1705,7 +1705,7 @@ public class AwSettings {
     public void setAttributionBehavior(@AttributionBehavior int behavior) {
         synchronized (mAwSettingsLock) {
             if (mAttributionBehavior != behavior) {
-                mAttributionBehavior = behavior;
+                mAttributionBehavior = AttributionBehavior.DISABLED;
                 mEventHandler.updateWebkitPreferencesLocked();
             }
         }
