@@ -29,4 +29,5 @@ BASE_FEATURE(kAttributionAggregatableNamedBudgets,
              "AttributionAggregatableNamedBudgets",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+SET_CROMITE_FEATURE_DISABLED(kConversionMeasurement);
 }  // namespace attribution_reporting::features

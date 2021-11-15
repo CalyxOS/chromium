@@ -275,7 +275,7 @@
     {
       // Interest Group JS API/runtimeflag.
       name: "AdInterestGroupAPI",
-      status: "stable",
+      status: "experimental",
       origin_trial_feature_name: "AdInterestGroupAPI",
       implied_by: ["Fledge", "Parakeet"],
       public: true,
@@ -417,15 +417,15 @@
     },
     {
       name: "AttributionReporting",
-      status: "stable",
+      status: "experimental",
       base_feature: "none",
       public: true,
     },
     {
       name: "AttributionReportingCrossAppWeb",
+      status: "experimental",
       base_feature: "none",
       public: true,
-      status: "stable",
     },
     {
       // This only exists so we can use RuntimeEnabled in the IDL file
@@ -4329,15 +4329,15 @@
     },
     {
       name: "TopicsAPI",
+      status: "experimental",
       base_feature: "none",
       public: true,
-      status: "stable",
     },
     {
       name: "TopicsDocumentAPI",
+      status: "experimental",
       base_feature: "none",
       public: true,
-      status: "stable",
     },
     // This is a killswitch for the behavior where popover.showPopover() and
     // dialog.showModal() throw DOM exceptions if the document isn't active.
