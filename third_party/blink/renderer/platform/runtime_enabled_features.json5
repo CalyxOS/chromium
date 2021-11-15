@@ -281,7 +281,7 @@
     {
       // Interest Group JS API/runtimeflag.
       name: "AdInterestGroupAPI",
-      status: "stable",
+      status: "experimental",
       origin_trial_feature_name: "AdInterestGroupAPI",
       implied_by: ["Fledge", "Parakeet"],
       public: true,
@@ -444,15 +444,15 @@
     },
     {
       name: "AttributionReporting",
-      status: "stable",
+      status: "experimental",
       base_feature: "none",
       public: true,
     },
     {
       name: "AttributionReportingCrossAppWeb",
+      status: "experimental",
       base_feature: "none",
       public: true,
-      status: "stable",
     },
     {
       // This only exists so we can use RuntimeEnabled in the IDL file
@@ -3421,8 +3421,8 @@
       base_feature: "none",
     },
     {
-      name: "PrivateStateTokens",
-      status: "stable",
+      name: "PrivateStateTokens", // disabled
+      status: "experimental",     // by default
       base_feature: "none",
       public: true,
     },
@@ -4314,15 +4314,15 @@
     },
     {
       name: "TopicsAPI",
+      status: "experimental",
       base_feature: "none",
       public: true,
-      status: "stable",
     },
     {
       name: "TopicsDocumentAPI",
+      status: "experimental",
       base_feature: "none",
       public: true,
-      status: "stable",
     },
     {
       // This feature allows calling the Topics API via an image

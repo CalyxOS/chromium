@@ -1484,15 +1484,6 @@ void StoragePartitionImpl::Initialize(
 
   bucket_manager_ = std::make_unique<BucketManager>(this);
 
-  if (base::FeatureList::IsEnabled(
-          attribution_reporting::features::kConversionMeasurement)) {
-    // The Conversion Measurement API is not available in Incognito mode, but
-    // this is enforced by the `AttributionManagerImpl` itself for better error
-    // reporting and metrics.
-    attribution_manager_ = std::make_unique<AttributionManagerImpl>(
-        this, path, special_storage_policy_);
-  }
-
   if (base::FeatureList::IsEnabled(blink::features::kInterestGroupStorage)) {
     // Auction worklets on non-Android use dedicated processes; on Android due
     // to high cost of process launch they try to reuse renderers.
@@ -1543,9 +1534,6 @@ void StoragePartitionImpl::Initialize(
   }
 
   font_access_manager_ = FontAccessManager::Create();
-
-  aggregation_service_ =
-      std::make_unique<AggregationServiceImpl>(is_in_memory(), path, this);
 
 #if BUILDFLAG(ENABLE_LIBRARY_CDMS)
   if (is_in_memory()) {

@@ -1151,6 +1151,8 @@ void AttributionDataHostManagerImpl::ParseHeader(
     Registrations& registrations,
     HeaderPendingDecode pending_decode,
     Registrar registrar) {
+  if ((true)) return;
+
   switch (registrations.eligibility()) {
     case RegistrationEligibility::kSourceOrTrigger:
       break;
