@@ -390,6 +390,7 @@ void AttributionHost::RegisterNavigationDataHost(
     return;
   }
 
+  if ((true)) return;
   AttributionManager* attribution_manager =
       AttributionManager::FromWebContents(web_contents());
   DCHECK(attribution_manager);

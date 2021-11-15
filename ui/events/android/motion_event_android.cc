@@ -162,7 +162,11 @@ int ToEventFlags(int meta_state, int button_state) {
 }
 
 base::TimeTicks FromAndroidTime(base::TimeTicks time) {
-  ValidateEventTimeClock(&time);
+  base::TimeTicks timestamp;
+  // Rounding down to milliseconds (from nanoseconds)
+  // see https://bugs.chromium.org/p/chromium/issues/detail?id=1378615
+  timestamp = base::TimeTicks::FromUptimeMillis(time.ToUptimeMillis());
+  ValidateEventTimeClock(&timestamp);
   return time;
 }
 
