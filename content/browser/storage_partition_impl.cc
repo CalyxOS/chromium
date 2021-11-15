@@ -1338,12 +1338,7 @@ void StoragePartitionImpl::Initialize(
 
   bucket_manager_ = std::make_unique<BucketManager>(this);
 
-  // The Conversion Measurement API is not available in Incognito mode.
-  if (!is_in_memory() &&
-      base::FeatureList::IsEnabled(blink::features::kConversionMeasurement)) {
-    attribution_manager_ = std::make_unique<AttributionManagerImpl>(
-        this, path, special_storage_policy_);
-  }
+  // The Conversion Measurement API is not available in Bromite.
 
   if (base::FeatureList::IsEnabled(blink::features::kInterestGroupStorage)) {
     // Auction worklets on non-Android use dedicated processes; on Android due

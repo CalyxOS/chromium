@@ -484,8 +484,8 @@ BASE_FEATURE(kAppMenuMobileSiteOption,
              base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kAppToWebAttribution,
-             "AppToWebAttribution",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "AppToWebAttribution",               // must be disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);  // in Bromite
 
 BASE_FEATURE(kBackgroundThreadPool,
              "BackgroundThreadPool",
