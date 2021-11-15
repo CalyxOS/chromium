@@ -119,8 +119,6 @@ AttributionHost::AttributionHost(WebContents* web_contents)
       attribution_reporting::features::kConversionMeasurement));
 
 #if BUILDFLAG(IS_ANDROID)
-  input_event_tracker_android_ =
-      std::make_unique<AttributionInputEventTrackerAndroid>(web_contents);
 #endif
 }
 
@@ -318,6 +316,7 @@ void AttributionHost::NotifyNavigationRegistrationData(
     return;
   }
 
+  if ((true)) return;
   auto* attribution_manager =
       AttributionManager::FromWebContents(web_contents());
   DCHECK(attribution_manager);
