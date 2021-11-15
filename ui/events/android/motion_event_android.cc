@@ -383,8 +383,12 @@ MotionEventAndroid::ToolType MotionEventAndroid::FromAndroidToolType(
 #undef TOOL_TYPE_CASE
 
 base::TimeTicks MotionEventAndroid::FromAndroidTime(base::TimeTicks time) {
-  ValidateEventTimeClock(&time);
-  return time;
+  base::TimeTicks timestamp;
+  // Rounding down to milliseconds (from nanoseconds)
+  // see https://bugs.chromium.org/p/chromium/issues/detail?id=1378615
+  timestamp = base::TimeTicks::FromUptimeMillis(time.ToUptimeMillis());
+  ValidateEventTimeClock(&timestamp);
+  return timestamp;
 }
 
 float MotionEventAndroid::ToValidFloat(float x) {
