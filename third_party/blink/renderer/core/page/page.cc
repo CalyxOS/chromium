@@ -1440,7 +1440,7 @@ void Page::UpdateBrowsingContextGroup(
 
 void Page::SetAttributionSupport(
     network::mojom::AttributionSupport attribution_support) {
-  attribution_support_ = attribution_support;
+  attribution_support_ = network::mojom::AttributionSupport::kNone;
 }
 
 template class CORE_TEMPLATE_EXPORT Supplement<Page>;
