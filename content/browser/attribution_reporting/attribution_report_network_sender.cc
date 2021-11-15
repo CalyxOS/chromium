@@ -110,13 +110,8 @@ void AttributionReportNetworkSender::SendReport(
                    network::SimpleURLLoader::RETRY_ON_NAME_NOT_RESOLVED;
   simple_url_loader_ptr->SetRetryOptions(/*max_retries=*/1, retry_mode);
 
-  // Unretained is safe because the URLLoader is owned by |this| and will be
-  // deleted before |this|.
-  simple_url_loader_ptr->DownloadHeadersOnly(
-      url_loader_factory_.get(),
-      base::BindOnce(&AttributionReportNetworkSender::OnReportSent,
-                     base::Unretained(this), std::move(it), std::move(report),
-                     is_debug_report, std::move(sent_callback)));
+  // this is never called on Bromite but nothing would be sent if it were
+  OnReportSent(std::move(it), report, is_debug_report, std::move(sent_callback), nullptr);
 }
 
 void AttributionReportNetworkSender::OnReportSent(
@@ -125,6 +120,12 @@ void AttributionReportNetworkSender::OnReportSent(
     bool is_debug_report,
     ReportSentCallback sent_callback,
     scoped_refptr<net::HttpResponseHeaders> headers) {
+  if ((true)) {
+    std::move(sent_callback)
+        .Run(std::move(report),
+           SendResult(SendResult::Status::kSent, headers ? headers->response_code() : 200));
+    return;
+  }
   network::SimpleURLLoader* loader = it->get();
 
   // Consider a non-200 HTTP code as a non-internal error.
