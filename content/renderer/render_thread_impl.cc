@@ -886,6 +886,9 @@ void RenderThreadImpl::InitializeRenderer(
   GetContentClient()->renderer()->DidSetUserAgent(user_agent);
   user_agent_metadata_ = user_agent_metadata;
   cors_exempt_header_list_ = cors_exempt_header_list;
+#if BUILDFLAG(IS_ANDROID)
+  attribution_support = network::mojom::AttributionSupport::kNone;
+#endif
   attribution_support_ = attribution_support;
 
   blink::WebVector<blink::WebString> web_cors_exempt_header_list(
@@ -1790,7 +1793,7 @@ RenderThreadImpl::GetAttributionReportingSupport() {
 
 void RenderThreadImpl::SetAttributionReportingSupport(
     network::mojom::AttributionSupport attribution_support) {
-  attribution_support_ = attribution_support;
+  attribution_support_ = network::mojom::AttributionSupport::kNone;
 }
 
 std::unique_ptr<CodecFactory> RenderThreadImpl::CreateMediaCodecFactory(

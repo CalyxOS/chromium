@@ -560,17 +560,17 @@ bool ContentBrowserClient::IsAttributionReportingOperationAllowed(
 }
 
 bool ContentBrowserClient::IsWebAttributionReportingAllowed() {
-  return true;
+  return false;
 }
 
 bool ContentBrowserClient::ShouldUseOsWebSourceAttributionReporting(
     content::RenderFrameHost* rfh) {
-  return true;
+  return false;
 }
 
 bool ContentBrowserClient::ShouldUseOsWebTriggerAttributionReporting(
     content::RenderFrameHost* rfh) {
-  return true;
+  return false;
 }
 
 bool ContentBrowserClient::IsSharedStorageAllowed(
