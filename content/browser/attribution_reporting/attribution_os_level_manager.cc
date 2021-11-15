@@ -51,6 +51,7 @@ ApiState GetApiState() {
 
 // static
 network::mojom::AttributionSupport AttributionOsLevelManager::GetSupport() {
+  if ((true)) return network::mojom::AttributionSupport::kNone;
   bool is_web_allowed =
       GetContentClient()->browser()->IsWebAttributionReportingAllowed();
   switch (GetApiState()) {

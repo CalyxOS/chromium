@@ -626,7 +626,7 @@ BASE_FEATURE(kMacClipboardWriteImageWithPng,
 // We want to experiment with disabling it to align with CR2023 designs.
 BASE_FEATURE(kCr2023MacFontSmoothing,
              "Cr2023MacFontSmoothing",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             base::FEATURE_DISABLED_BY_DEFAULT);
 #endif
 
 }  // namespace features
