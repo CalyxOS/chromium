@@ -66,6 +66,9 @@ import org.chromium.ui.text.EmptyTextWatcher;
 import org.chromium.ui.widget.AnchoredPopupWindow.HorizontalOrientation;
 import org.chromium.ui.widget.RectProvider;
 
+import org.chromium.chrome.browser.homepage.HomepageManager;
+import org.chromium.url.GURL;
+
 /**
  * A coordinator for the context menu on the tab strip by long-pressing on the group titles. It is
  * responsible for creating a list of menu items, setting up the menu and displaying the menu.
@@ -197,9 +200,15 @@ public class TabGroupContextMenuCoordinator extends TabGroupOverflowMenuCoordina
                         /* didCloseCallback= */ null);
                 recordUserAction("DeleteGroup");
             } else if (menuId == org.chromium.chrome.R.id.open_new_tab_in_group) {
+                String url = UrlConstants.NTP_URL;
+                if (UrlConstants.NTP_URL.equals(url)
+                        && HomepageManager.getInstance().getPrefNTPIsHomepageEnabled()) {
+                    GURL gurl = HomepageManager.getInstance().getHomepageGurl();
+                    url = gurl != null ? gurl.getSpec() : url;
+                }
                 TabGroupUtils.openUrlInGroup(
                         tabGroupModelFilter,
-                        UrlConstants.NTP_URL,
+                        url,
                         tabId,
                         TabLaunchType.FROM_TAB_GROUP_UI);
                 recordUserAction("NewTabInGroup");
