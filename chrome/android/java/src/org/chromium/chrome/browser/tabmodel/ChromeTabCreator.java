@@ -26,6 +26,7 @@ import org.chromium.chrome.browser.app.tab_activity_glue.ReparentingTask;
 import org.chromium.chrome.browser.compositor.CompositorViewHolder;
 import org.chromium.chrome.browser.flags.ChromeFeatureList;
 import org.chromium.chrome.browser.incognito.IncognitoUtils;
+import org.chromium.chrome.browser.homepage.HomepageManager;
 import org.chromium.chrome.browser.ntp.NewTabPageLaunchOrigin;
 import org.chromium.chrome.browser.ntp.NewTabPageUtils;
 import org.chromium.chrome.browser.prefetch.settings.PreloadPagesSettingsBridge;
@@ -491,6 +492,12 @@ public class ChromeTabCreator extends TabCreator {
      * @return the created tab.
      */
     public Tab launchUrl(String url, @TabLaunchType int type, Intent intent, long intentTimestamp) {
+        if (!mIncognito && url.equals(UrlConstants.NTP_URL)) {
+            if (HomepageManager.getInstance().getPrefNTPIsHomepageEnabled()) {
+                url = HomepageManager.getInstance().getHomepageUri();
+            }
+        }
+
         LoadUrlParams loadUrlParams = new LoadUrlParams(url);
         loadUrlParams.setIntentReceivedTimestamp(intentTimestamp);
         return createNewTab(loadUrlParams, type, null, intent);
