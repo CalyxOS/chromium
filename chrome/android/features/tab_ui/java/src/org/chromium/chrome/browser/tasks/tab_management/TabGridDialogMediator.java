@@ -32,6 +32,7 @@ import org.chromium.chrome.browser.data_sharing.DataSharingServiceFactory;
 import org.chromium.chrome.browser.data_sharing.DataSharingTabManager;
 import org.chromium.chrome.browser.data_sharing.ui.shared_image_tiles.SharedImageTilesCoordinator;
 import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.homepage.HomepageManager;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.signin.services.IdentityServicesProvider;
 import org.chromium.chrome.browser.tab.Tab;
@@ -65,14 +66,17 @@ import org.chromium.components.browser_ui.bottomsheet.BottomSheetController;
 import org.chromium.components.browser_ui.styles.SemanticColorUtils;
 import org.chromium.components.browser_ui.widget.gesture.BackPressHandler;
 import org.chromium.components.data_sharing.DataSharingService;
+import org.chromium.components.embedder_support.util.UrlConstants;
 import org.chromium.components.signin.identitymanager.IdentityManager;
 import org.chromium.components.tab_group_sync.LocalTabGroupId;
 import org.chromium.components.tab_group_sync.TabGroupSyncService;
 import org.chromium.components.tab_groups.TabGroupColorId;
+import org.chromium.content_public.browser.LoadUrlParams;
 import org.chromium.ui.KeyboardVisibilityDelegate;
 import org.chromium.ui.base.DeviceFormFactor;
 import org.chromium.ui.modelutil.PropertyModel;
 import org.chromium.ui.text.EmptyTextWatcher;
+import org.chromium.url.GURL;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -832,11 +836,31 @@ public class TabGridDialogMediator
                 return;
             }
 
-            TabUiUtils.openNtpInGroup(
-                    (TabGroupModelFilter) mCurrentTabModelFilterSupplier.get(),
-                    mTabCreatorManager.getTabCreator(filter.isIncognito()),
-                    currentTab.getId(),
-                    TabLaunchType.FROM_TAB_GROUP_UI);
+            String url = UrlConstants.NTP_URL;
+            List<Tab> relatedTabs = getRelatedTabs(currentTab.getId());
+            if (HomepageManager.getInstance().getPrefNTPIsHomepageEnabled()) {
+                GURL gurl = HomepageManager.getInstance().getHomepageGurl();
+                url = gurl != null ? gurl.getSpec() : url;
+            }
+            if (!UrlConstants.NTP_URL.equals(url)) {
+                // Use prior behavior if homepage is not new tab page
+                assert relatedTabs.size() > 0;
+
+                Tab parentTabToAttach = relatedTabs.get(relatedTabs.size() - 1);
+                mTabCreatorManager
+                        .getTabCreator(currentTab.isIncognito())
+                        .createNewTab(
+                                new LoadUrlParams(url),
+                                TabLaunchType.FROM_TAB_GROUP_UI,
+                                parentTabToAttach);
+            } else {
+                // Use new behavior if homepage is new tab page
+                TabUiUtils.openNtpInGroup(
+                        (TabGroupModelFilter) mCurrentTabModelFilterSupplier.get(),
+                        mTabCreatorManager.getTabCreator(filter.isIncognito()),
+                        currentTab.getId(),
+                        TabLaunchType.FROM_TAB_GROUP_UI);
+            }
             RecordUserAction.record("MobileNewTabOpened." + mComponentName);
         };
     }
