@@ -113,7 +113,6 @@ public class LaunchMetrics {
     public static void recordHomePageLaunchMetrics(
             boolean showHomeButton, boolean homepageIsNtp, GURL homepageGurl) {
         if (homepageGurl.isEmpty()) {
-            assert !showHomeButton : "Homepage should be disabled for an empty GURL";
         }
         LaunchMetricsJni.get()
                 .recordHomePageLaunchMetrics(showHomeButton, homepageIsNtp, homepageGurl);

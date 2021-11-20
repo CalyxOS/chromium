@@ -91,6 +91,8 @@ void RegisterBrowserUserPrefs(user_prefs::PrefRegistrySyncable* registry) {
   registry->RegisterBooleanPref(
       prefs::kShowForwardButton, true,
       GetHomeAndForwardButtonAndHomePageIsNewTabPageFlags());
+  registry->RegisterBooleanPref(prefs::kNewTabPageIsHomePage, false,
+                                PrefRegistry::NO_REGISTRATION_FLAGS);
 
   registry->RegisterInt64Pref(prefs::kDefaultBrowserLastDeclined, 0);
   registry->RegisterBooleanPref(prefs::kWebAppCreateOnDesktop, true);
