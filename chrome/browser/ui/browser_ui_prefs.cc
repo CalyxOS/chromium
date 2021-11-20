@@ -81,6 +81,9 @@ void RegisterBrowserUserPrefs(user_prefs::PrefRegistrySyncable* registry) {
   registry->RegisterBooleanPref(
       prefs::kShowHomeButton, false,
       GetHomeAndForwardButtonAndHomePageIsNewTabPageFlags());
+  registry->RegisterBooleanPref(
+      prefs::kNewTabPageIsHomePage, false,
+      PrefRegistry::NO_REGISTRATION_FLAGS);
 
   registry->RegisterBooleanPref(
       prefs::kShowForwardButton, true,
