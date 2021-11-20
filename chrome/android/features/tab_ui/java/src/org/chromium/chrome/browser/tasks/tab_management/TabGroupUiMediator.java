@@ -22,6 +22,7 @@ import org.chromium.base.supplier.OneshotSupplier;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.data_sharing.ui.shared_image_tiles.SharedImageTilesCoordinator;
 import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.homepage.HomepageManager;
 import org.chromium.chrome.browser.layouts.LayoutStateProvider;
 import org.chromium.chrome.browser.layouts.LayoutStateProvider.LayoutStateObserver;
 import org.chromium.chrome.browser.layouts.LayoutType;
@@ -392,10 +393,15 @@ public class TabGroupUiMediator implements BackPressHandler {
                     assert relatedTabs.size() > 0;
 
                     parentTabToAttach = relatedTabs.get(relatedTabs.size() - 1);
+                    String url = UrlConstants.NTP_URL;
+                    if (HomepageManager.getInstance().getPrefNTPIsHomepageEnabled()) {
+                        GURL gurl = HomepageManager.getInstance().getHomepageGurl();
+                        url = gurl != null ? gurl.getSpec() : url;
+                    }
                     mTabCreatorManager
                             .getTabCreator(currentTab.isIncognito())
                             .createNewTab(
-                                    new LoadUrlParams(UrlConstants.NTP_URL),
+                                    new LoadUrlParams(url),
                                     TabLaunchType.FROM_TAB_GROUP_UI,
                                     parentTabToAttach);
                     RecordUserAction.record(

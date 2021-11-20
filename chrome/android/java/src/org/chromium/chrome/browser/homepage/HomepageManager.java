@@ -238,6 +238,22 @@ public class HomepageManager
     }
 
     /**
+     * Returns the user preference for whether the New Tab Page is the homepage or not.
+     *
+     */
+    public boolean getPrefNTPIsHomepageEnabled() {
+        return mSharedPreferencesManager.readBoolean(ChromePreferenceKeys.HOMEPAGE_NTP_IS_HOMEPAGE, false);
+    }
+
+    /**
+     * Sets the user preference for whether the new tab page is the homepage or not.
+     */
+    public void setPrefNTPIsHomepageEnabled(boolean enabled) {
+        mSharedPreferencesManager.writeBoolean(ChromePreferenceKeys.HOMEPAGE_NTP_IS_HOMEPAGE, enabled);
+        notifyHomepageUpdated();
+    }
+
+    /**
      * @return User specified homepage custom GURL.
      */
     public GURL getPrefHomepageCustomGurl() {
