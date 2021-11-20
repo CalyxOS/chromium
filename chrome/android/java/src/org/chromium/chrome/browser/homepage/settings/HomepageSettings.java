@@ -22,6 +22,7 @@ import org.chromium.components.browser_ui.settings.SettingsUtils;
 import org.chromium.components.embedder_support.util.UrlUtilities;
 import org.chromium.components.url_formatter.UrlFormatter;
 import org.chromium.url.GURL;
+import org.chromium.components.embedder_support.util.UrlConstants;
 
 /**
  * Fragment that allows the user to configure homepage related preferences.
@@ -31,6 +32,8 @@ public class HomepageSettings extends ChromeBaseSettingsFragment {
     public static final String PREF_HOMEPAGE_SWITCH = "homepage_switch";
     @VisibleForTesting
     public static final String PREF_HOMEPAGE_RADIO_GROUP = "homepage_radio_group";
+
+    private static final String PREF_NTP_HOMEPAGE_SWITCH = "ntp_is_homepage_switch";
 
     private HomepageManager mHomepageManager;
     private RadioButtonGroupHomepagePreference mRadioButtons;
@@ -64,6 +67,15 @@ public class HomepageSettings extends ChromeBaseSettingsFragment {
             return true;
         });
         mRadioButtons.setupPreferenceValues(createPreferenceValuesForRadioGroup());
+
+        ChromeSwitchPreference mNTPIsHomepageSwitch =
+                (ChromeSwitchPreference) findPreference(PREF_NTP_HOMEPAGE_SWITCH);
+        boolean isHomepageNTPEnabled = mHomepageManager.getPrefNTPIsHomepageEnabled();
+        mNTPIsHomepageSwitch.setChecked(isHomepageNTPEnabled);
+        mNTPIsHomepageSwitch.setOnPreferenceChangeListener((preference, newValue) -> {
+            mHomepageManager.setPrefNTPIsHomepageEnabled((boolean) newValue);
+            return true;
+        });
 
         RecordUserAction.record("Settings.Homepage.Opened");
     }
