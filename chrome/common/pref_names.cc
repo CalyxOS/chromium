@@ -86,6 +86,10 @@ const char kForceEphemeralProfiles[] = "profile.ephemeral_mode";
 // A boolean specifying whether the New Tab page is the home page or not.
 const char kHomePageIsNewTabPage[] = "homepage_is_newtabpage";
 
+// A boolean specifying whether opening a new tab should open the Home page
+// instead of the New Tab page.
+const char kNewTabPageIsHomePage[] = "newtabpage_is_homepage";
+
 // This is the URL of the page to load when opening new tabs.
 const char kHomePage[] = "homepage";
 
