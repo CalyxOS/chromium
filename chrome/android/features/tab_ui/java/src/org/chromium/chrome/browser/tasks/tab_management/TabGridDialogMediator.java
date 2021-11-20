@@ -22,6 +22,7 @@ import org.chromium.base.supplier.ObservableSupplier;
 import org.chromium.base.supplier.Supplier;
 import org.chromium.base.task.PostTask;
 import org.chromium.base.task.TaskTraits;
+import org.chromium.chrome.browser.homepage.HomepageManager;
 import org.chromium.chrome.browser.tab.Tab;
 import org.chromium.chrome.browser.tab.TabCreationState;
 import org.chromium.chrome.browser.tab.TabLaunchType;
@@ -47,6 +48,7 @@ import org.chromium.ui.KeyboardVisibilityDelegate;
 import org.chromium.ui.base.DeviceFormFactor;
 import org.chromium.ui.modelutil.PropertyModel;
 import org.chromium.ui.text.EmptyTextWatcher;
+import org.chromium.url.GURL;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -636,11 +638,16 @@ public class TabGridDialogMediator
 
             assert relatedTabs.size() > 0;
 
+            String url = UrlConstants.NTP_URL;
+            if (HomepageManager.getInstance().getPrefNTPIsHomepageEnabled()) {
+                GURL gurl = HomepageManager.getInstance().getHomepageGurl();
+                url = gurl != null ? gurl.getSpec() : url;
+            }
             Tab parentTabToAttach = relatedTabs.get(relatedTabs.size() - 1);
             mTabCreatorManager
                     .getTabCreator(currentTab.isIncognito())
                     .createNewTab(
-                            new LoadUrlParams(UrlConstants.NTP_URL),
+                            new LoadUrlParams(url),
                             TabLaunchType.FROM_TAB_GROUP_UI,
                             parentTabToAttach);
             RecordUserAction.record("MobileNewTabOpened." + mComponentName);
