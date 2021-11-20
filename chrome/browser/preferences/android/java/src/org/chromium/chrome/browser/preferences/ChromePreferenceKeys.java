@@ -321,6 +321,7 @@ public final class ChromePreferenceKeys {
     public static final String HOMEPAGE_USE_CHROME_NTP = "Chrome.Homepage.UseNTP";
     public static final String HOMEPAGE_USE_DEFAULT_URI = "homepage_partner_enabled";
 
+    public static final String HOMEPAGE_NTP_IS_HOMEPAGE = "newtabpage_is_homepage";
     /** Key used to save homepage location set by enterprise policy */
     public static final String DEPRECATED_HOMEPAGE_LOCATION_POLICY =
             "Chrome.Policy.HomepageLocation";
