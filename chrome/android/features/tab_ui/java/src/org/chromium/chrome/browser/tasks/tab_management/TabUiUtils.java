@@ -35,6 +35,8 @@ import org.chromium.components.tab_group_sync.SavedTabGroup;
 import org.chromium.components.tab_group_sync.TabGroupSyncService;
 import org.chromium.components.tab_groups.TabGroupColorId;
 import org.chromium.content_public.browser.LoadUrlParams;
+import org.chromium.chrome.browser.homepage.HomepageManager;
+import org.chromium.url.GURL;
 
 import java.util.List;
 import java.util.Objects;
@@ -195,8 +197,13 @@ public class TabUiUtils {
         List<Tab> relatedTabs = filter.getRelatedTabList(tabId);
         assert relatedTabs.size() > 0;
 
+        String url = UrlConstants.NTP_URL;
+        if (HomepageManager.getInstance().getPrefNTPIsHomepageEnabled()) {
+            GURL gurl = HomepageManager.getInstance().getHomepageGurl();
+            url = gurl != null ? gurl.getSpec() : url;
+        }
         Tab parentTabToAttach = relatedTabs.get(relatedTabs.size() - 1);
-        tabCreator.createNewTab(new LoadUrlParams(UrlConstants.NTP_URL), type, parentTabToAttach);
+        tabCreator.createNewTab(new LoadUrlParams(url), type, parentTabToAttach);
     }
 
     /**

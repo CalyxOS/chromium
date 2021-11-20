@@ -1365,6 +1365,10 @@ inline constexpr char kShowHomeButton[] = "browser.show_home_button";
 // toolbar.
 inline constexpr char kShowForwardButton[] = "browser.show_forward_button";
 
+// A boolean specifying whether opening a new tab should open the Home page
+// instead of the New Tab page.
+inline constexpr char kNewTabPageIsHomePage[] = "newtabpage_is_homepage";
+
 // Comma separated list of domain names (e.g. "google.com,school.edu").
 // When this pref is set, the user will be able to access Google Apps
 // only using an account that belongs to one of the domains from this pref.
