@@ -14,6 +14,11 @@ found in the LICENSE file.
         android:summaryOn="@string/text_on"
         android:summaryOff="@string/text_off" />
 
+    <org.chromium.components.browser_ui.settings.ChromeSwitchPreference
+        android:key="ntp_is_homepage_switch"
+        android:summaryOn="@string/options_ntp_is_homepage_label"
+        android:summaryOff="@string/options_ntp_is_homepage_label" />
+
     <org.chromium.chrome.browser.homepage.settings.RadioButtonGroupHomepagePreference
         android:key="homepage_radio_group"
         android:selectable="false"
