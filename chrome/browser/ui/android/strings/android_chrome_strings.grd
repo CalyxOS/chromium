@@ -1303,6 +1303,9 @@ Your Google account may have other forms of browsing history like searches and a
       <message name="IDS_CLEAR_BROWSING_DATA_TAB_PERIOD_HOUR" desc="The option to delete browsing data from the last hour.">
         Last hour
       </message>
+      <message name="IDS_OPTIONS_NTP_IS_HOMEPAGE_LABEL" desc="The label for switch that allows the user to toggle whether opening a new tab leads to the new tab page or the home page.">
+        Use for new tabs
+      </message>
       <message name="IDS_CLEAR_BROWSING_DATA_TAB_PERIOD_24_HOURS" desc="The option to delete browsing data from the last 24 hours.">
         Last 24 hours
       </message>
