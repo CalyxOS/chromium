@@ -112,6 +112,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+import org.chromium.chrome.browser.homepage.HomepageManager;
+import org.chromium.url.GURL;
+
 /**
  * A mediator for the TabGridDialog component, responsible for communicating with the components'
  * coordinator as well as managing the business logic for dialog show/hide.
@@ -1030,9 +1033,15 @@ public class TabGridDialogMediator
                 return;
             }
 
+            String url = UrlConstants.NTP_URL;
+            if (UrlConstants.NTP_URL.equals(url)
+                    && HomepageManager.getInstance().getPrefNTPIsHomepageEnabled()) {
+                GURL gurl = HomepageManager.getInstance().getHomepageGurl();
+                url = gurl != null ? gurl.getSpec() : url;
+            }
             TabGroupUtils.openUrlInGroup(
                     mCurrentTabGroupModelFilterSupplier.get(),
-                    UrlConstants.NTP_URL,
+                    url,
                     currentTab.getId(),
                     TabLaunchType.FROM_TAB_GROUP_UI);
             RecordUserAction.record("MobileNewTabOpened." + mComponentName);
