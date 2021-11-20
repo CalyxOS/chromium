@@ -89,6 +89,10 @@ inline constexpr char kForceEphemeralProfiles[] = "profile.ephemeral_mode";
 // A boolean specifying whether the New Tab page is the home page or not.
 inline constexpr char kHomePageIsNewTabPage[] = "homepage_is_newtabpage";
 
+// A boolean specifying whether opening a new tab should open the Home page
+// instead of the New Tab page.
+inline constexpr char kNewTabPageIsHomePage[] = "newtabpage_is_homepage";
+
 // This is the URL of the page to load when opening new tabs.
 inline constexpr char kHomePage[] = "homepage";
 
