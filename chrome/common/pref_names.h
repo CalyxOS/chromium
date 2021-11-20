@@ -1328,6 +1328,10 @@ inline constexpr char kPinSplitTabButton[] = "browser.pin_split_tab_button";
 // by enterprise policy.
 inline constexpr char kGeminiSettings[] = "browser.gemini_settings";
 
+// A boolean specifying whether opening a new tab should open the Home page
+// instead of the New Tab page.
+inline constexpr char kNewTabPageIsHomePage[] = "newtabpage_is_homepage";
+
 // Comma separated list of domain names (e.g. "google.com,school.edu").
 // When this pref is set, the user will be able to access Google Apps
 // only using an account that belongs to one of the domains from this pref.
