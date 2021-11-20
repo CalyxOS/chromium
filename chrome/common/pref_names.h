@@ -1311,6 +1311,10 @@ inline constexpr char kUsedPolicyCertificates[] =
 // visible on the toolbar.
 inline constexpr char kShowHomeButton[] = "browser.show_home_button";
 
+// A boolean specifying whether opening a new tab should open the Home page
+// instead of the New Tab page.
+inline constexpr char kNewTabPageIsHomePage[] = "newtabpage_is_homepage";
+
 // Boolean pref to define the default setting for "block offensive words".
 // The old key value is kept to avoid unnecessary migration code.
 inline constexpr char kSpeechRecognitionFilterProfanities[] =
