@@ -67,6 +67,7 @@ public class LegacyChromePreferenceKeys {
                 ChromePreferenceKeys.HOMEPAGE_CUSTOM_URI,
                 ChromePreferenceKeys.HOMEPAGE_ENABLED,
                 ChromePreferenceKeys.HOMEPAGE_USE_DEFAULT_URI,
+                ChromePreferenceKeys.HOMEPAGE_NTP_IS_HOMEPAGE,
                 ChromePreferenceKeys.INCOGNITO_SHORTCUT_ADDED,
                 ChromePreferenceKeys.LATEST_UNSUPPORTED_VERSION,
                 ChromePreferenceKeys.LOCALE_MANAGER_AUTO_SWITCH,
