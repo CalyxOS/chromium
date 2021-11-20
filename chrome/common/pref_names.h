@@ -389,6 +389,7 @@ extern const char kRestrictedManagedGuestSessionExtensionCleanupExemptList[];
 extern const char kUsedPolicyCertificates[];
 #endif  // BUILDFLAG(IS_CHROMEOS)
 extern const char kShowHomeButton[];
+extern const char kNewTabPageIsHomePage[];
 extern const char kSpeechRecognitionFilterProfanities[];
 extern const char kAllowDeletingBrowserHistory[];
 extern const char kForceGoogleSafeSearch[];
