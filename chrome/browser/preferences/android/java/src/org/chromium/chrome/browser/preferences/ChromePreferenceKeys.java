@@ -396,6 +396,7 @@ public final class ChromePreferenceKeys {
     public static final String HOMEPAGE_PARTNER_CUSTOMIZED_DEFAULT_GURL =
             "Chrome.Homepage.PartnerCustomizedDefaultGurl";
 
+    public static final String HOMEPAGE_NTP_IS_HOMEPAGE = "newtabpage_is_homepage";
     /**
      * Key used to save homepage location set by enterprise policy
      */
