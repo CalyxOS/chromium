@@ -1276,6 +1276,10 @@ inline constexpr char kUsedPolicyCertificates[] =
 // visible on the toolbar.
 inline constexpr char kShowHomeButton[] = "browser.show_home_button";
 
+// A boolean specifying whether opening a new tab should open the Home page
+// instead of the New Tab page.
+inline constexpr char kNewTabPageIsHomePage[] = "newtabpage_is_homepage";
+
 // A boolean pref set to true if the Forward button should be visible on the
 // toolbar.
 inline constexpr char kShowForwardButton[] = "browser.show_forward_button";
