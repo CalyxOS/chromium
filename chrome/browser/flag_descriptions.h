@@ -2252,6 +2252,9 @@ extern const char kNewWindowAppMenuDescription[];
 extern const char kNotificationPermissionRationaleName[];
 extern const char kNotificationPermissionRationaleDescription[];
 
+extern const char kOfflineIndicatorV2Name[];
+extern const char kOfflineIndicatorV2Description[];
+
 extern const char kOfflinePagesLivePageSharingName[];
 extern const char kOfflinePagesLivePageSharingDescription[];
 

@@ -254,6 +254,7 @@ const base::Feature* const kFeaturesExposedToJava[] = {
     &kNewTabPageTilesTitleWrapAround,
     &kNewWindowAppMenu,
     &kNotificationPermissionVariant,
+    &kOfflineIndicatorV2,
     &kPageAnnotationsService,
     &kInlineUpdateFlow,
     &kBookmarksImprovedSaveFlow,
@@ -743,6 +744,10 @@ BASE_FEATURE(kDownloadNotificationBadge,
 
 BASE_FEATURE(kDownloadRename,
              "DownloadRename",
+             base::FEATURE_ENABLED_BY_DEFAULT);
+
+BASE_FEATURE(kOfflineIndicatorV2,
+             "OfflineIndicatorV2",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kDuetTabStripIntegrationAndroid,
