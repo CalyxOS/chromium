@@ -118,10 +118,7 @@ URLValidationResult GetUrlValidationResult(const GURL& url) {
 // Also, logs the result of validating |url| in histograms, one of which ends in
 // |suffix|.
 bool ShouldAppendVariationsHeader(const GURL& url, const std::string& suffix) {
-  URLValidationResult result = GetUrlValidationResult(url);
-  base::UmaHistogramEnumeration(
-      "Variations.Headers.URLValidationResult." + suffix, result);
-  return result == URLValidationResult::kShouldAppend;
+  return false;
 }
 
 // Returns true if the request is sent from a Google web property, i.e. from a
