@@ -48,6 +48,11 @@ import org.chromium.ui.resources.dynamics.ViewResourceAdapter;
 import org.chromium.ui.util.TokenHolder;
 import org.chromium.ui.widget.OptimizedFrameLayout;
 
+import android.view.Gravity;
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
 /**
  * Layout for the browser controls (omnibox, menu, tab strip, etc..).
  */
@@ -104,6 +109,12 @@ public class ToolbarControlContainer extends OptimizedFrameLayout implements Con
     @Override
     public void initWithToolbar(int toolbarLayoutId) {
         try (TraceEvent te = TraceEvent.scoped("ToolbarControlContainer.initWithToolbar")) {
+            if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+                // the top toolbar is docked at the bottom
+                CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams)getLayoutParams();
+                layoutParams.gravity = Gravity.START | Gravity.BOTTOM;
+            }
+
             mToolbarContainer =
                     (ToolbarViewResourceFrameLayout) findViewById(R.id.toolbar_container);
             ViewStub toolbarStub = findViewById(R.id.toolbar_stub);

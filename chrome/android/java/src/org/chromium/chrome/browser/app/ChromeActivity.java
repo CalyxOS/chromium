@@ -244,6 +244,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import android.widget.ImageView;
+import android.view.ViewGroup.LayoutParams;
+
 /**
  * A {@link AsyncInitializationActivity} that builds and manages a {@link CompositorViewHolder}
  * and associated classes.
@@ -748,6 +751,16 @@ public abstract class ChromeActivity<C extends ChromeActivityComponent>
                 int toolbarLayoutId = getToolbarLayoutId();
                 if (toolbarLayoutId != ActivityUtils.NO_RESOURCE_ID && controlContainer != null) {
                     controlContainer.initWithToolbar(toolbarLayoutId);
+                    ImageView shadowImage = findViewById(R.id.toolbar_hairline);
+                    if (shadowImage != null) {
+                        // Invert the shadown if the top toolbar is at the bottom
+                        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+                            ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams)shadowImage.getLayoutParams();
+                            marginParams.setMargins(marginParams.leftMargin, 0,
+                                marginParams.rightMargin, marginParams.bottomMargin);
+                            shadowImage.setLayoutParams(marginParams);
+                        }
+                    }
                 }
             }
             onInitialLayoutInflationComplete();

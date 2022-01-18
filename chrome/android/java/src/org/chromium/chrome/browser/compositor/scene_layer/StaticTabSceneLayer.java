@@ -12,6 +12,9 @@ import org.chromium.chrome.browser.layouts.scene_layer.SceneLayer;
 import org.chromium.ui.modelutil.PropertyKey;
 import org.chromium.ui.modelutil.PropertyModel;
 
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
+
 /**
  * A SceneLayer to render a static tab.
  */
@@ -45,7 +48,10 @@ public class StaticTabSceneLayer extends SceneLayer {
         float x = model.get(LayoutTab.RENDER_X) * LayoutTab.sDpToPx;
         float y = model.get(LayoutTab.CONTENT_OFFSET)
                 + model.get(LayoutTab.RENDER_Y) * LayoutTab.sDpToPx;
-
+        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+            // the page content window never moves, it is fixed at the top
+            y = 0;
+        }
         StaticTabSceneLayerJni.get().updateTabLayer(mNativePtr, StaticTabSceneLayer.this,
                 model.get(LayoutTab.TAB_ID), model.get(LayoutTab.CAN_USE_LIVE_TEXTURE),
                 model.get(LayoutTab.BACKGROUND_COLOR), x, y,

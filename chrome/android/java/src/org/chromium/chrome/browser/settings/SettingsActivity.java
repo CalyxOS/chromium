@@ -258,6 +258,11 @@ public class SettingsActivity extends ChromeBaseAppCompatActivity
         if (fragment instanceof INeedSnackbarManager) {
             ((INeedSnackbarManager)fragment).setSnackbarManager(mSnackbarManager);
         }
+        if (fragment instanceof AccessibilitySettings) {
+            ((ChromeAccessibilitySettingsDelegate)
+                ((AccessibilitySettings) fragment)
+                    .getDelegate()).setSnackbarManager(mSnackbarManager);
+        }
     }
 
     @Override

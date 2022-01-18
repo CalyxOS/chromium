@@ -24,6 +24,11 @@ import org.chromium.ui.modelutil.PropertyModelChangeProcessor;
 import org.chromium.ui.resources.ResourceManager;
 import org.chromium.ui.resources.dynamics.ViewResourceAdapter;
 
+import android.view.Gravity;
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
 /**
  * The coordinator for a status indicator that is positioned below the status bar and is persistent.
  * Typically used to relay status, e.g. indicate user is offline.
@@ -173,6 +178,11 @@ public class StatusIndicatorCoordinator {
     private void initialize() {
         final ViewStub stub = mActivity.findViewById(R.id.status_indicator_stub);
         final ViewResourceFrameLayout root = (ViewResourceFrameLayout) stub.inflate();
+        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+            // status messages (such as the offline indicator) are docked at the bottom
+            CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams)root.getLayoutParams();
+            layoutParams.gravity = Gravity.START | Gravity.BOTTOM;
+        }
         mResourceId = root.getId();
         mSceneLayer.setResourceId(mResourceId);
         mResourceAdapter = root.getResourceAdapter();

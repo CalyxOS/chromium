@@ -27,6 +27,9 @@ import org.chromium.ui.modelutil.PropertyModelChangeProcessor;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
+
 /**
  * Coordinates the interactions with the UrlBar text component.
  */
@@ -231,7 +234,13 @@ public class UrlBarCoordinator implements UrlBarEditingTextStateProvider, UrlFoc
         // to show or hide keyboard anyway. This may happen when we schedule keyboard hide, and
         // receive a second request to hide the keyboard instantly.
         if (showKeyboard) {
-            setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN, /* delay */ false);
+            if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+                // probably due to an android bug, fix the size rather than pan the view.
+                // with the pan the bar may not always follow the focus if not at the first input by the user
+                setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE, /* delay */ false);
+            } else {
+                setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN, /* delay */ false);
+            }
             mKeyboardVisibilityDelegate.showKeyboard(mUrlBar);
         } else {
             // The animation rendering may not yet be 100% complete and hiding the keyboard makes

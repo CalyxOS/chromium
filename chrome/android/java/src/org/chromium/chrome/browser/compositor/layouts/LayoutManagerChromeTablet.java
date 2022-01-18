@@ -27,6 +27,7 @@ import org.chromium.chrome.browser.toolbar.ControlContainer;
 import org.chromium.chrome.features.start_surface.StartSurface;
 import org.chromium.components.browser_ui.widget.scrim.ScrimCoordinator;
 import org.chromium.ui.resources.dynamics.DynamicResourceLoader;
+import org.chromium.chrome.browser.fullscreen.BrowserControlsManager;
 
 import java.util.concurrent.Callable;
 
@@ -87,7 +88,8 @@ public class LayoutManagerChromeTablet extends LayoutManagerChrome {
         mStartSurfaceSupplier = startSurfaceSupplier;
         mTabSwitcherSupplier = tabSwitcherSupplier;
         mTabStripLayoutHelperManager = new StripLayoutHelperManager(host.getContext(), this,
-                mHost.getLayoutRenderHost(), () -> mLayerTitleCache, lifecycleDispatcher);
+                mHost.getLayoutRenderHost(), () -> mLayerTitleCache, lifecycleDispatcher,
+                /*browserControlsManagerSupplier*/ () -> getBrowserControlsManager());
         mJankTracker = jankTracker;
         mScrimCoordinator = scrimCoordinator;
         mCreateStartSurfaceCallable = delayedStartSurfaceCallable;

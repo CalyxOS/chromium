@@ -16,6 +16,8 @@ import org.chromium.chrome.browser.tab.TabObscuringHandler;
 import org.chromium.ui.KeyboardVisibilityDelegate;
 import org.chromium.ui.base.WindowAndroid;
 import org.chromium.ui.modelutil.PropertyModel;
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
 
 /**
  * This class is responsible for reacting to events from the outside world, interacting with other
@@ -101,6 +103,12 @@ class BottomControlsMediator implements BrowserControlsStateProvider.Observer,
     }
 
     void setBottomControlsVisible(boolean visible) {
+        if (visible == true
+                && mIsBottomControlsVisible == false
+                && CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+            // always show the toolbar if the bottom controls are visible, so as not to leave the hole below.
+            mBrowserControlsSizer.getBrowserVisibilityDelegate().showControlsTransient();
+        }
         mIsBottomControlsVisible = visible;
         updateCompositedViewVisibility();
         updateAndroidViewVisibility();
@@ -123,6 +131,7 @@ class BottomControlsMediator implements BrowserControlsStateProvider.Observer,
     @Override
     public void onControlsOffsetChanged(int topOffset, int topControlsMinHeightOffset,
             int bottomOffset, int bottomControlsMinHeightOffset, boolean needsAnimate) {
+        mModel.set(BottomControlsProperties.TOPCONTROLSMINHEIGHT_OFFSET, topControlsMinHeightOffset);
         mModel.set(BottomControlsProperties.Y_OFFSET, bottomOffset);
         updateAndroidViewVisibility();
     }

@@ -14,6 +14,9 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
+
 import org.chromium.chrome.R;
 import org.chromium.components.browser_ui.widget.animation.CancelAwareAnimatorListener;
 import org.chromium.components.browser_ui.widget.animation.Interpolators;
@@ -166,9 +169,11 @@ public class FindToolbarTablet extends FindToolbar {
 
         if (show && getVisibility() != View.VISIBLE && mCurrentAnimation != mAnimationEnter) {
             View anchorView = getRootView().findViewById(R.id.toolbar);
-            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) getLayoutParams();
-            lp.topMargin = anchorView.getBottom() - mYInsetPx;
-            setLayoutParams(lp);
+            if (!CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+                FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) getLayoutParams();
+                lp.topMargin = anchorView.getBottom() - mYInsetPx;
+                setLayoutParams(lp);
+            }
             nextAnimator = mAnimationEnter;
         } else if (!show && getVisibility() != View.GONE && mCurrentAnimation != mAnimationLeave) {
             nextAnimator = mAnimationLeave;

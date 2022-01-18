@@ -14,6 +14,8 @@ import org.chromium.components.browser_ui.widget.ClipDrawableProgressBar.Drawing
 import org.chromium.ui.modelutil.PropertyKey;
 import org.chromium.ui.modelutil.PropertyModel;
 import org.chromium.ui.resources.ResourceManager;
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
 
 /** A SceneLayer to render the top toolbar. This is the "view" piece of the top toolbar overlay. */
 @JNINamespace("android")
@@ -39,13 +41,20 @@ class TopToolbarSceneLayer extends SceneOverlayLayer {
     /** Push all information about the texture to native at once. */
     private void pushProperties(PropertyModel model) {
         if (mResourceManagerSupplier.get() == null) return;
+        float offsetY = model.get(TopToolbarOverlayProperties.Y_OFFSET);
+        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+            // fix the offset of the fake top controls, used only for animations
+            offsetY = model.get(TopToolbarOverlayProperties.VIEWPORT_HEIGHT) -
+                      model.get(TopToolbarOverlayProperties.TOOLBAR_HEIGHT) -
+                      offsetY;
+        }
         TopToolbarSceneLayerJni.get().updateToolbarLayer(mNativePtr, TopToolbarSceneLayer.this,
                 mResourceManagerSupplier.get(), model.get(TopToolbarOverlayProperties.RESOURCE_ID),
                 model.get(TopToolbarOverlayProperties.TOOLBAR_BACKGROUND_COLOR),
                 model.get(TopToolbarOverlayProperties.URL_BAR_RESOURCE_ID),
                 model.get(TopToolbarOverlayProperties.URL_BAR_COLOR),
                 model.get(TopToolbarOverlayProperties.X_OFFSET),
-                model.get(TopToolbarOverlayProperties.Y_OFFSET),
+                offsetY,
                 model.get(TopToolbarOverlayProperties.SHOW_SHADOW),
                 model.get(TopToolbarOverlayProperties.VISIBLE),
                 model.get(TopToolbarOverlayProperties.ANONYMIZE));

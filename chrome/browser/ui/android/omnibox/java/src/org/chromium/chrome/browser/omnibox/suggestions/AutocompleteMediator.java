@@ -58,6 +58,9 @@ import org.chromium.ui.modelutil.PropertyModel;
 import org.chromium.ui.mojom.WindowOpenDisposition;
 import org.chromium.url.GURL;
 
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.List;
@@ -1011,7 +1014,9 @@ class AutocompleteMediator implements OnSuggestionsReceivedListener,
     public void onSuggestionDropdownScroll() {
         if (mDropdownViewInfoListBuilder.hasFullyConcealedElements()) {
             mSuggestionsListScrolled = true;
-            mDelegate.setKeyboardVisibility(false, false);
+            if (!CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+                mDelegate.setKeyboardVisibility(false, false);
+            }
         }
     }
 

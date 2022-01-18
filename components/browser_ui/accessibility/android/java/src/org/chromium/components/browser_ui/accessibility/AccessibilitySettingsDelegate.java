@@ -4,6 +4,8 @@
 
 package org.chromium.components.browser_ui.accessibility;
 
+import android.app.Activity;
+
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceFragmentCompat;
 
@@ -26,6 +28,10 @@ public interface AccessibilitySettingsDelegate {
          */
         void setEnabled(boolean value);
     }
+
+    void requestRestart(Activity activity);
+
+    BooleanPreferenceDelegate getMoveTopToolbarToBottomDelegate();
 
     /**
      * @return The BrowserContextHandle that should be used to read and update settings.

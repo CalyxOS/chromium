@@ -17,6 +17,10 @@ public interface OmniboxSuggestionsDropdownEmbedder {
     @NonNull
     View getAnchorView();
 
+    /** Return the container view the suggestion list should be drawn in. */
+    @NonNull
+    View getAnchorContainerView();
+
     /**
      * Return the view that the omnibox suggestions should be aligned horizontally to.  The
      * view must be a descendant of {@link #getAnchorView()}. If null, the suggestions will

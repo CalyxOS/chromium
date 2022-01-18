@@ -178,6 +178,9 @@ import org.chromium.url.GURL;
 
 import java.util.List;
 
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
+
 /**
  * Contains logic for managing the toolbar visual component.  This class manages the interactions
  * with the rest of the application to ensure the toolbar is always visually up to date.
@@ -670,7 +673,7 @@ public class ToolbarManager implements UrlFocusChangeListener, ThemeColorObserve
                     mEphemeralTabCoordinatorSupplier);
             // clang-format off
             LocationBarCoordinator locationBarCoordinator = new LocationBarCoordinator(
-                    mActivity.findViewById(R.id.location_bar), toolbarLayout, profileSupplier,
+                    mActivity.findViewById(R.id.location_bar), toolbarLayout, controlContainer, profileSupplier,
                     PrivacyPreferencesManagerImpl.getInstance(), mLocationBarModel,
                     mActionModeController.getActionModeCallback(),
                     new WindowDelegate(mActivity.getWindow()), windowAndroid, mActivityTabProvider,
@@ -927,11 +930,13 @@ public class ToolbarManager implements UrlFocusChangeListener, ThemeColorObserve
                 // the height won't be measured by the background image.
                 if (mControlContainer.getBackground() == null) {
                     setControlContainerTopMargin(getToolbarExtraYOffset());
+                    MoveBottomBarOverTopBar();
                 } else if (mLayoutChangeListener == null) {
                     mLayoutChangeListener = (view, left, top, right, bottom, oldLeft, oldTop,
                             oldRight, oldBottom) -> {
                         if (mControlContainer.getBackground() == null) {
                             setControlContainerTopMargin(getToolbarExtraYOffset());
+                            MoveBottomBarOverTopBar();
                             mControlContainer.removeOnLayoutChangeListener(mLayoutChangeListener);
                             mLayoutChangeListener = null;
                         }
@@ -1311,13 +1316,25 @@ public class ToolbarManager implements UrlFocusChangeListener, ThemeColorObserve
         return mLocationBar.getOmniboxStub().isUrlBarFocused();
     }
 
+    View bottomRoot;
+
+    private void MoveBottomBarOverTopBar() {
+        if (bottomRoot != null &&
+                CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+            // move up the container view of the ui
+            // below there is the toolbar
+            bottomRoot.setTranslationY(-mBrowserControlsSizer.getTopControlsHeight());
+        }
+    }
+
     /**
      * Enable the bottom controls.
      */
     public void enableBottomControls() {
-        View root = ((ViewStub) mActivity.findViewById(R.id.bottom_controls_stub)).inflate();
+        bottomRoot = ((ViewStub) mActivity.findViewById(R.id.bottom_controls_stub)).inflate();
+        MoveBottomBarOverTopBar();
         mTabGroupUi = TabManagementModuleProvider.getDelegate().createTabGroupUi(mActivity,
-                root.findViewById(R.id.bottom_container_slot), mIncognitoStateProvider,
+                bottomRoot.findViewById(R.id.bottom_container_slot), mIncognitoStateProvider,
                 mScrimCoordinator, mOmniboxFocusStateSupplier, mBottomSheetController,
                 mActivityLifecycleDispatcher, mIsWarmOnResumeSupplier, mTabModelSelector,
                 mTabContentManager, mCompositorViewHolder,
@@ -1326,8 +1343,9 @@ public class ToolbarManager implements UrlFocusChangeListener, ThemeColorObserve
         mBottomControlsCoordinatorSupplier.set(new BottomControlsCoordinator(mActivity,
                 mWindowAndroid, mLayoutManager, mCompositorViewHolder.getResourceManager(),
                 mBrowserControlsSizer, mFullscreenManager,
-                (ScrollingBottomViewResourceFrameLayout) root, mTabGroupUi, mTabObscuringHandler,
-                mOverlayPanelVisibilitySupplier, mConstraintsProxy));
+                (ScrollingBottomViewResourceFrameLayout) bottomRoot, mTabGroupUi, mTabObscuringHandler,
+                mOverlayPanelVisibilitySupplier, mConstraintsProxy,
+                        mTopUiThemeColorProvider, mActivityTabProvider));
     }
 
     /**
@@ -2107,6 +2125,15 @@ public class ToolbarManager implements UrlFocusChangeListener, ThemeColorObserve
     private void setControlContainerTopMargin(int margin) {
         final ViewGroup.MarginLayoutParams layoutParams =
                 ((ViewGroup.MarginLayoutParams) mControlContainer.getLayoutParams());
+        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+            if (layoutParams.bottomMargin == margin) {
+                return;
+            }
+
+            layoutParams.bottomMargin = margin;
+            mControlContainer.setLayoutParams(layoutParams);
+            return;
+        }
         if (layoutParams.topMargin == margin) {
             return;
         }

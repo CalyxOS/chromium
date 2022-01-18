@@ -20,6 +20,7 @@ CC_BASE_EXPORT BASE_DECLARE_FEATURE(kSynchronizedScrolling);
 // that resets the scale at the end. When enabled, this aovids recomputing
 // raster scale during elastic overscroll.
 CC_BASE_EXPORT BASE_DECLARE_FEATURE(kAvoidRasterDuringElasticOverscroll);
+CC_BASE_EXPORT BASE_DECLARE_FEATURE(kMoveTopToolbarToBottom);
 
 // When enabled, the double tap to zoom will be disabled when the viewport
 // meta tag is properly set for mobile using content=width=device-width

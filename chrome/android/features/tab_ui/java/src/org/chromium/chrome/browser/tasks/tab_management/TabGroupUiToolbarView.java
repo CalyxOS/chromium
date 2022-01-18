@@ -29,6 +29,11 @@ import org.chromium.components.browser_ui.styles.SemanticColorUtils;
 import org.chromium.ui.KeyboardVisibilityDelegate;
 import org.chromium.ui.widget.ChromeImageView;
 
+import org.chromium.ui.util.ColorUtils;
+import org.chromium.chrome.browser.theme.ThemeUtils;
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
+
 /**
  * Represents a generic toolbar used in the bottom strip/grid component.
  * {@link TabGridPanelToolbarCoordinator}
@@ -169,6 +174,19 @@ public class TabGroupUiToolbarView extends FrameLayout {
         if (mFadingEdgeStart == null || mFadingEdgeEnd == null) return;
         mFadingEdgeStart.setColorFilter(color, PorterDuff.Mode.SRC_IN);
         mFadingEdgeEnd.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+    }
+
+    void setPrimaryColorAndApplyTint(int color) {
+        if (!CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM))
+            return;
+
+        // change the background color of the bottom bar if the top toolbar is below
+        setPrimaryColor(color);
+
+        // and adjust the tint
+        boolean useLightTint = ColorUtils.shouldUseLightForegroundOnBackground(color);
+        ColorStateList tint = ThemeUtils.getThemedToolbarIconTint(getContext(), useLightTint);
+        setTint(tint);
     }
 
     void setTint(ColorStateList tint) {

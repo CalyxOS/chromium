@@ -45,6 +45,8 @@ import org.chromium.components.browser_ui.widget.gesture.SwipeGestureListener.Sc
 import org.chromium.components.browser_ui.widget.gesture.SwipeGestureListener.SwipeHandler;
 import org.chromium.components.browser_ui.widget.scrim.ScrimCoordinator;
 import org.chromium.ui.resources.dynamics.DynamicResourceLoader;
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
 
 import java.util.List;
 
@@ -210,7 +212,10 @@ public class LayoutManagerChrome
 
     @Override
     public SwipeHandler createToolbarSwipeHandler(boolean supportSwipeDown) {
-        return new ToolbarSwipeHandler(supportSwipeDown);
+        boolean move_top_toolbar =
+            CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM);
+        return new ToolbarSwipeHandler(supportSwipeDown && !move_top_toolbar,
+                                       supportSwipeDown && move_top_toolbar);
     }
 
     @Override
@@ -424,9 +429,11 @@ public class LayoutManagerChrome
         private static final float SWIPE_RANGE_DEG = 25;
 
         private final boolean mSupportSwipeDown;
+        private final boolean mSupportSwipeUp;
 
-        public ToolbarSwipeHandler(boolean supportSwipeDown) {
+        public ToolbarSwipeHandler(boolean supportSwipeDown, boolean supportSwipeUp) {
             mSupportSwipeDown = supportSwipeDown;
+            mSupportSwipeUp = supportSwipeUp;
         }
 
         @Override
@@ -457,6 +464,9 @@ public class LayoutManagerChrome
             if (mSupportSwipeDown && mOverviewLayout != null
                     && mScrollDirection == ScrollDirection.DOWN) {
                 RecordUserAction.record("MobileToolbarSwipeOpenStackView");
+                showLayout(LayoutType.TAB_SWITCHER, true);
+            } else if (mSupportSwipeUp && mOverviewLayout != null
+                    && mScrollDirection == ScrollDirection.UP) {
                 showLayout(LayoutType.TAB_SWITCHER, true);
             } else if (mScrollDirection == ScrollDirection.LEFT
                     || mScrollDirection == ScrollDirection.RIGHT) {
@@ -504,6 +514,8 @@ public class LayoutManagerChrome
                 direction = ScrollDirection.RIGHT;
             } else if (swipeAngle < 270 + SWIPE_RANGE_DEG && swipeAngle > 270 - SWIPE_RANGE_DEG) {
                 direction = ScrollDirection.DOWN;
+            } else if (swipeAngle < 90 + SWIPE_RANGE_DEG && swipeAngle > 90 - SWIPE_RANGE_DEG) {
+                direction = ScrollDirection.UP;
             }
 
             return direction;
@@ -518,7 +530,7 @@ public class LayoutManagerChrome
                 return false;
             }
 
-            if (direction == ScrollDirection.DOWN) {
+            if (direction == ScrollDirection.DOWN || direction == ScrollDirection.UP) {
                 boolean isAccessibility = ChromeAccessibilityUtil.get().isAccessibilityEnabled();
                 return mOverviewLayout != null && !isAccessibility;
             }

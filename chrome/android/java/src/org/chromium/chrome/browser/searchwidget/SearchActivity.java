@@ -76,6 +76,11 @@ import org.chromium.ui.base.WindowDelegate;
 import org.chromium.ui.modaldialog.ModalDialogManager;
 import org.chromium.url.GURL;
 
+import android.view.Gravity;
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
 import java.lang.ref.WeakReference;
 
 /** Queries the user's default search engine and shows autocomplete suggestions. */
@@ -189,6 +194,12 @@ public class SearchActivity extends AsyncInitializationActivity
         mSearchBox = (SearchActivityLocationBarLayout) mContentView.findViewById(
                 R.id.search_location_bar);
         mAnchorView = mContentView.findViewById(R.id.toolbar);
+        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+            CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams)
+                mAnchorView.getLayoutParams();
+            layoutParams.gravity = Gravity.START | Gravity.BOTTOM;
+            mAnchorView.setLayoutParams(layoutParams);
+        }
         updateAnchorViewLayout();
 
         OverrideUrlLoadingDelegate overrideUrlLoadingDelegate =
@@ -204,7 +215,7 @@ public class SearchActivity extends AsyncInitializationActivity
             getOnBackPressedDispatcher().addCallback(this, backPressManager.getCallback());
         }
         // clang-format off
-        mLocationBarCoordinator = new LocationBarCoordinator(mSearchBox, mAnchorView,
+        mLocationBarCoordinator = new LocationBarCoordinator(mSearchBox, mAnchorView, mAnchorView,
                 mProfileSupplier, PrivacyPreferencesManagerImpl.getInstance(),
                 mSearchBoxDataProvider, null, new WindowDelegate(getWindow()), getWindowAndroid(),
                 /*activityTabSupplier=*/() -> null, getModalDialogManagerSupplier(),

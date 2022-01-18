@@ -61,6 +61,8 @@ import org.chromium.ui.modelutil.LazyConstructionPropertyMcp;
 import org.chromium.ui.modelutil.MVCListAdapter;
 import org.chromium.ui.modelutil.MVCListAdapter.ModelList;
 import org.chromium.ui.modelutil.PropertyModel;
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,6 +79,7 @@ public class AutocompleteCoordinator implements UrlFocusChangeListener, UrlTextC
     private @Nullable OmniboxSuggestionsDropdown mDropdown;
     private @NonNull ObserverList<OmniboxSuggestionsDropdownScrollListener> mScrollListenerList =
             new ObserverList<>();
+    private final @NonNull OmniboxSuggestionsDropdownEmbedder mDropdownEmbedder;
 
     public AutocompleteCoordinator(@NonNull ViewGroup parent,
             @NonNull AutocompleteDelegate delegate,
@@ -99,6 +102,7 @@ public class AutocompleteCoordinator implements UrlFocusChangeListener, UrlTextC
         PropertyModel listModel = new PropertyModel(SuggestionListProperties.ALL_KEYS);
         ModelList listItems = new ModelList();
 
+        mDropdownEmbedder = dropdownEmbedder;
         listModel.set(SuggestionListProperties.EMBEDDER, dropdownEmbedder);
         listModel.set(SuggestionListProperties.VISIBLE, false);
         listModel.set(SuggestionListProperties.SUGGESTION_MODELS, listItems);
@@ -154,7 +158,7 @@ public class AutocompleteCoordinator implements UrlFocusChangeListener, UrlTextC
             public void inflate() {
                 OmniboxSuggestionsDropdown dropdown;
                 try (StrictModeContext ignored = StrictModeContext.allowDiskReads()) {
-                    dropdown = new OmniboxSuggestionsDropdown(context);
+                    dropdown = new OmniboxSuggestionsDropdown(context, mDropdownEmbedder);
                 }
 
                 // Start with visibility GONE to ensure that show() is called.
@@ -232,6 +236,16 @@ public class AutocompleteCoordinator implements UrlFocusChangeListener, UrlTextC
                 ViewGroup container = (ViewGroup) ((ViewStub) mParent.getRootView().findViewById(
                                                            R.id.omnibox_results_container_stub))
                                               .inflate();
+                if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+                    // make margins works
+                    dropdown.getViewGroup().setClipToPadding(true);
+                    container.bringToFront();
+
+                    // do not cover the bar
+                    ViewGroup.LayoutParams params = container.getLayoutParams();
+                    ((ViewGroup.MarginLayoutParams) params).bottomMargin =
+                        mDropdownEmbedder.getAnchorView().getMeasuredHeight();
+                }
 
                 mHolder = new SuggestionListViewHolder(container, dropdown);
                 for (int i = 0; i < mCallbacks.size(); i++) {

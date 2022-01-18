@@ -83,6 +83,8 @@ import org.chromium.ui.base.WindowAndroid;
 import org.chromium.ui.mojom.VirtualKeyboardMode;
 import org.chromium.ui.resources.ResourceManager;
 import org.chromium.ui.resources.dynamics.DynamicResourceLoader;
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -316,6 +318,10 @@ public class CompositorViewHolder extends FrameLayout
                         WebContents webContents = mTabVisible.getWebContents();
                         if (webContents == null) return;
                         EventForwarder forwarder = webContents.getEventForwarder();
+                        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+                            // no need to adjust the touch offsets, since the content view is never moved
+                            top = 0;
+                        }
                         forwarder.setCurrentTouchEventOffsets(0, top);
                     }
                 });

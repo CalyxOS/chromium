@@ -57,6 +57,12 @@ import org.chromium.url.GURL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.chromium.chrome.browser.theme.TopUiThemeColorProvider;
+import org.chromium.chrome.browser.tab.CurrentTabObserver;
+import org.chromium.chrome.browser.tab.EmptyTabObserver;
+import org.chromium.chrome.browser.tab.Tab;
+import androidx.annotation.ColorInt;
+
 /**
  * A mediator for the TabGroupUi. Responsible for managing the internal state of the component.
  */
@@ -129,6 +135,11 @@ public class TabGroupUiMediator implements SnackbarManager.SnackbarController, B
     private boolean mIsShowingOverViewMode;
     private boolean mActivatedButNotShown;
 
+    private final TopUiThemeColorProvider mTopUiThemeColorProvider;
+
+    /** An observer that watches for changes in the active tab. */
+    private final CurrentTabObserver mTabObserver;
+
     TabGroupUiMediator(Context context,
             BottomControlsCoordinator.BottomControlsVisibilityController visibilityController,
             ResetHandler resetHandler, PropertyModel model, TabModelSelector tabModelSelector,
@@ -138,7 +149,9 @@ public class TabGroupUiMediator implements SnackbarManager.SnackbarController, B
             @Nullable TabGridDialogMediator.DialogController dialogController,
             ActivityLifecycleDispatcher activityLifecycleDispatcher,
             SnackbarManager snackbarManager,
-            ObservableSupplier<Boolean> omniboxFocusStateSupplier) {
+            ObservableSupplier<Boolean> omniboxFocusStateSupplier,
+            TopUiThemeColorProvider topUiThemeColorProvider, ObservableSupplier<Tab> tabSupplier) {
+        mTopUiThemeColorProvider = topUiThemeColorProvider;
         mContext = context;
         mResetHandler = resetHandler;
         mModel = model;
@@ -165,6 +178,24 @@ public class TabGroupUiMediator implements SnackbarManager.SnackbarController, B
             mIsShowingOverViewMode = true;
         }
 
+        // Keep an observer attached to the visible tab (and only the visible tab) to update
+        // properties including theme color.
+        Callback<Tab> activityTabCallback = (tab) -> {
+            if (tab == null) return;
+            updateThemeColor(tab);
+        };
+        mTabObserver = new CurrentTabObserver(tabSupplier, new EmptyTabObserver() {
+            @Override
+            public void onDidChangeThemeColor(Tab tab, int color) {
+                updateThemeColor(tab);
+            }
+
+            @Override
+            public void onContentChanged(Tab tab) {
+                updateThemeColor(tab);
+            }
+        }, activityTabCallback);
+
         // register for tab model
         mTabModelObserver = new TabModelObserver() {
             private int mAddedTabId = Tab.INVALID_TAB_ID;
@@ -189,6 +220,7 @@ public class TabGroupUiMediator implements SnackbarManager.SnackbarController, B
                         maybeActivateConditionalTabStrip(ReasonToShow.TAB_SWITCHED);
                     }
                 }
+                updateThemeColor(tab);
                 if (type == TabSelectionType.FROM_CLOSE) return;
                 if (TabUiFeatureUtilities.isTabGroupsAndroidEnabled(mContext)
                         && getTabsToShowForId(lastId).contains(tab)) {
@@ -259,6 +291,7 @@ public class TabGroupUiMediator implements SnackbarManager.SnackbarController, B
                 resetTabStripWithRelatedTabsForId(currentTab.getId());
                 RecordUserAction.record("TabStrip.SessionVisibility."
                         + (mIsTabGroupUiVisible ? "Visible" : "Hidden"));
+                updateThemeColor(currentTab);
             }
 
             @Override
@@ -394,6 +427,20 @@ public class TabGroupUiMediator implements SnackbarManager.SnackbarController, B
         Tab tab = mTabModelSelector.getCurrentTab();
         if (tab != null) {
             resetTabStripWithRelatedTabsForId(tab.getId());
+        }
+
+        mTabObserver.triggerWithCurrentTab();
+    }
+
+    /**
+     * Update the colors of the layer based on the specified tab.
+     * @param tab The tab to base the colors on.
+     */
+    private void updateThemeColor(Tab tab) {
+        if (tab != null) {
+            @ColorInt
+            int color = mTopUiThemeColorProvider.getSceneLayerBackground(tab);
+            mModel.set(TabGroupUiProperties.PRIMARY_COLOR, color);
         }
     }
 
@@ -552,6 +599,7 @@ public class TabGroupUiMediator implements SnackbarManager.SnackbarController, B
     }
 
     public void destroy() {
+        mTabObserver.destroy();
         if (mTabModelSelector != null) {
             mTabModelSelector.getTabModelFilterProvider().removeTabModelFilterObserver(
                     mTabModelObserver);

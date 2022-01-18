@@ -42,6 +42,8 @@ import org.chromium.base.SysUtils;
 import org.chromium.base.metrics.RecordHistogram;
 import org.chromium.base.task.PostTask;
 import org.chromium.base.task.TaskTraits;
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
 import org.chromium.chrome.browser.ui.appmenu.internal.R;
 import org.chromium.components.browser_ui.styles.ChromeColors;
 import org.chromium.components.browser_ui.widget.chips.ChipView;
@@ -263,6 +265,12 @@ class AppMenu implements OnItemClickListener, OnKeyListener, AppMenuClickHandler
         }
 
         mListView = (ListView) contentView.findViewById(R.id.app_menu_list);
+        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+            // always scroll to the bottom to show new items
+            mListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+            // fill content starting from the bottom of the view
+            mListView.setStackFromBottom(true);
+        }
 
         int footerHeight = inflateFooter(footerResourceId, contentView, menuWidth);
         int headerHeight = inflateHeader(headerResourceId, contentView, menuWidth);
@@ -301,6 +309,11 @@ class AppMenu implements OnItemClickListener, OnKeyListener, AppMenuClickHandler
 
         if (popupHeight + popupPosition[1] > visibleDisplayFrame.bottom) {
             mPopup.setHeight(visibleDisplayFrame.height());
+        }
+        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+            // due to some unknown behaviour, the popup must be resized to
+            // allow selection without leaving touch
+            mPopup.setHeight(popupHeight-1);
         }
 
         try {
@@ -348,6 +361,14 @@ class AppMenu implements OnItemClickListener, OnKeyListener, AppMenuClickHandler
         anchorView.getLocationInWindow(tempLocation);
         int anchorViewX = tempLocation[0];
         int anchorViewY = tempLocation[1];
+
+        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+            // moves the view offset up by the height of the popup
+            anchorViewY -= popupHeight;
+            // fix it if it goes offscreen
+            if (anchorViewY <= negativeSoftwareVerticalOffset)
+                anchorViewY = negativeSoftwareVerticalOffset;
+        }
 
         int[] offsets = new int[2];
         // If we have a hardware menu button, locate the app menu closer to the estimated
@@ -539,6 +560,15 @@ class AppMenu implements OnItemClickListener, OnKeyListener, AppMenuClickHandler
         }
         int availableScreenSpace = Math.max(
                 anchorViewY, appDimensions.height() - anchorViewY - anchorViewImpactHeight);
+        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+            // use all available space
+            availableScreenSpace = appDimensions.height() - anchorViewImpactHeight;
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N) {
+                // due to an Android Nougat bug the popup does not appear above the anchorview.
+                // the display is not pleasant, so we reduce the space
+                availableScreenSpace -= anchorView.getHeight();
+            }
+        }
 
         availableScreenSpace -= (padding.bottom + footerHeight + headerHeight);
         if (mIsByPermanentButton) availableScreenSpace -= padding.top;

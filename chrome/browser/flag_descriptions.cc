@@ -1752,6 +1752,10 @@ const char kImprovedKeyboardShortcutsDescription[] =
     "Ensure keyboard shortcuts work consistently with international keyboard "
     "layouts and deprecate legacy shortcuts.";
 
+const char kMoveTopToolbarToBottomName[] = "Move top toolbar to bottom";
+const char kMoveTopToolbarToBottomDescription[] =
+    "Move the top toolbar to the bottom.";
+
 const char kIncognitoDownloadsWarningName[] =
     "Enable Incognito downloads warning";
 const char kIncognitoDownloadsWarningDescription[] =

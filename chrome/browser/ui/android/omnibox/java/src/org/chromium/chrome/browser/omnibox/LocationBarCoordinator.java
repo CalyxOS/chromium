@@ -88,6 +88,7 @@ public class LocationBarCoordinator implements LocationBar, NativeInitObserver,
     private WindowDelegate mWindowDelegate;
     private WindowAndroid mWindowAndroid;
     private View mAutocompleteAnchorView;
+    private View mContainerView;
     private LocationBarMediator mLocationBarMediator;
     private View mUrlBar;
     private View mDeleteButton;
@@ -145,7 +146,7 @@ public class LocationBarCoordinator implements LocationBar, NativeInitObserver,
      * @param reportExceptionCallback A {@link Callback} to report exceptions.
      * @param backPressManager The {@link BackPressManager} for intercepting back press.
      */
-    public LocationBarCoordinator(View locationBarLayout, View autocompleteAnchorView,
+    public LocationBarCoordinator(View locationBarLayout, View autocompleteAnchorView, View containerView,
             ObservableSupplier<Profile> profileObservableSupplier,
             PrivacyPreferencesManager privacyPreferencesManager,
             LocationBarDataProvider locationBarDataProvider, ActionMode.Callback actionModeCallback,
@@ -177,6 +178,7 @@ public class LocationBarCoordinator implements LocationBar, NativeInitObserver,
         mActivityLifecycleDispatcher = activityLifecycleDispatcher;
         mActivityLifecycleDispatcher.register(this);
         mAutocompleteAnchorView = autocompleteAnchorView;
+        mContainerView = containerView;
         Context context = mLocationBarLayout.getContext();
 
         mUrlBar = mLocationBarLayout.findViewById(R.id.url_bar);
@@ -387,6 +389,11 @@ public class LocationBarCoordinator implements LocationBar, NativeInitObserver,
     @Override
     public View getAnchorView() {
         return mAutocompleteAnchorView;
+    }
+
+    @Override
+    public View getAnchorContainerView() {
+        return mContainerView;
     }
 
     @Override

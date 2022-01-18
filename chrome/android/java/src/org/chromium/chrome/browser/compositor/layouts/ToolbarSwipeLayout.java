@@ -35,6 +35,9 @@ import org.chromium.ui.base.DeviceFormFactor;
 import org.chromium.ui.base.LocalizationUtils;
 import org.chromium.ui.resources.ResourceManager;
 
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -408,7 +411,11 @@ public class ToolbarSwipeLayout extends Layout {
                 mLeftToolbarOverlay.setXOffset(leftX * dpToPx);
             }
             mLeftTab.setX(leftX);
-            mLeftTab.setY(mBrowserControlsStateProvider.getContentOffset() / dpToPx);
+            if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+                mLeftTab.setY(0);
+            } else {
+                mLeftTab.setY(mBrowserControlsStateProvider.getContentOffset() / dpToPx);
+            }
             needUpdate = updateSnap(dt, mLeftTab) || needUpdate;
         } else if (mLeftToolbarOverlay != null) {
             mLeftToolbarOverlay.setManualVisibility(false);
@@ -421,7 +428,11 @@ public class ToolbarSwipeLayout extends Layout {
                 mRightToolbarOverlay.setXOffset(rightX * dpToPx);
             }
             mRightTab.setX(rightX);
-            mRightTab.setY(mBrowserControlsStateProvider.getContentOffset() / dpToPx);
+            if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+                mRightTab.setY(0);
+            } else {
+                mRightTab.setY(mBrowserControlsStateProvider.getContentOffset() / dpToPx);
+            }
             needUpdate = updateSnap(dt, mRightTab) || needUpdate;
         } else if (mRightToolbarOverlay != null) {
             mRightToolbarOverlay.setManualVisibility(false);

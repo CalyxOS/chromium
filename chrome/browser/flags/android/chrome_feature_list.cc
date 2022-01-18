@@ -12,6 +12,7 @@
 #include "base/android/jni_string.h"
 #include "base/containers/flat_map.h"
 #include "base/feature_list.h"
+#include "cc/base/features.h"
 #include "base/metrics/field_trial_params.h"
 #include "base/no_destructor.h"
 #include "base/strings/string_piece_forward.h"
@@ -250,6 +251,7 @@ const base::Feature* const kFeaturesExposedToJava[] = {
     &kKitKatSupported,
     &kLensCameraAssistedSearch,
     &kLensOnQuickActionSearchWidget,
+    &features::kMoveTopToolbarToBottom,
     &kNewInstanceFromDraggedLink,
     &kNewTabPageTilesTitleWrapAround,
     &kNewWindowAppMenu,

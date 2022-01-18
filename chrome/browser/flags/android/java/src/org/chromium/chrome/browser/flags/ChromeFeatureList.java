@@ -430,6 +430,8 @@ public abstract class ChromeFeatureList {
     public static final String MESSAGES_FOR_ANDROID_SYNC_ERROR = "MessagesForAndroidSyncError";
     public static final String SEARCH_READY_OMNIBOX = "SearchReadyOmnibox";
     public static final String MODAL_PERMISSION_DIALOG_VIEW = "ModalPermissionDialogView";
+    public static final String MOVE_TOP_TOOLBAR_TO_BOTTOM =
+            "MoveTopToolbarToBottom";
     public static final String METRICS_SETTINGS_ANDROID = "MetricsSettingsAndroid";
     public static final String NEW_INSTANCE_FROM_DRAGGED_LINK = "NewInstanceFromDraggedLink";
     public static final String NEW_TAB_PAGE_TILES_TITLE_WRAP_AROUND =
@@ -714,6 +716,8 @@ public abstract class ChromeFeatureList {
     public static final CachedFlag sInterestFeedV2 = new CachedFlag(INTEREST_FEED_V2, true);
     public static final CachedFlag sLensCameraAssistedSearch =
             new CachedFlag(LENS_CAMERA_ASSISTED_SEARCH, false);
+    public static final CachedFlag sMoveTopToolbarToBottom =
+            new CachedFlag(MOVE_TOP_TOOLBAR_TO_BOTTOM, false);
     public static final CachedFlag sNewWindowAppMenu = new CachedFlag(NEW_WINDOW_APP_MENU, true);
     public static final CachedFlag sOmahaMinSdkVersionAndroid =
             new CachedFlag(OMAHA_MIN_SDK_VERSION_ANDROID, false);

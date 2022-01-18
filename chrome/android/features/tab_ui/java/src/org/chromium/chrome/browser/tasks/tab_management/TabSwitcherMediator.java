@@ -43,6 +43,7 @@ import org.chromium.chrome.browser.compositor.layouts.content.TabContentManager;
 import org.chromium.chrome.browser.flags.ChromeFeatureList;
 import org.chromium.chrome.browser.incognito.reauth.IncognitoReauthController;
 import org.chromium.chrome.browser.incognito.reauth.IncognitoReauthManager;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
 import org.chromium.chrome.browser.multiwindow.MultiWindowModeStateDispatcher;
 import org.chromium.chrome.browser.preferences.ChromePreferenceKeys;
 import org.chromium.chrome.browser.preferences.SharedPreferencesManager;
@@ -457,11 +458,22 @@ class TabSwitcherMediator implements TabSwitcher.Controller, TabListRecyclerView
             updateTopControlsProperties();
             mContainerViewModel.set(
                     BOTTOM_CONTROLS_HEIGHT, browserControlsStateProvider.getBottomControlsHeight());
+            if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+                mContainerViewModel.set(
+                    BOTTOM_CONTROLS_HEIGHT, mContainerViewModel.get(BOTTOM_CONTROLS_HEIGHT) +
+                        mBrowserControlsStateProvider.getContentOffset());
+            }
         }
 
         if (mMode == TabListMode.GRID) {
             mContainerViewModel.set(BOTTOM_PADDING,
                     (int) context.getResources().getDimension(R.dimen.tab_grid_bottom_padding));
+            if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+                // adjust the bottom margin so as not to cover the top toolbar at the bottom
+                mContainerViewModel.set(
+                    BOTTOM_PADDING, mContainerViewModel.get(BOTTOM_PADDING) +
+                        mBrowserControlsStateProvider.getContentOffset());
+            }
         }
 
         mContainerView = containerView;
@@ -588,6 +600,10 @@ class TabSwitcherMediator implements TabSwitcher.Controller, TabListRecyclerView
         final int contentOffset = mBrowserControlsStateProvider.getContentOffset();
 
         mContainerViewModel.set(TOP_MARGIN, contentOffset);
+        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+            // move the view up since the toolbar is at the bottom
+            mContainerViewModel.set(TOP_MARGIN, 0);
+        }
         mContainerViewModel.set(SHADOW_TOP_OFFSET, contentOffset);
     }
 

@@ -47,6 +47,9 @@ import org.chromium.ui.modelutil.SimpleRecyclerViewAdapter;
 import org.chromium.ui.resources.dynamics.DynamicResourceLoader;
 import org.chromium.ui.widget.ViewLookupCachingFrameLayout;
 
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.List;
@@ -255,6 +258,9 @@ public class TabListCoordinator
             if (mMode == TabListMode.GRID) {
                 GridLayoutManager gridLayoutManager =
                         new GridLayoutManager(context, GRID_LAYOUT_SPAN_COUNT_COMPACT);
+                // invert the order if the toolbar is at bottom
+                if (titleProvider != null && CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM))
+                    gridLayoutManager.setReverseLayout(true);
                 mRecyclerView.setLayoutManager(gridLayoutManager);
                 mMediator.registerOrientationListener(gridLayoutManager);
                 mMediator.updateSpanCount(gridLayoutManager,

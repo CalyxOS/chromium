@@ -51,6 +51,9 @@ import org.chromium.ui.vr.VrModeObserver;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
+
 /**
  * A class that manages browser control visibility and positioning.
  */
@@ -397,6 +400,14 @@ public class BrowserControlsManager
     }
 
     @Override
+    public int getTopControlsHeightRealOffset() {
+        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM))
+            return 0;
+        else
+            return mTopControlContainerHeight;
+    }
+
+    @Override
     public int getTopControlsMinHeight() {
         return mTopControlsMinHeight;
     }
@@ -462,6 +473,8 @@ public class BrowserControlsManager
 
     @Override
     public float getTopVisibleContentOffset() {
+        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM))
+            return 0;
         return getTopControlsHeight() + getTopControlOffset();
     }
 

@@ -19,6 +19,14 @@ import org.chromium.components.browser_ui.accessibility.PageZoomUtils;
 import org.chromium.components.user_prefs.UserPrefs;
 import org.chromium.content_public.browser.BrowserContextHandle;
 
+import android.app.Activity;
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
+import org.chromium.chrome.browser.ui.messages.snackbar.SnackbarManager;
+import org.chromium.chrome.browser.ui.messages.snackbar.INeedSnackbarManager;
+import org.chromium.chrome.browser.ui.messages.snackbar.Snackbar;
+import org.chromium.chrome.browser.ApplicationLifetime;
+
 /** The Chrome implementation of AccessibilitySettingsDelegate. */
 public class ChromeAccessibilitySettingsDelegate implements AccessibilitySettingsDelegate {
     private static final String READER_MODE_SELECTED_HISTOGRAM =
@@ -33,6 +41,12 @@ public class ChromeAccessibilitySettingsDelegate implements AccessibilitySetting
 
         @Override
         public void setEnabled(boolean value) {}
+    }
+
+    private SnackbarManager mSnackbarManager;
+
+    public void setSnackbarManager(SnackbarManager snackbarManager) {
+        mSnackbarManager = snackbarManager;
     }
 
     private static class ReaderForAccessibilityDelegate implements BooleanPreferenceDelegate {
@@ -85,6 +99,44 @@ public class ChromeAccessibilitySettingsDelegate implements AccessibilitySetting
     @Override
     public BooleanPreferenceDelegate getForceTabletUIDelegate() {
         return new ForceTabletUIDelegate();
+    }
+
+    private static class MoveTopToolbarToBottomDelegate implements BooleanPreferenceDelegate {
+        @Override
+        public boolean isEnabled() {
+            return CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM);
+        }
+
+        @Override
+        public void setEnabled(boolean value) {
+            CachedFeatureFlags.setFlagEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM,
+                    "move-top-toolbar-to-bottom", value);
+        }
+    }
+
+    @Override
+    public BooleanPreferenceDelegate getMoveTopToolbarToBottomDelegate() {
+        return new MoveTopToolbarToBottomDelegate();
+    }
+
+    @Override
+    public void requestRestart(Activity activity) {
+        Snackbar mSnackbar = Snackbar.make(activity.getString(R.string.ui_relaunch_notice),
+                new SnackbarManager.SnackbarController() {
+                        @Override
+                        public void onDismissNoAction(Object actionData) { }
+
+                        @Override
+                        public void onAction(Object actionData) {
+                                ApplicationLifetime.terminate(true);
+                        }
+                }, Snackbar.TYPE_NOTIFICATION, Snackbar.UMA_UNKNOWN)
+                .setSingleLine(false)
+                .setAction(activity.getString(R.string.relaunch),
+                        /*actionData*/null)
+                .setDuration(/*durationMs*/70000);
+        if (!mSnackbarManager.isShowing())
+            mSnackbarManager.showSnackbar(mSnackbar);
     }
 
     @Override

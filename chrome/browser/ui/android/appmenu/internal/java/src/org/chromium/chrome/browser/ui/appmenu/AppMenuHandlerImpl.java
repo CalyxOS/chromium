@@ -19,6 +19,8 @@ import androidx.annotation.VisibleForTesting;
 
 import org.chromium.base.Callback;
 import org.chromium.base.metrics.RecordUserAction;
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
 import org.chromium.base.supplier.Supplier;
 import org.chromium.chrome.browser.lifecycle.ActivityLifecycleDispatcher;
 import org.chromium.chrome.browser.lifecycle.ConfigurationChangedObserver;
@@ -181,6 +183,15 @@ class AppMenuHandlerImpl
             return getCustomItemViewType(id, customViewBinders, customViewTypeOffsetMap);
         }),
                 this);
+
+        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+            // reverses the order of items in the menu
+            ModelList modelListReversed = new ModelList();
+            for (int i = 0; i < modelList.size(); i++) {
+                modelListReversed.add(0, modelList.get(i));
+            }
+            modelList = modelListReversed;
+        }
 
         ContextThemeWrapper wrapper =
                 new ContextThemeWrapper(mContext, R.style.OverflowMenuThemeOverlay);

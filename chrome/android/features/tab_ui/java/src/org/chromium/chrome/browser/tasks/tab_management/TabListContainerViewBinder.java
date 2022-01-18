@@ -21,6 +21,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import org.chromium.components.browser_ui.styles.ChromeColors;
 import org.chromium.ui.modelutil.PropertyKey;
 import org.chromium.ui.modelutil.PropertyModel;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
 
 /**
  * ViewBinder for TabListRecyclerView.
@@ -57,6 +59,8 @@ class TabListContainerViewBinder {
             params.topMargin = newTopMargin;
             view.requestLayout();
         } else if (BOTTOM_CONTROLS_HEIGHT == propertyKey) {
+            if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM))
+                return;
             FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) view.getLayoutParams();
             params.bottomMargin = model.get(BOTTOM_CONTROLS_HEIGHT);
             view.requestLayout();

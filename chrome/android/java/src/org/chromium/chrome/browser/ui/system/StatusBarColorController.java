@@ -13,6 +13,9 @@ import android.view.Window;
 import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
 
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
+
 import org.chromium.base.ApiCompatibilityUtils;
 import org.chromium.base.CallbackController;
 import org.chromium.base.supplier.ObservableSupplier;
@@ -370,6 +373,12 @@ public class StatusBarColorController
         boolean needsDarkStatusBarIcons = !ColorUtils.shouldUseLightForegroundOnBackground(color);
         ApiCompatibilityUtils.setStatusBarIconColor(root, needsDarkStatusBarIcons);
         ApiCompatibilityUtils.setStatusBarColor(mWindow, color);
+        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM) &&
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            UiUtils.setNavigationBarIconColor(mWindow.getDecorView().getRootView(),
+                needsDarkStatusBarIcons);
+            mWindow.setNavigationBarColor(color);
+        }
     }
 
     /**

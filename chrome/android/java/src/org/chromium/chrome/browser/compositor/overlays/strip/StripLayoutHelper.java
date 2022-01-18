@@ -376,7 +376,7 @@ public class StripLayoutHelper implements StripLayoutTab.StripLayoutTabDelegate 
         // position 0 is on the left. Account for that in the offset calculation.
         boolean isRtl = LocalizationUtils.isLayoutRtl();
         boolean useUnadjustedScrollOffset = isRtl != isLeft;
-        float offset = -(useUnadjustedScrollOffset ? mScrollOffset
+        float offset = -Math.abs(useUnadjustedScrollOffset ? mScrollOffset
                 : (mMinScrollOffset - mScrollOffset));
 
         if (offset <= 0.f) {

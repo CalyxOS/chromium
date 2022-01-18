@@ -111,6 +111,7 @@ public class ChromeCachedFlags {
                 add(ChromeFeatureList.sInstanceSwitcher);
                 add(ChromeFeatureList.sInstantStart);
                 add(ChromeFeatureList.sInterestFeedV2);
+                add(ChromeFeatureList.sMoveTopToolbarToBottom);
                 add(ChromeFeatureList.sNewWindowAppMenu);
                 add(ChromeFeatureList.sOmniboxModernizeVisualUpdate);
                 add(ChromeFeatureList.sOmniboxRemoveExcessiveRecycledViewClearCalls);

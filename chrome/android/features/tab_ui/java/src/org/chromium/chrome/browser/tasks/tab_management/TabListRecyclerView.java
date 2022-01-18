@@ -36,6 +36,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.chromium.base.Log;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
 import org.chromium.chrome.browser.flags.ChromeFeatureList;
 import org.chromium.chrome.browser.tabmodel.TabModel;
 import org.chromium.chrome.tab_ui.R;
@@ -62,6 +63,8 @@ class TabListRecyclerView
 
     public static final long BASE_ANIMATION_DURATION_MS = 218;
     public static final long FINAL_FADE_IN_DURATION_MS = 50;
+
+    private boolean mIsVisible = false;
 
     /**
      * Field trial parameter for downsampling scaling factor.
@@ -192,6 +195,7 @@ class TabListRecyclerView
                 ? FINAL_FADE_IN_DURATION_MS
                 : BASE_ANIMATION_DURATION_MS;
 
+        mIsVisible = true;
         setAlpha(0);
         setVisibility(View.VISIBLE);
         mFadeInAnimator = ObjectAnimator.ofFloat(this, View.ALPHA, 1);
@@ -225,6 +229,11 @@ class TabListRecyclerView
     }
 
     void setShadowVisibility(boolean shouldShowShadow) {
+        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)
+                && mIsVisible) {
+            // always show shadow
+            shouldShowShadow = true;
+        }
         if (mShadowImageView == null) {
             Context context = getContext();
             mShadowImageView = new ImageView(context);
@@ -237,7 +246,10 @@ class TabListRecyclerView
             if (getParent() instanceof FrameLayout) {
                 // Add shadow for grid tab switcher.
                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                        LayoutParams.MATCH_PARENT, shadowHeight, Gravity.TOP);
+                        LayoutParams.MATCH_PARENT, shadowHeight,
+                        (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM) ?
+                            Gravity.BOTTOM :
+                            Gravity.TOP));
                 mShadowImageView.setLayoutParams(params);
                 mShadowImageView.setTranslationY(mShadowTopOffset);
                 FrameLayout parent = (FrameLayout) getParent();
@@ -264,6 +276,10 @@ class TabListRecyclerView
 
     void setShadowTopOffset(int shadowTopOffset) {
         mShadowTopOffset = shadowTopOffset;
+        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+            // invert the offset since Gravity is set to BOTTOM
+            mShadowTopOffset = -mShadowTopOffset;
+        }
 
         if (mShadowImageView != null && getParent() instanceof FrameLayout) {
             // Since the shadow has no functionality, other than just existing visually, we can use
@@ -443,6 +459,7 @@ class TabListRecyclerView
                 mListener.finishedHiding();
             }
         });
+        mIsVisible = false;
         setShadowVisibility(false);
         mFadeOutAnimator.start();
         if (!animate) mFadeOutAnimator.end();

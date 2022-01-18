@@ -35,6 +35,7 @@ public class AccessibilitySettings
 
     private BooleanPreferenceDelegate mForceTabletUIDelegate;
     static final String PREF_FORCE_TABLET_UI = "force_tablet_ui";
+    static final String PREF_MOVE_TOOLBAR_TO_BOTTOM = "move_toolbar_bottom";
     private TextScalePreference mTextScalePref;
     private PageZoomPreference mPageZoomDefaultZoomPref;
     private ChromeSwitchPreference mPageZoomAlwaysShowPref;
@@ -43,6 +44,7 @@ public class AccessibilitySettings
     private AccessibilitySettingsDelegate mDelegate;
     private BooleanPreferenceDelegate mReaderForAccessibilityDelegate;
     private BooleanPreferenceDelegate mAccessibilityTabSwitcherDelegate;
+    private BooleanPreferenceDelegate mMoveTopToolbarToBottomDelegate;
 
     private FontSizePrefs mFontSizePrefs;
     private FontSizePrefsObserver mFontSizePrefsObserver = new FontSizePrefsObserver() {
@@ -60,6 +62,10 @@ public class AccessibilitySettings
     public void setDelegate(AccessibilitySettingsDelegate delegate) {
         mDelegate = delegate;
         mFontSizePrefs = FontSizePrefs.getInstance(delegate.getBrowserContextHandle());
+    }
+
+    public AccessibilitySettingsDelegate getDelegate() {
+        return mDelegate;
     }
 
     @Override
@@ -126,6 +132,12 @@ public class AccessibilitySettings
             getPreferenceScreen().removePreference(accessibilityTabSwitcherPref);
         }
 
+        ChromeBaseCheckBoxPreference mMoveToolbarToBottomPref =
+                (ChromeBaseCheckBoxPreference) findPreference(PREF_MOVE_TOOLBAR_TO_BOTTOM);
+        mMoveTopToolbarToBottomDelegate = mDelegate.getMoveTopToolbarToBottomDelegate();
+        mMoveToolbarToBottomPref.setChecked(mMoveTopToolbarToBottomDelegate.isEnabled());
+        mMoveToolbarToBottomPref.setOnPreferenceChangeListener(this);
+
         Preference captions = findPreference(PREF_CAPTIONS);
         captions.setOnPreferenceClickListener(preference -> {
             Intent intent = new Intent(Settings.ACTION_CAPTIONING_SETTINGS);
@@ -175,7 +187,11 @@ public class AccessibilitySettings
                     mDelegate.getBrowserContextHandle(), (Integer) newValue);
         } else if (PREF_PAGE_ZOOM_ALWAYS_SHOW.equals(preference.getKey())) {
             PageZoomUtils.setShouldAlwaysShowZoomMenuItem((Boolean) newValue);
+        } else if (PREF_MOVE_TOOLBAR_TO_BOTTOM.equals(preference.getKey())) {
+            mMoveTopToolbarToBottomDelegate.setEnabled((Boolean) newValue);
+            mDelegate.requestRestart(getActivity());
         }
+
         return true;
     }
 }

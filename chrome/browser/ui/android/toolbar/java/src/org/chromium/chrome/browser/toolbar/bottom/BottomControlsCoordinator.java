@@ -26,6 +26,8 @@ import org.chromium.ui.modelutil.PropertyModel;
 import org.chromium.ui.modelutil.PropertyModelChangeProcessor;
 import org.chromium.ui.resources.ResourceManager;
 import org.chromium.ui.widget.Toast;
+import org.chromium.chrome.browser.theme.TopUiThemeColorProvider;
+import org.chromium.chrome.browser.tab.Tab;
 
 /**
  * The root coordinator for the bottom controls component. This component is intended for use with
@@ -62,6 +64,8 @@ public class BottomControlsCoordinator implements BackPressHandler {
      * @param tabObscuringHandler Delegate object handling obscuring views.
      * @param overlayPanelVisibilitySupplier Notifies overlay panel visibility event.
      * @param constraintsSupplier Used to access current constraints of the browser controls.
+     * @param topUiThemeColorProvider {@link ThemeColorProvider} for top UI.
+     * @param tabSupplier Activity tab supplier.
      */
     @SuppressLint("CutPasteId") // Not actually cut and paste since it's View vs ViewGroup.
     public BottomControlsCoordinator(Activity activity, WindowAndroid windowAndroid,
@@ -70,7 +74,9 @@ public class BottomControlsCoordinator implements BackPressHandler {
             ScrollingBottomViewResourceFrameLayout root,
             BottomControlsContentDelegate contentDelegate, TabObscuringHandler tabObscuringHandler,
             ObservableSupplier<Boolean> overlayPanelVisibilitySupplier,
-            ObservableSupplier<Integer> constraintsSupplier) {
+            ObservableSupplier<Integer> constraintsSupplier,
+            TopUiThemeColorProvider topUiThemeColorProvider,
+            ObservableSupplier<Tab> tabSupplier) {
         root.setConstraintsSupplier(constraintsSupplier);
         PropertyModel model = new PropertyModel(BottomControlsProperties.ALL_KEYS);
 
@@ -106,7 +112,8 @@ public class BottomControlsCoordinator implements BackPressHandler {
 
         if (mContentDelegate != null) {
             mContentDelegate.initializeWithNative(
-                    activity, mMediator::setBottomControlsVisible, root::onModelTokenChange);
+                    activity, mMediator::setBottomControlsVisible, root::onModelTokenChange,
+                    topUiThemeColorProvider, tabSupplier);
         }
     }
 

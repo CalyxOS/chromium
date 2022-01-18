@@ -7422,6 +7422,11 @@ const FeatureEntry kFeatureEntries[] = {
      flag_descriptions::kWindowsScrollingPersonalityDescription, kOsAll,
      FEATURE_VALUE_TYPE(features::kWindowsScrollingPersonality)},
 
+    {"move-top-toolbar-to-bottom",
+     flag_descriptions::kMoveTopToolbarToBottomName,
+     flag_descriptions::kMoveTopToolbarToBottomDescription, kOsAndroid,
+     FEATURE_VALUE_TYPE(features::kMoveTopToolbarToBottom)},
+
     {"scroll-unification", flag_descriptions::kScrollUnificationName,
      flag_descriptions::kScrollUnificationDescription, kOsAll,
      FEATURE_VALUE_TYPE(features::kScrollUnification)},

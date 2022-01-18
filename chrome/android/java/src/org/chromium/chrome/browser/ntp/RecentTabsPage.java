@@ -23,6 +23,8 @@ import org.chromium.chrome.browser.ui.native_page.NativePageHost;
 import org.chromium.components.embedder_support.util.UrlConstants;
 import org.chromium.ui.base.DeviceFormFactor;
 import org.chromium.ui.base.ViewUtils;
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
 
 /**
  * The native recent tabs page. Lists recently closed tabs, open windows and tabs from the user's
@@ -49,6 +51,7 @@ public class RecentTabsPage
     private int mSnapshotListTop;
     private int mSnapshotWidth;
     private int mSnapshotHeight;
+    private final int mTabStripAndToolbarHeight;
 
     /**
      * Whether {@link #mView} is attached to the application window.
@@ -68,6 +71,8 @@ public class RecentTabsPage
         mActivity = activity;
         mRecentTabsManager = recentTabsManager;
         mPageHost = pageHost;
+        mTabStripAndToolbarHeight =
+                activity.getResources().getDimensionPixelSize(R.dimen.tab_strip_and_toolbar_height);
         Resources resources = activity.getResources();
 
         mTitle = resources.getString(R.string.recent_tabs);
@@ -85,7 +90,8 @@ public class RecentTabsPage
 
         mView.addOnAttachStateChangeListener(this);
 
-        if (!DeviceFormFactor.isNonMultiDisplayContextOnTablet(mActivity)) {
+        if (!DeviceFormFactor.isNonMultiDisplayContextOnTablet(mActivity) ||
+                CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
             mBrowserControlsStateProvider = browserControlsStateProvider;
             mBrowserControlsStateProvider.addObserver(this);
             onBottomControlsHeightChanged(mBrowserControlsStateProvider.getBottomControlsHeight(),
@@ -267,7 +273,7 @@ public class RecentTabsPage
 
     private void updateMargins() {
         final View recentTabsRoot = mView.findViewById(R.id.recent_tabs_root);
-        final int topControlsHeight = mBrowserControlsStateProvider.getTopControlsHeight();
+        final int topControlsHeight = mBrowserControlsStateProvider.getTopControlsHeightRealOffset();
         final int contentOffset = mBrowserControlsStateProvider.getContentOffset();
         ViewGroup.MarginLayoutParams layoutParams =
                 (ViewGroup.MarginLayoutParams) recentTabsRoot.getLayoutParams();
@@ -283,9 +289,17 @@ public class RecentTabsPage
 
         // If the content offset is different from the margin, we use translationY to position the
         // view in line with the content offset.
-        recentTabsRoot.setTranslationY(contentOffset - topMargin);
+        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+            topMargin = 0;
+            recentTabsRoot.setTranslationY(0);
+        } else {
+            recentTabsRoot.setTranslationY(contentOffset - topMargin);
+        }
 
-        final int bottomMargin = mBrowserControlsStateProvider.getBottomControlsHeight();
+        int bottomMargin = mBrowserControlsStateProvider.getBottomControlsHeight();
+        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+            bottomMargin += mBrowserControlsStateProvider.getTopControlsHeight();
+        }
         if (topMargin != layoutParams.topMargin || bottomMargin != layoutParams.bottomMargin) {
             layoutParams.topMargin = topMargin;
             layoutParams.bottomMargin = bottomMargin;

@@ -8,6 +8,8 @@ import android.graphics.Rect;
 
 import org.chromium.base.supplier.DestroyableObservableSupplier;
 import org.chromium.base.supplier.ObservableSupplierImpl;
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
 
 /**
  * An implementation of {@link DestroyableObservableSupplier} that monitors changes to browser
@@ -52,6 +54,10 @@ public class BrowserControlsMarginSupplier extends ObservableSupplierImpl<Rect>
                 + mBrowserControlsStateProvider.getTopControlOffset();
         int bottomMargin = mBrowserControlsStateProvider.getBottomControlsHeight()
                 - mBrowserControlsStateProvider.getBottomControlOffset();
+        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+            bottomMargin += topMargin;
+            topMargin = 0;
+        }
         super.set(new Rect(0, topMargin, 0, bottomMargin));
     }
 }

@@ -56,6 +56,9 @@ import org.chromium.ui.base.LocalizationUtils;
 import org.chromium.ui.base.PageTransition;
 import org.chromium.ui.resources.ResourceManager;
 import org.chromium.url.GURL;
+import org.chromium.chrome.browser.fullscreen.BrowserControlsManager;
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
 
 import java.util.List;
 
@@ -119,9 +122,13 @@ public class StripLayoutHelperManager implements SceneOverlay, PauseResumeWithNa
     private final String mDefaultTitle;
     private final Supplier<LayerTitleCache> mLayerTitleCacheSupplier;
 
+    private final Supplier<BrowserControlsManager> mBrowserControlsManagerSupplier;
+    private final float mDpToPx;
+
     private class TabStripEventHandler implements GestureHandler {
         @Override
         public void onDown(float x, float y, boolean fromMouse, int buttons) {
+            y -= mStripFilterArea.top;
             if (mModelSelectorButton.onDown(x, y)) return;
             if (mStripScrim.isVisible()) return;
             getActiveStripLayoutHelper().onDown(time(), x, y, fromMouse, buttons);
@@ -141,6 +148,7 @@ public class StripLayoutHelperManager implements SceneOverlay, PauseResumeWithNa
 
         @Override
         public void drag(float x, float y, float dx, float dy, float tx, float ty) {
+            y -= mStripFilterArea.top;
             mModelSelectorButton.drag(x, y);
             if (mStripScrim.isVisible()) return;
             getActiveStripLayoutHelper().drag(time(), x, y, dx, dy, tx, ty);
@@ -148,6 +156,7 @@ public class StripLayoutHelperManager implements SceneOverlay, PauseResumeWithNa
 
         @Override
         public void click(float x, float y, boolean fromMouse, int buttons) {
+            y -= mStripFilterArea.top;
             long time = time();
             if (mModelSelectorButton.click(x, y)) {
                 mModelSelectorButton.handleClick(time);
@@ -159,13 +168,13 @@ public class StripLayoutHelperManager implements SceneOverlay, PauseResumeWithNa
 
         @Override
         public void fling(float x, float y, float velocityX, float velocityY) {
-            if (mStripScrim.isVisible()) return;
+            y -= mStripFilterArea.top;
             getActiveStripLayoutHelper().fling(time(), x, y, velocityX, velocityY);
         }
 
         @Override
         public void onLongPress(float x, float y) {
-            if (mStripScrim.isVisible()) return;
+            y -= mStripFilterArea.top;
             getActiveStripLayoutHelper().onLongPress(time(), x, y);
         }
 
@@ -249,7 +258,8 @@ public class StripLayoutHelperManager implements SceneOverlay, PauseResumeWithNa
      */
     public StripLayoutHelperManager(Context context, LayoutUpdateHost updateHost,
             LayoutRenderHost renderHost, Supplier<LayerTitleCache> layerTitleCacheSupplier,
-            ActivityLifecycleDispatcher lifecycleDispatcher) {
+            ActivityLifecycleDispatcher lifecycleDispatcher,
+            Supplier<BrowserControlsManager> browserControlsManagerSupplier) {
         mUpdateHost = updateHost;
         mLayerTitleCacheSupplier = layerTitleCacheSupplier;
         mTabStripTreeProvider = new TabStripSceneLayer(context);
@@ -292,6 +302,8 @@ public class StripLayoutHelperManager implements SceneOverlay, PauseResumeWithNa
                 new StripLayoutHelper(context, updateHost, renderHost, false, mModelSelectorButton);
         mIncognitoHelper =
                 new StripLayoutHelper(context, updateHost, renderHost, true, mModelSelectorButton);
+        mBrowserControlsManagerSupplier = browserControlsManagerSupplier;
+        mDpToPx = context.getResources().getDisplayMetrics().density;
 
         onContextChanged(context);
     }
@@ -361,9 +373,13 @@ public class StripLayoutHelperManager implements SceneOverlay, PauseResumeWithNa
         Tab selectedTab = mTabModelSelector.getCurrentModel().getTabAt(
                 mTabModelSelector.getCurrentModel().index());
         int selectedTabId = selectedTab == null ? TabModel.INVALID_TAB_INDEX : selectedTab.getId();
+        int topControlsHeight = 0;
+        if (mBrowserControlsManagerSupplier.get() != null) {
+            topControlsHeight = mBrowserControlsManagerSupplier.get().getTopControlsHeight();
+        }
         mTabStripTreeProvider.pushAndUpdateStrip(this, mLayerTitleCacheSupplier.get(),
                 resourceManager, getActiveStripLayoutHelper().getStripLayoutTabsToRender(), yOffset,
-                selectedTabId);
+                selectedTabId, viewport.height(), topControlsHeight);
         return mTabStripTreeProvider;
     }
 
@@ -401,7 +417,17 @@ public class StripLayoutHelperManager implements SceneOverlay, PauseResumeWithNa
         mIncognitoHelper.onSizeChanged(
                 mWidth, mHeight, orientationChanged, LayoutManagerImpl.time());
 
-        mStripFilterArea.set(0, 0, mWidth, Math.min(getHeight(), visibleViewportOffsetY));
+        float top = 0;
+        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM) &&
+            mBrowserControlsManagerSupplier.get() != null) {
+            // move the rectangle to grab the touch events as the tab list (in tablet mode)
+            // is down and is following the toolbar offset as it moves.
+            // values are in pixels.
+            top = height - ((mBrowserControlsManagerSupplier.get().getTopControlsHeight()
+                             - mBrowserControlsManagerSupplier.get().getTopControlOffset()) / mDpToPx);
+            visibleViewportOffsetY = mHeight;
+        }
+        mStripFilterArea.set(0, top, mWidth, top + Math.min(getHeight(), visibleViewportOffsetY));
         mEventFilter.setEventArea(mStripFilterArea);
     }
 

@@ -48,6 +48,7 @@ import org.chromium.components.feature_engagement.FeatureConstants;
 import org.chromium.ui.modelutil.PropertyModel;
 import org.chromium.ui.modelutil.PropertyModelChangeProcessor;
 import org.chromium.ui.resources.dynamics.DynamicResourceLoader;
+import org.chromium.chrome.browser.theme.TopUiThemeColorProvider;
 
 import java.util.List;
 
@@ -133,7 +134,8 @@ public class TabGroupUiCoordinator implements TabGroupUiMediator.ResetHandler, T
     @Override
     public void initializeWithNative(Activity activity,
             BottomControlsCoordinator.BottomControlsVisibilityController visibilityController,
-            Callback<Object> onModelTokenChange) {
+            Callback<Object> onModelTokenChange,
+            TopUiThemeColorProvider topUiThemeColorProvider, ObservableSupplier<Tab> tabSupplier) {
         try (TraceEvent e = TraceEvent.scoped("TabGroupUiCoordinator.initializeWithNative")) {
             if (UmaSessionStats.isMetricsServiceAvailable()) {
                 UmaSessionStats.registerSyntheticFieldTrial(
@@ -170,7 +172,8 @@ public class TabGroupUiCoordinator implements TabGroupUiMediator.ResetHandler, T
             mMediator = new TabGroupUiMediator(mActivity, visibilityController, this, mModel,
                     mTabModelSelector, mTabCreatorManager, mLayoutStateProviderSupplier,
                     mIncognitoStateProvider, dialogController, mActivityLifecycleDispatcher,
-                    mSnackbarManager, mOmniboxFocusStateSupplier);
+                    mSnackbarManager, mOmniboxFocusStateSupplier,
+                topUiThemeColorProvider, tabSupplier);
 
             TabGroupUtils.startObservingForCreationIPH();
 

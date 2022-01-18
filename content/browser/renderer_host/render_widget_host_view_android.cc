@@ -28,6 +28,7 @@
 #include "base/task/thread_pool.h"
 #include "base/threading/scoped_blocking_call.h"
 #include "base/threading/thread_task_runner_handle.h"
+#include "cc/base/features.h"
 #include "cc/base/math_util.h"
 #include "cc/layers/layer.h"
 #include "cc/layers/surface_layer.h"
@@ -479,6 +480,8 @@ void RenderWidgetHostViewAndroid::OnRenderFrameMetadataChangedBeforeActivation(
   // factor. Thus, |top_content_offset| in CSS pixels is also in DIPs.
   float top_content_offset =
       metadata.top_controls_height * metadata.top_controls_shown_ratio;
+  if (base::FeatureList::IsEnabled(::features::kMoveTopToolbarToBottom))
+    top_content_offset = 0;
   float top_shown_pix = top_content_offset;
 
   if (ime_adapter_android_) {

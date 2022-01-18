@@ -7,6 +7,7 @@ package org.chromium.chrome.browser.tasks.tab_management;
 import android.view.View.OnClickListener;
 import org.chromium.ui.modelutil.PropertyKey;
 import org.chromium.ui.modelutil.PropertyModel;
+import android.content.res.ColorStateList;
 
 /**
  * {@link PropertyKey} list for the TabGroupUi.
@@ -37,8 +38,11 @@ class TabGroupUiProperties {
             .WritableObjectPropertyKey<String> RIGHT_BUTTON_CONTENT_DESCRIPTION =
             new PropertyModel.WritableObjectPropertyKey<>();
 
+    public static final PropertyModel.WritableIntPropertyKey PRIMARY_COLOR =
+            new PropertyModel.WritableIntPropertyKey();
+
     public static final PropertyKey[] ALL_KEYS = new PropertyKey[] {LEFT_BUTTON_ON_CLICK_LISTENER,
             RIGHT_BUTTON_ON_CLICK_LISTENER, IS_MAIN_CONTENT_VISIBLE, IS_INCOGNITO,
             LEFT_BUTTON_DRAWABLE_ID, INITIAL_SCROLL_INDEX, LEFT_BUTTON_CONTENT_DESCRIPTION,
-            RIGHT_BUTTON_CONTENT_DESCRIPTION};
+            RIGHT_BUTTON_CONTENT_DESCRIPTION, PRIMARY_COLOR};
 }

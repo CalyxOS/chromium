@@ -15,6 +15,7 @@
 #include "ui/android/resources/nine_patch_resource.h"
 #include "ui/android/resources/resource_manager_impl.h"
 #include "ui/gfx/geometry/transform.h"
+#include "cc/base/features.h"
 
 using base::android::JavaParamRef;
 using base::android::JavaRef;
@@ -82,8 +83,10 @@ void TabStripSceneLayer::SetContentTree(
     content_tree_ = content_tree;
     if (content_tree) {
       layer()->InsertChild(content_tree->layer(), 0);
-      content_tree->layer()->SetPosition(
-          gfx::PointF(0, -layer()->position().y()));
+      if (!base::FeatureList::IsEnabled(::features::kMoveTopToolbarToBottom)) {
+        content_tree->layer()->SetPosition(
+            gfx::PointF(0, -layer()->position().y()));
+      }
     }
   }
 }
@@ -115,12 +118,17 @@ void TabStripSceneLayer::UpdateTabStripLayer(JNIEnv* env,
                                              jfloat y_offset,
                                              jboolean should_readd_background) {
   gfx::RectF content(0, y_offset, width, height);
-  layer()->SetPosition(gfx::PointF(0, y_offset));
+  if (base::FeatureList::IsEnabled(::features::kMoveTopToolbarToBottom)) {
+    // do not move the whole layer (which also contains the contents) but only the tab strip layer
+    tab_strip_layer_->SetPosition(gfx::PointF(0, y_offset));
+  } else {
+    layer()->SetPosition(gfx::PointF(0, y_offset));
+  }
   tab_strip_layer_->SetBounds(gfx::Size(width, height));
   scrollable_strip_layer_->SetBounds(gfx::Size(width, height));
 
   // Content tree should not be affected by tab strip scene layer visibility.
-  if (content_tree_)
+  if (content_tree_ && !base::FeatureList::IsEnabled(::features::kMoveTopToolbarToBottom))
     content_tree_->layer()->SetPosition(gfx::PointF(0, -y_offset));
 
   // Make sure tab strip changes are committed after rotating the device.

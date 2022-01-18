@@ -19,6 +19,9 @@ import org.chromium.ui.resources.ResourceManager;
 
 import java.util.List;
 
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
+
 /**
  * A composited view that sits at the bottom of the screen and listens to changes in the browser
  * controls. When visible, the view will mimic the behavior of the top browser controls when
@@ -37,6 +40,9 @@ public class ScrollingBottomViewSceneLayer extends SceneOverlayLayer implements 
 
     /** The current Y offset of the bottom view in px. */
     private int mCurrentYOffsetPx;
+
+    /** The min height of browser controls in px. */
+    private int mTopControlsMinHeightOffset;
 
     /** The current X offset of the bottom view in px. */
     private int mCurrentXOffsetPx;
@@ -86,6 +92,13 @@ public class ScrollingBottomViewSceneLayer extends SceneOverlayLayer implements 
     }
 
     /**
+     * @param offsetPx The min height of browser controls in px.
+     */
+    public void setTopControlsMinHeightOffset(int offsetPx) {
+        mTopControlsMinHeightOffset = offsetPx;
+    }
+
+    /**
      * @param visible Whether this {@link SceneLayer} is visible.
      */
     public void setIsVisible(boolean visible) {
@@ -113,9 +126,14 @@ public class ScrollingBottomViewSceneLayer extends SceneOverlayLayer implements 
         // The composited shadow should be visible if the Android toolbar's isn't.
         boolean isShadowVisible = mBottomView.getVisibility() != View.VISIBLE;
 
+        float offsetPy = viewport.height() + mCurrentYOffsetPx;
+        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+            // fix the offset of the fake bottom controls, used only for animations
+            offsetPy -= (mBottomView.getHeight() - mCurrentYOffsetPx + mTopControlsMinHeightOffset);
+        }
         ScrollingBottomViewSceneLayerJni.get().updateScrollingBottomViewLayer(mNativePtr,
                 ScrollingBottomViewSceneLayer.this, resourceManager, mResourceId,
-                mTopShadowHeightPx, mCurrentXOffsetPx, viewport.height() + mCurrentYOffsetPx,
+                mTopShadowHeightPx, mCurrentXOffsetPx, offsetPy,
                 isShadowVisible);
 
         return this;

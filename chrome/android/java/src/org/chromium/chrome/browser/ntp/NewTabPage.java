@@ -101,6 +101,8 @@ import org.chromium.content_public.browser.NavigationEntry;
 import org.chromium.ui.base.DeviceFormFactor;
 import org.chromium.ui.base.WindowAndroid;
 import org.chromium.ui.mojom.WindowOpenDisposition;
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
 
 import java.util.List;
 
@@ -562,10 +564,15 @@ public class NewTabPage implements NativePage, InvalidationAwareThumbnailProvide
         // + topControlsDistanceToRest| will give the margin for the current animation frame.
         final int topControlsDistanceToRest = mBrowserControlsStateProvider.getContentOffset()
                 - mBrowserControlsStateProvider.getTopControlsHeight();
-        final int topMargin = getToolbarExtraYOffset() + topControlsDistanceToRest;
+        int topMargin = getToolbarExtraYOffset() + topControlsDistanceToRest;
 
-        final int bottomMargin = mBrowserControlsStateProvider.getBottomControlsHeight()
+        int bottomMargin = mBrowserControlsStateProvider.getBottomControlsHeight()
                 - mBrowserControlsStateProvider.getBottomControlOffset();
+        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+            // move the margin of the new tab page up if the top toolbar is at the bottom
+            bottomMargin += mBrowserControlsStateProvider.getTopControlsHeight();
+            topMargin = -mBrowserControlsStateProvider.getTopControlsHeight();
+        }
 
         if (topMargin != layoutParams.topMargin || bottomMargin != layoutParams.bottomMargin) {
             layoutParams.topMargin = topMargin;
@@ -585,7 +592,7 @@ public class NewTabPage implements NativePage, InvalidationAwareThumbnailProvide
      *         strip.
      */
     private int getToolbarExtraYOffset() {
-        return mBrowserControlsStateProvider.getTopControlsHeight() - mTabStripAndToolbarHeight;
+        return 0;
     }
 
     /** @return The view container for the new tab layout. */

@@ -107,6 +107,7 @@ public class CachedFeatureFlags {
                     .put(ChromeFeatureList.TAB_GROUPS_FOR_TABLETS, false)
                     .put(ChromeFeatureList.TAB_SELECTION_EDITOR_V2, false)
                     .put(ChromeFeatureList.TAB_STRIP_IMPROVEMENTS, false)
+                    .put(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM, false)
                     .put(ChromeFeatureList.TAB_TO_GTS_ANIMATION, true)
                     .put(ChromeFeatureList.TEST_DEFAULT_DISABLED, false)
                     .put(ChromeFeatureList.TEST_DEFAULT_ENABLED, true)
@@ -211,6 +212,23 @@ public class CachedFeatureFlags {
         String preferenceName = getPrefForFeatureFlag(featureName);
         boolean isEnabledInNative = ChromeFeatureList.isEnabled(featureName);
         SharedPreferencesManager.getInstance().writeBoolean(preferenceName, isEnabledInNative);
+    }
+
+    /**
+     * Allows the modification of the flag value on the java side.
+     * Currently only the feature flag with on / off values is managed.
+     *
+     * @param featureName the feature name from ChromeFeatureList.
+     * @param flagName the flag name name from about_flags.cc.
+     */
+    public static void setFlagEnabled(String featureName, String flagName, Boolean newValue) {
+        CachedFeatureFlagsJni.get().setEnabled(flagName, newValue);
+
+        String preferenceName = getPrefForFeatureFlag(featureName);
+        SharedPreferencesManager.getInstance().writeBoolean(preferenceName, newValue);
+        synchronized (sValuesReturned.boolValues) {
+            sValuesReturned.boolValues.put(preferenceName, newValue);
+        }
     }
 
     /**
@@ -532,6 +550,7 @@ public class CachedFeatureFlags {
 
     @NativeMethods
     interface Natives {
+        void setEnabled(String featureName, boolean newValue);
         boolean isNetworkServiceWarmUpEnabled();
         void setAdBlockFiltersURL(String url);
         String getAdBlockFiltersURL();

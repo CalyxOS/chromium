@@ -85,6 +85,9 @@ import org.chromium.content_public.browser.LoadUrlParams;
 import org.chromium.ui.modelutil.PropertyModel;
 import org.chromium.ui.util.ColorUtils;
 
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
+
 /** The mediator implements the logic to interact with the surfaces and caller. */
 class StartSurfaceMediator implements TabSwitcher.TabSwitcherViewObserver, View.OnClickListener,
                                       StartSurface.OnTabSelectingListener, BackPressHandler,
@@ -1095,6 +1098,8 @@ class StartSurfaceMediator implements TabSwitcher.TabSwitcherViewObserver, View.
     }
 
     private void setTopMargin(int topMargin) {
+        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM))
+            topMargin = 0;
         mPropertyModel.set(TOP_MARGIN, topMargin);
     }
 

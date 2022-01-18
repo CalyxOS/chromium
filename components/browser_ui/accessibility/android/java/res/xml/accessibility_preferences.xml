@@ -50,4 +50,8 @@ found in the LICENSE file.
         android:key="captions"
         android:title="@string/accessibility_captions_title"/>
 
+    <org.chromium.components.browser_ui.settings.ChromeBaseCheckBoxPreference
+        android:key="move_toolbar_bottom"
+        android:summary="@string/move_toolbar_bottom_summary"
+        android:title="@string/move_toolbar_bottom_title" />
 </PreferenceScreen>

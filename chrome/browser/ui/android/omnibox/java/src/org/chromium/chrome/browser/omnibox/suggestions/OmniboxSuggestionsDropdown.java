@@ -42,6 +42,9 @@ import org.chromium.ui.base.ViewUtils;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
+
 /** A widget for showing a list of omnibox suggestions. */
 public class OmniboxSuggestionsDropdown extends RecyclerView {
     private static final long DEFERRED_INITIAL_SHRINKING_LAYOUT_FROM_IME_DURATION_MS = 300;
@@ -208,7 +211,8 @@ public class OmniboxSuggestionsDropdown extends RecyclerView {
      * Constructs a new list designed for containing omnibox suggestions.
      * @param context Context used for contained views.
      */
-    public OmniboxSuggestionsDropdown(@NonNull Context context) {
+    public OmniboxSuggestionsDropdown(@NonNull Context context,
+            @NonNull OmniboxSuggestionsDropdownEmbedder embedder) {
         super(context, null, android.R.attr.dropDownListViewStyle);
         setFocusable(true);
         setFocusableInTouchMode(true);
@@ -218,13 +222,25 @@ public class OmniboxSuggestionsDropdown extends RecyclerView {
         setItemAnimator(null);
 
         mLayoutScrollListener = new SuggestionLayoutScrollListener(context);
-        setLayoutManager(mLayoutScrollListener);
 
         boolean shouldShowModernizeVisualUpdate =
                 OmniboxFeatures.shouldShowModernizeVisualUpdate(context);
         final Resources resources = context.getResources();
         int paddingBottom =
                 resources.getDimensionPixelOffset(R.dimen.omnibox_suggestion_list_padding_bottom);
+        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+            // reverse the layout so that the items are at the bottom (in reverse order)
+            // and anchored to the bottom edge
+            mLayoutScrollListener.setReverseLayout(true);
+
+            if (!embedder.isTablet()) {
+                ViewGroup.MarginLayoutParams embedderParams = (ViewGroup.MarginLayoutParams)
+                    embedder.getAnchorContainerView().getLayoutParams();
+                paddingBottom = resources.getDimensionPixelOffset(R.dimen.toolbar_height_no_shadow) +
+                                embedderParams.bottomMargin;
+            }
+        }
+        setLayoutManager(mLayoutScrollListener);
         ViewCompat.setPaddingRelative(this, 0, 0, 0, paddingBottom);
 
         mStandardBgColor = shouldShowModernizeVisualUpdate
@@ -442,6 +458,8 @@ public class OmniboxSuggestionsDropdown extends RecyclerView {
     }
 
     private int calculateAnchorBottomRelativeToContent() {
+        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM))
+            return 0;
         View contentView =
                 mEmbedder.getAnchorView().getRootView().findViewById(android.R.id.content);
         ViewUtils.getRelativeLayoutPosition(contentView, mAnchorView, mTempPosition);

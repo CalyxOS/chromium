@@ -16,6 +16,9 @@ import org.chromium.components.browser_ui.widget.scrim.ScrimProperties;
 import org.chromium.ui.base.DeviceFormFactor;
 import org.chromium.ui.modelutil.PropertyModel;
 import org.chromium.ui.util.ColorUtils;
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
+
 
 /**
  * Handles showing and hiding a scrim when url bar focus changes.
@@ -55,6 +58,10 @@ public class LocationBarFocusScrimHandler implements UrlFocusChangeListener {
 
         Resources resources = context.getResources();
         int topMargin = resources.getDimensionPixelSize(R.dimen.tab_strip_height);
+        if (CachedFeatureFlags.isEnabled(ChromeFeatureList.MOVE_TOP_TOOLBAR_TO_BOTTOM)) {
+            // since the top bar is at the bottom, we need to cover the whole page
+            topMargin = 0;
+        }
         mLightScrimColor = context.getColor(R.color.omnibox_focused_fading_background_color_light);
         mScrimModel = new PropertyModel.Builder(ScrimProperties.ALL_KEYS)
                               .with(ScrimProperties.ANCHOR_VIEW, scrimTarget)

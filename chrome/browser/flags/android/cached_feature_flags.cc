@@ -13,6 +13,7 @@
 #include "components/prefs/pref_service.h"
 #include "content/public/common/content_features.h"
 #include "content/public/common/network_service_util.h"
+#include "components/flags_ui/pref_service_flags_storage.h"
 
 using base::android::ConvertJavaStringToUTF8;
 using base::android::ConvertUTF8ToJavaString;
@@ -52,4 +53,21 @@ static ScopedJavaLocalRef<jstring> JNI_CachedFeatureFlags_GetAdBlockFiltersURL(J
 
 static void JNI_CachedFeatureFlags_SetAdBlockFiltersURL(JNIEnv* env, const JavaParamRef<jstring>& url) {
   g_browser_process->local_state()->SetString(prefs::kAdBlockFiltersURL, base::android::ConvertJavaStringToUTF8(env, url));
+}
+
+static void JNI_CachedFeatureFlags_SetEnabled(JNIEnv* env, const JavaParamRef<jstring>& featureName, jboolean isEnabled) {
+  flags_ui::PrefServiceFlagsStorage flags_storage(
+      g_browser_process->local_state());
+  std::set<std::string> entries = flags_storage.GetFlags();
+
+  auto internal_name = base::android::ConvertJavaStringToUTF8(env, featureName);
+  entries.erase(internal_name);
+  entries.erase(internal_name + "@1"); // enabled
+  entries.erase(internal_name + "@2"); // disabled
+
+  if (isEnabled)
+    entries.insert(internal_name + "@1");
+
+  flags_storage.SetFlags(entries);
+  flags_storage.CommitPendingWrites();
 }

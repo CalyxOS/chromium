@@ -26,6 +26,9 @@ import org.chromium.ui.resources.ResourceManager;
 
 import java.util.List;
 
+import org.chromium.chrome.browser.preferences.ChromePreferenceKeys;
+import org.chromium.chrome.browser.flags.CachedFeatureFlags;
+
 /** The public interface for the top toolbar texture component. */
 public class TopToolbarOverlayCoordinator implements SceneOverlay {
     /** The view state for this overlay. */
@@ -57,6 +60,9 @@ public class TopToolbarOverlayCoordinator implements SceneOverlay {
                                  browserControlsStateProvider.getTopControlOffset()
                                          + browserControlsStateProvider.getTopControlsMinHeight())
                          .with(TopToolbarOverlayProperties.ANONYMIZE, false)
+                         .with(TopToolbarOverlayProperties.VIEWPORT_HEIGHT, 0)
+                         .with(TopToolbarOverlayProperties.TOOLBAR_HEIGHT,
+                                 browserControlsStateProvider.getTopControlsHeight())
                          .build();
         mSceneLayer = new TopToolbarSceneLayer(resourceManagerSupplier);
         mChangeProcessor =
@@ -100,6 +106,7 @@ public class TopToolbarOverlayCoordinator implements SceneOverlay {
     @Override
     public SceneOverlayLayer getUpdatedSceneOverlayTree(
             RectF viewport, RectF visibleViewport, ResourceManager resourceManager, float yOffset) {
+        mModel.set(TopToolbarOverlayProperties.VIEWPORT_HEIGHT, viewport.height());
         return mSceneLayer;
     }
 
