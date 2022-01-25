@@ -233,17 +233,17 @@ BASE_FEATURE(kIncomingCallNotifications,
 
 // Enables omnibox trigger prerendering.
 BASE_FEATURE(kOmniboxTriggerForPrerender2,
-             "OmniboxTriggerForPrerender2",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "OmniboxTriggerForPrerender2",         // always disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);    // in bromite
 
 // Enables bookmark trigger prerendering.
 BASE_FEATURE(kBookmarkTriggerForPrerender2,
-             "BookmarkTriggerForPrerender2",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "BookmarkTriggerForPrerender2",        // always disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);    // in bromite
 
 BASE_FEATURE(kSupportSearchSuggestionForPrerender2,
-             "SupportSearchSuggestionForPrerender2",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "SupportSearchSuggestionForPrerender2",    // always disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);        // in bromite
 const base::FeatureParam<SearchSuggestionPrerenderImplementationType>::Option
     search_suggestion_implementation_types[] = {
         {SearchSuggestionPrerenderImplementationType::kUsePrefetch,
