@@ -518,6 +518,7 @@ bool ServiceWorkerMainResourceLoader::MaybeStartAutoPreload(
 bool ServiceWorkerMainResourceLoader::StartRaceNetworkRequest(
     scoped_refptr<ServiceWorkerContextWrapper> context,
     scoped_refptr<ServiceWorkerVersion> version) {
+  if ((true)) return false;
   // Set fetch_handler_bypass_option to tell the renderer that
   // RaceNetworkRequest is enabled.
   version->set_fetch_handler_bypass_option(

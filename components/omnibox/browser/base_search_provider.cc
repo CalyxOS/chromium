@@ -99,14 +99,14 @@ BaseSearchProvider::BaseSearchProvider(AutocompleteProvider::Type type,
 bool BaseSearchProvider::ShouldPrefetch(const AutocompleteMatch& match) {
   // TODO (manukh): `GetAdditionalInfoForDebugging()` shouldn't be used for
   //   non-debugging purposes.
-  return match.GetAdditionalInfoForDebugging(kShouldPrefetchKey) == kTrue;
+  return false;
 }
 
 // static
 bool BaseSearchProvider::ShouldPrerender(const AutocompleteMatch& match) {
   // TODO (manukh): `GetAdditionalInfoForDebugging()` shouldn't be used for
   //   non-debugging purposes.
-  return match.GetAdditionalInfoForDebugging(kShouldPrerenderKey) == kTrue;
+  return false;
 }
 
 // static
