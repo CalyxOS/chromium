@@ -46,7 +46,9 @@ class MojoUkmRecorder;
 }  // namespace ukm
 
 class AXTreeDistiller;
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
 class DependencyParserModel;
+#endif
 class ReadAnythingAppControllerTest;
 class ReadAnythingAppControllerScreen2xDataCollectionModeTest;
 
@@ -275,7 +277,9 @@ class ReadAnythingAppController
   // available.
   void UpdateDependencyParserModel(base::File model_file);
 
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
   DependencyParserModel& GetDependencyParserModelForTesting();
+#endif
 
   // Called when distillation has completed.
   void OnAXTreeDistilled(const ui::AXTreeID& tree_id,
@@ -376,7 +380,9 @@ class ReadAnythingAppController
 
   // Helpers for logging UmaHistograms based on times recorded in WebUI.
   void IncrementMetricCount(const std::string& metric);
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
   void LogSpeechEventCounts();
+#endif
 
   // Stores a screenshot of the page and triggers distillation to record protos.
   // This function is not used in production and is behind the disabled

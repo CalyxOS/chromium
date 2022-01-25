@@ -1752,6 +1752,7 @@ ALWAYS_INLINE bool HTMLDocumentParser::ShouldCheckTimeBudget(
 }
 
 bool HTMLDocumentParser::ShouldSkipPreloadScan() {
+  if ((true)) return true; // see https://wpt.live/html/syntax/speculative-parsing/expect-no-linked-resources/no-speculative-fetch.tentative.optional.html
   // Check if Document-Policy has Expect-No-Linked-Resources hint.
   auto* document = GetDocument();
   if (const auto* context = document->GetExecutionContext()) {
