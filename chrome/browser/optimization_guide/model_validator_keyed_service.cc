@@ -66,13 +66,13 @@ namespace optimization_guide {
 ModelValidatorKeyedService::ModelValidatorKeyedService(Profile* profile)
     : profile_(profile) {
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
   DCHECK(ShouldStartModelValidator());
   auto* opt_guide_service =
       OptimizationGuideKeyedServiceFactory::GetForProfile(profile);
   if (!opt_guide_service) {
     return;
   }
-#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
   if (switches::ShouldValidateModel()) {
     // Create the validator object which will get destroyed when the model
     // load is complete.
@@ -133,6 +133,7 @@ void ModelValidatorKeyedService::OnPrimaryAccountChanged(
 
 void ModelValidatorKeyedService::StartModelExecutionValidation() {
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
   auto* opt_guide_service =
       OptimizationGuideKeyedServiceFactory::GetForProfile(profile_);
   if (!opt_guide_service) {
@@ -151,6 +152,7 @@ void ModelValidatorKeyedService::StartModelExecutionValidation() {
       /*execution_timeout=*/std::nullopt,
       base::BindOnce(&ModelValidatorKeyedService::OnModelExecuteResponse,
                      weak_ptr_factory_.GetWeakPtr()));
+#endif
 }
 
 void ModelValidatorKeyedService::StartOnDeviceModelExecutionValidation(
@@ -168,6 +170,7 @@ void ModelValidatorKeyedService::StartOnDeviceModelExecutionValidation(
 
 void ModelValidatorKeyedService::PerformOnDeviceModelExecutionValidation(
     std::unique_ptr<optimization_guide::proto::ModelValidationInput> input) {
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
   auto* opt_guide_service =
       OptimizationGuideKeyedServiceFactory::GetForProfile(profile_);
@@ -207,6 +210,7 @@ void ModelValidatorKeyedService::ExecuteModel(
       *metadata, base::BindRepeating(
                      &ModelValidatorKeyedService::OnDeviceModelExecuteResponse,
                      weak_ptr_factory_.GetWeakPtr(), std::move(request)));
+#endif
 }
 
 void ModelValidatorKeyedService::OnDeviceModelExecuteResponse(

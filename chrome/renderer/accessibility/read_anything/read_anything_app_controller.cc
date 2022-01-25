@@ -21,7 +21,9 @@
 #include "base/strings/utf_string_conversions.h"
 #include "chrome/common/read_anything/read_anything_constants.h"
 #include "chrome/renderer/accessibility/ax_tree_distiller.h"
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
 #include "chrome/renderer/accessibility/phrase_segmentation/dependency_parser_model.h"
+#endif
 #include "chrome/renderer/accessibility/read_anything/read_aloud_traversal_utils.h"
 #include "chrome/renderer/accessibility/read_anything/read_anything_node_utils.h"
 #include "components/language/core/common/locale_util.h"
@@ -363,11 +365,13 @@ SkBitmap CorrectColorOfBitMap(SkBitmap& originalBitmap) {
   return converted;
 }
 
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
 // Returns the dependency parser model for this renderer process.
 DependencyParserModel& GetDependencyParserModel() {
   static base::NoDestructor<DependencyParserModel> instance;
   return *instance;
 }
+#endif
 
 }  // namespace
 
@@ -1457,6 +1461,7 @@ void ReadAnythingAppController::OnConnected() {
   render_frame()->GetBrowserInterfaceBroker().GetInterface(
       std::move(page_handler_factory_receiver));
 
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
   // Get the dependency parser model used by phrase-based highlighting.
   DependencyParserModel& dependency_parser_model = GetDependencyParserModel();
   if (dependency_parser_model.IsAvailable()) {
@@ -1466,6 +1471,7 @@ void ReadAnythingAppController::OnConnected() {
   page_handler_->GetDependencyParserModel(
       base::BindOnce(&ReadAnythingAppController::UpdateDependencyParserModel,
                      weak_ptr_factory_.GetWeakPtr()));
+#endif
 }
 
 void ReadAnythingAppController::OnCopy() const {
@@ -1675,6 +1681,7 @@ std::vector<ui::AXNodeID> ReadAnythingAppController::GetCurrentText() {
 }
 
 void ReadAnythingAppController::PreprocessTextForSpeech() {
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
   const std::set<ui::AXNodeID>* node_ids = model_.selection_node_ids().empty()
                                                ? &model_.display_node_ids()
                                                : &model_.selection_node_ids();
@@ -1684,6 +1691,7 @@ void ReadAnythingAppController::PreprocessTextForSpeech() {
     DependencyParserModel& model = GetDependencyParserModel();
     read_aloud_model_.PreprocessPhrasesForText(model);
   }
+#endif
 }
 
 void ReadAnythingAppController::MovePositionToNextGranularity() {
@@ -1857,14 +1865,18 @@ bool ReadAnythingAppController::IsDocsLoadMoreButtonVisible() const {
 
 void ReadAnythingAppController::UpdateDependencyParserModel(
     base::File model_file) {
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
   DependencyParserModel& dependency_parser_model = GetDependencyParserModel();
   dependency_parser_model.UpdateWithFile(std::move(model_file));
+#endif
 }
 
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
 DependencyParserModel&
 ReadAnythingAppController::GetDependencyParserModelForTesting() {
   return GetDependencyParserModel();
 }
+#endif
 
 void ReadAnythingAppController::OnTreeAdded(ui::AXTree* tree) {
   auto observation =
