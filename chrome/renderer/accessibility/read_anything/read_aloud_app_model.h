@@ -9,7 +9,10 @@
 #include "base/values.h"
 #include "chrome/common/read_anything/read_anything.mojom.h"
 #include "chrome/common/read_anything/read_anything_constants.h"
+#include "components/optimization_guide/machine_learning_tflite_buildflags.h"
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
 #include "chrome/renderer/accessibility/phrase_segmentation/dependency_parser_model.h"
+#endif
 #include "chrome/renderer/accessibility/read_anything/read_aloud_traversal_utils.h"
 #include "ui/accessibility/ax_node_position.h"
 
@@ -87,7 +90,9 @@ class ReadAloudAppModel {
                                bool is_docs,
                                const std::set<ui::AXNodeID>* current_nodes);
 
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
   void PreprocessPhrasesForText(DependencyParserModel& dependency_parser_model);
+#endif
 
   // Increments the processed_granularity_index_, updating ReadAloud's state of
   // the current granularity to refer to the next granularity. The current
@@ -241,9 +246,11 @@ class ReadAloudAppModel {
   //      still needs to be read.
   bool NoValidTextRemainingInCurrentNode(bool is_pdf, bool is_docs) const;
 
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
   // Segment the given granularity into phrases with the given model.
   void CalculatePhrases(DependencyParserModel& dependency_parser_model,
                         a11y::ReadAloudCurrentGranularity& granularity);
+#endif
 
   // Whether Read Aloud speech is currently playing or not.
   bool speech_playing_ = false;

@@ -228,6 +228,7 @@ BASE_FEATURE(kLogAccountEnhancedProtectionStateInProtegoPings,
 BASE_FEATURE(kOnDeviceNotificationContentDetectionModel,
              "OnDeviceNotificationContentDetectionModel",
              base::FEATURE_DISABLED_BY_DEFAULT);
+SET_CROMITE_FEATURE_DISABLED(kOnDeviceNotificationContentDetectionModel);
 
 constexpr base::FeatureParam<int>
     kOnDeviceNotificationContentDetectionModelAllowlistSamplingRate{

@@ -6,7 +6,9 @@
 
 #include "base/strings/utf_string_conversions.h"
 #include "base/values.h"
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
 #include "chrome/renderer/accessibility/phrase_segmentation/dependency_parser_model.h"
+#endif
 #include "chrome/renderer/accessibility/phrase_segmentation/dependency_tree.h"
 #include "chrome/renderer/accessibility/phrase_segmentation/phrase_segmenter.h"
 #include "chrome/renderer/accessibility/phrase_segmentation/token_boundaries.h"
@@ -16,6 +18,7 @@
 
 namespace {
 
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
 std::vector<unsigned int> GetDependencyHeads(
     DependencyParserModel& dependency_parser_model,
     std::vector<std::string> input) {
@@ -25,6 +28,7 @@ std::vector<unsigned int> GetDependencyHeads(
     return {};
   }
 }
+#endif
 
 }  // namespace
 
@@ -131,6 +135,7 @@ void ReadAloudAppModel::PreprocessTextForSpeech(
   }
 }
 
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
 void ReadAloudAppModel::PreprocessPhrasesForText(
     DependencyParserModel& dependency_parser_model) {
   if (features::IsReadAnythingReadAloudPhraseHighlightingEnabled()) {
@@ -145,7 +150,9 @@ void ReadAloudAppModel::PreprocessPhrasesForText(
     DLOG(WARNING) << "Phrase calculation done.";
   }
 }
+#endif
 
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
 void ReadAloudAppModel::CalculatePhrases(
     DependencyParserModel& dependency_parser_model,
     a11y::ReadAloudCurrentGranularity& granularity) {
@@ -200,6 +207,7 @@ void ReadAloudAppModel::CalculatePhrases(
       smart_highlight, tokenized_sentence, token_boundaries, Strategy::kWords,
       /* max_words_per_phrase=*/5);
 }
+#endif
 
 // TODO(crbug.com/40927698): Update to use AXRange to better handle multiple
 // nodes. This may require updating GetText in ax_range.h to return AXNodeIds.
