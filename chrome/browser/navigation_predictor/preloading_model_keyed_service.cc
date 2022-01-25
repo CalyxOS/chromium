@@ -11,6 +11,7 @@
 #include "chrome/browser/navigation_predictor/preloading_model_handler.h"
 #endif
 
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
 namespace {
 
 // The model takes all of its inputs as floats, so this is a convenience
@@ -28,12 +29,14 @@ constexpr float ToInput(base::TimeDelta val) {
 static_assert(1.0f == ToInput(true));
 
 }  // namespace
+#endif
 
 PreloadingModelKeyedService::Inputs::Inputs() = default;
 
 PreloadingModelKeyedService::PreloadingModelKeyedService(
     OptimizationGuideKeyedService* optimization_guide_keyed_service) {
 #if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
+#error BUILD_WITH_TFLITE_LIB must be disabled
   auto* model_provider =
       static_cast<optimization_guide::OptimizationGuideModelProvider*>(
           optimization_guide_keyed_service);
