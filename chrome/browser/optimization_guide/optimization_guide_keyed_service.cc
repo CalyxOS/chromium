@@ -347,7 +347,6 @@ void OptimizationGuideKeyedService::RemoveObserverForOptimizationTargetModel(
 void OptimizationGuideKeyedService::RegisterOptimizationTypes(
     const std::vector<optimization_guide::proto::OptimizationType>&
         optimization_types) {
-  hints_manager_->RegisterOptimizationTypes(optimization_types);
 }
 
 optimization_guide::OptimizationGuideDecision

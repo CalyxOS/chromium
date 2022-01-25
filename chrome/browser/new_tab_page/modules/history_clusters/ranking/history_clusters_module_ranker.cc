@@ -64,6 +64,8 @@ void HistoryClustersModuleRanker::OnAllSignalsReady(
   }
 
 #if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
+  auto* ranking_signals_ptr = ranking_signals.get();
+
   if (model_handler_ && model_handler_->CanExecuteAvailableModel()) {
     auto* ranking_signals_ptr = ranking_signals.get();
     model_handler_->ExecuteBatch(
