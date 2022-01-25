@@ -47,7 +47,9 @@
 #include "components/omnibox/browser/autocomplete_input.h"
 #include "components/omnibox/browser/autocomplete_match_type.h"
 #include "components/omnibox/browser/autocomplete_provider.h"
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
 #include "components/omnibox/browser/autocomplete_provider_client.h"
+#endif
 #include "components/omnibox/browser/autocomplete_scoring_signals_annotator.h"
 #include "components/omnibox/browser/bookmark_provider.h"
 #include "components/omnibox/browser/bookmark_scoring_signals_annotator.h"
@@ -120,6 +122,7 @@ using ProviderType = AutocompleteProvider::Type;
 
 constexpr bool is_android = !!BUILDFLAG(IS_ANDROID);
 
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
 void RecordMlScoreCoverage(size_t matches_with_non_null_scores,
                            size_t total_scored_matches) {
   int percent_score_coverage =
@@ -228,6 +231,7 @@ void RecordTotalMatchesScored(size_t num_scored) {
   base::UmaHistogramCounts1000("Omnibox.URLScoringModelExecuted.Matches",
                                num_scored);
 }
+#endif
 
 // Appends available autocompletion of the given type, subtype, and number to
 // the existing available autocompletions string, encoding according to the
