@@ -1,0 +1,4 @@
+SET_CROMITE_FEATURE_DISABLED(kOmniboxTriggerForPrerender2);
+SET_CROMITE_FEATURE_DISABLED(kBookmarkTriggerForPrerender2);
+SET_CROMITE_FEATURE_DISABLED(kNewTabPageTriggerForPrerender2);
+SET_CROMITE_FEATURE_DISABLED(kSupportSearchSuggestionForPrerender2);
