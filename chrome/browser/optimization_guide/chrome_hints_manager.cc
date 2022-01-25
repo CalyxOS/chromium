@@ -25,6 +25,7 @@ namespace {
 // Returns true if we can make a request for hints for |prediction|.
 bool IsAllowedToFetchForNavigationPrediction(
     const NavigationPredictorKeyedService::Prediction& prediction) {
+  if ((true)) return false;
   if (prediction.prediction_source() !=
       NavigationPredictorKeyedService::PredictionSource::
           kAnchorElementsParsedFromWebPage) {
