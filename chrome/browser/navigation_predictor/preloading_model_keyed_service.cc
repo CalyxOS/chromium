@@ -16,6 +16,7 @@ PreloadingModelKeyedService::Inputs::Inputs() = default;
 PreloadingModelKeyedService::PreloadingModelKeyedService(
     OptimizationGuideKeyedService* optimization_guide_keyed_service) {
 #if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
+#error BUILD_WITH_TFLITE_LIB must be disabled
   auto* model_provider =
       static_cast<optimization_guide::OptimizationGuideModelProvider*>(
           optimization_guide_keyed_service);
