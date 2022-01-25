@@ -294,7 +294,7 @@ ResourcePrefetchPredictor* LoadingPredictor::resource_prefetch_predictor() {
 }
 
 PreconnectManager* LoadingPredictor::preconnect_manager() {
-  CHECK(!shutdown_);
+  CHECK(false);
   if (!preconnect_manager_) {
     preconnect_manager_ =
         std::make_unique<PreconnectManager>(GetWeakPtr(), profile_);
@@ -305,7 +305,7 @@ PreconnectManager* LoadingPredictor::preconnect_manager() {
 
 PrefetchManager* LoadingPredictor::prefetch_manager() {
   CHECK(base::FeatureList::IsEnabled(features::kLoadingPredictorPrefetch));
-  CHECK(!shutdown_);
+  CHECK(false);
 
   if (!prefetch_manager_) {
     prefetch_manager_ =
