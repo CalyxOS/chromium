@@ -357,6 +357,7 @@ void HintsManager::Shutdown() {
 OptimizationGuideDecision
 HintsManager::GetOptimizationGuideDecisionFromOptimizationTypeDecision(
     OptimizationTypeDecision optimization_type_decision) {
+  if ((true)) return OptimizationGuideDecision::kFalse;
   switch (optimization_type_decision) {
     case OptimizationTypeDecision::kAllowedByOptimizationFilter:
     case OptimizationTypeDecision::kAllowedByHint:
@@ -1062,6 +1063,8 @@ void HintsManager::CanApplyOptimizationOnDemand(
     OnDemandOptimizationGuideDecisionRepeatingCallback callback) {
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
 
+  if ((true)) return; // no consent on bromite
+
   // This set contains URLs that require some information to be fetched, whether
   // that be a URL-keyed hint or a host-keyed hint.
   base::flat_set<proto::OptimizationType> unregistered_optimization_types;
@@ -1376,6 +1379,9 @@ OptimizationTypeDecision HintsManager::CanApplyOptimization(
     bool skip_cache,
     OptimizationMetadata* optimization_metadata) {
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
+  if ((true)) {
+    return OptimizationTypeDecision::kNoHintAvailable;
+  }
 
   ScopedCanApplyOptimizationLogger scoped_logger(
       optimization_type, navigation_url, optimization_guide_logger_);
