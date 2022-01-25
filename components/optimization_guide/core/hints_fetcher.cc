@@ -174,6 +174,7 @@ bool HintsFetcher::FetchOptimizationGuideServiceHints(
     optimization_guide::proto::RequestContext request_context,
     const std::string& locale,
     HintsFetchedCallback hints_fetched_callback) {
+  if ((true)) return false;
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
   DCHECK_GT(optimization_types.size(), 0u);
   request_context_ = request_context;
