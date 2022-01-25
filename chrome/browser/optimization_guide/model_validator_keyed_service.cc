@@ -53,13 +53,13 @@ namespace optimization_guide {
 ModelValidatorKeyedService::ModelValidatorKeyedService(Profile* profile)
     : profile_(profile) {
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
   DCHECK(ShouldStartModelValidator());
   auto* opt_guide_service =
       OptimizationGuideKeyedServiceFactory::GetForProfile(profile);
   if (!opt_guide_service) {
     return;
   }
-#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
   if (switches::ShouldValidateModel()) {
     // Create the validator object which will get destroyed when the model
     // load is complete.
@@ -120,6 +120,7 @@ void ModelValidatorKeyedService::OnPrimaryAccountChanged(
 
 void ModelValidatorKeyedService::StartModelExecutionValidation() {
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
   auto* opt_guide_service =
       OptimizationGuideKeyedServiceFactory::GetForProfile(profile_);
   if (!opt_guide_service) {
@@ -137,6 +138,7 @@ void ModelValidatorKeyedService::StartModelExecutionValidation() {
       proto::ModelExecutionFeature::MODEL_EXECUTION_FEATURE_TEST, request,
       base::BindOnce(&ModelValidatorKeyedService::OnModelExecuteResponse,
                      weak_ptr_factory_.GetWeakPtr()));
+#endif
 }
 
 void ModelValidatorKeyedService::StartOnDeviceModelExecutionValidation(
@@ -154,6 +156,7 @@ void ModelValidatorKeyedService::StartOnDeviceModelExecutionValidation(
 
 void ModelValidatorKeyedService::PerformOnDeviceModelExecutionValidation(
     std::unique_ptr<optimization_guide::proto::ComposeRequest> request) {
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
   auto* opt_guide_service =
       OptimizationGuideKeyedServiceFactory::GetForProfile(profile_);
@@ -167,6 +170,7 @@ void ModelValidatorKeyedService::PerformOnDeviceModelExecutionValidation(
       *request, base::RepeatingCallback(base::BindRepeating(
                     &ModelValidatorKeyedService::OnDeviceModelExecuteResponse,
                     weak_ptr_factory_.GetWeakPtr())));
+#endif
 }
 
 void ModelValidatorKeyedService::OnDeviceModelExecuteResponse(
