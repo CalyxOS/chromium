@@ -416,8 +416,6 @@ ChromePermissionsClient::CreatePermissionUiSelectors(
       std::make_unique<ContextualNotificationPermissionUiSelector>());
   selectors.emplace_back(std::make_unique<PrefBasedQuietPermissionUiSelector>(
       Profile::FromBrowserContext(browser_context)));
-  selectors.emplace_back(std::make_unique<PredictionBasedPermissionUiSelector>(
-      Profile::FromBrowserContext(browser_context)));
   return selectors;
 }
 
