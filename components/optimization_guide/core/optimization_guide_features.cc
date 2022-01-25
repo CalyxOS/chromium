@@ -39,11 +39,7 @@ namespace features {
 namespace {
 
 constexpr auto enabled_by_default_mobile_only =
-#if BUILDFLAG(IS_ANDROID) || BUILDFLAG(IS_IOS)
-    base::FEATURE_ENABLED_BY_DEFAULT;
-#else
     base::FEATURE_DISABLED_BY_DEFAULT;
-#endif
 
 }  // namespace
 
@@ -423,8 +419,7 @@ size_t MaxURLKeyedHintCacheSize() {
 }
 
 bool ShouldPersistHintsToDisk() {
-  return GetFieldTrialParamByFeatureAsBool(kOptimizationHints,
-                                           "persist_hints_to_disk", true);
+  return false;
 }
 
 RequestContextSet GetAllowedContextsForPersonalizedMetadata() {
@@ -880,5 +875,13 @@ int GetOnDeviceModelValidationAttemptCount() {
   return kParam.Get();
 }
 
+SET_CROMITE_FEATURE_DISABLED(kOptimizationHints);
+SET_CROMITE_FEATURE_DISABLED(kRemoteOptimizationGuideFetching);
+SET_CROMITE_FEATURE_DISABLED(kRemoteOptimizationGuideFetchingAnonymousDataConsent);
+SET_CROMITE_FEATURE_DISABLED(kOptimizationTargetPrediction);
+SET_CROMITE_FEATURE_DISABLED(kOptimizationGuideModelDownloading);
+SET_CROMITE_FEATURE_DISABLED(kPushNotifications);
+SET_CROMITE_FEATURE_DISABLED(kPreventLongRunningPredictionModels);
+SET_CROMITE_FEATURE_DISABLED(kOptimizationGuideFetchingForSRP);
 }  // namespace features
 }  // namespace optimization_guide
