@@ -196,6 +196,7 @@ bool HintsFetcher::FetchOptimizationGuideServiceHints(
     bool skip_cache,
     HintsFetchedCallback hints_fetched_callback,
     std::optional<proto::RequestContextMetadata> request_context_metadata) {
+  if ((true)) return false;
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
   DCHECK_GT(optimization_types.size(), 0u);
   request_context_ = request_context;
