@@ -14,6 +14,7 @@
 #include "components/safe_browsing/content/browser/notification_content_detection/notification_content_detection_service.h"
 #include "components/safe_browsing/core/browser/db/database_manager.h"
 #include "components/safe_browsing/core/common/features.h"
+#include "components/optimization_guide/machine_learning_tflite_buildflags.h"
 #include "content/public/browser/browser_context.h"
 
 namespace safe_browsing {
@@ -63,6 +64,7 @@ std::unique_ptr<KeyedService> NotificationContentDetectionServiceFactory::
     return nullptr;
   }
 
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
   auto database_manager =
       g_browser_process->safe_browsing_service()->database_manager();
   scoped_refptr<base::SequencedTaskRunner> background_task_runner =
@@ -70,6 +72,9 @@ std::unique_ptr<KeyedService> NotificationContentDetectionServiceFactory::
           {base::MayBlock(), base::TaskPriority::BEST_EFFORT});
   return std::make_unique<NotificationContentDetectionService>(
       opt_guide, background_task_runner, database_manager, context);
+#else
+  return nullptr;
+#endif
 }
 
 }  // namespace safe_browsing

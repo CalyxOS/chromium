@@ -13,8 +13,8 @@
 namespace predictors {
 
 bool IsLoadingPredictorEnabled(Profile* profile) {
-  // Disabled for off-the-record. Policy choice, not a technical limitation.
-  return profile && !profile->IsOffTheRecord();
+  // Disabled for all profiles
+  return false;
 }
 
 bool IsPreconnectAllowed(Profile* profile) {
