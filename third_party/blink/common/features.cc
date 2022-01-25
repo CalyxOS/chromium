@@ -232,12 +232,8 @@ BASE_FEATURE(kMixedContentAutoupgrade,
 // predictor may preconnect/prefetch to resources/origins to make the
 // future navigations faster.
 BASE_FEATURE(kNavigationPredictor,
-             "NavigationPredictor",
-#if BUILDFLAG(IS_ANDROID)
-             base::FEATURE_ENABLED_BY_DEFAULT
-#else
-             base::FEATURE_DISABLED_BY_DEFAULT
-#endif
+             "NavigationPredictor",                // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT     // in Bromite
 );
 
 // Anchor Element Interaction
