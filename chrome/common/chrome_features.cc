@@ -958,8 +958,8 @@ BASE_FEATURE(kPermissionAuditing,
 // Enables using the prediction service for permission prompts. We will keep
 // this feature in order to allow us to update the holdback chance via finch.
 BASE_FEATURE(kPermissionPredictions,
-             "PermissionPredictions",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "PermissionPredictions",               // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);    // in Bromite
 
 // The holdback chance is 30% but it can also be configured/updated
 // through finch if needed.
@@ -970,8 +970,8 @@ const base::FeatureParam<double> kPermissionPredictionsHoldbackChance(
 
 // Enables using the prediction service for geolocation permission prompts.
 BASE_FEATURE(kPermissionGeolocationPredictions,
-             "PermissionGeolocationPredictions",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "PermissionGeolocationPredictions",        // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);        // in Bromite
 
 const base::FeatureParam<double>
     kPermissionGeolocationPredictionsHoldbackChance(
@@ -987,7 +987,7 @@ BASE_FEATURE(kPluginVm, "PluginVm", base::FEATURE_DISABLED_BY_DEFAULT);
 // Allows Chrome to do preconnect when prerender fails.
 BASE_FEATURE(kPrerenderFallbackToPreconnect,
              "PrerenderFallbackToPreconnect",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             base::FEATURE_DISABLED_BY_DEFAULT);
 
 #if BUILDFLAG(IS_CHROMEOS)
 // Enable improved printer state and error state messaging for Print Preview.
