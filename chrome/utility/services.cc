@@ -241,13 +241,6 @@ auto RunMirroringService(
       std::move(receiver), content::UtilityThread::Get()->GetIOTaskRunner());
 }
 
-auto RunPassageEmbeddingsService(
-    mojo::PendingReceiver<passage_embeddings::mojom::PassageEmbeddingsService>
-        receiver) {
-  return std::make_unique<passage_embeddings::PassageEmbeddingsService>(
-      std::move(receiver));
-}
-
 #endif  // !BUILDFLAG(IS_ANDROID)
 
 #if BUILDFLAG(ENABLE_BROWSER_SPEECH_SERVICE)
@@ -464,7 +457,6 @@ void RegisterMainThreadServices(mojo::ServiceFactory& services) {
 #if !BUILDFLAG(IS_ANDROID)
   services.Add(RunProfileImporter);
   services.Add(RunMirroringService);
-  services.Add(RunPassageEmbeddingsService);
   services.Add(RunScreenAIServiceFactory);
 #endif  // !BUILDFLAG(IS_ANDROID)
 
