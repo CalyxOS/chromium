@@ -12,8 +12,8 @@
 namespace predictors {
 
 BASE_FEATURE(kSpeculativePreconnectFeature,
-             "SpeculativePreconnect",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "SpeculativePreconnect",             // always disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);  // in bromite
 
 // Returns whether the speculative preconnect feature is enabled.
 bool IsPreconnectFeatureEnabled() {
