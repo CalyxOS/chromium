@@ -11,6 +11,7 @@ namespace features {
 
 namespace {
 
+#pragma clang diagnostic ignored "-Wunused-const-variable"
 constexpr base::FeatureState kFeatureEnabledOnlyOnAndroid =
     BUILDFLAG(IS_ANDROID) ? base::FEATURE_ENABLED_BY_DEFAULT
                           : base::FEATURE_DISABLED_BY_DEFAULT;
@@ -47,7 +48,7 @@ BASE_FEATURE(kLoadingPredictorDisregardAlwaysAccessesNetwork,
 
 constexpr base::FeatureState
     kLoadingPredictorUseOptimizationGuideDefaultFeatureState =
-        kFeatureEnabledOnlyOnAndroid;
+      base::FEATURE_DISABLED_BY_DEFAULT;
 
 // Modifies loading predictor so that it can also use predictions coming from
 // the optimization guide.
@@ -56,7 +57,7 @@ BASE_FEATURE(kLoadingPredictorUseOptimizationGuide,
              kLoadingPredictorUseOptimizationGuideDefaultFeatureState);
 
 constexpr base::FeatureState kLoadingPredictorPrefetchDefaultFeatureState =
-    kFeatureEnabledOnlyOnAndroid;
+    base::FEATURE_DISABLED_BY_DEFAULT;
 
 // Modifies loading predictor so that it does prefetches of subresources instead
 // of preconnects.
@@ -115,4 +116,5 @@ BASE_FEATURE(kAvoidLoadingPredictorPrefetchDuringBrowserStartup,
              "AvoidLoadingPredictorPrefetchDuringBrowserStartup",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+SET_CROMITE_FEATURE_DISABLED(kLoadingPredictorUseLocalPredictions);
 }  // namespace features
