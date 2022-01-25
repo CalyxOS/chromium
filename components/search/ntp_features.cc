@@ -571,4 +571,7 @@ std::vector<std::string> GetModulesOrder() {
                            base::SplitResult::SPLIT_WANT_NONEMPTY);
 }
 
+SET_CROMITE_FEATURE_DISABLED(kNtpHistoryClustersModule);
+SET_CROMITE_FEATURE_DISABLED(kNtpHistoryClustersModuleLoad);
+SET_CROMITE_FEATURE_DISABLED(kNtpHistoryClustersModuleUseModelRanking);
 }  // namespace ntp_features
