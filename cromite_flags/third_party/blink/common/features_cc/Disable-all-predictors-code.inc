@@ -1,0 +1,2 @@
+SET_CROMITE_FEATURE_DISABLED(kNavigationPredictor);
+SET_CROMITE_FEATURE_DISABLED(kPreloadingHeuristicsMLModel);
