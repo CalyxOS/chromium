@@ -11,8 +11,8 @@ namespace features {
 
 // Whether local predictions should be used to make preconnect predictions.
 BASE_FEATURE(kLoadingPredictorUseLocalPredictions,
-             "LoadingPredictorUseLocalPredictions",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "LoadingPredictorUseLocalPredictions",  // disabled by
+             base::FEATURE_DISABLED_BY_DEFAULT);     // default
 
 // Modifies loading predictor so that it only learns about subresources and
 // origins that are high priority.
@@ -39,11 +39,7 @@ BASE_FEATURE(kLoadingPredictorDisregardAlwaysAccessesNetwork,
 
 const base::FeatureState
     kLoadingPredictorUseOptimizationGuideDefaultFeatureState =
-#if BUILDFLAG(IS_ANDROID)
-        base::FEATURE_ENABLED_BY_DEFAULT;
-#else
-        base::FEATURE_DISABLED_BY_DEFAULT;
-#endif
+      base::FEATURE_DISABLED_BY_DEFAULT;
 
 // Modifies loading predictor so that it can also use predictions coming from
 // the optimization guide.
@@ -52,11 +48,7 @@ BASE_FEATURE(kLoadingPredictorUseOptimizationGuide,
              kLoadingPredictorUseOptimizationGuideDefaultFeatureState);
 
 const base::FeatureState kLoadingPredictorPrefetchDefaultFeatureState =
-#if BUILDFLAG(IS_ANDROID)
-    base::FEATURE_ENABLED_BY_DEFAULT;
-#else
     base::FEATURE_DISABLED_BY_DEFAULT;
-#endif
 
 // Modifies loading predictor so that it does prefetches of subresources instead
 // of preconnects.
