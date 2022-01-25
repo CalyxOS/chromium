@@ -1175,12 +1175,8 @@ BASE_FEATURE(kMemoryCacheStrongReferenceSingleUnload,
 // in the first viewport after the page load and the metrics of the clicked
 // anchor element will be extracted and recorded.
 BASE_FEATURE(kNavigationPredictor,
-             "NavigationPredictor",
-#if BUILDFLAG(IS_ANDROID)
-             base::FEATURE_ENABLED_BY_DEFAULT
-#else
-             base::FEATURE_DISABLED_BY_DEFAULT
-#endif
+             "NavigationPredictor",                // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT     // in Bromite
 );
 
 BASE_FEATURE(kNewBaseUrlInheritanceBehavior,
