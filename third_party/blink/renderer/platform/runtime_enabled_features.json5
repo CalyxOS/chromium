@@ -2836,7 +2836,7 @@
     {
       // https://crbug.com/1126305
       name: "Prerender2",
-      status: "stable",
+      status: "test",
     },
     {
       name: "Presentation",

@@ -62,9 +62,10 @@ void HistoryClustersModuleRanker::OnAllSignalsReady(
   for (const auto& cluster : clusters) {
     ranking_signals->emplace_back(active_carts, category_boostlist_, cluster);
   }
-  auto* ranking_signals_ptr = ranking_signals.get();
 
 #if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
+  auto* ranking_signals_ptr = ranking_signals.get();
+
   if (model_handler_ && model_handler_->CanExecuteAvailableModel()) {
     model_handler_->ExecuteBatch(
         ranking_signals_ptr,
