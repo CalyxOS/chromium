@@ -79,12 +79,12 @@ const base::FeatureParam<int> kPermissionChipAutoDismissDelay{
 // When enabled, use the value of the `service_url` FeatureParam as the url
 // for the Web Permission Predictions Service.
 BASE_FEATURE(kPermissionPredictionServiceUseUrlOverride,
-             "kPermissionPredictionServiceUseUrlOverride",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "kPermissionPredictionServiceUseUrlOverride",       // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);                 // in Bromite
 
 BASE_FEATURE(kPermissionOnDeviceNotificationPredictions,
-             "PermissionOnDeviceNotificationPredictions",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "PermissionOnDeviceNotificationPredictions",        // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);                 // in Bromite
 
 BASE_FEATURE(kPermissionOnDeviceGeolocationPredictions,
              "PermissionOnDeviceGeolocationPredictions",
