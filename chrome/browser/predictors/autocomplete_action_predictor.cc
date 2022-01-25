@@ -209,6 +209,8 @@ void AutocompleteActionPredictor::StartPrerendering(
 
   SetIsNavigationInDomainCallback(preloading_data);
 
+  if ((true)) return; // was kOmniboxTriggerForPrerender2
+
   // Create new PreloadingAttempt and pass all the values corresponding to this
   // prerendering attempt for Prerender.
   content::PreloadingAttempt* preloading_attempt =

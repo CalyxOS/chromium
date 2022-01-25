@@ -558,4 +558,7 @@ int GetWallpaperSearchButtonAnimationShownThreshold() {
       kNtpWallpaperSearchButtonAnimationShownThreshold,
       kNtpWallpaperSearchButtonAnimationShownThresholdParam, 15);
 }
+SET_CROMITE_FEATURE_DISABLED(kNtpHistoryClustersModule);
+SET_CROMITE_FEATURE_DISABLED(kNtpHistoryClustersModuleLoad);
+SET_CROMITE_FEATURE_DISABLED(kNtpHistoryClustersModuleUseModelRanking);
 }  // namespace ntp_features
