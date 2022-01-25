@@ -1,0 +1,4 @@
+SET_CROMITE_FEATURE_DISABLED(kPermissionPredictionServiceUseUrlOverride);
+SET_CROMITE_FEATURE_DISABLED(kPermissionOnDeviceNotificationPredictions);
+SET_CROMITE_FEATURE_DISABLED(kPermissionOnDeviceGeolocationPredictions);
+SET_CROMITE_FEATURE_DISABLED(kPermissionPredictionsV2);

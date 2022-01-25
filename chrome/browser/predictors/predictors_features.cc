@@ -39,11 +39,7 @@ BASE_FEATURE(kLoadingPredictorDisregardAlwaysAccessesNetwork,
 
 const base::FeatureState
     kLoadingPredictorUseOptimizationGuideDefaultFeatureState =
-#if BUILDFLAG(IS_ANDROID)
-        base::FEATURE_ENABLED_BY_DEFAULT;
-#else
-        base::FEATURE_DISABLED_BY_DEFAULT;
-#endif
+      base::FEATURE_DISABLED_BY_DEFAULT;
 
 // Modifies loading predictor so that it can also use predictions coming from
 // the optimization guide.
@@ -52,11 +48,7 @@ BASE_FEATURE(kLoadingPredictorUseOptimizationGuide,
              kLoadingPredictorUseOptimizationGuideDefaultFeatureState);
 
 const base::FeatureState kLoadingPredictorPrefetchDefaultFeatureState =
-#if BUILDFLAG(IS_ANDROID)
-    base::FEATURE_ENABLED_BY_DEFAULT;
-#else
     base::FEATURE_DISABLED_BY_DEFAULT;
-#endif
 
 // Modifies loading predictor so that it does prefetches of subresources instead
 // of preconnects.
@@ -103,4 +95,5 @@ size_t GetMaxInflightPrefetches() {
       3));
 }
 
+SET_CROMITE_FEATURE_DISABLED(kLoadingPredictorUseLocalPredictions);
 }  // namespace features
