@@ -46,7 +46,9 @@ class MojoUkmRecorder;
 }  // namespace ukm
 
 class AXTreeDistiller;
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
 class DependencyParserModel;
+#endif
 class ReadAnythingAppControllerTest;
 class ReadAnythingAppControllerScreen2xDataCollectionModeTest;
 
@@ -378,7 +380,9 @@ class ReadAnythingAppController
   // available.
   void UpdateDependencyParserModel(base::File model_file);
 
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
   DependencyParserModel& GetDependencyParserModelForTesting();
+#endif
 
   // Stores a screenshot of the page and triggers distillation to record protos.
   // This function is not used in production and is behind the disabled

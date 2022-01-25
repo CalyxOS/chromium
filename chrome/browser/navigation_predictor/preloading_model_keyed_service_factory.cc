@@ -42,7 +42,5 @@ std::unique_ptr<KeyedService>
           blink::features::kPreloadingHeuristicsMLModel)) {
     return nullptr;
   }
-  auto* profile = Profile::FromBrowserContext(context);
-  return std::make_unique<PreloadingModelKeyedService>(
-      OptimizationGuideKeyedServiceFactory::GetForProfile(profile));
+  return nullptr;
 }
