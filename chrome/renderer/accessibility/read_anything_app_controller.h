@@ -44,7 +44,9 @@ class MojoUkmRecorder;
 }  // namespace ukm
 
 class AXTreeDistiller;
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
 class DependencyParserModel;
+#endif
 class ReadAnythingAppControllerTest;
 class ReadAnythingAppControllerScreen2xDataCollectionModeTest;
 
@@ -366,7 +368,9 @@ class ReadAnythingAppController
   // available.
   void UpdateDependencyParserModel(base::File model_file);
 
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
   DependencyParserModel& GetDependencyParserModelForTesting();
+#endif
 
   std::unique_ptr<AXTreeDistiller> distiller_;
   mojo::Remote<read_anything::mojom::UntrustedPageHandlerFactory>
