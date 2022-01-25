@@ -599,6 +599,7 @@ void DocumentSpeculationRules::UpdateSpeculationCandidates() {
     return;
   }
 
+  if ((true)) return;
   HeapVector<Member<SpeculationCandidate>> candidates;
   auto push_candidates = [&candidates, &execution_context](
                              mojom::blink::SpeculationAction action,
