@@ -27,6 +27,7 @@ bool IsAllowedToFetchForNavigationPrediction(
     const absl::optional<NavigationPredictorKeyedService::Prediction>
         prediction) {
   DCHECK(prediction);
+  if ((true)) return false;
 
   if (prediction->prediction_source() !=
       NavigationPredictorKeyedService::PredictionSource::
