@@ -47,13 +47,6 @@ constexpr auto enabled_by_default_mobile_only =
     false;
 #endif
 
-constexpr auto enabled_by_default_ios_only =
-#if BUILDFLAG(IS_IOS)
-    base::FEATURE_ENABLED_BY_DEFAULT;
-#else
-    base::FEATURE_DISABLED_BY_DEFAULT;
-#endif
-
 // Returns whether |locale| is a supported locale for |feature|.
 //
 // This matches |locale| with the "supported_locales" feature param value in
@@ -99,17 +92,17 @@ bool IsSupportedLocaleForFeature(
 // Enables the syncing of the Optimization Hints component, which provides
 // hints for what optimizations can be applied on a page load.
 BASE_FEATURE(kOptimizationHints,
-             "OptimizationHints",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "OptimizationHints",                   // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);    // in Bromite
 
 // Enables fetching from a remote Optimization Guide Service.
 BASE_FEATURE(kRemoteOptimizationGuideFetching,
-             "OptimizationHintsFetching",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "OptimizationHintsFetching",           // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);    // in Bromite
 
 BASE_FEATURE(kRemoteOptimizationGuideFetchingAnonymousDataConsent,
-             "OptimizationHintsFetchingAnonymousDataConsent",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "OptimizationHintsFetchingAnonymousDataConsent",        // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);                     // in Bromite
 
 // Enables performance info in the context menu and fetching from a remote
 // Optimization Guide Service.
@@ -119,17 +112,13 @@ BASE_FEATURE(kContextMenuPerformanceInfoAndRemoteHintFetching,
 
 // Enables the prediction of optimization targets.
 BASE_FEATURE(kOptimizationTargetPrediction,
-             "OptimizationTargetPrediction",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "OptimizationTargetPrediction",                         // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);                     // in Bromite
 
 // Enables the downloading of models.
 BASE_FEATURE(kOptimizationGuideModelDownloading,
-             "OptimizationGuideModelDownloading",
-#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
-             base::FEATURE_ENABLED_BY_DEFAULT
-#else   // BUILD_WITH_TFLITE_LIB
-             base::FEATURE_DISABLED_BY_DEFAULT
-#endif  // !BUILD_WITH_TFLITE_LIB
+             "OptimizationGuideModelDownloading",                    // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT                       // in Bromite
 );
 
 // Enables page content to be annotated.
@@ -139,8 +128,8 @@ BASE_FEATURE(kPageContentAnnotations,
 
 // Enables fetching page metadata from the remote Optimization Guide service.
 BASE_FEATURE(kRemotePageMetadata,
-             "RemotePageMetadata",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "RemotePageMetadata",                // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);  // in Bromite
 
 // Enables the page entities model to be annotated on every page load.
 BASE_FEATURE(kPageEntitiesPageContentAnnotations,
@@ -168,8 +157,8 @@ BASE_FEATURE(kPageEntitiesModelResetOnShutdown,
 
 // Enables push notification of hints.
 BASE_FEATURE(kPushNotifications,
-             "OptimizationGuidePushNotifications",
-             enabled_by_default_ios_only);
+             "OptimizationGuidePushNotifications",    // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);      // in Bromite
 
 // This feature flag does not turn off any behavior, it is only used for
 // experiment parameters.
@@ -182,9 +171,9 @@ BASE_FEATURE(kOptimizationGuideMetadataValidation,
              "OptimizationGuideMetadataValidation",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
-BASE_FEATURE(kPageVisibilityBatchAnnotations,
-             "PageVisibilityBatchAnnotations",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+BASE_FEATURE(kPageVisibilityBatchAnnotations,      // disabled
+             "PageVisibilityBatchAnnotations",     // by default
+             base::FEATURE_DISABLED_BY_DEFAULT);   // in Bromite
 
 BASE_FEATURE(kTextEmbeddingBatchAnnotations,
              "TextEmbeddingBatchAnnotations",
@@ -196,7 +185,7 @@ BASE_FEATURE(kPageContentAnnotationsValidation,
 
 BASE_FEATURE(kPreventLongRunningPredictionModels,
              "PreventLongRunningPredictionModels",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kOptimizationGuideUseContinueOnShutdownForPageContentAnnotations,
              "OptimizationGuideUseContinueOnShutdownForPageContentAnnotations",
@@ -511,7 +500,7 @@ size_t MaxURLKeyedHintCacheSize() {
 
 bool ShouldPersistHintsToDisk() {
   return GetFieldTrialParamByFeatureAsBool(kOptimizationHints,
-                                           "persist_hints_to_disk", true);
+                                           "persist_hints_to_disk", false);
 }
 
 bool ShouldEnablePersonalizedMetadata(proto::RequestContext request_context) {
