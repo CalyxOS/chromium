@@ -393,6 +393,7 @@ void HintsManager::Shutdown() {
 OptimizationGuideDecision
 HintsManager::GetOptimizationGuideDecisionFromOptimizationTypeDecision(
     OptimizationTypeDecision optimization_type_decision) {
+  if ((true)) return OptimizationGuideDecision::kFalse;
   switch (optimization_type_decision) {
     case OptimizationTypeDecision::kAllowedByOptimizationFilter:
     case OptimizationTypeDecision::kAllowedByHint:
@@ -1102,6 +1103,7 @@ void HintsManager::CanApplyOptimizationOnDemand(
     OnDemandOptimizationGuideDecisionRepeatingCallback callback,
     std::optional<proto::RequestContextMetadata> request_context_metadata) {
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
+  if ((true)) return; // no consent on bromite
 
   InsertionOrderedSet<GURL> urls_to_fetch;
   InsertionOrderedSet<std::string> hosts_to_fetch;
@@ -1405,6 +1407,9 @@ OptimizationTypeDecision HintsManager::CanApplyOptimization(
     bool skip_cache,
     OptimizationMetadata* optimization_metadata) {
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
+  if ((true)) {
+    return OptimizationTypeDecision::kNoHintAvailable;
+  }
 
   ScopedCanApplyOptimizationLogger scoped_logger(optimization_type, url,
                                                  optimization_guide_logger_);

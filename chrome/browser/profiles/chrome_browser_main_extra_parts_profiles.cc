@@ -1118,7 +1118,6 @@ void ChromeBrowserMainExtraPartsProfiles::
       base::FeatureList::IsEnabled(
           permissions::features::kPermissionOnDeviceGeolocationPredictions) ||
       base::FeatureList::IsEnabled(permissions::features::kPermissionsAIv1)) {
-    PredictionModelHandlerProviderFactory::GetInstance();
   }
   PredictionServiceFactory::GetInstance();
   predictors::AutocompleteActionPredictorFactory::GetInstance();

@@ -26,6 +26,13 @@ source_set("notification_content_detection") {
   ]
 }
 
+source_set("constants") {
+  sources = [
+    "notification_content_detection_constants.cc",
+    "notification_content_detection_constants.h",
+  ]
+}
+
 source_set("test_utils") {
   testonly = true
   sources = [

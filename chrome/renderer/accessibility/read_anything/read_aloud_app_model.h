@@ -8,7 +8,10 @@
 #include "base/metrics/single_sample_metrics.h"
 #include "base/values.h"
 #include "chrome/common/read_anything/read_anything.mojom.h"
+#include "components/optimization_guide/machine_learning_tflite_buildflags.h"
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
 #include "chrome/renderer/accessibility/phrase_segmentation/dependency_parser_model.h"
+#endif
 #include "chrome/renderer/accessibility/read_anything/read_aloud_traversal_utils.h"
 #include "ui/accessibility/ax_node_position.h"
 
@@ -86,8 +89,10 @@ class ReadAloudAppModel {
                                bool is_docs,
                                const std::set<ui::AXNodeID>* current_nodes);
 
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
   // Get the dependency parsing model for this renderer process.
   DependencyParserModel& GetDependencyParserModel();
+#endif
 
   // Increments the processed_granularity_index_, updating ReadAloud's state of
   // the current granularity to refer to the next granularity. The current
@@ -241,9 +246,11 @@ class ReadAloudAppModel {
   //      still needs to be read.
   bool NoValidTextRemainingInCurrentNode(bool is_pdf, bool is_docs) const;
 
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
   // Asynchronously segment the given granularity into phrases. Once the phrases
   // are calculated, `UpdatePhraseBoundaries` will be called.
   void CalculatePhrases(a11y::ReadAloudCurrentGranularity& granularity);
+#endif
 
   // Once the phrase segmentation has completed for a given sentence, update the
   // granularity with the phrase boundaries, and calculate phrases for the next
@@ -305,7 +312,7 @@ class ReadAloudAppModel {
 
   // Whether a phrase calculation for a sentence is currently underway. (We
   // do not initiate a second calculation before the first has completed.)
-  bool is_calculating_phrases = false;
+  [[maybe_unused]] bool is_calculating_phrases = false;
 
   // Which sentence (index into `processed_granularities_on_current_page`) is
   // currently being processed for phrases. -1 if none.

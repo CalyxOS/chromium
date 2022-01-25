@@ -3436,7 +3436,7 @@
       //
       // It also has some feature params defined throughout the codebase.
       name: "Prerender2",
-      status: "stable",
+      status: "test",
     },
     {
       name: "Presentation",
