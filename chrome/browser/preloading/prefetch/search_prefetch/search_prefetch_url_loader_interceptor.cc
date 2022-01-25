@@ -84,6 +84,7 @@ SearchPrefetchURLLoader::RequestHandler
 SearchPrefetchURLLoaderInterceptor::MaybeCreateLoaderForRequest(
     const network::ResourceRequest& tentative_resource_request,
     content::FrameTreeNodeId frame_tree_node_id) {
+  if ((true)) return {};
   // Do not intercept non-main frame navigations.
   if (!tentative_resource_request.is_outermost_main_frame) {
     // Use the is_outermost_main_frame flag instead of obtaining the

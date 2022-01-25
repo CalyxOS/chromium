@@ -40,8 +40,6 @@ source_set("permissions") {
     "permission_revocation_request.h",
     "permissions_ai_handler.cc",
     "permissions_ai_handler.h",
-    "prediction_based_permission_ui_selector.cc",
-    "prediction_based_permission_ui_selector.h",
     "prediction_model_handler_provider.cc",
     "prediction_model_handler_provider.h",
     "prediction_service_factory.cc",

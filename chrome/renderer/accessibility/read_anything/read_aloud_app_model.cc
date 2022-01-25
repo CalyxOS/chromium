@@ -16,7 +16,9 @@
 #include "base/task/task_traits.h"
 #include "base/task/thread_pool.h"
 #include "base/values.h"
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
 #include "chrome/renderer/accessibility/phrase_segmentation/dependency_parser_model.h"
+#endif
 #include "chrome/renderer/accessibility/phrase_segmentation/dependency_tree.h"
 #include "chrome/renderer/accessibility/phrase_segmentation/phrase_segmenter.h"
 #include "chrome/renderer/accessibility/phrase_segmentation/token_boundaries.h"
@@ -26,6 +28,7 @@
 
 namespace {
 
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
 // Returns the dependency parser model for this renderer process.
 DependencyParserModel& GetDependencyParserModel_() {
   static base::NoDestructor<DependencyParserModel> instance;
@@ -38,6 +41,7 @@ std::vector<size_t> GetDependencyHeads(base::span<const std::string> input) {
              ? dependency_parser_model.GetDependencyHeads(input)
              : std::vector<size_t>();
 }
+#endif
 
 }  // namespace
 
@@ -149,10 +153,13 @@ void ReadAloudAppModel::PreprocessTextForSpeech(
   }
 }
 
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
 DependencyParserModel& ReadAloudAppModel::GetDependencyParserModel() {
   return GetDependencyParserModel_();
 }
+#endif
 
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
 void ReadAloudAppModel::CalculatePhrases(
     a11y::ReadAloudCurrentGranularity& granularity) {
   if (!features::IsReadAnythingReadAloudPhraseHighlightingEnabled()) {
@@ -209,19 +216,23 @@ void ReadAloudAppModel::CalculatePhrases(
       base::BindOnce(&ReadAloudAppModel::UpdatePhraseBoundaries,
                      weak_ptr_factory_.GetWeakPtr(), phrase_tokens));
 }
+#endif
 
-static const Strategy kPhraseStrategy = Strategy::kWords;
-static const int kPhraseStrategyParameter = 5;
+[[maybe_unused]] static const Strategy kPhraseStrategy = Strategy::kWords;
+[[maybe_unused]] static const int kPhraseStrategyParameter = 5;
 
 void ReadAloudAppModel::StartPhraseCalculation() {
   if (processed_granularities_on_current_page_.size() > 0) {
     current_phrase_calculation_index_ = 0;
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
     CalculatePhrases(processed_granularities_on_current_page_[0]);
+#endif
   }
 }
 
 void ReadAloudAppModel::UpdatePhraseBoundaries(std::vector<std::string> tokens,
                                                std::vector<size_t> heads) {
+#if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
   // Reset the phrase calculation flag, so that the next phrase calculation can
   // be scheduled, if needed.
   is_calculating_phrases = false;
@@ -283,6 +294,7 @@ void ReadAloudAppModel::UpdatePhraseBoundaries(std::vector<std::string> tokens,
     current_phrase_calculation_index_ = -1;
     LOG(WARNING) << "All phrases calculated!";
   }
+#endif
 }
 
 // TODO(crbug.com/40927698): Update to use AXRange to better handle multiple

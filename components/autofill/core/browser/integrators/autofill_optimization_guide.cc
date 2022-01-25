@@ -258,6 +258,7 @@ void AutofillOptimizationGuide::OnDidParseForm(
   // If we do not have any optimization types to register, do not do anything.
   if (!optimization_types.empty()) {
     // Register all optimization types that we need based on `form_structure`.
+    if (decider_)
     decider_->RegisterOptimizationTypes(
         std::vector<optimization_guide::proto::OptimizationType>(
             std::move(optimization_types).extract()));
@@ -335,7 +336,7 @@ bool AutofillOptimizationGuide::ShouldBlockSingleFieldSuggestions(
     const AutofillField* field) const {
   // If the field's storable type is `IBAN_VALUE`, check whether IBAN
   // suggestions should be blocked based on `url`.
-  if (field->Type().GetStorableType() == IBAN_VALUE) {
+  if (decider_ && field->Type().GetStorableType() == IBAN_VALUE) {
     optimization_guide::OptimizationGuideDecision decision =
         decider_->CanApplyOptimization(
             url, optimization_guide::proto::IBAN_AUTOFILL_BLOCKED,
@@ -361,7 +362,7 @@ bool AutofillOptimizationGuide::ShouldBlockFormFieldSuggestion(
     const CreditCard& card) const {
   if (auto optimization_type =
           GetVcnMerchantOptOutOptimizationTypeForCard(card);
-      optimization_type != optimization_guide::proto::TYPE_UNSPECIFIED) {
+      decider_ && optimization_type != optimization_guide::proto::TYPE_UNSPECIFIED) {
     optimization_guide::OptimizationGuideDecision decision =
         decider_->CanApplyOptimization(url, optimization_type,
                                        /*optimization_metadata=*/nullptr);

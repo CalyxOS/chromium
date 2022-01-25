@@ -295,4 +295,8 @@ bool ShouldIncludeHiddenButSearchableContent() {
   return kIncludeHiddenButSearchableContent.Get();
 }
 
+SET_CROMITE_FEATURE_DISABLED(kPageContentAnnotations);
+SET_CROMITE_FEATURE_DISABLED(kRemotePageMetadata);
+SET_CROMITE_FEATURE_DISABLED(kPageContentAnnotationsValidation);
+SET_CROMITE_FEATURE_DISABLED(kPageContentAnnotationsPersistSalientImageMetadata);
 }  // namespace page_content_annotations::features
