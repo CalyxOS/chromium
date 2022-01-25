@@ -404,7 +404,6 @@ void TabHelpers::AttachTabHelpers(WebContents* web_contents) {
   }
   MixedContentSettingsTabHelper::CreateForWebContents(web_contents);
   NavigationMetricsRecorder::CreateForWebContents(web_contents);
-  NavigationPredictorPreconnectClient::CreateForWebContents(web_contents);
   OpenerHeuristicTabHelper::CreateForWebContents(web_contents);
   if (optimization_guide::features::IsOptimizationHintsEnabled()) {
     OptimizationGuideWebContentsObserver::CreateForWebContents(web_contents);
