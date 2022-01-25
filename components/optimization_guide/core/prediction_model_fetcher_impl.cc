@@ -50,6 +50,7 @@ bool PredictionModelFetcherImpl::FetchOptimizationGuideServiceModels(
     proto::RequestContext request_context,
     const std::string& locale,
     ModelsFetchedCallback models_fetched_callback) {
+  if ((true)) return false;
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
 
   if (url_loader_)
