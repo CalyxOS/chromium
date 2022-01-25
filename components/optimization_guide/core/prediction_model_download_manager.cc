@@ -47,7 +47,7 @@ constexpr char kGoogApiKey[] = "X-Goog-Api-Key";
 // we require models to come from.
 constexpr uint8_t kPublisherKeyHash[] = {
     0x66, 0xa1, 0xd9, 0x3e, 0x4e, 0x5a, 0x66, 0x8a, 0x0f, 0xd3, 0xfa,
-    0xa3, 0x70, 0x71, 0x42, 0x16, 0x0d, 0x2d, 0x68, 0xb0, 0x53, 0x02,
+    0x01, 0x02, 0x03, 0x04, 0x16, 0x0d, 0x2d, 0x68, 0xb0, 0x53, 0x02,
     0x5c, 0x7f, 0xd0, 0x0c, 0xa1, 0x6e, 0xef, 0xdd, 0x63, 0x7a};
 const net::NetworkTrafficAnnotationTag
     kOptimizationGuidePredictionModelsTrafficAnnotation =
@@ -106,7 +106,7 @@ PredictionModelDownloadManager::PredictionModelDownloadManager(
     const proto::ModelCacheKey& model_cache_key,
     scoped_refptr<base::SequencedTaskRunner> background_task_runner)
     : download_service_(download_service),
-      is_available_for_downloads_(true),
+      is_available_for_downloads_(false),
       api_key_(features::GetOptimizationGuideServiceAPIKey()),
       models_dir_path_(models_dir_path),
       prediction_model_store_(prediction_model_store),
@@ -118,6 +118,7 @@ PredictionModelDownloadManager::~PredictionModelDownloadManager() = default;
 void PredictionModelDownloadManager::StartDownload(
     const GURL& download_url,
     proto::OptimizationTarget optimization_target) {
+  if ((true)) return;
   download::DownloadParams download_params;
   download_params.client =
       download::DownloadClient::OPTIMIZATION_GUIDE_PREDICTION_MODELS;
@@ -254,6 +255,7 @@ void PredictionModelDownloadManager::OnDownloadFailed(
 absl::optional<std::pair<base::FilePath, base::FilePath>>
 PredictionModelDownloadManager::VerifyDownload(const base::FilePath& file_path,
                                                bool delete_file_on_error) {
+  if ((true)) return absl::nullopt;
   if (!switches::ShouldSkipModelDownloadVerificationForTesting()) {
     // Verify that the |file_path| contains a valid CRX file.
     std::string public_key;
