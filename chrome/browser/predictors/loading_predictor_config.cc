@@ -12,12 +12,14 @@
 
 namespace predictors {
 
-bool IsLoadingPredictorEnabled(Profile* profile) {
+bool IsLoadingPredictorEnabled(Profile* profile) { // disabled in Bromite
+  if ((true)) return false;
   // Disabled for off-the-record. Policy choice, not a technical limitation.
   return profile && !profile->IsOffTheRecord();
 }
 
-bool IsPreconnectAllowed(Profile* profile) {
+bool IsPreconnectAllowed(Profile* profile) { // disabled in Bromite
+  if ((true)) return false;
   // Checks that the preconnect is allowed by user settings.
   return profile && profile->GetPrefs() &&
          (prefetch::IsSomePreloadingEnabled(*profile->GetPrefs()) ==
