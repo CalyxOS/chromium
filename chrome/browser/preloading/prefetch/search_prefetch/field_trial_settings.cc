@@ -146,3 +146,7 @@ const base::FeatureParam<base::TimeDelta>
     kSuppressesSearchPrefetchOnSlowNetworkThreshold{
         &kSuppressesSearchPrefetchOnSlowNetwork,
         "slow_network_threshold_for_search_prefetch", base::Milliseconds(208)};
+
+SET_CROMITE_FEATURE_DISABLED(kSearchPrefetchServicePrefetching);
+SET_CROMITE_FEATURE_DISABLED(kSearchPrefetchWithNoVarySearchDiskCache);
+SET_CROMITE_FEATURE_DISABLED(kSearchNavigationPrefetch);
