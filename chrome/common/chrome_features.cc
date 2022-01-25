@@ -1044,7 +1044,7 @@ BASE_FEATURE(kPluginVm, "PluginVm", base::FEATURE_DISABLED_BY_DEFAULT);
 // Allows Chrome to do preconnect when prerender fails.
 BASE_FEATURE(kPrerenderFallbackToPreconnect,
              "PrerenderFallbackToPreconnect",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             base::FEATURE_DISABLED_BY_DEFAULT);
 
 #if BUILDFLAG(IS_CHROMEOS)
 // Enable improved printer state and error state messaging for Print Preview.
@@ -1105,8 +1105,8 @@ BASE_FEATURE(kSafetyCheckExtensions,
 
 // Enables notification permission module in Safety Check.
 BASE_FEATURE(kSafetyCheckNotificationPermissions,
-             "SafetyCheckNotificationPermissions",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "SafetyCheckNotificationPermissions",        // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);        // in Bromite
 
 const base::FeatureParam<int>
     kSafetyCheckNotificationPermissionsMinEnagementLimit{

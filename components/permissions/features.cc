@@ -93,24 +93,24 @@ BASE_FEATURE(kFailFastQuietChip,
 // When enabled, use the value of the `service_url` FeatureParam as the url
 // for the Web Permission Predictions Service.
 BASE_FEATURE(kPermissionPredictionServiceUseUrlOverride,
-             "kPermissionPredictionServiceUseUrlOverride",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "kPermissionPredictionServiceUseUrlOverride",       // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);                 // in Bromite
 
 BASE_FEATURE(kPermissionOnDeviceNotificationPredictions,
-             "PermissionOnDeviceNotificationPredictions",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "PermissionOnDeviceNotificationPredictions",        // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);                 // in Bromite
 
 BASE_FEATURE(kPermissionOnDeviceGeolocationPredictions,
-             "PermissionOnDeviceGeolocationPredictions",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "PermissionOnDeviceGeolocationPredictions",         // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);                 // in Bromite
 
 BASE_FEATURE(kPermissionDedicatedCpssSetting,
              "PermissionDedicatedCpssSettings",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kPermissionPredictionsV2,
-             "PermissionPredictionsV2",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "PermissionPredictionsV2",           // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);  // in Bromite
 
 #if BUILDFLAG(IS_ANDROID)
 
