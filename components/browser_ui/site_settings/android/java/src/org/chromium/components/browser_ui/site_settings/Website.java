@@ -230,6 +230,13 @@ public final class Website implements WebsiteEntry {
             } else {
                 RecordUserAction.record("JavascriptContentSetting.DisableBy.SiteSettings");
             }
+        } else if (type == ContentSettingsType.JAVASCRIPT_JIT) {
+            if (exception == null) {
+                exception = new ContentSettingException(
+                        ContentSettingsType.JAVASCRIPT_JIT, getAddress().getHost(), value, "",
+                        /*isEmbargoed=*/false);
+                setContentSettingException(type, exception);
+            }
         } else if (type == ContentSettingsType.AUTOPLAY) {
             // It is possible to set the permission without having an existing exception,
             // because we always show the autoplay permission in Site Settings.

@@ -23,6 +23,7 @@ public class SiteSettingsUtil {
             ContentSettingsType.MEDIASTREAM_MIC,
             ContentSettingsType.NOTIFICATIONS,
             ContentSettingsType.JAVASCRIPT,
+            ContentSettingsType.JAVASCRIPT_JIT,
             ContentSettingsType.POPUPS,
             ContentSettingsType.ADS,
             ContentSettingsType.BACKGROUND_SYNC,

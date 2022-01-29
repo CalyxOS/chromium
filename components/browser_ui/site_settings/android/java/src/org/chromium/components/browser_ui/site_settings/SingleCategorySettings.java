@@ -632,6 +632,11 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
                                browserContextHandle, ContentSettingsType.JAVASCRIPT)
                     ? R.string.website_settings_add_site_description_javascript_block
                     : R.string.website_settings_add_site_description_javascript_allow;
+        } else if (mCategory.getType() == SiteSettingsCategory.Type.JAVASCRIPT_JIT) {
+            resource = WebsitePreferenceBridge.isCategoryEnabled(
+                               browserContextHandle, ContentSettingsType.JAVASCRIPT_JIT)
+                    ? R.string.website_settings_add_site_description_javascript_jit_block
+                    : R.string.website_settings_add_site_description_javascript_jit_allow;
         } else if (mCategory.getType() == SiteSettingsCategory.Type.SOUND) {
             resource = WebsitePreferenceBridge.isCategoryEnabled(
                                browserContextHandle, ContentSettingsType.SOUND)
@@ -760,6 +765,8 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
         } else if (mCategory.getType() == SiteSettingsCategory.Type.AUTOPLAY) {
             allowSpecifyingExceptions = true;
         } else if (mCategory.getType() == SiteSettingsCategory.Type.JAVASCRIPT) {
+            allowSpecifyingExceptions = true;
+        } else if (mCategory.getType() == SiteSettingsCategory.Type.JAVASCRIPT_JIT) {
             allowSpecifyingExceptions = true;
         } else if (mCategory.getType() == SiteSettingsCategory.Type.COOKIES) {
             allowSpecifyingExceptions = true;

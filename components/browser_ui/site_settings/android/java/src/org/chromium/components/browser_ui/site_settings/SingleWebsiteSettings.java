@@ -136,6 +136,8 @@ public class SingleWebsiteSettings extends SiteSettingsPreferenceFragment
                 return "idle_detection_permission_list";
             case ContentSettingsType.JAVASCRIPT:
                 return "javascript_permission_list";
+            case ContentSettingsType.JAVASCRIPT_JIT:
+                return "javascript_jit_permission_list";
             case ContentSettingsType.POPUPS:
                 return "popup_permission_list";
             case ContentSettingsType.SOUND:
@@ -514,6 +516,8 @@ public class SingleWebsiteSettings extends SiteSettingsPreferenceFragment
                 setUpJavascriptPreference(preference);
             } else if (type == ContentSettingsType.GEOLOCATION) {
                 setUpLocationPreference(preference);
+            } else if (type == ContentSettingsType.JAVASCRIPT_JIT) {
+                setUpJavascriptJitPreference(preference);
             } else if (type == ContentSettingsType.NOTIFICATIONS) {
                 setUpNotificationsPreference(preference, mSite.isEmbargoed(type));
             } else if (type == ContentSettingsType.REQUEST_DESKTOP_SITE) {
@@ -1057,6 +1061,23 @@ public class SingleWebsiteSettings extends SiteSettingsPreferenceFragment
             currentValue = ContentSettingValues.BLOCK;
         }
         // Not possible to embargo JAVASCRIPT.
+        setupContentSettingsPreference(preference, currentValue, false /* isEmbargoed */);
+    }
+
+    private void setUpJavascriptJitPreference(Preference preference) {
+        BrowserContextHandle browserContextHandle =
+                getSiteSettingsDelegate().getBrowserContextHandle();
+        @ContentSettingValues
+        @Nullable
+        Integer currentValue =
+                mSite.getContentSetting(browserContextHandle, ContentSettingsType.JAVASCRIPT_JIT);
+        if (currentValue == null || currentValue == ContentSettingValues.DEFAULT) {
+            currentValue = WebsitePreferenceBridge.isCategoryEnabled(
+                                   browserContextHandle, ContentSettingsType.JAVASCRIPT_JIT)
+                    ? ContentSettingValues.ALLOW
+                    : ContentSettingValues.BLOCK;
+        }
+        // Not possible to embargo JAVASCRIPT_JIT.
         setupContentSettingsPreference(preference, currentValue, false /* isEmbargoed */);
     }
 

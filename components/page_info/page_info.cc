@@ -125,6 +125,7 @@ ContentSettingsType kPermissionType[] = {
     ContentSettingsType::AR,
     ContentSettingsType::IDLE_DETECTION,
     ContentSettingsType::FEDERATED_IDENTITY_API,
+    ContentSettingsType::JAVASCRIPT_JIT,
 };
 
 // Determines whether to show permission |type| in the Page Info UI. Only
@@ -156,6 +157,11 @@ bool ShouldShowPermission(const PageInfo::PermissionInfo& info,
     // audio.
     if (web_contents && web_contents->WasEverAudible())
       return true;
+  }
+
+  // Always show JIT settings UI when when it has a site-specific override.
+  if (info.type == ContentSettingsType::JAVASCRIPT_JIT) {
+    return true;
   }
 
   const bool is_incognito = web_contents->GetBrowserContext()->IsOffTheRecord();

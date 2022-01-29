@@ -185,6 +185,13 @@ public class ContentSettingsResources {
                         ContentSettingValues.BLOCK,
                         R.string.website_settings_category_javascript_allowed, 0);
 
+            case ContentSettingsType.JAVASCRIPT_JIT:
+                return new ResourceItem(R.drawable.permission_javascript_jit,
+                        R.string.javascript_jit_permission_title, ContentSettingValues.ALLOW,
+                        ContentSettingValues.BLOCK,
+                        R.string.website_settings_category_javascript_jit_allowed,
+                        R.string.website_settings_category_javascript_jit_blocked);
+
             case ContentSettingsType.MEDIASTREAM_CAMERA:
                 return new ResourceItem(R.drawable.gm_filled_videocam_24,
                         R.string.website_settings_use_camera, ContentSettingValues.ASK,
