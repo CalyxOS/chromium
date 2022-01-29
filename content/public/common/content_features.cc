@@ -1047,8 +1047,8 @@ BASE_FEATURE(kSpareRendererForSitePerProcess,
 // Controls whether site isolation should use origins instead of scheme and
 // eTLD+1.
 BASE_FEATURE(kStrictOriginIsolation,
-             "StrictOriginIsolation",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "StrictOriginIsolation",              // must be enabled
+             base::FEATURE_ENABLED_BY_DEFAULT);    // in Bromite
 
 // Disallows window.{alert, prompt, confirm} if triggered inside a subframe that
 // is not same origin with the main frame.
