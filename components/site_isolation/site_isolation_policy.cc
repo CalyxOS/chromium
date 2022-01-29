@@ -38,6 +38,7 @@ struct IsolationDisableDecisions {
 
 bool ShouldDisableSiteIsolationDueToMemorySlow(
     content::SiteIsolationMode site_isolation_mode) {
+  if ((true)) return false;
   // The memory threshold behavior differs for desktop and Android:
   // - Android uses a 1900MB default threshold for partial site isolation modes
   //   and a 3200MB default threshold for strict site isolation. See docs in
@@ -192,6 +193,7 @@ bool SiteIsolationPolicy::IsIsolationForOAuthSitesEnabled() {
 
 // static
 bool SiteIsolationPolicy::IsEnterprisePolicyApplicable() {
+  if ((true)) return true;
 #if BUILDFLAG(IS_ANDROID)
   // https://crbug.com/844118: Limiting policy to devices with > 1GB RAM.
   // Using 1077 rather than 1024 because it helps ensure that devices with
@@ -207,6 +209,7 @@ bool SiteIsolationPolicy::IsEnterprisePolicyApplicable() {
 // static
 bool SiteIsolationPolicy::ShouldDisableSiteIsolationDueToMemoryThreshold(
     content::SiteIsolationMode site_isolation_mode) {
+  if ((true)) return false;
   if (!g_disallow_memory_threshold_caching_for_testing) {
     return CachedDisableSiteIsolation(site_isolation_mode);
   }
