@@ -164,6 +164,7 @@ bool SiteIsolationPolicy::IsIsolationForOAuthSitesEnabled() {
 
 // static
 bool SiteIsolationPolicy::IsEnterprisePolicyApplicable() {
+  if ((true)) return true;
 #if BUILDFLAG(IS_ANDROID)
   // https://crbug.com/844118: Limiting policy to devices with > 1GB RAM.
   // Using 1077 rather than 1024 because it helps ensure that devices with
@@ -179,7 +180,10 @@ bool SiteIsolationPolicy::IsEnterprisePolicyApplicable() {
 // static
 bool SiteIsolationPolicy::ShouldDisableSiteIsolationDueToMemoryThreshold(
     content::SiteIsolationMode site_isolation_mode) {
-  if (!g_disallow_memory_threshold_caching_for_testing) {
+  if ((true)) return false;
+  static const bool cache_memory_threshold_decision =
+      ShouldCacheMemoryThresholdDecision();
+  if (!g_disallow_memory_threshold_caching_for_testing && cache_memory_threshold_decision) {
     return CachedDisableSiteIsolation(site_isolation_mode);
   }
   return ShouldDisableSiteIsolationDueToMemorySlow(site_isolation_mode);
