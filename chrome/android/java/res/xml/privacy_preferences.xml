@@ -31,6 +31,12 @@ found in the LICENSE file.
         android:title="@string/settings_incognito_tab_lock_title"
         android:summary="@string/settings_incognito_tab_lock_summary_android_setting_off"
         android:persistent="false"/>
+    <org.chromium.components.browser_ui.settings.SpinnerPreference
+        android:key="history_expire_days_threshold"
+        android:persistent="false"
+        android:title="@string/history_expire_days_threshold_title"
+        android:summary="@string/history_expire_days_threshold_summary"
+        app:singleLine="true" />
     <org.chromium.components.browser_ui.settings.ChromeSwitchPreference
         android:key="can_make_payment"
         android:title="@string/can_make_payment_title"

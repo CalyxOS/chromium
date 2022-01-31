@@ -389,7 +389,7 @@ const ExpiringVisitsReader*
 
 void ExpireHistoryBackend::StartExpiringOldStuff(
     base::TimeDelta expiration_threshold) {
-  expiration_threshold_ = expiration_threshold;
+  SetExpireDaysThreshold(expiration_threshold);
 
   // Remove all readers, just in case this was method was called before.
   readers_.clear();
@@ -403,6 +403,11 @@ void ExpireHistoryBackend::StartExpiringOldStuff(
   // Initialize the queue with all tasks for the first set of iterations.
   InitWorkQueue();
   ScheduleExpire();
+}
+
+void ExpireHistoryBackend::SetExpireDaysThreshold(
+    base::TimeDelta expiration_threshold) {
+  expiration_threshold_ = expiration_threshold;
 }
 
 void ExpireHistoryBackend::DeleteFaviconsIfPossible(DeleteEffects* effects) {
@@ -606,6 +611,12 @@ void ExpireHistoryBackend::DoExpireIteration() {
         base::Minutes(kExpirationEmptyDelayMin));
     return;
   }
+
+  // evaluate special cases again in case value was changed while timer was sleeping
+  // (0 - no history, 65535 - keep history forever)
+  if (expiration_threshold_ == base::Days(0) ||
+      expiration_threshold_ == base::Days(0xFFFF))
+    return;
 
   const ExpiringVisitsReader* reader = work_queue_.front();
   bool more_to_expire = ExpireSomeOldHistory(

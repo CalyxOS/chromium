@@ -20,6 +20,13 @@ found in the LICENSE file.
         android:layout_width="match_parent"
         style="@style/PreferenceTitle" />
 
+    <TextView
+        android:id="@+id/summary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/PreferenceSummary"
+        android:visibility="gone" />
+
     <Spinner
         android:id="@+id/spinner"
         android:layout_height="wrap_content"

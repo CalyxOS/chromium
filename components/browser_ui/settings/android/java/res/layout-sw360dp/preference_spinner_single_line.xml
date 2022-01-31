@@ -13,19 +13,33 @@ found in the LICENSE file.
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:paddingEnd="@dimen/pref_spinner_padding_end"
-    android:paddingTop="12dp"
+    android:paddingTop="0dp"
     android:paddingBottom="6dp">
 
-    <TextView
-        android:id="@+id/title"
-        style="@style/PreferenceTitle"
-        android:textAppearance="@style/TextAppearance.TextLarge.Secondary"
+    <LinearLayout
+        android:orientation="vertical"
         android:textAlignment="viewStart"
         android:layout_height="wrap_content"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:paddingTop="12dp"
-        android:paddingBottom="12dp"/>
+        android:paddingBottom="12dp">
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/PreferenceTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.TextLarge.Secondary" />
+
+        <TextView
+            android:id="@+id/summary"
+            style="@style/PreferenceSummary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+    </LinearLayout>
 
     <Spinner
         android:id="@+id/spinner"

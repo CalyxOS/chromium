@@ -28,6 +28,8 @@ std::unique_ptr<KeyedService> BuildHistoryService(
           history::HistoryDatabaseParamsForPath(context->GetPath()))) {
     return nullptr;
   }
+  Profile* profile = Profile::FromBrowserContext(context);
+  history_service->InitFromPreferences(profile->GetPrefs());
   return history_service;
 }
 

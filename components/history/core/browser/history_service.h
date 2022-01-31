@@ -31,6 +31,8 @@
 #include "build/build_config.h"
 #include "components/favicon_base/favicon_callback.h"
 #include "components/favicon_base/favicon_usage_data.h"
+#include "components/prefs/pref_service.h"
+#include "components/prefs/pref_change_registrar.h"
 #include "components/history/core/browser/history_types.h"
 #include "components/history/core/browser/keyword_id.h"
 #include "components/history/core/browser/url_row.h"
@@ -105,6 +107,8 @@ class HistoryService : public KeyedService {
   bool Init(const HistoryDatabaseParams& history_database_params) {
     return Init(false, history_database_params);
   }
+
+  void InitFromPreferences(PrefService* prefs);
 
   // Triggers the backend to load if it hasn't already, and then returns whether
   // it's finished loading.
@@ -1023,6 +1027,10 @@ class HistoryService : public KeyedService {
   std::unique_ptr<DeleteDirectiveHandler> delete_directive_handler_;
 
   base::OnceClosure origin_queried_closure_for_testing_;
+
+  void OnUserPrefChanged();
+  PrefService* active_user_pref_service_ = nullptr;
+  std::unique_ptr<PrefChangeRegistrar> active_user_pref_change_registrar_;
 
   // All vended weak pointers are invalidated in Cleanup().
   base::WeakPtrFactory<HistoryService> weak_ptr_factory_{this};

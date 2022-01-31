@@ -79,6 +79,8 @@ class ExpireHistoryBackend {
   // will continue until the object is deleted.
   void StartExpiringOldStuff(base::TimeDelta expiration_threshold);
 
+  void SetExpireDaysThreshold(base::TimeDelta expiration_threshold);
+
   // Deletes everything associated with a URL until `end_time`.
   void DeleteURL(const GURL& url, base::Time end_time);
 

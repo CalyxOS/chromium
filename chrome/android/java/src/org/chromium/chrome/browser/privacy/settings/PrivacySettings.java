@@ -33,6 +33,7 @@ import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.settings.ChromeManagedPreferenceDelegate;
 import org.chromium.chrome.browser.settings.SettingsLauncherImpl;
 import org.chromium.components.browser_ui.settings.ChromeSwitchPreference;
+import org.chromium.components.browser_ui.settings.SpinnerPreference;
 import org.chromium.components.browser_ui.settings.ManagedPreferenceDelegate;
 import org.chromium.components.browser_ui.settings.SettingsLauncher;
 import org.chromium.components.browser_ui.settings.SettingsUtils;
@@ -46,6 +47,9 @@ import androidx.annotation.Nullable;
 import androidx.preference.PreferenceCategory;
 import org.chromium.chrome.browser.preferences.SharedPreferencesManager;
 import org.chromium.components.browser_ui.settings.ChromeSwitchPreference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Fragment to keep track of the all the privacy related preferences.
@@ -76,6 +80,8 @@ public class PrivacySettings
 
     private ChromeSwitchPreference allowCustomTabIntentsPref;
     private ChromeSwitchPreference openExternalLinksPref;
+
+    private static final String PREF_HISTORY_EXPIRE_DAYS_THRESHOLD = "history_expire_days_threshold";
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -117,6 +123,40 @@ public class PrivacySettings
 
         Preference secureDnsPref = findPreference(PREF_SECURE_DNS);
         secureDnsPref.setVisible(SecureDnsSettings.isUiEnabled());
+
+        // set up history expire days threshold preference
+        List<TimeFrequencySpinnerOption> options = new ArrayList<>();
+        options.add(new TimeFrequencySpinnerOption(0,
+                            getActivity().getString(R.string.history_expire_days_no_history)));
+        options.add(new TimeFrequencySpinnerOption(1));
+        options.add(new TimeFrequencySpinnerOption(7));
+        options.add(new TimeFrequencySpinnerOption(15));
+        options.add(new TimeFrequencySpinnerOption(30));
+        options.add(new TimeFrequencySpinnerOption(60));
+        options.add(new TimeFrequencySpinnerOption(90));
+        options.add(new TimeFrequencySpinnerOption(0xFFFF,
+                            getActivity().getString(R.string.history_expire_days_keep_forever)));
+        TimeFrequencySpinnerOption[] spinnerOptions = options.toArray(new TimeFrequencySpinnerOption[0]);
+
+        int selectedTimeFrequency = UserPrefs.get(Profile.getLastUsedRegularProfile())
+                                             .getInteger(Pref.EXPIRE_DAYS_THRESHOLD);
+        int spinnerOptionIndex = -1;
+        for (int i = 0; i < spinnerOptions.length; ++i) {
+            if (spinnerOptions[i].getDays() == selectedTimeFrequency) {
+                spinnerOptionIndex = i;
+                break;
+            }
+        }
+
+        SpinnerPreference spinner = (SpinnerPreference) findPreference(PREF_HISTORY_EXPIRE_DAYS_THRESHOLD);
+        spinner.setOptions(spinnerOptions, spinnerOptionIndex);
+        spinner.setSummary(getResources().getString(R.string.history_expire_days_threshold_summary));
+        spinner.setOnPreferenceChangeListener((preference, newValue) -> {
+            UserPrefs.get(Profile.getLastUsedRegularProfile())
+                                 .setInteger(Pref.EXPIRE_DAYS_THRESHOLD,
+                                        ((TimeFrequencySpinnerOption) newValue).getDays());
+            return true;
+        });
 
         updatePreferences();
     }
@@ -215,6 +255,29 @@ public class PrivacySettings
             }
             return false;
         };
+    }
+
+    class TimeFrequencySpinnerOption {
+        private int mDays;
+        private String mDescription;
+
+        public TimeFrequencySpinnerOption(int days) {
+            this(days, Integer.toString(days));
+        }
+
+        public TimeFrequencySpinnerOption(int days, String description) {
+            mDays = days;
+            mDescription = description;
+        }
+
+        public int getDays() {
+            return mDays;
+        }
+
+        @Override
+        public String toString() {
+            return mDescription;
+        }
     }
 
     @Override

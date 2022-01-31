@@ -158,7 +158,7 @@ const int kMaxRedirectCount = 32;
 
 // The number of days old a history entry can be before it is considered "old"
 // and is deleted.
-const int kExpireDaysThreshold = 90;
+int kExpireDaysThreshold = 90;
 
 // The maximum number of days for which domain visit metrics are computed
 // each time HistoryBackend::GetDomainDiversity() is called.
@@ -1088,6 +1088,19 @@ void HistoryBackend::InitImpl(
   expirer_.StartExpiringOldStuff(base::Days(kExpireDaysThreshold));
 
   LOCAL_HISTOGRAM_TIMES("History.InitTime", TimeTicks::Now() - beginning_time);
+}
+
+void HistoryBackend::SetExpireDaysThreshold(int days) {
+  // there are 2 magic values here:
+  // 0 - keep no history
+  // 65535 - keep history forever
+  // they are stored as-is
+  kExpireDaysThreshold = days;
+  expirer_.SetExpireDaysThreshold(base::Days(days));
+  if (days == 0) {
+    task_runner_->PostTask(
+        FROM_HERE, base::BindOnce(&HistoryBackend::DeleteAllHistory, this));
+  }
 }
 
 void HistoryBackend::OnMemoryPressure(

@@ -1136,6 +1136,18 @@ Your Google account may have other forms of browsing history like searches and a
       <message name="IDS_CLEAR_HISTORY_TITLE" desc="Title for Clear History in Clear Browsing Data dialog">
         Browsing history
       </message>
+      <message name="IDS_HISTORY_EXPIRE_DAYS_THRESHOLD_TITLE" desc="Title for history expire days threshold">
+        Expire history days threshold
+      </message>
+      <message name="IDS_HISTORY_EXPIRE_DAYS_NO_HISTORY" desc="Title for history expire days option to keep no navigation history">
+        No history
+      </message>
+      <message name="IDS_HISTORY_EXPIRE_DAYS_KEEP_FOREVER" desc="Title for history expire days option to keep navigation history forever">
+        Forever
+      </message>
+      <message name="IDS_HISTORY_EXPIRE_DAYS_THRESHOLD_SUMMARY" desc="Summary for history expire days threshold">
+        Number of days to keep navigation history
+      </message>
       <message name="IDS_CLEAR_COOKIES_AND_SITE_DATA_TITLE" desc="Title for Clear Cookies and site data in Clear Browsing Data dialog">
         Cookies and site data
       </message>

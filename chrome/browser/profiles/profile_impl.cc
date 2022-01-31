@@ -365,6 +365,7 @@ std::unique_ptr<Profile> Profile::CreateProfile(const base::FilePath& path,
 void ProfileImpl::RegisterProfilePrefs(
     user_prefs::PrefRegistrySyncable* registry) {
   registry->RegisterBooleanPref(prefs::kSavingBrowserHistoryDisabled, false);
+  registry->RegisterIntegerPref(prefs::kExpireDaysThreshold, 90);
   registry->RegisterBooleanPref(prefs::kAllowDeletingBrowserHistory, true);
   registry->RegisterBooleanPref(prefs::kForceGoogleSafeSearch, false);
   registry->RegisterIntegerPref(prefs::kForceYouTubeRestrict,

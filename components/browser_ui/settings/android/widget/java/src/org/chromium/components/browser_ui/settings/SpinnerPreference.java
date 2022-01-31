@@ -6,6 +6,7 @@ package org.chromium.components.browser_ui.settings;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
@@ -98,6 +99,12 @@ public class SpinnerPreference extends Preference {
         super.onBindViewHolder(holder);
 
         ((TextView) holder.findViewById(R.id.title)).setText(getTitle());
+        CharSequence summary = getSummary();
+        TextView summaryView = ((TextView) holder.findViewById(R.id.summary));
+        if (summaryView != null && !TextUtils.isEmpty(summary)) {
+            summaryView.setText(summary);
+            summaryView.setVisibility(View.VISIBLE);
+        }
         mSpinner = (Spinner) holder.findViewById(R.id.spinner);
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

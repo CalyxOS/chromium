@@ -219,6 +219,8 @@ class HistoryBackend : public base::RefCountedThreadSafe<HistoryBackend>,
   void Init(bool force_fail,
             const HistoryDatabaseParams& history_database_params);
 
+  void SetExpireDaysThreshold(int days);
+
   // Notification that the history system is shutting down. This will break
   // the refs owned by the delegate and any pending transaction, so it will
   // actually be deleted.

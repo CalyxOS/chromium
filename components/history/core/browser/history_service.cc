@@ -35,6 +35,9 @@
 #include "base/time/time.h"
 #include "base/trace_event/trace_event.h"
 #include "build/build_config.h"
+#include "components/prefs/pref_service.h"
+#include "components/prefs/pref_change_registrar.h"
+#include "components/history/core/common/pref_names.h"
 #include "components/history/core/browser/download_row.h"
 #include "components/history/core/browser/history_backend.h"
 #include "components/history/core/browser/history_backend_client.h"
@@ -1126,6 +1129,9 @@ void HistoryService::Cleanup() {
     return;
   }
 
+  active_user_pref_change_registrar_.reset();
+  active_user_pref_service_ = nullptr;
+
   NotifyHistoryServiceBeingDeleted();
 
   weak_ptr_factory_.InvalidateWeakPtrs();
@@ -1188,6 +1194,33 @@ bool HistoryService::Init(
     history_client_->OnHistoryServiceCreated(this);
 
   return true;
+}
+
+void HistoryService::InitFromPreferences(PrefService* prefs) {
+  DCHECK(prefs);
+
+  active_user_pref_service_ = prefs;
+  OnUserPrefChanged();
+
+  active_user_pref_change_registrar_ = std::make_unique<PrefChangeRegistrar>();
+  active_user_pref_change_registrar_->Init(prefs);
+  active_user_pref_change_registrar_->Add(
+      prefs::kExpireDaysThreshold,
+      base::BindRepeating(
+          &HistoryService::OnUserPrefChanged,
+          base::Unretained(this)));
+}
+
+void HistoryService::OnUserPrefChanged() {
+  DCHECK(active_user_pref_service_);
+
+  int kExpireDaysThreshold =
+        active_user_pref_service_->GetInteger(prefs::kExpireDaysThreshold);
+  // disable history saving when the 0 magic value is used
+  // the current history records are truncated elsewhere
+  active_user_pref_service_->SetBoolean(prefs::kSavingBrowserHistoryDisabled,
+                                (kExpireDaysThreshold == 0));
+  history_backend_->SetExpireDaysThreshold(kExpireDaysThreshold);
 }
 
 void HistoryService::ScheduleAutocomplete(

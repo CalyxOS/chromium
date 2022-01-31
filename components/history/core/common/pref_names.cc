@@ -9,4 +9,8 @@ namespace prefs {
 // Boolean controlling whether history saving is disabled.
 const char kSavingBrowserHistoryDisabled[] = "history.saving_disabled";
 
+// The number of days old a history entry can be before it is considered "old"
+// and is deleted.
+const char kExpireDaysThreshold[] = "history.expire_days_threshold";
+
 }  // namespace prefs
