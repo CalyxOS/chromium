@@ -517,8 +517,29 @@ public class LibraryLoader {
     // Note: This cannot be done in the build configuration, as otherwise chrome_public_apk cannot
     // both be used as the basis to ship on L, and the default APK used by developers on 10+.
     private boolean forceSystemLinker() {
-        return mUseChromiumLinker && !mUseModernLinker
+        boolean result = false;
+        String manufacturer = Build.MANUFACTURER.toLowerCase(Locale.US);
+        if (manufacturer.equals("samsung")
+                && Build.MODEL != null
+                && Build.MODEL.equals("SM-N960F")) {
+            // Samsung Galaxy Note 9 (on Android 8.1) - Model SM-N960F
+            // crashes on startup (base::MessagePumpForUI::MessagePumpForUI) due to
+            // some odd RELRO incompatibility in the device ROM.
+            // This workaround disables relocation sharing but allows device to start up.
+            // See also:
+            // * https://bugs.chromium.org/p/chromium/issues/detail?id=980304
+            // * https://groups.google.com/a/chromium.org/g/chromium-dev/c/iAb7QUiNPLw
+            result = true;
+        } else {
+            result = mUseChromiumLinker && !mUseModernLinker
                 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q;
+        }
+        if (result) {
+            Log.d(TAG,
+                    "Forcing system linker, relocations will not be shared. "
+                            + "This negatively impacts memory usage.");
+        }
+        return result;
     }
 
     // Whether a Linker subclass is used for loading. Even if returns |true|, the Linker can
