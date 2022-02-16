@@ -7,6 +7,8 @@
 #include "base/compiler_specific.h"
 #include "base/task/single_thread_task_runner.h"
 #include "third_party/blink/public/common/features.h"
+#include "base/version.h"
+#include "base/strings/strcat.h"
 #include "third_party/blink/public/common/privacy_budget/identifiability_metric_builder.h"
 #include "third_party/blink/public/common/privacy_budget/identifiability_study_settings.h"
 #include "third_party/blink/public/common/privacy_budget/identifiable_surface.h"
@@ -65,6 +67,16 @@ void MaybeRecordMetric(bool record_identifiability,
                     execution_context);
 }
 
+const String GetReducedVersionNumber(const std::string& fullVersion) {
+  base::Version version(fullVersion);
+  std::string version_str;
+  const std::vector<uint32_t>& components = version.components();
+  if (components.size() > 0) {
+    version_str = base::StrCat({base::NumberToString(components[0]), ".0.0.0"});
+  }
+  return String::FromUTF8(version_str);
+}
+
 }  // namespace
 
 NavigatorUAData::NavigatorUAData(ExecutionContext* context)
@@ -103,7 +115,7 @@ void NavigatorUAData::SetFullVersionList(
     const UserAgentBrandList& full_version_list) {
   for (const auto& brand_version : full_version_list) {
     AddBrandFullVersion(String::FromUTF8(brand_version.brand),
-                        String::FromUTF8(brand_version.version));
+        GetReducedVersionNumber(brand_version.version));
   }
 }
 
@@ -125,7 +137,7 @@ void NavigatorUAData::SetModel(const String& model) {
 }
 
 void NavigatorUAData::SetUAFullVersion(const String& ua_full_version) {
-  ua_full_version_ = ua_full_version;
+  ua_full_version_ = GetReducedVersionNumber(ua_full_version.Ascii());
 }
 
 void NavigatorUAData::SetBitness(const String& bitness) {
