@@ -1963,10 +1963,9 @@
       base_feature: "none",
     },
     {
-      name: "IdleDetection",
-      public: true,
-      status: "stable",
-      base_feature: "none",
+      name: "IdleDetection",  // disabled
+      public: true,           // by
+      base_feature: "none",   // default
     },
     {
       // TODO(crbug.com/1406358): Remove after the origin trial ends in M113.
