@@ -359,6 +359,7 @@
     {
       name: "IdleDetection",
       permissions_policy_name: "idle-detection",
+      depends_on: ["IdleDetection"],
     },
     {
       name: "JoinAdInterestGroup",
