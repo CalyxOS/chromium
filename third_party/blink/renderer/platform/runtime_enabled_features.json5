@@ -2164,10 +2164,9 @@
       status: "experimental",
     },
     {
-      name: "IdleDetection",
-      public: true,
-      status: "stable",
-      base_feature: "none",
+      name: "IdleDetection",  // disabled
+      public: true,           // by
+      base_feature: "none",   // default
     },
     {
       name: "ImplicitRootScroller",
