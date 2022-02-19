@@ -225,6 +225,11 @@
       status: "stable",
     },
     {
+      name: "IdleDetection",  // disabled
+      public: true,           // by
+      base_feature: "none",   // default
+    },
+    {
       name: "AccessibilityAriaVirtualContent",
       public: true,
       status: "experimental",
