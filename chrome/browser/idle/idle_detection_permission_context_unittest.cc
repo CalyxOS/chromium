@@ -72,6 +72,7 @@ class IdleDetectionPermissionContextTest
             base::test::TaskEnvironment::TimeSource::MOCK_TIME) {}
 };
 
+#if false   // idle detection blocked by default in cromite
 // Tests auto-denial after a time delay in incognito.
 TEST_F(IdleDetectionPermissionContextTest, TestDenyInIncognitoAfterDelay) {
   TestIdleDetectionPermissionContext permission_context(
@@ -197,3 +198,4 @@ TEST_F(IdleDetectionPermissionContextTest, TestParallelDenyInIncognito) {
   EXPECT_EQ(CONTENT_SETTING_BLOCK,
             permission_context.GetContentSettingFromMap(url, url));
 }
+#endif   // idle detection blocked by default in cromite
