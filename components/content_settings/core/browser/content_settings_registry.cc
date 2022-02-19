@@ -551,7 +551,7 @@ void ContentSettingsRegistry::Init() {
            ContentSettingsInfo::EXCEPTIONS_ON_SECURE_ORIGINS_ONLY);
 
   Register(ContentSettingsType::IDLE_DETECTION, "idle-detection",
-           CONTENT_SETTING_ASK, WebsiteSettingsInfo::UNSYNCABLE,
+           CONTENT_SETTING_BLOCK, WebsiteSettingsInfo::UNSYNCABLE,
            /*allowlisted_primary_schemes=*/{},
            /*valid_settings=*/
            {CONTENT_SETTING_ALLOW, CONTENT_SETTING_ASK, CONTENT_SETTING_BLOCK},
