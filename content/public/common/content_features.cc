@@ -566,7 +566,7 @@ BASE_FEATURE(kHandleRendererThreadTypeChangesInBrowser,
 // This is intended as a kill switch for the Idle Detection feature. To enable
 // this feature, the experimental web platform features flag should be set,
 // or the site should obtain an Origin Trial token.
-BASE_FEATURE(kIdleDetection, "IdleDetection", base::FEATURE_ENABLED_BY_DEFAULT);
+BASE_FEATURE(kIdleDetection, "IdleDetection", base::FEATURE_DISABLED_BY_DEFAULT);
 
 // A feature flag for the memory-backed code cache.
 BASE_FEATURE(kInMemoryCodeCache,
