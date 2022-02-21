@@ -1464,6 +1464,7 @@ const FeatureEntry::FeatureVariation kJourneysLabelsVariations[] = {
 };
 
 #if BUILDFLAG(IS_CHROMEOS_ASH) || BUILDFLAG(IS_ANDROID)
+#if BUILDFLAG(ENABLE_SUPERVISED_USERS)
 const FeatureEntry::FeatureParam kLocalWebApprovalsPreferLocalParams[] = {
     {"preferred_button", "local"}};
 const FeatureEntry::FeatureParam kLocalWebApprovalsPreferRemoteParams[] = {
@@ -1474,6 +1475,7 @@ const FeatureEntry::FeatureVariation kLocalWebApprovalsVariations[] = {
     {"Prefer Remote", kLocalWebApprovalsPreferRemoteParams,
      std::size(kLocalWebApprovalsPreferRemoteParams), nullptr},
 };
+#endif
 #endif
 
 const FeatureEntry::FeatureParam kChromeRefresh2023Level1[] = {{"level", "1"}};
@@ -7625,11 +7627,13 @@ const FeatureEntry kFeatureEntries[] = {
 #endif  // BUILDFLAG(IS_CHROMEOS_ASH)
 
 #if BUILDFLAG(IS_CHROMEOS_ASH) || BUILDFLAG(IS_ANDROID)
+#if BUILDFLAG(ENABLE_SUPERVISED_USERS)
     {"enable-local-web-approvals", flag_descriptions::kLocalWebApprovalsName,
      flag_descriptions::kLocalWebApprovalsDescription, kOsCrOS | kOsAndroid,
      FEATURE_WITH_PARAMS_VALUE_TYPE(supervised_user::kLocalWebApprovals,
                                     kLocalWebApprovalsVariations,
                                     "LocalWebApprovals")},
+#endif
 #endif  // BUILDFLAG(IS_CHROMEOS_ASH) || BUILDFLAG(IS_ANDROID)
 
 #if BUILDFLAG(ENABLE_SUPERVISED_USERS)
