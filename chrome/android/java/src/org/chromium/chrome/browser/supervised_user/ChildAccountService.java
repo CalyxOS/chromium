@@ -31,21 +31,10 @@ public class ChildAccountService {
         ThreadUtils.assertOnUiThread();
         final Activity activity = windowAndroid.getActivity().get();
         if (activity == null) {
-            PostTask.postTask(TaskTraits.UI_DEFAULT, () -> {
-                ChildAccountServiceJni.get().onReauthenticationFailed(nativeOnFailureCallback);
-            });
             return;
         }
         Account account = AccountUtils.createAccountFromName(accountName);
         AccountManagerFacadeProvider.getInstance().updateCredentials(account, activity, success -> {
-            if (!success) {
-                ChildAccountServiceJni.get().onReauthenticationFailed(nativeOnFailureCallback);
-            }
         });
-    }
-
-    @NativeMethods
-    interface Natives {
-        void onReauthenticationFailed(long onFailureCallbackPtr);
     }
 }
