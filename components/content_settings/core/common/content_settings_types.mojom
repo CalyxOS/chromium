@@ -408,4 +408,6 @@ enum ContentSettingsType {
   // Pointer Lock API allows a site to hide the cursor and have exclusive access
   // to mouse inputs.
   POINTER_LOCK,
+
+#include "components/content_settings/core/common/bromite_content_settings.inc"
 };

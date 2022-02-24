@@ -14,6 +14,11 @@
 #include "ui/base/metadata/metadata_header_macros.h"
 #include "ui/views/view.h"
 
+#include "components/content_settings/core/browser/website_settings_registry.h"
+#include "chrome/browser/ui/views/controls/md_text_button_with_down_arrow.h"
+#include "ui/base/models/simple_menu_model.h"
+#include "ui/views/controls/menu/menu_runner.h"
+
 class ChromePageInfoUiDelegate;
 class PageInfoNavigationHandler;
 
@@ -29,7 +34,8 @@ class PageInfoBubbleViewTestApi;
 // A view that shows a permission that a site is able to access, and
 // allows the user to control via toggle whether that access is granted. Has a
 // button that opens a subpage with more controls.
-class PermissionToggleRowView : public views::View {
+class PermissionToggleRowView : public views::View,
+                                public ui::SimpleMenuModel::Delegate {
   METADATA_HEADER(PermissionToggleRowView, views::View)
 
  public:
@@ -55,6 +61,12 @@ class PermissionToggleRowView : public views::View {
  private:
   friend class test::PageInfoBubbleViewTestApi;
 
+  void OnShowOptionsMenu();
+
+  // ui::SimpleMenuModel::Delegate overrides:
+  bool IsCommandIdChecked(int command_id) const override;
+  void ExecuteCommand(int command_id, int event_flags) override;
+
   void OnToggleButtonPressed();
   void InitForUserSource(bool should_show_spacer_view,
                          const std::u16string& toggle_accessible_name);
@@ -68,6 +80,10 @@ class PermissionToggleRowView : public views::View {
   raw_ptr<views::Label, DanglingUntriaged> state_label_ = nullptr;
   raw_ptr<views::ToggleButton, DanglingUntriaged> toggle_button_ = nullptr;
   raw_ptr<views::View, DanglingUntriaged> spacer_view_ = nullptr;
+
+  raw_ptr<views::MdTextButtonWithDownArrow, DanglingUntriaged> choose_button_ = nullptr;
+  std::unique_ptr<ui::SimpleMenuModel> sources_menu_model_;
+  std::unique_ptr<views::MenuRunner> sources_menu_runner_;
 
   raw_ptr<ChromePageInfoUiDelegate, DanglingUntriaged> delegate_ = nullptr;
   raw_ptr<PageInfoNavigationHandler, DanglingUntriaged> navigation_handler_ =
