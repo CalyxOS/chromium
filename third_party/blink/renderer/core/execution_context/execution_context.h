@@ -44,6 +44,7 @@
 #include "third_party/blink/public/mojom/permissions_policy/permissions_policy_feature.mojom-blink-forward.h"
 #include "third_party/blink/public/mojom/permissions_policy/policy_disposition.mojom-blink-forward.h"
 #include "third_party/blink/public/mojom/v8_cache_options.mojom-blink-forward.h"
+#include "third_party/blink/public/platform/web_content_settings_client.h"
 #include "third_party/blink/renderer/bindings/core/v8/sanitize_script_errors.h"
 #include "third_party/blink/renderer/core/core_export.h"
 #include "third_party/blink/renderer/core/execution_context/security_context.h"
@@ -103,6 +104,10 @@ class SecurityOrigin;
 class ScriptState;
 class ScriptWrappable;
 class TrustedTypePolicyFactory;
+class WebContentSettingsClient;
+
+CORE_EXPORT WebContentSettingsClient* GetContentSettingsClientFor(
+    ExecutionContext* context);
 
 enum ReasonForCallingCanExecuteScripts {
   kAboutToExecuteScript,
