@@ -371,7 +371,9 @@ enum class ContentSettingsType : int32_t {
   // shown to the user, for a given origin.
   FILE_SYSTEM_ACCESS_RESTORE_PERMISSION,
 
-  NUM_TYPES,
+  NUM_TYPES_CHROMIUM,
+#include "components/content_settings/core/common/bromite_content_settings.inc"
+  NUM_TYPES_BROMITE,
 };
 
 struct ContentSettingsTypeHash {
