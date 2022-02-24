@@ -16,6 +16,7 @@ import org.chromium.build.annotations.NullMarked;
 import org.chromium.build.annotations.Nullable;
 import org.chromium.components.browser_ui.widget.RadioButtonWithDescription;
 import org.chromium.components.content_settings.ContentSettingValues;
+import org.chromium.components.content_settings.ContentSettingsType;
 
 /** A 3-state Allowed/Ask/Blocked radio group Preference used for SiteSettings. */
 @NullMarked
@@ -30,6 +31,7 @@ public class TriStateSiteSettingsPreference extends Preference
     private RadioGroup mRadioGroup;
     private boolean mIsPermissionSiteSettingsRadioButtonFeatureEnabled;
     private int mIconMarginEnd;
+    private @ContentSettingsType.EnumType int mContentType;
 
     public TriStateSiteSettingsPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -50,11 +52,13 @@ public class TriStateSiteSettingsPreference extends Preference
      *     Blocked states, in that order.
      */
     public void initialize(
+            @ContentSettingsType.EnumType int contentType,
             @ContentSettingValues int setting,
             int @Nullable [] descriptionIds,
             int @Nullable [] iconIds,
             boolean isPermissionSiteSettingsRadioButtonFeatureEnabled,
             int iconMarginEnd) {
+        mContentType = contentType;
         mSetting = setting;
         mDescriptionIds = descriptionIds;
         mIconIds = iconIds;
@@ -92,6 +96,13 @@ public class TriStateSiteSettingsPreference extends Preference
         mRadioGroup = (RadioGroup) holder.findViewById(R.id.radio_button_layout);
         mRadioGroup.setOnCheckedChangeListener(this);
 
+        BromiteCustomContentSetting cs =
+                BromiteCustomContentSettingImpl.getContentSetting(mContentType);
+        if (cs != null && cs.showOnlyDescriptions() == true) {
+            mAllowed.setPrimaryText(getContext().getText(mDescriptionIds[0]));
+            mAsk.setPrimaryText(getContext().getText(mDescriptionIds[1]));
+            mBlocked.setPrimaryText(getContext().getText(mDescriptionIds[2]));
+        } else
         if (mDescriptionIds != null) {
             if (mIsPermissionSiteSettingsRadioButtonFeatureEnabled) {
                 mAllowed.setPrimaryText(getContext().getText(mDescriptionIds[0]));

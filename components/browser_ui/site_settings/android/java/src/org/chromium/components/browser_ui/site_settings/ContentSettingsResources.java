@@ -40,7 +40,7 @@ import org.chromium.device.DeviceFeatureMap;
 @NullMarked
 public class ContentSettingsResources {
     /** An inner class contains all the resources for a ContentSettingsType */
-    private static class ResourceItem {
+    public static class ResourceItem {
         private final int mIcon;
         private final int mIconBlocked;
         private final int mTitle;
@@ -54,7 +54,7 @@ public class ContentSettingsResources {
         private int mEnabledDescriptionText;
         private int mDisabledDescriptionText;
 
-        ResourceItem(
+        public ResourceItem(
                 int icon,
                 int title,
                 @ContentSettingValues @Nullable Integer defaultEnabledValue,
@@ -77,6 +77,18 @@ public class ContentSettingsResources {
             mDisabledPrimaryText = disabledPrimaryText;
             mEnabledDescriptionText = 0;
             mDisabledDescriptionText = 0;
+        }
+
+        public ResourceItem(
+                int icon,
+                int title,
+                @ContentSettingValues @Nullable Integer defaultEnabledValue,
+                @ContentSettingValues @Nullable Integer defaultDisabledValue,
+                int enabledSummary,
+                int disabledSummary,
+                int summaryOverrideForScreenReader) {
+            this(icon, title, defaultEnabledValue, defaultDisabledValue, enabledSummary,
+                    disabledSummary, summaryOverrideForScreenReader, 0, 0, 0);
         }
 
         private int getIcon() {
@@ -641,6 +653,8 @@ public class ContentSettingsResources {
                         R.string.website_settings_vr_ask,
                         R.string.website_settings_vr_block);
         }
+        ResourceItem ri = BromiteCustomContentSettingImpl.getResourceItem(contentType);
+        if (ri != null) return ri;
         assert false; // NOTREACHED
         return assumeNonNull(null);
     }
@@ -797,6 +811,14 @@ public class ContentSettingsResources {
      */
     public static @ContentSettingValues @Nullable Integer getDefaultDisabledValue(int contentType) {
         return getResourceItem(contentType).getDefaultDisabledValue();
+    }
+
+    public static int getCategorySummary(int contentType,
+                                         @Nullable @ContentSettingValues int value,
+                                         boolean isOneTime) {
+        int result = BromiteCustomContentSettingImpl.getCategorySummary(contentType, value);
+        if (result != 0) return result;
+        return getCategorySummary(value, isOneTime);
     }
 
     /**
@@ -973,6 +995,8 @@ public class ContentSettingsResources {
      */
     public static int @Nullable [] getTriStateSettingDescriptionIDs(
             int contentType, boolean isPermissionSiteSettingsRadioButtonFeatureEnabled) {
+        int[] value = BromiteCustomContentSettingImpl.getTriStateSettingDescriptionIDs(contentType);
+        if (value != null) return value;
         if (contentType == ContentSettingsType.PROTECTED_MEDIA_IDENTIFIER) {
             if (isPermissionSiteSettingsRadioButtonFeatureEnabled) {
                 int[] descriptionIDs = {

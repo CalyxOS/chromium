@@ -17,6 +17,11 @@
 #include "ui/views/controls/label.h"
 #include "ui/views/view.h"
 
+#include "components/content_settings/core/browser/website_settings_registry.h"
+#include "ui/menus/simple_menu_model.h"
+#include "ui/views/controls/menu/menu_runner.h"
+#include "ui/views/controls/button/md_text_button_with_down_arrow.h"
+
 class ChromePageInfoUiDelegate;
 class PageInfoNavigationHandler;
 
@@ -32,7 +37,8 @@ class PageInfoBubbleViewTestApi;
 // A view that shows a permission that a site is able to access, and
 // allows the user to control via toggle whether that access is granted. Has a
 // button that opens a subpage with more controls.
-class PermissionToggleRowView : public views::View {
+class PermissionToggleRowView : public views::View,
+                                public ui::SimpleMenuModel::Delegate {
   METADATA_HEADER(PermissionToggleRowView, views::View)
 
  public:
@@ -69,6 +75,12 @@ class PermissionToggleRowView : public views::View {
  private:
   friend class test::PageInfoBubbleViewTestApi;
 
+  void OnShowOptionsMenu();
+
+  // ui::SimpleMenuModel::Delegate overrides:
+  bool IsCommandIdChecked(int command_id) const override;
+  void ExecuteCommand(int command_id, int event_flags) override;
+
   void OnToggleButtonPressed();
   void AddToggleButton(const std::u16string& toggle_accessible_name,
                        int icon_label_spacing);
@@ -86,6 +98,10 @@ class PermissionToggleRowView : public views::View {
       blocked_on_system_level_label_ = nullptr;
   raw_ptr<views::ToggleButton, DanglingUntriaged> toggle_button_ = nullptr;
   raw_ptr<views::View, DanglingUntriaged> spacer_view_ = nullptr;
+
+  raw_ptr<views::MdTextButtonWithDownArrow, DanglingUntriaged> choose_button_ = nullptr;
+  std::unique_ptr<ui::SimpleMenuModel> sources_menu_model_;
+  std::unique_ptr<views::MenuRunner> sources_menu_runner_;
 
   raw_ptr<ChromePageInfoUiDelegate, DanglingUntriaged> delegate_ = nullptr;
   raw_ptr<PageInfoNavigationHandler, DanglingUntriaged> navigation_handler_ =
