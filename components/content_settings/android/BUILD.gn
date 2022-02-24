@@ -87,6 +87,7 @@ android_library("content_settings_enums_java") {
 }
 
 java_cpp_enum("content_settings_enums_javagen") {
+  deps = [ "//components/content_settings/core/common:bromite_content_settings" ]
   sources = [
     "../core/browser/cookie_settings.h",
     "../core/common/content_settings.h",
