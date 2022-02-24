@@ -87,6 +87,11 @@ class PageInfoViewFactory {
       const PageInfo::PermissionInfo& info,
       bool blocked_on_system_level = false);
 
+  static const ui::ImageModel GetPermissionIcon(
+      const PageInfo::PermissionInfo& info,
+      bool blocked_on_system_level,
+      ContentSetting setting);
+
   // Returns the icon for the given object |info|.
   static const ui::ImageModel GetChosenObjectIcon(
       const PageInfoUI::ChosenObjectInfo& info,
