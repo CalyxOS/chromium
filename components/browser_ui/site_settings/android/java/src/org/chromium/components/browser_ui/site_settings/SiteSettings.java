@@ -37,6 +37,7 @@ public class SiteSettings extends BaseSiteSettingsFragment
                         : R.xml.site_settings_preferences);
         getActivity().setTitle(getContext().getString(R.string.prefs_site_settings));
 
+        BromiteCustomContentSettingImpl.configurePreferences(this);
         configurePreferences();
         updatePreferenceStates();
     }
@@ -52,7 +53,7 @@ public class SiteSettings extends BaseSiteSettingsFragment
 
     private void configurePreferences() {
         // Remove unsupported settings categories.
-        for (@SiteSettingsCategory.Type int type = 0; type < SiteSettingsCategory.Type.NUM_ENTRIES;
+        for (@SiteSettingsCategory.Type int type = 0; type < BromiteCustomContentSettingImpl.NUM_ENTRIES();
                 type++) {
             if (!getSiteSettingsDelegate().isCategoryVisible(type)) {
                 getPreferenceScreen().removePreference(findPreference(type));
@@ -68,7 +69,7 @@ public class SiteSettings extends BaseSiteSettingsFragment
         @CookieControlsMode
         int cookieControlsMode =
                 UserPrefs.get(browserContextHandle).getInteger(COOKIE_CONTROLS_MODE);
-        for (@Type int prefCategory = 0; prefCategory < Type.NUM_ENTRIES; prefCategory++) {
+        for (@Type int prefCategory = 0; prefCategory < BromiteCustomContentSettingImpl.NUM_ENTRIES(); prefCategory++) {
             Preference p = findPreference(prefCategory);
             int contentType = SiteSettingsCategory.contentSettingsType(prefCategory);
             // p can be null if the Preference was removed in configurePreferences.
@@ -133,10 +134,13 @@ public class SiteSettings extends BaseSiteSettingsFragment
             } else if (Type.ZOOM == prefCategory) {
                 // Don't want to set a summary for Zoom because we don't want any message to display
                 // under the Zoom row on site settings.
-            } else if (requiresTriStateSetting) {
-                p.setSummary(ContentSettingsResources.getCategorySummary(setting));
             } else {
-                p.setSummary(ContentSettingsResources.getCategorySummary(contentType, checked));
+                int summary = ContentSettingsResources.getCategorySummary(contentType, setting);
+                if (summary != 0) {
+                    p.setSummary(summary);
+                } else {
+                    p.setSummary(ContentSettingsResources.getCategorySummary(contentType, checked));
+                }
             }
 
             if (prefCategory != Type.THIRD_PARTY_COOKIES) {
