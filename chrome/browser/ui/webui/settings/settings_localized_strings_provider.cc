@@ -13,6 +13,7 @@
 #include "base/strings/escape.h"
 #include "base/strings/string_number_conversions.h"
 #include "base/strings/utf_string_conversions.h"
+#include "base/json/json_writer.h"
 #include "build/branding_buildflags.h"
 #include "build/build_config.h"
 #include "build/buildflag.h"
@@ -75,6 +76,9 @@
 #include "components/google/core/common/google_util.h"
 #include "components/history/core/common/pref_names.h"
 #include "components/omnibox/common/omnibox_features.h"
+#include "components/content_settings/core/browser/content_settings_registry.h"
+#include "components/content_settings/core/browser/website_settings_info.h"
+#include "components/content_settings/core/browser/website_settings_registry.h"
 #include "components/password_manager/core/browser/leak_detection_dialog_utils.h"
 #include "components/password_manager/core/browser/manage_passwords_referrer.h"
 #include "components/password_manager/core/common/password_manager_features.h"
@@ -3745,6 +3749,56 @@ void AddLocalizedStrings(content::WebUIDataSource* html_source,
 
   policy_indicator::AddLocalizedStrings(html_source);
   AddSecurityKeysStrings(html_source);
+
+  content_settings::WebsiteSettingsRegistry* website_settings =
+      content_settings::WebsiteSettingsRegistry::GetInstance();
+  auto* content_setting_registry =
+      content_settings::ContentSettingsRegistry::GetInstance();
+  int index = 0;
+  for (const content_settings::WebsiteSettingsInfo* info : *website_settings) {
+    if (info->desktop_ui()) {
+      auto* content_setting = content_setting_registry->Get(info->type());
+      std::string name = info->name();
+      std::string prefix = "brSiteSettings" + name;
+
+      if (info->title_ui())
+        html_source->AddLocalizedString(prefix, info->title_ui());
+      if (info->description_ui())
+        html_source->AddLocalizedString(prefix + "Description", info->description_ui());
+      if (info->allowed_ui())
+        html_source->AddLocalizedString(prefix + "Allowed", info->allowed_ui());
+      if (info->blocked_ui())
+        html_source->AddLocalizedString(prefix + "Blocked", info->blocked_ui());
+      if (info->ask_ui())
+        html_source->AddLocalizedString(prefix + "Ask", info->ask_ui());
+      if (info->allowed_exceptions_ui())
+        html_source->AddLocalizedString(prefix + "AllowedExceptions", info->allowed_exceptions_ui());
+      if (info->blocked_exceptions_ui())
+        html_source->AddLocalizedString(prefix + "BlockedExceptions", info->blocked_exceptions_ui());
+      if (info->mid_sentence_ui())
+        html_source->AddLocalizedString(prefix + "MidSentence", info->mid_sentence_ui());
+
+      base::Value::Dict dict;
+      dict.Set("name", name);
+      dict.Set("type", (int)info->type());
+      dict.Set("tag_ui", info->tag_ui());
+      dict.Set("default",
+        info->initial_default_value().GetInt() == (int)CONTENT_SETTING_ALLOW ? "allow" :
+        info->initial_default_value().GetInt() == (int)CONTENT_SETTING_BLOCK ? "block" :
+        "ask");
+      dict.Set("allowed_ask",
+        content_setting->IsSettingValid(CONTENT_SETTING_ASK) ? "1" : "0");
+
+      std::string json_string;
+      base::JSONWriter::WriteWithOptions(
+          dict, base::JSONWriter::OPTIONS_PRETTY_PRINT, &json_string);
+      base::TrimWhitespaceASCII(json_string, base::TRIM_ALL, &json_string);
+
+      html_source->AddString("br_cs_" + base::NumberToString(index), json_string);
+      index++;
+    }
+  }
+  html_source->AddInteger("br_cs_count", index);
 
   html_source->UseStringsJs();
 }

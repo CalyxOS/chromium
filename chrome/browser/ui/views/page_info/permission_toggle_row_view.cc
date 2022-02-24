@@ -39,6 +39,30 @@
 #include "ui/views/controls/styled_label.h"
 #include "ui/views/style/typography.h"
 #include "ui/views/view_class_properties.h"
+#include "components/content_settings/core/browser/content_settings_registry.h"
+
+namespace {
+  bool IsAllowed(const PageInfo::PermissionInfo& permission) {
+    if (permission.setting == CONTENT_SETTING_DEFAULT)
+      return permission.default_setting == CONTENT_SETTING_ALLOW;
+    else
+      return permission.setting == CONTENT_SETTING_ALLOW;
+  }
+
+  bool IsBlocked(const PageInfo::PermissionInfo& permission) {
+    if (permission.setting == CONTENT_SETTING_DEFAULT)
+      return permission.default_setting == CONTENT_SETTING_BLOCK;
+    else
+      return permission.setting == CONTENT_SETTING_BLOCK;
+  }
+
+  bool IsAsk(const PageInfo::PermissionInfo& permission) {
+    if (permission.setting == CONTENT_SETTING_DEFAULT)
+      return permission.default_setting == CONTENT_SETTING_ASK;
+    else
+      return permission.setting == CONTENT_SETTING_ASK;
+  }
+}
 
 DEFINE_CLASS_ELEMENT_IDENTIFIER_VALUE(PermissionToggleRowView,
                                       kRowSubTitleCameraElementId);
@@ -62,15 +86,11 @@ PermissionToggleRowView::PermissionToggleRowView(
   // instead of adding it as the only child.
   SetUseDefaultFillLayout(true);
   row_view_ = AddChildView(std::make_unique<RichControlsContainerView>());
+  row_view_->SetCrossAxisAlignment(views::LayoutAlignment::kCenter);
 
   std::u16string toggle_accessible_name =
       PageInfoUI::PermissionTypeToUIString(permission.type);
   row_view_->SetTitle(toggle_accessible_name);
-
-  // Add extra details as sublabel.
-  std::u16string detail = delegate->GetPermissionDetail(permission.type);
-  if (!detail.empty())
-    row_view_->AddSecondaryLabel(detail);
 
   if (permission.requesting_origin.has_value()) {
     std::u16string requesting_origin_string;
@@ -167,6 +187,90 @@ void PermissionToggleRowView::UpdatePermission(
   UpdateUiOnPermissionChanged();
 }
 
+void PermissionToggleRowView::OnShowOptionsMenu() {
+  sources_menu_runner_.reset();
+
+  ContentSettingsType type = permission_.type;
+  const content_settings::WebsiteSettingsInfo* setting_info =
+    content_settings::WebsiteSettingsRegistry::GetInstance()->Get(type);
+
+  sources_menu_model_ = std::make_unique<ui::SimpleMenuModel>(this);
+  if (setting_info->allowed_ui() != 0) {
+    sources_menu_model_->AddCheckItemWithStringId(1, setting_info->allowed_ui());
+  } else {
+    sources_menu_model_->AddCheckItem(1, u"Enabled");
+  }
+  sources_menu_model_->SetIcon(sources_menu_model_->GetItemCount() - 1,
+    PageInfoViewFactory::GetPermissionIcon(permission_, CONTENT_SETTING_DEFAULT));
+
+  auto* content_setting_registry =
+      content_settings::ContentSettingsRegistry::GetInstance();
+  auto* content_setting = content_setting_registry->Get(type);
+  if (content_setting->IsSettingValid(CONTENT_SETTING_ASK)) {
+    if (setting_info->ask_ui() != 0) {
+      sources_menu_model_->AddCheckItemWithStringId(3, setting_info->ask_ui());
+    } else {
+      sources_menu_model_->AddCheckItem(3, u"Ask");
+    }
+    sources_menu_model_->SetIcon(sources_menu_model_->GetItemCount() - 1,
+      PageInfoViewFactory::GetPermissionIcon(permission_, CONTENT_SETTING_ASK));
+  }
+
+  if (setting_info->blocked_ui() != 0) {
+    sources_menu_model_->AddCheckItemWithStringId(2, setting_info->blocked_ui());
+  } else {
+    sources_menu_model_->AddCheckItem(2, u"Disabled");
+  }
+  sources_menu_model_->SetIcon(sources_menu_model_->GetItemCount() - 1,
+    PageInfoViewFactory::GetPermissionIcon(permission_, CONTENT_SETTING_BLOCK));
+
+  sources_menu_model_->AddSeparator(ui::NORMAL_SEPARATOR);
+  sources_menu_model_->AddCheckItem(4, u"Default");
+
+  //sources_menu_model_->ActivatedAt(0);
+
+  // const gfx::Point point = choose_button_->GetMenuPosition();
+  // const gfx::Point origin(point.x() - width(), point.y() - height());
+
+  sources_menu_runner_ = std::make_unique<views::MenuRunner>(
+      sources_menu_model_.get(), views::MenuRunner::COMBOBOX);
+  sources_menu_runner_->RunMenuAt(
+      choose_button_->GetWidget(), nullptr,
+      choose_button_->GetAnchorBoundsInScreen(),
+      views::MenuAnchorPosition::kTopLeft, ui::MENU_SOURCE_MOUSE);
+}
+
+bool PermissionToggleRowView::IsCommandIdChecked(int command_id) const {
+  if (permission_.setting == CONTENT_SETTING_DEFAULT && command_id == 4) {
+    return true;
+  } else if (IsAllowed(permission_)) {
+    return command_id == 1;
+  } else if (IsBlocked(permission_)) {
+    return command_id == 2;
+  } else if (IsAsk(permission_)) {
+    return command_id == 3;
+  }
+  return false;
+}
+
+void PermissionToggleRowView::ExecuteCommand(int command_id, int event_flags) {
+  switch(command_id) {
+    case 1:
+      permission_.setting = CONTENT_SETTING_ALLOW;
+      break;
+    case 2:
+      permission_.setting = CONTENT_SETTING_BLOCK;
+      break;
+    case 3:
+      permission_.setting = CONTENT_SETTING_ASK;
+      break;
+    case 4:
+      permission_.setting = CONTENT_SETTING_DEFAULT;
+      break;
+  }
+  PermissionChanged();
+}
+
 void PermissionToggleRowView::OnToggleButtonPressed() {
   PageInfoUI::ToggleBetweenAllowAndBlock(permission_);
   PermissionChanged();
@@ -175,24 +279,19 @@ void PermissionToggleRowView::OnToggleButtonPressed() {
 void PermissionToggleRowView::InitForUserSource(
     bool should_show_spacer_view,
     const std::u16string& toggle_accessible_name) {
-  const int icon_label_spacing = ChromeLayoutProvider::Get()->GetDistanceMetric(
-      views::DISTANCE_RELATED_LABEL_HORIZONTAL);
-
-  auto toggle_button = std::make_unique<views::ToggleButton>(
-      base::BindRepeating(&PermissionToggleRowView::OnToggleButtonPressed,
-                          base::Unretained(this)));
+  auto toggle_button = std::make_unique<views::MdTextButtonWithDownArrow>(
+      base::BindRepeating(&PermissionToggleRowView::OnShowOptionsMenu,
+                          base::Unretained(this)),
+      u"");
+  toggle_button->SetStyle(ui::ButtonStyle::kText);
+  toggle_button->SetHorizontalAlignment(gfx::ALIGN_LEFT);
   toggle_button->SetID(
       PageInfoViewFactory::VIEW_ID_PERMISSION_TOGGLE_ROW_TOGGLE_BUTTON);
-  toggle_button->SetPreferredSize(
-      gfx::Size(toggle_button->GetPreferredSize().width(),
-                row_view_->GetFirstLineHeight()));
-  toggle_button->SetProperty(views::kMarginsKey,
-                             gfx::Insets::VH(0, icon_label_spacing));
   toggle_button->SetTooltipText(PageInfoUI::PermissionTooltipUiString(
       permission_.type, permission_.requesting_origin));
   toggle_button->GetViewAccessibility().SetName(toggle_accessible_name);
 
-  toggle_button_ = row_view_->AddControl(std::move(toggle_button));
+  choose_button_ = row_view_->AddControlUnderLabel(std::move(toggle_button));
 
   const int icon_size = GetLayoutConstant(PAGE_INFO_ICON_SIZE);
   // TODO(crbug.com/40101962): Update below code to only display the updated
@@ -250,9 +349,6 @@ void PermissionToggleRowView::InitForUserSource(
       auto spacer_view = std::make_unique<views::View>();
       spacer_view->SetPreferredSize(gfx::Size(icon_size, icon_size));
       spacer_view_ = row_view_->AddControl(std::move(spacer_view));
-    } else {
-      toggle_button_->SetProperty(
-          views::kMarginsKey, gfx::Insets::TLBR(0, icon_label_spacing, 0, 0));
     }
   }
 }
@@ -323,6 +419,33 @@ void PermissionToggleRowView::UpdateUiOnPermissionChanged() {
                                   kRowSubTitleMicrophoneElementId);
       }
     }
+  }
+
+  if (choose_button_) {
+    ContentSettingsType type = permission_.type;
+    const content_settings::WebsiteSettingsInfo* setting_info =
+      content_settings::WebsiteSettingsRegistry::GetInstance()->Get(type);
+
+    std::u16string caption;
+    if (IsAllowed(permission_)) {
+      if (setting_info->allowed_ui() != 0)
+        caption = l10n_util::GetStringUTF16(setting_info->allowed_ui());
+      else
+        caption = u"Allowed";
+    } else if (IsBlocked(permission_)) {
+      if (setting_info->blocked_ui() != 0)
+        caption = l10n_util::GetStringUTF16(setting_info->blocked_ui());
+      else
+        caption = u"Blocked";
+    } else if (IsAsk(permission_)) {
+      if (setting_info->ask_ui() != 0)
+        caption = l10n_util::GetStringUTF16(setting_info->ask_ui());
+      else
+        caption = u"Ask";
+    } else {
+      caption = u"Unknown";
+    }
+    choose_button_->SetText(caption);
   }
 }
 
