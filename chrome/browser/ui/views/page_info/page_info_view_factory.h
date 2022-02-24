@@ -83,6 +83,9 @@ class PageInfoViewFactory {
   static const ui::ImageModel GetPermissionIcon(
       const PageInfo::PermissionInfo& info);
 
+  static const ui::ImageModel GetPermissionIcon(
+      const PageInfo::PermissionInfo& info, ContentSetting setting);
+
   // Returns the icon for the given object |info|.
   static const ui::ImageModel GetChosenObjectIcon(
       const PageInfoUI::ChosenObjectInfo& info,
