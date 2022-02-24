@@ -246,6 +246,12 @@ public final class Website implements WebsiteEntry {
                 RecordUserAction.record("SoundContentSetting.UnmuteBy.SiteSettings");
             }
         }
+
+        if (exception == null) {
+            exception = BromiteCustomContentSettingImpl.createCustomException(type, value, getAddress());
+            if (exception != null)
+                setContentSettingException(type, exception);
+        }
         // We want to call setContentSetting even after explicitly setting
         // mContentSettingException above because this will trigger the actual change
         // on the PrefServiceBridge.
