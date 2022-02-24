@@ -73,6 +73,11 @@ struct RuleMetaData {
   bool decided_by_related_website_sets;
 };
 
+struct ContentSettingRuleSource {
+  int32 type;
+  array<ContentSettingPatternSource> rules;
+};
+
 // This mirrors the C++ type in content_settings.h.
 struct ContentSettingPatternSource {
   ContentSettingsPattern primary_pattern;
@@ -86,5 +91,6 @@ struct ContentSettingPatternSource {
 // This mirrors the C++ type in content_settings.h.
 // TODO(crbug.com/40282541): This should be removed.
 struct RendererContentSettingRules {
+  array<ContentSettingRuleSource> settings_rules;
   array<ContentSettingPatternSource> mixed_content_rules;
 };
