@@ -85,6 +85,13 @@ static_library("browser") {
   }
 
   configs += [ "//build/config/compiler:wexit_time_destructors" ]
+
+  deps += [ ":bromite_content_settings" ]
+}
+
+cpp_bromite_include("bromite_content_settings") {
+  inputs = [ "bromite_content_settings/placeholder.txt" ]
+  output_file = "bromite_content_settings.inc"
 }
 
 source_set("unit_tests") {
