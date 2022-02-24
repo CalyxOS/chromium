@@ -169,6 +169,15 @@ public class PageInfoPermissionsController
                                   : perm1.nameMidSentence.toString());
         }
 
+        String value = "";
+        for (PermissionObject perm : permissions) {
+            if (perm.allowed) {
+                if (!value.equals("")) value += ", ";
+                value += perm.nameMidSentence.toString();
+            }
+        }
+        if ((true)) return value;
+
         // More than 2 permissions.
         if (same) {
             int resId = perm1.allowed ? R.plurals.page_info_permissions_summary_more_allowed
