@@ -45,6 +45,13 @@ class RichControlsContainerView : public views::FlexLayoutView {
     return AddChildView(std::move(control_view));
   }
 
+  template <typename T>
+  T* AddControlUnderLabel(std::unique_ptr<T> control_view) {
+    control_view->SetProperty(views::kInternalPaddingKey,
+                              control_view->GetInsets());
+    return labels_wrapper_->AddChildView(std::move(control_view));
+  }
+
   int GetFirstLineHeight();
   gfx::Size FlexRule(const views::View* view,
                      const views::SizeBounds& maximum_size) const;

@@ -14,6 +14,7 @@
 #include "build/build_config.h"
 #include "components/content_settings/core/browser/content_settings_registry.h"
 #include "components/content_settings/core/browser/host_content_settings_map.h"
+#include "components/content_settings/core/browser/website_settings_registry.h"
 #include "components/content_settings/core/common/content_settings.h"
 #include "components/content_settings/core/common/content_settings_types.h"
 #include "components/content_settings/core/common/content_settings_utils.h"
@@ -122,6 +123,17 @@ PatternPair ParsePatternString(const std::string& pattern_str) {
 
 void GetRendererContentSettingRules(const HostContentSettingsMap* map,
                                     RendererContentSettingRules* rules) {
+  content_settings::WebsiteSettingsRegistry* website_settings =
+    content_settings::WebsiteSettingsRegistry::GetInstance();
+  rules->settings_rules.clear();
+  for (const content_settings::WebsiteSettingsInfo* info : *website_settings) {
+    if (info->is_renderer_content_setting()) {
+      ContentSettingRuleSource rule;
+      rule.type = (int32_t)info->type();
+      rule.rules = map->GetSettingsForOneType(info->type());
+      rules->settings_rules.push_back(rule);
+    }
+  }
 #if !BUILDFLAG(IS_ANDROID) && !BUILDFLAG(IS_IOS)
   rules->image_rules = map->GetSettingsForOneType(ContentSettingsType::IMAGES);
   rules->mixed_content_rules =

@@ -10,6 +10,7 @@
 
 #include "base/functional/callback.h"
 #include "base/time/time.h"
+#include "components/content_settings/core/common/content_settings_types.h"
 #include "third_party/blink/public/common/client_hints/enabled_client_hints.h"
 #include "third_party/blink/public/mojom/navigation/renderer_content_settings.mojom.h"
 
@@ -45,6 +46,10 @@ class WebContentSettingsClient {
   // Controls whether access to the given StorageType is allowed for this frame.
   // Blocks until done.
   virtual bool AllowStorageAccessSync(StorageType storage_type) { return true; }
+
+  virtual bool AllowContentSetting(ContentSettingsType type, bool enabled_per_settings) {
+    return enabled_per_settings;
+  }
 
   // Controls whether insecure scripts are allowed to execute for this frame.
   virtual bool AllowRunningInsecureContent(bool enabled_per_settings,
