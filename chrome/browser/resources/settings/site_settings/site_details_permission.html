@@ -57,7 +57,9 @@
           </option>
           <option id="allow" value$="[[contentSettingEnum_.ALLOW]]"
               hidden$="[[!showAllowedSetting_(category)]]">
-            $i18n{siteSettingsActionAllow}
+            [[allowSettingString_(
+                category,
+                '$i18n{siteSettingsActionAllow}')]]
           </option>
           <option id="block" value$="[[contentSettingEnum_.BLOCK]]">
             [[blockSettingString_(
@@ -68,7 +70,9 @@
           <option id="ask" value$="[[contentSettingEnum_.ASK]]"
               hidden$="[[!showAskSetting_(category, site.setting,
                                           site.source)]]">
-            $i18n{siteSettingsActionAsk}
+            [[askSettingString_(
+                category,
+                '$i18n{siteSettingsActionAsk}')]]
           </option>
         </select>
       </div>

@@ -475,5 +475,7 @@ enum ContentSettingsType {
 
   // Content settings for access to the Controlled Frame API.
   CONTROLLED_FRAME,
+
+#include "components/content_settings/core/common/bromite_content_settings.inc"
 };
 // LINT.ThenChange(//components/content_settings/core/browser/content_settings_uma_util.cc:kHistogramValue)
