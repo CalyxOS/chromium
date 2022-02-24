@@ -19,6 +19,7 @@
 #include "build/chromeos_buildflags.h"
 #include "components/content_settings/core/common/content_settings.h"
 #include "components/content_settings/core/common/content_settings_types.h"
+#include "components/content_settings/core/browser/website_settings_registry.h"
 #include "components/page_info/core/features.h"
 #include "components/page_info/page_info.h"
 #include "components/page_info/page_info_ui_delegate.h"
@@ -331,6 +332,13 @@ void CreateOppositeToDefaultSiteException(
 std::u16string GetPermissionAskStateString(ContentSettingsType type) {
   int message_id = kInvalidResourceID;
 
+  const content_settings::WebsiteSettingsInfo* settingInfo =
+    content_settings::WebsiteSettingsRegistry::GetInstance()->Get(type);
+  if (settingInfo && settingInfo->show_into_info_page()) {
+    if (settingInfo->ask_ui() != 0)
+      return l10n_util::GetStringUTF16(settingInfo->ask_ui());
+  }
+
   switch (type) {
     case ContentSettingsType::GEOLOCATION:
       message_id = IDS_PAGE_INFO_STATE_TEXT_LOCATION_ASK;
@@ -630,6 +638,12 @@ PageInfoUI::~PageInfoUI() = default;
 
 // static
 std::u16string PageInfoUI::PermissionTypeToUIString(ContentSettingsType type) {
+  const content_settings::WebsiteSettingsInfo* settingInfo =
+    content_settings::WebsiteSettingsRegistry::GetInstance()->Get(type);
+  if (settingInfo && settingInfo->show_into_info_page()) {
+    if (settingInfo->title_ui() != 0)
+      return l10n_util::GetStringUTF16(settingInfo->title_ui());
+  }
   for (const PermissionUIInfo& info : GetContentSettingsUIInfo()) {
     if (info.type == type)
       return l10n_util::GetStringUTF16(info.string_id);
@@ -641,6 +655,12 @@ std::u16string PageInfoUI::PermissionTypeToUIString(ContentSettingsType type) {
 // static
 std::u16string PageInfoUI::PermissionTypeToUIStringMidSentence(
     ContentSettingsType type) {
+  const content_settings::WebsiteSettingsInfo* settingInfo =
+    content_settings::WebsiteSettingsRegistry::GetInstance()->Get(type);
+  if (settingInfo && settingInfo->show_into_info_page()) {
+    if (settingInfo->mid_sentence_ui() != 0)
+      return l10n_util::GetStringUTF16(settingInfo->mid_sentence_ui());
+  }
   for (const PermissionUIInfo& info : GetContentSettingsUIInfo()) {
     if (info.type == type)
       return l10n_util::GetStringUTF16(info.string_id_mid_sentence);
@@ -1085,6 +1105,11 @@ bool PageInfoUI::ContentSettingsTypeInPageInfo(ContentSettingsType type) {
   for (const PermissionUIInfo& info : GetContentSettingsUIInfo()) {
     if (info.type == type)
       return true;
+  }
+  const content_settings::WebsiteSettingsInfo* settingInfo =
+    content_settings::WebsiteSettingsRegistry::GetInstance()->Get(type);
+  if (settingInfo) {
+    return settingInfo->show_into_info_page();
   }
   return false;
 }
