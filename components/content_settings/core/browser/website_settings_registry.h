@@ -61,6 +61,7 @@ class WebsiteSettingsRegistry {
   void ResetForTest();
 
   const WebsiteSettingsInfo* Get(ContentSettingsType type) const;
+  raw_ptr<WebsiteSettingsInfo> GetMutable(ContentSettingsType type);
   const WebsiteSettingsInfo* GetByName(const std::string& name) const;
 
   // Register a new website setting. This maps an origin to an arbitrary

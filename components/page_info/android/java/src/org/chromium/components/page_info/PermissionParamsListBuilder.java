@@ -109,6 +109,7 @@ public class PermissionParamsListBuilder {
                 permissionParams.allowed = true;
                 break;
             case ContentSettingValues.BLOCK:
+            case ContentSettingValues.ASK:
                 permissionParams.allowed = false;
                 break;
             default:

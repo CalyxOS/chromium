@@ -369,7 +369,9 @@ enum class ContentSettingsType : int32_t {
   // heuristics.
   TPCD_HEURISTICS_GRANTS,
 
-  NUM_TYPES,
+  NUM_TYPES_CHROMIUM,
+#include "components/content_settings/core/common/bromite_content_settings.inc"
+  NUM_TYPES_BROMITE,
 };
 
 struct ContentSettingsTypeHash {
