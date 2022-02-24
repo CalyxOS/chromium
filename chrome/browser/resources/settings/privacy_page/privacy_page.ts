@@ -51,6 +51,7 @@ import {SiteSettingsPrefsBrowserProxyImpl} from '../site_settings/site_settings_
 
 import {PrivacyGuideAvailabilityMixin} from './privacy_guide/privacy_guide_availability_mixin.js';
 import {getTemplate} from './privacy_page.html.js';
+import { SettingsCategoryDefaultRadioGroupElement } from '../site_settings/settings_category_default_radio_group.js';
 
 interface BlockAutoplayStatus {
   enabled: boolean;
@@ -74,8 +75,82 @@ export class SettingsPrivacyPageElement extends SettingsPrivacyPageElementBase {
     return 'settings-privacy-page';
   }
 
+  static getSettingTemplate(template: HTMLTemplateElement,
+                            name: string) : SettingsCategoryDefaultRadioGroupElement | undefined {
+    let value : SettingsCategoryDefaultRadioGroupElement | undefined = undefined;
+    let page : any = template.content!.querySelector("settings-animated-pages");
+
+    page.querySelectorAll("template")!.forEach(
+      (subTemplate: HTMLTemplateElement) => {
+        subTemplate.content.querySelectorAll("settings-category-default-radio-group").forEach(
+          (radio: any) => {
+            let setting = radio.getAttribute("category")
+              .replace("[[contentSettingsTypesEnum_.", "")
+              .replace("]]", "");
+              if ((ContentSettingsTypes as any)[setting] === name)
+                value = radio;
+          });
+      });
+    return value;
+  }
+
   static get template() {
-    return getTemplate();
+    let template = getTemplate();
+    let content = template.content.getElementById("bromite-placeholder")!;
+
+    for (let index=0; index < loadTimeData.getInteger("br_cs_count"); index++) {
+      let obj = JSON.parse(loadTimeData.getString("br_cs_" + index));
+      let name = obj["name"];
+      let tag_name = obj["tag_ui"]; if (!tag_name) tag_name = obj["name"];
+
+      let existingSetting = this.getSettingTemplate(template, name);
+      if (existingSetting) {
+        if (loadTimeData.valueExists(`brSiteSettings${name}Ask`)) {
+          existingSetting.setAttribute("ask-option-label", loadTimeData.getString(`brSiteSettings${name}Ask`));
+          existingSetting.setAttribute("ask-option-icon", `br-settings:${name}-off`);
+        }
+        continue;
+      }
+
+      let subpage = document.createElement("settings-subpage");
+      subpage.setAttribute("page-title", loadTimeData.getString(`brSiteSettings${name}`));
+      subpage.setAttribute("search-title", loadTimeData.getString("siteSettingsAllSitesSearch"));
+      subpage.setAttribute("search-term", "{{searchFilter_}}");
+
+      let divElement = document.createElement("div");
+      divElement.setAttribute("class", "content-settings-header secondary");
+      divElement.innerText = loadTimeData.getString(`brSiteSettings${name}Description`);
+      subpage.appendChild(divElement);
+
+      let radioGroup = existingSetting ?? document.createElement("settings-category-default-radio-group");
+      radioGroup.setAttribute("category", name);
+      radioGroup.setAttribute("allow-option-label", loadTimeData.getString(`brSiteSettings${name}Allowed`));
+      radioGroup.setAttribute("allow-option-icon", `br-settings:${name}`);
+      radioGroup.setAttribute("block-option-label", loadTimeData.getString(`brSiteSettings${name}Blocked`));
+      radioGroup.setAttribute("block-option-icon", `br-settings:${name}-off`);
+      if (loadTimeData.valueExists(`brSiteSettings${name}Ask`)) {
+        radioGroup.setAttribute("ask-option-label", loadTimeData.getString(`brSiteSettings${name}Ask`));
+        radioGroup.setAttribute("ask-option-icon", `br-settings:${name}-off`);
+      }
+      subpage.appendChild(radioGroup);
+
+      let exceptions = document.createElement("category-setting-exceptions");
+      exceptions.setAttribute("category", name);
+      exceptions.setAttribute("allow-header", loadTimeData.getString(`brSiteSettings${name}AllowedExceptions`));
+      exceptions.setAttribute("block-header", loadTimeData.getString(`brSiteSettings${name}BlockedExceptions`));
+      exceptions.setAttribute("search-filter", "[[searchFilter_]]");
+      subpage.appendChild(exceptions);
+
+      let tag = document.createElement("template");
+      tag.setAttribute("is", "dom-if");
+      tag.setAttribute("route-path", `/content/${tag_name}`);
+      tag.setAttribute("no-search", "");
+      tag.content.appendChild(subpage);
+
+      content.parentElement!.insertBefore(tag, content);
+    }
+    content.parentElement!.removeChild(content);
+    return template;
   }
 
   static get properties() {
