@@ -52,6 +52,13 @@ static_library("common") {
   if (use_blink) {
     deps += [ "//components/privacy_sandbox:features" ]
   }
+  deps += [ ":bromite_content_settings" ]
+}
+
+cpp_bromite_include("bromite_content_settings") {
+  inputs = [ "bromite_content_settings/placeholder.txt" ]
+  output_file = "bromite_content_settings.inc"
+  visibility = [ "*" ]
 }
 
 source_set("unit_tests") {

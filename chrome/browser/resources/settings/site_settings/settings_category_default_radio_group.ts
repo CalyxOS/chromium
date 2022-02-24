@@ -159,6 +159,13 @@ export class SettingsCategoryDefaultRadioGroupElement extends
         // "Ask" vs "Blocked".
         return ContentSetting.ASK;
       default:
+        for (let index=0; index < loadTimeData.getInteger("br_cs_count"); index++) {
+          let obj = JSON.parse(loadTimeData.getString("br_cs_" + index));
+          let name = obj["name"];
+          if (this.category == name) {
+            return ContentSetting.ALLOW;
+          }
+        }
         assertNotReached('Invalid category: ' + this.category);
     }
   }
