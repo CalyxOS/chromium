@@ -10,6 +10,7 @@
 
 #include "base/functional/callback.h"
 #include "base/time/time.h"
+#include "components/content_settings/core/common/content_settings_types.h"
 #include "third_party/blink/public/common/client_hints/enabled_client_hints.h"
 #include "third_party/blink/public/mojom/navigation/renderer_content_settings.mojom.h"
 
@@ -48,6 +49,10 @@ class WebContentSettingsClient {
 
   // Controls whether images are allowed for this frame.
   virtual bool AllowImage(bool enabled_per_settings, const WebURL& image_url) {
+    return enabled_per_settings;
+  }
+
+  virtual bool AllowContentSetting(ContentSettingsType type, bool enabled_per_settings) {
     return enabled_per_settings;
   }
 

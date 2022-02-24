@@ -11,6 +11,7 @@ import {dedupingMixin, PolymerElement} from 'chrome://resources/polymer/v3_0/pol
 
 import {ContentSetting,ContentSettingsTypes, SiteSettingSource} from './constants.js';
 import {RawSiteException,SiteException,SiteSettingsPrefsBrowserProxy,SiteSettingsPrefsBrowserProxyImpl} from './site_settings_prefs_browser_proxy.js';
+import {loadTimeData} from '../i18n_setup.js';
 // clang-format on
 
 type Constructor<T> = new (...args: any[]) => T;
@@ -89,6 +90,21 @@ export const SiteSettingsMixin = dedupingMixin(
          */
         computeIsSettingEnabled(setting: ContentSetting): boolean {
           return setting !== ContentSetting.BLOCK;
+        }
+
+        computeIsSettingAsk(setting: ContentSetting): boolean {
+          return setting === ContentSetting.ASK;
+        }
+
+        getSettingData(category: ContentSettingsTypes): any {
+          for (let index=0; index < loadTimeData.getInteger("br_cs_count"); index++) {
+            let obj = JSON.parse(loadTimeData.getString("br_cs_" + index));
+            let name = obj["name"];
+            if (name == category) {
+              return obj;
+            }
+          }
+          return undefined;
         }
 
         /**
@@ -171,6 +187,8 @@ export interface SiteSettingsMixinInterface {
   browserProxy: SiteSettingsPrefsBrowserProxy;
   category: ContentSettingsTypes;
   computeIsSettingEnabled(setting: string): boolean;
+  computeIsSettingAsk(setting: string): boolean;
+  getSettingData(category: ContentSettingsTypes): any;
   originRepresentation(origin: string): string;
   toUrl(originOrPattern: string): URL|null;
   expandSiteException(exception: RawSiteException): SiteException;
