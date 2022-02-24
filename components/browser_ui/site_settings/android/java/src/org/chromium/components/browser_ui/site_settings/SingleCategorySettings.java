@@ -337,6 +337,10 @@ public class SingleCategorySettings extends BaseSiteSettingsFragment
                 website.site()
                         .getContentSetting(
                                 browserContextHandle, mCategory.getContentSettingsType());
+        if (contentSetting != null &&
+                BromiteCustomContentSettingImpl.processOnBlockList(contentSetting, contentSetting)) {
+            return BromiteCustomContentSettingImpl.isOnBlockList(contentSetting, website, contentSetting);
+        }
         if (contentSetting != null) {
             return ContentSettingValues.BLOCK == contentSetting;
         }
@@ -501,6 +505,7 @@ public class SingleCategorySettings extends BaseSiteSettingsFragment
                         ? new HashSet<>(getArguments().getStringArrayList(EXTRA_SELECTED_DOMAINS))
                         : null;
 
+        BromiteCustomContentSettingImpl.onActivityCreated(this);
         configureGlobalToggles();
         if (mCategory.getType() == SiteSettingsCategory.Type.REQUEST_DESKTOP_SITE) {
             RecordUserAction.record("DesktopSiteContentSetting.SettingsPage.Entered");
@@ -531,7 +536,8 @@ public class SingleCategorySettings extends BaseSiteSettingsFragment
                     if (queryHasChanged) getInfoForOrigins();
                 });
 
-        if (getSiteSettingsDelegate().isHelpAndFeedbackEnabled()) {
+        if (getSiteSettingsDelegate().isHelpAndFeedbackEnabled() ||
+                BromiteCustomContentSettingImpl.isHelpAndFeedbackEnabled(mCategory)) {
             MenuItem help =
                     menu.add(
                             Menu.NONE,
@@ -543,12 +549,20 @@ public class SingleCategorySettings extends BaseSiteSettingsFragment
                             getResources(),
                             R.drawable.ic_help_and_feedback,
                             getContext().getTheme()));
+            if (!BromiteCustomContentSettingImpl.isHelpAndFeedbackEnabled(mCategory))
+                help.setVisible(false);
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_id_site_settings_help) {
+            String url = BromiteCustomContentSettingImpl.getHelpAndFeedbackActivityUrl(mCategory);
+            if (!url.equals("")) {
+                getSiteSettingsDelegate()
+                        .launchHelpAndFeedbackActivity(getActivity(), url);
+                return true;
+            }
             if (mCategory.getType() == SiteSettingsCategory.Type.PROTECTED_MEDIA) {
                 getSiteSettingsDelegate()
                         .launchProtectedContentHelpAndFeedbackActivity(getActivity());
@@ -620,6 +634,11 @@ public class SingleCategorySettings extends BaseSiteSettingsFragment
         BrowserContextHandle browserContextHandle =
                 getSiteSettingsDelegate().getBrowserContextHandle();
         PrefService prefService = UserPrefs.get(browserContextHandle);
+        if (BromiteCustomContentSettingImpl.onPreferenceChange(mCategory,
+                    browserContextHandle, preference, newValue) == true) {
+            getInfoForOrigins();
+            return true;
+        }
         if (BINARY_TOGGLE_KEY.equals(preference.getKey())) {
             assert !mCategory.isManaged();
             boolean toggleValue = (boolean) newValue;
@@ -817,6 +836,8 @@ public class SingleCategorySettings extends BaseSiteSettingsFragment
                                         .website_settings_allowed_group_heading_request_desktop_site;
                 break;
         }
+        if (resource == 0)
+            resource = BromiteCustomContentSettingImpl.getAddExceptionDialogMessage(mCategory);
         assert resource > 0;
         return getString(resource);
     }
@@ -934,6 +955,8 @@ public class SingleCategorySettings extends BaseSiteSettingsFragment
             default:
                 break;
         }
+        Boolean allow = BromiteCustomContentSettingImpl.allowSpecifyingExceptions(mCategory);
+        if (allow != null) allowSpecifyingExceptions = (boolean)allow;
         if (allowSpecifyingExceptions) {
             getPreferenceScreen()
                     .addPreference(
@@ -1122,8 +1145,16 @@ public class SingleCategorySettings extends BaseSiteSettingsFragment
     private boolean isBlocked() {
         switch (mGlobalToggleLayout) {
             case GlobalToggleLayout.TRI_STATE_TOGGLE:
+                Preference triStateToggleImpl =
+                        getPreferenceScreen().findPreference(TRI_STATE_TOGGLE_KEY);
+                if (triStateToggleImpl instanceof BromiteCustomTriStateSiteSettingsPreferenceImpl) {
+                    Boolean blocked = BromiteCustomContentSettingImpl.considerException(mCategory,
+                        ((BromiteCustomTriStateSiteSettingsPreferenceImpl)triStateToggleImpl).getCheckedSetting());
+                    if (blocked != null) return (boolean)blocked;
+                }
                 TriStateSiteSettingsPreference triStateToggle =
                         getPreferenceScreen().findPreference(TRI_STATE_TOGGLE_KEY);
+                if (triStateToggle == null) return true;
                 return (triStateToggle.getCheckedSetting() == ContentSettingValues.BLOCK);
             case GlobalToggleLayout.TRI_STATE_COOKIE_TOGGLE:
                 TriStateCookieSettingsPreference triStateCookieToggle =
@@ -1190,7 +1221,11 @@ public class SingleCategorySettings extends BaseSiteSettingsFragment
         } else if (mCategory.getType() == SiteSettingsCategory.Type.STORAGE_ACCESS) {
             infoText.setSummary(getStorageAccessSummary());
         } else {
-            screen.removePreference(infoText);
+            int infoMessage = BromiteCustomContentSettingImpl.getCategoryDescription(mCategory);
+            if (infoMessage == 0)
+                screen.removePreference(infoText);
+            else
+                infoText.setSummary(infoMessage);
         }
 
         // Hide the anti-abuse text preferences, as needed.
@@ -1214,6 +1249,7 @@ public class SingleCategorySettings extends BaseSiteSettingsFragment
             screen.removePreference(antiAbuseThingsToConsiderHeader);
             screen.removePreference(antiAbuseThingsToConsiderSectionOne);
         }
+        BromiteCustomContentSettingImpl.configureGlobalToggles(mCategory, this);
 
         if (permissionBlockedByOs) {
             maybeShowOsWarning(screen);
@@ -1378,7 +1414,7 @@ public class SingleCategorySettings extends BaseSiteSettingsFragment
                         getSiteSettingsDelegate().getBrowserContextHandle(), contentType);
         int[] descriptionIds =
                 ContentSettingsResources.getTriStateSettingDescriptionIDs(contentType);
-        triStateToggle.initialize(setting, descriptionIds);
+        triStateToggle.initialize(contentType, setting, descriptionIds);
     }
 
     private void configureBinaryToggle(ChromeSwitchPreference binaryToggle, int contentType) {
@@ -1516,6 +1552,14 @@ public class SingleCategorySettings extends BaseSiteSettingsFragment
 
         @ContentSettingValues
         Integer value = site.getContentSetting(browserContextHandle, contentSettingsType);
+
+        AlertDialog.Builder alertDialogBuilder =
+            BromiteCustomContentSettingImpl.buildPreferenceDialog(site, contentSettingsType,
+                browserContextHandle, getContext(),
+                (dialog, which) -> { getInfoForOrigins(); });
+        if (alertDialogBuilder != null) {
+            return alertDialogBuilder.create();
+        }
 
         AlertDialog alertDialog =
                 new AlertDialog.Builder(getContext(), R.style.ThemeOverlay_BrowserUI_AlertDialog)

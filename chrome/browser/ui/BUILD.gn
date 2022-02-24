@@ -2047,6 +2047,7 @@ static_library("ui") {
       "//components/commerce/core/mojom:mojo_bindings",
       "//components/commerce/core/webui",
       "//components/endpoint_fetcher:endpoint_fetcher",
+      "//components/content_settings/core/browser:browser",
       "//components/enterprise/common:files_scan_data",
       "//components/feedback/proto",
       "//components/headless/policy",

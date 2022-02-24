@@ -37,7 +37,7 @@ import org.chromium.device.DeviceFeatureMap;
 @SuppressLint("UseSparseArrays")
 public class ContentSettingsResources {
     /** An inner class contains all the resources for a ContentSettingsType */
-    private static class ResourceItem {
+    public static class ResourceItem {
         private final int mIcon;
         private final int mTitle;
         private final @ContentSettingValues @Nullable Integer mDefaultEnabledValue;
@@ -46,7 +46,7 @@ public class ContentSettingsResources {
         private final int mDisabledSummary;
         private final int mSummaryOverrideForScreenReader;
 
-        ResourceItem(
+        public ResourceItem(
                 int icon,
                 int title,
                 @ContentSettingValues @Nullable Integer defaultEnabledValue,
@@ -437,6 +437,8 @@ public class ContentSettingsResources {
                         R.string.website_settings_category_vr_blocked,
                         R.string.website_settings_category_vr_a11y);
         }
+        ResourceItem ri = BromiteCustomContentSettingImpl.getResourceItem(contentType);
+        if (ri != null) return ri;
         assert false; // NOTREACHED
         return null;
     }
@@ -617,6 +619,12 @@ public class ContentSettingsResources {
         }
     }
 
+    public static int getCategorySummary(int contentType, @Nullable @ContentSettingValues int value) {
+        int result = BromiteCustomContentSettingImpl.getCategorySummary(contentType, value);
+        if (result != 0) return result;
+        return getCategorySummary(value);
+    }
+
     /**
      * Returns the string resource id for a content type to show with a permission category.
      * @param enabled Whether the content type is enabled.
@@ -769,6 +777,8 @@ public class ContentSettingsResources {
      *         Blocked states, in that order.
      */
     public static int[] getTriStateSettingDescriptionIDs(int contentType) {
+        int[] value = BromiteCustomContentSettingImpl.getTriStateSettingDescriptionIDs(contentType);
+        if (value != null) return value;
         if (contentType == ContentSettingsType.PROTECTED_MEDIA_IDENTIFIER) {
             int[] descriptionIDs = {
                 R.string.website_settings_category_protected_content_allowed_recommended,

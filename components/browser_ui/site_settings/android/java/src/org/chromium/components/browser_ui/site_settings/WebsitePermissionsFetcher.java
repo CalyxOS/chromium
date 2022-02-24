@@ -114,7 +114,7 @@ public class WebsitePermissionsFetcher {
                 }
                 return null;
             default:
-                return null;
+                return BromiteCustomContentSettingImpl.getPermissionsType(contentSettingsType);
         }
     }
 
@@ -228,7 +228,7 @@ public class WebsitePermissionsFetcher {
             if (SiteSettingsFeatureMap.isEnabled(SiteSettingsFeatureList.SITE_DATA_IMPROVEMENTS)) {
                 queue.add(new CookiesInfoFetcher());
             }
-            for (@ContentSettingsType int type = 0; type < ContentSettingsType.NUM_TYPES; type++) {
+            for (@ContentSettingsType int type = 0; type < ContentSettingsType.NUM_TYPES_BROMITE; type++) {
                 addFetcherForContentSettingsType(queue, type);
             }
         }

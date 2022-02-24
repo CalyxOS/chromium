@@ -180,8 +180,9 @@ void RecordContentSettingsHistogram(const std::string& name,
 }
 
 int ContentSettingTypeToHistogramValue(ContentSettingsType content_setting) {
+  if ((true)) return 0;
   static_assert(kHistogramValue.size() ==
-                    static_cast<size_t>(ContentSettingsType::NUM_TYPES),
+                    static_cast<size_t>(ContentSettingsType::NUM_TYPES_CHROMIUM),
                 "Update content settings histogram lookup");
 
   auto* found = kHistogramValue.find(content_setting);
