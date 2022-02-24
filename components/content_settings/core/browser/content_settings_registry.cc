@@ -16,6 +16,7 @@
 #include "components/content_settings/core/browser/website_settings_registry.h"
 #include "components/content_settings/core/common/content_settings.h"
 #include "components/content_settings/core/common/features.h"
+#include "components/strings/grit/components_strings.h"
 
 namespace content_settings {
 
@@ -836,6 +837,7 @@ void ContentSettingsRegistry::Init() {
            WebsiteSettingsRegistry::DESKTOP,
            ContentSettingsInfo::INHERIT_IF_LESS_PERMISSIVE,
            ContentSettingsInfo::EXCEPTIONS_ON_SECURE_ORIGINS_ONLY);
+#include "components/content_settings/core/browser/bromite_content_settings.inc"
 }
 
 void ContentSettingsRegistry::Register(
