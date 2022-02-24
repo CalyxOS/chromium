@@ -83,6 +83,7 @@ android_resources("java_resources") {
     "java/res/layout/managed_disclaimer_preference_for_radio_groups.xml",
     "java/res/layout/preference_chrome_image_view.xml",
     "java/res/layout/preference_spinner.xml",
+    "java/res/layout/preference_spinner_single_widget.xml",
     "java/res/layout/preference_spinner_single_line.xml",
     "java/res/layout/preference_spinner_single_line_item.xml",
     "java/res/layout/settings_action_bar_shadow.xml",

@@ -48,6 +48,8 @@
 #include "chrome/grit/generated_resources.h"
 #include "components/content_settings/core/browser/content_settings_provider.h"
 #include "components/content_settings/core/browser/host_content_settings_map.h"
+#include "components/content_settings/core/browser/website_settings_info.h"
+#include "components/content_settings/core/browser/website_settings_registry.h"
 #include "components/content_settings/core/common/content_settings.h"
 #include "components/content_settings/core/common/content_settings_pattern.h"
 #include "components/content_settings/core/common/content_settings_types.h"
@@ -231,13 +233,13 @@ const ContentSettingsTypeNameEntry kContentSettingsTypeGroupNames[] = {
     {ContentSettingsType::TOP_LEVEL_TPCD_ORIGIN_TRIAL, nullptr},
 };
 
-static_assert(
-    std::size(kContentSettingsTypeGroupNames) ==
-        // Add one since the sequence is kMinValue = -1, 0, ..., kMaxValue
-        1 + static_cast<int32_t>(ContentSettingsType::kMaxValue) -
-            static_cast<int32_t>(ContentSettingsType::kMinValue),
-    "kContentSettingsTypeGroupNames should have the correct number "
-    "of elements");
+// static_assert(
+//     std::size(kContentSettingsTypeGroupNames) ==
+//         // Add one since the sequence is kMinValue = -1, 0, ..., kMaxValue
+//         1 + static_cast<int32_t>(ContentSettingsType::kMaxValue) -
+//             static_cast<int32_t>(ContentSettingsType::kMinValue),
+//     "kContentSettingsTypeGroupNames should have the correct number "
+//     "of elements");
 
 struct SiteSettingSourceStringMapping {
   SiteSettingSource source;
@@ -469,6 +471,13 @@ bool HasRegisteredGroupName(ContentSettingsType type) {
       return true;
     }
   }
+  content_settings::WebsiteSettingsRegistry* website_settings =
+      content_settings::WebsiteSettingsRegistry::GetInstance();
+  for (const content_settings::WebsiteSettingsInfo* cs : *website_settings) {
+    if (type == cs->type() && cs->desktop_ui()) {
+      return true;
+    }
+  }
   return false;
 }
 
@@ -482,11 +491,24 @@ ContentSettingsType ContentSettingsTypeFromGroupName(std::string_view name) {
       return entry.type;
     }
   }
-
+  content_settings::WebsiteSettingsRegistry* website_settings =
+      content_settings::WebsiteSettingsRegistry::GetInstance();
+  for (const content_settings::WebsiteSettingsInfo* cs : *website_settings) {
+    if (name == cs->name() && cs->desktop_ui()) {
+      return cs->type();
+    }
+  }
   return ContentSettingsType::DEFAULT;
 }
 
 std::string_view ContentSettingsTypeToGroupName(ContentSettingsType type) {
+  content_settings::WebsiteSettingsRegistry* website_settings =
+      content_settings::WebsiteSettingsRegistry::GetInstance();
+  for (const content_settings::WebsiteSettingsInfo* cs : *website_settings) {
+    if (type == cs->type() && cs->desktop_ui()) {
+      return cs->name();
+    }
+  }
   for (const auto& entry : kContentSettingsTypeGroupNames) {
     if (type == entry.type) {
       // Content setting types that aren't represented in the settings UI
@@ -501,7 +523,6 @@ std::string_view ContentSettingsTypeToGroupName(ContentSettingsType type) {
       return entry.name ? entry.name : std::string_view();
     }
   }
-
   NOTREACHED_IN_MIGRATION() << static_cast<int32_t>(type)
                             << " is not a recognized content settings type.";
   return std::string_view();
@@ -599,6 +620,13 @@ std::vector<ContentSettingsType> GetVisiblePermissionCategories(
       base_types->push_back(ContentSettingsType::POINTER_LOCK);
     }
 
+    content_settings::WebsiteSettingsRegistry* website_settings =
+        content_settings::WebsiteSettingsRegistry::GetInstance();
+    for (const content_settings::WebsiteSettingsInfo* cs : *website_settings) {
+      if (cs->desktop_ui()) {
+        base_types->push_back(cs->type());
+      }
+    }
     initialized = true;
   }
 
