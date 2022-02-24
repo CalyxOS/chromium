@@ -18,6 +18,7 @@ import org.chromium.build.annotations.NullMarked;
 import org.chromium.build.annotations.Nullable;
 import org.chromium.components.browser_ui.widget.RadioButtonWithDescription;
 import org.chromium.components.content_settings.ContentSettingValues;
+import org.chromium.components.content_settings.ContentSettingsType;
 
 /** A 3-state Allowed/Ask/Blocked radio group Preference used for SiteSettings. */
 @NullMarked
@@ -29,6 +30,7 @@ public class TriStateSiteSettingsPreference extends Preference
     private RadioButtonWithDescription mAsk;
     private RadioButtonWithDescription mBlocked;
     private RadioGroup mRadioGroup;
+    private @ContentSettingsType.EnumType int mContentType;
 
     public TriStateSiteSettingsPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -48,7 +50,9 @@ public class TriStateSiteSettingsPreference extends Preference
      * @param descriptionIds An array of 3 resource IDs for descriptions for
      *                       Allowed, Ask and Blocked states, in that order.
      */
-    public void initialize(@ContentSettingValues int setting, int @Nullable [] descriptionIds) {
+    public void initialize(@ContentSettingsType.EnumType int contentType,
+                           @ContentSettingValues int setting, int @Nullable [] descriptionIds) {
+        mContentType = contentType;
         mSetting = setting;
         mDescriptionIds = descriptionIds;
     }
@@ -86,6 +90,13 @@ public class TriStateSiteSettingsPreference extends Preference
         mRadioGroup = assumeNonNull(radioGroup);
         mRadioGroup.setOnCheckedChangeListener(this);
 
+        BromiteCustomContentSetting cs =
+                BromiteCustomContentSettingImpl.getContentSetting(mContentType);
+        if (cs != null && cs.showOnlyDescriptions() == true) {
+            mAllowed.setPrimaryText(getContext().getText(mDescriptionIds[0]));
+            mAsk.setPrimaryText(getContext().getText(mDescriptionIds[1]));
+            mBlocked.setPrimaryText(getContext().getText(mDescriptionIds[2]));
+        } else
         if (mDescriptionIds != null) {
             mAllowed.setDescriptionText(getContext().getText(mDescriptionIds[0]));
             mAsk.setDescriptionText(getContext().getText(mDescriptionIds[1]));
