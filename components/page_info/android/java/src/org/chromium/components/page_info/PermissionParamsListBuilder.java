@@ -106,10 +106,10 @@ public class PermissionParamsListBuilder {
 
         switch (permission.setting) {
             case ContentSettingValues.ALLOW:
-            case ContentSettingValues.ASK:
                 permissionParams.allowed = true;
                 break;
             case ContentSettingValues.BLOCK:
+            case ContentSettingValues.ASK:
                 permissionParams.allowed = false;
                 break;
             default:
@@ -118,6 +118,12 @@ public class PermissionParamsListBuilder {
                                 + permission.setting
                                 + " for permission "
                                 + permission.type;
+        }
+
+        if (permission.type == ContentSettingsType.FILE_SYSTEM_WRITE_GUARD
+                && permission.setting == ContentSettingValues.ASK) {
+            // see https://source.chromium.org/chromium/chromium/src/+/e3e48613de29440ae1cf11b0ff7fa7c613d9f416
+            permissionParams.allowed = true;
         }
 
         return permissionParams;
