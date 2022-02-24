@@ -16,6 +16,7 @@
 #include "components/content_settings/core/common/content_settings_metadata.h"
 #include "components/content_settings/core/common/content_settings_types.h"
 #include "components/content_settings/core/common/content_settings_utils.h"
+#include "components/content_settings/core/browser/website_settings_registry.h"
 
 namespace {
 
@@ -98,6 +99,13 @@ std::ostream& operator<<(std::ostream& os,
 // static
 bool RendererContentSettingRules::IsRendererContentSetting(
     ContentSettingsType content_type) {
+  content_settings::WebsiteSettingsRegistry* website_settings =
+      content_settings::WebsiteSettingsRegistry::GetInstance();
+  for (const content_settings::WebsiteSettingsInfo* info : *website_settings) {
+      if (info->type() == content_type && info->is_renderer_content_setting()) {
+        return true;
+      }
+  }
   return content_type == ContentSettingsType::IMAGES ||
          content_type == ContentSettingsType::JAVASCRIPT ||
          content_type == ContentSettingsType::POPUPS ||
@@ -107,6 +115,9 @@ bool RendererContentSettingRules::IsRendererContentSetting(
 
 void RendererContentSettingRules::FilterRulesByOutermostMainFrameURL(
     const GURL& outermost_main_frame_url) {
+  for (ContentSettingRuleSource& info : settings_rules) {
+      FilterRulesForType(info.rules, outermost_main_frame_url);
+  }
   FilterRulesForType(image_rules, outermost_main_frame_url);
   FilterRulesForType(script_rules, outermost_main_frame_url);
   FilterRulesForType(popup_redirect_rules, outermost_main_frame_url);
@@ -131,4 +142,17 @@ RendererContentSettingRules& RendererContentSettingRules::operator=(
     RendererContentSettingRules&& rules) = default;
 
 bool RendererContentSettingRules::operator==(
-    const RendererContentSettingRules& other) const = default;
+    const RendererContentSettingRules& other) const {
+  return std::tie(image_rules, script_rules, popup_redirect_rules,
+                  mixed_content_rules, auto_dark_content_rules) ==
+         std::tie(other.image_rules, other.script_rules,
+                  other.popup_redirect_rules, other.mixed_content_rules,
+                  other.auto_dark_content_rules);
+}
+
+ContentSettingRuleSource::ContentSettingRuleSource() = default;
+
+ContentSettingRuleSource::~ContentSettingRuleSource() = default;
+
+ContentSettingRuleSource::ContentSettingRuleSource(
+    const ContentSettingRuleSource&) = default;
