@@ -11,6 +11,7 @@
 #include "base/command_line.h"
 #include "base/containers/contains.h"
 #include "components/content_settings/core/browser/host_content_settings_map.h"
+#include "components/content_settings/core/browser/website_settings_registry.h"
 #include "components/content_settings/core/common/content_settings.h"
 #include "components/content_settings/core/common/content_settings_types.h"
 #include "components/page_info/android/jni_headers/PageInfoController_jni.h"
@@ -151,6 +152,15 @@ void PageInfoControllerAndroid::SetPermissionInfo(
         ContentSettingsType::FEDERATED_IDENTITY_API);
   }
 
+  content_settings::WebsiteSettingsRegistry* website_settings =
+      content_settings::WebsiteSettingsRegistry::GetInstance();
+  for (const content_settings::WebsiteSettingsInfo* info : *website_settings) {
+    if (info->show_into_info_page() &&
+          !base::Contains(permissions_to_display, info->type())) {
+       permissions_to_display.push_back(info->type());
+    }
+  }
+
   std::map<ContentSettingsType, ContentSetting>
       user_specified_settings_to_display;
   std::map<ContentSettingsType, bool>
@@ -208,6 +218,14 @@ absl::optional<ContentSetting> PageInfoControllerAndroid::GetSettingToDisplay(
   if (permission.setting != CONTENT_SETTING_DEFAULT &&
       permission.setting != permission.default_setting) {
     return permission.setting;
+  }
+
+  content_settings::WebsiteSettingsRegistry* website_settings =
+      content_settings::WebsiteSettingsRegistry::GetInstance();
+  for (const content_settings::WebsiteSettingsInfo* info : *website_settings) {
+    if (info->type() == permission.type && info->show_into_info_page()) {
+      return permission.default_setting;
+    }
   }
 
   // Handle exceptions for permissions which need to be displayed even if they

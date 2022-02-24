@@ -15,6 +15,7 @@
 #include "components/content_settings/core/browser/website_settings_registry.h"
 #include "components/content_settings/core/common/content_settings.h"
 #include "components/content_settings/core/common/features.h"
+#include "components/strings/grit/components_strings.h"
 
 namespace content_settings {
 
@@ -598,6 +599,8 @@ void ContentSettingsRegistry::Init() {
            WebsiteSettingsRegistry::ALL_PLATFORMS,
            ContentSettingsInfo::INHERIT_IN_INCOGNITO,
            ContentSettingsInfo::EXCEPTIONS_ON_SECURE_AND_INSECURE_ORIGINS);
+
+#include "components/content_settings/core/browser/bromite_content_settings.inc"
 }
 
 void ContentSettingsRegistry::Register(

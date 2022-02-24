@@ -47,7 +47,7 @@ public class SiteSettingsCategory {
             Type.PROTECTED_MEDIA, Type.SENSORS, Type.SOUND, Type.USB, Type.VIRTUAL_REALITY,
             Type.USE_STORAGE, Type.AUTO_DARK_WEB_CONTENT, Type.REQUEST_DESKTOP_SITE,
             Type.FEDERATED_IDENTITY_API, Type.THIRD_PARTY_COOKIES, Type.SITE_DATA, Type.ANTI_ABUSE,
-            Type.NUM_ENTRIES})
+            Type.NUM_ENTRIES_CHROMIUM})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Type {
         // All updates here must also be reflected in {@link #preferenceKey(int)
@@ -84,7 +84,7 @@ public class SiteSettingsCategory {
         /**
          * Number of handled categories used for calculating array sizes.
          */
-        int NUM_ENTRIES = 29;
+        int NUM_ENTRIES_CHROMIUM = 29;
     }
 
     private final BrowserContextHandle mBrowserContextHandle;
@@ -128,6 +128,9 @@ public class SiteSettingsCategory {
         } else {
             permission = "";
         }
+        SiteSettingsCategory category = BromiteCustomContentSettingImpl.createFromType(
+            browserContextHandle, type);
+        if (category != null) return category;
         return new SiteSettingsCategory(browserContextHandle, type, permission);
     }
 
@@ -136,7 +139,7 @@ public class SiteSettingsCategory {
             @ContentSettingsType int contentSettingsType) {
         assert contentSettingsType != -1;
         assert Type.ALL_SITES == 0;
-        for (@Type int i = Type.ALL_SITES; i < Type.NUM_ENTRIES; i++) {
+        for (@Type int i = Type.ALL_SITES; i < BromiteCustomContentSettingImpl.NUM_ENTRIES(); i++) {
             if (contentSettingsType(i) == contentSettingsType) {
                 return createFromType(browserContextHandle, i);
             }
@@ -147,7 +150,7 @@ public class SiteSettingsCategory {
     public static SiteSettingsCategory createFromPreferenceKey(
             BrowserContextHandle browserContextHandle, String preferenceKey) {
         assert Type.ALL_SITES == 0;
-        for (@Type int i = Type.ALL_SITES; i < Type.NUM_ENTRIES; i++) {
+        for (@Type int i = Type.ALL_SITES; i < BromiteCustomContentSettingImpl.NUM_ENTRIES(); i++) {
             if (preferenceKey(i).equals(preferenceKey)) {
                 return createFromType(browserContextHandle, i);
             }
@@ -217,8 +220,7 @@ public class SiteSettingsCategory {
             case Type.USE_STORAGE:
                 return ContentSettingsType.DEFAULT; // Conversion unavailable.
         }
-        assert false;
-        return ContentSettingsType.DEFAULT;
+        return BromiteCustomContentSettingImpl.contentSettingsType(type);
     }
 
     /**
@@ -301,8 +303,12 @@ public class SiteSettingsCategory {
             case Type.THIRD_PARTY_COOKIES:
                 return "third_party_cookies";
             default:
+            {
+                String value = BromiteCustomContentSettingImpl.getPreferenceKey(type);
+                if (value != null) return value;
                 assert false;
                 return "";
+            }
         }
     }
 
