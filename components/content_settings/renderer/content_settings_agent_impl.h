@@ -80,6 +80,13 @@ class ContentSettingsAgentImpl
   static mojom::ContentSettingsManager::StorageType ConvertToMojoStorageType(
       StorageType storage_type);
 
+  bool AllowContentSetting(
+          ContentSettingsType type, const blink::WebURL& secondary_url, bool default_value) override;
+  bool AllowContentSetting(
+          ContentSettingsType type, bool default_value) override;
+  ContentSetting GetContentSetting(
+          ContentSettingsType type, ContentSetting default_value);
+
   // blink::WebContentSettingsClient:
   void AllowStorageAccess(StorageType storage_type,
                           base::OnceCallback<void(bool)> callback) override;
@@ -135,7 +142,7 @@ class ContentSettingsAgentImpl
   // Helpers.
   // True if `render_frame()` contains content that is allowlisted for content
   // settings.
-  bool IsAllowlistedForContentSettings() const;
+  bool IsAllowlistedForContentSettingsCromite() const;
 
   // A getter for `content_settings_manager_` that ensures it is bound.
   mojom::ContentSettingsManager& GetContentSettingsManager();

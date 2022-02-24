@@ -135,6 +135,32 @@ class WebsiteSettingsInfo {
   ScopingType scoping_type() const { return scoping_type_; }
   IncognitoBehavior incognito_behavior() const { return incognito_behavior_; }
 
+  bool show_into_info_page() const { return show_into_info_page_; }
+  bool is_renderer_content_setting() const { return is_renderer_content_setting_; }
+  bool desktop_ui() const { return desktop_ui_; }
+  std::string tag_ui() const { return tag_ui_; }
+  int title_ui() const { return title_ui_; }
+  int description_ui() const { return description_ui_; }
+  int allowed_ui() const { return allowed_ui_; }
+  int blocked_ui() const { return blocked_ui_; }
+  int ask_ui() const { return ask_ui_; }
+  int allowed_exceptions_ui() const { return allowed_exceptions_ui_; }
+  int blocked_exceptions_ui() const { return blocked_exceptions_ui_; }
+  int mid_sentence_ui() const { return mid_sentence_ui_; }
+
+  WebsiteSettingsInfo& set_show_into_info_page() { show_into_info_page_ = true; return *this; }
+  WebsiteSettingsInfo& set_is_renderer_content_setting() { is_renderer_content_setting_ = true; return *this; }
+  WebsiteSettingsInfo& set_desktop_ui() { desktop_ui_ = true; return *this; }
+  WebsiteSettingsInfo& set_tag_ui(const std::string& value) { tag_ui_ = value; return *this; }
+  WebsiteSettingsInfo& set_title_ui(int value) { title_ui_ = value; return *this; }
+  WebsiteSettingsInfo& set_description_ui(int value) { description_ui_ = value; return *this; }
+  WebsiteSettingsInfo& set_allowed_ui(int value) { allowed_ui_ = value; return *this; }
+  WebsiteSettingsInfo& set_blocked_ui(int value) { blocked_ui_ = value; return *this; }
+  WebsiteSettingsInfo& set_ask_ui(int value) { ask_ui_ = value; return *this; }
+  WebsiteSettingsInfo& set_allowed_exceptions_ui(int value) { allowed_exceptions_ui_ = value; return *this; }
+  WebsiteSettingsInfo& set_blocked_exceptions_ui(int value) { blocked_exceptions_ui_ = value; return *this; }
+  WebsiteSettingsInfo& set_mid_sentence_ui(int value) { mid_sentence_ui_ = value; return *this; }
+
  private:
   const ContentSettingsType type_;
   const std::string name_;
@@ -147,6 +173,18 @@ class WebsiteSettingsInfo {
   const LossyStatus lossy_status_;
   const ScopingType scoping_type_;
   const IncognitoBehavior incognito_behavior_;
+  bool show_into_info_page_ = false;
+  bool is_renderer_content_setting_ = false;
+  bool desktop_ui_ = false;
+  std::string tag_ui_;
+  int title_ui_ = 0;
+  int description_ui_ = 0;
+  int allowed_ui_ = 0;
+  int blocked_ui_ = 0;
+  int ask_ui_ = 0;
+  int allowed_exceptions_ui_ = 0;
+  int blocked_exceptions_ui_ = 0;
+  int mid_sentence_ui_ = 0;
 };
 
 }  // namespace content_settings
