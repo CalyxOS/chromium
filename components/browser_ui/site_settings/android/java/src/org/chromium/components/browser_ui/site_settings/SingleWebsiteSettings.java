@@ -47,6 +47,7 @@ import org.chromium.content_public.browser.ContentFeatureMap;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 /**
  * Shows the permissions and other settings for a particular website.
@@ -172,7 +173,7 @@ public class SingleWebsiteSettings extends SiteSettingsPreferenceFragment
             case ContentSettingsType.CLIPBOARD_READ_WRITE:
                 return "clipboard_permission_list";
             default:
-                return null;
+                return BromiteCustomContentSettingImpl.getProfilePrefKey(type);
         }
     }
 
@@ -517,7 +518,8 @@ public class SingleWebsiteSettings extends SiteSettingsPreferenceFragment
 
     private void setupContentSettingsPreferences() {
         mMaxPermissionOrder = findPreference(PREF_PERMISSIONS_HEADER).getOrder();
-        for (@ContentSettingsType int type : SiteSettingsUtil.SETTINGS_ORDER) {
+        List<Integer> order = BromiteCustomContentSettingImpl.getSettingsOrder();
+        for (@ContentSettingsType int type : order) {
             Preference preference = new ChromeSwitchPreference(getStyledContext());
             preference.setKey(getPreferenceKey(type));
 
@@ -962,14 +964,22 @@ public class SingleWebsiteSettings extends SiteSettingsPreferenceFragment
 
     private void setupContentSettingsPreference(Preference preference,
             @ContentSettingValues @Nullable Integer value, boolean isEmbargoed) {
-        if (value == null) return;
+        int content_type = getContentSettingsTypeFromPreferenceKey(preference.getKey());
+        BromiteCustomContentSetting cs =
+                BromiteCustomContentSettingImpl.getContentSetting(content_type);
+        if (value == null && cs == null) return;
+        if (value == null) {
+            if (cs.showIntoInfoPage() == false) return;
+            value = WebsitePreferenceBridge.getDefaultContentSetting(
+                        getSiteSettingsDelegate().getBrowserContextHandle(), content_type);
+        }
         setUpPreferenceCommon(preference, value);
 
         ChromeSwitchPreference switchPreference = (ChromeSwitchPreference) preference;
-        switchPreference.setChecked(value == ContentSettingValues.ALLOW);
+        switchPreference.setChecked(value != ContentSettingValues.BLOCK);
         switchPreference.setSummary(isEmbargoed
                         ? getString(R.string.automatically_blocked)
-                        : getString(ContentSettingsResources.getCategorySummary(value)));
+                        : getString(ContentSettingsResources.getCategorySummary(content_type, value)));
         switchPreference.setOnPreferenceChangeListener(this);
         @ContentSettingsType
         int contentType = getContentSettingsTypeFromPreferenceKey(preference.getKey());
@@ -1135,7 +1145,7 @@ public class SingleWebsiteSettings extends SiteSettingsPreferenceFragment
     public @ContentSettingsType int getContentSettingsTypeFromPreferenceKey(String preferenceKey) {
         if (mPreferenceMap == null) {
             mPreferenceMap = new HashMap<>();
-            for (@ContentSettingsType int type = 0; type < ContentSettingsType.NUM_TYPES; type++) {
+            for (@ContentSettingsType int type = 0; type < ContentSettingsType.NUM_TYPES_BROMITE; type++) {
                 String key = getPreferenceKey(type);
                 if (key != null) {
                     mPreferenceMap.put(key, type);
@@ -1177,7 +1187,7 @@ public class SingleWebsiteSettings extends SiteSettingsPreferenceFragment
         }
 
         mSite.setContentSetting(browserContextHandle, type, permission);
-        preference.setSummary(getString(ContentSettingsResources.getCategorySummary(permission)));
+        preference.setSummary(getString(ContentSettingsResources.getCategorySummary(type, permission)));
         preference.setIcon(getContentSettingsIcon(type, permission));
 
         if (mWebsiteSettingsObserver != null) {
@@ -1207,7 +1217,7 @@ public class SingleWebsiteSettings extends SiteSettingsPreferenceFragment
         // TODO(mvanouwerkerk): Refactor this class so that it does not depend on the screen state
         // for its logic. This class should maintain its own data model, and only update the screen
         // after a change is made.
-        for (@ContentSettingsType int type = 0; type < ContentSettingsType.NUM_TYPES; type++) {
+        for (@ContentSettingsType int type = 0; type < ContentSettingsType.NUM_TYPES_BROMITE; type++) {
             String key = getPreferenceKey(type);
             if (key != null) {
                 removePreferenceSafely(key);

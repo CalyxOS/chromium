@@ -331,7 +331,9 @@ enum class ContentSettingsType : int32_t {
   // https://github.com/screen-share/capture-all-screens
   ALL_SCREEN_CAPTURE,
 
-  NUM_TYPES,
+  NUM_TYPES_CHROMIUM,
+#include "components/content_settings/core/common/bromite_content_settings.inc"
+  NUM_TYPES_BROMITE,
 };
 
 struct ContentSettingsTypeHash {
