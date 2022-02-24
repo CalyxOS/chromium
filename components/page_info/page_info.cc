@@ -22,6 +22,7 @@
 #include "base/values.h"
 #include "build/build_config.h"
 #include "components/browsing_data/content/browsing_data_helper.h"
+#include "components/content_settings/core/browser/website_settings_registry.h"
 #include "components/content_settings/browser/ui/cookie_controls_controller.h"
 #include "components/content_settings/core/browser/content_settings_registry.h"
 #include "components/content_settings/core/browser/content_settings_uma_util.h"
@@ -1258,6 +1259,14 @@ void PageInfo::PopulatePermissionInfo(PermissionInfo& permission_info,
 // applies to permissions listed in |kPermissionType|.
 bool PageInfo::ShouldShowPermission(
     const PageInfo::PermissionInfo& info) const {
+  content_settings::WebsiteSettingsRegistry* website_settings =
+      content_settings::WebsiteSettingsRegistry::GetInstance();
+  for (const content_settings::WebsiteSettingsInfo* winfo : *website_settings) {
+    if (info.type == winfo->type() &&
+        winfo->show_into_info_page()) {
+      return true;
+    }
+  }
   // Note |ContentSettingsType::ADS| will show up regardless of its default
   // value when it has been activated on the current origin.
   if (info.type == ContentSettingsType::ADS) {
@@ -1374,7 +1383,19 @@ void PageInfo::PresentSitePermissions() {
 
   HostContentSettingsMap* content_settings = GetContentSettings();
   DCHECK(web_contents_);
-  for (const ContentSettingsType type : kPermissionType) {
+  std::vector<ContentSettingsType> permission_list;
+  for (const ContentSettingsType type : kPermissionType)
+    permission_list.push_back(type);
+
+  content_settings::WebsiteSettingsRegistry* website_settings =
+      content_settings::WebsiteSettingsRegistry::GetInstance();
+  for (const content_settings::WebsiteSettingsInfo* info : *website_settings) {
+    if (info->show_into_info_page() &&
+          !base::Contains(permission_list, info->type())) {
+      permission_list.push_back(info->type());
+    }
+  }
+  for (const ContentSettingsType type : permission_list) {
     PermissionInfo permission_info;
     permission_info.type = type;
 
