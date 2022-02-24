@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <grit-part>
+  <part file="browser_ui/strings/bromite_content_settings/placeholder.txt"/>
   <!-- Site Settings common -->
   <message name="IDS_SITE_SETTINGS_TYPE_ADS" desc="This string is the name of the intrusive ads setting (visit chrome://settings/content and click 'Additional content settings').">
     Intrusive ads

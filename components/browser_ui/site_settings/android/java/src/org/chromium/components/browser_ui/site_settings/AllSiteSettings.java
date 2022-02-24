@@ -383,7 +383,8 @@ public class AllSiteSettings extends BaseSiteSettingsFragment
                     if (queryHasChanged) getInfoForOrigins();
                 });
 
-        if (getSiteSettingsDelegate().isHelpAndFeedbackEnabled()) {
+        if (getSiteSettingsDelegate().isHelpAndFeedbackEnabled() ||
+                BromiteCustomContentSettingImpl.isHelpAndFeedbackEnabled(mCategory)) {
             MenuItem help =
                     menu.add(
                             Menu.NONE,
@@ -395,6 +396,8 @@ public class AllSiteSettings extends BaseSiteSettingsFragment
                             getResources(),
                             R.drawable.ic_help_and_feedback,
                             getContext().getTheme()));
+            if (!BromiteCustomContentSettingImpl.isHelpAndFeedbackEnabled(mCategory))
+                help.setVisible(false);
         }
     }
 
