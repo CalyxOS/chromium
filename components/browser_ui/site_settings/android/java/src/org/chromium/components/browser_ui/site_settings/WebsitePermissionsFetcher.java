@@ -110,7 +110,7 @@ public class WebsitePermissionsFetcher {
             case ContentSettingsType.USB_GUARD:
                 return WebsitePermissionsType.CHOSEN_OBJECT_INFO;
             default:
-                return null;
+                return BromiteCustomContentSettingImpl.getPermissionsType(contentSettingsType);
         }
     }
 
