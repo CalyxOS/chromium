@@ -74,7 +74,7 @@ public class SiteSettingsCategory {
         Type.STORAGE_ACCESS,
         Type.TRACKING_PROTECTION,
         Type.FILE_EDITING,
-        Type.NUM_ENTRIES
+        Type.NUM_ENTRIES_CHROMIUM
     })
     @Retention(RetentionPolicy.SOURCE)
     public @interface Type {
@@ -115,7 +115,7 @@ public class SiteSettingsCategory {
         int FILE_EDITING = 32;
 
         /** Number of handled categories used for calculating array sizes. */
-        int NUM_ENTRIES = 33;
+        int NUM_ENTRIES_CHROMIUM = 33;
     }
 
     private final BrowserContextHandle mBrowserContextHandle;
@@ -164,6 +164,9 @@ public class SiteSettingsCategory {
         } else {
             permission = "";
         }
+        SiteSettingsCategory category = BromiteCustomContentSettingImpl.createFromType(
+            browserContextHandle, type);
+        if (category != null) return category;
         return new SiteSettingsCategory(browserContextHandle, type, permission);
     }
 
@@ -172,7 +175,7 @@ public class SiteSettingsCategory {
             @ContentSettingsType.EnumType int contentSettingsType) {
         assert contentSettingsType != -1;
         assert Type.ALL_SITES == 0;
-        for (@Type int i = Type.ALL_SITES; i < Type.NUM_ENTRIES; i++) {
+        for (@Type int i = Type.ALL_SITES; i < BromiteCustomContentSettingImpl.NUM_ENTRIES(); i++) {
             if (contentSettingsType(i) == contentSettingsType) {
                 return createFromType(browserContextHandle, i);
             }
@@ -183,7 +186,7 @@ public class SiteSettingsCategory {
     public static SiteSettingsCategory createFromPreferenceKey(
             BrowserContextHandle browserContextHandle, String preferenceKey) {
         assert Type.ALL_SITES == 0;
-        for (@Type int i = Type.ALL_SITES; i < Type.NUM_ENTRIES; i++) {
+        for (@Type int i = Type.ALL_SITES; i < BromiteCustomContentSettingImpl.NUM_ENTRIES(); i++) {
             if (preferenceKey(i).equals(preferenceKey)) {
                 return createFromType(browserContextHandle, i);
             }
@@ -258,8 +261,7 @@ public class SiteSettingsCategory {
             case Type.TRACKING_PROTECTION:
                 return ContentSettingsType.DEFAULT; // Conversion unavailable.
         }
-        assert false;
-        return ContentSettingsType.DEFAULT;
+        return BromiteCustomContentSettingImpl.contentSettingsType(type);
     }
 
     /**
@@ -348,8 +350,12 @@ public class SiteSettingsCategory {
             case Type.ZOOM:
                 return "zoom";
             default:
+            {
+                String value = BromiteCustomContentSettingImpl.getPreferenceKey(type);
+                if (value != null) return value;
                 assert false;
                 return "";
+            }
         }
     }
 

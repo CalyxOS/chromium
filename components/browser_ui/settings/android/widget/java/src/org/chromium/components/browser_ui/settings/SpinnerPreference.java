@@ -22,6 +22,7 @@ public class SpinnerPreference extends Preference {
     private ArrayAdapter<Object> mAdapter;
     private int mSelectedIndex;
     private final boolean mSingleLine;
+    private boolean mIsWidget = false;
 
     /** Constructor for inflating from XML. */
     public SpinnerPreference(Context context, AttributeSet attrs) {
@@ -34,6 +35,19 @@ public class SpinnerPreference extends Preference {
         } else {
             setLayoutResource(R.layout.preference_spinner);
         }
+    }
+
+    public SpinnerPreference(Context context, boolean singleLine) {
+        super(context, null);
+        mSingleLine = singleLine;
+        mIsWidget = true;
+        setLayoutResource(R.layout.preference_spinner_single_widget);
+    }
+
+    @Override
+    protected void onClick() {
+        if (mIsWidget)
+            mSpinner.performClick();
     }
 
     /**
@@ -53,6 +67,12 @@ public class SpinnerPreference extends Preference {
         mAdapter = new ArrayAdapter<>(getContext(), itemLayout, options);
         mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSelectedIndex = selectedIndex;
+    }
+
+    public void setSelectedIndex(int selectedIndex) {
+        mSelectedIndex = selectedIndex;
+        if (mSpinner != null)
+            mSpinner.setSelection(mSelectedIndex);
     }
 
     /** Returns the Spinner instance for introspection during tests. */
@@ -87,6 +107,10 @@ public class SpinnerPreference extends Preference {
     public void onBindViewHolder(PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
 
+        if (mIsWidget) {
+            holder.setDividerAllowedAbove(true);
+            holder.setDividerAllowedBelow(true);
+        }
         ((TextView) holder.findViewById(R.id.title)).setText(getTitle());
         mSpinner = (Spinner) holder.findViewById(R.id.spinner);
         mSpinner.setOnItemSelectedListener(
