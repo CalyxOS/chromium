@@ -50,6 +50,7 @@
 #include "ui/views/controls/separator.h"
 #include "ui/views/layout/box_layout.h"
 #include "ui/views/layout/flex_layout.h"
+#include "ui/views/layout/table_layout.h"
 #include "ui/views/view_class_properties.h"
 
 #if BUILDFLAG(FULL_SAFE_BROWSING)
@@ -252,8 +253,20 @@ void PageInfoMainView::SetPermissionInfo(
   scroll_view->SetDrawOverflowIndicator(false);
   auto* content_view =
       scroll_view->SetContents(std::make_unique<views::View>());
-  content_view->SetLayoutManager(std::make_unique<views::FlexLayout>())
-      ->SetOrientation(views::LayoutOrientation::kVertical);
+
+  views::TableLayout* table_layout =
+    content_view->SetLayoutManager(std::make_unique<views::TableLayout>());
+  table_layout->AddColumn(
+          views::LayoutAlignment::kStretch, views::LayoutAlignment::kStretch,
+          views::TableLayout::kFixedSize,
+          views::TableLayout::ColumnSize::kFixed,
+          /*fixed_width=*/250, /*min_width=*/0)
+      .AddColumn(
+          views::LayoutAlignment::kStretch, views::LayoutAlignment::kStretch,
+          views::TableLayout::kFixedSize,
+          views::TableLayout::ColumnSize::kFixed,
+          /*fixed_width=*/250, /*min_width=*/0)
+      .AddRows(/*n=*/1, views::TableLayout::kFixedSize);
   content_view->SetID(PageInfoViewFactory::VIEW_ID_PAGE_INFO_PERMISSION_VIEW);
   content_view->SetProperty(views::kElementIdentifierKey,
                             kPermissionsElementId);
@@ -268,11 +281,16 @@ void PageInfoMainView::SetPermissionInfo(
     }
   }
 
+  int count = 0;
   for (const auto& permission : permission_info_list) {
+    if (++count % 2 == 0)
+      table_layout->AddRows(/*n=*/1, views::TableLayout::kFixedSize);
     PermissionToggleRowView* toggle_row =
         content_view->AddChildView(std::make_unique<PermissionToggleRowView>(
             ui_delegate_, navigation_handler_, permission, should_show_spacer));
     toggle_row->AddObserver(this);
+    toggle_row->SetProperty(views::kMarginsKey,
+                            gfx::Insets::TLBR(0, 0, 0, 0));
     toggle_row->SetProperty(views::kCrossAxisAlignmentKey,
                             views::LayoutAlignment::kStretch);
     syncable_permission_rows_.emplace(permission.type, toggle_row);
@@ -280,6 +298,8 @@ void PageInfoMainView::SetPermissionInfo(
   }
 
   for (auto& object : chosen_object_info_list) {
+    if (++count % 2 == 0)
+      table_layout->AddRows(/*n=*/1, views::TableLayout::kFixedSize);
     // The view takes ownership of the object info.
     auto object_view = std::make_unique<ChosenObjectView>(
         std::move(object),
@@ -289,6 +309,10 @@ void PageInfoMainView::SetPermissionInfo(
     chosen_object_rows_.push_back(
         content_view->AddChildView(std::move(object_view)));
   }
+
+  table_layout->AddRows(/*n=*/1, views::TableLayout::kFixedSize);
+  if (++count % 2 == 0)
+    content_view->AddChildView(std::make_unique<views::View>());
 
   const int controls_spacing = ChromeLayoutProvider::Get()->GetDistanceMetric(
       views::DISTANCE_RELATED_CONTROL_VERTICAL);

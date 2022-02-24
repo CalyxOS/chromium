@@ -26,6 +26,8 @@
 #include "chrome/browser/ui/views/page_info/page_info_navigation_handler.h"
 #include "chrome/browser/ui/views/page_info/page_info_permission_content_view.h"
 #include "chrome/browser/ui/views/page_info/page_info_security_content_view.h"
+#include "components/content_settings/core/browser/website_settings_info.h"
+#include "components/content_settings/core/browser/website_settings_registry.h"
 #include "components/page_info/core/features.h"
 #include "components/page_info/core/proto/about_this_site_metadata.pb.h"
 #include "components/page_info/page_info.h"
@@ -261,7 +263,14 @@ const ui::ImageModel PageInfoViewFactory::GetPermissionIcon(
   ContentSetting setting = info.setting == CONTENT_SETTING_DEFAULT
                                ? info.default_setting
                                : info.setting;
+  return GetPermissionIcon(info, blocked_on_system_level, setting);
+}
 
+// static
+const ui::ImageModel PageInfoViewFactory::GetPermissionIcon(
+    const PageInfo::PermissionInfo& info,
+    bool blocked_on_system_level,
+    ContentSetting setting) {
   // For guard content settings and Automatic Picture-in-Picture, ASK is treated
   // as an "on" state.
   const bool show_blocked_badge =
@@ -555,6 +564,17 @@ const ui::ImageModel PageInfoViewFactory::GetPermissionIcon(
       icon = &vector_icons::kPointerLockIcon;
       break;
     default:
+      bool found = false;
+      content_settings::WebsiteSettingsRegistry* website_settings =
+          content_settings::WebsiteSettingsRegistry::GetInstance();
+      for (const content_settings::WebsiteSettingsInfo* cs : *website_settings) {
+        if (cs->type() == info.type && cs->show_into_info_page()) {
+          icon = &vector_icons::kProtectedContentIcon;
+          found = true;
+          break;
+        }
+      }
+      if (found) break;
       // All other |ContentSettingsType|s do not have icons on desktop or are
       // not shown in the Page Info bubble.
       NOTREACHED();
