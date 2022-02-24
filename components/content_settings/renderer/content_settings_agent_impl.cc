@@ -201,6 +201,39 @@ void ContentSettingsAgentImpl::SendRendererContentSettingRules(
       std::move(renderer_settings));
 }
 
+ContentSetting ContentSettingsAgentImpl::GetContentSetting(
+        ContentSettingsType type, ContentSetting default_value) {
+  if (!content_setting_rules_)
+    return default_value;
+
+  blink::WebLocalFrame* frame = render_frame()->GetWebFrame();
+  const GURL secondary_url =
+          url::Origin(frame->GetDocument().GetSecurityOrigin()).GetURL();
+  for (ContentSettingRuleSource& info : content_setting_rules_->settings_rules) {
+      if (info.type == (int)type) {
+        return GetContentSettingFromRules(info.rules, secondary_url);
+      }
+  }
+  return default_value;
+}
+
+bool ContentSettingsAgentImpl::AllowContentSetting(
+        ContentSettingsType type, bool default_value) {
+  if (!content_setting_rules_)
+    return default_value;
+
+  blink::WebLocalFrame* frame = render_frame()->GetWebFrame();
+  const GURL secondary_url =
+          url::Origin(frame->GetDocument().GetSecurityOrigin()).GetURL();
+  for (ContentSettingRuleSource& info : content_setting_rules_->settings_rules) {
+      if (info.type == (int)type) {
+        return CONTENT_SETTING_ALLOW == GetContentSettingFromRules(
+                  info.rules, secondary_url);
+      }
+  }
+  return default_value;
+}
+
 void ContentSettingsAgentImpl::OnContentSettingsAgentRequest(
     mojo::PendingAssociatedReceiver<mojom::ContentSettingsAgent> receiver) {
   receivers_.Add(this, std::move(receiver));
