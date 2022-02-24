@@ -64,6 +64,10 @@ import org.chromium.url.GURL;
 
 import java.util.Set;
 
+import android.content.Intent;
+import android.provider.Browser;
+import android.net.Uri;
+
 /** A SiteSettingsDelegate instance that contains Chrome-specific Site Settings logic. */
 public class ChromeSiteSettingsDelegate implements SiteSettingsDelegate {
     public static final String EMBEDDED_CONTENT_HELP_CENTER_URL =
@@ -229,7 +233,7 @@ public class ChromeSiteSettingsDelegate implements SiteSettingsDelegate {
 
     @Override
     public boolean isHelpAndFeedbackEnabled() {
-        return true;
+        return false;
     }
 
     @Override
@@ -364,6 +368,17 @@ public class ChromeSiteSettingsDelegate implements SiteSettingsDelegate {
     @Override
     public String getRelatedWebsiteSetOwner(String memberOrigin) {
         return mPrivacySandboxBridge.getFirstPartySetOwner(memberOrigin);
+    }
+
+    @Override
+    public void launchHelpAndFeedbackActivity(Activity currentActivity, String url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        // Let Chromium know that this intent is from Chromium, so that it does not close the app when
+        // the user presses 'back' button.
+        intent.putExtra(Browser.EXTRA_APPLICATION_ID, currentActivity.getPackageName());
+        intent.putExtra(Browser.EXTRA_CREATE_NEW_TAB, true);
+        intent.setPackage(currentActivity.getPackageName());
+        currentActivity.startActivity(intent);
     }
 
     @Override
