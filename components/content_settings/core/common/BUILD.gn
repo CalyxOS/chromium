@@ -56,6 +56,13 @@ static_library("common") {
     "//net",
     "//url",
   ]
+  deps += [ ":bromite_content_settings" ]
+}
+
+cpp_bromite_include("bromite_content_settings") {
+  inputs = [ "bromite_content_settings/placeholder.txt" ]
+  output_file = "bromite_content_settings.inc"
+  visibility = [ "*" ]
 }
 
 source_set("unit_tests") {
@@ -90,6 +97,7 @@ mojom("content_settings_types") {
   sources = [ "content_settings_types.mojom" ]
 
   public_deps = [ "//mojo/public/mojom/base" ]
+  parser_deps = [ ":bromite_content_settings" ]
 
   webui_module_path = "/"
   generate_legacy_js_bindings = true
