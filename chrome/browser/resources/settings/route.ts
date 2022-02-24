@@ -8,6 +8,7 @@ import {loadTimeData} from 'chrome://resources/js/load_time_data.js';
 import {pageVisibility} from './page_visibility.js';
 import type {SettingsRoutes} from './router.js';
 import {Route, Router} from './router.js';
+import {setupContentSettingsRoutes} from './site_settings_page/site_settings_page_util.js'
 
 /**
  * Add all of the child routes that originate from the privacy route,
@@ -144,6 +145,7 @@ function addPrivacyChildRoutes(r: Partial<SettingsRoutes>) {
     r.SITE_SETTINGS_AUTOMATIC_FULLSCREEN =
         r.SITE_SETTINGS.createChild('automaticFullscreen');
   }
+  setupContentSettingsRoutes(r);
 }
 
 /**
