@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/PreferenceLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+    android:gravity="center_vertical"
+    android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
+    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+    android:paddingRight="?android:attr/listPreferredItemPaddingRight"
+    android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+    android:background="?android:attr/selectableItemBackground"
+    android:clipToPadding="false"
+    android:baselineAligned="false"
+    app:allowDividerAbove="true"
+    app:allowDividerBelow="true">
+
+    <LinearLayout
+        android:id="@+id/icon_frame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="56dp"
+        android:gravity="start|center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="0dp"
+        android:paddingStart="0dp"
+        android:paddingRight="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp" >
+        <ImageView
+            android:id="@android:id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:maxWidth="48dp"
+            app:maxHeight="48dp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+        <TextView
+            android:id="@+id/title"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            style="@style/PreferenceTitle" />
+
+        <TextView
+            android:id="@+id/summary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_alignLeft="@+id/title"
+            android:layout_alignStart="@+id/title"
+            android:layout_gravity="start"
+            android:textAlignment="viewStart"
+            android:maxLines="10"
+            style="@style/PreferenceSummary"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="end|center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingStart="16dp"
+        android:paddingRight="0dp"
+        android:paddingEnd="16dp"
+        android:orientation="vertical" >
+
+        <org.chromium.ui.widget.ChromeImageView
+            android:id="@android:id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_more_vert_24dp"
+            app:maxWidth="48dp"
+            app:maxHeight="48dp" />
+    </LinearLayout>
+
+</LinearLayout>
