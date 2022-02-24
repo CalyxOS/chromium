@@ -424,4 +424,5 @@ enum ContentSettingsType {
   // BLOCK: Protections enabled. This is the default state.
   // ALLOW: Protections disabled.
   TRACKING_PROTECTION,
+#include "components/content_settings/core/common/bromite_content_settings.inc"
 };

@@ -53,5 +53,17 @@
         icon="[[blockOptionIcon]]"
         no-collapse>
     </settings-collapse-radio-button>
+    <settings-collapse-radio-button
+        id="askRadioOption"
+        class$="[[getAskButtonClass_(askOptionSubLabel)]]"
+        name="[[siteContentRadioSettingEnum_.ASK]]"
+        pref="[[pref_]]"
+        label="[[askOptionLabel]]"
+        sub-label="[[askOptionSubLabel]]"
+        disabled$="[[isRadioGroupDisabled_(category)]]"
+        icon="[[askOptionIcon]]"
+        hidden$="[[!showAskSetting_(category)]]"
+        no-collapse>
+    </settings-collapse-radio-button>
   </settings-radio-group>
 </div>
