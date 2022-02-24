@@ -218,6 +218,8 @@ public interface SiteSettingsDelegate {
      */
     String getRelatedWebsiteSetOwner(String memberOrigin);
 
+    void launchHelpAndFeedbackActivity(Activity currentActivity, String url);
+
     /**
      * Returns whether the current implementation of the delegate is able to launch the Clear
      * Browsing Data dialog in Settings.
