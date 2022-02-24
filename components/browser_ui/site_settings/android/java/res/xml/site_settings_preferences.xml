@@ -181,4 +181,11 @@ The order of the following items is from: http://crbug.com/610358.
         android:title="@string/safety_hub_autorevocation_toggle_title"
         android:summary="@string/safety_hub_autorevocation_toggle_summary" />
 
+    <Preference
+        android:key="divider_cromite"
+        android:selectable="false"
+        android:layout="@layout/horizontal_divider"/>
+
+    <PreferenceCategory android:title="Cromite content settings"/>
+
 </PreferenceScreen>

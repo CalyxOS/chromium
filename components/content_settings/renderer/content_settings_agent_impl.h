@@ -77,6 +77,13 @@ class ContentSettingsAgentImpl
   static mojom::ContentSettingsManager::StorageType ConvertToMojoStorageType(
       StorageType storage_type);
 
+  bool AllowContentSetting(
+          ContentSettingsType type, const blink::WebURL& secondary_url, bool default_value) override;
+  bool AllowContentSetting(
+          ContentSettingsType type, bool default_value) override;
+  ContentSetting GetContentSetting(
+          ContentSettingsType type, ContentSetting default_value);
+
   // blink::WebContentSettingsClient:
   void AllowStorageAccess(StorageType storage_type,
                           base::OnceCallback<void(bool)> callback) override;
@@ -128,6 +135,8 @@ class ContentSettingsAgentImpl
 
   // Resets the `content_blocked_` array.
   void ClearBlockedContentSettings();
+
+  bool IsAllowlistedForContentSettings() const;
 
   // A getter for `content_settings_manager_` that ensures it is bound.
   mojom::ContentSettingsManager& GetContentSettingsManager();
