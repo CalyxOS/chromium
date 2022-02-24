@@ -42,7 +42,7 @@ function getCategoryItemMap(): Map<ContentSettingsTypes, CategoryListItem> {
   }
   // The following list is ordered alphabetically by |id|. The order in which
   // these appear in the UI is determined elsewhere in this file.
-  const categoryList = [
+  let categoryList = [
     {
       route: routes.SITE_SETTINGS_ADS,
       id: Id.ADS,
@@ -347,8 +347,32 @@ function getCategoryItemMap(): Map<ContentSettingsTypes, CategoryListItem> {
     },
   ];
 
+  for (let index=0; index < loadTimeData.getInteger("br_cs_count"); index++) {
+    let obj = JSON.parse(loadTimeData.getString("br_cs_" + index));
+    let name = obj["name"];
+
+    categoryList.push({
+      route: (routes as any)[`SITE_SETTINGS_${name.toUpperCase()}`],
+      id: name,
+      label: `brSiteSettings${name}`,
+      icon: `br-settings:${name}`,
+      enabledLabel: `brSiteSettings${name}Allowed`,
+      disabledLabel: `brSiteSettings${name}Blocked`,
+    });
+  }
+
   categoryItemMap = new Map(categoryList.map(item => [item.id, item]));
   return categoryItemMap;
+}
+
+function buildBromiteItemListFromIds(orderedIdList: ContentSettingsTypes[]):
+    CategoryListItem[] {
+  for (let index=0; index < loadTimeData.getInteger("br_cs_count"); index++) {
+    let obj = JSON.parse(loadTimeData.getString("br_cs_" + index));
+    let name = obj["name"];
+    orderedIdList.push(name);
+  }
+  return buildItemListFromIds(orderedIdList);
 }
 
 function buildItemListFromIds(orderedIdList: ContentSettingsTypes[]):
@@ -439,7 +463,7 @@ export class SettingsSiteSettingsPageElement extends
               Id.IMAGES,
               Id.POPUPS,
             ]),
-            contentAdvanced: buildItemListFromIds([
+            contentAdvanced: buildBromiteItemListFromIds([
               Id.SOUND,
               Id.ADS,
               Id.ZOOM_LEVELS,

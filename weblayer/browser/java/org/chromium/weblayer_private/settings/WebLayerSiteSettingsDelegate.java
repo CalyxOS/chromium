@@ -164,6 +164,9 @@ public class WebLayerSiteSettingsDelegate
     public void dismissPrivacySandboxSnackbar() {}
 
     @Override
+    public void launchHelpAndFeedbackActivity(Activity currentActivity, String url) {}
+
+    @Override
     public boolean isFirstPartySetsDataAccessEnabled() {
         return false;
     }
