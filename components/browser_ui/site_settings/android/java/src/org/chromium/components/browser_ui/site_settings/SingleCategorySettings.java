@@ -247,6 +247,10 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
         @ContentSettingValues
         Integer contentSetting = website.site().getContentSetting(
                 browserContextHandle, mCategory.getContentSettingsType());
+        if (contentSetting != null &&
+                BromiteCustomContentSettingImpl.processOnBlockList(contentSetting, contentSetting)) {
+            return BromiteCustomContentSettingImpl.isOnBlockList(contentSetting, website, contentSetting);
+        }
         if (contentSetting != null) {
             if (mCategory.getContentSettingsType() == SiteSettingsCategory.Type.TIMEZONE_OVERRIDE) {
                 return ContentSettingValues.ALLOW != contentSetting;
@@ -402,6 +406,7 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
                 ? new HashSet<>(getArguments().getStringArrayList(EXTRA_SELECTED_DOMAINS))
                 : null;
 
+        BromiteCustomContentSettingImpl.onActivityCreated(this);
         configureGlobalToggles();
         if (mCategory.getType() == SiteSettingsCategory.Type.REQUEST_DESKTOP_SITE) {
             RecordUserAction.record("DesktopSiteContentSetting.SettingsPage.Entered");
@@ -508,6 +513,11 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
         BrowserContextHandle browserContextHandle =
                 getSiteSettingsDelegate().getBrowserContextHandle();
         PrefService prefService = UserPrefs.get(browserContextHandle);
+        if (BromiteCustomContentSettingImpl.onPreferenceChange(mCategory,
+                    browserContextHandle, preference, newValue) == true) {
+            getInfoForOrigins();
+            return true;
+        }
         if (BINARY_TOGGLE_KEY.equals(preference.getKey())) {
             assert !mCategory.isManaged();
 
@@ -672,6 +682,8 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
         } else if (mCategory.getType() == SiteSettingsCategory.Type.TIMEZONE_OVERRIDE) {
             resource = R.string.website_settings_category_timezone_override_allowed;
         }
+        if (resource == 0)
+            resource = BromiteCustomContentSettingImpl.getAddExceptionDialogMessage(mCategory);
         assert resource > 0;
         return getString(resource);
     }
@@ -790,6 +802,9 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
             allowSpecifyingExceptions = true;
         } else if (mCategory.getType() == SiteSettingsCategory.Type.TIMEZONE_OVERRIDE) {
             allowSpecifyingExceptions = true;
+        } else {
+            Boolean allow = BromiteCustomContentSettingImpl.allowSpecifyingExceptions(mCategory);
+            if (allow != null) allowSpecifyingExceptions = (boolean)allow;
         }
         if (allowSpecifyingExceptions) {
             getPreferenceScreen().addPreference(new AddExceptionPreference(getStyledContext(),
@@ -961,6 +976,10 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
             TriStateSiteSettingsPreference triStateToggle =
                     (TriStateSiteSettingsPreference) getPreferenceScreen().findPreference(
                             TRI_STATE_TOGGLE_KEY);
+            if (triStateToggle != null) {
+                Boolean blocked = BromiteCustomContentSettingImpl.considerException(mCategory, triStateToggle.getCheckedSetting());
+                if (blocked != null) return (boolean)blocked;
+            }
             if (triStateToggle != null)
               return (triStateToggle.getCheckedSetting() == ContentSettingValues.BLOCK);
 
@@ -1039,6 +1058,7 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
         if (mCategory.getType() != SiteSettingsCategory.Type.TIMEZONE_OVERRIDE) {
             screen.removePreference(screen.findPreference(TIMEOVERRIDE_INFO_TEXT));
         }
+        BromiteCustomContentSettingImpl.configureGlobalToggles(mCategory, screen);
 
         if (permissionBlockedByOs) {
             maybeShowOsWarning(screen);
@@ -1170,7 +1190,7 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
                 getSiteSettingsDelegate().getBrowserContextHandle(), contentType);
         int[] descriptionIds =
                 ContentSettingsResources.getTriStateSettingDescriptionIDs(contentType);
-        triStateToggle.initialize(setting, descriptionIds);
+        triStateToggle.initialize(contentType, setting, descriptionIds);
     }
 
     private void configureTimeOverrideStateToggle(
@@ -1280,6 +1300,14 @@ public class SingleCategorySettings extends SiteSettingsPreferenceFragment
 
         @ContentSettingValues
         Integer value = site.getContentSetting(browserContextHandle, contentSettingsType);
+
+        AlertDialog.Builder alertDialog =
+            BromiteCustomContentSettingImpl.buildPreferenceDialog(site, contentSettingsType,
+                browserContextHandle, getContext(),
+                (dialog, which) -> { getInfoForOrigins(); });
+        if (alertDialog != null) {
+            return alertDialog;
+        }
 
         CharSequence[] descriptions = new String[2];
         descriptions[0] = getString(ContentSettingsResources.getSiteSummary(

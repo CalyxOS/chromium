@@ -277,6 +277,10 @@ public final class Website implements WebsiteEntry {
                         /*isEmbargoed=*/false);
                 setContentSettingException(type, exception);
             }
+        } else if (exception == null) {
+            exception = BromiteCustomContentSettingImpl.createCustomException(type, value, getAddress());
+            if (exception != null)
+                setContentSettingException(type, exception);
         }
         // We want to call setContentSetting even after explicitly setting
         // mContentSettingException above because this will trigger the actual change

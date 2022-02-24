@@ -71,7 +71,10 @@ class ContentSettingsRegistry {
                 Platforms platforms,
                 ContentSettingsInfo::IncognitoBehavior incognito_behavior,
                 ContentSettingsInfo::StorageBehavior storage_behavior,
-                ContentSettingsInfo::OriginRestriction origin_restriction);
+                ContentSettingsInfo::OriginRestriction origin_restriction,
+                bool show_into_info_page = false,
+                int permission_type_ui = 0,
+                int permission_type_ui_mid_sentence = 0);
 
   Map content_settings_info_;
   raw_ptr<WebsiteSettingsRegistry> website_settings_registry_;

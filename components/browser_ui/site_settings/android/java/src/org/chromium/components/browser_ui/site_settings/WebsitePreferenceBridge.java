@@ -246,7 +246,7 @@ public class WebsitePreferenceBridge {
             case ContentSettingsType.TIMEZONE_OVERRIDE:
                 return true;
             default:
-                return false;
+                return BromiteCustomContentSettingImpl.requiresTriStateContentSetting(contentSettingsType);
         }
     }
 

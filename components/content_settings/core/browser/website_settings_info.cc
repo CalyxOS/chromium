@@ -33,7 +33,10 @@ WebsiteSettingsInfo::WebsiteSettingsInfo(ContentSettingsType type,
                                          SyncStatus sync_status,
                                          LossyStatus lossy_status,
                                          ScopingType scoping_type,
-                                         IncognitoBehavior incognito_behavior)
+                                         IncognitoBehavior incognito_behavior,
+    bool show_into_info_page,
+    int permission_type_ui,
+    int permission_type_ui_mid_sentence)
     : type_(type),
       name_(name),
       pref_name_(GetPreferenceName(name, kPrefPrefix)),
@@ -42,7 +45,10 @@ WebsiteSettingsInfo::WebsiteSettingsInfo(ContentSettingsType type,
       sync_status_(sync_status),
       lossy_status_(lossy_status),
       scoping_type_(scoping_type),
-      incognito_behavior_(incognito_behavior) {
+      incognito_behavior_(incognito_behavior),
+      show_into_info_page_(show_into_info_page),
+      permission_type_ui_(permission_type_ui),
+      permission_type_ui_mid_sentence_(permission_type_ui_mid_sentence) {
   // For legacy reasons the default value is currently restricted to be an int
   // or none.
   // TODO(raymes): We should migrate the underlying pref to be a dictionary

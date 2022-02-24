@@ -62,7 +62,10 @@ const WebsiteSettingsInfo* WebsiteSettingsRegistry::Register(
     WebsiteSettingsInfo::LossyStatus lossy_status,
     WebsiteSettingsInfo::ScopingType scoping_type,
     Platforms platform,
-    WebsiteSettingsInfo::IncognitoBehavior incognito_behavior) {
+    WebsiteSettingsInfo::IncognitoBehavior incognito_behavior,
+    bool show_into_info_page,
+    int permission_type_ui,
+    int permission_type_ui_mid_sentence) {
 #if BUILDFLAG(IS_WIN)
   if (!(platform & PLATFORM_WINDOWS))
     return nullptr;
@@ -98,7 +101,8 @@ const WebsiteSettingsInfo* WebsiteSettingsRegistry::Register(
 
   WebsiteSettingsInfo* info = new WebsiteSettingsInfo(
       type, name, std::move(initial_default_value), sync_status, lossy_status,
-      scoping_type, incognito_behavior);
+      scoping_type, incognito_behavior,
+      show_into_info_page, permission_type_ui, permission_type_ui_mid_sentence);
   website_settings_info_[info->type()] = base::WrapUnique(info);
   return info;
 }

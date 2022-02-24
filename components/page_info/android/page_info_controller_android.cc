@@ -11,6 +11,7 @@
 #include "base/command_line.h"
 #include "base/containers/contains.h"
 #include "components/content_settings/core/browser/host_content_settings_map.h"
+#include "components/content_settings/core/browser/website_settings_registry.h"
 #include "components/content_settings/core/common/content_settings.h"
 #include "components/content_settings/core/common/content_settings_types.h"
 #include "components/page_info/android/jni_headers/PageInfoController_jni.h"
@@ -160,6 +161,14 @@ void PageInfoControllerAndroid::SetPermissionInfo(
         ContentSettingsType::FEDERATED_IDENTITY_API);
   }
 
+  content_settings::WebsiteSettingsRegistry* website_settings =
+      content_settings::WebsiteSettingsRegistry::GetInstance();
+  for (const content_settings::WebsiteSettingsInfo* info : *website_settings) {
+    if (info->show_into_info_page()) {
+       permissions_to_display.push_back(info->type());
+    }
+  }
+
   std::map<ContentSettingsType, ContentSetting>
       user_specified_settings_to_display;
 
@@ -236,6 +245,15 @@ absl::optional<ContentSetting> PageInfoControllerAndroid::GetSettingToDisplay(
     // The images content setting should show up if it is blocked globally
     // to give users an easy way to create exceptions.
     return permission.default_setting;
+  } else {
+    content_settings::WebsiteSettingsRegistry* website_settings =
+        content_settings::WebsiteSettingsRegistry::GetInstance();
+    for (const content_settings::WebsiteSettingsInfo* info : *website_settings) {
+      if (info->type() == permission.type &&
+          info->show_into_info_page()) {
+        return permission.default_setting;
+      }
+    }
   }
 
   // TODO(crbug.com/1077766): Also return permissions that are non

@@ -12,6 +12,7 @@
 #include "base/strings/utf_string_conversions.h"
 #include "build/build_config.h"
 #include "build/chromeos_buildflags.h"
+#include "components/content_settings/core/browser/website_settings_registry.h"
 #include "components/omnibox/common/omnibox_features.h"
 #include "components/page_info/core/features.h"
 #include "components/page_info/page_info_ui_delegate.h"
@@ -572,6 +573,12 @@ std::u16string PageInfoUI::PermissionTypeToUIString(ContentSettingsType type) {
     if (info.type == type)
       return l10n_util::GetStringUTF16(info.string_id);
   }
+  const content_settings::WebsiteSettingsInfo* settingInfo =
+    content_settings::WebsiteSettingsRegistry::GetInstance()->Get(type);
+  if (settingInfo && settingInfo->show_into_info_page() &&
+      settingInfo->permission_type_ui() != 0) {
+    return l10n_util::GetStringUTF16(settingInfo->permission_type_ui());
+  }
   NOTREACHED();
   return std::u16string();
 }
@@ -582,6 +589,12 @@ std::u16string PageInfoUI::PermissionTypeToUIStringMidSentence(
   for (const PermissionUIInfo& info : GetContentSettingsUIInfo()) {
     if (info.type == type)
       return l10n_util::GetStringUTF16(info.string_id_mid_sentence);
+  }
+  const content_settings::WebsiteSettingsInfo* settingInfo =
+    content_settings::WebsiteSettingsRegistry::GetInstance()->Get(type);
+  if (settingInfo && settingInfo->show_into_info_page() &&
+      settingInfo->permission_type_ui_mid_sentence() != 0) {
+    return l10n_util::GetStringUTF16(settingInfo->permission_type_ui_mid_sentence());
   }
   NOTREACHED();
   return std::u16string();
@@ -969,6 +982,11 @@ bool PageInfoUI::ContentSettingsTypeInPageInfo(ContentSettingsType type) {
   for (const PermissionUIInfo& info : GetContentSettingsUIInfo()) {
     if (info.type == type)
       return true;
+  }
+  const content_settings::WebsiteSettingsInfo* settingInfo =
+    content_settings::WebsiteSettingsRegistry::GetInstance()->Get(type);
+  if (settingInfo) {
+    return settingInfo->show_into_info_page();
   }
   return false;
 }

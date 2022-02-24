@@ -88,7 +88,10 @@ class WebsiteSettingsInfo {
                       SyncStatus sync_status,
                       LossyStatus lossy_status,
                       ScopingType scoping_type,
-                      IncognitoBehavior incognito_behavior);
+                      IncognitoBehavior incognito_behavior,
+                      bool show_into_info_page,
+                      int permission_type_ui,
+                      int permission_type_ui_mid_sentence);
 
   WebsiteSettingsInfo(const WebsiteSettingsInfo&) = delete;
   WebsiteSettingsInfo& operator=(const WebsiteSettingsInfo&) = delete;
@@ -113,6 +116,10 @@ class WebsiteSettingsInfo {
   ScopingType scoping_type() const { return scoping_type_; }
   IncognitoBehavior incognito_behavior() const { return incognito_behavior_; }
 
+  bool show_into_info_page() const { return show_into_info_page_; }
+  int permission_type_ui() const { return permission_type_ui_; }
+  int permission_type_ui_mid_sentence() const { return permission_type_ui_mid_sentence_; }
+
  private:
   const ContentSettingsType type_;
   const std::string name_;
@@ -124,6 +131,9 @@ class WebsiteSettingsInfo {
   const LossyStatus lossy_status_;
   const ScopingType scoping_type_;
   const IncognitoBehavior incognito_behavior_;
+  const bool show_into_info_page_;
+  const int permission_type_ui_;
+  const int permission_type_ui_mid_sentence_;
 };
 
 }  // namespace content_settings

@@ -15,6 +15,8 @@
 #include "components/content_settings/core/browser/website_settings_registry.h"
 #include "components/content_settings/core/common/content_settings.h"
 #include "components/content_settings/core/common/features.h"
+#include "components/strings/grit/components_chromium_strings.h"
+#include "components/strings/grit/components_strings.h"
 
 #if BUILDFLAG(IS_ANDROID)
 #include "media/base/android/media_drm_bridge.h"
@@ -680,7 +682,10 @@ void ContentSettingsRegistry::Register(
     Platforms platforms,
     ContentSettingsInfo::IncognitoBehavior incognito_behavior,
     ContentSettingsInfo::StorageBehavior storage_behavior,
-    ContentSettingsInfo::OriginRestriction origin_restriction) {
+    ContentSettingsInfo::OriginRestriction origin_restriction,
+    bool show_into_info_page,
+    int permission_type_ui,
+    int permission_type_ui_mid_sentence) {
   // Ensure that nothing has been registered yet for the given type.
   DCHECK(!website_settings_registry_->Get(type));
 
@@ -689,7 +694,9 @@ void ContentSettingsRegistry::Register(
       website_settings_registry_->Register(
           type, name, std::move(default_value), sync_status,
           WebsiteSettingsInfo::NOT_LOSSY, scoping_type, platforms,
-          WebsiteSettingsInfo::INHERIT_IN_INCOGNITO);
+          WebsiteSettingsInfo::INHERIT_IN_INCOGNITO,
+          show_into_info_page, permission_type_ui,
+          permission_type_ui_mid_sentence);
 
   // WebsiteSettingsInfo::Register() will return nullptr if content setting type
   // is not used on the current platform and doesn't need to be registered.

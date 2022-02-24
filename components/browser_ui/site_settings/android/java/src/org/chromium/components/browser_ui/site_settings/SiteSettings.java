@@ -33,6 +33,7 @@ public class SiteSettings
         SettingsUtils.addPreferencesFromResource(this, R.xml.site_settings_preferences);
         getActivity().setTitle(getContext().getString(R.string.prefs_site_settings));
 
+        BromiteCustomContentSettingImpl.configurePreferences(this);
         configurePreferences();
         updatePreferenceStates();
     }
@@ -119,7 +120,7 @@ public class SiteSettings
             } else if (requiresTriStateSetting) {
                 p.setSummary(ContentSettingsResources.getCategorySummary(contentType, setting));
             } else {
-                p.setSummary(ContentSettingsResources.getCategorySummary(contentType, checked));
+                p.setSummary(ContentSettingsResources.getCategorySummary(contentType, checked)); //
             }
 
             p.setIcon(SettingsUtils.getTintedIcon(

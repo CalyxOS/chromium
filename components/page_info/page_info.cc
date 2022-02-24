@@ -24,6 +24,7 @@
 #include "components/browser_ui/util/android/url_constants.h"
 #include "components/browsing_data/content/local_storage_helper.h"
 #include "components/content_settings/browser/page_specific_content_settings.h"
+#include "components/content_settings/core/browser/website_settings_registry.h"
 #include "components/content_settings/browser/ui/cookie_controls_controller.h"
 #include "components/content_settings/core/browser/content_settings_registry.h"
 #include "components/content_settings/core/browser/content_settings_utils.h"
@@ -165,6 +166,15 @@ bool ShouldShowPermission(const PageInfo::PermissionInfo& info,
   // Always show JIT settings UI when when it has a site-specific override.
   if (info.type == ContentSettingsType::JAVASCRIPT_JIT) {
     return true;
+  }
+
+  content_settings::WebsiteSettingsRegistry* website_settings =
+      content_settings::WebsiteSettingsRegistry::GetInstance();
+  for (const content_settings::WebsiteSettingsInfo* winfo : *website_settings) {
+    if (info.type == winfo->type() &&
+        winfo->show_into_info_page()) {
+      return true;
+    }
   }
 
   const bool is_incognito = web_contents->GetBrowserContext()->IsOffTheRecord();
@@ -1150,7 +1160,18 @@ void PageInfo::PresentSitePermissions() {
   PermissionInfo permission_info;
   HostContentSettingsMap* content_settings = GetContentSettings();
   DCHECK(web_contents_);
-  for (const ContentSettingsType type : kPermissionType) {
+  std::vector<ContentSettingsType> permission_list;
+  for (const ContentSettingsType type : kPermissionType)
+    permission_list.push_back(type);
+
+  content_settings::WebsiteSettingsRegistry* website_settings =
+      content_settings::WebsiteSettingsRegistry::GetInstance();
+  for (const content_settings::WebsiteSettingsInfo* info : *website_settings) {
+    if (info->show_into_info_page()) {
+      permission_list.push_back(info->type());
+    }
+  }
+  for (const ContentSettingsType type : permission_list) {
     permission_info.type = type;
 
     content_settings::SettingInfo info;

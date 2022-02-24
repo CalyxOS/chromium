@@ -38,7 +38,7 @@ public class ContentSettingsResources {
     /**
      * An inner class contains all the resources for a ContentSettingsType
      */
-    private static class ResourceItem {
+    public static class ResourceItem {
         private final int mIcon;
         private final int mTitle;
         private final @ContentSettingValues @Nullable Integer mDefaultEnabledValue;
@@ -290,6 +290,8 @@ public class ContentSettingsResources {
                             R.string.website_settings_category_timezone_override_custom,
                             R.string.website_settings_category_timezone_override_random);
         }
+        ResourceItem ri = BromiteCustomContentSettingImpl.getResourceItem(contentType);
+        if (ri != null) return ri;
         assert false; // NOTREACHED
         return null;
     }
@@ -441,7 +443,9 @@ public class ContentSettingsResources {
         }
     }
 
-    public static int getCategorySummary(int contentType, @Nullable @ContentSettingValues int value) {
+    public static int getCategorySummary(int contentType, @Nullable @ContentSettingValues int value) { //
+        int result = BromiteCustomContentSettingImpl.getCategorySummary(contentType, value);
+        if (result != 0) return result;
         if (contentType == ContentSettingsType.TIMEZONE_OVERRIDE) {
             switch (value) {
                 case ContentSettingValues.ALLOW:
@@ -454,8 +458,7 @@ public class ContentSettingsResources {
                     return 0;
             }
         }
-        else
-            return getCategorySummary(value);
+        return getCategorySummary(value);
     }
 
     /**
@@ -570,6 +573,8 @@ public class ContentSettingsResources {
      *         Blocked states, in that order.
      */
     public static int[] getTriStateSettingDescriptionIDs(int contentType) {
+        int[] value = BromiteCustomContentSettingImpl.getTriStateSettingDescriptionIDs(contentType);
+        if (value != null) return value;
         if (contentType == ContentSettingsType.PROTECTED_MEDIA_IDENTIFIER) {
             // The recommended setting is different on different android versions depending on
             // whether per-origin provisioning is available. See https://crbug.com/904883.

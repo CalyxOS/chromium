@@ -126,6 +126,9 @@ public class SiteSettingsCategory {
         } else {
             permission = "";
         }
+        SiteSettingsCategory category = BromiteCustomContentSettingImpl.createFromType(
+            browserContextHandle, type);
+        if (category != null) return category;
         return new SiteSettingsCategory(browserContextHandle, type, permission);
     }
 
@@ -218,7 +221,7 @@ public class SiteSettingsCategory {
             // case Type.ALL_SITES
             // case Type.USE_STORAGE
             default:
-                return ContentSettingsType.DEFAULT; // Conversion unavailable.
+                return BromiteCustomContentSettingImpl.contentSettingsType(type);
         }
     }
 
@@ -304,8 +307,12 @@ public class SiteSettingsCategory {
             case Type.TIMEZONE_OVERRIDE:
                 return "timezone_override";
             default:
+            {
+                String value = BromiteCustomContentSettingImpl.getPreferenceKey(type);
+                if (value != null) return value;
                 assert false;
                 return "";
+            }
         }
     }
 

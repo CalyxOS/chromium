@@ -76,7 +76,10 @@ class WebsiteSettingsRegistry {
       WebsiteSettingsInfo::LossyStatus lossy_status,
       WebsiteSettingsInfo::ScopingType scoping_type,
       Platforms platforms,
-      WebsiteSettingsInfo::IncognitoBehavior incognito_behavior);
+      WebsiteSettingsInfo::IncognitoBehavior incognito_behavior,
+      bool show_into_info_page = false,
+      int permission_type_ui = 0,
+      int permission_type_ui_mid_sentence = 0);
 
   const_iterator begin() const;
   const_iterator end() const;
