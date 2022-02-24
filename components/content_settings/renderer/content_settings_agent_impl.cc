@@ -200,6 +200,77 @@ void ContentSettingsAgentImpl::SendRendererContentSettingRules(
       std::move(renderer_settings));
 }
 
+ContentSetting ContentSettingsAgentImpl::GetContentSetting(
+        ContentSettingsType type, ContentSetting default_value) {
+  if (!content_setting_rules_)
+    return default_value;
+
+  blink::WebLocalFrame* frame = render_frame()->GetWebFrame();
+  const GURL secondary_url =
+          url::Origin(frame->GetDocument().GetSecurityOrigin()).GetURL();
+  for (ContentSettingRuleSource& info : content_setting_rules_->settings_rules) {
+      if (info.type == (int)type) {
+        return GetContentSettingFromRules(info.rules, secondary_url);
+      }
+  }
+  return default_value;
+}
+
+bool ContentSettingsAgentImpl::AllowContentSetting(
+        ContentSettingsType type, bool default_value) {
+  if (!content_setting_rules_)
+    return default_value;
+
+  blink::WebLocalFrame* frame = render_frame()->GetWebFrame();
+  const GURL secondary_url =
+          url::Origin(frame->GetDocument().GetSecurityOrigin()).GetURL();
+  return AllowContentSetting(type, secondary_url, default_value);
+}
+
+bool ContentSettingsAgentImpl::AllowContentSetting(
+        ContentSettingsType type,
+        const blink::WebURL& secondary_url,
+        bool default_value) {
+  if (!content_setting_rules_)
+    return default_value;
+
+  for (ContentSettingRuleSource& info : content_setting_rules_->settings_rules) {
+      if (info.type == (int)type) {
+        return CONTENT_SETTING_ALLOW == GetContentSettingFromRules(
+                  info.rules, secondary_url);
+      }
+  }
+  return default_value;
+}
+
+bool ContentSettingsAgentImpl::IsAllowlistedForContentSettings() const {
+  const WebDocument& document = render_frame()->GetWebFrame()->GetDocument();
+  WebSecurityOrigin origin = document.GetSecurityOrigin();
+  WebURL document_url = document.Url();
+
+  if (origin.IsNull() || origin.IsOpaque())
+    return false;  // Uninitialized document?
+
+  blink::WebString protocol = origin.Protocol();
+
+  if (protocol == content::kChromeUIScheme)
+    return true;  // Browser UI elements should still work.
+
+  if (protocol == content::kChromeDevToolsScheme)
+    return true;  // DevTools UI elements should still work.
+
+  if (document_url.ProtocolIs("chrome-extension"))
+    return true;  // Extension pages should still work.
+
+  // If the scheme is file:, an empty file name indicates a directory listing,
+  // which requires JavaScript to function properly.
+  if (protocol == url::kFileScheme &&
+      document_url.ProtocolIs(url::kFileScheme)) {
+    return GURL(document_url).ExtractFileName().empty();
+  }
+  return false;
+}
+
 void ContentSettingsAgentImpl::OnContentSettingsAgentRequest(
     mojo::PendingAssociatedReceiver<mojom::ContentSettingsAgent> receiver) {
   receivers_.Add(this, std::move(receiver));
