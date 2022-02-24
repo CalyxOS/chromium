@@ -63,8 +63,39 @@ export class SiteDetailsElement extends SiteDetailsElementBase {
     return 'site-details';
   }
 
+  static getSettingTemplate(template: HTMLTemplateElement,
+                            name: string) : SiteDetailsPermissionElement | undefined {
+    let value : SiteDetailsPermissionElement | undefined = undefined;
+    template.content.querySelectorAll("site-details-permission").forEach(
+      (element: any) => {
+        let setting = element.getAttribute("category")
+          .replace("[[contentSettingsTypesEnum_.", "")
+          .replace("]]", "");
+          if ((ContentSettingsTypes as any)[setting] === name)
+            value = element;
+      });
+    return value;
+  }
+
   static get template() {
-    return getTemplate();
+    let template = getTemplate();
+    let content = template.content.getElementById("bromite-placeholder")!;
+
+    for (let index=0; index < loadTimeData.getInteger("br_cs_count"); index++) {
+      let obj = JSON.parse(loadTimeData.getString("br_cs_" + index));
+      let name = obj["name"];
+
+      if (this.getSettingTemplate(template, name))
+        continue;
+
+      let tag = document.createElement("site-details-permission");
+      tag.setAttribute("category", name);
+      tag.setAttribute("icon", `br-settings:${name}`);
+      tag.setAttribute("label", loadTimeData.getString(`brSiteSettings${name}`));
+      content.parentElement!.insertBefore(tag, content);
+    }
+    content.parentElement!.removeChild(content);
+    return template;
   }
 
   static get properties() {
