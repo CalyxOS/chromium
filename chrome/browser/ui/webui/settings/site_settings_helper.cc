@@ -44,6 +44,8 @@
 #include "chrome/common/url_constants.h"
 #include "chrome/grit/generated_resources.h"
 #include "components/content_settings/core/browser/host_content_settings_map.h"
+#include "components/content_settings/core/browser/website_settings_info.h"
+#include "components/content_settings/core/browser/website_settings_registry.h"
 #include "components/content_settings/core/common/content_settings.h"
 #include "components/content_settings/core/common/content_settings_pattern.h"
 #include "components/content_settings/core/common/content_settings_utils.h"
@@ -203,7 +205,7 @@ const ContentSettingsTypeNameEntry kContentSettingsTypeGroupNames[] = {
 
 static_assert(std::size(kContentSettingsTypeGroupNames) ==
                   // ContentSettingsType starts at -1, so add 1 here.
-                  static_cast<int32_t>(ContentSettingsType::NUM_TYPES) + 1,
+                  static_cast<int32_t>(ContentSettingsType::NUM_TYPES_CHROMIUM) + 1,
               "kContentSettingsTypeGroupNames should have "
               "CONTENT_SETTINGS_NUM_TYPES elements");
 
@@ -487,6 +489,13 @@ bool HasRegisteredGroupName(ContentSettingsType type) {
       return true;
     }
   }
+  content_settings::WebsiteSettingsRegistry* website_settings =
+      content_settings::WebsiteSettingsRegistry::GetInstance();
+  for (const content_settings::WebsiteSettingsInfo* cs : *website_settings) {
+    if (type == cs->type() && cs->desktop_ui()) {
+      return true;
+    }
+  }
   return false;
 }
 
@@ -500,7 +509,13 @@ ContentSettingsType ContentSettingsTypeFromGroupName(base::StringPiece name) {
       return entry.type;
     }
   }
-
+  content_settings::WebsiteSettingsRegistry* website_settings =
+      content_settings::WebsiteSettingsRegistry::GetInstance();
+  for (const content_settings::WebsiteSettingsInfo* cs : *website_settings) {
+    if (name == cs->name() && cs->desktop_ui()) {
+      return cs->type();
+    }
+  }
   return ContentSettingsType::DEFAULT;
 }
 
@@ -520,6 +535,13 @@ base::StringPiece ContentSettingsTypeToGroupName(ContentSettingsType type) {
     }
   }
 
+  content_settings::WebsiteSettingsRegistry* website_settings =
+      content_settings::WebsiteSettingsRegistry::GetInstance();
+  for (const content_settings::WebsiteSettingsInfo* cs : *website_settings) {
+    if (type == cs->type() && cs->desktop_ui()) {
+      return cs->name();
+    }
+  }
   NOTREACHED() << static_cast<int32_t>(type)
                << " is not a recognized content settings type.";
   return base::StringPiece();
@@ -588,6 +610,13 @@ const std::vector<ContentSettingsType>& GetVisiblePermissionCategories() {
       base_types->push_back(ContentSettingsType::PRIVATE_NETWORK_GUARD);
     }
 
+    content_settings::WebsiteSettingsRegistry* website_settings =
+        content_settings::WebsiteSettingsRegistry::GetInstance();
+    for (const content_settings::WebsiteSettingsInfo* cs : *website_settings) {
+      if (cs->desktop_ui()) {
+        base_types->push_back(cs->type());
+      }
+    }
     initialized = true;
   }
 
