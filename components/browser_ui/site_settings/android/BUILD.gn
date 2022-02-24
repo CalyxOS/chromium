@@ -146,6 +146,23 @@ android_library("java") {
     ":site_settings_jni_headers",
     "//components/content_settings/android:java_pref_names_srcjar",
   ]
+  sources += [
+    "java/src/org/chromium/components/browser_ui/site_settings/BromiteCustomContentSettingImpl.java",
+    "java/src/org/chromium/components/browser_ui/site_settings/BromiteCustomContentSetting.java",
+    "java/src/org/chromium/components/browser_ui/site_settings/BromiteCustomTriStateSiteSettingsPreferenceImpl.java",
+    "java/src/org/chromium/components/browser_ui/site_settings/impl/include_all_directory.java",
+  ]
+  deps += [
+    ":java_bromite_content_settings"
+  ]
+  srcjar_deps += [ ":java_bromite_content_settings" ]
+}
+
+java_bromite_impl("java_bromite_content_settings") {
+  inputs = [ "java/src/org/chromium/components/browser_ui/site_settings/impl/include_all_directory.java" ]
+  namespace = "org.chromium.components.browser_ui.site_settings.impl"
+  template = "java/src/org/chromium/components/browser_ui/site_settings/impl/java_template/BromiteCustomContentSettingImplBase.java.tmpl"
+  static_classes = false
 }
 
 android_library("javatests") {
@@ -194,6 +211,7 @@ robolectric_library("junit") {
 }
 
 android_resources("java_resources") {
+  allow_missing_resources = true
   sources = [
     "java/res/drawable-hdpi/ic_volume_up_grey600_24dp.png",
     "java/res/drawable-hdpi/permission_background_sync.png",
