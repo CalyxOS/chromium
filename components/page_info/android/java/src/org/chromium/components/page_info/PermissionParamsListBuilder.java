@@ -109,6 +109,14 @@ public class PermissionParamsListBuilder {
                 span, 0, nameStringMidSentence.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
 
         boolean allowed = permission.setting != ContentSettingValues.BLOCK;
+        if (permission.setting == ContentSettingValues.ASK) {
+            allowed = false;
+        }
+        if (permission.type == ContentSettingsType.FILE_SYSTEM_WRITE_GUARD
+                && permission.setting == ContentSettingValues.ASK) {
+            // see https://source.chromium.org/chromium/chromium/src/+/e3e48613de29440ae1cf11b0ff7fa7c613d9f416
+            allowed = true;
+        }
         return new PermissionObject(
                 /* type= */ permission.type,
                 /* name= */ nameString,
