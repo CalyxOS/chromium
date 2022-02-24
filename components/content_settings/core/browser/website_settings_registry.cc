@@ -46,6 +46,12 @@ const WebsiteSettingsInfo* WebsiteSettingsRegistry::Get(
   return nullptr;
 }
 
+raw_ptr<WebsiteSettingsInfo> WebsiteSettingsRegistry::GetMutable(
+    ContentSettingsType type) {
+  const auto& it = website_settings_info_.find(type);
+  return it->second.get();
+}
+
 const WebsiteSettingsInfo* WebsiteSettingsRegistry::GetByName(
     const std::string& name) const {
   for (const auto& entry : website_settings_info_) {
