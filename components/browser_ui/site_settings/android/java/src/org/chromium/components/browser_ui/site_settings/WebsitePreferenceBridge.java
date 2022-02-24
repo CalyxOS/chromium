@@ -291,7 +291,7 @@ public class WebsitePreferenceBridge {
             case ContentSettingsType.PROTECTED_MEDIA_IDENTIFIER:
                 return true;
             default:
-                return false;
+                return BromiteCustomContentSettingImpl.requiresTriStateContentSetting(contentSettingsType);
         }
     }
 
@@ -307,7 +307,6 @@ public class WebsitePreferenceBridge {
     public static boolean isCategoryEnabled(
             BrowserContextHandle browserContextHandle,
             @ContentSettingsType.EnumType int contentSettingsType) {
-        assert !requiresTriStateContentSetting(contentSettingsType);
         return isContentSettingEnabled(browserContextHandle, contentSettingsType);
     }
 

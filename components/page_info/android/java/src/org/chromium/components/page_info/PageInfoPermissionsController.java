@@ -177,6 +177,15 @@ public class PageInfoPermissionsController extends PageInfoPreferenceSubpageCont
                             : perm1.nameMidSentence.toString());
         }
 
+        String value = "";
+        for (PermissionObject perm : permissions) {
+            if (perm.allowed) {
+                if (!value.equals("")) value += ", ";
+                value += perm.nameMidSentence.toString();
+            }
+        }
+        if ((true)) return value;
+
         // More than 2 permissions.
         if (same) {
             int resId =
