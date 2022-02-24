@@ -463,5 +463,7 @@ enum ContentSettingsType {
   // Content settings for private network access in the context of the
   // Direct Sockets API.
   DIRECT_SOCKETS_PRIVATE_NETWORK_ACCESS,
+
+#include "components/content_settings/core/common/bromite_content_settings.inc"
 };
 // LINT.ThenChange(//components/content_settings/core/browser/content_settings_uma_util.cc:kHistogramValue)
