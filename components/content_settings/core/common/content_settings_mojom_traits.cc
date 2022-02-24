@@ -119,11 +119,21 @@ bool StructTraits<content_settings::mojom::ContentSettingPatternSourceDataView,
 }
 
 // static
+bool StructTraits<content_settings::mojom::ContentSettingRuleSourceDataView,
+                  ContentSettingRuleSource>::
+    Read(content_settings::mojom::ContentSettingRuleSourceDataView data,
+         ContentSettingRuleSource* out) {
+  out->type = data.type();
+  return data.ReadRules(&out->rules);
+}
+
+// static
 bool StructTraits<content_settings::mojom::RendererContentSettingRulesDataView,
                   RendererContentSettingRules>::
     Read(content_settings::mojom::RendererContentSettingRulesDataView data,
          RendererContentSettingRules* out) {
-  return data.ReadMixedContentRules(&out->mixed_content_rules);
+  return data.ReadSettingsRules(&out->settings_rules) &&
+         data.ReadMixedContentRules(&out->mixed_content_rules);
 }
 
 }  // namespace mojo
