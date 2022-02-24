@@ -69,6 +69,22 @@
 
 namespace blink {
 
+blink::WebContentSettingsClient* GetContentSettingsClientFor(
+    ExecutionContext* context) {
+  blink::WebContentSettingsClient* settings = nullptr;
+  if (!context)
+    return settings;
+  if (auto* window = blink::DynamicTo<blink::LocalDOMWindow>(context)) {
+    auto* frame = window->GetFrame();
+    if (frame)
+      settings = frame->GetContentSettingsClient();
+  } else if (context->IsWorkerGlobalScope()) {
+    settings =
+        blink::To<blink::WorkerGlobalScope>(context)->ContentSettingsClient();
+  }
+  return settings;
+}
+
 ExecutionContext::ExecutionContext(v8::Isolate* isolate,
                                    Agent* agent,
                                    bool is_window)
