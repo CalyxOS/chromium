@@ -452,5 +452,6 @@ enum ContentSettingsType {
   //        origins to retry a request or load with storage access.
   // BLOCK (default): no effect.
   STORAGE_ACCESS_HEADER_ORIGIN_TRIAL,
+#include "components/content_settings/core/common/bromite_content_settings.inc"
 };
 // LINT.ThenChange(//tools/metrics/histograms/metadata/settings/enums.xml:SafetyHubPermissionType)
