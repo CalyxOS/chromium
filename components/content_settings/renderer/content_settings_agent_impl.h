@@ -75,6 +75,11 @@ class ContentSettingsAgentImpl
   static mojom::ContentSettingsManager::StorageType ConvertToMojoStorageType(
       StorageType storage_type);
 
+  bool AllowContentSetting(
+          ContentSettingsType type, bool default_value) override;
+  ContentSetting GetContentSetting(
+          ContentSettingsType type, ContentSetting default_value);
+
   // blink::WebContentSettingsClient:
   void AllowStorageAccess(StorageType storage_type,
                           base::OnceCallback<void(bool)> callback) override;

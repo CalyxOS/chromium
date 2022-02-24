@@ -356,7 +356,9 @@ enum class ContentSettingsType : int32_t {
   // `net::features::kTpcdMetadataGrants` is enabled.
   TPCD_METADATA_GRANTS,
 
-  NUM_TYPES,
+  NUM_TYPES_CHROMIUM,
+#include "components/content_settings/core/common/bromite_content_settings.inc"
+  NUM_TYPES_BROMITE,
 };
 
 struct ContentSettingsTypeHash {
