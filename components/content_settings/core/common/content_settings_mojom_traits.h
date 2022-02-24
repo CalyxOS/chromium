@@ -172,8 +172,32 @@ struct StructTraits<
 
 template <>
 struct StructTraits<
+    content_settings::mojom::ContentSettingRuleSourceDataView,
+    ContentSettingRuleSource> {
+  static int type(
+      const ContentSettingRuleSource& r) {
+    return r.type;
+  }
+
+  static const std::vector<ContentSettingPatternSource>& rules(
+      const ContentSettingRuleSource& r) {
+    return r.rules;
+  }
+
+  static bool Read(
+      content_settings::mojom::ContentSettingRuleSourceDataView data,
+      ContentSettingRuleSource* out);
+};
+
+template <>
+struct StructTraits<
     content_settings::mojom::RendererContentSettingRulesDataView,
     RendererContentSettingRules> {
+  static const std::vector<ContentSettingRuleSource>& settings_rules(
+      const RendererContentSettingRules& r) {
+    return r.settings_rules;
+  }
+
   static const std::vector<ContentSettingPatternSource>& image_rules(
       const RendererContentSettingRules& r) {
     return r.image_rules;
