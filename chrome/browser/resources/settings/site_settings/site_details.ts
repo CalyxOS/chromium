@@ -61,7 +61,21 @@ export class SiteDetailsElement extends SiteDetailsElementBase {
   }
 
   static get template() {
-    return getTemplate();
+    let template = getTemplate();
+    let content = template.content.getElementById("bromite-placeholder")!;
+
+    for (let index=0; index < loadTimeData.getInteger("br_cs_count"); index++) {
+      let obj = JSON.parse(loadTimeData.getString("br_cs_" + index));
+      let name = obj["name"];
+
+      let tag = document.createElement("site-details-permission");
+      tag.setAttribute("category", name);
+      tag.setAttribute("icon", `br-settings:${name}`);
+      tag.setAttribute("label", loadTimeData.getString(`brSiteSettings${name}`));
+      content.parentElement!.insertBefore(tag, content);
+    }
+    content.parentElement!.removeChild(content);
+    return template;
   }
 
   static get properties() {
