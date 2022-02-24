@@ -48,6 +48,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.List;
 
 /** Shows the permissions and other settings for a particular website. */
 public class SingleWebsiteSettings extends BaseSiteSettingsFragment
@@ -168,7 +169,7 @@ public class SingleWebsiteSettings extends BaseSiteSettingsFragment
             case ContentSettingsType.CLIPBOARD_READ_WRITE:
                 return "clipboard_permission_list";
             default:
-                return null;
+                return BromiteCustomContentSettingImpl.getProfilePrefKey(type);
         }
     }
 
@@ -545,8 +546,21 @@ public class SingleWebsiteSettings extends BaseSiteSettingsFragment
 
     private void setupContentSettingsPreferences() {
         mMaxPermissionOrder = findPreference(PREF_PERMISSIONS_HEADER).getOrder();
-        for (@ContentSettingsType.EnumType int type : SiteSettingsUtil.SETTINGS_ORDER) {
-            Preference preference = new ChromeSwitchPreference(getStyledContext());
+        List<Integer> order = BromiteCustomContentSettingImpl.getSettingsOrder();
+        for (@ContentSettingsType.EnumType int type : order) {
+            @ContentSettingValues @Nullable Integer value =
+                mSite.getContentSetting(
+                    getSiteSettingsDelegate().getBrowserContextHandle(), type);
+            if (value == null) {
+                value = WebsitePreferenceBridge.getDefaultContentSetting(
+                            getSiteSettingsDelegate().getBrowserContextHandle(), type);
+            }
+            Preference preference =
+                BromiteCustomContentSettingImpl
+                    .createWebSitePreference(type, getStyledContext(), value);
+            if (preference == null) {
+                preference = new ChromeSwitchPreference(getStyledContext());
+            }
             preference.setKey(getPreferenceKey(type));
 
             if (type == ContentSettingsType.ADS) {
@@ -1071,20 +1085,32 @@ public class SingleWebsiteSettings extends BaseSiteSettingsFragment
             @ContentSettingValues @Nullable Integer value,
             boolean isEmbargoed,
             boolean isOneTime) {
-        if (value == null) return;
+        int content_type = getContentSettingsTypeFromPreferenceKey(preference.getKey());
+        BromiteCustomContentSetting cs =
+                BromiteCustomContentSettingImpl.getContentSetting(content_type);
+        if (value == null && cs == null) return;
+        if (value == null) {
+            if (cs.showIntoInfoPage() == false) return;
+            value = WebsitePreferenceBridge.getDefaultContentSetting(
+                        getSiteSettingsDelegate().getBrowserContextHandle(), content_type);
+        }
         setUpPreferenceCommon(preference, value);
 
-        ChromeSwitchPreference switchPreference = (ChromeSwitchPreference) preference;
-        switchPreference.setChecked(value == ContentSettingValues.ALLOW);
+        Preference switchPreference = preference;
+        if (preference instanceof ChromeSwitchPreference) {
+            ((ChromeSwitchPreference)switchPreference).setChecked(value != ContentSettingValues.BLOCK);
+        } else {
+            BromiteCustomContentSettingImpl.setWebSitePreferenceValue(content_type, preference, value);
+        }
         switchPreference.setSummary(
                 isEmbargoed
                         ? getString(R.string.automatically_blocked)
-                        : getString(ContentSettingsResources.getCategorySummary(value, isOneTime)));
+                        : getString(ContentSettingsResources.getCategorySummary(content_type, value, isOneTime)));
         switchPreference.setOnPreferenceChangeListener(this);
         @ContentSettingsType.EnumType
         int contentType = getContentSettingsTypeFromPreferenceKey(preference.getKey());
-        if (contentType == mHighlightedPermission) {
-            switchPreference.setBackgroundColor(mHighlightColor);
+        if (preference instanceof ChromeSwitchPreference && contentType == mHighlightedPermission) {
+            ((ChromeSwitchPreference)switchPreference).setBackgroundColor(mHighlightColor);
         }
         if (isSessionPermission(contentType)) {
             switchPreference.setSummary(switchPreference.getSummary() + " " +
@@ -1261,7 +1287,7 @@ public class SingleWebsiteSettings extends BaseSiteSettingsFragment
         if (mPreferenceMap == null) {
             mPreferenceMap = new HashMap<>();
             for (@ContentSettingsType.EnumType int type = 0;
-                    type < ContentSettingsType.NUM_TYPES;
+                    type < ContentSettingsType.NUM_TYPES_BROMITE;
                     type++) {
                 String key = getPreferenceKey(type);
                 if (key != null) {
@@ -1299,14 +1325,20 @@ public class SingleWebsiteSettings extends BaseSiteSettingsFragment
             permission =
                     (Boolean) newValue ? ContentSettingValues.ALLOW : ContentSettingValues.BLOCK;
         } else {
-            permission = (Integer) newValue;
+            Integer newPermission =
+                BromiteCustomContentSettingImpl
+                    .getWebSitePreferenceValue(type, newValue);
+            if (newPermission != null)
+                permission = newPermission;
+            else
+                permission = (Integer) newValue;
         }
 
         mSite.setContentSetting(browserContextHandle, type, permission);
         // In Clank, one time grants are only possible via prompt, not via page
         // info.
         preference.setSummary(
-                getString(ContentSettingsResources.getCategorySummary(permission, false)));
+                getString(ContentSettingsResources.getCategorySummary(type, permission, false)));
         preference.setIcon(getContentSettingsIcon(type, permission));
 
         if (mWebsiteSettingsObserver != null) {
@@ -1335,7 +1367,7 @@ public class SingleWebsiteSettings extends BaseSiteSettingsFragment
         // for its logic. This class should maintain its own data model, and only update the screen
         // after a change is made.
         for (@ContentSettingsType.EnumType int type = 0;
-                type < ContentSettingsType.NUM_TYPES;
+                type < ContentSettingsType.NUM_TYPES_BROMITE;
                 type++) {
             String key = getPreferenceKey(type);
             if (key != null) {

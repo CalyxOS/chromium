@@ -18,7 +18,7 @@ using base::android::ScopedJavaLocalRef;
 static void JNI_InstalledWebappBridge_NotifyPermissionsChange(JNIEnv* env,
                                                               jlong j_provider,
                                                               int type) {
-  DCHECK_LT(type, static_cast<int32_t>(ContentSettingsType::NUM_TYPES));
+  DCHECK_LT(type, static_cast<int32_t>(ContentSettingsType::NUM_TYPES_BROMITE));
   InstalledWebappProvider* provider =
     reinterpret_cast<InstalledWebappProvider*>(j_provider);
   provider->Notify(static_cast<ContentSettingsType>(type));

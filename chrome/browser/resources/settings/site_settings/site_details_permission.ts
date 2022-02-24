@@ -20,6 +20,7 @@ import {WebUiListenerMixin} from 'chrome://resources/cr_elements/web_ui_listener
 import {assert, assertNotReached} from 'chrome://resources/js/assert.js';
 import {sanitizeInnerHtml} from 'chrome://resources/js/parse_html_subset.js';
 import {PolymerElement} from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import {loadTimeData} from '../i18n_setup.js';
 
 import {ChooserType, ContentSetting, ContentSettingsTypes, SiteSettingSource} from './constants.js';
 import {getTemplate} from './site_details_permission.html.js';
@@ -267,15 +268,28 @@ export class SiteDetailsPermissionElement extends
       return '';
     }
 
+    let obj = this.getSettingData(category);
     if (defaultSetting === ContentSetting.ASK ||
         defaultSetting === ContentSetting.IMPORTANT_CONTENT) {
+      if (obj) {
+        let v = this.askSettingString_(category, "");
+        if (v !== "") return "(Default) " + v;
+      }
       return this.i18n('siteSettingsActionAskDefault');
     } else if (defaultSetting === ContentSetting.ALLOW) {
+      if (obj) {
+        let v = this.allowSettingString_(category, "");
+        if (v !== "") return "(Default) " + v;
+      }
       if (this.useCustomSoundLabels_(category) && useAutomaticLabel) {
         return this.i18n('siteSettingsActionAutomaticDefault');
       }
       return this.i18n('siteSettingsActionAllowDefault');
     } else if (defaultSetting === ContentSetting.BLOCK) {
+      if (obj) {
+        let v = this.blockSettingString_(category, "", "");
+        if (v !== "") return "(Default) " + v;
+      }
       if (this.useCustomSoundLabels_(category)) {
         return this.i18n('siteSettingsActionMuteDefault');
       }
@@ -294,10 +308,38 @@ export class SiteDetailsPermissionElement extends
   private blockSettingString_(
       category: ContentSettingsTypes, blockString: string,
       muteString: string): string {
+    let obj = this.getSettingData(category);
+    if (obj) {
+      let propertyName = "brSiteSettings" + obj["name"] + "Blocked";
+      if (loadTimeData.valueExists(propertyName))
+        return loadTimeData.getString(propertyName);
+    }
     if (this.useCustomSoundLabels_(category)) {
       return muteString;
     }
     return blockString;
+  }
+
+  private allowSettingString_(
+    category: ContentSettingsTypes, defaultString: string): string {
+    let obj = this.getSettingData(category);
+    if (obj) {
+      let propertyName = "brSiteSettings" + obj["name"] + "Allowed";
+      if (loadTimeData.valueExists(propertyName))
+        return loadTimeData.getString(propertyName);
+    }
+    return defaultString;
+  }
+
+  private askSettingString_(
+      category: ContentSettingsTypes, defaultString: string): string {
+    let obj = this.getSettingData(category);
+    if (obj) {
+      let propertyName = "brSiteSettings" + obj["name"] + "Ask";
+      if (loadTimeData.valueExists(propertyName))
+        return loadTimeData.getString(propertyName);
+    }
+    return defaultString;
   }
 
   /**
@@ -385,6 +427,8 @@ export class SiteDetailsPermissionElement extends
   private showAskSetting_(
       category: ContentSettingsTypes, setting: ContentSetting,
       source: SiteSettingSource): boolean {
+    let obj = this.getSettingData(category);
+    if (obj) return obj["allowed_ask"] === "1";
     // For chooser-based permissions 'ask' takes the place of 'allow'.
     if (category === ContentSettingsTypes.SERIAL_PORTS ||
         category === ContentSettingsTypes.USB_DEVICES ||

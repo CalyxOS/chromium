@@ -74,10 +74,20 @@ typedef std::vector<ContentSettingPatternSource> ContentSettingsForOneType;
 typedef std::map<std::string, ContentSettingsForOneType>
     HostIndexedContentSettings;
 
+struct ContentSettingRuleSource {
+  int type;
+  ContentSettingsForOneType rules;
+
+  ContentSettingRuleSource();
+  ~ContentSettingRuleSource();
+  ContentSettingRuleSource(const ContentSettingRuleSource& source);
+};
+
 struct RendererContentSettingRules {
   // Returns true if |content_type| is a type that is contained in this class.
   // Any new type added below must also update this method.
   static bool IsRendererContentSetting(ContentSettingsType content_type);
+  std::vector<ContentSettingRuleSource> settings_rules;
 
   // Filters all the rules by matching the primary pattern with
   // |outermost_main_frame_url|. Any new type added below that needs to match
