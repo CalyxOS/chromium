@@ -399,5 +399,7 @@ enum ContentSettingsType {
   SPEAKER_SELECTION,
 
 
-  NUM_TYPES,
+  NUM_TYPES_CHROMIUM,
+#include "components/content_settings/core/common/bromite_content_settings.inc"
+  NUM_TYPES_BROMITE,
 };

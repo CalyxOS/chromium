@@ -30,6 +30,7 @@ import {ContentSettingProvider} from './site_settings_prefs_browser_proxy.js';
 export enum SiteContentRadioSetting {
   DISABLED = 0,
   ENABLED = 1,
+  ASK = 2,
 }
 
 export interface SettingsCategoryDefaultRadioGroupElement {
@@ -77,6 +78,10 @@ export class SettingsCategoryDefaultRadioGroupElement extends
       blockOptionSubLabel: String,
       blockOptionIcon: String,
 
+      askOptionLabel: String,
+      askOptionSubLabel: String,
+      askOptionIcon: String,
+
       siteContentRadioSettingEnum_: {
         type: Object,
         value: SiteContentRadioSetting,
@@ -112,6 +117,9 @@ export class SettingsCategoryDefaultRadioGroupElement extends
   blockOptionLabel: string;
   blockOptionSubLabel: string;
   blockOptionIcon: string;
+  askOptionLabel: string;
+  askOptionSubLabel: string;
+  askOptionIcon: string;
   private pref_: chrome.settingsPrivate.PrefObject<number>;
 
   override ready() {
@@ -120,6 +128,13 @@ export class SettingsCategoryDefaultRadioGroupElement extends
     this.addWebUiListener(
         'contentSettingCategoryChanged',
         (category: ContentSettingsTypes) => this.onCategoryChanged_(category));
+  }
+
+  private showAskSetting_(
+      category: ContentSettingsTypes): boolean {
+    let obj = this.getSettingData(category);
+    if (obj) return obj["allowed_ask"] === "1";
+    return false;
   }
 
   private getAllowOptionForCategory_(): ContentSetting {
@@ -163,6 +178,8 @@ export class SettingsCategoryDefaultRadioGroupElement extends
         // "Ask" vs "Blocked".
         return ContentSetting.ASK;
       default:
+        let obj = this.getSettingData(this.category);
+        if (obj) return ContentSetting.ALLOW;
         assertNotReached('Invalid category: ' + this.category);
     }
   }
@@ -187,6 +204,7 @@ export class SettingsCategoryDefaultRadioGroupElement extends
         /** @type {!ContentSetting} */ (this.getAllowOptionForCategory_());
     this.browserProxy.setDefaultValueForContentType(
         this.category,
+        this.pref_.value === SiteContentRadioSetting.ASK ? "ask" :
         this.categoryEnabled_ ? allowOption : ContentSetting.BLOCK);
   }
 
@@ -218,7 +236,9 @@ export class SettingsCategoryDefaultRadioGroupElement extends
     }
 
     const enabled = this.computeIsSettingEnabled(update.setting);
-    const prefValue = enabled ? SiteContentRadioSetting.ENABLED :
+    const ask = this.computeIsSettingAsk(update.setting);
+    const prefValue = ask ? SiteContentRadioSetting.ASK :
+                      enabled ? SiteContentRadioSetting.ENABLED :
                                 SiteContentRadioSetting.DISABLED;
 
     this.set('pref_.value', prefValue);
