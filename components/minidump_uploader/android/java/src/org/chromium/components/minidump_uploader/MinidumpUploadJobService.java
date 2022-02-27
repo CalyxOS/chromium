@@ -52,7 +52,10 @@ public abstract class MinidumpUploadJobService extends JobService
      *     to build an upload job for scheduling.
      */
     public static void scheduleUpload(JobInfo.Builder jobInfoBuilder) {
-        Log.i(TAG, "Scheduling upload of all pending minidumps.");
+        Log.i(TAG, "Scheduling upload of all pending minidumps is disabled.");
+        if ((true)) {
+           return;
+        }
         JobScheduler scheduler =
                 (JobScheduler)
                         ContextUtils.getApplicationContext()
