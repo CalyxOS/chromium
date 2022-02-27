@@ -312,7 +312,7 @@ void EndpointFetcher::OnResponseFetched(
     }
   } else {
     std::string net_error = net::ErrorToString(net_error_code);
-    VLOG(1) << __func__ << " with response error: " << net_error;
+    LOG(ERROR) << __func__ << " with response error: " << net_error;
     response->response = "There was a response error";
     std::move(endpoint_fetcher_callback).Run(std::move(response));
   }
