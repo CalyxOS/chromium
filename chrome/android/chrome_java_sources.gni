@@ -978,7 +978,6 @@ chrome_java_sources = [
   "java/src/org/chromium/chrome/browser/safe_browsing/SafeBrowsingPasswordReuseDialogBridge.java",
   "java/src/org/chromium/chrome/browser/safe_browsing/SafeBrowsingReferringAppBridge.java",
   "java/src/org/chromium/chrome/browser/safe_browsing/SafeBrowsingSettingsNavigation.java",
-  "java/src/org/chromium/chrome/browser/safety_check/SafetyCheckUpdatesDelegateImpl.java",
   "java/src/org/chromium/chrome/browser/searchwidget/SearchActivity.java",
   "java/src/org/chromium/chrome/browser/searchwidget/SearchActivityClientImpl.java",
   "java/src/org/chromium/chrome/browser/searchwidget/SearchActivityLocationBarLayout.java",
