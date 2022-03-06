@@ -18,8 +18,6 @@ import org.chromium.chrome.browser.autofill.settings.FinancialAccountsManagement
 import org.chromium.chrome.browser.browsing_data.ClearBrowsingDataFragment;
 import org.chromium.chrome.browser.flags.ChromeFeatureList;
 import org.chromium.chrome.browser.password_manager.settings.PasswordSettings;
-import org.chromium.chrome.browser.safety_check.SafetyCheckSettingsFragment;
-import org.chromium.chrome.browser.safety_hub.SafetyHubFragment;
 import org.chromium.chrome.browser.sync.settings.GoogleServicesSettings;
 import org.chromium.chrome.browser.sync.settings.ManageSyncSettings;
 import org.chromium.components.browser_ui.accessibility.AccessibilitySettings;
@@ -46,10 +44,7 @@ public class SettingsNavigationImpl implements SettingsNavigation {
                         ClearBrowsingDataFragment.createFragmentArgs(context.getClass().getName());
                 break;
             case SettingsFragment.SAFETY_CHECK:
-                if (!ChromeFeatureList.sSafetyHub.isEnabled()) {
-                    fragmentArgs = SafetyCheckSettingsFragment.createBundle(true);
-                }
-                break;
+                return;
             case SettingsFragment.MAIN:
             case SettingsFragment.PAYMENT_METHODS:
             case SettingsFragment.SITE:
@@ -107,11 +102,7 @@ public class SettingsNavigationImpl implements SettingsNavigation {
             case SettingsFragment.PAYMENT_METHODS:
                 return AutofillPaymentMethodsFragment.class;
             case SettingsFragment.SAFETY_CHECK:
-                if (ChromeFeatureList.sSafetyHub.isEnabled()) {
-                    return SafetyHubFragment.class;
-                } else {
-                    return SafetyCheckSettingsFragment.class;
-                }
+                return null;
             case SettingsFragment.SITE:
                 return SiteSettings.class;
             case SettingsFragment.ACCESSIBILITY:
