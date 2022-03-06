@@ -18,7 +18,6 @@ import org.chromium.base.supplier.ObservableSupplierImpl;
 import org.chromium.chrome.browser.flags.ChromeFeatureList;
 import org.chromium.chrome.browser.password_check.PasswordCheckFactory;
 import org.chromium.chrome.browser.profiles.Profile;
-import org.chromium.chrome.browser.safety_check.SafetyCheckSettingsFragment;
 import org.chromium.chrome.browser.settings.SettingsCustomTabLauncherImpl;
 import org.chromium.chrome.browser.settings.SettingsNavigationFactory;
 import org.chromium.chrome.browser.sync.SyncServiceFactory;
@@ -91,12 +90,7 @@ public class PasswordCheckupLauncher {
 
     @CalledByNative
     static void launchSafetyCheck(WindowAndroid windowAndroid) {
-        if (windowAndroid.getContext().get() == null) return; // Window not available yet/anymore.
-        SettingsNavigationFactory.createSettingsNavigation()
-                .startSettings(
-                        windowAndroid.getContext().get(),
-                        SafetyCheckSettingsFragment.class,
-                        SafetyCheckSettingsFragment.createBundle(true));
+        // do nothing
     }
 
     @CalledByNative
