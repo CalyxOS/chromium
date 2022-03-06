@@ -246,7 +246,9 @@ public class SearchEngineAdapter extends BaseAdapter
                 continue;
             }
             if (recentEngineNum < MAX_RECENT_ENGINE_NUM
-                    && templateUrl.getLastVisitedTime() > displayTime) {
+                    // newly added search engines have never been visited
+                    && (templateUrl.getLastVisitedTime() == 0 ||
+                        templateUrl.getLastVisitedTime() > displayTime)) {
                 recentEngineNum++;
             } else {
                 iterator.remove();
