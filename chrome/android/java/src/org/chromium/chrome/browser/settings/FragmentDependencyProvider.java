@@ -38,13 +38,6 @@ import org.chromium.chrome.browser.privacy_sandbox.ChromeTrackingProtectionDeleg
 import org.chromium.chrome.browser.privacy_sandbox.PrivacySandboxSettingsBaseFragment;
 import org.chromium.chrome.browser.privacy_sandbox.TopicsManageFragment;
 import org.chromium.chrome.browser.profiles.Profile;
-import org.chromium.chrome.browser.safety_check.SafetyCheckBridge;
-import org.chromium.chrome.browser.safety_check.SafetyCheckCoordinator;
-import org.chromium.chrome.browser.safety_check.SafetyCheckSettingsFragment;
-import org.chromium.chrome.browser.safety_check.SafetyCheckUpdatesDelegateImpl;
-import org.chromium.chrome.browser.safety_hub.SafetyHubBaseFragment;
-import org.chromium.chrome.browser.safety_hub.SafetyHubFragment;
-import org.chromium.chrome.browser.safety_hub.SafetyHubModuleDelegateImpl;
 import org.chromium.chrome.browser.search_engines.settings.SearchEngineSettings;
 import org.chromium.chrome.browser.signin.SigninAndHistorySyncActivityLauncherImpl;
 import org.chromium.chrome.browser.site_settings.ChromeSiteSettingsDelegate;
@@ -129,20 +122,6 @@ public class FragmentDependencyProvider extends FragmentManager.FragmentLifecycl
                     new ChromeSiteSettingsDelegate(mContext, mProfile);
             delegate.setSnackbarManagerSupplier(mSnackbarManagerSupplier);
             baseSiteSettingsFragment.setSiteSettingsDelegate(delegate);
-        }
-        if (fragment instanceof SafetyCheckSettingsFragment) {
-            SafetyCheckCoordinator.create(
-                    (SafetyCheckSettingsFragment) fragment,
-                    mProfile,
-                    new SafetyCheckUpdatesDelegateImpl(),
-                    new SafetyCheckBridge(mProfile),
-                    SigninAndHistorySyncActivityLauncherImpl.get(),
-                    mModalDialogManagerSupplier,
-                    SyncServiceFactory.getForProfile(mProfile),
-                    UserPrefs.get(mProfile),
-                    new PasswordStoreBridge(mProfile),
-                    PasswordManagerHelper.getForProfile(mProfile),
-                    LaunchIntentDispatcher::createCustomTabActivityIntent);
         }
         if (fragment instanceof PasswordCheckFragmentView) {
             PasswordCheckComponentUiFactory.create(
@@ -232,13 +211,6 @@ public class FragmentDependencyProvider extends FragmentManager.FragmentLifecycl
             ((AutofillLocalIbanEditor) fragment)
                     .setModalDialogManagerSupplier(mModalDialogManagerSupplier);
         }
-        if (fragment instanceof SafetyHubFragment safetyHubFragment) {
-            safetyHubFragment.setDelegate(
-                    new SafetyHubModuleDelegateImpl(
-                            mProfile,
-                            mModalDialogManagerSupplier,
-                            SigninAndHistorySyncActivityLauncherImpl.get()));
-        }
         if (fragment instanceof INeedSnackbarManager) {
             ((INeedSnackbarManager)fragment).setSnackbarManagerSupplier(mSnackbarManagerSupplier);
         }
@@ -252,9 +224,6 @@ public class FragmentDependencyProvider extends FragmentManager.FragmentLifecycl
         }
         if (fragment instanceof ManageSyncSettings) {
             ((ManageSyncSettings) fragment).setSnackbarManagerSupplier(mSnackbarManagerSupplier);
-        }
-        if (fragment instanceof SafetyHubBaseFragment) {
-            ((SafetyHubBaseFragment) fragment).setSnackbarManagerSupplier(mSnackbarManagerSupplier);
         }
     }
 }

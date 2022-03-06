@@ -96,7 +96,7 @@ public class SiteSettings extends BaseSiteSettingsFragment
         }
 
         // Remove the permission autorevocation preference if Safety Hub is not enabled.
-        if (!getSiteSettingsDelegate().isSafetyHubEnabled()) {
+        if (((false)) && !getSiteSettingsDelegate().isSafetyHubEnabled()) {
             Preference autorevocationPref =
                     assumeNonNull(findPreference(PERMISSION_AUTOREVOCATION_PREF));
             getPreferenceScreen().removePreference(autorevocationPref);
