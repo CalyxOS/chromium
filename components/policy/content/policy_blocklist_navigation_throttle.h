@@ -35,10 +35,6 @@ class PolicyBlocklistNavigationThrottle : public content::NavigationThrottle {
   const char* GetNameForLogging() override;
 
  private:
-  // Returns TRUE if this navigation is to view-source: and view-source is on
-  // the URLBlocklist.
-  bool IsBlockedViewSourceNavigation();
-
   // To ensure both allow and block policies override Safe Sites,
   // SafeSitesNavigationThrottle must be consulted as part of this throttle
   // rather than added separately to the list of throttles.
