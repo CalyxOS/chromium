@@ -261,18 +261,32 @@ void TemplateURLFetcher::ScheduleDownload(
     return;
   }
 
-  const TemplateURL* template_url =
+  TemplateURL* template_url =
       template_url_service_->GetTemplateURLForKeyword(keyword);
-  if (template_url && (!template_url->safe_for_autoreplace() ||
-                       template_url->originating_url() == osdd_url))
-    return;
+  if (template_url) {
+    if (!template_url->safe_for_autoreplace()) {
+      LOG(INFO) << "OpenSearch: OSDD URL not safe for autoreplace: " << osdd_url;
+      return;
+    }
+    if (template_url->originating_url() == osdd_url) {
+      // Either there is a user created TemplateURL for this keyword, or the
+      // keyword has the same OSDD url and we've parsed it.
+      DLOG(INFO) << "OpenSearch: OSDD URL was already parsed: " << osdd_url;
+      // always update the visit timestamp
+      template_url_service_->UpdateTemplateURLVisitTime(template_url);
+      return;
+    }
+  }
 
   // Make sure we aren't already downloading this request.
   for (const auto& request : requests_) {
-    if ((request->url() == osdd_url) || (request->keyword() == keyword))
+    if ((request->url() == osdd_url) || (request->keyword() == keyword)) {
+      LOG(INFO) << "OpenSearch: already downloading OSDD URL: " << osdd_url;
       return;
+    }
   }
 
+  LOG(INFO) << "OpenSearch: getting " << osdd_url;
   requests_.push_back(std::make_unique<RequestDelegate>(
       this, keyword, osdd_url, favicon_url, initiator, url_loader_factory,
       render_frame_id, request_id));
