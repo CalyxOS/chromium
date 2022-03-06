@@ -26,7 +26,7 @@ public class SafetyCheckBridge {
 
     /** Returns whether the user is signed in for the purposes of password check. */
     boolean userSignedIn() {
-        return SafetyCheckBridgeJni.get().userSignedIn(mProfile);
+        return false;
     }
 
     /**
@@ -37,7 +37,7 @@ public class SafetyCheckBridge {
      */
     @SafeBrowsingStatus
     int checkSafeBrowsing() {
-        return SafetyCheckBridgeJni.get().checkSafeBrowsing(mProfile);
+        return SafeBrowsingStatus.DISABLED;
     }
 
     /** C++ method signatures. */

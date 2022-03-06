@@ -573,7 +573,7 @@ void TabHelpers::AttachTabHelpers(WebContents* web_contents) {
   tpcd::trial::ValidityService::MaybeCreateForWebContents(web_contents);
   TrustedVaultEncryptionKeysTabHelper::CreateForWebContents(web_contents);
 #if BUILDFLAG(IS_ANDROID)
-  if (base::FeatureList::IsEnabled(features::kSafetyHub)) {
+  if (((true)) || base::FeatureList::IsEnabled(features::kSafetyHub)) {
     auto* service = RevokedPermissionsServiceFactory::GetForProfile(profile);
     if (service) {
       RevokedPermissionsService::TabHelper::CreateForWebContents(web_contents,
