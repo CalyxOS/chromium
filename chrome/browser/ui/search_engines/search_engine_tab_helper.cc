@@ -6,6 +6,7 @@
 
 #include <memory>
 
+#include "base/logging.h"
 #include "base/metrics/histogram_macros.h"
 #include "chrome/browser/favicon/favicon_utils.h"
 #include "chrome/browser/profiles/profile.h"
@@ -46,8 +47,10 @@ void SearchEngineTabHelper::BindOpenSearchDescriptionDocumentHandler(
     mojo::PendingReceiver<chrome::mojom::OpenSearchDescriptionDocumentHandler>
         receiver) {
   // Bind only for outermost main frames.
-  if (rfh->GetParentOrOuterDocument())
+  if (rfh->GetParentOrOuterDocument()) {
+    LOG(INFO) << "OpenSearch: not on main frame";
     return;
+  }
 
   auto* web_contents = content::WebContents::FromRenderFrameHost(rfh);
   if (!web_contents)
@@ -73,16 +76,20 @@ std::u16string SearchEngineTabHelper::GenerateKeywordFromNavigationEntry(
     NavigationEntry* entry) {
   // Don't autogenerate keywords for pages that are the result of form
   // submissions.
-  if (IsFormSubmit(entry))
+  if (IsFormSubmit(entry)) {
+    LOG(INFO) << "OpenSearch: cannot generate keyword for a form submission for entry " << entry->GetURL();
     return std::u16string();
+  }
 
   // We want to use the user typed URL if available since that represents what
   // the user typed to get here, and fall back on the regular URL if not.
   GURL url = entry->GetUserTypedURL();
   if (!url.is_valid()) {
     url = entry->GetURL();
-    if (!url.is_valid())
+    if (!url.is_valid()) {
+      LOG(INFO) << "OpenSearch: user-typed/entry URL are invalid for entry " << entry->GetURL();
       return std::u16string();
+    }
   }
 
   // Don't autogenerate keywords for referrers that
@@ -90,10 +97,10 @@ std::u16string SearchEngineTabHelper::GenerateKeywordFromNavigationEntry(
   // b) have a path.
   //
   // If we relax the path constraint, we need to be sure to sanitize the path
-  // elements and update AutocompletePopup to look for keywords using the path.
+  // elements and update TemplateURL to look for keywords using the path.
   // See http://b/issue?id=863583.
-  if (!(url.SchemeIs(url::kHttpScheme) || url.SchemeIs(url::kHttpsScheme)) ||
-      (url.path().length() > 1)) {
+  if (!(url.SchemeIs(url::kHttpScheme) || url.SchemeIs(url::kHttpsScheme))) {
+    LOG(INFO) << "OpenSearch: invalid scheme for entry " << entry->GetURL();
     return std::u16string();
   }
 
@@ -121,15 +128,18 @@ void SearchEngineTabHelper::PageHasOpenSearchDescriptionDocument(
   // When |page_url| has file: scheme, this method doesn't work because of
   // http://b/issue?id=863583. For that reason, this doesn't check and allow
   // urls referring to osdd urls with same schemes.
-  if (!osdd_url.is_valid() || !osdd_url.SchemeIsHTTPOrHTTPS())
+  if (!osdd_url.is_valid() || !osdd_url.SchemeIsHTTPOrHTTPS()) {
+    LOG(INFO) << "OpenSearch: not a valid OSDD URL " << osdd_url;
     return;
+  }
 
   Profile* profile =
       Profile::FromBrowserContext(web_contents()->GetBrowserContext());
   if (page_url != web_contents()->GetLastCommittedURL() ||
-      !TemplateURLFetcherFactory::GetForProfile(profile) ||
-      profile->IsOffTheRecord())
+      !TemplateURLFetcherFactory::GetForProfile(profile)) {
+    LOG(INFO) << "OpenSearch: page URL mismatch on page " << page_url;
     return;
+  }
 
   // If the current page is a form submit, find the last page that was not a
   // form submit and use its url to generate the keyword from.
@@ -139,14 +149,22 @@ void SearchEngineTabHelper::PageHasOpenSearchDescriptionDocument(
        (index > 0) && IsFormSubmit(entry);
        entry = controller.GetEntryAtIndex(index))
     --index;
-  if (!entry || IsFormSubmit(entry))
+  if (!entry || IsFormSubmit(entry)) {
+    LOG(INFO) << "OpenSearch: cannot find form submission for entry " << entry->GetURL();
     return;
+  }
 
   // Autogenerate a keyword for the autodetected case; in the other cases we'll
   // generate a keyword later after fetching the OSDD.
   std::u16string keyword = GenerateKeywordFromNavigationEntry(entry);
   if (keyword.empty())
     return;
+
+  std::u16string page_keyword = TemplateURL::GenerateKeyword(page_url);
+  if (page_keyword != keyword) {
+    LOG(INFO) << "OpenSearch: keyword mismatch for entry " << entry->GetURL();
+    return;
+  }
 
   auto* frame = web_contents()->GetPrimaryMainFrame();
   mojo::Remote<network::mojom::URLLoaderFactory> url_loader_factory;
@@ -155,6 +173,7 @@ void SearchEngineTabHelper::PageHasOpenSearchDescriptionDocument(
 
   // Download the OpenSearch description document. If this is successful, a
   // new keyword will be created when done.
+  // NOTE: for search pages under the same domain only 1 keyword is supported
   TemplateURLFetcherFactory::GetForProfile(profile)->ScheduleDownload(
       keyword, osdd_url, entry->GetFavicon().url,
       frame->GetLastCommittedOrigin(), url_loader_factory.get(),
@@ -196,10 +215,17 @@ void SearchEngineTabHelper::GenerateKeywordIfNecessary(
   if (last_index <= 0)
     return;
 
-  std::u16string keyword(GenerateKeywordFromNavigationEntry(
-      controller.GetEntryAtIndex(last_index - 1)));
+  NavigationEntry* entry = controller.GetEntryAtIndex(last_index - 1);
+  std::u16string keyword(GenerateKeywordFromNavigationEntry(entry));
   if (keyword.empty())
     return;
+
+  GURL url = handle->GetSearchableFormURL();
+  std::u16string page_keyword = TemplateURL::GenerateKeyword(url);
+  if (page_keyword != keyword) {
+    LOG(INFO) << "OpenSearch: GenerateKeywordIfNecessary(): keyword mismatch for entry " << entry->GetURL();
+    return;
+  }
 
   TemplateURLService* url_service =
       TemplateURLServiceFactory::GetForProfile(profile);
@@ -211,7 +237,6 @@ void SearchEngineTabHelper::GenerateKeywordIfNecessary(
     return;
   }
 
-  GURL url = handle->GetSearchableFormURL();
   if (!url_service->CanAddAutogeneratedKeyword(keyword, url))
     return;
 
