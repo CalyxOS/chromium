@@ -33,7 +33,6 @@ import org.chromium.chrome.browser.omnibox.suggestions.SuggestionsMetrics;
 import org.chromium.chrome.browser.omnibox.suggestions.pedal.PedalSuggestionViewProperties.PedalIcon;
 import org.chromium.chrome.browser.password_manager.ManagePasswordsReferrer;
 import org.chromium.chrome.browser.password_manager.PasswordManagerLauncher;
-import org.chromium.chrome.browser.safety_check.SafetyCheckSettingsFragment;
 import org.chromium.chrome.browser.settings.SettingsLauncherImpl;
 import org.chromium.components.browser_ui.accessibility.AccessibilitySettings;
 import org.chromium.components.browser_ui.settings.SettingsLauncher;
@@ -95,12 +94,6 @@ public class OmniboxPedalDelegateImpl implements OmniboxPedalDelegate {
                             mActivity.getApplicationContext(), /*incognito=*/true);
                     startActivity(intent);
                 }
-                break;
-            case OmniboxPedalType.RUN_CHROME_SAFETY_CHECK:
-                settingsLauncher.launchSettingsActivity(mActivity,
-                        SafetyCheckSettingsFragment.class,
-                        SafetyCheckSettingsFragment.createBundle(
-                                /*runSafetyCheckImmediately=*/true));
                 break;
             case OmniboxPedalType.MANAGE_SITE_SETTINGS:
                 settingsLauncher.launchSettingsActivity(mActivity, SiteSettings.class);
@@ -198,7 +191,6 @@ public class OmniboxPedalDelegateImpl implements OmniboxPedalDelegate {
             case OmniboxPedalType.MANAGE_PASSWORDS:
             case OmniboxPedalType.UPDATE_CREDIT_CARD:
             case OmniboxPedalType.LAUNCH_INCOGNITO:
-            case OmniboxPedalType.RUN_CHROME_SAFETY_CHECK:
             case OmniboxPedalType.MANAGE_SITE_SETTINGS:
             case OmniboxPedalType.MANAGE_CHROME_SETTINGS:
             case OmniboxPedalType.VIEW_CHROME_HISTORY:
