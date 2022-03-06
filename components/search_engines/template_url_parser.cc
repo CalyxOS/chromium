@@ -171,7 +171,7 @@ void SafeTemplateURLParser::OnXmlParseComplete(
     data_decoder::DataDecoder::ValueOrError value_or_error) {
   std::move(callback_).Run([&]() -> std::unique_ptr<TemplateURL> {
     if (!value_or_error.has_value()) {
-      DLOG(ERROR) << "Failed to parse XML: " << value_or_error.error();
+      LOG(ERROR) << "Failed to parse XML: " << value_or_error.error();
       return nullptr;
     }
     const base::Value& root = *value_or_error;
