@@ -364,7 +364,10 @@ class TemplateURLService final : public WebDataServiceConsumer,
   void UpdateProviderFavicons(const GURL& potential_search_url,
                               const GURL& favicon_url);
 
-  // Return true if the given |url| can be made the default. This returns false
+   // Updates the last_visited time of |url| to the current time.
+  void UpdateTemplateURLVisitTime(TemplateURL* url);
+
+ // Return true if the given |url| can be made the default. This returns false
   // regardless of |url| if the default search provider is managed by policy or
   // controlled by an extension.
   bool CanMakeDefault(const TemplateURL* url) const;
@@ -746,9 +749,6 @@ class TemplateURLService final : public WebDataServiceConsumer,
   // For each TemplateURL whose url matches the visited url
   // SetKeywordSearchTermsForURL is invoked.
   void UpdateKeywordSearchTermsForURL(const URLVisitedDetails& details);
-
-  // Updates the last_visited time of |url| to the current time.
-  void UpdateTemplateURLVisitTime(TemplateURL* url);
 
   // If necessary, generates a visit for the site http:// + t_url.keyword().
   void AddTabToSearchVisit(const TemplateURL& t_url);
