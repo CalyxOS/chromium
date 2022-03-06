@@ -72,7 +72,8 @@ class TemplateURLFetcher::RequestDelegate {
                   const url::Origin& initiator,
                   network::mojom::URLLoaderFactory* url_loader_factory,
                   int render_frame_id,
-                  int32_t request_id);
+                  int32_t request_id,
+                  bool is_off_the_record);
 
   RequestDelegate(const RequestDelegate&) = delete;
   RequestDelegate& operator=(const RequestDelegate&) = delete;
@@ -98,6 +99,7 @@ class TemplateURLFetcher::RequestDelegate {
   std::u16string keyword_;
   const GURL osdd_url_;
   const GURL favicon_url_;
+  bool is_off_the_record_;
 
   base::CallbackListSubscription template_url_subscription_;
 
@@ -112,11 +114,13 @@ TemplateURLFetcher::RequestDelegate::RequestDelegate(
     const url::Origin& initiator,
     network::mojom::URLLoaderFactory* url_loader_factory,
     int render_frame_id,
-    int32_t request_id)
+    int32_t request_id,
+    bool is_off_the_record)
     : fetcher_(fetcher),
       keyword_(keyword),
       osdd_url_(osdd_url),
-      favicon_url_(favicon_url) {
+      favicon_url_(favicon_url),
+      is_off_the_record_(is_off_the_record) {
   TemplateURLService* model = fetcher_->template_url_service_;
   DCHECK(model);  // TemplateURLFetcher::ScheduleDownload verifies this.
 
@@ -229,7 +233,9 @@ void TemplateURLFetcher::RequestDelegate::AddSearchProvider() {
   // omnibox until they are activated.
   data.is_active = TemplateURLData::ActiveStatus::kUnspecified;
 
-  model->Add(std::make_unique<TemplateURL>(data));
+  if (!is_off_the_record_) {
+    model->Add(std::make_unique<TemplateURL>(data));
+  }
 
   fetcher_->RequestCompleted(this);
   // WARNING: RequestCompleted deletes us.
@@ -244,6 +250,7 @@ TemplateURLFetcher::~TemplateURLFetcher() {
 }
 
 void TemplateURLFetcher::ScheduleDownload(
+    bool is_off_the_record,
     const std::u16string& keyword,
     const GURL& osdd_url,
     const GURL& favicon_url,
@@ -261,21 +268,35 @@ void TemplateURLFetcher::ScheduleDownload(
     return;
   }
 
-  const TemplateURL* template_url =
+  TemplateURL* template_url =
       template_url_service_->GetTemplateURLForKeyword(keyword);
-  if (template_url && (!template_url->safe_for_autoreplace() ||
-                       template_url->originating_url() == osdd_url))
-    return;
+  if (template_url) {
+    if (!template_url->safe_for_autoreplace()) {
+      LOG(INFO) << "OpenSearch: OSDD URL not safe for autoreplace: " << osdd_url;
+      return;
+    }
+    if (template_url->originating_url() == osdd_url) {
+      // Either there is a user created TemplateURL for this keyword, or the
+      // keyword has the same OSDD url and we've parsed it.
+      DLOG(INFO) << "OpenSearch: OSDD URL was already parsed: " << osdd_url;
+      // always update the visit timestamp
+      template_url_service_->UpdateTemplateURLVisitTime(template_url);
+      return;
+    }
+  }
 
   // Make sure we aren't already downloading this request.
   for (const auto& request : requests_) {
-    if ((request->url() == osdd_url) || (request->keyword() == keyword))
+    if ((request->url() == osdd_url) || (request->keyword() == keyword)) {
+      LOG(INFO) << "OpenSearch: already downloading OSDD URL: " << osdd_url;
       return;
+    }
   }
 
+  LOG(INFO) << "OpenSearch: getting " << osdd_url;
   requests_.push_back(std::make_unique<RequestDelegate>(
       this, keyword, osdd_url, favicon_url, initiator, url_loader_factory,
-      render_frame_id, request_id));
+      render_frame_id, request_id, is_off_the_record));
 }
 
 void TemplateURLFetcher::RequestCompleted(RequestDelegate* request) {
