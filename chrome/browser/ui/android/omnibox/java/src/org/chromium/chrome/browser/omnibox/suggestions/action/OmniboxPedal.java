@@ -55,9 +55,6 @@ public class OmniboxPedal extends OmniboxAction {
             case OmniboxPedalId.UPDATE_CREDIT_CARD:
                 delegate.openSettingsPage(SettingsFragment.PAYMENT_METHODS);
                 break;
-            case OmniboxPedalId.RUN_CHROME_SAFETY_CHECK:
-                delegate.openSettingsPage(SettingsFragment.SAFETY_CHECK);
-                break;
             case OmniboxPedalId.MANAGE_SITE_SETTINGS:
                 delegate.openSettingsPage(SettingsFragment.SITE);
                 break;
