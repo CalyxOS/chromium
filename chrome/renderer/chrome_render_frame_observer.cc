@@ -14,6 +14,7 @@
 
 #include "base/bind.h"
 #include "base/command_line.h"
+#include "base/logging.h"
 #include "base/metrics/histogram_macros.h"
 #include "base/no_destructor.h"
 #include "base/strings/string_number_conversions.h"
@@ -253,6 +254,7 @@ void ChromeRenderFrameObserver::DidFinishLoad() {
 
   GURL osdd_url = frame->GetDocument().OpenSearchDescriptionURL();
   if (!osdd_url.is_empty()) {
+    LOG(INFO) << "OpenSearch: found OSDD URL: " << osdd_url;
     mojo::Remote<chrome::mojom::OpenSearchDescriptionDocumentHandler>
         osdd_handler;
     render_frame()->GetBrowserInterfaceBroker()->GetInterface(
