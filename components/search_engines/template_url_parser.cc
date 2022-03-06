@@ -173,7 +173,7 @@ void SafeTemplateURLParser::OnXmlParseComplete(
   std::move(callback_).Run([&]() -> std::unique_ptr<TemplateURL> {
     ASSIGN_OR_RETURN(const base::Value root, std::move(value_or_error),
                      [](std::string error) -> std::unique_ptr<TemplateURL> {
-                       DLOG(ERROR)
+                       LOG(ERROR)
                            << "Failed to parse XML: " << std::move(error);
                        return nullptr;
                      });
