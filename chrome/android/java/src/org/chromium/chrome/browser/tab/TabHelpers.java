@@ -8,7 +8,6 @@ import org.chromium.chrome.browser.SwipeRefreshHandler;
 import org.chromium.chrome.browser.accessibility.AccessibilityTabHelper;
 import org.chromium.chrome.browser.autofill_assistant.AutofillAssistantTabHelper;
 import org.chromium.chrome.browser.complex_tasks.TaskTabHelper;
-import org.chromium.chrome.browser.contextualsearch.ContextualSearchTabHelper;
 import org.chromium.chrome.browser.crypto.CipherFactory;
 import org.chromium.chrome.browser.dom_distiller.ReaderModeManager;
 import org.chromium.chrome.browser.dom_distiller.TabDistillabilityProvider;
@@ -33,7 +32,6 @@ public final class TabHelpers {
         TabUma.createForTab(tab);
         TabDistillabilityProvider.createForTab(tab);
         InterceptNavigationDelegateTabHelper.createForTab(tab);
-        ContextualSearchTabHelper.createForTab(tab);
         MediaSessionTabHelper.createForTab(tab);
         TaskTabHelper.createForTab(tab, parentTab);
         TabBrowserControlsConstraintsHelper.createForTab(tab);
