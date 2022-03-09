@@ -32,7 +32,6 @@ import org.chromium.chrome.browser.compositor.CompositorViewHolder;
 import org.chromium.chrome.browser.compositor.bottombar.ephemeraltab.EphemeralTabCoordinator;
 import org.chromium.chrome.browser.compositor.layouts.LayoutManagerImpl;
 import org.chromium.chrome.browser.compositor.layouts.content.TabContentManager;
-import org.chromium.chrome.browser.contextualsearch.ContextualSearchManager;
 import org.chromium.chrome.browser.crash.ChromePureJavaExceptionReporter;
 import org.chromium.chrome.browser.customtabs.content.CustomTabActivityNavigationController;
 import org.chromium.chrome.browser.customtabs.content.CustomTabActivityTabController;
@@ -94,7 +93,6 @@ public class BaseCustomTabRootUiCoordinator extends RootUiCoordinator {
      * @param profileSupplier Supplier of the currently applicable profile.
      * @param bookmarkModelSupplier Supplier of the bookmark bridge for the current profile.
      * @param tabBookmarkerSupplier Supplier of {@link TabBookmarker} for bookmarking a given tab.
-     * @param contextualSearchManagerSupplier Supplier of the {@link ContextualSearchManager}.
      * @param tabModelSelectorSupplier Supplies the {@link TabModelSelector}.
      * @param browserControlsManager Manages the browser controls.
      * @param windowAndroid The current {@link WindowAndroid}.
@@ -128,7 +126,7 @@ public class BaseCustomTabRootUiCoordinator extends RootUiCoordinator {
             @NonNull ObservableSupplier<Profile> profileSupplier,
             @NonNull ObservableSupplier<BookmarkModel> bookmarkModelSupplier,
             @NonNull ObservableSupplier<TabBookmarker> tabBookmarkerSupplier,
-            @NonNull Supplier<ContextualSearchManager> contextualSearchManagerSupplier,
+            Object ignored,
             @NonNull ObservableSupplier<TabModelSelector> tabModelSelectorSupplier,
             @NonNull BrowserControlsManager browserControlsManager,
             @NonNull ActivityWindowAndroid windowAndroid,
@@ -159,7 +157,7 @@ public class BaseCustomTabRootUiCoordinator extends RootUiCoordinator {
         // clang-format off
         super(activity, null, shareDelegateSupplier, tabProvider,
                 profileSupplier, bookmarkModelSupplier, tabBookmarkerSupplier,
-                contextualSearchManagerSupplier, tabModelSelectorSupplier,
+                null, tabModelSelectorSupplier,
                 new OneshotSupplierImpl<>(), new OneshotSupplierImpl<>(),
                 new OneshotSupplierImpl<>(), new OneshotSupplierImpl<>(), () -> null,
                 browserControlsManager, windowAndroid, new DummyJankTracker(),
@@ -212,16 +210,6 @@ public class BaseCustomTabRootUiCoordinator extends RootUiCoordinator {
                     ((PartialCustomTabHeightStrategy) mCustomTabHeightStrategy)::onShowSoftInput;
             mTabController.get().registerTabObserver(
                     new PartialCustomTabTabObserver(softInputCallback));
-            mTabController.get().registerTabObserver(new EmptyTabObserver() {
-                @Override
-                public void didFirstVisuallyNonEmptyPaint(Tab tab) {
-                    BaseCustomTabActivity baseActivity = (BaseCustomTabActivity) mActivity;
-                    assert baseActivity != null;
-                    baseActivity.getContextualSearchManagerSupplier()
-                            .get()
-                            .setCanHideAndroidBrowserControls(false);
-                }
-            });
         }
     }
 

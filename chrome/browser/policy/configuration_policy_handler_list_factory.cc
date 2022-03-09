@@ -122,7 +122,6 @@
 #if BUILDFLAG(IS_ANDROID)
 #include "chrome/browser/first_run/android/first_run_prefs.h"
 #include "chrome/browser/lens/android/lens_prefs.h"
-#include "chrome/browser/search/contextual_search_policy_handler_android.h"
 #else  // BUILDFLAG(IS_ANDROID)
 #include "chrome/browser/download/default_download_dir_policy_handler.h"
 #include "chrome/browser/download/download_auto_open_policy_handler.h"
@@ -1895,10 +1894,7 @@ std::unique_ptr<ConfigurationPolicyHandlerList> BuildHandlerList(
       std::make_unique<URLBlocklistPolicyHandler>(key::kURLBlocklist));
   // Policies for all platforms - End
 
-#if BUILDFLAG(IS_ANDROID)
-  handlers->AddHandler(
-      std::make_unique<ContextualSearchPolicyHandlerAndroid>());
-#else
+#if !BUILDFLAG(IS_ANDROID)
   handlers->AddHandler(std::make_unique<BrowsingHistoryPolicyHandler>());
   handlers->AddHandler(std::make_unique<BrowsingDataLifetimePolicyHandler>(
       key::kClearBrowsingDataOnExitList,

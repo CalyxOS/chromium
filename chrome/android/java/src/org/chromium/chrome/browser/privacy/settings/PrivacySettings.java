@@ -47,7 +47,6 @@ import org.chromium.ui.text.SpanApplier;
 
 import androidx.annotation.Nullable;
 import androidx.preference.PreferenceCategory;
-import org.chromium.chrome.browser.contextualsearch.ContextualSearchManager;
 import org.chromium.chrome.browser.preferences.SharedPreferencesManager;
 import org.chromium.components.browser_ui.settings.ChromeSwitchPreference;
 
@@ -70,9 +69,7 @@ public class PrivacySettings
     // moved from SyncAndServicesSettings.java
     private static final String PREF_SERVICES_CATEGORY = "services_category";
     private static final String PREF_SEARCH_SUGGESTIONS = "search_suggestions";
-    private static final String PREF_CONTEXTUAL_SEARCH = "contextual_search";
     private ChromeSwitchPreference mSearchSuggestions;
-    private @Nullable Preference mContextualSearch;
     private final SharedPreferencesManager mSharedPreferencesManager =
             SharedPreferencesManager.getInstance();
     private final PrefService prefService = UserPrefs.get(Profile.getLastUsedRegularProfile());
@@ -130,12 +127,6 @@ public class PrivacySettings
         mSearchSuggestions = (ChromeSwitchPreference) findPreference(PREF_SEARCH_SUGGESTIONS);
         mSearchSuggestions.setOnPreferenceChangeListener(this);
         mSearchSuggestions.setManagedPreferenceDelegate(mManagedPreferenceDelegate);
-
-        mContextualSearch = findPreference(PREF_CONTEXTUAL_SEARCH);
-        boolean isContextualSearchEnabled =
-                !ContextualSearchManager.isContextualSearchDisabled();
-        mContextualSearch.setSummary(
-                isContextualSearchEnabled ? R.string.text_on : R.string.text_off);
 
         ChromeSwitchPreference canMakePaymentPref =
                 (ChromeSwitchPreference) findPreference(PREF_CAN_MAKE_PAYMENT);

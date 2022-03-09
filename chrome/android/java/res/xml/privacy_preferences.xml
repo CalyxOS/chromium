@@ -57,10 +57,6 @@ found in the LICENSE file.
           android:title="@string/autocomplete_searches_and_urls_title"
           android:summary="@string/autocomplete_searches_and_urls_summary"
           android:persistent="false"/>
-      <org.chromium.components.browser_ui.settings.ChromeBasePreference
-          android:key="contextual_search"
-          android:title="@string/contextual_search_title"
-          android:fragment="org.chromium.chrome.browser.contextualsearch.ContextualSearchPreferenceFragment"/>
     </PreferenceCategory>
     <Preference
         android:key="phone_as_a_security_key"

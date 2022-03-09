@@ -35,7 +35,6 @@ import org.chromium.base.supplier.Supplier;
 import org.chromium.chrome.browser.app.ChromeActivity;
 import org.chromium.chrome.browser.back_press.BackPressManager;
 import org.chromium.chrome.browser.compositor.CompositorViewHolder;
-import org.chromium.chrome.browser.contextualsearch.ContextualSearchManager;
 import org.chromium.chrome.browser.flags.ChromeFeatureList;
 import org.chromium.chrome.browser.fullscreen.FullscreenManager;
 import org.chromium.chrome.browser.fullscreen.FullscreenOptions;
@@ -538,14 +537,6 @@ class ManualFillingMediator
 
         // When in VR mode, don't extend the keyboard
         if (VrModuleProvider.getDelegate().isInVr()) return false;
-
-        // Don't open the accessory inside the contextual search panel.
-        ObservableSupplier<ContextualSearchManager> contextualSearchSupplier =
-                mActivity.getContextualSearchManagerSupplier();
-        if (contextualSearchSupplier != null && contextualSearchSupplier.hasValue()
-                && contextualSearchSupplier.get().isSearchPanelOpened()) {
-            return false;
-        }
 
         // If an accessory sheet was opened, the accessory bar must be visible.
         if (mAccessorySheet.isShown()) return true;

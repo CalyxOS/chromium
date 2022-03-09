@@ -11,7 +11,6 @@ import org.chromium.base.supplier.ObservableSupplierImpl;
 import org.chromium.base.supplier.Supplier;
 import org.chromium.chrome.browser.back_press.BackPressManager;
 import org.chromium.chrome.browser.browser_controls.BrowserControlsVisibilityManager;
-import org.chromium.chrome.browser.contextualsearch.ContextualSearchManager;
 import org.chromium.chrome.browser.fullscreen.FullscreenManager;
 import org.chromium.chrome.browser.lifecycle.ActivityLifecycleDispatcher;
 import org.chromium.chrome.browser.lifecycle.DestroyObserver;
@@ -72,7 +71,6 @@ public class TabModalLifetimeHandler implements NativeInitObserver, DestroyObser
             mAppVisibilityDelegateSupplier;
     private final Supplier<TabObscuringHandler> mTabObscuringHandlerSupplier;
     private final Supplier<ToolbarManager> mToolbarManagerSupplier;
-    private final Supplier<ContextualSearchManager> mContextualSearchManagerSupplier;
     private final Supplier<TabModelSelector> mTabModelSelectorSupplier;
     private final Supplier<BrowserControlsVisibilityManager>
             mBrowserControlsVisibilityManagerSupplier;
@@ -107,7 +105,7 @@ public class TabModalLifetimeHandler implements NativeInitObserver, DestroyObser
             Supplier<ComposedBrowserControlsVisibilityDelegate> appVisibilityDelegateSupplier,
             Supplier<TabObscuringHandler> tabObscuringHandlerSupplier,
             Supplier<ToolbarManager> toolbarManagerSupplier,
-            Supplier<ContextualSearchManager> contextualSearchManagerSupplier,
+            Object ignored,
             Supplier<TabModelSelector> tabModelSelectorSupplier,
             Supplier<BrowserControlsVisibilityManager> browserControlsVisibilityManagerSupplier,
             Supplier<FullscreenManager> fullscreenManagerSupplier,
@@ -123,7 +121,6 @@ public class TabModalLifetimeHandler implements NativeInitObserver, DestroyObser
         mFullscreenManagerSupplier = fullscreenManagerSupplier;
         mBrowserControlsVisibilityManagerSupplier = browserControlsVisibilityManagerSupplier;
         mVisibilityDelegate = new TabModalBrowserControlsVisibilityDelegate();
-        mContextualSearchManagerSupplier = contextualSearchManagerSupplier;
         mTabModelSelectorSupplier = tabModelSelectorSupplier;
         mBackPressManager = backPressManager;
         if (BackPressManager.isEnabled()) {
@@ -179,7 +176,7 @@ public class TabModalLifetimeHandler implements NativeInitObserver, DestroyObser
         assert mBrowserControlsVisibilityManagerSupplier.hasValue();
         assert mFullscreenManagerSupplier.hasValue();
         mPresenter = new ChromeTabModalPresenter(mActivity, mTabObscuringHandlerSupplier,
-                mToolbarManagerSupplier, mContextualSearchManagerSupplier,
+                mToolbarManagerSupplier, null,
                 mFullscreenManagerSupplier.get(), mBrowserControlsVisibilityManagerSupplier.get(),
                 tabModelSelector);
         assert mAppVisibilityDelegateSupplier.hasValue();

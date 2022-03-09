@@ -36,7 +36,6 @@
 #include "components/content_creation/notes/core/note_features.h"
 #include "components/content_creation/reactions/core/reactions_features.h"
 #include "components/content_settings/core/common/features.h"
-#include "components/contextual_search/core/browser/contextual_search_field_trial.h"
 #include "components/download/public/common/download_features.h"
 #include "components/embedder_support/android/util/cdn_utils.h"
 #include "components/feature_engagement/public/feature_list.h"
@@ -230,12 +229,6 @@ const base::Feature* const kFeaturesExposedToJava[] = {
     &kContextMenuSearchAndShopWithGoogleLens,
     &kContextMenuTranslateWithGoogleLens,
     &kContextMenuPopupForAllScreenSizes,
-    &kContextualSearchDebug,
-    &kContextualSearchDelayedIntelligence,
-    &kContextualSearchDisableOnlineDetection,
-    &kContextualSearchForceCaption,
-    &kContextualSearchSuppressShortView,
-    &kContextualSearchThinWebViewImplementation,
     &kDeferKeepScreenOnDuringGesture,
     &kDirectActions,
     &kDuetTabStripIntegrationAndroid,
@@ -706,26 +699,6 @@ BASE_FEATURE(kLensCameraAssistedSearch,
 BASE_FEATURE(kLensOnQuickActionSearchWidget,
              "LensOnQuickActionSearchWidget",
              base::FEATURE_ENABLED_BY_DEFAULT);
-
-BASE_FEATURE(kContextualSearchDelayedIntelligence,
-             "ContextualSearchDelayedIntelligence",
-             base::FEATURE_DISABLED_BY_DEFAULT);
-
-BASE_FEATURE(kContextualSearchDisableOnlineDetection,
-             "ContextualSearchDisableOnlineDetection",
-             base::FEATURE_DISABLED_BY_DEFAULT);
-
-BASE_FEATURE(kContextualSearchForceCaption,
-             "ContextualSearchForceCaption",
-             base::FEATURE_ENABLED_BY_DEFAULT);
-
-BASE_FEATURE(kContextualSearchSuppressShortView,
-             "ContextualSearchSuppressShortView",
-             base::FEATURE_DISABLED_BY_DEFAULT);
-
-BASE_FEATURE(kContextualSearchThinWebViewImplementation,
-             "ContextualSearchThinWebViewImplementation",
-             base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kDeferKeepScreenOnDuringGesture,
              "DeferKeepScreenOnDuringGesture",
