@@ -55,7 +55,6 @@ import org.chromium.chrome.browser.compositor.bottombar.OverlayPanelManager;
 import org.chromium.chrome.browser.compositor.bottombar.ephemeraltab.EphemeralTabCoordinator;
 import org.chromium.chrome.browser.compositor.layouts.LayoutManagerImpl;
 import org.chromium.chrome.browser.compositor.layouts.content.TabContentManager;
-import org.chromium.chrome.browser.contextualsearch.ContextualSearchManager;
 import org.chromium.chrome.browser.crash.ChromePureJavaExceptionReporter;
 import org.chromium.chrome.browser.directactions.DirectActionInitializer;
 import org.chromium.chrome.browser.dom_distiller.ReaderModeToolbarButtonController;
@@ -99,7 +98,6 @@ import org.chromium.chrome.browser.preferences.SharedPreferencesManager;
 import org.chromium.chrome.browser.price_tracking.PriceTrackingButtonController;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.search_engines.TemplateUrlServiceFactory;
-import org.chromium.chrome.browser.segmentation_platform.ContextualPageActionController;
 import org.chromium.chrome.browser.settings.SettingsLauncherImpl;
 import org.chromium.chrome.browser.share.ShareButtonController;
 import org.chromium.chrome.browser.share.ShareDelegate;
@@ -246,7 +244,6 @@ public class RootUiCoordinator
     private List<ButtonDataProvider> mButtonDataProviders;
     @Nullable
     private AdaptiveToolbarButtonController mAdaptiveToolbarButtonController;
-    private ContextualPageActionController mContextualPageActionController;
     private IdentityDiscController mIdentityDiscController;
     private ChromeActionModeHandler mChromeActionModeHandler;
     private final ToolbarActionModeCallback mActionModeControllerCallback;
@@ -259,7 +256,6 @@ public class RootUiCoordinator
     private final ObservableSupplier<TabBookmarker> mTabBookmarkerSupplier;
     private final OneshotSupplierImpl<AppMenuCoordinator> mAppMenuSupplier;
     private BottomSheetObserver mBottomSheetObserver;
-    private final Supplier<ContextualSearchManager> mContextualSearchManagerSupplier;
     protected final CallbackController mCallbackController;
     protected final BrowserControlsManager mBrowserControlsManager;
     private BrowserControlsStateProvider.Observer mBrowserControlsObserver;
@@ -364,7 +360,7 @@ public class RootUiCoordinator
             @NonNull ObservableSupplier<Profile> profileSupplier,
             @NonNull ObservableSupplier<BookmarkModel> bookmarkModelSupplier,
             @NonNull ObservableSupplier<TabBookmarker> tabBookmarkerSupplier,
-            @NonNull Supplier<ContextualSearchManager> contextualSearchManagerSupplier,
+            Object ignored,
             @NonNull ObservableSupplier<TabModelSelector> tabModelSelectorSupplier,
             @NonNull OneshotSupplier<StartSurface> startSurfaceSupplier,
             @NonNull OneshotSupplier<TabSwitcher> tabSwitcherSupplier,
@@ -457,7 +453,6 @@ public class RootUiCoordinator
         mBookmarkModelSupplier = bookmarkModelSupplier;
         mTabBookmarkerSupplier = tabBookmarkerSupplier;
         mAppMenuSupplier = new OneshotSupplierImpl<>();
-        mContextualSearchManagerSupplier = contextualSearchManagerSupplier;
         mActionModeControllerCallback = new ToolbarActionModeCallback();
 
         mTabModelSelectorSupplier = tabModelSelectorSupplier;
@@ -559,11 +554,6 @@ public class RootUiCoordinator
             }
             mToolbarManager.destroy();
             mToolbarManager = null;
-        }
-
-        if (mContextualPageActionController != null) {
-            mContextualPageActionController.destroy();
-            mContextualPageActionController = null;
         }
 
         if (mAdaptiveToolbarButtonController != null) {
@@ -1004,15 +994,6 @@ public class RootUiCoordinator
 
     @Override
     public boolean canShowAppMenu() {
-        // TODO(https:crbug.com/931496): Eventually the ContextualSearchManager,
-        // EphemeralTabCoordinator, and FindToolbarManager will all be owned by this class.
-
-        // Do not show the menu if Contextual Search panel is opened.
-        if (mContextualSearchManagerSupplier.get() != null
-                && mContextualSearchManagerSupplier.get().isSearchPanelOpened()) {
-            return false;
-        }
-
         // Do not show the menu if we are in find in page view.
         if (mFindToolbarManager != null && mFindToolbarManager.isShowing()
                 && !DeviceFormFactor.isNonMultiDisplayContextOnTablet(mActivity)) {
@@ -1167,11 +1148,6 @@ public class RootUiCoordinator
                     AdaptiveToolbarButtonVariant.PRICE_TRACKING, priceTrackingButtonController);
             adaptiveToolbarButtonController.addButtonVariant(
                     AdaptiveToolbarButtonVariant.READER_MODE, readerModeToolbarButtonController);
-            mContextualPageActionController = new ContextualPageActionController(mProfileSupplier,
-                    mActivityTabProvider, adaptiveToolbarButtonController,
-                    ()
-                            -> ShoppingServiceFactory.getForProfile(mProfileSupplier.get()),
-                    mBookmarkModelSupplier);
             mButtonDataProviders =
                     Arrays.asList(mIdentityDiscController, adaptiveToolbarButtonController);
 
@@ -1241,10 +1217,6 @@ public class RootUiCoordinator
             public void onStartedShowing(int layoutType, boolean showToolbar) {
                 if (layoutType != LayoutType.BROWSING
                         && layoutType != LayoutType.SIMPLE_ANIMATION) {
-                    // Hide contextual search.
-                    if (mContextualSearchManagerSupplier.get() != null) {
-                        mContextualSearchManagerSupplier.get().dismissContextualSearchBar();
-                    }
                 }
 
                 if (layoutType == LayoutType.TAB_SWITCHER) {
@@ -1365,10 +1337,6 @@ public class RootUiCoordinator
      * cross-feature interaction, e.g. hide other features when this feature is shown.
      */
     protected void onFindToolbarShown() {
-        if (mContextualSearchManagerSupplier.get() != null) {
-            mContextualSearchManagerSupplier.get().hideContextualSearch(
-                    OverlayPanel.StateChangeReason.UNKNOWN);
-        }
     }
 
     /**
@@ -1526,9 +1494,6 @@ public class RootUiCoordinator
                     case SheetState.FULL:
                         if (!mOpened) {
                             mOpened = true;
-                            ContextualSearchManager manager =
-                                    mContextualSearchManagerSupplier.get();
-                            if (manager != null) manager.onBottomSheetVisible(true);
                         }
 
                         // On visible bottom sheet, hide page zoom dialog
@@ -1536,8 +1501,6 @@ public class RootUiCoordinator
                         break;
                     case SheetState.HIDDEN:
                         mOpened = false;
-                        ContextualSearchManager manager = mContextualSearchManagerSupplier.get();
-                        if (manager != null) manager.onBottomSheetVisible(false);
                         break;
                 }
             }
