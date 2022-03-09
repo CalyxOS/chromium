@@ -26,7 +26,6 @@ import org.chromium.chrome.browser.browser_controls.BrowserControlsStateProvider
 import org.chromium.chrome.browser.browser_controls.BrowserControlsUtils;
 import org.chromium.chrome.browser.browser_controls.BrowserControlsVisibilityManager;
 import org.chromium.chrome.browser.compositor.bottombar.OverlayPanelManager;
-import org.chromium.chrome.browser.compositor.bottombar.contextualsearch.ContextualSearchPanel;
 import org.chromium.chrome.browser.compositor.layouts.Layout.Orientation;
 import org.chromium.chrome.browser.compositor.layouts.components.LayoutTab;
 import org.chromium.chrome.browser.compositor.layouts.content.TabContentManager;
@@ -323,8 +322,7 @@ public class LayoutManagerImpl
                 // it causes relocation tab strip scene layer.
                 StripLayoutHelperManager.class,
                 ScrollingBottomViewSceneLayer.class,
-                StatusIndicatorCoordinator.getSceneOverlayClass(),
-                ContextualSearchPanel.class};
+                StatusIndicatorCoordinator.getSceneOverlayClass()};
         // clang-format on
 
         for (int i = 0; i < overlayOrder.length; i++) mOverlayOrderMap.put(overlayOrder[i], i);

@@ -818,33 +818,6 @@ CHAR_LIMIT guidelines:
       <message name="IDS_AD_PRIVACY_LINK_ROW_SUB_LABEL" translateable="false" desc="Sublabel for the ad privacy row.">
         Fusce purus nibh, dictum sit amet mi in, fringilla ullamcorper tortor
       </message>
-      <message name="IDS_CONTEXTUAL_SEARCH_TITLE" desc="Name for the Contextual Search feature, which allows users to search for a term in a web page by tapping on it.">
-        Touch to Search
-      </message>
-      <message name="IDS_CONTEXTUAL_SEARCH_DESCRIPTION" desc="Description for Contextual Search preference">
-        Learn about topics on websites without leaving the page. Select one or more words on the page to search for them.
-      </message>
-      <message name="IDS_CONTEXTUAL_SEARCH_PROMO_TITLE" desc="The title of the promo message for the contextual search.">
-        Include surrounding text in Google searches?
-      </message>
-      <message name="IDS_CONTEXTUAL_SEARCH_PROMO_DESCRIPTION" desc="A promo message shown to users with Touch to Search to explain the new behavior and provide an option to opt in or out">
-        By including more of a page’s text, you might see better results when using Touch to Search. You can always visit <ph name="BEGIN_LINK">&lt;link&gt;</ph>settings<ph name="END_LINK">&lt;/link&gt;</ph> to change this.
-      </message>
-      <message name="IDS_CONTEXTUAL_SEARCH_INCLUDE_BUTTON" desc="A button to confirm and dismiss opt in promo">
-        Include
-      </message>
-      <message name="IDS_CONTEXTUAL_SEARCH_NO_THANKS_BUTTON" desc="A button to confirm and dismiss opt out promo">
-        No thanks
-      </message>
-      <message name="IDS_CONTEXTUAL_SEARCH_DEFAULT_CAPTION" desc="Summary help text that is shown as a second line in the Contextual Search peeking bottom sheet telling the user that they can tap the text in order to open the sheet and see search results there.">
-        Tap to see search results
-      </message>
-      <message name="IDS_CONTEXTUAL_SEARCH_SEE_BETTER_RESULTS_TITLE" desc="Title for the see better results switch in Contextual Search preference.">
-        Include surrounding text in Google searches
-      </message>
-      <message name="IDS_CONTEXTUAL_SEARCH_SEE_BETTER_RESULTS_SUMMARY" desc="Summary for the see better results switch in Contextual Search preference.">
-        By including more of a page’s text, you might see better results
-      </message>
       <message name="IDS_DO_NOT_TRACK_TITLE" desc="Title for 'Do Not Track' preference">
         “Do Not Track”
       </message>
@@ -4304,38 +4277,6 @@ To change this setting, <ph name="BEGIN_LINK">&lt;resetlink&gt;</ph>reset sync<p
 
       <message name="IDS_TAB_SWITCHER_BUTTON_LABEL" desc="Label for tab switcher button">
         Tabs
-      </message>
-
-      <!-- Contextual Search -->
-      <message name="IDS_CONTEXTUAL_SEARCH_NETWORK_UNAVAILABLE" desc="Tells the user the network is not accessible.">
-        Unable to access the network
-      </message>
-      <message name="IDS_CONTEXTUAL_SEARCH_ERROR" desc="A network error message">
-        Error: <ph name="ERROR_CODE">%1$s<ex>404</ex></ph>
-      </message>
-      <message name="IDS_CONTEXTUAL_SEARCH_QUICK_ACTION_CAPTION_OPEN" desc="Caption displayed in the Contextual Search bar prompting the user to open an app related to the selected text e.g. when an address is selected the caption will say 'Open in Maps'.">
-        Open in <ph name="APP_NAME">%1$s<ex>Maps</ex></ph>
-      </message>
-      <message name="IDS_CONTEXTUAL_SEARCH_QUICK_ACTION_CAPTION_GENERIC_MAP" desc="Caption displayed in the Contextual Search bar prompting the user to open a maps app with the selected address. This is displayed if more than one app may be used to open the address.">
-        Open in maps app
-      </message>
-      <message name="IDS_CONTEXTUAL_SEARCH_QUICK_ACTION_CAPTION_EMAIL" desc="Caption displayed in the Contextual Search bar prompting the user to create an email addressed to the selected email address.">
-        Create email in <ph name="APP_NAME">%1$s<ex>Gmail</ex></ph>
-      </message>
-      <message name="IDS_CONTEXTUAL_SEARCH_QUICK_ACTION_CAPTION_GENERIC_EMAIL" desc="Caption displayed in the Contextual Search bar prompting the user to create an email addressed to the selected email address. This is displayed if more than one app may be used to create the email.">
-        Create email
-      </message>
-      <message name="IDS_CONTEXTUAL_SEARCH_QUICK_ACTION_CAPTION_EVENT" desc="Caption displayed in the Contextual Search bar prompting the user to create an event using the selected date/time.">
-        Create event in <ph name="APP_NAME">%1$s<ex>Calendar</ex></ph>
-      </message>
-      <message name="IDS_CONTEXTUAL_SEARCH_QUICK_ACTION_CAPTION_GENERIC_EVENT" desc="Caption displayed in the Contextual Search bar prompting the user to create an event using the selected date/time. This is displayed if more than one app may be used to create the event.">
-        Create event
-      </message>
-      <message name="IDS_CONTEXTUAL_SEARCH_QUICK_ACTION_CAPTION_PHONE" desc="Caption displayed in the Contextual Search bar prompting the user to call the selected phone number.">
-        Call
-      </message>
-      <message name="IDS_CONTEXTUAL_SEARCH_QUICK_ACTION_CAPTION_GENERIC_WEBSITE" desc="Caption displayed in the Contextual Search bar prompting the user to navigate to a web page.">
-        Go to page
       </message>
 
       <!-- Web apps -->

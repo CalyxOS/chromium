@@ -977,8 +977,8 @@ mojom("android_mojo_bindings") {
   # This Android unhandled-tap feature uses another mojo source, add it in.
   if (enable_unhandled_tap) {
     sources += [ "unhandled_tap_notifier/unhandled_tap_notifier.mojom" ]
-    public_deps += [ "//ui/gfx/geometry/mojom" ]
   }
+  public_deps += [ "//ui/gfx/geometry/mojom" ]
 
   cpp_typemaps = [
     {

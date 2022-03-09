@@ -92,9 +92,6 @@ import org.chromium.chrome.browser.compositor.layouts.SceneChangeObserver;
 import org.chromium.chrome.browser.compositor.layouts.content.ContentOffsetProvider;
 import org.chromium.chrome.browser.compositor.layouts.content.TabContentManager;
 import org.chromium.chrome.browser.compositor.layouts.content.TabContentManagerHandler;
-import org.chromium.chrome.browser.contextualsearch.ContextualSearchFieldTrial;
-import org.chromium.chrome.browser.contextualsearch.ContextualSearchManager;
-import org.chromium.chrome.browser.contextualsearch.ContextualSearchManager.ContextualSearchTabPromotionDelegate;
 import org.chromium.chrome.browser.dependency_injection.ChromeActivityCommonsModule;
 import org.chromium.chrome.browser.dependency_injection.ChromeActivityComponent;
 import org.chromium.chrome.browser.dependency_injection.ModuleFactoryOverrides;
@@ -256,7 +253,7 @@ import java.util.function.Consumer;
  */
 public abstract class ChromeActivity<C extends ChromeActivityComponent>
         extends AsyncInitializationActivity
-        implements TabCreatorManager, PolicyChangeListener, ContextualSearchTabPromotionDelegate,
+        implements TabCreatorManager, PolicyChangeListener,
                    SnackbarManageable, SceneChangeObserver,
                    StatusBarColorController.StatusBarColorProvider, AppMenuDelegate, AppMenuBlocker,
                    MenuOrKeyboardActionController, CompositorViewHolder.Initializer,
@@ -323,8 +320,6 @@ public abstract class ChromeActivity<C extends ChromeActivityComponent>
             new ObservableSupplierImpl<>();
     protected final UnownedUserDataSupplier<InsetObserverView> mInsetObserverViewSupplier =
             new InsetObserverViewSupplier();
-    private final ObservableSupplierImpl<ContextualSearchManager> mContextualSearchManagerSupplier =
-            new ObservableSupplierImpl<>();
 
     private SnackbarManager mSnackbarManager;
 
@@ -515,7 +510,7 @@ public abstract class ChromeActivity<C extends ChromeActivityComponent>
         // clang-format off
         return new RootUiCoordinator(this, null, getShareDelegateSupplier(),
                 getActivityTabProvider(), mTabModelProfileSupplier, mBookmarkModelSupplier,
-                mTabBookmarkerSupplier, getContextualSearchManagerSupplier(),
+                mTabBookmarkerSupplier, null,
                 getTabModelSelectorSupplier(), new OneshotSupplierImpl<>(),
                 new OneshotSupplierImpl<>(), new OneshotSupplierImpl<>(),
                 new OneshotSupplierImpl<>(), () -> null, mBrowserControlsManagerSupplier.get(),
@@ -954,14 +949,6 @@ public abstract class ChromeActivity<C extends ChromeActivityComponent>
         getTabContentManager().initWithNative();
         mCompositorViewHolderSupplier.get().onNativeLibraryReady(
                 getWindowAndroid(), getTabContentManager(), getPrefService());
-
-        // TODO(1107916): Move contextual search initialization to the RootUiCoordinator.
-        if (ContextualSearchFieldTrial.isEnabled()) {
-            mContextualSearchManagerSupplier.set(new ContextualSearchManager(this, this,
-                    mRootUiCoordinator.getScrimCoordinator(), getActivityTabProvider(),
-                    getFullscreenManager(), getBrowserControlsManager(), getWindowAndroid(),
-                    getTabModelSelectorSupplier().get(), () -> getLastUserInteractionTime()));
-        }
 
         TraceEvent.end("ChromeActivity:CompositorInitialization");
     }
@@ -1439,11 +1426,6 @@ public abstract class ChromeActivity<C extends ChromeActivityComponent>
     @SuppressLint("NewApi")
     @Override
     protected final void onDestroy() {
-        if (mContextualSearchManagerSupplier.hasValue()) {
-            mContextualSearchManagerSupplier.get().destroy();
-            mContextualSearchManagerSupplier.set(null);
-        }
-
         if (mSnackbarManager != null) {
             SnackbarManagerProvider.detach(mSnackbarManager);
         }
@@ -1946,13 +1928,6 @@ public abstract class ChromeActivity<C extends ChromeActivityComponent>
     }
 
     /**
-     * @return The {@code ContextualSearchManager} or {@code null} if none;
-     */
-    public ObservableSupplier<ContextualSearchManager> getContextualSearchManagerSupplier() {
-        return mContextualSearchManagerSupplier;
-    }
-
-    /**
      * Exits the fullscreen mode, if any. Does nothing if no fullscreen is present.
      * @return Whether the fullscreen mode is currently showing.
      */
@@ -1997,15 +1972,6 @@ public abstract class ChromeActivity<C extends ChromeActivityComponent>
         }
 
         mActivityTabProvider.setLayoutStateProvider(layoutManager);
-
-        if (mContextualSearchManagerSupplier.hasValue()) {
-            mContextualSearchManagerSupplier.get().initialize(contentContainer, layoutManager,
-                    mRootUiCoordinator.getBottomSheetController(), compositorViewHolder,
-                    getControlContainerHeightResource() == ActivityUtils.NO_RESOURCE_ID
-                            ? 0f
-                            : getResources().getDimension(getControlContainerHeightResource()),
-                    getToolbarManager(), getActivityType(), getIntentRequestTracker());
-        }
     }
 
     /**
@@ -2281,18 +2247,6 @@ public abstract class ChromeActivity<C extends ChromeActivityComponent>
     private SelectionPopupController getSelectionPopupController() {
         WebContents webContents = getCurrentWebContents();
         return webContents != null ? SelectionPopupController.fromWebContents(webContents) : null;
-    }
-
-    @Override
-    public void createContextualSearchTab(String searchUrl) {
-        Tab currentTab = getActivityTab();
-        if (currentTab == null) return;
-
-        TabCreator tabCreator = getTabCreator(currentTab.isIncognito());
-        if (tabCreator == null) return;
-
-        tabCreator.createNewTab(new LoadUrlParams(searchUrl, PageTransition.LINK),
-                TabLaunchType.FROM_LINK, getActivityTab());
     }
 
     /** Opens the chrome://management page on a new tab. */
