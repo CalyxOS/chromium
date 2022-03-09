@@ -20,7 +20,6 @@ import org.chromium.chrome.browser.browser_controls.BrowserControlsStateProvider
 import org.chromium.chrome.browser.browser_controls.BrowserControlsUtils;
 import org.chromium.chrome.browser.browser_controls.BrowserControlsVisibilityManager;
 import org.chromium.chrome.browser.compositor.bottombar.OverlayPanel;
-import org.chromium.chrome.browser.contextualsearch.ContextualSearchManager;
 import org.chromium.chrome.browser.fullscreen.FullscreenManager;
 import org.chromium.chrome.browser.omnibox.OmniboxFocusReason;
 import org.chromium.chrome.browser.tab.Tab;
@@ -48,7 +47,6 @@ public class ChromeTabModalPresenter
     private final Activity mActivity;
     private final Supplier<TabObscuringHandler> mTabObscuringHandlerSupplier;
     private final Supplier<ToolbarManager> mToolbarManagerSupplier;
-    private final Supplier<ContextualSearchManager> mContextualSearchManagerSupplier;
     private final FullscreenManager mFullscreenManager;
     private final BrowserControlsVisibilityManager mBrowserControlsVisibilityManager;
     private final TabModalBrowserControlsVisibilityDelegate mVisibilityDelegate;
@@ -95,7 +93,7 @@ public class ChromeTabModalPresenter
     public ChromeTabModalPresenter(Activity activity,
             Supplier<TabObscuringHandler> tabObscuringHandlerSupplier,
             Supplier<ToolbarManager> toolbarManagerSupplier,
-            Supplier<ContextualSearchManager> contextualSearchManagerSupplier,
+            Object ignored,
             FullscreenManager fullscreenManager,
             BrowserControlsVisibilityManager browserControlsVisibilityManager,
             TabModelSelector tabModelSelector) {
@@ -107,7 +105,6 @@ public class ChromeTabModalPresenter
         mBrowserControlsVisibilityManager = browserControlsVisibilityManager;
         mBrowserControlsVisibilityManager.addObserver(this);
         mVisibilityDelegate = new TabModalBrowserControlsVisibilityDelegate();
-        mContextualSearchManagerSupplier = contextualSearchManagerSupplier;
         mTabModelSelector = tabModelSelector;
     }
 
@@ -194,13 +191,6 @@ public class ChromeTabModalPresenter
             mActiveTab = mTabModelSelector.getCurrentTab();
             assert mActiveTab
                     != null : "Tab modal dialogs should be shown on top of an active tab.";
-
-            // Hide contextual search panel so that bottom toolbar will not be
-            // obscured and back press is not overridden.
-            if (mContextualSearchManagerSupplier.hasValue()) {
-                mContextualSearchManagerSupplier.get().hideContextualSearch(
-                        OverlayPanel.StateChangeReason.UNKNOWN);
-            }
 
             // Dismiss the action bar that obscures the dialogs but preserve the text selection.
             WebContents webContents = mActiveTab.getWebContents();
