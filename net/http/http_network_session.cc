@@ -209,6 +209,7 @@ HttpNetworkSession::HttpNetworkSession(const HttpNetworkSessionParams& params,
 
   next_protos_.push_back(kProtoHTTP11);
 
+  DCHECK(context.quic_context->params()->max_server_configs_stored_in_properties == 0);
   http_server_properties_->SetMaxServerConfigsStoredInProperties(
       context.quic_context->params()->max_server_configs_stored_in_properties);
   http_server_properties_->SetBrokenAlternativeServicesDelayParams(
