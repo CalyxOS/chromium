@@ -62,6 +62,14 @@ const base::FeatureParam<base::TimeDelta> kUseDnsHttpsSvcbSecureExtraTimeMin{
     &kUseDnsHttpsSvcb, "UseDnsHttpsSvcbSecureExtraTimeMin",
     base::Milliseconds(5)};
 
+BASE_FEATURE(kDisableTLSResumption,
+             "DisableTLSResumption",
+             base::FEATURE_ENABLED_BY_DEFAULT);
+
+BASE_FEATURE(kLogTLSResumption,
+             "LogTLSResumption",
+             base::FEATURE_DISABLED_BY_DEFAULT);
+
 BASE_FEATURE(kUseDnsHttpsSvcbAlpn,
              "UseDnsHttpsSvcbAlpn",
              base::FEATURE_DISABLED_BY_DEFAULT);
