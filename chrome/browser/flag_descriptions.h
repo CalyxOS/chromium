@@ -591,6 +591,12 @@ extern const char kEnableTLS13KyberDescription[];
 extern const char kAccessibilityAcceleratorNotificationsTimeoutName[];
 extern const char kAccessibilityAcceleratorNotificationsTimeoutDescription[];
 
+extern const char kDisableTLSResumptionName[];
+extern const char kDisableTLSResumptionDescription[];
+
+extern const char kLogTLSResumptionName[];
+extern const char kLogTLSResumptionDescription[];
+
 extern const char kAccessibilityServiceName[];
 extern const char kAccessibilityServiceDescription[];
 
