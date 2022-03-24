@@ -292,7 +292,33 @@ SSLClientSocketImpl::SSLClientSocketImpl(
   CHECK(context_);
 }
 
+void SSLClientSocketImpl::Log_ssl_session_data(const std::string& tag, SSL_SESSION* session) {
+  if (session == NULL) {
+    LOG(INFO) << "SSL Log: "
+              << tag
+              << " host: " << host_and_port_.ToString()
+              << " NIK: " << ssl_config_.network_anonymization_key.ToDebugString();
+    return;
+  }
+
+  unsigned len;
+  auto* session_id = SSL_SESSION_get_id(session, &len);
+
+  const uint8_t *ticket;
+  size_t ticklen;
+  SSL_SESSION_get0_ticket(session, &ticket, &ticklen);
+
+  LOG(INFO) << "SSL Log: "
+            << tag
+            << " host: " << host_and_port_.ToString()
+            << " NIK: " << ssl_config_.network_anonymization_key.ToDebugString()
+            << " sessionid: " << base::HexEncode(session_id, len)
+            << (ticklen > 0 ? " ticket:" + base::HexEncode(ticket, ticklen) : "");
+}
+
 SSLClientSocketImpl::~SSLClientSocketImpl() {
+  if (base::FeatureList::IsEnabled(net::features::kLogTLSResumption))
+    Log_ssl_session_data("Disconnect", NULL);
   Disconnect();
 }
 
@@ -676,6 +702,8 @@ int SSLClientSocketImpl::Init() {
     }
     if (session)
       SSL_set_session(ssl_.get(), session.get());
+    if (session && base::FeatureList::IsEnabled(net::features::kLogTLSResumption))
+      Log_ssl_session_data("Old session resumed", session.get());
   }
 
   const int kBufferSize = GetDefaultOpenSSLBufferSize();
@@ -960,6 +988,35 @@ int SSLClientSocketImpl::DoHandshakeComplete(int result) {
       details = used_hello_retry_request
                     ? SSLHandshakeDetails::kTLS13FullWithHelloRetryRequest
                     : SSLHandshakeDetails::kTLS13Full;
+    }
+  }
+  if (base::FeatureList::IsEnabled(net::features::kLogTLSResumption)) {
+    switch(details)
+    {
+      case SSLHandshakeDetails::kTLS13Early:
+        Log_ssl_session_data("SSL Log: session reused: kTLS13Early mode", NULL);
+        break;
+      case SSLHandshakeDetails::kTLS13ResumeWithHelloRetryRequest:
+        Log_ssl_session_data("SSL Log: session reused: kTLS13ResumeWithHelloRetryRequest mode", NULL);
+        break;
+      case SSLHandshakeDetails::kTLS13Resume:
+        Log_ssl_session_data("SSL Log: session reused: kTLS13Resume mode", NULL);
+        break;
+      case SSLHandshakeDetails::kTLS12Resume:
+        Log_ssl_session_data("SSL Log: session reused: kTLS12Resume mode", NULL);
+        break;
+      case SSLHandshakeDetails::kTLS12Full:
+        Log_ssl_session_data("SSL Log: session reused: kTLS12Full mode", NULL);
+        break;
+      case SSLHandshakeDetails::kTLS12FalseStart:
+        Log_ssl_session_data("SSL Log: session reused: kTLS12FalseStart mode", NULL);
+        break;
+      case SSLHandshakeDetails::kTLS13Full:
+        Log_ssl_session_data("SSL Log: session reused: kTLS13Full mode", NULL);
+        break;
+      case SSLHandshakeDetails::kTLS13FullWithHelloRetryRequest:
+        Log_ssl_session_data("SSL Log: session reused: kTLS13FullWithHelloRetryRequest mode", NULL);
+        break;
     }
   }
   UMA_HISTOGRAM_ENUMERATION("Net.SSLHandshakeDetails", details);
@@ -1587,6 +1644,8 @@ bool SSLClientSocketImpl::IsRenegotiationAllowed() const {
 }
 
 bool SSLClientSocketImpl::IsCachingEnabled() const {
+  if (base::FeatureList::IsEnabled(net::features::kDisableTLSResumption))
+    return false;
   return context_->ssl_client_session_cache() != nullptr;
 }
 
