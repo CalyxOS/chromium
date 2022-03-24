@@ -102,6 +102,12 @@ NET_EXPORT BASE_DECLARE_FEATURE(kSHA1ServerSignature);
 // Enables TLS 1.3 early data.
 NET_EXPORT BASE_DECLARE_FEATURE(kEnableTLS13EarlyData);
 
+// Disables TLS resumption.
+NET_EXPORT BASE_DECLARE_FEATURE(kDisableTLSResumption);
+
+// Log TLS resumption.
+NET_EXPORT BASE_DECLARE_FEATURE(kLogTLSResumption);
+
 // Enables the TLS Encrypted ClientHello feature.
 // https://datatracker.ietf.org/doc/html/draft-ietf-tls-esni-13
 NET_EXPORT BASE_DECLARE_FEATURE(kEncryptedClientHello);
