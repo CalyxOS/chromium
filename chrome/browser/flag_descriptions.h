@@ -612,6 +612,12 @@ extern const char kEnablePreinstalledWebAppDuplicationFixerDescription[];
 extern const char kEnableTLS13EarlyDataName[];
 extern const char kEnableTLS13EarlyDataDescription[];
 
+extern const char kDisableTLSResumptionName[];
+extern const char kDisableTLSResumptionDescription[];
+
+extern const char kLogTLSResumptionName[];
+extern const char kLogTLSResumptionDescription[];
+
 extern const char kEnableTLS13KyberName[];
 extern const char kEnableTLS13KyberDescription[];
 

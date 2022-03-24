@@ -5218,6 +5218,12 @@ const FeatureEntry kFeatureEntries[] = {
     {"enable-tls13-kyber", flag_descriptions::kEnableTLS13KyberName,
      flag_descriptions::kEnableTLS13KyberDescription, kOsAll,
      FEATURE_VALUE_TYPE(net::features::kPostQuantumKyber)},
+    {"disable-tls-resumption", flag_descriptions::kDisableTLSResumptionName,
+     flag_descriptions::kDisableTLSResumptionDescription, kOsAll,
+     FEATURE_VALUE_TYPE(net::features::kDisableTLSResumption)},
+    {"log-tls-resumption", flag_descriptions::kLogTLSResumptionName,
+     flag_descriptions::kLogTLSResumptionDescription, kOsAll,
+     FEATURE_VALUE_TYPE(net::features::kLogTLSResumption)},
 #if BUILDFLAG(IS_ANDROID)
     {"feed-bottom-sync-banner", flag_descriptions::kFeedBottomSyncBannerName,
      flag_descriptions::kFeedBottomSyncBannerDescription, kOsAndroid,
