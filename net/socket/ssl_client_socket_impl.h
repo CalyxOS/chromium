@@ -127,6 +127,8 @@ class SSLClientSocketImpl : public SSLClientSocket,
   friend class SSLClientSocket;
   friend class SSLContext;
 
+  void Log_ssl_session_data(const std::string& tag, SSL_SESSION* session);
+
   int Init();
   void DoReadCallback(int result);
   void DoWriteCallback(int result);
