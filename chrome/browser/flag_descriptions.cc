@@ -989,6 +989,14 @@ const char kEnableTLS13EarlyDataDescription[] =
     "during the handshake when resuming a connection to a compatible TLS 1.3 "
     "server.";
 
+const char kDisableTLSResumptionName[] = "Disable TLS Session Resumption";
+const char kDisableTLSResumptionDescription[] =
+    "Disable TLS session resumption.";
+
+const char kLogTLSResumptionName[] = "Log TLS Session Resumption";
+const char kLogTLSResumptionDescription[] =
+    "Log TLS session resumption";
+
 const char kEnhancedNetworkVoicesName[] = "Enhanced network voices";
 const char kEnhancedNetworkVoicesDescription[] =
     "This option enables high-quality, network-based voices in "
