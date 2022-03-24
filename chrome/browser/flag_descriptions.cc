@@ -1051,6 +1051,14 @@ const char kAccessibilityAcceleratorNotificationsTimeoutDescription[] =
     "shortcut (docked magnifier, screen magnifier and high contrast) to time "
     "out instead of remaining pinned.";
 
+const char kDisableTLSResumptionName[] = "Disable TLS Session Resumption";
+const char kDisableTLSResumptionDescription[] =
+    "Disable TLS session resumption.";
+
+const char kLogTLSResumptionName[] = "Log TLS Session Resumption";
+const char kLogTLSResumptionDescription[] =
+    "Log TLS session resumption";
+
 const char kAccessibilityServiceName[] = "Experimental Accessibility Service";
 const char kAccessibilityServiceDescription[] =
     "This option enables the experimental Accessibility Service and runs some "
