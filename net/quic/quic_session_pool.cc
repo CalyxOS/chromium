@@ -78,6 +78,7 @@
 #include "net/third_party/quiche/src/quiche/quic/platform/api/quic_flags.h"
 #include "net/traffic_annotation/network_traffic_annotation.h"
 #include "third_party/boringssl/src/include/openssl/aead.h"
+#include "third_party/boringssl/src/include/openssl/ssl.h"
 #include "url/gurl.h"
 #include "url/scheme_host_port.h"
 #include "url/url_constants.h"
@@ -194,6 +195,38 @@ void LogUsingExistingSession(const NetLogWithSource& request_net_log,
 }
 
 }  // namespace
+
+class BromiteSessionCache : public quic::QuicClientSessionCache {
+ public:
+  BromiteSessionCache() = default;
+  ~BromiteSessionCache() override = default;
+
+  void Insert(const quic::QuicServerId& server_id,
+              bssl::UniquePtr<SSL_SESSION> session,
+              const quic::TransportParameters& params,
+              const quic::ApplicationState* application_state) override {
+    if (base::FeatureList::IsEnabled(net::features::kDisableTLSResumption))
+      SSL_SESSION_set_timeout(session.get(), 0);
+    if (base::FeatureList::IsEnabled(net::features::kLogTLSResumption)) {
+      LOG(INFO) << "SSL Log: new quic session created "
+                << server_id.host();
+    }
+    quic::QuicClientSessionCache::Insert(server_id,
+      std::move(session), params, application_state);
+  }
+
+  std::unique_ptr<quic::QuicResumptionState> Lookup(
+        const quic::QuicServerId& server_id, quic::QuicWallTime now,
+        const SSL_CTX* ctx) override {
+    auto value = quic::QuicClientSessionCache::Lookup(server_id, now, ctx);
+    if (value != nullptr &&
+        base::FeatureList::IsEnabled(net::features::kLogTLSResumption)) {
+      LOG(INFO) << "SSL Log: QUIC session resumed "
+                << server_id.host();
+    }
+    return value;
+  }
+};
 
 QuicSessionRequest::QuicSessionRequest(QuicSessionPool* pool) : pool_(pool) {}
 
@@ -1881,7 +1914,7 @@ QuicSessionPool::CreateCryptoConfigHandle(
               cert_verifier_, transport_security_state_, sct_auditing_delegate_,
               HostsFromOrigins(params_.origins_to_force_quic_on),
               actual_network_anonymization_key),
-          std::make_unique<quic::QuicClientSessionCache>(), this);
+          std::make_unique<BromiteSessionCache>(), this);
 
   quic::QuicCryptoClientConfig* crypto_config = crypto_config_owner->config();
   crypto_config->AddCanonicalSuffix(".c.youtube.com");
