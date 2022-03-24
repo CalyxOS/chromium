@@ -4996,6 +4996,12 @@ const FeatureEntry kFeatureEntries[] = {
     {"enable-tls13-early-data", flag_descriptions::kEnableTLS13EarlyDataName,
      flag_descriptions::kEnableTLS13EarlyDataDescription, kOsAll,
      FEATURE_VALUE_TYPE(net::features::kEnableTLS13EarlyData)},
+    {"disable-tls-resumption", flag_descriptions::kDisableTLSResumptionName,
+     flag_descriptions::kDisableTLSResumptionDescription, kOsAll,
+     FEATURE_VALUE_TYPE(net::features::kDisableTLSResumption)},
+    {"log-tls-resumption", flag_descriptions::kLogTLSResumptionName,
+     flag_descriptions::kLogTLSResumptionDescription, kOsAll,
+     FEATURE_VALUE_TYPE(net::features::kLogTLSResumption)},
 #if BUILDFLAG(IS_ANDROID)
     {"feed-bottom-sync-banner", flag_descriptions::kFeedBottomSyncBannerName,
      flag_descriptions::kFeedBottomSyncBannerDescription, kOsAndroid,
