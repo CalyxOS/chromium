@@ -72,13 +72,8 @@ BASE_FEATURE(kAppShimNewCloseBehavior,
 
 // Enables the built-in DNS resolver.
 BASE_FEATURE(kAsyncDns,
-             "AsyncDns",
-#if BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_ANDROID) || \
-    BUILDFLAG(IS_WIN) || BUILDFLAG(IS_LINUX)
-             base::FEATURE_ENABLED_BY_DEFAULT
-#else
-             base::FEATURE_DISABLED_BY_DEFAULT
-#endif
+             "AsyncDns",                                // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT           // in Bromite
 );
 
 #if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX) || \
