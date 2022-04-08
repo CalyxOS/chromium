@@ -148,7 +148,7 @@ void PermissionRequestManager::AddRequest(
 
   if (base::CommandLine::ForCurrentProcess()->HasSwitch(
           switches::kDenyPermissionPrompts)) {
-    request->PermissionDenied();
+    request->PermissionDenied(/*is_one_time*/false, content_settings::LifetimeMode::Always);
     request->RequestFinished();
     return;
   }
@@ -224,7 +224,7 @@ void PermissionRequestManager::AddRequest(
   if (auto_approval_origin) {
     if (url::Origin::Create(request->requesting_origin()) ==
         auto_approval_origin.value()) {
-      request->PermissionGranted(/*is_one_time=*/false);
+      request->PermissionGranted(/*is_one_time=*/false, content_settings::LifetimeMode::Always);
     }
     request->RequestFinished();
     return;
@@ -538,14 +538,15 @@ void PermissionRequestManager::Accept() {
                                 (*requests_iter)->request_type(),
                                 PermissionAction::GRANTED);
     PermissionGrantedIncludingDuplicates(*requests_iter,
-                                         /*is_one_time=*/false);
+                                         /*is_one_time=*/false,
+                                         content_settings::LifetimeMode::Always);
   }
 
   NotifyRequestDecided(PermissionAction::GRANTED);
   FinalizeCurrentRequests(PermissionAction::GRANTED);
 }
 
-void PermissionRequestManager::AcceptThisTime() {
+void PermissionRequestManager::AcceptThisTime(content_settings::LifetimeMode mode) {
   if (ignore_callbacks_from_prompt_)
     return;
   DCHECK(view_);
@@ -556,7 +557,8 @@ void PermissionRequestManager::AcceptThisTime() {
                                 (*requests_iter)->request_type(),
                                 PermissionAction::GRANTED_ONCE);
     PermissionGrantedIncludingDuplicates(*requests_iter,
-                                         /*is_one_time=*/true);
+                                         /*is_one_time=*/true,
+                                         mode);
   }
 
   NotifyRequestDecided(PermissionAction::GRANTED_ONCE);
@@ -564,6 +566,15 @@ void PermissionRequestManager::AcceptThisTime() {
 }
 
 void PermissionRequestManager::Deny() {
+  Deny_(/*is_one_time*/ false, content_settings::LifetimeMode::Always);
+}
+
+void PermissionRequestManager::DenyThisTime(content_settings::LifetimeMode mode) {
+  Deny_(/*is_one_time*/ true, mode);
+}
+
+void PermissionRequestManager::Deny_(bool is_one_time,
+                                     content_settings::LifetimeMode lifetime_option) {
   if (ignore_callbacks_from_prompt_)
     return;
   DCHECK(view_);
@@ -586,7 +597,7 @@ void PermissionRequestManager::Deny() {
     StorePermissionActionForUMA((*requests_iter)->requesting_origin(),
                                 (*requests_iter)->request_type(),
                                 PermissionAction::DENIED);
-    PermissionDeniedIncludingDuplicates(*requests_iter);
+    PermissionDeniedIncludingDuplicates(*requests_iter, is_one_time, lifetime_option);
   }
 
   NotifyRequestDecided(PermissionAction::DENIED);
@@ -1003,25 +1014,25 @@ PermissionRequest* PermissionRequestManager::GetExistingRequest(
 
 void PermissionRequestManager::PermissionGrantedIncludingDuplicates(
     PermissionRequest* request,
-    bool is_one_time) {
+    bool is_one_time, content_settings::LifetimeMode lifetime_option) {
   DCHECK_EQ(1ul, base::ranges::count(requests_, request) +
                      pending_permission_requests_.Count(request))
       << "Only requests in [pending_permission_]requests_ can have duplicates";
-  request->PermissionGranted(is_one_time);
+  request->PermissionGranted(is_one_time, lifetime_option);
   auto range = duplicate_requests_.equal_range(request);
   for (auto it = range.first; it != range.second; ++it)
-    it->second->PermissionGranted(is_one_time);
+    it->second->PermissionGranted(is_one_time, lifetime_option);
 }
 
 void PermissionRequestManager::PermissionDeniedIncludingDuplicates(
-    PermissionRequest* request) {
+    PermissionRequest* request, bool is_one_time, content_settings::LifetimeMode lifetime_option) {
   DCHECK_EQ(1ul, base::ranges::count(requests_, request) +
                      pending_permission_requests_.Count(request))
       << "Only requests in [pending_permission_]requests_ can have duplicates";
-  request->PermissionDenied();
+  request->PermissionDenied(is_one_time, lifetime_option);
   auto range = duplicate_requests_.equal_range(request);
   for (auto it = range.first; it != range.second; ++it)
-    it->second->PermissionDenied();
+    it->second->PermissionDenied(is_one_time, lifetime_option);
 }
 
 void PermissionRequestManager::CancelledIncludingDuplicates(
@@ -1248,7 +1259,7 @@ void PermissionRequestManager::LogWarningToConsole(const char* message) {
 void PermissionRequestManager::DoAutoResponseForTesting() {
   switch (auto_response_for_test_) {
     case ACCEPT_ONCE:
-      AcceptThisTime();
+      AcceptThisTime(content_settings::LifetimeMode::Always);
       break;
     case ACCEPT_ALL:
       Accept();

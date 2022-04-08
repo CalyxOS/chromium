@@ -409,10 +409,7 @@ void ChromeBrowserMainExtraPartsProfiles::
   FirstRunServiceFactory::GetInstance();
 #endif
   LanguageModelManagerFactory::GetInstance();
-  if (base::FeatureList::IsEnabled(
-          permissions::features::kOneTimeGeolocationPermission)) {
-    LastTabStandingTrackerFactory::GetInstance();
-  }
+  LastTabStandingTrackerFactory::GetInstance();
 #if !BUILDFLAG(IS_ANDROID)
   captions::LiveCaptionControllerFactory::GetInstance();
   if (base::FeatureList::IsEnabled(media::kLiveTranslate))
