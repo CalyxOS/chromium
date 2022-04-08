@@ -43,6 +43,14 @@ PermissionRequest::PermissionRequest(
       delete_callback_(std::move(delete_callback)),
       uses_automatic_embargo_(uses_automatic_embargo) {}
 
+PermissionRequest::PermissionRequest(
+    PermissionRequestData request_data,
+    PermissionDecidedCallbackWithLifetime permission_decided_callback,
+    base::OnceClosure delete_callback)
+    : data_(std::move(request_data)),
+      permission_decided_callback_withlifetime_(std::move(permission_decided_callback)),
+      delete_callback_(std::move(delete_callback)) {}
+
 PermissionRequest::~PermissionRequest() {
   DCHECK(delete_callback_.is_null());
 }
@@ -355,19 +363,37 @@ bool PermissionRequest::ShouldUseTwoOriginPrompt() const {
   return request_type() == RequestType::kStorageAccess;
 }
 
-void PermissionRequest::PermissionGranted(bool is_one_time) {
+void PermissionRequest::PermissionGranted(bool is_one_time,
+                            content_settings::mojom::LifetimeMode lifetime_option) {
+  if (permission_decided_callback_withlifetime_) {
+    std::move(permission_decided_callback_withlifetime_)
+        .Run(CONTENT_SETTING_ALLOW, is_one_time, /*is_final_decision=*/true, lifetime_option);
+    return;
+  }
   std::move(permission_decided_callback_)
       .Run(CONTENT_SETTING_ALLOW, is_one_time,
            /*is_final_decision=*/true);
 }
 
-void PermissionRequest::PermissionDenied() {
+void PermissionRequest::PermissionDenied(bool is_one_time,
+                            content_settings::mojom::LifetimeMode lifetime_option) {
+  if (permission_decided_callback_withlifetime_) {
+    std::move(permission_decided_callback_withlifetime_)
+        .Run(CONTENT_SETTING_BLOCK, is_one_time, /*is_final_decision=*/true, lifetime_option);
+    return;
+  }
   std::move(permission_decided_callback_)
       .Run(CONTENT_SETTING_BLOCK, /*is_one_time=*/false,
            /*is_final_decision=*/true);
 }
 
 void PermissionRequest::Cancelled(bool is_final_decision) {
+  if (permission_decided_callback_withlifetime_) {
+    std::move(permission_decided_callback_withlifetime_)
+        .Run(CONTENT_SETTING_DEFAULT, false, is_final_decision,
+             content_settings::mojom::LifetimeMode::ALWAYS);
+    return;
+  }
   if (permission_decided_callback_) {
     permission_decided_callback_.Run(CONTENT_SETTING_DEFAULT,
                                      /*is_one_time=*/false, is_final_decision);
