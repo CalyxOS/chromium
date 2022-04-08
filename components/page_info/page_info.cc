@@ -1210,6 +1210,8 @@ void PageInfo::PresentSitePermissions() {
     permission_info.source = info.source;
     permission_info.is_one_time = (info.metadata.session_model ==
                                    content_settings::SessionModel::OneTime);
+    permission_info.is_user_session =
+        (info.metadata.session_model == content_settings::SessionModel::UserSession);
 
     if (info.primary_pattern == ContentSettingsPattern::Wildcard() &&
         info.secondary_pattern == ContentSettingsPattern::Wildcard()) {
