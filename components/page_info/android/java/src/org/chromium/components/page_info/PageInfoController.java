@@ -385,9 +385,9 @@ public class PageInfoController
             String name,
             String nameMidSentence,
             int type,
-            @ContentSettingValues int currentSettingValue) {
+            @ContentSettingValues int currentSettingValue, boolean is_user_session) {
         mPermissionParamsListBuilder.addPermissionEntry(
-                name, nameMidSentence, type, currentSettingValue);
+                name, nameMidSentence, type, currentSettingValue, is_user_session);
     }
 
     /** Update the permissions view based on the contents of mDisplayedPermissions. */
