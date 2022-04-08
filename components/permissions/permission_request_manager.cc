@@ -173,7 +173,7 @@ void PermissionRequestManager::AddRequest(
 
   if (base::CommandLine::ForCurrentProcess()->HasSwitch(
           switches::kDenyPermissionPrompts)) {
-    request->PermissionDenied();
+    request->PermissionDenied(/*is_one_time*/false, content_settings::mojom::LifetimeMode::ALWAYS);
     request->RequestFinished();
     return;
   }
@@ -248,7 +248,7 @@ void PermissionRequestManager::AddRequest(
 
   if (should_auto_approve_request) {
     if (should_auto_approve_request == PermissionAction::GRANTED) {
-      request->PermissionGranted(/*is_one_time=*/true);
+      request->PermissionGranted(/*is_one_time=*/true, content_settings::mojom::LifetimeMode::UNTIL_ORIGIN_CLOSED);
     }
     request->RequestFinished();
     return;
@@ -611,7 +611,8 @@ void PermissionRequestManager::Accept() {
                                 (*requests_iter)->request_type(),
                                 PermissionAction::GRANTED);
     PermissionGrantedIncludingDuplicates(*requests_iter,
-                                         /*is_one_time=*/false);
+                                         /*is_one_time=*/false,
+                                         content_settings::mojom::LifetimeMode::ALWAYS);
 
 #if !BUILDFLAG(IS_ANDROID)
     std::optional<ContentSettingsType> content_settings_type =
@@ -629,7 +630,7 @@ void PermissionRequestManager::Accept() {
   CurrentRequestsDecided(PermissionAction::GRANTED);
 }
 
-void PermissionRequestManager::AcceptThisTime() {
+void PermissionRequestManager::AcceptThisTime(content_settings::mojom::LifetimeMode mode) {
   if (ignore_callbacks_from_prompt_)
     return;
   DCHECK(view_);
@@ -642,7 +643,8 @@ void PermissionRequestManager::AcceptThisTime() {
                                 (*requests_iter)->request_type(),
                                 PermissionAction::GRANTED_ONCE);
     PermissionGrantedIncludingDuplicates(*requests_iter,
-                                         /*is_one_time=*/true);
+                                         /*is_one_time=*/true,
+                                         mode);
   }
 
   NotifyRequestDecided(PermissionAction::GRANTED_ONCE);
@@ -650,6 +652,15 @@ void PermissionRequestManager::AcceptThisTime() {
 }
 
 void PermissionRequestManager::Deny() {
+  Deny_(/*is_one_time*/ false, content_settings::mojom::LifetimeMode::ALWAYS);
+}
+
+void PermissionRequestManager::DenyThisTime(content_settings::mojom::LifetimeMode mode) {
+  Deny_(/*is_one_time*/ true, mode);
+}
+
+void PermissionRequestManager::Deny_(bool is_one_time,
+                                     content_settings::mojom::LifetimeMode lifetime_option) {
   if (ignore_callbacks_from_prompt_)
     return;
   DCHECK(view_);
@@ -672,7 +683,7 @@ void PermissionRequestManager::Deny() {
     StorePermissionActionForUMA((*requests_iter)->requesting_origin(),
                                 (*requests_iter)->request_type(),
                                 PermissionAction::DENIED);
-    PermissionDeniedIncludingDuplicates(*requests_iter);
+    PermissionDeniedIncludingDuplicates(*requests_iter, is_one_time, lifetime_option);
   }
 
   NotifyRequestDecided(PermissionAction::DENIED);
@@ -1271,32 +1282,32 @@ PermissionRequestManager::VisitDuplicateRequests(
 
 void PermissionRequestManager::PermissionGrantedIncludingDuplicates(
     PermissionRequest* request,
-    bool is_one_time) {
+    bool is_one_time, content_settings::mojom::LifetimeMode lifetime_option) {
   DCHECK_EQ(1ul, std::ranges::count(requests_, request) +
                      pending_permission_requests_.Count(request))
       << "Only requests in [pending_permission_]requests_ can have duplicates";
-  request->PermissionGranted(is_one_time);
+  request->PermissionGranted(is_one_time, lifetime_option);
   VisitDuplicateRequests(
       base::BindRepeating(
-          [](bool is_one_time,
+          [](bool is_one_time, content_settings::mojom::LifetimeMode lifetime_option,
              const base::WeakPtr<PermissionRequest>& weak_request) {
-            weak_request->PermissionGranted(is_one_time);
+            weak_request->PermissionGranted(is_one_time, lifetime_option);
           },
-          is_one_time),
+          is_one_time, lifetime_option),
       request);
 }
 
 void PermissionRequestManager::PermissionDeniedIncludingDuplicates(
-    PermissionRequest* request) {
+    PermissionRequest* request, bool is_one_time, content_settings::mojom::LifetimeMode lifetime_option) {
   DCHECK_EQ(1ul, std::ranges::count(requests_, request) +
                      pending_permission_requests_.Count(request))
       << "Only requests in [pending_permission_]requests_ can have duplicates";
-  request->PermissionDenied();
+  request->PermissionDenied(is_one_time, lifetime_option);
   VisitDuplicateRequests(
       base::BindRepeating(
-          [](const base::WeakPtr<PermissionRequest>& weak_request) {
-            weak_request->PermissionDenied();
-          }),
+          [](bool is_one_time, content_settings::mojom::LifetimeMode lifetime_option, const base::WeakPtr<PermissionRequest>& weak_request) {
+            weak_request->PermissionDenied(is_one_time, lifetime_option);
+          }, is_one_time, lifetime_option),
       request);
 }
 
@@ -1566,7 +1577,7 @@ void PermissionRequestManager::DoAutoResponseForTesting() {
   }
   switch (auto_response_for_test_) {
     case ACCEPT_ONCE:
-      AcceptThisTime();
+      AcceptThisTime(content_settings::mojom::LifetimeMode::ONLY_THIS_TIME);
       break;
     case ACCEPT_ALL:
       Accept();
