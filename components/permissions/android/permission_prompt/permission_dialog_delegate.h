@@ -41,6 +41,7 @@ class PermissionDialogJavaDelegate {
       const favicon_base::FaviconRawBitmapResult& favicon_result);
 
   virtual void DismissDialog();
+  virtual int GetSelectedLifetimeOption();
 
  private:
   base::android::ScopedJavaGlobalRef<jobject> j_delegate_;
