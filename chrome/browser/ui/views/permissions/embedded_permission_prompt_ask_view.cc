@@ -33,7 +33,7 @@ void EmbeddedPermissionPromptAskView::RunButtonCallback(int button_id) {
 
   if (delegate()) {
     if (button == ButtonType::kAllowThisTime) {
-      delegate()->AllowThisTime();
+      delegate()->AllowThisTime(content_settings::LifetimeMode::OnlyThisTime);
     } else if (button == ButtonType::kAllow) {
       delegate()->Allow();
     }

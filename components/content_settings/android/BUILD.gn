@@ -61,6 +61,7 @@ java_cpp_enum("content_settings_enums_javagen") {
     "../core/common/cookie_controls_breakage_confidence_level.h",
     "../core/common/cookie_controls_enforcement.h",
     "../core/common/cookie_controls_status.h",
+    "../core/common/content_settings_constraints.h",
   ]
   visibility = [ ":*" ]  # Depend on through :content_settings_enums_java
 }

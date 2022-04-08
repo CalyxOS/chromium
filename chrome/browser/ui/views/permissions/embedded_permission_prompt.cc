@@ -181,6 +181,11 @@ void EmbeddedPermissionPrompt::AllowThisTime() {
   CloseCurrentViewAndMaybeShowNext(/*first_prompt=*/false);
 }
 
+void EmbeddedPermissionPrompt::AllowThisTime(content_settings::LifetimeMode lifetimeOption) {
+  delegate_->AcceptThisTime(lifetimeOption);
+  CloseCurrentViewAndMaybeShowNext(/*first_prompt=*/false);
+}
+
 void EmbeddedPermissionPrompt::Dismiss() {
   delegate_->Dismiss();
   delegate_->FinalizeCurrentRequests();
