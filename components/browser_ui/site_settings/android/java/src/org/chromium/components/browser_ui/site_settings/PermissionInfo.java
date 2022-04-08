@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import org.chromium.components.content_settings.ContentSettingValues;
 import org.chromium.components.content_settings.ContentSettingsType;
 import org.chromium.content_public.browser.BrowserContextHandle;
+import org.chromium.components.content_settings.SessionModel;
 
 import java.io.Serializable;
 
@@ -20,9 +21,15 @@ public class PermissionInfo implements Serializable {
     private final String mEmbedder;
     private final String mOrigin;
     private final @ContentSettingsType int mContentSettingsType;
+    private final @SessionModel int mSessionModel;
+
+    public PermissionInfo(@ContentSettingsType int type, String origin, String embedder, boolean isEmbargoed) {
+        this(type, origin, embedder, isEmbargoed, 0);
+    }
 
     public PermissionInfo(
-            @ContentSettingsType int type, String origin, String embedder, boolean isEmbargoed) {
+            @ContentSettingsType int type, String origin, String embedder, boolean isEmbargoed,
+            @SessionModel int sessionModel) {
         assert WebsitePermissionsFetcher.getPermissionsType(type)
                 == WebsitePermissionsFetcher.WebsitePermissionsType.PERMISSION_INFO
             : "invalid type: "
@@ -31,6 +38,11 @@ public class PermissionInfo implements Serializable {
         mEmbedder = embedder;
         mContentSettingsType = type;
         mIsEmbargoed = isEmbargoed;
+        mSessionModel = sessionModel;
+    }
+
+    public @SessionModel int getSessionModel() {
+        return mSessionModel;
     }
 
     public @ContentSettingsType int getContentSettingsType() {
