@@ -10,6 +10,7 @@ import org.chromium.components.content_settings.ContentSettingValues;
 import org.chromium.components.content_settings.ContentSettingsType;
 import org.chromium.components.content_settings.SessionModel;
 import org.chromium.content_public.browser.BrowserContextHandle;
+import org.chromium.components.content_settings.SessionModel;
 
 import java.io.Serializable;
 
