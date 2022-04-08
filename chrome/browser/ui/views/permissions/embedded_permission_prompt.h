@@ -67,6 +67,7 @@ class EmbeddedPermissionPrompt
   // EmbeddedPermissionPromptBaseView::Delegate
   void Allow() override;
   void AllowThisTime() override;
+  void AllowThisTime(content_settings::LifetimeMode lifetimeOption) override;
   void Dismiss() override;
   void Acknowledge() override;
   void StopAllowing() override;
