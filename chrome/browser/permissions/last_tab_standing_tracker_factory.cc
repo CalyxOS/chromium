@@ -31,5 +31,5 @@ bool LastTabStandingTrackerFactory::ServiceIsCreatedWithBrowserContext() const {
 
 KeyedService* LastTabStandingTrackerFactory::BuildServiceInstanceFor(
     content::BrowserContext* context) const {
-  return new LastTabStandingTracker();
+  return new LastTabStandingTracker(context);
 }
