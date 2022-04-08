@@ -411,10 +411,7 @@ void ChromeBrowserMainExtraPartsProfiles::
   LacrosFirstRunServiceFactory::GetInstance();
 #endif
   LanguageModelManagerFactory::GetInstance();
-  if (base::FeatureList::IsEnabled(
-          permissions::features::kOneTimeGeolocationPermission)) {
-    LastTabStandingTrackerFactory::GetInstance();
-  }
+  LastTabStandingTrackerFactory::GetInstance();
   login_detection::LoginDetectionKeyedServiceFactory::GetInstance();
 #if !BUILDFLAG(IS_ANDROID)
   LoginUIServiceFactory::GetInstance();

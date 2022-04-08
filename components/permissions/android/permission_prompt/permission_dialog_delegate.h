@@ -35,6 +35,7 @@ class PermissionDialogJavaDelegate {
                                   PermissionDialogDelegate* owner);
   virtual void CreateDialog();
   virtual void DismissDialog();
+  virtual int GetSelectedLifetimeOption();
 
  private:
   base::android::ScopedJavaGlobalRef<jobject> j_delegate_;
