@@ -198,7 +198,7 @@ void GetOrigins(JNIEnv* env,
       seen_origins.push_back(origin);
       insertionFunc(env, static_cast<int>(content_type), list,
                     ConvertOriginToJavaString(env, origin), jembedder,
-                    /*is_embargoed=*/true, /*is_one_time=*/false);
+                    /*is_embargoed=*/true, 0);
     }
   }
 }
