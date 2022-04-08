@@ -89,6 +89,15 @@ class GeolocationPermissionContextAndroid
                            ContentSetting content_setting,
                            bool is_one_time,
                            bool is_final_decision) override;
+  void NotifyPermissionSetWithLifetime(const PermissionRequestID& id,
+                           const GURL& requesting_origin,
+                           const GURL& embedding_origin,
+                           BrowserPermissionCallback callback,
+                           bool persist,
+                           ContentSetting content_setting,
+                           bool is_one_time,
+                           bool is_final_decision,
+                           content_settings::LifetimeMode lifetime_option) override;
   content::PermissionResult UpdatePermissionStatusWithDeviceStatus(
       content::PermissionResult result,
       const GURL& requesting_origin,
@@ -131,6 +140,7 @@ class GeolocationPermissionContextAndroid
       const GURL& embedding_origin,
       bool persist,
       ContentSetting content_setting,
+      bool is_one_time, content_settings::LifetimeMode lifetime_option,
       LocationSettingsDialogOutcome prompt_outcome);
 
   void FinishNotifyPermissionSet(const PermissionRequestID& id,
@@ -138,7 +148,9 @@ class GeolocationPermissionContextAndroid
                                  const GURL& embedding_origin,
                                  BrowserPermissionCallback callback,
                                  bool persist,
-                                 ContentSetting content_setting);
+                                 ContentSetting content_setting,
+                                 bool is_one_time,
+                                 content_settings::LifetimeMode lifetime_option);
 
   std::unique_ptr<LocationSettings> location_settings_;
 

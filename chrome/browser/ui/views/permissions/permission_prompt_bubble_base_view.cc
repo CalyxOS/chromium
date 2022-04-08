@@ -345,7 +345,7 @@ void PermissionPromptBubbleBaseView::RunButtonCallbacks(
       return;
     case PermissionDialogButton::kAcceptOnce:
       RecordDecision(permissions::PermissionAction::GRANTED_ONCE);
-      delegate_->AcceptThisTime();
+      delegate_->AcceptThisTime(content_settings::LifetimeMode::Always);
       return;
     case PermissionDialogButton::kDeny:
       RecordDecision(permissions::PermissionAction::DENIED);
