@@ -248,6 +248,20 @@ PermissionContextBase::CreatePermissionRequest(
       std::move(delete_callback));
 }
 
+std::unique_ptr<PermissionRequest>
+PermissionContextBase::CreatePermissionRequest(
+    const GURL& request_origin,
+    ContentSettingsType content_settings_type,
+    bool has_gesture,
+    content::WebContents* web_contents,
+    PermissionRequest::PermissionDecidedCallbackWithLifetime permission_decided_callback,
+    base::OnceClosure delete_callback) const {
+  return std::make_unique<PermissionRequest>(
+      request_origin, ContentSettingsTypeToRequestType(content_settings_type),
+      has_gesture, std::move(permission_decided_callback),
+      std::move(delete_callback));
+}
+
 PermissionResult PermissionContextBase::GetPermissionStatus(
     content::RenderFrameHost* render_frame_host,
     const GURL& requesting_origin,
@@ -427,7 +441,8 @@ void PermissionContextBase::PermissionDecided(const PermissionRequestID& id,
                                               const GURL& embedding_origin,
                                               ContentSetting content_setting,
                                               bool is_one_time,
-                                              bool is_final_decision) {
+                                              bool is_final_decision,
+                                              content_settings::LifetimeMode lifetime_option) {
   DCHECK(content_setting == CONTENT_SETTING_ALLOW ||
          content_setting == CONTENT_SETTING_BLOCK ||
          content_setting == CONTENT_SETTING_DEFAULT);
@@ -442,13 +457,13 @@ void PermissionContextBase::PermissionDecided(const PermissionRequestID& id,
   // missing if a permission prompt was preignored and we already notified an
   // origin about it.
   if (request->second.second) {
-    NotifyPermissionSet(id, requesting_origin, embedding_origin,
+    NotifyPermissionSetWithLifetime(id, requesting_origin, embedding_origin,
                         std::move(request->second.second), persist,
-                        content_setting, is_one_time, is_final_decision);
+                        content_setting, is_one_time, is_final_decision, lifetime_option);
   } else {
-    NotifyPermissionSet(id, requesting_origin, embedding_origin,
+    NotifyPermissionSetWithLifetime(id, requesting_origin, embedding_origin,
                         base::DoNothing(), persist, content_setting,
-                        is_one_time, is_final_decision);
+                        is_one_time, is_final_decision, lifetime_option);
   }
 }
 
@@ -500,11 +515,27 @@ void PermissionContextBase::NotifyPermissionSet(
     ContentSetting content_setting,
     bool is_one_time,
     bool is_final_decision) {
+  DCHECK(is_one_time == false);
+  NotifyPermissionSetWithLifetime(id, requesting_origin, embedding_origin, std::move(callback),
+     persist, content_setting, is_one_time, is_final_decision,
+     content_settings::LifetimeMode::Always);
+}
+
+void PermissionContextBase::NotifyPermissionSetWithLifetime(
+    const PermissionRequestID& id,
+    const GURL& requesting_origin,
+    const GURL& embedding_origin,
+    BrowserPermissionCallback callback,
+    bool persist,
+    ContentSetting content_setting,
+    bool is_one_time,
+    bool is_final_decision,
+    content_settings::LifetimeMode lifetime_option) {
   DCHECK_CURRENTLY_ON(content::BrowserThread::UI);
 
   if (persist) {
     UpdateContentSetting(requesting_origin, embedding_origin, content_setting,
-                         is_one_time);
+                         is_one_time, lifetime_option);
   }
 
   if (is_final_decision) {
@@ -534,6 +565,15 @@ void PermissionContextBase::UpdateContentSetting(const GURL& requesting_origin,
                                                  const GURL& embedding_origin,
                                                  ContentSetting content_setting,
                                                  bool is_one_time) {
+  UpdateContentSetting(requesting_origin, embedding_origin, content_setting,
+    is_one_time, content_settings::LifetimeMode::Always);
+}
+
+void PermissionContextBase::UpdateContentSetting(const GURL& requesting_origin,
+                                                 const GURL& embedding_origin,
+                                                 ContentSetting content_setting,
+                                                 bool is_one_time,
+                                                 content_settings::LifetimeMode lifetime_option) {
   DCHECK_EQ(requesting_origin, requesting_origin.DeprecatedGetOriginAsURL());
   DCHECK_EQ(embedding_origin, embedding_origin.DeprecatedGetOriginAsURL());
   DCHECK(content_setting == CONTENT_SETTING_ALLOW ||
@@ -542,6 +582,8 @@ void PermissionContextBase::UpdateContentSetting(const GURL& requesting_origin,
   content_settings::ContentSettingConstraints constraints = {
       base::Time(), is_one_time ? content_settings::SessionModel::OneTime
                                 : content_settings::SessionModel::Durable};
+  if (is_one_time)
+    constraints = content_settings::GetConstraintSessionExpiration(lifetime_option);
 
 #if !BUILDFLAG(IS_ANDROID)
   if (base::FeatureList::IsEnabled(
