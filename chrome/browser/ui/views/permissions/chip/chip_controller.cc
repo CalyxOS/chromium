@@ -235,7 +235,7 @@ void ChipController::OnWidgetDestroyed(views::Widget* widget) {
       active_chip_permission_request_manager_.value()->Accept();
       break;
     case permissions::PermissionAction::GRANTED_ONCE:
-      active_chip_permission_request_manager_.value()->AcceptThisTime();
+      active_chip_permission_request_manager_.value()->AcceptThisTime(content_settings::mojom::LifetimeMode::ONLY_THIS_TIME);
       break;
     case permissions::PermissionAction::DENIED:
       active_chip_permission_request_manager_.value()->Deny();
