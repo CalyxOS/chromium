@@ -658,7 +658,7 @@ void EmbeddedPermissionPrompt::SendDelegateAction(Action action) {
       delegate_->Accept();
       break;
     case Action::kAllowThisTime:
-      delegate_->AcceptThisTime();
+      delegate_->AcceptThisTime(content_settings::mojom::LifetimeMode::ONLY_THIS_TIME);
       break;
     case Action::kDeny:
       delegate_->Deny();
