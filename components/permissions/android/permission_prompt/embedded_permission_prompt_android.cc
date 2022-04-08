@@ -105,7 +105,8 @@ void EmbeddedPermissionPromptAndroid::Acknowledge() {
   delegate()->FinalizeCurrentRequests();
 }
 
-void EmbeddedPermissionPromptAndroid::AcceptThisTime() {
+void EmbeddedPermissionPromptAndroid::AcceptThisTime(
+        content_settings::mojom::LifetimeMode lifetimeOption) {
   prompt_model_->PrecalculateVariantsForMetrics();
   prompt_model_->RecordPermissionActionUKM(
       permissions::ElementAnchoredBubbleAction::kGrantedOnce);

@@ -295,7 +295,7 @@ void EmbeddedPermissionPromptFlowModel::SetDelegateAction(
       delegate_->Accept();
       break;
     case DelegateAction::kAllowThisTime:
-      delegate_->AcceptThisTime();
+      delegate_->AcceptThisTime(content_settings::mojom::LifetimeMode::ONLY_THIS_TIME);
       break;
     case DelegateAction::kDeny:
       delegate_->Deny();
