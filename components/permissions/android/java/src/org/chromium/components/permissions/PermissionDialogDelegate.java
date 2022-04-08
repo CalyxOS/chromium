@@ -8,6 +8,7 @@ import org.chromium.base.annotations.CalledByNative;
 import org.chromium.base.annotations.JNINamespace;
 import org.chromium.base.annotations.NativeMethods;
 import org.chromium.ui.base.WindowAndroid;
+import org.chromium.components.content_settings.LifetimeMode;
 
 /**
  * Delegate class for modal permission dialogs. Contains all of the data displayed in a prompt,
@@ -46,6 +47,9 @@ public class PermissionDialogDelegate {
     /** The {@link ContentSettingsType}s requested in this dialog.  */
     private int[] mContentSettingsTypes;
 
+    /** Lifetime option selected by the user. */
+    private int mSelectedLifetimeOption = LifetimeMode.ALWAYS;
+
     public WindowAndroid getWindow() {
         return mWindow;
     }
@@ -77,6 +81,15 @@ public class PermissionDialogDelegate {
     public void onAccept() {
         assert mNativeDelegatePtr != 0;
         PermissionDialogDelegateJni.get().accept(mNativeDelegatePtr, PermissionDialogDelegate.this);
+    }
+
+    public void setSelectedLifetimeOption(int idx) {
+        mSelectedLifetimeOption = idx;
+    }
+
+    @CalledByNative
+    public int getSelectedLifetimeOption() {
+        return mSelectedLifetimeOption;
     }
 
     public void onCancel() {

@@ -47,6 +47,14 @@ void PermissionPromptAndroid::Accept() {
   delegate_->Accept();
 }
 
+void PermissionPromptAndroid::AcceptThisTime(content_settings::LifetimeMode lifetimeOption) {
+  delegate_->AcceptThisTime(lifetimeOption);
+}
+
+void PermissionPromptAndroid::DenyThisTime(content_settings::LifetimeMode lifetimeOption) {
+  delegate_->DenyThisTime(lifetimeOption);
+}
+
 void PermissionPromptAndroid::Deny() {
   delegate_->Deny();
 }
