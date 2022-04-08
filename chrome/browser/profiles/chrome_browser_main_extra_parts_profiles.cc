@@ -685,9 +685,7 @@ void ChromeBrowserMainExtraPartsProfiles::
   KAnonymityServiceFactory::GetInstance();
   LanguageModelManagerFactory::GetInstance();
 #if !BUILDFLAG(IS_ANDROID)
-  if (base::FeatureList::IsEnabled(permissions::features::kOneTimePermission)) {
-    OneTimePermissionsTrackerFactory::GetInstance();
-  }
+  OneTimePermissionsTrackerFactory::GetInstance();
 
 #if !BUILDFLAG(IS_CHROMEOS_LACROS)
   captions::LiveCaptionControllerFactory::GetInstance();
