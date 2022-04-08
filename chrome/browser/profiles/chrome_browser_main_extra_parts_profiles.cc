@@ -704,6 +704,7 @@ void ChromeBrowserMainExtraPartsProfiles::
   ManagedConfigurationAPIFactory::GetInstance();
 #endif
 #if BUILDFLAG(IS_ANDROID)
+  OneTimePermissionsTrackerFactory::GetInstance();
   MediaDrmOriginIdManagerFactory::GetInstance();
 #endif
   if (MediaEngagementService::IsEnabled()) {

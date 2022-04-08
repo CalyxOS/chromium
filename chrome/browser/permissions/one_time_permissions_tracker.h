@@ -11,6 +11,7 @@
 #include "base/observer_list.h"
 #include "base/timer/timer.h"
 #include "chrome/browser/permissions/one_time_permissions_tracker_observer.h"
+#include "chrome/browser/profiles/profile.h"
 #include "components/content_settings/core/common/content_settings_types.h"
 #include "components/keyed_service/core/keyed_service.h"
 #include "content/public/browser/visibility.h"
@@ -23,7 +24,7 @@ class OneTimePermissionsTracker : public KeyedService {
       void (OneTimePermissionsTracker::*)(const url::Origin&);
 
  public:
-  OneTimePermissionsTracker();
+  OneTimePermissionsTracker(content::BrowserContext* context);
   ~OneTimePermissionsTracker() override;
 
   OneTimePermissionsTracker(const OneTimePermissionsTracker&) = delete;
@@ -118,7 +119,7 @@ class OneTimePermissionsTracker : public KeyedService {
   base::ObserverList<OneTimePermissionsTrackerObserver> observer_list_;
 
   std::map<url::Origin, OriginTrackEntry> origin_tracker_;
-
+  raw_ptr<content::BrowserContext> context_;
   base::WeakPtrFactory<OneTimePermissionsTracker> weak_factory_{this};
 };
 
