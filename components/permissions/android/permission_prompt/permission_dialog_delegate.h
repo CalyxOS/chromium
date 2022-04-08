@@ -42,6 +42,7 @@ class PermissionDialogJavaDelegate {
       const favicon_base::FaviconRawBitmapResult& favicon_result);
 
   virtual void DismissDialog();
+  virtual int GetSelectedLifetimeOption();
 
   virtual void UpdateDialog();
 
