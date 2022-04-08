@@ -157,6 +157,19 @@ void GeolocationPermissionContextAndroid::NotifyPermissionSet(
     ContentSetting content_setting,
     bool is_one_time) {
   DCHECK(!is_one_time);
+  NotifyPermissionSetWithLifetime(id, requesting_origin, embedding_origin,
+    std::move(callback), persist, content_setting, is_one_time,
+    content_settings::LifetimeMode::Always);
+}
+
+void GeolocationPermissionContextAndroid::NotifyPermissionSetWithLifetime(
+    const PermissionRequestID& id,
+    const GURL& requesting_origin,
+    const GURL& embedding_origin,
+    BrowserPermissionCallback callback,
+    bool persist,
+    ContentSetting content_setting,
+    bool is_one_time, content_settings::LifetimeMode lifetime_option) {
   bool is_default_search = IsRequestingOriginDSE(requesting_origin);
   if (content_setting == CONTENT_SETTING_ALLOW &&
       !location_settings_->IsSystemLocationSettingEnabled()) {
@@ -169,7 +182,8 @@ void GeolocationPermissionContextAndroid::NotifyPermissionSet(
     if (IsInLocationSettingsBackOff(is_default_search)) {
       FinishNotifyPermissionSet(id, requesting_origin, embedding_origin,
                                 std::move(callback), false /* persist */,
-                                CONTENT_SETTING_BLOCK);
+                                CONTENT_SETTING_BLOCK,
+                                is_one_time, lifetime_option);
       LogLocationSettingsMetric(
           kLocationSettingsSuppressMetricBase, is_default_search,
           LocationSettingsBackOffLevel(is_default_search));
@@ -193,7 +207,8 @@ void GeolocationPermissionContextAndroid::NotifyPermissionSet(
         !location_settings_dialog_callback_.is_null()) {
       FinishNotifyPermissionSet(id, requesting_origin, embedding_origin,
                                 std::move(callback), false /* persist */,
-                                CONTENT_SETTING_BLOCK);
+                                CONTENT_SETTING_BLOCK,
+                                is_one_time, lifetime_option);
       // This case should be very rare, so just pretend it was a denied prompt
       // for metrics purposes.
       LogLocationSettingsMetric(
@@ -210,12 +225,13 @@ void GeolocationPermissionContextAndroid::NotifyPermissionSet(
         base::BindOnce(
             &GeolocationPermissionContextAndroid::OnLocationSettingsDialogShown,
             weak_factory_.GetWeakPtr(), requesting_origin, embedding_origin,
-            persist, content_setting));
+            persist, content_setting, is_one_time, lifetime_option));
     return;
   }
 
   FinishNotifyPermissionSet(id, requesting_origin, embedding_origin,
-                            std::move(callback), persist, content_setting);
+                            std::move(callback), persist, content_setting,
+                            is_one_time, lifetime_option);
 }
 
 PermissionResult
@@ -382,6 +398,7 @@ void GeolocationPermissionContextAndroid::OnLocationSettingsDialogShown(
     const GURL& embedding_origin,
     bool persist,
     ContentSetting content_setting,
+    bool is_one_time, content_settings::LifetimeMode lifetime_option,
     LocationSettingsDialogOutcome prompt_outcome) {
   bool is_default_search = IsRequestingOriginDSE(requesting_origin);
   if (prompt_outcome == GRANTED) {
@@ -405,7 +422,8 @@ void GeolocationPermissionContextAndroid::OnLocationSettingsDialogShown(
 
   FinishNotifyPermissionSet(
       location_settings_dialog_request_id_, requesting_origin, embedding_origin,
-      std::move(location_settings_dialog_callback_), persist, content_setting);
+      std::move(location_settings_dialog_callback_), persist, content_setting,
+      is_one_time, lifetime_option);
 
   location_settings_dialog_request_id_ =
       PermissionRequestID(content::GlobalRenderFrameHostId(0, 0),
@@ -418,10 +436,11 @@ void GeolocationPermissionContextAndroid::FinishNotifyPermissionSet(
     const GURL& embedding_origin,
     BrowserPermissionCallback callback,
     bool persist,
-    ContentSetting content_setting) {
-  GeolocationPermissionContext::NotifyPermissionSet(
+    ContentSetting content_setting,
+    bool is_one_time, content_settings::LifetimeMode lifetime_option) {
+  GeolocationPermissionContext::NotifyPermissionSetWithLifetime(
       id, requesting_origin, embedding_origin, std::move(callback), persist,
-      content_setting, /*is_one_time=*/false);
+      content_setting, is_one_time, lifetime_option);
 }
 
 void GeolocationPermissionContextAndroid::SetLocationSettingsForTesting(
