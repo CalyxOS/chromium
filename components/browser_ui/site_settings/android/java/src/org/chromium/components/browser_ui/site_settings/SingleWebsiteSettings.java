@@ -35,6 +35,7 @@ import org.chromium.components.browser_ui.settings.SettingsUtils;
 import org.chromium.components.browser_ui.settings.TextMessagePreference;
 import org.chromium.components.content_settings.ContentSettingValues;
 import org.chromium.components.content_settings.ContentSettingsType;
+import org.chromium.components.content_settings.SessionModel;
 import org.chromium.components.embedder_support.util.Origin;
 import org.chromium.content_public.browser.BrowserContextHandle;
 import org.chromium.content_public.browser.ContentFeatureList;
@@ -533,6 +534,11 @@ public class SingleWebsiteSettings extends SiteSettingsPreferenceFragment
         }
     }
 
+    private boolean isSessionPermission(@ContentSettingsType int type) {
+        return mSite.getPermissionInfo(type) != null &&
+               mSite.getPermissionInfo(type).getSessionModel() == SessionModel.USER_SESSION;
+    }
+
     private void setUpClearDataPreference() {
         ClearWebsiteStorage preference = findPreference(PREF_CLEAR_DATA);
         long usage = mSite.getTotalUsage();
@@ -954,6 +960,10 @@ public class SingleWebsiteSettings extends SiteSettingsPreferenceFragment
         int contentType = getContentSettingsTypeFromPreferenceKey(preference.getKey());
         if (contentType == mHighlightedPermission) {
             switchPreference.setBackgroundColor(mHighlightColor);
+        }
+        if (isSessionPermission(contentType)) {
+            switchPreference.setSummary(switchPreference.getSummary() + " " +
+                getString(R.string.page_info_android_permission_session_permission));
         }
     }
 
