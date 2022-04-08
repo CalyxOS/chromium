@@ -10,6 +10,7 @@ import org.jni_zero.NativeMethods;
 import org.chromium.base.Callback;
 import org.chromium.components.content_settings.ContentSettingValues;
 import org.chromium.components.content_settings.ContentSettingsType;
+import org.chromium.components.content_settings.SessionModel;
 import org.chromium.components.location.LocationUtils;
 import org.chromium.content_public.browser.BrowserContextHandle;
 import org.chromium.url.GURL;
@@ -54,7 +55,8 @@ public class WebsitePreferenceBridge {
             ArrayList<PermissionInfo> list,
             String origin,
             String embedder,
-            boolean isEmbargoed) {
+            boolean isEmbargoed,
+            @SessionModel int sessionModel) {
         if (type == ContentSettingsType.MEDIASTREAM_CAMERA
                 || type == ContentSettingsType.MEDIASTREAM_MIC) {
             for (PermissionInfo info : list) {
@@ -63,7 +65,7 @@ public class WebsitePreferenceBridge {
                 }
             }
         }
-        list.add(new PermissionInfo(type, origin, embedder, isEmbargoed));
+        list.add(new PermissionInfo(type, origin, embedder, isEmbargoed, sessionModel));
     }
 
     @CalledByNative
