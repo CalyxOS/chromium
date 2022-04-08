@@ -143,6 +143,15 @@ class PermissionContextBase : public content_settings::Observer {
 
   // Updates stored content setting if persist is set, updates tab indicators
   // and runs the callback to finish the request.
+  virtual void NotifyPermissionSetWithLifetime(const PermissionRequestID& id,
+                                   const GURL& requesting_origin,
+                                   const GURL& embedding_origin,
+                                   BrowserPermissionCallback callback,
+                                   bool persist,
+                                   ContentSetting content_setting,
+                                   bool is_one_time,
+                                   bool is_final_decision,
+                                   content_settings::LifetimeMode lifetime_option);
   virtual void NotifyPermissionSet(const PermissionRequestID& id,
                                    const GURL& requesting_origin,
                                    const GURL& embedding_origin,
@@ -164,6 +173,11 @@ class PermissionContextBase : public content_settings::Observer {
   // Store the decided permission as a content setting.
   // virtual since the permission might be stored with different restrictions
   // (for example for desktop notifications).
+  void UpdateContentSetting(const GURL& requesting_origin,
+                                    const GURL& embedding_origin,
+                                    ContentSetting content_setting,
+                                    bool is_one_time,
+                                    content_settings::LifetimeMode lifetime_option);
   virtual void UpdateContentSetting(const GURL& requesting_origin,
                                     const GURL& embedding_origin,
                                     ContentSetting content_setting,
@@ -196,6 +210,14 @@ class PermissionContextBase : public content_settings::Observer {
       PermissionRequest::PermissionDecidedCallback permission_decided_callback,
       base::OnceClosure delete_callback) const;
 
+  virtual std::unique_ptr<PermissionRequest> CreatePermissionRequest(
+      const GURL& request_origin,
+      ContentSettingsType content_settings_type,
+      bool has_gesture,
+      content::WebContents* web_contents,
+      PermissionRequest::PermissionDecidedCallbackWithLifetime permission_decided_callback,
+      base::OnceClosure delete_callback) const;
+
   ContentSettingsType content_settings_type() const {
     return content_settings_type_;
   }
@@ -222,7 +244,8 @@ class PermissionContextBase : public content_settings::Observer {
                          const GURL& embedding_origin,
                          ContentSetting content_setting,
                          bool is_one_time,
-                         bool is_final_decision);
+                         bool is_final_decision,
+                         content_settings::LifetimeMode lifetime_option);
 
   raw_ptr<content::BrowserContext> browser_context_;
   const ContentSettingsType content_settings_type_;
