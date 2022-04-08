@@ -673,6 +673,11 @@
       <message name="IDS_PAGE_INFO_URL_TRUNCATED" desc="Accessibility announcement when the URL in PageInfo switches from full to truncated display">
         URL truncated
       </message>
+      <message name="IDS_PAGE_INFO_ANDROID_PERMISSION_SESSION_PERMISSION"
+               desc="The label used in the About Page dialog to indicate a session permission">
+        (only this session)
+      </message>
+
       <message name="IDS_PAGE_INFO_AD_PRIVACY_HEADER" desc="A label that represents the new ad-related settings. 1) Navigate to any site. 2) Click the icon (often a lock) to the left of the URL in the address bar. Information about the page you're viewing appears. The 'Ad privacy' label will appear above the 'Site settings' button.">
         Ad privacy
       </message>
