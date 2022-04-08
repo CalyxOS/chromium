@@ -13,6 +13,7 @@ import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
 
 import org.chromium.ui.base.WindowAndroid;
+import org.chromium.components.content_settings.LifetimeMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +64,9 @@ public class PermissionDialogDelegate {
      */
     private List<Pair<Integer, Integer>> mBoldedRanges = new ArrayList<>();
 
+    /** Lifetime option selected by the user. */
+    private int mSelectedLifetimeOption = LifetimeMode.ALWAYS;
+
     public WindowAndroid getWindow() {
         return mWindow;
     }
@@ -108,6 +112,15 @@ public class PermissionDialogDelegate {
         assert mNativeDelegatePtr != 0;
         PermissionDialogDelegateJni.get()
                 .acceptThisTime(mNativeDelegatePtr, PermissionDialogDelegate.this);
+    }
+
+    public void setSelectedLifetimeOption(int idx) {
+        mSelectedLifetimeOption = idx;
+    }
+
+    @CalledByNative
+    public int getSelectedLifetimeOption() {
+        return mSelectedLifetimeOption;
     }
 
     public void onCancel() {
