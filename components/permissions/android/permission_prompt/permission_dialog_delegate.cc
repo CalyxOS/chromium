@@ -150,6 +150,11 @@ void PermissionDialogJavaDelegate::DismissDialog() {
   Java_PermissionDialogDelegate_dismissFromNative(env, j_delegate_);
 }
 
+int PermissionDialogJavaDelegate::GetSelectedLifetimeOption() {
+  JNIEnv* env = base::android::AttachCurrentThread();
+  return Java_PermissionDialogDelegate_getSelectedLifetimeOption(env, j_delegate_);
+}
+
 // static
 void PermissionDialogDelegate::Create(
     content::WebContents* web_contents,
@@ -178,6 +183,13 @@ PermissionDialogDelegate* PermissionDialogDelegate::CreateForTesting(
 void PermissionDialogDelegate::Accept(JNIEnv* env,
                                       const JavaParamRef<jobject>& obj) {
   CHECK(permission_prompt_);
+  content_settings::mojom::LifetimeMode lifetimeOption =
+    static_cast<content_settings::mojom::LifetimeMode>(
+      java_delegate_->GetSelectedLifetimeOption());
+  if (lifetimeOption != content_settings::mojom::LifetimeMode::ALWAYS) {
+    permission_prompt_->AcceptThisTime(lifetimeOption);
+    return;
+  }
   permission_prompt_->Accept();
 }
 
@@ -185,12 +197,22 @@ void PermissionDialogDelegate::AcceptThisTime(
     JNIEnv* env,
     const JavaParamRef<jobject>& obj) {
   CHECK(permission_prompt_);
-  permission_prompt_->AcceptThisTime();
+  content_settings::mojom::LifetimeMode lifetimeOption =
+    static_cast<content_settings::mojom::LifetimeMode>(
+      java_delegate_->GetSelectedLifetimeOption());
+  permission_prompt_->AcceptThisTime(lifetimeOption);
 }
 
 void PermissionDialogDelegate::Cancel(JNIEnv* env,
                                       const JavaParamRef<jobject>& obj) {
   CHECK(permission_prompt_);
+  content_settings::mojom::LifetimeMode lifetimeOption =
+    static_cast<content_settings::mojom::LifetimeMode>(
+      java_delegate_->GetSelectedLifetimeOption());
+  if (lifetimeOption != content_settings::mojom::LifetimeMode::ALWAYS) {
+    permission_prompt_->DenyThisTime(lifetimeOption);
+    return;
+  }
   permission_prompt_->Deny();
 }
 
