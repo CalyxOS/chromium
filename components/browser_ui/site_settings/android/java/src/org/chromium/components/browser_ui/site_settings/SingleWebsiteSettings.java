@@ -568,6 +568,11 @@ public class SingleWebsiteSettings extends BaseSiteSettingsFragment
         }
     }
 
+    private boolean isSessionPermission(@ContentSettingsType.EnumType int type) {
+        return mSite.getPermissionInfo(type) != null &&
+               mSite.getPermissionInfo(type).getSessionModel() == SessionModel.USER_SESSION;
+    }
+
     private void setUpClearDataPreference() {
         ClearWebsiteStorage preference = findPreference(PREF_CLEAR_DATA);
         long usage = mSite.getTotalUsage();
@@ -1101,6 +1106,10 @@ public class SingleWebsiteSettings extends BaseSiteSettingsFragment
             switchPreference.setBackgroundColor(
                     AppCompatResources.getColorStateList(getContext(), mHighlightColor)
                             .getDefaultColor());
+        }
+        if (isSessionPermission(contentType)) {
+            switchPreference.setSummary(switchPreference.getSummary() + " " +
+                getString(R.string.page_info_android_permission_session_permission));
         }
     }
 
