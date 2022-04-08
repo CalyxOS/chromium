@@ -125,7 +125,8 @@ typedef void (*InfoListInsertionFunction)(
     const base::android::JavaRef<jobject>&,
     const base::android::JavaRef<jstring>&,
     const base::android::JavaRef<jstring>&,
-    jboolean);
+    jboolean,
+    JniIntWrapper);
 
 void GetOrigins(JNIEnv* env,
                 const JavaParamRef<jobject>& jbrowser_context_handle,
@@ -167,7 +168,7 @@ void GetOrigins(JNIEnv* env,
     seen_origins.push_back(origin);
     insertionFunc(env, static_cast<int>(content_type), list,
                   ConvertOriginToJavaString(env, origin), jembedder,
-                  /*is_embargoed=*/false);
+                  /*is_embargoed=*/false, static_cast<int>(settings_it.metadata.session_model()));
   }
 
   // Add any origins which have a default content setting value (thus skipped
@@ -189,7 +190,7 @@ void GetOrigins(JNIEnv* env,
       seen_origins.push_back(origin);
       insertionFunc(env, static_cast<int>(content_type), list,
                     ConvertOriginToJavaString(env, origin), jembedder,
-                    /*is_embargoed=*/true);
+                    /*is_embargoed=*/true, 0);
     }
   }
 }
