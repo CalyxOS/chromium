@@ -45,6 +45,7 @@ class EmbeddedPermissionPromptBaseView : public PermissionPromptBaseView {
    public:
     virtual void Allow() = 0;
     virtual void AllowThisTime() = 0;
+    virtual void AllowThisTime(content_settings::LifetimeMode lifetimeOption) = 0;
     virtual void Dismiss() = 0;
     virtual void Acknowledge() = 0;
     virtual void StopAllowing() = 0;
