@@ -9,6 +9,7 @@ import org.chromium.base.annotations.CalledByNative;
 import org.chromium.base.annotations.NativeMethods;
 import org.chromium.components.content_settings.ContentSettingValues;
 import org.chromium.components.content_settings.ContentSettingsType;
+import org.chromium.components.content_settings.SessionModel;
 import org.chromium.components.location.LocationUtils;
 import org.chromium.content_public.browser.BrowserContextHandle;
 import org.chromium.url.GURL;
@@ -55,7 +56,8 @@ public class WebsitePreferenceBridge {
 
     @CalledByNative
     private static void insertPermissionInfoIntoList(@ContentSettingsType int type,
-            ArrayList<PermissionInfo> list, String origin, String embedder, boolean isEmbargoed) {
+            ArrayList<PermissionInfo> list, String origin, String embedder, boolean isEmbargoed,
+            @SessionModel int sessionModel) {
         if (type == ContentSettingsType.MEDIASTREAM_CAMERA
                 || type == ContentSettingsType.MEDIASTREAM_MIC) {
             for (PermissionInfo info : list) {
@@ -64,7 +66,7 @@ public class WebsitePreferenceBridge {
                 }
             }
         }
-        list.add(new PermissionInfo(type, origin, embedder, isEmbargoed));
+        list.add(new PermissionInfo(type, origin, embedder, isEmbargoed, sessionModel));
     }
 
     @CalledByNative

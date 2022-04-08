@@ -161,6 +161,8 @@ void PageInfoControllerAndroid::SetPermissionInfo(
 
   std::map<ContentSettingsType, ContentSetting>
       user_specified_settings_to_display;
+  std::map<ContentSettingsType, bool>
+      user_specified_settings_is_user_session;
 
   for (const auto& permission : permission_info_list) {
     if (base::Contains(permissions_to_display, permission.type)) {
@@ -169,6 +171,8 @@ void PageInfoControllerAndroid::SetPermissionInfo(
       if (setting_to_display) {
         user_specified_settings_to_display[permission.type] =
             *setting_to_display;
+        user_specified_settings_is_user_session[permission.type] =
+            permission.is_user_session;
       }
     }
   }
@@ -185,7 +189,8 @@ void PageInfoControllerAndroid::SetPermissionInfo(
           ConvertUTF16ToJavaString(env, setting_title),
           ConvertUTF16ToJavaString(env, setting_title_mid_sentence),
           static_cast<jint>(permission),
-          static_cast<jint>(user_specified_settings_to_display[permission]));
+          static_cast<jint>(user_specified_settings_to_display[permission]),
+          user_specified_settings_is_user_session[permission]);
     }
   }
 
@@ -198,7 +203,8 @@ void PageInfoControllerAndroid::SetPermissionInfo(
         env, controller_jobject_, ConvertUTF16ToJavaString(env, object_title),
         ConvertUTF16ToJavaString(env, object_title),
         static_cast<jint>(chosen_object->ui_info->content_settings_type),
-        static_cast<jint>(CONTENT_SETTING_ALLOW));
+        static_cast<jint>(CONTENT_SETTING_ALLOW),
+        /* is_user_session */ false);
   }
 
   Java_PageInfoController_updatePermissionDisplay(env, controller_jobject_);
