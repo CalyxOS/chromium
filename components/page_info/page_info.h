@@ -197,6 +197,8 @@ class PageInfo : private content_settings::CookieControlsView {
         content_settings::SETTING_SOURCE_NONE;
     // Whether the permission is a one-time grant.
     bool is_one_time = false;
+    // Whether the permission should last for the lifetime of the user session.
+    bool is_user_session = false;
     // Only set for settings that can have multiple permissions for different
     // embedded origins.
     absl::optional<url::Origin> requesting_origin;

@@ -9,6 +9,7 @@
 
 #include "base/observer_list.h"
 #include "chrome/browser/permissions/last_tab_standing_tracker_observer.h"
+#include "chrome/browser/profiles/profile.h"
 #include "components/keyed_service/core/keyed_service.h"
 #include "url/origin.h"
 
@@ -16,7 +17,7 @@
 // all tabs of a particular origin have been closed or navigated away from.
 class LastTabStandingTracker : public KeyedService {
  public:
-  LastTabStandingTracker();
+  explicit LastTabStandingTracker(content::BrowserContext* context);
   ~LastTabStandingTracker() override;
 
   LastTabStandingTracker(const LastTabStandingTracker&) = delete;
@@ -33,6 +34,7 @@ class LastTabStandingTracker : public KeyedService {
   base::ObserverList<LastTabStandingTrackerObserver> observer_list_;
   // Tracks how many tabs of a particular origin are open at any given time.
   std::map<url::Origin, int> tab_counter_;
+  raw_ptr<content::BrowserContext> context_;
 };
 
 #endif  // CHROME_BROWSER_PERMISSIONS_LAST_TAB_STANDING_TRACKER_H_
