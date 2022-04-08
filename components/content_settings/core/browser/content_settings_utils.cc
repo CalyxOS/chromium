@@ -187,6 +187,35 @@ base::Time GetConstraintExpiration(const base::TimeDelta duration) {
   return base::Time::Now() + duration;
 }
 
+ContentSettingConstraints GetConstraintSessionExpiration(LifetimeMode lifetime_mode) {
+  if (lifetime_mode == LifetimeMode::OnlyThisTime) {
+    // note: this content settings will be discarded immediately
+    // 1h is used as a magic constant to identify the one-time lifetime mode
+    return {base::Time() + base::Hours(1), content_settings::SessionModel::UserSession};
+  } else if (lifetime_mode == LifetimeMode::UntilOriginClosed) {
+    return {base::Time::Now() + base::Hours(24), content_settings::SessionModel::UserSession};
+  } else {
+    return {base::Time(), content_settings::SessionModel::UserSession};
+  }
+}
+
+bool IsConstraintSessionExpiration(const ContentSettingPatternSource& source,
+                                   LifetimeMode lifetime_mode) {
+  if (source.metadata.session_model != content_settings::SessionModel::UserSession)
+    return false;
+
+  LifetimeMode type;
+  if (source.metadata.expiration == base::Time()) {
+    type = LifetimeMode::UntilBrowserClosed;
+  } else if (source.metadata.expiration == (base::Time() + base::Hours(1))) {
+    type = LifetimeMode::OnlyThisTime;
+  } else {
+    type = LifetimeMode::UntilOriginClosed;
+  }
+
+  return lifetime_mode == type;
+}
+
 bool CanTrackLastVisit(ContentSettingsType type) {
   // Last visit is not tracked for notification permission as it shouldn't be
   // auto-revoked.
