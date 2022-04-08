@@ -44,5 +44,5 @@ bool OneTimePermissionsTrackerFactory::ServiceIsCreatedWithBrowserContext()
 std::unique_ptr<KeyedService>
 OneTimePermissionsTrackerFactory::BuildServiceInstanceForBrowserContext(
     content::BrowserContext* context) const {
-  return std::make_unique<OneTimePermissionsTracker>();
+  return std::make_unique<OneTimePermissionsTracker>(context);
 }
