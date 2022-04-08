@@ -40,5 +40,5 @@ bool OneTimePermissionsTrackerFactory::ServiceIsCreatedWithBrowserContext()
 
 KeyedService* OneTimePermissionsTrackerFactory::BuildServiceInstanceFor(
     content::BrowserContext* context) const {
-  return new OneTimePermissionsTracker();
+  return new OneTimePermissionsTracker(context);
 }
