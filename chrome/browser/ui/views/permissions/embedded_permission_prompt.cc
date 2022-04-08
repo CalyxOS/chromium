@@ -238,7 +238,7 @@ void EmbeddedPermissionPrompt::Allow() {
 }
 
 void EmbeddedPermissionPrompt::AllowThisTime() {
-  delegate_->AcceptThisTime();
+  delegate_->AcceptThisTime(content_settings::mojom::LifetimeMode::ONLY_THIS_TIME);
   CloseCurrentViewAndMaybeShowNext(/*first_prompt=*/false);
 }
 
