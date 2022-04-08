@@ -191,6 +191,7 @@ class PageInfo : private content_settings::CookieControlsView {
     content_settings::SettingSource source =
         content_settings::SETTING_SOURCE_NONE;
     bool is_one_time = false;
+    bool is_user_session = false;
   };
 
   // Creates a PageInfo for the passed |url| using the given |ssl| status

@@ -43,7 +43,9 @@ class PermissionPromptAndroid : public PermissionPrompt {
 
   void Closing();
   void Accept();
+  void AcceptThisTime(content_settings::LifetimeMode lifetimeOption);
   void Deny();
+  void DenyThisTime(content_settings::LifetimeMode lifetimeOption);
   void SetManageClicked();
   void SetLearnMoreClicked();
   bool ShouldCurrentRequestUseQuietUI();

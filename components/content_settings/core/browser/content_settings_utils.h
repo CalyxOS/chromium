@@ -76,6 +76,12 @@ base::Time GetConstraintExpiration(const base::TimeDelta duration);
 // Returns whether the given type supports tracking last_visit timestamps.
 bool CanTrackLastVisit(ContentSettingsType type);
 
+ContentSettingConstraints GetConstraintSessionExpiration(LifetimeMode lifetime_mode);
+
+bool IsConstraintSessionExpiration(
+    const ContentSettingPatternSource& source,
+    LifetimeMode lifetime_mode);
+
 // Get a timestamp with week-precision.
 base::Time GetCoarseVisitedTime(base::Time time);
 
