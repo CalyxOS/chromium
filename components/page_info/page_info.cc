@@ -1184,6 +1184,8 @@ void PageInfo::PopulatePermissionInfo(PermissionInfo& permission_info,
   permission_info.source = info.source;
   permission_info.is_one_time = (info.metadata.session_model() ==
                                  content_settings::SessionModel::OneTime);
+  permission_info.is_user_session =
+      (info.metadata.session_model() == content_settings::SessionModel::UserSession);
 
   auto* page_specific_content_settings = GetPageSpecificContentSettings();
   if (page_specific_content_settings && setting == CONTENT_SETTING_ALLOW) {
