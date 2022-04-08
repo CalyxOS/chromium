@@ -44,7 +44,7 @@ class EmbeddedPermissionPromptAndroid : public PermissionPromptAndroid {
       const override;
   void Closing() override;
   void Accept() override;
-  void AcceptThisTime() override;
+  void AcceptThisTime(content_settings::mojom::LifetimeMode lifetimeOption) override;
   void Acknowledge() override;
   void Deny() override;
   void Resumed() override;

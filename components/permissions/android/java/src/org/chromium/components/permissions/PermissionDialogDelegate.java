@@ -15,6 +15,7 @@ import org.jni_zero.NativeMethods;
 import org.chromium.build.annotations.NullMarked;
 import org.chromium.build.annotations.Nullable;
 import org.chromium.ui.base.WindowAndroid;
+import org.chromium.components.content_settings.LifetimeMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +66,9 @@ public class PermissionDialogDelegate {
 
     // Prompt(screen) variant we want to display on the dialog.
     private @EmbeddedPromptVariant int mEmbeddedPromptVariant;
+
+    /** Lifetime option selected by the user. */
+    private int mSelectedLifetimeOption = LifetimeMode.ALWAYS;
 
     /**
      * Defines a (potentially empty) list of ranges represented as pairs of <startIndex, endIndex>,
@@ -133,6 +137,15 @@ public class PermissionDialogDelegate {
         assert mNativeDelegatePtr != 0;
         PermissionDialogDelegateJni.get()
                 .acceptThisTime(mNativeDelegatePtr, PermissionDialogDelegate.this);
+    }
+
+    public void setSelectedLifetimeOption(int idx) {
+        mSelectedLifetimeOption = idx;
+    }
+
+    @CalledByNative
+    public int getSelectedLifetimeOption() {
+        return mSelectedLifetimeOption;
     }
 
     public void onDeny() {
