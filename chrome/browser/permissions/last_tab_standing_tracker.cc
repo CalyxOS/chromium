@@ -82,4 +82,10 @@ void LastTabStandingTracker::WebContentsUnloadedOrigin(
     for (auto& observer : observer_list_) {
       observer.OnLastPageFromOriginClosed(origin);
     }
+    HostContentSettingsMap* content_settings =
+            permissions::PermissionsClient::Get()->GetSettingsMap(context_);
+    RemoveSessionSettings(content_settings, origin, ContentSettingsType::GEOLOCATION);
+    RemoveSessionSettings(content_settings, origin, ContentSettingsType::MEDIASTREAM_MIC);
+    RemoveSessionSettings(content_settings, origin, ContentSettingsType::MEDIASTREAM_CAMERA);
+  }
 }
