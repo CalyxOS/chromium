@@ -263,7 +263,7 @@ void PermissionPromptBubbleBaseView::RunButtonCallback(int button_id) {
       delegate_->Accept();
       return;
     case PermissionDialogButton::kAcceptOnce:
-      delegate_->AcceptThisTime();
+      delegate_->AcceptThisTime(content_settings::mojom::LifetimeMode::ONLY_THIS_TIME);
       return;
     case PermissionDialogButton::kDeny:
       delegate_->Deny();

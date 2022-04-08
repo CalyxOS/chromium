@@ -405,7 +405,7 @@ void EmbeddedPermissionPrompt::AllowThisTime() {
   PrecalculateVariantsForMetrics();
   RecordPermissionActionUKM(
       permissions::ElementAnchoredBubbleAction::kGrantedOnce);
-  delegate_->AcceptThisTime();
+  delegate_->AcceptThisTime(content_settings::mojom::LifetimeMode::ONLY_THIS_TIME);
   CloseCurrentViewAndMaybeShowNext(/*first_prompt=*/false);
 }
 
