@@ -117,7 +117,7 @@ void ExclusiveAccessPermissionPromptView::RunButtonCallback(int button_id) {
       request_type(), GetPermissionActionString(button),
       record_browser_always_active_value());
   if (button == ButtonType::kAllowThisTime) {
-    delegate_->AcceptThisTime();
+    delegate_->AcceptThisTime(content_settings::mojom::LifetimeMode::ONLY_THIS_TIME);
   } else if (button == ButtonType::kAlwaysAllow) {
     delegate_->Accept();
   } else if (button == ButtonType::kNeverAllow) {
