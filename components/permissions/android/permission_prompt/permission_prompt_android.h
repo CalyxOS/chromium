@@ -54,9 +54,10 @@ class PermissionPromptAndroid : public PermissionPrompt {
       const;
   virtual void Closing();
   virtual void Accept();
-  virtual void AcceptThisTime();
+  virtual void AcceptThisTime(content_settings::mojom::LifetimeMode lifetimeOption);
   virtual void Acknowledge() {}
   virtual void Deny();
+  virtual void DenyThisTime(content_settings::mojom::LifetimeMode lifetimeOption);
   virtual void Resumed() {}
   virtual void SystemSettingsShown() {}
   virtual void SystemPermissionResolved(bool accepted) {}
