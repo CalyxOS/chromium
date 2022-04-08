@@ -42,6 +42,11 @@ class PermissionRequest {
                                    bool /*is_one_time*/,
                                    bool /*is_final_decision*/)>;
 
+  using PermissionDecidedCallbackWithLifetime =
+      base::RepeatingCallback<void(ContentSetting /*result*/,
+                                   bool /*is_one_time*/,
+                                   bool /*is_final_decision*/,
+        			   content_settings::LifetimeMode /*lifetime_option*/)>;
   // `permission_decided_callback` is called when the permission request is
   // resolved by the user (see comment on PermissionDecidedCallback above).
   // `delete_callback` is called when the permission request is no longer needed
@@ -55,6 +60,12 @@ class PermissionRequest {
                     RequestType request_type,
                     bool has_gesture,
                     PermissionDecidedCallback permission_decided_callback,
+                    base::OnceClosure delete_callback);
+
+  PermissionRequest(const GURL& requesting_origin,
+                    RequestType request_type,
+                    bool has_gesture,
+                    PermissionDecidedCallbackWithLifetime permission_decided_callback,
                     base::OnceClosure delete_callback);
 
   PermissionRequest(const PermissionRequest&) = delete;
@@ -109,10 +120,10 @@ class PermissionRequest {
   // If |is_one_time| is true the permission will last until all tabs of
   // |origin| are closed or navigated away from, and then the permission will
   // automatically expire after 1 day.
-  void PermissionGranted(bool is_one_time);
+  void PermissionGranted(bool is_one_time, content_settings::LifetimeMode lifetime_option);
 
   // Called when the user has denied the requested permission.
-  void PermissionDenied();
+  void PermissionDenied(bool is_one_time, content_settings::LifetimeMode lifetime_option);
 
   // Called when the user has cancelled the permission request. This
   // corresponds to a denial, but is segregated in case the context needs to
@@ -159,6 +170,9 @@ class PermissionRequest {
 
   // Called once a decision is made about the permission.
   PermissionDecidedCallback permission_decided_callback_;
+
+  // Called once a decision is made about the permission (with lifetime option).
+  PermissionDecidedCallbackWithLifetime permission_decided_callback_withlifetime_;
 
   // Called when the request is no longer in use so it can be deleted by the
   // caller.
