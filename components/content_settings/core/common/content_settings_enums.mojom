@@ -57,3 +57,12 @@ enum SessionModel {
   // tab from the origin is closed.
   ONE_TIME,
 };
+
+// GENERATED_JAVA_ENUM_PACKAGE: org.chromium.components.content_settings
+// GENERATED_JAVA_CLASS_NAME_OVERRIDE: LifetimeMode
+enum LifetimeMode {
+  ALWAYS = 99,
+  ONLY_THIS_TIME = 1,
+  UNTIL_ORIGIN_CLOSED = 2,
+  UNTIL_BROWSER_CLOSED = 0,
+};
