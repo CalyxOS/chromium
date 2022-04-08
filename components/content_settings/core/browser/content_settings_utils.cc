@@ -174,6 +174,42 @@ bool IsConstraintPersistent(const ContentSettingConstraints& constraints) {
   return constraints.session_model() == SessionModel::Durable;
 }
 
+ContentSettingConstraints GetConstraintSessionExpiration(LifetimeMode lifetime_mode) {
+  int lifetime;
+  base::Time now;
+  if (lifetime_mode == LifetimeMode::OnlyThisTime) {
+    // note: this content settings will be discarded immediately
+    // 1h is used as a magic constant to identify the one-time lifetime mode
+    lifetime = 1;
+  } else if (lifetime_mode == LifetimeMode::UntilOriginClosed) {
+    now = base::Time::Now();
+    lifetime = 24;
+  } else {
+    lifetime = 0;
+  }
+  content_settings::ContentSettingConstraints c(now);
+  c.set_lifetime(base::Hours(lifetime));
+  c.set_session_model(content_settings::SessionModel::UserSession);
+  return c;
+}
+
+bool IsConstraintSessionExpiration(const ContentSettingPatternSource& source,
+                                   LifetimeMode lifetime_mode) {
+  if (source.metadata.session_model() != content_settings::SessionModel::UserSession)
+    return false;
+
+  LifetimeMode type;
+  if (source.metadata.lifetime() == base::Hours(24)) {
+    type = LifetimeMode::UntilOriginClosed;
+  } else if (source.metadata.expiration() == (base::Time() + base::Hours(1))) {
+    type = LifetimeMode::OnlyThisTime;
+  } else {
+    type = LifetimeMode::UntilBrowserClosed;
+  }
+
+  return lifetime_mode == type;
+}
+
 bool CanTrackLastVisit(ContentSettingsType type) {
   // Last visit is not tracked for notification permission as it shouldn't be
   // auto-revoked.
