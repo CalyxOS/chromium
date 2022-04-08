@@ -157,8 +157,10 @@ class PermissionRequestManager
   GURL GetRequestingOrigin() const override;
   GURL GetEmbeddingOrigin() const override;
   void Accept() override;
-  void AcceptThisTime() override;
+  void AcceptThisTime(content_settings::LifetimeMode lifetime_option) override;
   void Deny() override;
+  void Deny_(bool is_one_time, content_settings::LifetimeMode lifetime_option);
+  void DenyThisTime(content_settings::LifetimeMode lifetime_option) override;
   void Dismiss() override;
   void Ignore() override;
   void OpenHelpCenterLink(const ui::Event& event) override;
@@ -356,9 +358,12 @@ class PermissionRequestManager
 
   // Calls PermissionGranted on a request and all its duplicates.
   void PermissionGrantedIncludingDuplicates(PermissionRequest* request,
-                                            bool is_one_time);
+                                            bool is_one_time,
+                                            content_settings::LifetimeMode lifetime_option);
   // Calls PermissionDenied on a request and all its duplicates.
-  void PermissionDeniedIncludingDuplicates(PermissionRequest* request);
+  void PermissionDeniedIncludingDuplicates(PermissionRequest* request,
+                                           bool is_one_time,
+                                           content_settings::LifetimeMode lifetime_option);
   // Calls Cancelled on a request and all its duplicates.
   void CancelledIncludingDuplicates(PermissionRequest* request,
                                     bool is_final_decision = true);
