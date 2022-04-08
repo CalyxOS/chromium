@@ -31,6 +31,18 @@ PermissionRequest::PermissionRequest(
       permission_decided_callback_(std::move(permission_decided_callback)),
       delete_callback_(std::move(delete_callback)) {}
 
+PermissionRequest::PermissionRequest(
+    const GURL& requesting_origin,
+    RequestType request_type,
+    bool has_gesture,
+    PermissionDecidedCallbackWithLifetime permission_decided_callback,
+    base::OnceClosure delete_callback)
+    : requesting_origin_(requesting_origin),
+      request_type_(request_type),
+      has_gesture_(has_gesture),
+      permission_decided_callback_withlifetime_(std::move(permission_decided_callback)),
+      delete_callback_(std::move(delete_callback)) {}
+
 PermissionRequest::~PermissionRequest() {
   DCHECK(delete_callback_.is_null());
 }
@@ -235,17 +247,35 @@ std::u16string PermissionRequest::GetMessageTextFragment() const {
 }
 #endif
 
-void PermissionRequest::PermissionGranted(bool is_one_time) {
+void PermissionRequest::PermissionGranted(bool is_one_time,
+                            content_settings::LifetimeMode lifetime_option) {
+  if (permission_decided_callback_withlifetime_) {
+    std::move(permission_decided_callback_withlifetime_)
+        .Run(CONTENT_SETTING_ALLOW, is_one_time, lifetime_option);
+    return;
+  }
   std::move(permission_decided_callback_)
       .Run(CONTENT_SETTING_ALLOW, is_one_time);
 }
 
-void PermissionRequest::PermissionDenied() {
+void PermissionRequest::PermissionDenied(bool is_one_time,
+                            content_settings::LifetimeMode lifetime_option) {
+  if (permission_decided_callback_withlifetime_) {
+    std::move(permission_decided_callback_withlifetime_)
+        .Run(CONTENT_SETTING_BLOCK, is_one_time, lifetime_option);
+    return;
+  }
   std::move(permission_decided_callback_)
       .Run(CONTENT_SETTING_BLOCK, /*is_one_time=*/false);
 }
 
 void PermissionRequest::Cancelled() {
+  if (permission_decided_callback_withlifetime_) {
+    std::move(permission_decided_callback_withlifetime_)
+        .Run(CONTENT_SETTING_DEFAULT, false,
+             content_settings::LifetimeMode::Always);
+    return;
+  }
   std::move(permission_decided_callback_)
       .Run(CONTENT_SETTING_DEFAULT, /*is_one_time=*/false);
 }

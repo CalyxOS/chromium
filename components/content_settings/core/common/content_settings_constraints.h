@@ -18,11 +18,22 @@ namespace content_settings {
 //              regardless of expiry date, if set.
 // OneTime:     Settings will persist for the current "tab session", meaning
 //              until the last tab from the origin is closed.
+// GENERATED_JAVA_ENUM_PACKAGE: org.chromium.components.content_settings
+// GENERATED_JAVA_CLASS_NAME_OVERRIDE: SessionModel
 enum class SessionModel {
   Durable = 0,
   UserSession = 1,
   OneTime = 2,
   kMaxValue = OneTime,
+};
+
+// GENERATED_JAVA_ENUM_PACKAGE: org.chromium.components.content_settings
+// GENERATED_JAVA_CLASS_NAME_OVERRIDE: LifetimeMode
+enum class LifetimeMode {
+  Always = 99,
+  OnlyThisTime = 1,
+  UntilOriginClosed = 2,
+  UntilBrowserClosed = 0,
 };
 
 // Constraints to be applied when setting a content setting.

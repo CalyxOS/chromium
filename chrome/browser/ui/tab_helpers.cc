@@ -483,6 +483,7 @@ void TabHelpers::AttachTabHelpers(WebContents* web_contents) {
   PolicyAuditorBridge::CreateForWebContents(web_contents);
   PluginObserverAndroid::CreateForWebContents(web_contents);
   video_tutorials::VideoTutorialTabHelper::CreateForWebContents(web_contents);
+  LastTabStandingTrackerTabHelper::CreateForWebContents(web_contents);
 #else
   if (accuracy_tips::AccuracyWebContentsObserver::IsEnabled(web_contents)) {
     accuracy_tips::AccuracyWebContentsObserver::CreateForWebContents(
