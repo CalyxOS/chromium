@@ -33,6 +33,15 @@ enum class SessionModel : int32_t {
   kMaxValue = OneTime,
 };
 
+// GENERATED_JAVA_ENUM_PACKAGE: org.chromium.components.content_settings
+// GENERATED_JAVA_CLASS_NAME_OVERRIDE: LifetimeMode
+enum class LifetimeMode {
+  Always = 99,
+  OnlyThisTime = 1,
+  UntilOriginClosed = 2,
+  UntilBrowserClosed = 0,
+};
+
 // Constraints to be applied when setting a content setting.
 class ContentSettingConstraints {
  public:
