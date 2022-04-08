@@ -67,8 +67,9 @@ class PermissionPrompt {
     virtual GURL GetEmbeddingOrigin() const = 0;
 
     virtual void Accept() = 0;
-    virtual void AcceptThisTime() = 0;
+    virtual void AcceptThisTime(content_settings::mojom::LifetimeMode lifetime_option) = 0;
     virtual void Deny() = 0;
+    virtual void DenyThisTime(content_settings::mojom::LifetimeMode lifetime_option) = 0;
     virtual void Dismiss() = 0;
     virtual void Ignore() = 0;
 
