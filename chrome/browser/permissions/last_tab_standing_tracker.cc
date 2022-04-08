@@ -7,6 +7,33 @@
 #include "base/observer_list.h"
 #include "url/gurl.h"
 
+#include "components/content_settings/core/browser/host_content_settings_map.h"
+#include "components/content_settings/core/common/content_settings_utils.h"
+#include "components/permissions/permissions_client.h"
+
+namespace {
+  // Remove all sessions content setting by origin and type
+  void RemoveSessionSettings(HostContentSettingsMap* content_settings,
+                             const url::Origin& origin,
+                             ContentSettingsType type) {
+    ContentSettingsForOneType session_settings;
+    content_settings->GetSettingsForOneType(
+        type, &session_settings,
+        content_settings::SessionModel::UserSession);
+
+    GURL url = origin.GetURL();
+    for (ContentSettingPatternSource& entry : session_settings) {
+      if (content_settings::IsConstraintSessionExpiration(entry,
+              content_settings::LifetimeMode::UntilOriginClosed) &&
+          entry.primary_pattern.Matches(url)) {
+        content_settings->SetWebsiteSettingCustomScope(
+            entry.primary_pattern, entry.secondary_pattern,
+            type, base::Value());
+      }
+    }
+  }
+}
+
 LastTabStandingTracker::LastTabStandingTracker(content::BrowserContext* context)
     : context_(context) {}
 
@@ -56,4 +83,10 @@ void LastTabStandingTracker::WebContentsUnloadedOrigin(
     for (auto& observer : observer_list_) {
       observer.OnLastPageFromOriginClosed(origin);
     }
+    HostContentSettingsMap* content_settings =
+            permissions::PermissionsClient::Get()->GetSettingsMap(context_);
+    RemoveSessionSettings(content_settings, origin, ContentSettingsType::GEOLOCATION);
+    RemoveSessionSettings(content_settings, origin, ContentSettingsType::MEDIASTREAM_MIC);
+    RemoveSessionSettings(content_settings, origin, ContentSettingsType::MEDIASTREAM_CAMERA);
+  }
 }
