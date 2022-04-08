@@ -44,8 +44,9 @@ public class PermissionParamsListBuilder {
     }
 
     public void addPermissionEntry(
-            String name, String nameMidSentence, int type, @ContentSettingValues int value) {
-        mEntries.add(new PageInfoPermissionEntry(name, nameMidSentence, type, value));
+            String name, String nameMidSentence, int type, @ContentSettingValues int value,
+            boolean is_user_session) {
+        mEntries.add(new PageInfoPermissionEntry(name, nameMidSentence, type, value, is_user_session));
     }
 
     public void clearPermissionEntries() {
@@ -85,6 +86,10 @@ public class PermissionParamsListBuilder {
                 } else {
                     permissionParams.warningTextResource =
                             R.string.page_info_android_permission_blocked;
+                }
+                if (permission.is_user_session) {
+                    permissionParams.warningTextResource =
+                            R.string.page_info_android_permission_session_permission;
                 }
             }
         }
@@ -126,13 +131,15 @@ public class PermissionParamsListBuilder {
         public final String nameMidSentence;
         public final int type;
         public final @ContentSettingValues int setting;
+        public final boolean is_user_session;
 
         PageInfoPermissionEntry(
-                String name, String nameMidSentence, int type, @ContentSettingValues int setting) {
+                String name, String nameMidSentence, int type, @ContentSettingValues int setting, boolean is_user_session) {
             this.name = name;
             this.nameMidSentence = nameMidSentence;
             this.type = type;
             this.setting = setting;
+            this.is_user_session = is_user_session;
         }
 
         @Override
