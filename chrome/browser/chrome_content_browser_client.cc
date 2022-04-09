@@ -2627,6 +2627,7 @@ void ChromeContentBrowserClient::AppendExtraCommandLineSwitches(
         base::NumberToString(pid));
   }
 #endif
+  enable_crash_reporter = false;
   if (enable_crash_reporter) {
     std::string switch_value;
     std::unique_ptr<metrics::ClientInfo> client_info =
