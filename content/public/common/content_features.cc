@@ -247,8 +247,8 @@ BASE_FEATURE(kCooperativeScheduling,
 // Enables crash reporting via Reporting API.
 // https://www.w3.org/TR/reporting/#crash-report
 BASE_FEATURE(kCrashReporting,
-             "CrashReporting",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "CrashReporting",                      // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);    // in Bromite
 
 // Enables support for the `Critical-CH` response header.
 // https://github.com/WICG/client-hints-infrastructure/blob/master/reliability.md#critical-ch
