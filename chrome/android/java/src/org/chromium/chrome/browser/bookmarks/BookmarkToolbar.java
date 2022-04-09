@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
+import java.util.HashSet;
+
 /**
  * Main toolbar of bookmark UI. It is responsible for displaying title and buttons associated with
  * the current context.
@@ -189,12 +191,16 @@ public class BookmarkToolbar extends SelectableListToolbar<BookmarkId>
     void setCurrentFolder(BookmarkId folder) {
         mCurrentFolder = mBookmarkModel.getBookmarkById(folder);
         enableImportExportMenu();
+        enableSelectAllMenu();
     }
 
     void enableImportExportMenu() {
         getMenu().findItem(R.id.import_menu_id).setVisible(true);
         getMenu().findItem(R.id.export_menu_id).setVisible(true);
     }
+
+    void enableSelectAllMenu() {
+        getMenu().findItem(R.id.select_all_menu_id).setVisible(true);
     }
 
     void setNavigateBackRunnable(Runnable navigateBackRunnable) {
@@ -221,6 +227,17 @@ public class BookmarkToolbar extends SelectableListToolbar<BookmarkId>
             mExportBookmarkRunnable.run();
             return true;
         }
+        if (menuItem.getItemId() == R.id.select_all_menu_id) {
+            if (mBookmarkModel.isBookmarkModelLoaded()) {
+                List<BookmarkItem> items = mBookmarkModel.getBookmarksForFolder(mCurrentFolder.getId());
+                HashSet<BookmarkId> ids = new HashSet<>(items.size());
+                for (BookmarkItem item : items) {
+                    ids.add(item.getId());
+                }
+                mSelectionDelegate.setSelectedItems(ids);
+            }
+            return true;
+        }
         return mMenuIdClickedFunction.apply(menuItem.getItemId());
     }
 
@@ -238,6 +255,7 @@ public class BookmarkToolbar extends SelectableListToolbar<BookmarkId>
 
         getMenu().findItem(R.id.import_menu_id).setVisible(mCurrentFolder != null);
         getMenu().findItem(R.id.export_menu_id).setVisible(mCurrentFolder != null);
+        getMenu().findItem(R.id.select_all_menu_id).setVisible(mCurrentFolder != null);
 
         // SelectableListToolbar will show/hide the entire group.
         setEditButtonVisible(mEditButtonVisible);
