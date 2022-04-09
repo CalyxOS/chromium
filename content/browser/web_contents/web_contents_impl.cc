@@ -9849,7 +9849,7 @@ void WebContentsImpl::RendererUnresponsive(
   base::UmaHistogramEnumeration(
       "ReportingAndNEL.UnresponsiveRenderer.CrashReportOutcome", outcome);
 
-  if (base::FeatureList::IsEnabled(
+  if (((false)) && base::FeatureList::IsEnabled(
           blink::features::kDocumentPolicyIncludeJSCallStacksInCrashReports) &&
       this->GetLastCommittedURL().SchemeIsHTTPOrHTTPS()) {
     RenderProcessHost* rph = render_widget_host->GetProcess();
