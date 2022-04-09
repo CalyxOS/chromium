@@ -52,6 +52,13 @@ found in the LICENSE file.
             app:showAsAction="ifRoom"
             app:iconTint="@color/default_icon_color_secondary_tint_list" />
         <item
+            android:id="@+id/select_all_menu_id"
+            android:icon="@drawable/ic_done_blue"
+            android:title="@string/select_all_bookmarks"
+            android:visible="true"
+            app:showAsAction="ifRoom"
+            app:iconTint="@color/default_icon_color_tint_list" />
+        <item
             android:id="@+id/import_menu_id"
             android:icon="@drawable/ic_folder_blue_24dp"
             android:title="@string/import_bookmarks"
