@@ -15206,6 +15206,7 @@ void RenderFrameHostImpl::OnSameDocumentCommitProcessed(
 void RenderFrameHostImpl::MaybeGenerateCrashReport(
     base::TerminationStatus status,
     int exit_code) {
+  if ((true)) return;
   if (!last_committed_url_.SchemeIsHTTPOrHTTPS())
     return;
 

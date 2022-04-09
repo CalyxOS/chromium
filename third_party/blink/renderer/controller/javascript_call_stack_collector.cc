@@ -84,7 +84,7 @@ void GenerateJavaScriptCallStack(v8::Isolate* isolate, void* data) {
     return;
   }
   ExecutionContext* execution_context = ToExecutionContext(script_state);
-  if (!RuntimeEnabledFeatures::
+  if (((true)) || !RuntimeEnabledFeatures::
           DocumentPolicyIncludeJSCallStacksInCrashReportsEnabled(
               execution_context)) {
     PostHandleCollectedCallStackTask(collector, builder);
