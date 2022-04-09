@@ -27,6 +27,7 @@ import org.chromium.components.browser_ui.widget.selectable_list.SelectableListT
 import org.chromium.components.browser_ui.widget.selectable_list.SelectionDelegate;
 
 import java.util.List;
+import java.util.HashSet;
 
 /**
  * Main action bar of bookmark UI. It is responsible for displaying title and buttons
@@ -132,6 +133,17 @@ public class BookmarkActionBar extends SelectableListToolbar<BookmarkId>
                     /*openInNewTab=*/true, /*incognito=*/true);
             selectionDelegate.clearSelection();
             return true;
+        } else if (menuItem.getItemId() == R.id.select_all_menu_id) {
+            BookmarkModel bookmarkModel = mDelegate.getModel();
+            if (bookmarkModel.isBookmarkModelLoaded()) {
+                List<BookmarkItem> items = bookmarkModel.getBookmarksForFolder(mCurrentFolder.getId());
+                HashSet<BookmarkId> ids = new HashSet<>(items.size());
+                for (BookmarkItem item : items) {
+                    ids.add(item.getId());
+                }
+                selectionDelegate.setSelectedItems(ids);
+            }
+            return true;
         }
 
         assert false : "Unhandled menu click.";
@@ -141,6 +153,7 @@ public class BookmarkActionBar extends SelectableListToolbar<BookmarkId>
     void showLoadingUi() {
         setTitle(null);
         setNavigationButton(NAVIGATION_BUTTON_NONE);
+        getMenu().findItem(R.id.select_all_menu_id).setVisible(false);
         getMenu().findItem(R.id.import_menu_id).setVisible(false);
         getMenu().findItem(R.id.export_menu_id).setVisible(false);
         getMenu().findItem(R.id.search_menu_id).setVisible(false);
@@ -152,6 +165,7 @@ public class BookmarkActionBar extends SelectableListToolbar<BookmarkId>
         super.showNormalView();
 
         if (mDelegate == null) {
+            getMenu().findItem(R.id.select_all_menu_id).setVisible(false);
             getMenu().findItem(R.id.import_menu_id).setVisible(false);
             getMenu().findItem(R.id.export_menu_id).setVisible(false);
             getMenu().findItem(R.id.search_menu_id).setVisible(false);
@@ -183,6 +197,7 @@ public class BookmarkActionBar extends SelectableListToolbar<BookmarkId>
     @Override
     public void onFolderStateSet(BookmarkId folder) {
         mCurrentFolder = mDelegate.getModel().getBookmarkById(folder);
+        getMenu().findItem(R.id.select_all_menu_id).setVisible(true);
         getMenu().findItem(R.id.import_menu_id).setVisible(true);
         getMenu().findItem(R.id.export_menu_id).setVisible(true);
         getMenu().findItem(R.id.search_menu_id).setVisible(true);
