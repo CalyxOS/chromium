@@ -24,10 +24,10 @@ const char kDeprecatedAutofillAssistantTriggerScriptsIsFirstTimeUser[] =
     "Chrome.AutofillAssistant.LiteScriptFirstTimeUser";
 
 void RegisterProfilePrefs(PrefRegistrySimple* registry) {
-  registry->RegisterBooleanPref(prefs::kAutofillAssistantEnabled, true);
+  registry->RegisterBooleanPref(prefs::kAutofillAssistantEnabled, false);
   registry->RegisterBooleanPref(prefs::kAutofillAssistantConsent, false);
   registry->RegisterBooleanPref(prefs::kAutofillAssistantTriggerScriptsEnabled,
-                                true);
+                                false);
   registry->RegisterBooleanPref(
       prefs::kAutofillAssistantTriggerScriptsIsFirstTimeUser, true);
 }

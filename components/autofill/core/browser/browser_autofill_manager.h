@@ -730,9 +730,9 @@ class BrowserAutofillManager : public AutofillManager,
   std::unique_ptr<CreditCardFormEventLogger> credit_card_form_event_logger_;
 
   // Have we logged whether Autofill is enabled for this page load?
-  bool has_logged_autofill_enabled_ = false;
+  bool has_logged_autofill_enabled_ = true;
   // Have we logged an address suggestions count metric for this page?
-  bool has_logged_address_suggestions_count_ = false;
+  bool has_logged_address_suggestions_count_ = true;
   // Have we shown Autofill suggestions at least once?
   bool did_show_suggestions_ = false;
   // Has the user manually edited at least one form field among the autofillable

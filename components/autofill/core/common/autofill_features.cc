@@ -511,8 +511,8 @@ const base::FeatureParam<int> kAutofillServerBehaviorsParam{
 // "upload" resources.
 // i.e., https://other.autofill.server:port/tbproxy/af/
 BASE_FEATURE(kAutofillServerCommunication,
-             "AutofillServerCommunication",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "AutofillServerCommunication",       // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);  // in Bromite
 
 // Controls whether Autofill may fill across origins as part of the
 // AutofillAcrossIframes experiment.

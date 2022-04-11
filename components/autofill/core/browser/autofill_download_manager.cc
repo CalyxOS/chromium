@@ -509,35 +509,6 @@ bool GetUploadPayloadForApi(const AutofillUploadContents& upload,
   return upload_request.SerializeToString(payload);
 }
 
-// Gets an API method URL given its type (query or upload), an optional
-// resource ID, and the HTTP method to be used.
-// Example usage:
-// * GetAPIMethodUrl(REQUEST_QUERY, "1234", "GET") will return "/v1/pages/1234".
-// * GetAPIMethodUrl(REQUEST_QUERY, "1234", "POST") will return "/v1/pages:get".
-// * GetAPIMethodUrl(REQUEST_UPLOAD, "", "POST") will return "/v1/forms:vote".
-std::string GetAPIMethodUrl(AutofillDownloadManager::RequestType type,
-                            base::StringPiece resource_id,
-                            base::StringPiece method) {
-  const char* api_method_url;
-  if (type == AutofillDownloadManager::REQUEST_QUERY) {
-    if (method == "POST") {
-      api_method_url = "/v1/pages:get";
-    } else {
-      api_method_url = "/v1/pages";
-    }
-  } else if (type == AutofillDownloadManager::REQUEST_UPLOAD) {
-    api_method_url = "/v1/forms:vote";
-  } else {
-    // This should not be reached, but we never know.
-    NOTREACHED() << "Request of type " << type << " is invalid";
-    return "";
-  }
-  if (resource_id.empty()) {
-    return std::string(api_method_url);
-  }
-  return base::StrCat({api_method_url, "/", resource_id});
-}
-
 // Gets HTTP body payload for API POST request.
 bool GetAPIBodyPayload(const std::string& payload,
                        AutofillDownloadManager::RequestType type,
@@ -773,6 +744,7 @@ std::tuple<GURL, std::string> AutofillDownloadManager::GetRequestURLAndMethod(
   // ID of the resource to add to the API request URL. Nothing will be added if
   // |resource_id| is empty.
   std::string resource_id;
+#if 0
   std::string method = "POST";
 
   if (request_data.request_type == AutofillDownloadManager::REQUEST_QUERY) {
@@ -793,7 +765,10 @@ std::tuple<GURL, std::string> AutofillDownloadManager::GetRequestURLAndMethod(
 
   // Add the query parameter to set the response format to a serialized proto.
   url = net::AppendQueryParameter(url, "alt", "proto");
-
+#else
+  std::string method("GET");
+  GURL url = GURL("about:blank");
+#endif
   return std::make_tuple(std::move(url), std::move(method));
 }
 
