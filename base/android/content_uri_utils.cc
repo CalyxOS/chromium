@@ -125,6 +125,16 @@ void JNI_ContentUriUtils_AddFileInfoToVector(
                        Time::FromMillisecondsSinceUnixEpoch(last_modified));
 }
 
+File OpenContentUriForWrite(const FilePath& content_uri) {
+  JNIEnv* env = base::android::AttachCurrentThread();
+  ScopedJavaLocalRef<jstring> j_uri =
+      ConvertUTF8ToJavaString(env, content_uri.value());
+  jint fd = Java_ContentUriUtils_openContentUriForWrite(env, j_uri);
+  if (fd < 0)
+    return File();
+  return File(fd);
+}
+
 std::string GetContentUriMimeType(const FilePath& content_uri) {
   JNIEnv* env = android::AttachCurrentThread();
   ScopedJavaLocalRef<jstring> j_mime =
