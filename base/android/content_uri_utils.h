@@ -33,6 +33,10 @@ BASE_EXPORT std::optional<std::string> TranslateOpenFlagsToJavaMode(
 // Returns -1 if the URI is invalid.
 int OpenContentUri(const FilePath& content_uri, uint32_t open_flags);
 
+// Opens a content URI for write and returns the file descriptor to the caller.
+// Returns -1 if the URI is invalid.
+BASE_EXPORT File OpenContentUriForWrite(const FilePath& content_uri);
+
 // Returns true if file exists and results are populated, else returns false.
 bool ContentUriGetFileInfo(const FilePath& content_uri,
                            FileEnumerator::FileInfo* results);
