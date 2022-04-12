@@ -18,6 +18,10 @@ namespace base {
 // Returns -1 if the URI is invalid.
 BASE_EXPORT File OpenContentUriForRead(const FilePath& content_uri);
 
+// Opens a content URI for write and returns the file descriptor to the caller.
+// Returns -1 if the URI is invalid.
+BASE_EXPORT File OpenContentUriForWrite(const FilePath& content_uri);
+
 // Check whether a content URI exists.
 BASE_EXPORT bool ContentUriExists(const FilePath& content_uri);
 
