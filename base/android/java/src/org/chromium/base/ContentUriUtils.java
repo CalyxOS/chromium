@@ -23,6 +23,9 @@ import org.jni_zero.CalledByNative;
 import java.io.File;
 import java.io.IOException;
 
+import android.system.Os;
+import android.content.ContentProviderClient;
+
 /** This class provides methods to access content URI schemes. */
 public abstract class ContentUriUtils {
     private static final String TAG = "ContentUriUtils";
@@ -85,6 +88,36 @@ public abstract class ContentUriUtils {
             return afd.getParcelFileDescriptor().detachFd();
         }
         return -1;
+    }
+
+    @CalledByNative
+    public static int openContentUriForWrite(String uriString) {
+        try {
+            Uri uri = Uri.parse(uriString);
+            ContentResolver resolver = ContextUtils.getApplicationContext().getContentResolver();
+            ContentProviderClient client = resolver.acquireContentProviderClient(
+                                            uri.getAuthority());
+            ParcelFileDescriptor pfd = client.openFile(uri, "wt");
+            int fd = pfd.detachFd();
+            client.close();
+            return fd;
+        } catch (Exception e) {
+            Log.e(TAG, "Cannot open intermediate URI", e);
+        }
+        return -1;
+    }
+
+    public static String getFilePathFromContentUri(Uri uri) {
+        String path = null;
+        try {
+            ContentResolver resolver = ContextUtils.getApplicationContext().getContentResolver();
+            ParcelFileDescriptor pfd = resolver.openFileDescriptor(uri, "r");
+            path = Os.readlink("/proc/self/fd/" + pfd.getFd());
+            pfd.close();
+        } catch (Exception e) {
+            Log.e(TAG, "Cannot get file path from content URI", e);
+        }
+        return path;
     }
 
     /**
