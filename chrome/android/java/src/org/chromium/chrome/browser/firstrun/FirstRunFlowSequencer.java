@@ -32,9 +32,6 @@ import org.chromium.chrome.browser.signin.services.SigninManager;
 import org.chromium.components.crash.CrashKeyIndex;
 import org.chromium.components.crash.CrashKeys;
 import org.chromium.components.embedder_support.util.UrlConstants;
-import org.chromium.components.signin.AccountManagerFacadeProvider;
-import org.chromium.components.signin.identitymanager.ConsentLevel;
-import org.chromium.components.signin.identitymanager.IdentityManager;
 
 import java.util.List;
 
@@ -59,27 +56,7 @@ public abstract class FirstRunFlowSequencer  {
         /** Returns true if the sync consent promo page should be shown. */
         boolean shouldShowSyncConsentPage(
                 Activity activity, List<Account> accounts, boolean isChild) {
-            if (isChild) {
-                // Always show the sync consent page for child account.
-                return true;
-            }
-            final IdentityManager identityManager =
-                    IdentityServicesProvider.get().getIdentityManager(
-                            Profile.getLastUsedRegularProfile());
-            if (identityManager.hasPrimaryAccount(ConsentLevel.SYNC) || !isSyncAllowed()) {
-                // No need to show the sync consent page if users already consented to sync or
-                // if sync is not allowed.
                 return false;
-            }
-            if (FREMobileIdentityConsistencyFieldTrial.isEnabled()) {
-                // Show the sync consent page only to the signed-in users.
-                return identityManager.hasPrimaryAccount(ConsentLevel.SIGNIN);
-            } else {
-                // We show the sync consent page if sync is allowed, and not signed in, and
-                // - "skip the first use hints" is not set, or
-                // - "skip the first use hints" is set, but there is at least one account.
-                return !shouldSkipFirstUseHints(activity) || !accounts.isEmpty();
-            }
         }
 
         /** @return true if the Search Engine promo page should be shown. */
@@ -94,10 +71,7 @@ public abstract class FirstRunFlowSequencer  {
         /** @return true if Sync is allowed for the current user. */
         @VisibleForTesting
         protected boolean isSyncAllowed() {
-            SigninManager signinManager = IdentityServicesProvider.get().getSigninManager(
-                    Profile.getLastUsedRegularProfile());
-            return FirstRunUtils.canAllowSync() && !signinManager.isSigninDisabledByPolicy()
-                    && signinManager.isSigninSupported();
+            return false;
         }
 
         /** @return true if first use hints should be skipped. */
@@ -149,12 +123,8 @@ public abstract class FirstRunFlowSequencer  {
      *                                  method.
      */
     void start() {
-        AccountManagerFacadeProvider.getInstance().getAccounts().then(accounts -> {
-            RecordHistogram.recordCount1MHistogram(
-                    "Signin.AndroidDeviceAccountsNumberWhenEnteringFRE",
-                    Math.min(accounts.size(), 2));
-            setAccountList(accounts);
-        });
+        mIsChild = false;
+        maybeProcessFreEnvironmentPreNative();
     }
 
     @VisibleForTesting
@@ -179,14 +149,10 @@ public abstract class FirstRunFlowSequencer  {
     }
 
     private void maybeProcessFreEnvironmentPreNative() {
-        // Wait till both child account status and the list of accounts are available.
-        if (mIsChild == null || mGoogleAccounts == null) return;
-
         if (mIsFlowKnown) return;
         mIsFlowKnown = true;
 
         Bundle freProperties = new Bundle();
-        freProperties.putBoolean(SyncConsentFirstRunFragment.IS_CHILD_ACCOUNT, mIsChild);
 
         onFlowIsKnown(freProperties);
     }
@@ -197,8 +163,8 @@ public abstract class FirstRunFlowSequencer  {
      * @param freProperties Resulting FRE properties bundle.
      */
     public void updateFirstRunProperties(Bundle freProperties) {
-        freProperties.putBoolean(
-                FirstRunActivity.SHOW_SYNC_CONSENT_PAGE, shouldShowSyncConsentPage());
+        if (freProperties == null)
+          throw new RuntimeException("attempting to update null FRE properties");
         freProperties.putBoolean(
                 FirstRunActivity.SHOW_SEARCH_ENGINE_PAGE, shouldShowSearchEnginePage());
     }
@@ -257,6 +223,7 @@ public abstract class FirstRunFlowSequencer  {
                         || FirstRunStatus.getLightweightFirstRunFlowComplete())) {
             return false;
         }
+
         return true;
     }
 
@@ -305,7 +272,9 @@ public abstract class FirstRunFlowSequencer  {
             // of something else.
             Intent newIntent = new Intent(fromIntent);
             newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            IntentUtils.safeStartActivity(caller, newIntent);
+            if (!IntentUtils.safeStartActivity(caller, newIntent)) {
+              throw new RuntimeException("Cannot start FirstRunExperience activity");
+            }
         }
         return true;
     }
