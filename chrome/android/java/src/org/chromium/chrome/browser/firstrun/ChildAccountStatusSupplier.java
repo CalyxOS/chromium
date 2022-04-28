@@ -13,7 +13,6 @@ import org.chromium.base.metrics.RecordHistogram;
 import org.chromium.base.supplier.OneshotSupplier;
 import org.chromium.base.supplier.OneshotSupplierImpl;
 import org.chromium.components.signin.AccountManagerFacade;
-import org.chromium.components.signin.AccountUtils;
 
 /**
  * Fetches the child account status to be used by other FRE components.
@@ -42,18 +41,6 @@ public class ChildAccountStatusSupplier implements OneshotSupplier<Boolean> {
             AccountManagerFacade accountManagerFacade,
             FirstRunAppRestrictionInfo appRestrictionInfo) {
         mChildAccountStatusStartTime = SystemClock.elapsedRealtime();
-
-        appRestrictionInfo.getHasAppRestriction(this::onAppRestrictionDetected);
-
-        accountManagerFacade
-                .getCoreAccountInfos()
-                .then(
-                        coreAccountInfos -> {
-                            AccountUtils.checkChildAccountStatus(
-                                    accountManagerFacade,
-                                    coreAccountInfos,
-                                    (isChild, account) -> onChildAccountStatusReady(isChild));
-                        });
     }
 
     @Override
