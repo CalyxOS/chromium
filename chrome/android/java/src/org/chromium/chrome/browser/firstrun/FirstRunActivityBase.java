@@ -39,8 +39,6 @@ import org.chromium.chrome.browser.profiles.ProfileProvider;
 import org.chromium.chrome.browser.ui.system.StatusBarColorController;
 import org.chromium.components.browser_ui.widget.gesture.BackPressHandler;
 import org.chromium.components.policy.PolicyService;
-import org.chromium.components.signin.AccountManagerFacade;
-import org.chromium.components.signin.AccountManagerFacadeProvider;
 
 /** Base class for First Run Experience. */
 public abstract class FirstRunActivityBase extends AsyncInitializationActivity
@@ -112,9 +110,7 @@ public abstract class FirstRunActivityBase extends AsyncInitializationActivity
     @Override
     @CallSuper
     public void triggerLayoutInflation() {
-        AccountManagerFacade accountManagerFacade = AccountManagerFacadeProvider.getInstance();
-        mChildAccountStatusSupplier =
-                new ChildAccountStatusSupplier(accountManagerFacade, mFirstRunAppRestrictionInfo);
+        mChildAccountStatusSupplier = new ChildAccountStatusSupplier(null, null);
 
         // TODO(crbug.com/1498708): Find the underlying issue causing the status bar not to be set
         //  during FRE, this is just a temporary visual fix.
