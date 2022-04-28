@@ -32,8 +32,6 @@ import org.chromium.chrome.browser.profiles.ProfileManagerUtils;
 import org.chromium.chrome.browser.signin.services.FREMobileIdentityConsistencyFieldTrial;
 import org.chromium.components.browser_ui.widget.gesture.BackPressHandler;
 import org.chromium.components.policy.PolicyService;
-import org.chromium.components.signin.AccountManagerFacade;
-import org.chromium.components.signin.AccountManagerFacadeProvider;
 
 /** Base class for First Run Experience. */
 public abstract class FirstRunActivityBase
@@ -101,14 +99,7 @@ public abstract class FirstRunActivityBase
     @Override
     @CallSuper
     public void triggerLayoutInflation() {
-        AccountManagerFacade accountManagerFacade = AccountManagerFacadeProvider.getInstance();
-        if (FREMobileIdentityConsistencyFieldTrial.isEnabled()) {
-            mChildAccountStatusSupplier = new ChildAccountStatusSupplier(
-                    accountManagerFacade, mFirstRunAppRestrictionInfo);
-        } else {
-            mChildAccountStatusSupplier =
-                    new ChildAccountStatusSupplier(accountManagerFacade, null);
-        }
+        mChildAccountStatusSupplier = new ChildAccountStatusSupplier();
     }
 
     @Override

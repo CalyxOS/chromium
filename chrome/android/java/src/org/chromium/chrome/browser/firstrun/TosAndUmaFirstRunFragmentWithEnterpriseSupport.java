@@ -127,12 +127,6 @@ public class TosAndUmaFirstRunFragmentWithEnterpriseSupport
     }
 
     @Override
-    protected boolean canShowUmaCheckBox() {
-        return super.canShowUmaCheckBox() && mSkipTosDialogPolicyListener.get() != null
-                && !mSkipTosDialogPolicyListener.get();
-    }
-
-    @Override
     public void onShowLoadingUIComplete() {
         mLoadingSpinnerContainer.setVisibility(View.VISIBLE);
     }
