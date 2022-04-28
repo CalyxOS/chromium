@@ -88,12 +88,12 @@ class SigninFirstRunViewBinder {
                 model.get(SigninFirstRunProperties.IS_SELECTED_ACCOUNT_SUPERVISED);
 
         if (isAccountSupervised) {
-            view.getBrowserManagedHeaderView().setVisibility(View.VISIBLE);
+            view.getBrowserManagedHeaderView().setVisibility(View.GONE);
             view.getPrivacyDisclaimer().setText(R.string.fre_browser_managed_by_parent);
             view.getPrivacyDisclaimer().setCompoundDrawablesRelativeWithIntrinsicBounds(
                     R.drawable.ic_account_child_20dp, 0, 0, 0);
         } else if (hasPolicy) {
-            view.getBrowserManagedHeaderView().setVisibility(View.VISIBLE);
+            view.getBrowserManagedHeaderView().setVisibility(View.GONE);
             view.getPrivacyDisclaimer().setText(R.string.fre_browser_managed_by_organization);
             view.getPrivacyDisclaimer().setCompoundDrawablesRelativeWithIntrinsicBounds(
                     R.drawable.ic_business, 0, 0, 0);
