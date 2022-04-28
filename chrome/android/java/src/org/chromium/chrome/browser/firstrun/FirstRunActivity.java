@@ -30,7 +30,6 @@ import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.search_engines.TemplateUrlServiceFactory;
 import org.chromium.chrome.browser.signin.SigninCheckerProvider;
 import org.chromium.chrome.browser.signin.SigninFirstRunFragment;
-import org.chromium.chrome.browser.signin.services.FREMobileIdentityConsistencyFieldTrial;
 import org.chromium.components.browser_ui.modaldialog.AppModalPresenter;
 import org.chromium.components.metrics.LowEntropySource;
 import org.chromium.ui.base.ActivityWindowAndroid;
@@ -205,10 +204,6 @@ public class FirstRunActivity extends FirstRunActivityBase implements FirstRunPa
 
     @Override
     public void triggerLayoutInflation() {
-        // Generate trial group as early as possible to guarantee it's available by the time native
-        // needs to register the synthetic trial group. See https://crbug.com/1295692 for details.
-        FREMobileIdentityConsistencyFieldTrial.createFirstRunVariationsTrial();
-
         super.triggerLayoutInflation();
 
         initializeStateFromLaunchData();
@@ -489,10 +484,6 @@ public class FirstRunActivity extends FirstRunActivityBase implements FirstRunPa
     public void acceptTermsOfService(boolean allowMetricsAndCrashUploading) {
         assert mNativeInitializationPromise.isFulfilled();
 
-        // If default is true then it corresponds to opt-out and false corresponds to opt-in.
-        UmaUtils.recordMetricsReportingDefaultOptIn(!DEFAULT_METRICS_AND_CRASH_REPORTING);
-        RecordHistogram.recordMediumTimesHistogram("MobileFre.FromLaunch.TosAccepted",
-                SystemClock.elapsedRealtime() - mIntentCreationElapsedRealtimeMs);
         FirstRunUtils.acceptTermsOfService(allowMetricsAndCrashUploading);
         FirstRunStatus.setSkipWelcomePage(true);
         flushPersistentData();

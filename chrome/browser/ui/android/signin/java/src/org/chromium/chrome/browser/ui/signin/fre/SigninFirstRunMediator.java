@@ -423,27 +423,25 @@ public class SigninFirstRunMediator
      * disabled by policy.
      */
     private SpannableString getFooterString(boolean isMetricsReportingDisabled) {
-        String footerString = mContext.getString(R.string.signin_fre_footer_tos);
+        String footerString = mContext.getString(R.string.bromite_fre_footer_privacy_policy);
 
         ArrayList<SpanApplier.SpanInfo> spans = new ArrayList<>();
-        // Terms of Service SpanInfo.
-        final NoUnderlineClickableSpan clickableTermsOfServiceSpan =
+
+        // Adblock info and privacy policy
+        final NoUnderlineClickableSpan wikiSpan =
                 new NoUnderlineClickableSpan(mContext,
                         view
-                        -> mDelegate.showInfoPage(ColorUtils.inNightMode(mContext)
-                                        ? R.string.google_terms_of_service_dark_mode_url
-                                        : R.string.google_terms_of_service_url));
+                        -> mDelegate.showInfoPage(R.string.adblock_wiki_url));
         spans.add(
-                new SpanApplier.SpanInfo("<TOS_LINK>", "</TOS_LINK>", clickableTermsOfServiceSpan));
+                new SpanApplier.SpanInfo("<PRIVACY_LINK1>", "</PRIVACY_LINK1>",
+                    wikiSpan));
 
-        // Metrics and Crash Reporting SpanInfo.
-        if (!isMetricsReportingDisabled) {
-            footerString += " " + mContext.getString(R.string.signin_fre_footer_metrics_reporting);
-            final NoUnderlineClickableSpan clickableUMADialogSpan =
-                    new NoUnderlineClickableSpan(mContext, view -> openUmaDialog());
-            spans.add(
-                    new SpanApplier.SpanInfo("<UMA_LINK>", "</UMA_LINK>", clickableUMADialogSpan));
-        }
+        final NoUnderlineClickableSpan privacyPolicySpan =
+                new NoUnderlineClickableSpan(mContext,
+                        view
+                        -> mDelegate.showInfoPage(R.string.adblock_updater_privacy_policy_url));
+        spans.add(
+                new SpanApplier.SpanInfo("<PRIVACY_LINK2>", "</PRIVACY_LINK2>", privacyPolicySpan));
 
         // Apply spans to footer string.
         return SpanApplier.applySpans(footerString, spans.toArray(new SpanApplier.SpanInfo[0]));
