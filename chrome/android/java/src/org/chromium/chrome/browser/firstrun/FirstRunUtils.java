@@ -18,9 +18,6 @@ import org.chromium.chrome.browser.metrics.UmaSessionStats;
 import org.chromium.chrome.browser.preferences.ChromePreferenceKeys;
 import org.chromium.chrome.browser.preferences.SharedPreferencesManager;
 import org.chromium.chrome.browser.util.ChromeAccessibilityUtil;
-import org.chromium.components.signin.AccountManagerFacade;
-import org.chromium.components.signin.AccountManagerFacadeProvider;
-import org.chromium.components.signin.AccountUtils;
 
 /** Provides first run related utility functions. */
 public class FirstRunUtils {
@@ -83,14 +80,13 @@ public class FirstRunUtils {
      * @return Whether or not sync is allowed on this device.
      */
     static boolean canAllowSync() {
-        return (hasGoogleAccountAuthenticator() && hasSyncPermissions()) || hasGoogleAccounts();
+        return false;
     }
 
     @VisibleForTesting
     static boolean hasGoogleAccountAuthenticator() {
         if (sHasGoogleAccountAuthenticator == null) {
-            AccountManagerFacade accountHelper = AccountManagerFacadeProvider.getInstance();
-            sHasGoogleAccountAuthenticator = accountHelper.hasGoogleAccountAuthenticator();
+            sHasGoogleAccountAuthenticator = false;
         }
         return sHasGoogleAccountAuthenticator;
     }
@@ -102,10 +98,7 @@ public class FirstRunUtils {
 
     @VisibleForTesting
     static boolean hasGoogleAccounts() {
-        return !AccountUtils
-                        .getAccountsIfFulfilledOrEmpty(
-                                AccountManagerFacadeProvider.getInstance().getAccounts())
-                        .isEmpty();
+        return false;
     }
 
     @SuppressLint("InlinedApi")
