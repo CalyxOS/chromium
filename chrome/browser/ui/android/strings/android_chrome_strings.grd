@@ -2997,6 +2997,15 @@ To change this setting, <ph name="BEGIN_LINK">&lt;resetlink&gt;</ph>reset sync<p
       <message name="IDS_FRE_ACCEPT_CONTINUE" desc="Text for first page accept and continue button [CHAR_LIMIT=20]">
         Accept &amp; continue
       </message>
+      <message name="IDS_ADBLOCK_UPDATER_PRIVACY_POLICY_URL" desc="URL for privacy policy for the ad block updater" translateable="false">
+        https://docs.github.com/en/github/site-policy/github-privacy-statement#github-pages
+      </message>
+      <message name="IDS_BROMITE_FRE_FOOTER_PRIVACY_POLICY" desc="Message explaining the privacy policy of the file hosting service provider for adblock updates and Bromite app automatic updates">
+        <ph name="BEGIN_PRIVACY_LINK1">&lt;PRIVACY_LINK1&gt;</ph>Automatic ad block filters updates<ph name="END_PRIVACY_LINK1">&lt;/PRIVACY_LINK1&gt;</ph> are subject to the <ph name="BEGIN_PRIVACY_LINK2">&lt;PRIVACY_LINK2&gt;</ph>GitHub Privacy statement<ph name="END_PRIVACY_LINK2">&lt;/PRIVACY_LINK2&gt;</ph>; they cannot be disabled.
+      </message>
+      <message name="IDS_ADBLOCK_WIKI_URL" desc="URL for Bromite wiki page about ad blocking" translateable="false">
+        https://github.com/bromite/bromite/wiki/AdBlocking
+      </message>
       <message name="IDS_FRE_WELCOME" desc="Text for greeting the user on Chrome First Run">
         Welcome to Chrome
       </message>
