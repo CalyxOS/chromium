@@ -20,9 +20,6 @@ import org.chromium.chrome.browser.metrics.ChangeMetricsReportingStateCalledFrom
 import org.chromium.chrome.browser.metrics.UmaSessionStats;
 import org.chromium.chrome.browser.preferences.ChromePreferenceKeys;
 import org.chromium.chrome.browser.preferences.ChromeSharedPreferences;
-import org.chromium.components.signin.AccountManagerFacade;
-import org.chromium.components.signin.AccountManagerFacadeProvider;
-import org.chromium.components.signin.AccountUtils;
 import org.chromium.ui.accessibility.AccessibilityState;
 
 /** Provides first run related utility functions. */
@@ -85,16 +82,12 @@ public class FirstRunUtils {
      * @return Whether or not sync is allowed on this device.
      */
     static boolean canAllowSync() {
-        return (hasGoogleAccountAuthenticator() && hasSyncPermissions()) || hasGoogleAccounts();
+        return false;
     }
 
     @VisibleForTesting
     static boolean hasGoogleAccountAuthenticator() {
-        if (sHasGoogleAccountAuthenticator == null) {
-            AccountManagerFacade accountHelper = AccountManagerFacadeProvider.getInstance();
-            sHasGoogleAccountAuthenticator = accountHelper.hasGoogleAccountAuthenticator();
-        }
-        return sHasGoogleAccountAuthenticator;
+        return false;
     }
 
     @VisibleForTesting
@@ -104,9 +97,7 @@ public class FirstRunUtils {
 
     @VisibleForTesting
     static boolean hasGoogleAccounts() {
-        return !AccountUtils.getCoreAccountInfosIfFulfilledOrEmpty(
-                        AccountManagerFacadeProvider.getInstance().getCoreAccountInfos())
-                .isEmpty();
+        return false;
     }
 
     @SuppressLint("InlinedApi")
