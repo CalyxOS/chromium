@@ -29,9 +29,6 @@ import org.chromium.chrome.browser.customtabs.CustomTabActivity;
 import org.chromium.chrome.browser.fonts.FontPreloader;
 import org.chromium.chrome.browser.metrics.UmaUtils;
 import org.chromium.chrome.browser.search_engines.TemplateUrlServiceFactory;
-import org.chromium.chrome.browser.signin.SigninCheckerProvider;
-import org.chromium.chrome.browser.signin.SigninFirstRunFragment;
-import org.chromium.chrome.browser.signin.services.FREMobileIdentityConsistencyFieldTrial;
 import org.chromium.components.browser_ui.modaldialog.AppModalPresenter;
 import org.chromium.components.metrics.LowEntropySource;
 import org.chromium.ui.base.LocalizationUtils;
@@ -135,32 +132,12 @@ public class FirstRunActivity extends FirstRunActivityBase implements FirstRunPa
     /** Creates first page and sets up adapter. Should result UI being shown on the screen. */
     private void createFirstPage() {
         BooleanSupplier showWelcomePage = () -> !FirstRunStatus.shouldSkipWelcomePage();
-        if (FREMobileIdentityConsistencyFieldTrial.isEnabled()) {
-            mPages.add(new FirstRunPage<>(SigninFirstRunFragment.class, showWelcomePage));
-        } else {
-            // TODO(crbug.com/1111490): Revisit during post-MVP.
-            // There's an edge case where we accept the welcome page in the main app, abort the FRE,
-            // then go through this CCT FRE again.
-            mPages.add(shouldCreateEnterpriseCctTosPage()
-                            ? new FirstRunPage<>(
-                                    TosAndUmaFirstRunFragmentWithEnterpriseSupport.class,
-                                    showWelcomePage)
-                            : new FirstRunPage<>(ToSAndUMAFirstRunFragment.class, showWelcomePage));
-        }
+        mPages.add(new FirstRunPage<>(ToSAndUMAFirstRunFragment.class, showWelcomePage));
         mFreProgressStates.add(MobileFreProgress.WELCOME_SHOWN);
         mPagerAdapter = new FirstRunPagerAdapter(FirstRunActivity.this, mPages);
         mPager.setAdapter(mPagerAdapter);
         // Other pages will be created by createPostNativeAndPoliciesPageSequence() after
         // native and policy service have been initialized.
-    }
-
-    private boolean shouldCreateEnterpriseCctTosPage() {
-        // TODO(crbug.com/1111490): Revisit case when #shouldSkipWelcomePage = true.
-        //  If the client has already accepted ToS (FirstRunStatus#shouldSkipWelcomePage), do not
-        //  use the subclass ToSAndUmaCCTFirstRunFragment. Instead, use the base class
-        //  (ToSAndUMAFirstRunFragment) which simply shows a loading spinner while waiting for
-        //  native to be loaded.
-        return mLaunchedFromCCT && !FirstRunStatus.shouldSkipWelcomePage();
     }
 
     /**
@@ -173,17 +150,10 @@ public class FirstRunActivity extends FirstRunActivityBase implements FirstRunPa
         assert !mPostNativeAndPolicyPagesCreated;
         assert areNativeAndPoliciesInitialized();
 
-        // Initialize SigninChecker, to kick off sign-in for child accounts as early as possible.
-        //
-        // TODO(b/245912657): explicitly sign in supervised users in {@link
-        // SigninFirstRunMediator#handleContinueWithNative} rather than relying on SigninChecker.
-        SigninCheckerProvider.get();
-
         mFirstRunFlowSequencer.updateFirstRunProperties(mFreProperties);
 
         BooleanSupplier showSearchEnginePromo =
                 () -> mFreProperties.getBoolean(SHOW_SEARCH_ENGINE_PAGE);
-        BooleanSupplier showSyncConsent = () -> mFreProperties.getBoolean(SHOW_SYNC_CONSENT_PAGE);
 
         // An optional page to select a default search engine.
         if (showSearchEnginePromo.getAsBoolean()) {
@@ -191,11 +161,6 @@ public class FirstRunActivity extends FirstRunActivityBase implements FirstRunPa
                     DefaultSearchEngineFirstRunFragment.class, showSearchEnginePromo));
             mFreProgressStates.add(MobileFreProgress.DEFAULT_SEARCH_ENGINE_SHOWN);
         }
-
-        // An optional sync consent page, the visibility of this page will be decided on the fly
-        // according to the situation.
-        mPages.add(new FirstRunPage<>(SyncConsentFirstRunFragment.class, showSyncConsent));
-        mFreProgressStates.add(MobileFreProgress.SYNC_CONSENT_SHOWN);
 
         if (mPagerAdapter != null) {
             mPagerAdapter.notifyDataSetChanged();
@@ -241,10 +206,6 @@ public class FirstRunActivity extends FirstRunActivityBase implements FirstRunPa
 
     @Override
     public void triggerLayoutInflation() {
-        // Generate trial group as early as possible to guarantee it's available by the time native
-        // needs to register the synthetic trial group. See https://crbug.com/1295692 for details.
-        FREMobileIdentityConsistencyFieldTrial.createFirstRunTrial();
-
         super.triggerLayoutInflation();
 
         initializeStateFromLaunchData();
@@ -254,7 +215,7 @@ public class FirstRunActivity extends FirstRunActivityBase implements FirstRunPa
         setFinishOnTouchOutside(true);
 
         setContentView(createContentView());
-        if (FREMobileIdentityConsistencyFieldTrial.isEnabled() && mPagerAdapter == null) {
+        if (mPagerAdapter == null) {
             // SigninFirstRunFragment doesn't use getProperties() and can be shown right away,
             // without waiting for FirstRunFlowSequencer.
             createFirstPage();
@@ -531,10 +492,6 @@ public class FirstRunActivity extends FirstRunActivityBase implements FirstRunPa
     public void acceptTermsOfService(boolean allowMetricsAndCrashUploading) {
         assert mNativeInitializationPromise.isFulfilled();
 
-        // If default is true then it corresponds to opt-out and false corresponds to opt-in.
-        UmaUtils.recordMetricsReportingDefaultOptIn(!DEFAULT_METRICS_AND_CRASH_REPORTING);
-        RecordHistogram.recordMediumTimesHistogram("MobileFre.FromLaunch.TosAccepted",
-                SystemClock.elapsedRealtime() - mIntentCreationElapsedRealtimeMs);
         FirstRunUtils.acceptTermsOfService(allowMetricsAndCrashUploading);
         FirstRunStatus.setSkipWelcomePage(true);
         flushPersistentData();
