@@ -16,16 +16,18 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import android.content.SharedPreferences;
+import org.chromium.chrome.browser.omaha.OmahaBase;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.fragment.app.Fragment;
 
+import org.chromium.base.Log;
 import org.chromium.base.metrics.RecordHistogram;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.privacy.settings.PrivacyPreferencesManagerImpl;
-import org.chromium.chrome.browser.signin.services.FREMobileIdentityConsistencyFieldTrial;
-import org.chromium.chrome.browser.ui.signin.fre.FreUMADialogCoordinator;
 import org.chromium.components.version_info.VersionInfo;
 import org.chromium.ui.modaldialog.ModalDialogManagerHolder;
 import org.chromium.ui.text.NoUnderlineClickableSpan;
@@ -41,7 +43,7 @@ import java.util.List;
  * User Metrics Analysis) as defined in the Chrome Privacy Notice.
  */
 public class ToSAndUMAFirstRunFragment
-        extends Fragment implements FirstRunFragment, FreUMADialogCoordinator.Listener {
+        extends Fragment implements FirstRunFragment {
     /** Alerts about some methods once ToSAndUMAFirstRunFragment executes them. */
     public interface Observer {
         /** See {@link #onNativeInitialized}. */
@@ -62,7 +64,8 @@ public class ToSAndUMAFirstRunFragment
     private boolean mUserInteractedWithUmaCheckbox;
 
     private Button mAcceptButton;
-    private CheckBox mSendReportCheckBox;
+    private CheckBox mAutoUpdaterCheckBox;
+    private boolean mAutoUpdaterChecked;
     private TextView mTosAndPrivacy;
     private View mTitle;
     private View mProgressSpinner;
@@ -89,14 +92,14 @@ public class ToSAndUMAFirstRunFragment
         mProgressSpinner = view.findViewById(R.id.progress_spinner);
         mProgressSpinner.setVisibility(View.GONE);
         mAcceptButton = (Button) view.findViewById(R.id.terms_accept);
-        mSendReportCheckBox = (CheckBox) view.findViewById(R.id.send_report_checkbox);
+        mAutoUpdaterCheckBox = (CheckBox) view.findViewById(R.id.auto_updater_checkbox);
         mTosAndPrivacy = (TextView) view.findViewById(R.id.tos_and_privacy);
 
         // Register event listeners.
         mAcceptButton.setOnClickListener((v) -> onTosButtonClicked());
-        mSendReportCheckBox.setOnCheckedChangeListener(((compoundButton, isChecked) -> {
-            mAllowMetricsAndCrashUploading = isChecked;
-            mUserInteractedWithUmaCheckbox = true;
+        mAutoUpdaterCheckBox.setOnCheckedChangeListener(
+                ((compoundButton, isChecked) -> {
+            mAutoUpdaterChecked = isChecked;
         }));
 
         // Make TextView links clickable.
@@ -113,7 +116,9 @@ public class ToSAndUMAFirstRunFragment
         // initialized at which point the activity will skip the page.
         // We distinguish case 1 from case 2 by the value of |mNativeInitialized|, as that is set
         // via onAttachFragment() from FirstRunActivity - which is before this onViewCreated().
-        if (isWaitingForNativeAndPolicyInit() && FirstRunStatus.shouldSkipWelcomePage()) {
+        boolean isW = isWaitingForNativeAndPolicyInit();
+        boolean ssw = FirstRunStatus.shouldSkipWelcomePage();
+        if (isW && ssw) {
             setSpinnerVisible(true);
         }
     }
@@ -139,7 +144,7 @@ public class ToSAndUMAFirstRunFragment
             // On certain versions of Android, the checkbox will appear unchecked upon revisiting
             // the page.  Force it to the end state of the drawable animation as a work around.
             // crbug.com/666258
-            mSendReportCheckBox.jumpDrawablesToCurrentState();
+            mAutoUpdaterCheckBox.jumpDrawablesToCurrentState();
         }
     }
 
@@ -166,13 +171,7 @@ public class ToSAndUMAFirstRunFragment
         assert !isWaitingForNativeAndPolicyInit();
 
         setSpinnerVisible(false);
-        mSendReportCheckBox.setChecked(mAllowMetricsAndCrashUploading);
-    }
-
-    /** Implements {@link FreUMADialogCoordinator.Listener} */
-    @Override
-    public void onAllowMetricsAndCrashUploadingChecked(boolean allowMetricsAndCrashUploading) {
-        mAllowMetricsAndCrashUploading = allowMetricsAndCrashUploading;
+        mAutoUpdaterCheckBox.setChecked(true);
     }
 
     private void updateView() {
@@ -181,116 +180,39 @@ public class ToSAndUMAFirstRunFragment
             return;
         }
 
-        final boolean umaDialogMayBeShown =
-                FREMobileIdentityConsistencyFieldTrial.shouldShowOldFreWithUmaDialog();
-        final boolean hasChildAccount = getPageDelegate().getProperties().getBoolean(
-                SyncConsentFirstRunFragment.IS_CHILD_ACCOUNT, false);
-        final boolean isMetricsReportingDisabledByPolicy = !isWaitingForNativeAndPolicyInit()
-                && !PrivacyPreferencesManagerImpl.getInstance()
-                            .isUsageAndCrashReportingPermittedByPolicy();
+        updateTosText();
 
-        updateTosText(umaDialogMayBeShown, hasChildAccount, isMetricsReportingDisabledByPolicy);
-
-        updateReportCheckbox(umaDialogMayBeShown, isMetricsReportingDisabledByPolicy);
+        updateReportCheckbox();
     }
 
-    private SpanInfo buildTermsOfServiceLink() {
-        NoUnderlineClickableSpan clickableGoogleTermsSpan =
+    private SpanInfo buildPrivacyPolicyLink(String suffix, int url) {
+        NoUnderlineClickableSpan clickableSpan =
                 new NoUnderlineClickableSpan(getContext(), (view1) -> {
                     if (!isAdded()) return;
-                    getPageDelegate().showInfoPage(R.string.google_terms_of_service_url);
-                });
-        return new SpanInfo("<TOS_LINK>", "</TOS_LINK>", clickableGoogleTermsSpan);
-    }
-
-    private SpanInfo buildAdditionalTermsOfServiceLink() {
-        NoUnderlineClickableSpan clickableChromeAdditionalTermsSpan =
-                new NoUnderlineClickableSpan(getContext(), (view1) -> {
-                    if (!isAdded()) return;
-                    getPageDelegate().showInfoPage(R.string.chrome_additional_terms_of_service_url);
-                });
-        return new SpanInfo("<ATOS_LINK>", "</ATOS_LINK>", clickableChromeAdditionalTermsSpan);
-    }
-
-    private SpanInfo buildPrivacyPolicyLink() {
-        NoUnderlineClickableSpan clickableFamilyLinkPrivacySpan =
-                new NoUnderlineClickableSpan(getContext(), (view1) -> {
-                    if (!isAdded()) return;
-                    getPageDelegate().showInfoPage(R.string.google_privacy_policy_url);
+                    getPageDelegate().showInfoPage(url);
                 });
 
-        return new SpanInfo("<PRIVACY_LINK>", "</PRIVACY_LINK>", clickableFamilyLinkPrivacySpan);
+        return new SpanInfo("<PRIVACY_LINK" + suffix + ">", "</PRIVACY_LINK" + suffix + ">", clickableSpan);
     }
 
-    private SpanInfo buildMetricsAndCrashReportingLink() {
-        NoUnderlineClickableSpan clickableUMADialogSpan =
-                new NoUnderlineClickableSpan(getContext(), (view1) -> openUmaDialog());
-        return new SpanInfo("<UMA_LINK>", "</UMA_LINK>", clickableUMADialogSpan);
-    }
-
-    private void updateTosText(boolean umaDialogMayBeShown, boolean hasChildAccount,
-            boolean isMetricsReportingDisabledByPolicy) {
+    private void updateTosText() {
         List<SpanInfo> spans = new LinkedList<SpanInfo>();
 
-        // Description always has a Terms of Service link.
-        spans.add(buildTermsOfServiceLink());
+        spans.add(buildPrivacyPolicyLink("1", R.string.adblock_wiki_url));
 
-        // Additional terms of service link.
-        if (!umaDialogMayBeShown) {
-            spans.add(buildAdditionalTermsOfServiceLink());
-        }
+        spans.add(buildPrivacyPolicyLink("2", R.string.adblock_updater_privacy_policy_url));
 
-        // Privacy policy link.
-        if (hasChildAccount) {
-            spans.add(buildPrivacyPolicyLink());
-        }
+        spans.add(buildPrivacyPolicyLink("3", R.string.auto_updates_wiki_url));
 
-        // Metrics and crash reporting link.
-        if (umaDialogMayBeShown && !isMetricsReportingDisabledByPolicy) {
-            spans.add(buildMetricsAndCrashReportingLink());
-        }
+        spans.add(buildPrivacyPolicyLink("4", R.string.bromite_updater_privacy_policy_url));
 
-        String tosString;
-        if (umaDialogMayBeShown) {
-            tosString =
-                    getString(hasChildAccount ? R.string.signin_fre_footer_tos_with_supervised_user
-                                              : R.string.signin_fre_footer_tos);
-
-            if (!isMetricsReportingDisabledByPolicy) {
-                tosString += "\n" + getString(R.string.signin_fre_footer_metrics_reporting);
-            }
-        } else {
-            tosString = getString(hasChildAccount ? R.string.fre_tos_and_privacy_child_account
-                                                  : R.string.fre_tos);
-        }
+        String tosString = getString(R.string.bromite_fre_footer_privacy_policy);
 
         mTosAndPrivacy.setText(SpanApplier.applySpans(tosString, spans.toArray(new SpanInfo[0])));
     }
 
-    private void updateReportCheckbox(
-            boolean umaDialogMayBeShown, boolean isMetricsReportingDisabledByPolicy) {
-        // The user can only interact with the UMA checkbox after it's visible on the screen, in
-        // which case a previous call to this method has already checked the checkbox expected
-        // initial state.
-        if (!mUserInteractedWithUmaCheckbox) {
-            mAllowMetricsAndCrashUploading = getUmaCheckBoxInitialState();
-            mSendReportCheckBox.setChecked(mAllowMetricsAndCrashUploading);
-        }
-
-        if (!canShowUmaCheckBox()) {
-            if (!umaDialogMayBeShown) {
-                mAllowMetricsAndCrashUploading =
-                        (sShowUmaCheckBoxForTesting || VersionInfo.isOfficialBuild())
-                        && !isMetricsReportingDisabledByPolicy;
-            }
-            mSendReportCheckBox.setVisibility(View.GONE);
-        }
-    }
-
-    private void openUmaDialog() {
-        new FreUMADialogCoordinator(requireContext(),
-                ((ModalDialogManagerHolder) getActivity()).getModalDialogManager(), this,
-                mAllowMetricsAndCrashUploading);
+    private void updateReportCheckbox() {
+        mAutoUpdaterCheckBox.setChecked(true);
     }
 
     private void onPolicyServiceInitialized(boolean onDevicePolicyFound) {
@@ -317,6 +239,12 @@ public class ToSAndUMAFirstRunFragment
     private void onTosButtonClicked() {
         mTosButtonClicked = true;
         mTosAcceptedTime = SystemClock.elapsedRealtime();
+
+        // save updater configuration only on button click
+        SharedPreferences.Editor sharedPreferenceEditor = OmahaBase.getSharedPreferences().edit();
+        sharedPreferenceEditor.putBoolean(OmahaBase.PREF_ALLOW_INLINE_UPDATE, mAutoUpdaterChecked);
+        sharedPreferenceEditor.apply();
+
         tryMarkTermsAccepted(true);
     }
 
@@ -327,7 +255,8 @@ public class ToSAndUMAFirstRunFragment
      * @param fromButtonClicked Whether called from {@link #onTosButtonClicked()}.
      */
     private void tryMarkTermsAccepted(boolean fromButtonClicked) {
-        if (!mTosButtonClicked || isWaitingForNativeAndPolicyInit()) {
+        boolean isW = isWaitingForNativeAndPolicyInit();
+        if (!mTosButtonClicked || isW) {
             if (fromButtonClicked) setSpinnerVisible(true);
             return;
         }
@@ -338,7 +267,7 @@ public class ToSAndUMAFirstRunFragment
             RecordHistogram.recordTimesHistogram("MobileFre.TosFragment.SpinnerVisibleDuration",
                     SystemClock.elapsedRealtime() - mTosAcceptedTime);
         }
-        getPageDelegate().acceptTermsOfService(mAllowMetricsAndCrashUploading);
+        getPageDelegate().acceptTermsOfService(false);
         getPageDelegate().advanceToNextPage();
     }
 
@@ -381,10 +310,7 @@ public class ToSAndUMAFirstRunFragment
 
         mAcceptButton.setVisibility(visibility);
         mTosAndPrivacy.setVisibility(visibility);
-        // Avoid updating visibility if the UMA check box can't be shown right now.
-        if (canShowUmaCheckBox()) {
-            mSendReportCheckBox.setVisibility(visibility);
-        }
+        mAutoUpdaterCheckBox.setVisibility(visibility);
     }
 
     protected View getToSAndPrivacyText() {
@@ -395,18 +321,6 @@ public class ToSAndUMAFirstRunFragment
         if (sObserver != null) {
             sObserver.onHideLoadingUIComplete();
         }
-    }
-
-    /**
-     * @return Whether the check box for Uma metrics can be shown. It should be used in conjunction
-     *         with whether other non-spinner elements can generally be shown.
-     */
-    protected boolean canShowUmaCheckBox() {
-        return !FREMobileIdentityConsistencyFieldTrial.shouldShowOldFreWithUmaDialog()
-                && (sShowUmaCheckBoxForTesting || VersionInfo.isOfficialBuild())
-                && (isWaitingForNativeAndPolicyInit()
-                        || PrivacyPreferencesManagerImpl.getInstance()
-                                   .isUsageAndCrashReportingPermittedByPolicy());
     }
 
     @VisibleForTesting
