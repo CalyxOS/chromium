@@ -30,9 +30,7 @@ import org.chromium.chrome.browser.fonts.FontPreloader;
 import org.chromium.chrome.browser.metrics.UmaUtils;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.search_engines.TemplateUrlServiceFactory;
-import org.chromium.chrome.browser.signin.SigninCheckerProvider;
-import org.chromium.chrome.browser.signin.SigninFirstRunFragment;
-import org.chromium.chrome.browser.signin.services.FREMobileIdentityConsistencyFieldTrial;
+import org.chromium.chrome.browser.firstrun.ToSAndUMAFirstRunFragment;
 import org.chromium.components.browser_ui.modaldialog.AppModalPresenter;
 import org.chromium.components.feature_engagement.EventConstants;
 import org.chromium.components.metrics.LowEntropySource;
@@ -122,7 +120,7 @@ public class FirstRunActivity extends FirstRunActivityBase implements FirstRunPa
     /** Creates first page and sets up adapter. Should result UI being shown on the screen. */
     private void createFirstPage() {
         BooleanSupplier showWelcomePage = () -> !FirstRunStatus.shouldSkipWelcomePage();
-        mPages.add(new FirstRunPage<>(SigninFirstRunFragment.class, showWelcomePage));
+        mPages.add(new FirstRunPage<>(ToSAndUMAFirstRunFragment.class, showWelcomePage));
         mFreProgressStates.add(MobileFreProgress.WELCOME_SHOWN);
         mPagerAdapter = new FirstRunPagerAdapter(FirstRunActivity.this, mPages);
         mPager.setAdapter(mPagerAdapter);
@@ -144,13 +142,11 @@ public class FirstRunActivity extends FirstRunActivityBase implements FirstRunPa
         //
         // TODO(b/245912657): explicitly sign in supervised users in {@link
         // SigninFirstRunMediator#handleContinueWithNative} rather than relying on SigninChecker.
-        SigninCheckerProvider.get();
 
         mFirstRunFlowSequencer.updateFirstRunProperties(mFreProperties);
 
         BooleanSupplier showSearchEnginePromo =
                 () -> mFreProperties.getBoolean(SHOW_SEARCH_ENGINE_PAGE);
-        BooleanSupplier showSyncConsent = () -> mFreProperties.getBoolean(SHOW_SYNC_CONSENT_PAGE);
 
         // An optional page to select a default search engine.
         if (showSearchEnginePromo.getAsBoolean()) {
@@ -158,11 +154,6 @@ public class FirstRunActivity extends FirstRunActivityBase implements FirstRunPa
                     DefaultSearchEngineFirstRunFragment.class, showSearchEnginePromo));
             mFreProgressStates.add(MobileFreProgress.DEFAULT_SEARCH_ENGINE_SHOWN);
         }
-
-        // An optional sync consent page, the visibility of this page will be decided on the fly
-        // according to the situation.
-        mPages.add(new FirstRunPage<>(SyncConsentFirstRunFragment.class, showSyncConsent));
-        mFreProgressStates.add(MobileFreProgress.SYNC_CONSENT_SHOWN);
 
         if (mPagerAdapter != null) {
             mPagerAdapter.notifyDataSetChanged();
@@ -208,10 +199,6 @@ public class FirstRunActivity extends FirstRunActivityBase implements FirstRunPa
 
     @Override
     public void triggerLayoutInflation() {
-        // Generate trial group as early as possible to guarantee it's available by the time native
-        // needs to register the synthetic trial group. See https://crbug.com/1295692 for details.
-        FREMobileIdentityConsistencyFieldTrial.createFirstRunVariationsTrial();
-
         super.triggerLayoutInflation();
 
         initializeStateFromLaunchData();
@@ -500,10 +487,6 @@ public class FirstRunActivity extends FirstRunActivityBase implements FirstRunPa
     public void acceptTermsOfService(boolean allowMetricsAndCrashUploading) {
         assert mNativeInitializationPromise.isFulfilled();
 
-        // If default is true then it corresponds to opt-out and false corresponds to opt-in.
-        UmaUtils.recordMetricsReportingDefaultOptIn(!DEFAULT_METRICS_AND_CRASH_REPORTING);
-        RecordHistogram.recordMediumTimesHistogram("MobileFre.FromLaunch.TosAccepted",
-                SystemClock.elapsedRealtime() - mIntentCreationElapsedRealtimeMs);
         FirstRunUtils.acceptTermsOfService(allowMetricsAndCrashUploading);
         FirstRunStatus.setSkipWelcomePage(true);
         flushPersistentData();

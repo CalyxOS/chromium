@@ -32,8 +32,6 @@ import org.chromium.chrome.browser.policy.PolicyServiceFactory;
 import org.chromium.chrome.browser.profiles.ProfileManagerUtils;
 import org.chromium.components.browser_ui.widget.gesture.BackPressHandler;
 import org.chromium.components.policy.PolicyService;
-import org.chromium.components.signin.AccountManagerFacade;
-import org.chromium.components.signin.AccountManagerFacadeProvider;
 
 /** Base class for First Run Experience. */
 public abstract class FirstRunActivityBase
@@ -101,9 +99,7 @@ public abstract class FirstRunActivityBase
     @Override
     @CallSuper
     public void triggerLayoutInflation() {
-        AccountManagerFacade accountManagerFacade = AccountManagerFacadeProvider.getInstance();
-        mChildAccountStatusSupplier =
-                new ChildAccountStatusSupplier(accountManagerFacade, mFirstRunAppRestrictionInfo);
+        mChildAccountStatusSupplier = new ChildAccountStatusSupplier(null, null);
     }
 
     @Override
