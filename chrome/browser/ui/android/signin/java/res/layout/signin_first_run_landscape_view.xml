@@ -93,7 +93,7 @@ found in the LICENSE file.
             android:layout_marginEnd="24dp"
             android:gravity="start"
             android:textAppearance="@style/TextAppearance.TextSmall.Secondary"
-            android:text="@string/signin_fre_footer"
+            android:text="@string/bromite_fre_footer_privacy_policy"
             app:leading="@dimen/text_size_small_leading" />
     </LinearLayout>
 
