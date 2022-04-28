@@ -33,21 +33,18 @@ import org.chromium.chrome.R;
 import org.chromium.chrome.browser.back_press.SecondaryActivityBackPressUma.SecondaryActivity;
 import org.chromium.chrome.browser.customtabs.CustomTabActivity;
 import org.chromium.chrome.browser.feature_engagement.TrackerFactory;
+import org.chromium.chrome.browser.firstrun.ToSAndUMAFirstRunFragment;
 import org.chromium.chrome.browser.metrics.UmaUtils;
 import org.chromium.chrome.browser.multiwindow.MultiWindowUtils;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.search_engines.TemplateUrlServiceFactory;
-import org.chromium.chrome.browser.signin.SigninCheckerProvider;
-import org.chromium.chrome.browser.signin.SigninFirstRunFragment;
 import org.chromium.chrome.browser.ui.signin.DialogWhenLargeContentLayout;
 import org.chromium.chrome.browser.ui.signin.SigninUtils;
 import org.chromium.chrome.browser.ui.signin.fullscreen_signin.FullscreenSigninMediator;
-import org.chromium.chrome.browser.ui.signin.history_sync.HistorySyncHelper;
 import org.chromium.chrome.browser.ui.system.StatusBarColorController;
 import org.chromium.components.browser_ui.modaldialog.AppModalPresenter;
 import org.chromium.components.feature_engagement.EventConstants;
 import org.chromium.components.metrics.LowEntropySource;
-import org.chromium.components.signin.metrics.SigninAccessPoint;
 import org.chromium.ui.base.ActivityWindowAndroid;
 import org.chromium.ui.base.DeviceFormFactor;
 import org.chromium.ui.base.LocalizationUtils;
@@ -233,7 +230,7 @@ public class FirstRunActivity extends FirstRunActivityBase implements FirstRunPa
     /** Creates first page and sets up adapter. Should result UI being shown on the screen. */
     private void createFirstPage() {
         BooleanSupplier showWelcomePage = () -> !FirstRunStatus.shouldSkipWelcomePage();
-        mPages.add(new FirstRunPage<>(SigninFirstRunFragment.class, showWelcomePage));
+        mPages.add(new FirstRunPage<>(ToSAndUMAFirstRunFragment.class, showWelcomePage));
         mFreProgressStates.add(MobileFreProgress.WELCOME_SHOWN);
         mPagerAdapter = new FirstRunPagerAdapter(FirstRunActivity.this, mPages);
         mPager.setAdapter(mPagerAdapter);
@@ -257,8 +254,7 @@ public class FirstRunActivity extends FirstRunActivityBase implements FirstRunPa
         // Initialize SigninChecker, to kick off sign-in for child accounts as early as possible.
         //
         // TODO(b/245912657): explicitly sign in supervised users in {@link
-        // FullscreenSigninMediator#handleContinueWithNative} rather than relying on SigninChecker.
-        SigninCheckerProvider.get(getProfileProviderSupplier().get().getOriginalProfile());
+        // SigninFirstRunMediator#handleContinueWithNative} rather than relying on SigninChecker.
 
         mFirstRunFlowSequencer.updateFirstRunProperties(mFreProperties);
 
@@ -272,18 +268,6 @@ public class FirstRunActivity extends FirstRunActivityBase implements FirstRunPa
                             DefaultSearchEngineFirstRunFragment.class, showSearchEnginePromo));
             mFreProgressStates.add(MobileFreProgress.DEFAULT_SEARCH_ENGINE_SHOWN);
         }
-
-        // An optional history sync opt-in page, the visibility of this page will be decided on the
-        // fly according to the situation.
-        BooleanSupplier showHistorySync = () -> mFreProperties.getBoolean(SHOW_HISTORY_SYNC_PAGE);
-        if (!showHistorySync.getAsBoolean()) {
-            HistorySyncHelper historySyncHelper =
-                    HistorySyncHelper.getForProfile(
-                            getProfileProviderSupplier().get().getOriginalProfile());
-            historySyncHelper.recordHistorySyncNotShown(SigninAccessPoint.START_PAGE);
-        }
-        mPages.add(new FirstRunPage<>(HistorySyncFirstRunFragment.class, showHistorySync));
-        mFreProgressStates.add(MobileFreProgress.HISTORY_SYNC_OPT_IN_SHOWN);
 
         if (mPagerAdapter != null) {
             mPagerAdapter.notifyDataSetChanged();
@@ -690,11 +674,6 @@ public class FirstRunActivity extends FirstRunActivityBase implements FirstRunPa
     public void acceptTermsOfService(boolean allowMetricsAndCrashUploading) {
         assert mNativeInitializationPromise.isFulfilled();
 
-        // If default is true then it corresponds to opt-out and false corresponds to opt-in.
-        UmaUtils.recordMetricsReportingDefaultOptIn(!DEFAULT_METRICS_AND_CRASH_REPORTING);
-        RecordHistogram.deprecatedRecordMediumTimesHistogram(
-                "MobileFre.FromLaunch.TosAccepted",
-                SystemClock.elapsedRealtime() - mIntentCreationElapsedRealtimeMs);
         FirstRunUtils.acceptTermsOfService(allowMetricsAndCrashUploading);
         FirstRunStatus.setSkipWelcomePage(true);
         flushPersistentData();
