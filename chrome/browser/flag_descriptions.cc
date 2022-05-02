@@ -3461,6 +3461,11 @@ const char kSkipServiceWorkerFetchHandlerDescription[] =
     "Skips starting the service worker and run the fetch handler if the fetch "
     "handler is recognized as skippable.";
 
+const char kSiteEngagementName[] =
+    "Enable site engagement feature";
+const char kSiteEngagementDescription[] =
+    "Site Engagement Service provides information about how engaged a user is with a origin; this affects which NTP tiles are automatically created.";
+
 const char kWebSQLAccessName[] = "Allows access to WebSQL APIs";
 const char kWebSQLAccessDescription[] =
     "The WebSQL API is enabled by default, but can be disabled here.";

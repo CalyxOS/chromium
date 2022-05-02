@@ -142,6 +142,7 @@
 #include "components/segmentation_platform/public/features.h"
 #include "components/send_tab_to_self/features.h"
 #include "components/services/heap_profiling/public/cpp/switches.h"
+#include "components/site_engagement/core/features.h"
 #include "components/shared_highlighting/core/common/shared_highlighting_features.h"
 #include "components/signin/core/browser/dice_account_reconcilor_delegate.h"
 #include "components/signin/public/base/signin_buildflags.h"
@@ -9173,6 +9174,11 @@ const FeatureEntry kFeatureEntries[] = {
     {"enable-search-ready-omnibox", flag_descriptions::kSearchReadyOmniboxName,
      flag_descriptions::kSearchReadyOmniboxDescription, kOsAndroid,
      FEATURE_VALUE_TYPE(chrome::android::kSearchReadyOmniboxFeature)},
+
+    {"site-engagement",
+     flag_descriptions::kSiteEngagementName,
+     flag_descriptions::kSiteEngagementDescription, kOsAll,
+     FEATURE_VALUE_TYPE(site_engagement::features::kSiteEngagement)},
 
 #if BUILDFLAG(IS_CHROMEOS_ASH)
     {"use-multiple-overlays", flag_descriptions::kUseMultipleOverlaysName,

@@ -1975,6 +1975,9 @@ extern const char kReduceUserAgentPlatformOsCpuDescription[];
 extern const char kSkipServiceWorkerFetchHandlerName[];
 extern const char kSkipServiceWorkerFetchHandlerDescription[];
 
+extern const char kSiteEngagementName[];
+extern const char kSiteEngagementDescription[];
+
 extern const char kWebSQLAccessName[];
 extern const char kWebSQLAccessDescription[];
 

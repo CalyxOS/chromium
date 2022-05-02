@@ -4,8 +4,14 @@
 
 static_library("core") {
   sources = [
+    "features.cc",
+    "features.h",
     "pref_names.cc",
     "pref_names.h",
     "site_engagement_score_provider.h",
+  ]
+
+  deps = [
+    "//base",
   ]
 }

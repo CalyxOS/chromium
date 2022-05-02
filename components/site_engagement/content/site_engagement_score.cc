@@ -17,6 +17,7 @@
 #include "components/content_settings/core/common/content_settings.h"
 #include "components/content_settings/core/common/content_settings_types.h"
 #include "components/content_settings/core/common/content_settings_utils.h"
+#include "components/site_engagement/core/features.h"
 #include "components/site_engagement/content/engagement_type.h"
 #include "components/site_engagement/content/site_engagement_metrics.h"
 #include "components/variations/variations_associated_data.h"
@@ -275,6 +276,10 @@ void SiteEngagementScore::Commit() {
   if (!UpdateScoreDict(*score_dict_))
     return;
 
+  if (!base::FeatureList::IsEnabled(features::kSiteEngagement)) {
+    score_dict_.reset();
+    return;
+  }
   settings_map_->SetWebsiteSettingDefaultScope(
       origin_, GURL(), ContentSettingsType::SITE_ENGAGEMENT,
       base::Value(std::move(*score_dict_)));
