@@ -298,6 +298,13 @@ void WebGLRenderingContextBase::InitializeWebGLContextLimits(
   }
 }
 
+bool WebGLRenderingContextBase::AllowWebglForHost(blink::CanvasRenderingContextHost* host) {
+  if (!host)
+    return false;
+  blink::ExecutionContext* context = host->GetTopExecutionContext();
+  return blink::AllowWebgl(context);
+}
+
 unsigned WebGLRenderingContextBase::CurrentMaxGLContexts() {
   base::AutoLock locker(WebGLContextLimitLock());
   DCHECK(webgl_context_limits_initialized_);
@@ -567,25 +574,6 @@ static String ExtractWebGLContextCreationError(
     const Platform::GraphicsInfo& info) {
   StringBuilder builder;
   builder.Append("Could not create a WebGL context");
-  FormatWebGLStatusString(
-      "VENDOR",
-      info.vendor_id ? String::Format("0x%04x", info.vendor_id) : "0xffff",
-      builder);
-  FormatWebGLStatusString(
-      "DEVICE",
-      info.device_id ? String::Format("0x%04x", info.device_id) : "0xffff",
-      builder);
-  FormatWebGLStatusString("GL_VENDOR", info.vendor_info, builder);
-  FormatWebGLStatusString("GL_RENDERER", info.renderer_info, builder);
-  FormatWebGLStatusString("GL_VERSION", info.driver_version, builder);
-  FormatWebGLStatusString("Sandboxed", info.sandboxed ? "yes" : "no", builder);
-  FormatWebGLStatusString("Optimus", info.optimus ? "yes" : "no", builder);
-  FormatWebGLStatusString("AMD switchable", info.amd_switchable ? "yes" : "no",
-                          builder);
-  FormatWebGLStatusString(
-      "Reset notification strategy",
-      String::Format("0x%04x", info.reset_notification_strategy).Utf8().c_str(),
-      builder);
   FormatWebGLStatusString("ErrorMessage", info.error_message.Utf8().c_str(),
                           builder);
   builder.Append('.');
@@ -645,6 +633,12 @@ WebGLRenderingContextBase::CreateWebGraphicsContext3DProvider(
     const CanvasContextCreationAttributesCore& attributes,
     Platform::ContextType context_type,
     Platform::GraphicsInfo* graphics_info) {
+  if (!AllowWebglForHost(host)) {
+    host->HostDispatchEvent(WebGLContextEvent::Create(
+        event_type_names::kWebglcontextcreationerror,
+        "disabled by site settings policy."));
+    return nullptr;
+  }
   if ((context_type == Platform::kWebGL1ContextType &&
        !host->IsWebGL1Enabled()) ||
       (context_type == Platform::kWebGL2ContextType &&
