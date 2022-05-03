@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grit-part>
+  <message name="IDS_SITE_SETTINGS_TYPE_WEBGL" desc="The label used for webgl site settings controls." formatter_data="android_java">
+    Webgl
+  </message>
+  <message name="IDS_SETTINGS_SITE_SETTINGS_WEBGL_DESCRIPTION" desc="Description of the webgl content setting." formatter_data="android_java">
+    Enable Webgl, a JavaScript API for rendering high-performance interactive 3D and 2D graphics
+  </message>
+  <message name="IDS_SITE_SETTINGS_TYPE_WEBGL_MID_SENTENCE" desc="The label used for webgl site settings controls when used mid-sentence." formatter_data="android_java">
+    webgl
+  </message>
+  <message name="IDS_WEBGL_PERMISSION_TITLE" desc="Title of the permission to use webgl [CHAR-LIMIT=32]" formatter_data="android_java">
+    Webgl
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_WEBGL_ENABLED" desc="Summary text explaining that webgl is full enabled." formatter_data="android_java">
+    Enabled
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_WEBGL_DISABLED" desc="Summary text explaining that webgl is full disabled." formatter_data="android_java">
+    Disabled
+  </message>
+  <message name="IDS_SETTINGS_SITE_SETTINGS_WEBGL_ALLOWED_EXCEPTIONS" desc="Label for the allowed exceptions site list of the webgl setting.">
+    Allowed to use webgl
+  </message>
+  <message name="IDS_SETTINGS_SITE_SETTINGS_WEBGL_BLOCKED_EXCEPTIONS" desc="Label for the blocked exceptions site list of the webgl setting.">
+    Not allowed to use webgl
+  </message>
+</grit-part>
