@@ -81,4 +81,5 @@ struct RendererContentSettingRules {
   array<ContentSettingPatternSource> auto_dark_content_rules;
   array<ContentSettingPatternSource> timezone_override_rules;
   string timezone_override_value;
+  array<ContentSettingPatternSource> webgl_rules;
 };

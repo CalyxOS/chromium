@@ -338,6 +338,7 @@
       <part file="version_ui_strings.grdp" />
       <part file="webapps_strings.grdp" />
 
+      <part file="browser_ui/strings/android/webgl.grdp" />
       <if expr="not is_ios">
         <part file="history_clusters_strings.grdp" />
       </if>

@@ -43,6 +43,7 @@ public abstract class BromiteCustomContentSettingImpl {
 
     static {
         mItemList = new ArrayList<BromiteCustomContentSetting>();
+        mItemList.add(new BromiteWebGLContentSetting());
     }
 
     public static SiteSettingsCategory createFromType(

@@ -99,6 +99,8 @@ class WebContentSettingsClient {
     return default_value;
   }
 
+  virtual bool AllowWebgl(bool default_value) { return default_value; }
+
   // Reports that passive mixed content was found at the provided URL.
   virtual void PassiveInsecureContentFound(const WebURL&) {}
 

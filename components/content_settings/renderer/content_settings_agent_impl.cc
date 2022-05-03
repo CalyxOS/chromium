@@ -449,6 +449,15 @@ void ContentSettingsAgentImpl::ClearBlockedContentSettings() {
   cached_script_permissions_.clear();
 }
 
+bool ContentSettingsAgentImpl::AllowWebgl(bool enabled_per_settings) {
+  if (!content_setting_rules_)
+    return false;
+  blink::WebLocalFrame* frame = render_frame()->GetWebFrame();
+  return CONTENT_SETTING_ALLOW == GetContentSettingFromRules(
+             content_setting_rules_->webgl_rules,
+             url::Origin(frame->GetDocument().GetSecurityOrigin()).GetURL());
+}
+
 bool ContentSettingsAgentImpl::IsAllowlistedForContentSettings() const {
   if (should_allowlist_)
     return true;

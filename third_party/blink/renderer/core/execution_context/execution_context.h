@@ -96,6 +96,7 @@ class SecurityOrigin;
 class ScriptState;
 class ScriptWrappable;
 class TrustedTypePolicyFactory;
+class WebContentSettingsClient;
 
 enum ReasonForCallingCanExecuteScripts {
   kAboutToExecuteScript,
@@ -103,6 +104,10 @@ enum ReasonForCallingCanExecuteScripts {
 };
 
 enum ReferrerPolicySource { kPolicySourceHttpHeader, kPolicySourceMetaTag };
+
+CORE_EXPORT bool AllowWebgl(ExecutionContext* context);
+CORE_EXPORT WebContentSettingsClient* GetContentSettingsClientFor(
+    ExecutionContext* context);
 
 // An environment in which script can execute. This class exposes the common
 // properties of script execution environments on the web (i.e, common between

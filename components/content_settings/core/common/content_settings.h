@@ -96,6 +96,7 @@ struct RendererContentSettingRules {
   ContentSettingsForOneType auto_dark_content_rules;
   ContentSettingsForOneType timezone_override_rules;
   std::string timezone_override_value;
+  ContentSettingsForOneType webgl_rules;
 };
 
 namespace content_settings {

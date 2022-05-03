@@ -1920,6 +1920,8 @@ class MODULES_EXPORT WebGLRenderingContextBase : public CanvasRenderingContext,
                         DOMArrayBufferView* pixels,
                         int64_t offset);
 
+  static bool AllowWebglForHost(blink::CanvasRenderingContextHost* host);
+
   // Record Canvas/OffscreenCanvas.RenderingContextDrawnTo at the first draw
   // call.
   void RecordUKMCanvasDrawnToAtFirstDrawCall();

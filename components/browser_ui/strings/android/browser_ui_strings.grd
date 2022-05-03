@@ -174,6 +174,7 @@
   <release seq="1">
     <messages fallback_to_english="true">
       <part file="site_settings.grdp" />
+      <part file="webgl.grdp" />
 
       <message name="IDS_GOT_IT" desc="Button for the user to accept a disclosure/message" formatter_data="android_java">
         Got it

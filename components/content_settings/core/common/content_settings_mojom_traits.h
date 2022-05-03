@@ -165,6 +165,11 @@ struct StructTraits<
     return r.timezone_override_value;
   }
 
+  static const std::vector<ContentSettingPatternSource>& webgl_rules(
+      const RendererContentSettingRules& r) {
+    return r.webgl_rules;
+  }
+
   static bool Read(
       content_settings::mojom::RendererContentSettingRulesDataView data,
       RendererContentSettingRules* out);

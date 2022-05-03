@@ -65,6 +65,29 @@
 
 namespace blink {
 
+blink::WebContentSettingsClient* GetContentSettingsClientFor(
+    ExecutionContext* context) {
+  blink::WebContentSettingsClient* settings = nullptr;
+  if (!context)
+    return settings;
+  if (auto* window = blink::DynamicTo<blink::LocalDOMWindow>(context)) {
+    auto* frame = window->GetFrame();
+    if (frame)
+      settings = frame->GetContentSettingsClient();
+  } else if (context->IsWorkerGlobalScope()) {
+    settings =
+        blink::To<blink::WorkerGlobalScope>(context)->ContentSettingsClient();
+  }
+  return settings;
+}
+
+bool AllowWebgl(ExecutionContext* context) {
+  blink::WebContentSettingsClient* settings = GetContentSettingsClientFor(context);
+  if (settings)
+    return settings->AllowWebgl(false);
+  return false;
+}
+
 ExecutionContext::ExecutionContext(v8::Isolate* isolate, Agent* agent)
     : isolate_(isolate),
       security_context_(this),

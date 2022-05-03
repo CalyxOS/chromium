@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grit-part>
+  <message name="IDS_SITE_SETTINGS_TYPE_WEBGL" desc="The label used for webgl site settings controls.">
+    Webgl
+  </message>
+  <message name="IDS_SITE_SETTINGS_TYPE_WEBGL_MID_SENTENCE" desc="The label used for webgl site settings controls when used mid-sentence.">
+    webgl
+  </message>
+  <message name="IDS_WEBGL_PERMISSION_TITLE" desc="Title of the permission to use webgl [CHAR-LIMIT=32]">
+    Webgl
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_WEBGL_ENABLED" desc="Summary text explaining that webgl is full enabled.">
+    Enabled
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_WEBGL_DISABLED" desc="Summary text explaining that webgl is full disabled.">
+    Disabled
+  </message>
+</grit-part>
