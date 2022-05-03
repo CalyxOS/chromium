@@ -1933,6 +1933,8 @@ class MODULES_EXPORT WebGLRenderingContextBase : public ScriptWrappable,
                         DOMArrayBufferView* pixels,
                         int64_t offset);
 
+  static bool AllowWebglForHost(blink::CanvasRenderingContextHost* host);
+
   void RecordANGLEImplementation();
 
  private:
