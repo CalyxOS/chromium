@@ -116,6 +116,8 @@ enum ReasonForCallingCanExecuteScripts {
 
 enum ReferrerPolicySource { kPolicySourceHttpHeader, kPolicySourceMetaTag };
 
+CORE_EXPORT bool AllowWebgl(ExecutionContext* context);
+
 // An environment in which script can execute. This class exposes the common
 // properties of script execution environments on the web (i.e, common between
 // script executing in a window and script executing in a worker), such as:
