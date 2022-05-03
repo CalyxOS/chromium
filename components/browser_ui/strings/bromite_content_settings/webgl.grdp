@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grit-part>
+  <message name="IDS_SITE_SETTINGS_TYPE_WEBGL" desc="The label used for WebGL site settings controls." formatter_data="android_java">
+    WebGL
+  </message>
+  <message name="IDS_SETTINGS_SITE_SETTINGS_WEBGL_DESCRIPTION" desc="Description of the WebGL content setting." formatter_data="android_java">
+    Enable WebGL, a JavaScript API for rendering high-performance interactive 3D and 2D graphics
+  </message>
+  <message name="IDS_SITE_SETTINGS_TYPE_WEBGL_MID_SENTENCE" desc="The label used for WebGL site settings controls when used mid-sentence." formatter_data="android_java">
+    WebGL
+  </message>
+  <message name="IDS_WEBGL_PERMISSION_TITLE" desc="Title of the permission to use WebGL [CHAR-LIMIT=32]" formatter_data="android_java">
+    WebGL
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_WEBGL_ENABLED" desc="Summary text explaining that WebGL is fully enabled." formatter_data="android_java">
+    Enabled
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_WEBGL_DISABLED" desc="Summary text explaining that WebGL is fully disabled." formatter_data="android_java">
+    Disabled
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_WEBGL_A11Y" desc="The screen reader announcement describing a toggle with two states, controlling whether sites can use WebGL. It is important to keep this string as two full sentences terminated by a period." formatter_data="android_java">
+    When on, sites can use WebGL. When off, sites can't use WebGL.
+  </message>
+  <message name="IDS_SETTINGS_SITE_SETTINGS_WEBGL_ALLOWED_EXCEPTIONS" desc="Label for the allowed exceptions site list of the WebGL setting.">
+    Allowed to use WebGL
+  </message>
+  <message name="IDS_SETTINGS_SITE_SETTINGS_WEBGL_BLOCKED_EXCEPTIONS" desc="Label for the blocked exceptions site list of the WebGL setting.">
+    Not allowed to use WebGL
+  </message>
+</grit-part>
