@@ -85,6 +85,13 @@ blink::WebContentSettingsClient* GetContentSettingsClientFor(
   return settings;
 }
 
+bool AllowWebgl(ExecutionContext* context) {
+  blink::WebContentSettingsClient* settings = GetContentSettingsClientFor(context);
+  if (settings)
+    return settings->AllowContentSetting(ContentSettingsType::WEBGL, false);
+  return false;
+}
+
 ExecutionContext::ExecutionContext(v8::Isolate* isolate,
                                    Agent* agent,
                                    bool is_window)
