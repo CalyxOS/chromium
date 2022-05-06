@@ -41,6 +41,7 @@
 #include "third_party/blink/public/platform/modules/webrtc/webrtc_logging.h"
 #include "third_party/blink/public/platform/platform.h"
 #include "third_party/blink/public/platform/task_type.h"
+#include "third_party/blink/public/platform/web_content_settings_client.h"
 #include "third_party/blink/public/platform/web_url.h"
 #include "third_party/blink/public/web/modules/mediastream/media_stream_video_source.h"
 #include "third_party/blink/public/web/web_document.h"
@@ -936,6 +937,11 @@ PeerConnectionDependencyFactory::CreatePortAllocator(
       // |request_multiple_routes|. Whether local IP addresses could be
       // collected depends on if mic/camera permission is granted for this
       // origin.
+      blink::WebContentSettingsClient* settings = web_frame->GetContentSettingsClient();
+      if (settings && settings->AllowContentSetting(ContentSettingsType::WEBRTC, false)) {
+        webrtc_ip_handling_policy = mojom::blink::WebRtcIpHandlingPolicy::kDefault;
+      }
+
       switch (webrtc_ip_handling_policy) {
         // TODO(guoweis): specify the flag of disabling local candidate
         // collection when webrtc is updated.
