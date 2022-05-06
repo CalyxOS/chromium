@@ -16,6 +16,8 @@
 #include "third_party/blink/public/common/privacy_budget/identifiability_study_settings.h"
 #include "third_party/blink/public/common/privacy_budget/identifiable_surface.h"
 #include "third_party/blink/public/common/privacy_budget/identifiable_token_builder.h"
+#include "third_party/blink/public/platform/web_content_settings_client.h"
+#include "third_party/blink/public/web/web_local_frame.h"
 #include "third_party/blink/renderer/bindings/core/v8/script_promise_resolver.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_rtc_insertable_streams.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_rtc_rtcp_parameters.h"
@@ -945,6 +947,14 @@ RTCRtpCapabilities* RTCRtpSender::getCapabilities(ScriptState* state,
 
   if (kind != "audio" && kind != "video")
     return nullptr;
+
+  LocalDOMWindow* window = To<LocalDOMWindow>(ExecutionContext::From(state));
+  auto* web_frame =
+      static_cast<WebLocalFrame*>(WebFrame::FromCoreFrame(window->GetFrame()));
+  blink::WebContentSettingsClient* settings = web_frame->GetContentSettingsClient();
+  if (settings && !settings->AllowContentSetting(ContentSettingsType::WEBRTC, false)) {
+    return nullptr;
+  }
 
   RTCRtpCapabilities* capabilities = RTCRtpCapabilities::Create();
   capabilities->setCodecs(HeapVector<Member<RTCRtpCodecCapability>>());
