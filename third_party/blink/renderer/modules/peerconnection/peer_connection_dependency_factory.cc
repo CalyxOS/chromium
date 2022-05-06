@@ -35,6 +35,7 @@
 #include "third_party/blink/public/common/peerconnection/webrtc_ip_handling_policy.h"
 #include "third_party/blink/public/platform/modules/webrtc/webrtc_logging.h"
 #include "third_party/blink/public/platform/platform.h"
+#include "third_party/blink/public/platform/web_content_settings_client.h"
 #include "third_party/blink/public/platform/web_url.h"
 #include "third_party/blink/public/web/modules/mediastream/media_stream_video_source.h"
 #include "third_party/blink/public/web/web_document.h"
@@ -741,6 +742,11 @@ PeerConnectionDependencyFactory::CreatePortAllocator(
       // origin.
       WebRTCIPHandlingPolicy policy =
           GetWebRTCIPHandlingPolicy(webrtc_ip_handling_policy);
+      blink::WebContentSettingsClient* settings = web_frame->GetContentSettingsClient();
+      if (settings && settings->AllowContentSetting(ContentSettingsType::WEBRTC, false)) {
+        policy = kDefault;
+      }
+
       switch (policy) {
         // TODO(guoweis): specify the flag of disabling local candidate
         // collection when webrtc is updated.
