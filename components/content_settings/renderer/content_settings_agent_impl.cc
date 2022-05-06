@@ -458,6 +458,15 @@ bool ContentSettingsAgentImpl::AllowWebgl(bool enabled_per_settings) {
              url::Origin(frame->GetDocument().GetSecurityOrigin()).GetURL());
 }
 
+bool ContentSettingsAgentImpl::AllowWebRTC(bool enabled_per_settings) {
+  if (!content_setting_rules_)
+    return false;
+  blink::WebLocalFrame* frame = render_frame()->GetWebFrame();
+  return CONTENT_SETTING_ALLOW == GetContentSettingFromRules(
+             content_setting_rules_->webrtc_rules,
+             url::Origin(frame->GetDocument().GetSecurityOrigin()).GetURL());
+}
+
 bool ContentSettingsAgentImpl::IsAllowlistedForContentSettings() const {
   if (should_allowlist_)
     return true;

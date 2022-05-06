@@ -106,7 +106,8 @@ bool StructTraits<content_settings::mojom::RendererContentSettingRulesDataView,
          data.ReadAutoDarkContentRules(&out->auto_dark_content_rules) &&
          data.ReadTimezoneOverrideRules(&out->timezone_override_rules) &&
          data.ReadTimezoneOverrideValue(&out->timezone_override_value) &&
-         data.ReadWebglRules(&out->webgl_rules);
+         data.ReadWebglRules(&out->webgl_rules) &&
+         data.ReadWebrtcRules(&out->webrtc_rules);
 }
 
 }  // namespace mojo

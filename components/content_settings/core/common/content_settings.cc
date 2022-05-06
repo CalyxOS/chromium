@@ -207,7 +207,8 @@ bool RendererContentSettingRules::IsRendererContentSetting(
          content_type == ContentSettingsType::MIXEDSCRIPT ||
          content_type == ContentSettingsType::AUTO_DARK_WEB_CONTENT ||
          content_type == ContentSettingsType::TIMEZONE_OVERRIDE ||
-         content_type == ContentSettingsType::WEBGL;
+         content_type == ContentSettingsType::WEBGL ||
+         content_type == ContentSettingsType::WEBRTC;
 }
 
 void RendererContentSettingRules::FilterRulesByOutermostMainFrameURL(
@@ -220,6 +221,7 @@ void RendererContentSettingRules::FilterRulesByOutermostMainFrameURL(
   FilterRulesForType(timezone_override_rules, outermost_main_frame_url);
   FilterRulesForType(autoplay_rules, outermost_main_frame_url);
   FilterRulesForType(webgl_rules, outermost_main_frame_url);
+  FilterRulesForType(webrtc_rules, outermost_main_frame_url);
 }
 
 RendererContentSettingRules::RendererContentSettingRules() = default;

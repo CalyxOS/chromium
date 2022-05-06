@@ -97,6 +97,7 @@ struct RendererContentSettingRules {
   ContentSettingsForOneType timezone_override_rules;
   std::string timezone_override_value;
   ContentSettingsForOneType webgl_rules;
+  ContentSettingsForOneType webrtc_rules;
 };
 
 namespace content_settings {

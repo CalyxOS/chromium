@@ -44,7 +44,7 @@ public class SiteSettingsCategory {
             Type.PROTECTED_MEDIA, Type.SENSORS, Type.SOUND, Type.USB, Type.VIRTUAL_REALITY,
             Type.USE_STORAGE, Type.AUTO_DARK_WEB_CONTENT, Type.REQUEST_DESKTOP_SITE,
             Type.FEDERATED_IDENTITY_API, Type.TIMEZONE_OVERRIDE, Type.AUTOPLAY, Type.JAVASCRIPT_JIT,
-            Type.IMAGES, Type.WEBGL})
+            Type.IMAGES, Type.WEBGL, Type.WEBRTC})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Type {
         // All updates here must also be reflected in {@link #preferenceKey(int)
@@ -80,10 +80,11 @@ public class SiteSettingsCategory {
         int JAVASCRIPT_JIT = 28;
         int IMAGES = 29;
         int WEBGL = 30;
+        int WEBRTC = 31;
         /**
          * Number of handled categories used for calculating array sizes.
          */
-        int NUM_ENTRIES = 31;
+        int NUM_ENTRIES = 32;
     }
 
     private final BrowserContextHandle mBrowserContextHandle;

@@ -279,6 +279,8 @@ enum class ContentSettingsType : int32_t {
 
   WEBGL,
 
+  WEBRTC,
+
   // Setting to indicate whether browser should allow signing into a website via
   // the browser FedCM API.
   FEDERATED_IDENTITY_API,

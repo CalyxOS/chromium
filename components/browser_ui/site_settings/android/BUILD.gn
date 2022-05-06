@@ -95,6 +95,9 @@ android_library("java") {
   sources += [
     "java/src/org/chromium/components/browser_ui/site_settings/BromiteWebGLContentSetting.java",
   ]
+  sources += [
+    "java/src/org/chromium/components/browser_ui/site_settings/BromiteWebRTCContentSetting.java",
+  ]
   annotation_processor_deps = [ "//base/android/jni_generator:jni_processor" ]
   resources_package = "org.chromium.components.browser_ui.site_settings"
   deps = [

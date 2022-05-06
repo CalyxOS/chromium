@@ -170,6 +170,11 @@ struct StructTraits<
     return r.webgl_rules;
   }
 
+  static const std::vector<ContentSettingPatternSource>& webrtc_rules(
+      const RendererContentSettingRules& r) {
+    return r.webrtc_rules;
+  }
+
   static bool Read(
       content_settings::mojom::RendererContentSettingRulesDataView data,
       RendererContentSettingRules* out);

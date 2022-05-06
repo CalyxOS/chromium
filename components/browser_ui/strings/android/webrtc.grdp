@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grit-part>
+  <message name="IDS_SITE_SETTINGS_TYPE_WEBRTC" desc="The label used for webrtc site settings controls.">
+    WebRTC
+  </message>
+  <message name="IDS_SITE_SETTINGS_TYPE_WEBRTC_MID_SENTENCE" desc="The label used for webrtc site settings controls when used mid-sentence.">
+    webRTC
+  </message>
+  <message name="IDS_WEBRTC_PERMISSION_TITLE" desc="Title of the permission to use webrtc [CHAR-LIMIT=32]">
+    WebRTC
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_WEBRTC_ENABLED" desc="Summary text explaining that webrtc is full enabled.">
+    Enabled
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_WEBRTC_DISABLED" desc="Summary text explaining that webrtc is full disabled.">
+    Disabled
+  </message>
+</grit-part>

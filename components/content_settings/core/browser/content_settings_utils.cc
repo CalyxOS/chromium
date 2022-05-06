@@ -158,6 +158,8 @@ void GetRendererContentSettingRules(const HostContentSettingsMap* map,
   rules->timezone_override_value = timezone;
   map->GetSettingsForOneType(ContentSettingsType::WEBGL,
                              &(rules->webgl_rules));
+  map->GetSettingsForOneType(ContentSettingsType::WEBRTC,
+                             &(rules->webrtc_rules));
 }
 
 bool IsMorePermissive(ContentSetting a, ContentSetting b) {

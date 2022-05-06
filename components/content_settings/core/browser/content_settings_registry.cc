@@ -683,6 +683,20 @@ void ContentSettingsRegistry::Init() {
            /*show_into_info_page*/ true,
            /*permission_type_ui*/ IDS_SITE_SETTINGS_TYPE_WEBGL,
            /*permission_type_ui_mid_sentence*/ IDS_SITE_SETTINGS_TYPE_WEBGL_MID_SENTENCE);
+
+  Register(ContentSettingsType::WEBRTC, "webrtc", CONTENT_SETTING_BLOCK,
+           WebsiteSettingsInfo::SYNCABLE,
+           AllowlistedSchemes(),
+           ValidSettings(CONTENT_SETTING_ALLOW,
+                         CONTENT_SETTING_BLOCK),
+           WebsiteSettingsInfo::TOP_ORIGIN_ONLY_SCOPE,
+           WebsiteSettingsRegistry::PLATFORM_ANDROID,
+           ContentSettingsInfo::INHERIT_IN_INCOGNITO,
+           ContentSettingsInfo::PERSISTENT,
+           ContentSettingsInfo::EXCEPTIONS_ON_SECURE_AND_INSECURE_ORIGINS,
+           /*show_into_info_page*/ true,
+           /*permission_type_ui*/ IDS_SITE_SETTINGS_TYPE_WEBRTC,
+           /*permission_type_ui_mid_sentence*/ IDS_SITE_SETTINGS_TYPE_WEBRTC_MID_SENTENCE);
 }
 
 void ContentSettingsRegistry::Register(

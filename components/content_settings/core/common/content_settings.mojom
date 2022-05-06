@@ -82,4 +82,5 @@ struct RendererContentSettingRules {
   array<ContentSettingPatternSource> timezone_override_rules;
   string timezone_override_value;
   array<ContentSettingPatternSource> webgl_rules;
+  array<ContentSettingPatternSource> webrtc_rules;
 };

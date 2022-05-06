@@ -100,6 +100,7 @@ class ContentSettingsAgentImpl
   bool AllowPopupsAndRedirects(bool default_value) override;
   bool ShouldAutoupgradeMixedContent() override;
   bool AllowWebgl(bool enabled_per_settings) override;
+  bool AllowWebRTC(bool enabled_per_settings) override;
 
   bool allow_running_insecure_content() const {
     return allow_running_insecure_content_;
