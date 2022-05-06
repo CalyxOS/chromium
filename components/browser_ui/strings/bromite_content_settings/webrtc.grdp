@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grit-part>
+  <message name="IDS_SITE_SETTINGS_TYPE_WEBRTC" desc="The label used for WebRTC site settings controls." formatter_data="android_java">
+    WebRTC
+  </message>
+  <message name="IDS_SITE_SETTINGS_TYPE_WEBRTC_MID_SENTENCE" desc="The label used for WebRTC site settings controls when used mid-sentence." formatter_data="android_java">
+    WebRTC
+  </message>
+  <message name="IDS_SETTINGS_SITE_SETTINGS_WEBRTC_DESCRIPTION" desc="Description of the WebRTC content setting." formatter_data="android_java">
+    Enable WebRTC, a JavaScript API for real-time communication and direct peer-to-peer communication
+  </message>
+  <message name="IDS_WEBRTC_PERMISSION_TITLE" desc="Title of the permission to use WebRTC [CHAR-LIMIT=32]" formatter_data="android_java">
+    WebRTC
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_WEBRTC_ENABLED" desc="Summary text explaining that WebRTC is fully enabled." formatter_data="android_java">
+    Enabled
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_WEBRTC_DISABLED" desc="Summary text explaining that WebRTC is fully disabled." formatter_data="android_java">
+    Disabled
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_WEBRTC_A11Y" desc="The screen reader announcement describing a toggle with two states, controlling whether sites can use WebRTC. It is important to keep this string as two full sentences terminated by a period." formatter_data="android_java">
+    When on, sites can use WebRTC. When off, sites can't use WebRTC.
+  </message>
+  <message name="IDS_SETTINGS_SITE_SETTINGS_WEBRTC_ALLOWED_EXCEPTIONS" desc="Label for the allowed exceptions site list of the WebRTC setting.">
+    Allowed to use WebRTC
+  </message>
+  <message name="IDS_SETTINGS_SITE_SETTINGS_WEBRTC_BLOCKED_EXCEPTIONS" desc="Label for the blocked exceptions site list of the WebRTC setting.">
+    Not allowed to use WebRTC
+  </message>
+</grit-part>
