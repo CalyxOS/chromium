@@ -226,6 +226,7 @@ android_library("ui_utils_java") {
   ]
   deps = [
     "//base:base_java",
+    "//chrome/browser/preferences:java",
     "//third_party/androidx:androidx_annotation_annotation_java",
     "//third_party/androidx:androidx_appcompat_appcompat_java",
     "//third_party/androidx:androidx_appcompat_appcompat_resources_java",
