@@ -146,4 +146,7 @@ BASE_FEATURE(kSegmentationPlatformSignalDbCache,
              base::FEATURE_DISABLED_BY_DEFAULT);
 #endif
 
+SET_CROMITE_FEATURE_DISABLED(kSegmentationPlatformFeature);
+SET_CROMITE_FEATURE_DISABLED(kSegmentationPlatformFeedSegmentFeature);
+
 }  // namespace segmentation_platform::features
