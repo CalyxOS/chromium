@@ -266,4 +266,7 @@ BASE_FEATURE(kSegmentationPlatformFedCmUser,
              "SegmentationPlatformFedCmUser",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+SET_CROMITE_FEATURE_DISABLED(kSegmentationPlatformFeature);
+SET_CROMITE_FEATURE_DISABLED(kSegmentationPlatformFeedSegmentFeature);
+SET_CROMITE_FEATURE_DISABLED(kSegmentationPlatformAdaptiveToolbarV2Feature);
 }  // namespace segmentation_platform::features
