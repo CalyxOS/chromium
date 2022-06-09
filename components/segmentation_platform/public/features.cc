@@ -233,4 +233,7 @@ constexpr base::FeatureParam<int> kMaxDefaultBrowserCardImpressions{
     &kEducationalTipModule, "max_default_browser_card_impressions",
     /*default_value=*/4};
 
+SET_CROMITE_FEATURE_DISABLED(kSegmentationPlatformFeature);
+SET_CROMITE_FEATURE_DISABLED(kSegmentationPlatformFeedSegmentFeature);
+SET_CROMITE_FEATURE_DISABLED(kSegmentationPlatformAdaptiveToolbarV2Feature);
 }  // namespace segmentation_platform::features
