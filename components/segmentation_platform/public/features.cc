@@ -128,4 +128,6 @@ BASE_FEATURE(kSegmentationPlatformModelInitializationDelay,
              "SegmentationPlatformModelInitializationDelay",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+SET_CROMITE_FEATURE_DISABLED(kSegmentationPlatformFeature);
+SET_CROMITE_FEATURE_DISABLED(kSegmentationPlatformFeedSegmentFeature);
 }  // namespace segmentation_platform::features
