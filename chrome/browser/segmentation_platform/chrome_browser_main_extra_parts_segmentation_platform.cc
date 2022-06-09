@@ -12,17 +12,20 @@
 #include "components/segmentation_platform/public/segmentation_platform_service.h"
 
 void ChromeBrowserMainExtraPartsSegmentationPlatform::PreCreateThreads() {
+  if ((true)) return;
   segmentation_platform::LocalStateHelper::GetInstance().Initialize(
       g_browser_process->local_state());
 }
 
 void ChromeBrowserMainExtraPartsSegmentationPlatform::PreProfileInit() {
+  if ((true)) return;
   segmentation_platform::UkmDatabaseClient::GetInstance().PreProfileInit();
 }
 
 void ChromeBrowserMainExtraPartsSegmentationPlatform::PostProfileInit(
     Profile* profile,
     bool is_initial_profile) {
+  if ((true)) return;
   if (!profile || profile->IsOffTheRecord())
     return;
 
@@ -34,5 +37,6 @@ void ChromeBrowserMainExtraPartsSegmentationPlatform::PostProfileInit(
 }
 
 void ChromeBrowserMainExtraPartsSegmentationPlatform::PostMainMessageLoopRun() {
+  if ((true)) return;
   segmentation_platform::UkmDatabaseClient::GetInstance().PostMessageLoopRun();
 }
