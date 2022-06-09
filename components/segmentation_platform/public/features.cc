@@ -223,4 +223,7 @@ BASE_FEATURE(kEducationalTipModule,
              base::FEATURE_DISABLED_BY_DEFAULT);
 #endif  // BUILDFLAG(IS_ANDROID)
 
+SET_CROMITE_FEATURE_DISABLED(kSegmentationPlatformFeature);
+SET_CROMITE_FEATURE_DISABLED(kSegmentationPlatformFeedSegmentFeature);
+SET_CROMITE_FEATURE_DISABLED(kSegmentationPlatformAdaptiveToolbarV2Feature);
 }  // namespace segmentation_platform::features
