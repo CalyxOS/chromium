@@ -9,8 +9,8 @@
 namespace segmentation_platform::features {
 
 BASE_FEATURE(kSegmentationPlatformFeature,
-             "SegmentationPlatform",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "SegmentationPlatform",                // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);    // in Bromite
 
 BASE_FEATURE(kSegmentationPlatformUkmEngine,
              "SegmentationPlatformUkmEngine",
@@ -38,11 +38,7 @@ BASE_FEATURE(kSegmentationPlatformDeviceSwitcher,
 
 BASE_FEATURE(kSegmentationPlatformFeedSegmentFeature,
              "SegmentationPlatformFeedSegmentFeature",
-#if BUILDFLAG(IS_ANDROID) || BUILDFLAG(IS_IOS)
-             base::FEATURE_ENABLED_BY_DEFAULT);
-#else
              base::FEATURE_DISABLED_BY_DEFAULT);
-#endif
 
 BASE_FEATURE(kResumeHeavyUserSegmentFeature,
              "ResumeHeavyUserSegment",
