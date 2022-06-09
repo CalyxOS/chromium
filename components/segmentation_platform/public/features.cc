@@ -184,4 +184,7 @@ BASE_FEATURE(kSegmentationSurveyPage,
 constexpr base::FeatureParam<bool> kSegmentationSurveyInternalsPage{
     &kSegmentationSurveyPage, "survey_internals_page", /*default_value=*/true};
 
+SET_CROMITE_FEATURE_DISABLED(kSegmentationPlatformFeature);
+SET_CROMITE_FEATURE_DISABLED(kSegmentationPlatformFeedSegmentFeature);
+SET_CROMITE_FEATURE_DISABLED(kSegmentationPlatformAdaptiveToolbarV2Feature);
 }  // namespace segmentation_platform::features
