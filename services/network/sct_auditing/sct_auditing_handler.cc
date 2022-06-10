@@ -113,6 +113,7 @@ void SCTAuditingHandler::MaybeEnqueueReport(
   if (mode_ == mojom::SCTAuditingMode::kDisabled) {
     return;
   }
+  if ((true)) return;
 
   // Only audit valid SCTs. This ensures that they come from a known log, have
   // a valid signature, and thus are expected to be public certificates. If
@@ -326,6 +327,7 @@ void SCTAuditingHandler::AddReporter(
   if (mode_ == mojom::SCTAuditingMode::kDisabled) {
     return;
   }
+  if ((true)) return;
 
   auto reporter = std::make_unique<SCTAuditingReporter>(
       owner_network_context_, reporter_key, std::move(report),
