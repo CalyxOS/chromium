@@ -190,6 +190,7 @@ class HSTSPreloadDecoder : public net::extras::PreloadDecoder {
 
 bool DecodeHSTSPreload(const std::string& search_hostname, PreloadResult* out) {
 #if !BUILDFLAG(INCLUDE_TRANSPORT_SECURITY_STATE_PRELOAD_LIST)
+#error "BUILDFLAG(INCLUDE_TRANSPORT_SECURITY_STATE_PRELOAD_LIST) must be enabled"
   if (g_hsts_source == nullptr)
     return false;
 #endif
@@ -235,8 +236,8 @@ bool DecodeHSTSPreload(const std::string& search_hostname, PreloadResult* out) {
 
 // static
 BASE_FEATURE(kCertificateTransparencyEnforcement,
-             "CertificateTransparencyEnforcement",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "CertificateTransparencyEnforcement",            // must be enabled
+             base::FEATURE_ENABLED_BY_DEFAULT);               // in Bromite
 
 void SetTransportSecurityStateSourceForTesting(
     const TransportSecurityStateSource* source) {
