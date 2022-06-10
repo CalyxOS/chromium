@@ -886,7 +886,6 @@ void SystemNetworkContextManager::SetEnableCertificateTransparencyForTesting(
 bool SystemNetworkContextManager::IsCertificateTransparencyEnabled() {
   if (certificate_transparency_enabled_for_testing_.has_value())
     return certificate_transparency_enabled_for_testing_.value();
-#if BUILDFLAG(GOOGLE_CHROME_BRANDING) && defined(OFFICIAL_BUILD)
 // TODO(carlosil): Figure out if we can/should remove the OFFICIAL_BUILD and
 // GOOGLE_CHROME_BRANDING checks now that enforcement does not rely on build
 // dates, and allow embedders to enforce.
@@ -900,9 +899,6 @@ bool SystemNetworkContextManager::IsCertificateTransparencyEnabled() {
 #else
   return true;
 #endif  // BUILDFLAG(IS_ANDROID)
-#else
-  return false;
-#endif  // BUILDFLAG(GOOGLE_CHROME_BRANDING) && defined(OFFICIAL_BUILD)
 }
 
 network::mojom::NetworkContextParamsPtr
