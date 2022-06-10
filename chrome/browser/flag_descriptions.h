@@ -3829,6 +3829,9 @@ extern const char kAutofillCreditCardUploadDescription[];
 #endif  // defined(TOOLKIT_VIEWS) || BUILDFLAG(IS_ANDROID)
 
 #if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_ANDROID)
+extern const char kCTEnabledName[];
+extern const char kCTEnabledDescription[];
+
 extern const char kElasticOverscrollName[];
 extern const char kElasticOverscrollDescription[];
 #endif  // BUILDFLAG(IS_WIN) || BUILDFLAG(IS_ANDROID)
