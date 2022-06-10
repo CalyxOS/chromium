@@ -191,6 +191,7 @@ class HSTSPreloadDecoder : public extras::PreloadDecoder {
 
 bool DecodeHSTSPreload(const std::string& search_hostname, PreloadResult* out) {
 #if !BUILDFLAG(INCLUDE_TRANSPORT_SECURITY_STATE_PRELOAD_LIST)
+#error "BUILDFLAG(INCLUDE_TRANSPORT_SECURITY_STATE_PRELOAD_LIST) must be enabled"
   if (g_hsts_source == nullptr)
     return false;
 #endif
