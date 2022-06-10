@@ -9291,6 +9291,13 @@ const FeatureEntry kFeatureEntries[] = {
      flag_descriptions::kWebMidiDescription, kOsAll,
      FEATURE_VALUE_TYPE(features::kWebMidi)},
 
+#if BUILDFLAG(IS_ANDROID)
+    {"certificate-transparency-enabled",
+     flag_descriptions::kCTEnabledName,
+     flag_descriptions::kCTEnabledDescription, kOsAndroid,
+     FEATURE_VALUE_TYPE(features::kCertificateTransparencyAndroid)},
+#endif  // BUILDFLAG(IS_ANDROID)
+
 #if BUILDFLAG(IS_CHROMEOS_ASH)
     {"dns-over-https-with-identifiers-reuse-old-policy",
      flag_descriptions::kDnsOverHttpsWithIdentifiersReuseOldPolicyName,
