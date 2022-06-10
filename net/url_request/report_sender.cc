@@ -87,7 +87,8 @@ void ReportSender::Send(
 
   URLRequest* raw_url_request = url_request.get();
   inflight_requests_[raw_url_request] = std::move(url_request);
-  raw_url_request->Start();
+  // pretend that request completed
+  OnResponseStarted(raw_url_request, OK);
 }
 
 void ReportSender::OnResponseStarted(URLRequest* request, int net_error) {
