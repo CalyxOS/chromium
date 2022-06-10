@@ -1012,7 +1012,7 @@ bool SystemNetworkContextManager::IsCertificateTransparencyEnabled() {
   //   - on an opt-in basis for other builds and embedders, controlled with the
   //     kCertificateTransparencyAskBeforeEnabling flag
   return base::FeatureList::IsEnabled(
-      features::kCertificateTransparencyAskBeforeEnabling);
+      features::kCertificateTransparency);
 }
 
 network::mojom::NetworkContextParamsPtr
