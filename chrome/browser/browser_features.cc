@@ -179,8 +179,8 @@ BASE_FEATURE(kWebUsbDeviceDetection,
 #if BUILDFLAG(IS_ANDROID)
 // Enables Certificate Transparency on Android.
 BASE_FEATURE(kCertificateTransparencyAndroid,
-             "CertificateTransparencyAndroid",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "CertificateTransparencyAndroid",         // must be enabled
+             base::FEATURE_ENABLED_BY_DEFAULT);        // in Bromite
 #endif
 
 BASE_FEATURE(kLargeFaviconFromGoogle,
