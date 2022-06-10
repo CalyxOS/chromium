@@ -211,6 +211,11 @@ void SetSCTAuditingEnabledForStoragePartition(
 }  // namespace
 
 network::mojom::SCTAuditingMode SCTReportingService::GetReportingMode() {
+  if ((true)) {
+    // always disabled in Bromite
+    return network::mojom::SCTAuditingMode::kDisabled;
+  }
+
   if (profile_->IsOffTheRecord() ||
       !base::FeatureList::IsEnabled(features::kSCTAuditing)) {
     return network::mojom::SCTAuditingMode::kDisabled;
