@@ -2733,7 +2733,7 @@ URLRequestContextOwner NetworkContext::MakeURLRequestContext(
   // TransportSecurityState.  Since no requests have been made yet, safe to do
   // this even after the call to Build().
 
-  if (params_->enable_certificate_reporting) {
+  if ((false) /* params_->enable_certificate_reporting*/) {
     net::NetworkTrafficAnnotationTag traffic_annotation =
         net::DefineNetworkTrafficAnnotation("domain_security_policy", R"(
         semantics {
