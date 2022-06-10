@@ -62,6 +62,7 @@ BASE_DECLARE_FEATURE(kTabCaptureBlueBorderCrOS);
 
 BASE_DECLARE_FEATURE(kWebUsbDeviceDetection);
 
+BASE_DECLARE_FEATURE(kCertificateTransparency);
 BASE_DECLARE_FEATURE(kCertificateTransparencyAskBeforeEnabling);
 
 BASE_DECLARE_FEATURE(kLargeFaviconFromGoogle);
