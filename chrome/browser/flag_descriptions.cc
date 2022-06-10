@@ -7689,6 +7689,10 @@ const char kAutofillCreditCardUploadDescription[] =
 #endif  // defined(TOOLKIT_VIEWS) || BUILDFLAG(IS_ANDROID)
 
 #if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_ANDROID)
+const char kCTEnabledName[] = "Enable Certificate Transparency";
+const char kCTEnabledDescription[] =
+    "Enables compliance against the Certificate Transparency Policy, with reporting disabled.";
+
 const char kElasticOverscrollName[] = "Elastic Overscroll";
 const char kElasticOverscrollDescription[] =
     "Enables Elastic Overscrolling on touchscreens and precision touchpads.";
