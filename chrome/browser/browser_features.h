@@ -24,6 +24,7 @@ BASE_DECLARE_FEATURE(kAppBoundEncryptionMetrics);
 
 BASE_DECLARE_FEATURE(kAutocompleteActionPredictorConfidenceCutoff);
 BASE_DECLARE_FEATURE(kBookmarkTriggerForPrerender2);
+BASE_DECLARE_FEATURE(kCertificateTransparency);
 BASE_DECLARE_FEATURE(kCertificateTransparencyAskBeforeEnabling);
 BASE_DECLARE_FEATURE(kClosedTabCache);
 BASE_DECLARE_FEATURE(kDeferredSpareRendererForTopChromeWebUI);
