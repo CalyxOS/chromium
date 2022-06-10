@@ -56,6 +56,7 @@ BASE_DECLARE_FEATURE(kFedCmWithoutThirdPartyCookies);
 BASE_DECLARE_FEATURE(kFlexOrgManagementDisclosure);
 BASE_DECLARE_FEATURE(kIncomingCallNotifications);
 BASE_DECLARE_FEATURE(kKeyPinningComponentUpdater);
+BASE_DECLARE_FEATURE(kCertificateTransparencyAskBeforeEnabling);
 BASE_DECLARE_FEATURE(kLargeFaviconFromGoogle);
 extern const base::FeatureParam<int> kLargeFaviconFromGoogleSizeInDip;
 
