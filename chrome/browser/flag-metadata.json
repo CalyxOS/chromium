@@ -649,6 +649,11 @@
     "expiry_milestone": 108
   },
   {
+    "name": "block-external-form-redirects-no-gesture",
+    "owners": [ "jochen", "tedchoc" ],
+    "expiry_milestone": -1
+  },
+  {
     "name": "block-insecure-private-network-requests",
     "owners": [ "titouan", "chrome-security-owp-team@google.com" ],
     "expiry_milestone": 111
