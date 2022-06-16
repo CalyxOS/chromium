@@ -22,6 +22,8 @@ public class ExternalIntentsFeatures extends Features {
     public static final String DO_NOT_REQUIRE_SPECIALIZED_CCT_HANDLER_NAME =
             "DoNotRequireSpecializedCCTHandler";
     public static final String BLOCK_INTENTS_TO_SELF_NAME = "BlockIntentsToSelf";
+    public static final String INTENT_BLOCK_EXTERNAL_FORM_REDIRECT_NO_GESTURE_NAME =
+            "IntentBlockExternalFormRedirectsNoGesture";
 
     public static final ExternalIntentsFeatures EXTERNAL_NAVIGATION_DEBUG_LOGS =
             new ExternalIntentsFeatures(0, EXTERNAL_NAVIGATION_DEBUG_LOGS_NAME);
@@ -34,6 +36,9 @@ public class ExternalIntentsFeatures extends Features {
 
     public static final ExternalIntentsFeatures BLOCK_INTENTS_TO_SELF =
             new ExternalIntentsFeatures(3, BLOCK_INTENTS_TO_SELF_NAME);
+
+    public static final ExternalIntentsFeatures INTENT_BLOCK_EXTERNAL_FORM_REDIRECT_NO_GESTURE =
+            new ExternalIntentsFeatures(0, INTENT_BLOCK_EXTERNAL_FORM_REDIRECT_NO_GESTURE_NAME);
 
     private final int mOrdinal;
 
