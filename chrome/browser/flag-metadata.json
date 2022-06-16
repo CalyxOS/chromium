@@ -727,6 +727,11 @@
     "expiry_milestone": 117
   },
   {
+    "name": "block-external-form-redirects-no-gesture",
+    "owners": [ "jochen", "tedchoc" ],
+    "expiry_milestone": -1
+  },
+  {
     "name": "block-insecure-downloads",
     "owners": [ "jdeblasio", "trusty-transport@chromium.org" ],
     "expiry_milestone": 118
