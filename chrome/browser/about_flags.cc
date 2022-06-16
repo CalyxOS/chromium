@@ -238,6 +238,7 @@
 #include "chrome/browser/push_messaging/push_messaging_features.h"
 #include "components/browser_ui/photo_picker/android/features.h"
 #include "components/content_creation/notes/core/note_features.h"
+#include "components/external_intents/android/external_intents_features.h"
 #include "components/translate/content/android/translate_message.h"
 #else  // BUILDFLAG(IS_ANDROID)
 #include "chrome/browser/media/router/discovery/access_code/access_code_cast_sink_service.h"
@@ -7143,6 +7144,12 @@ const FeatureEntry kFeatureEntries[] = {
 #endif  // BUILDFLAG(ENABLE_PAINT_PREVIEW) && BUILDFLAG(IS_ANDROID)
 
 #if BUILDFLAG(IS_ANDROID)
+    {"block-external-form-redirects-no-gesture",
+     flag_descriptions::kIntentBlockExternalFormRedirectsNoGestureName,
+     flag_descriptions::kIntentBlockExternalFormRedirectsNoGestureDescription,
+     kOsAndroid,
+     FEATURE_VALUE_TYPE(
+         external_intents::kIntentBlockExternalFormRedirectsNoGesture)},
     {"recover-from-never-save-android",
      flag_descriptions::kRecoverFromNeverSaveAndroidName,
      flag_descriptions::kRecoverFromNeverSaveAndroidDescription, kOsAndroid,
