@@ -283,8 +283,7 @@ public class ExternalNavigationHandlerTest {
                 .withPageTransition(PageTransition.FORM_SUBMIT)
                 .withIsRedirect(true)
                 .withHasUserGesture(true)
-                .expecting(OverrideUrlLoadingResultType.OVERRIDE_WITH_EXTERNAL_INTENT,
-                        START_OTHER_ACTIVITY);
+                .expecting(OverrideUrlLoadingResultType.NO_OVERRIDE, IGNORE);
 
         // If the page matches the referrer, then continue loading in Chrome.
         checkUrl("http://youtube.com://", handler)
@@ -2717,6 +2716,11 @@ public class ExternalNavigationHandlerTest {
         protected boolean isValidWebApk(String packageName) {
             return packageName.startsWith(WEBAPK_PACKAGE_PREFIX)
                     && !packageName.equals(INVALID_WEBAPK_PACKAGE_NAME);
+        }
+
+        @Override
+        public boolean blockExternalFormRedirectsWithoutGesture() {
+            return true;
         }
 
         @Override
