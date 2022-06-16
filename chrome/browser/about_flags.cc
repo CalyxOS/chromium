@@ -10027,6 +10027,12 @@ const FeatureEntry kFeatureEntries[] = {
          "ServiceWorkerSkipIgnorableFetchHandler")},
 
 #if BUILDFLAG(IS_ANDROID)
+    {"block-external-form-redirects-no-gesture",
+     flag_descriptions::kIntentBlockExternalFormRedirectsNoGestureName,
+     flag_descriptions::kIntentBlockExternalFormRedirectsNoGestureDescription,
+     kOsAndroid,
+     FEATURE_VALUE_TYPE(
+         external_intents::kIntentBlockExternalFormRedirectsNoGesture)},
     {"external-navigation-debug-logs",
      flag_descriptions::kExternalNavigationDebugLogsName,
      flag_descriptions::kExternalNavigationDebugLogsDescription, kOsAndroid,
