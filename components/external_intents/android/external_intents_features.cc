@@ -19,7 +19,8 @@ namespace {
 // Array of features exposed through the Java ExternalIntentsFeatures API.
 const base::Feature* kFeaturesExposedToJava[] = {
     &kBlockExternalFormSubmitWithoutGesture, &kExternalNavigationDebugLogs,
-    &kExternalNavigationSubframeRedirects, &kBlockSubframeIntentToSelf};
+    &kExternalNavigationSubframeRedirects, &kBlockSubframeIntentToSelf,
+    &kIntentBlockExternalFormRedirectsNoGesture};
 
 }  // namespace
 
@@ -41,6 +42,10 @@ BASE_FEATURE(kExternalNavigationSubframeRedirects,
 
 BASE_FEATURE(kBlockSubframeIntentToSelf,
              "BlockSubframeIntentToSelf",
+             base::FEATURE_ENABLED_BY_DEFAULT);
+
+BASE_FEATURE(kIntentBlockExternalFormRedirectsNoGesture,
+             "IntentBlockExternalFormRedirectsNoGesture",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 static jlong JNI_ExternalIntentsFeatures_GetFeature(JNIEnv* env, jint ordinal) {
