@@ -802,6 +802,11 @@
     "expiry_milestone": 132
   },
   {
+    "name": "block-external-form-redirects-no-gesture",
+    "owners": [ "jochen", "tedchoc" ],
+    "expiry_milestone": -1
+  },
+  {
     "name": "block-insecure-private-network-requests",
     "owners": [ "lyf@chromium.org", "phao@chromium.org", "chrome-security-owp-team@google.com" ],
     "expiry_milestone": 124
