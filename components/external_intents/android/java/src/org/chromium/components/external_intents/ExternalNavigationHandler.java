@@ -1492,6 +1492,12 @@ public class ExternalNavigationHandler {
         }
     }
 
+    /** Wrapper of check against the feature to support overriding for testing. */
+    @VisibleForTesting
+    boolean blockExternalFormRedirectsWithoutGesture() {
+        return ExternalIntentsFeatures.INTENT_BLOCK_EXTERNAL_FORM_REDIRECT_NO_GESTURE.isEnabled();
+    }
+
     private OverrideUrlLoadingResult shouldOverrideUrlLoadingInternal(
             ExternalNavigationParams params, Intent targetIntent, GURL browserFallbackUrl,
             MutableBoolean canLaunchExternalFallbackResult) {
@@ -1539,6 +1545,21 @@ public class ExternalNavigationHandler {
         if (isLinkFromChromeInternalPage(params)) return OverrideUrlLoadingResult.forNoOverride();
 
         if (isDirectFormSubmit(params, isExternalProtocol)) {
+            return OverrideUrlLoadingResult.forNoOverride();
+        }
+
+        // http://crbug.com/839751: Require user gestures for form submits to external
+        //                          protocols.
+        // TODO(tedchoc): Turn this on by default once we verify this change does
+        //                not break the world.
+        int pageTransitionCore = params.getPageTransition() & PageTransition.CORE_MASK;
+        boolean isFormSubmit = pageTransitionCore == PageTransition.FORM_SUBMIT;
+        boolean isRedirectFromFormSubmit = isFormSubmit && params.isRedirect();
+        if (isRedirectFromFormSubmit && !incomingIntentRedirect && !params.hasUserGesture()
+                && blockExternalFormRedirectsWithoutGesture()) {
+            if (debug()) {
+                Log.i(TAG, "Incoming form intent attempting to redirect without user gesture");
+            }
             return OverrideUrlLoadingResult.forNoOverride();
         }
 

@@ -15,6 +15,7 @@ BASE_DECLARE_FEATURE(kBlockSubframeIntentToSelf);
 BASE_DECLARE_FEATURE(kBlockFrameRenavigations);
 BASE_DECLARE_FEATURE(kDoNotRequireSpecializedCCTHandler);
 BASE_DECLARE_FEATURE(kBlockIntentsToSelf);
+BASE_DECLARE_FEATURE(kIntentBlockExternalFormRedirectsNoGesture);
 }  // namespace external_intents
 
 #endif  // COMPONENTS_EXTERNAL_INTENTS_ANDROID_EXTERNAL_INTENTS_FEATURES_H_
