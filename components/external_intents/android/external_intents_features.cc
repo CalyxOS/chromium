@@ -20,7 +20,6 @@ namespace {
 const base::Feature* kFeaturesExposedToJava[] = {
     &kExternalNavigationDebugLogs, &kBlockFrameRenavigations,
     &kDoNotRequireSpecializedCCTHandler, &kBlockIntentsToSelf};
-
 }  // namespace
 
 // Alphabetical:
@@ -41,7 +40,13 @@ BASE_FEATURE(kBlockIntentsToSelf,
              "BlockIntentsToSelf",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+BASE_FEATURE(kIntentBlockExternalFormRedirectsNoGesture,
+             "IntentBlockExternalFormRedirectsNoGesture",
+             base::FEATURE_ENABLED_BY_DEFAULT);
+
 static jlong JNI_ExternalIntentsFeatures_GetFeature(JNIEnv* env, jint ordinal) {
+  if (ordinal == -1)
+    return reinterpret_cast<jlong>(&kIntentBlockExternalFormRedirectsNoGesture);
   return reinterpret_cast<jlong>(kFeaturesExposedToJava[ordinal]);
 }
 
