@@ -51,8 +51,6 @@ import org.chromium.chrome.browser.omnibox.geo.GeolocationHeader;
 import org.chromium.chrome.browser.omnibox.status.StatusCoordinator;
 import org.chromium.chrome.browser.omnibox.styles.OmniboxResourceProvider;
 import org.chromium.chrome.browser.omnibox.suggestions.AutocompleteCoordinator;
-import org.chromium.chrome.browser.omnibox.voice.AssistantVoiceSearchService;
-import org.chromium.chrome.browser.omnibox.voice.VoiceRecognitionHandler;
 import org.chromium.chrome.browser.preferences.SharedPreferencesManager;
 import org.chromium.chrome.browser.prefetch.settings.PreloadPagesSettingsBridge;
 import org.chromium.chrome.browser.prefetch.settings.PreloadPagesState;
@@ -89,8 +87,7 @@ import java.util.function.BooleanSupplier;
  * currently, migration of this logic out of LocationBarLayout is in progress.
  */
 class LocationBarMediator
-        implements LocationBarDataProvider.Observer, OmniboxStub, VoiceRecognitionHandler.Delegate,
-                   VoiceRecognitionHandler.Observer, AssistantVoiceSearchService.Observer,
+        implements LocationBarDataProvider.Observer, OmniboxStub,
                    UrlBarDelegate, OnKeyListener, ComponentCallbacks,
                    TemplateUrlService.TemplateUrlServiceObserver, BackPressHandler {
     private static final int ICON_FADE_ANIMATION_DURATION_MS = 150;
@@ -146,10 +143,7 @@ class LocationBarMediator
             };
 
     private final LocationBarLayout mLocationBarLayout;
-    private VoiceRecognitionHandler mVoiceRecognitionHandler;
     private final LocationBarDataProvider mLocationBarDataProvider;
-    private final OneshotSupplierImpl<AssistantVoiceSearchService>
-            mAssistantVoiceSearchServiceSupplier = new OneshotSupplierImpl<>();
     private StatusCoordinator mStatusCoordinator;
     private AutocompleteCoordinator mAutocompleteCoordinator;
     private OmniboxPrerender mOmniboxPrerender;
@@ -214,10 +208,6 @@ class LocationBarMediator
         mLocationBarDataProvider.addObserver(this);
         mOverrideUrlLoadingDelegate = overrideUrlLoadingDelegate;
         mLocaleManager = localeManager;
-        mVoiceRecognitionHandler =
-                new VoiceRecognitionHandler(this, mAssistantVoiceSearchServiceSupplier,
-                        launchAssistanceSettingsAction, profileSupplier);
-        mVoiceRecognitionHandler.addObserver(this);
         mProfileSupplier = profileSupplier;
         mProfileSupplier.addObserver(mCallbackController.makeCancelable(this::setProfile));
         mPrivacyPreferencesManager = privacyPreferencesManager;
@@ -252,9 +242,6 @@ class LocationBarMediator
     }
 
     /*package */ void destroy() {
-        if (mAssistantVoiceSearchServiceSupplier.get() != null) {
-            mAssistantVoiceSearchServiceSupplier.get().destroy();
-        }
         if (mTemplateUrlServiceSupplier.hasValue()) {
             mTemplateUrlServiceSupplier.get().removeObserver(this);
         }
@@ -262,8 +249,6 @@ class LocationBarMediator
         mAutocompleteCoordinator = null;
         mUrlCoordinator = null;
         mPrivacyPreferencesManager = null;
-        mVoiceRecognitionHandler.removeObserver(this);
-        mVoiceRecognitionHandler = null;
         mLocationBarDataProvider.removeObserver(this);
         mDeferredNativeRunnables.clear();
         mUrlFocusChangeListeners.clear();
@@ -321,13 +306,6 @@ class LocationBarMediator
         if (templateUrlService != null) {
             templateUrlService.addObserver(this);
         }
-        mAssistantVoiceSearchServiceSupplier.set(new AssistantVoiceSearchService(mContext,
-                ExternalAuthUtils.getInstance(), templateUrlService, GSAState.getInstance(), this,
-                SharedPreferencesManager.getInstance(),
-                IdentityServicesProvider.get().getIdentityManager(
-                        Profile.getLastUsedRegularProfile()),
-                AccountManagerFacadeProvider.getInstance()));
-        onAssistantVoiceSearchServiceChanged();
         mLocationBarLayout.onFinishNativeInitialization();
         setProfile(mProfileSupplier.get());
         onPrimaryColorChanged();
@@ -376,28 +354,12 @@ class LocationBarMediator
         mLocationBarLayout.setUnfocusedWidth(unfocusedWidth);
     }
 
-    /* package */ void setVoiceRecognitionHandlerForTesting(
-            VoiceRecognitionHandler voiceRecognitionHandler) {
-        mVoiceRecognitionHandler = voiceRecognitionHandler;
-    }
-
-    /* package */ void setAssistantVoiceSearchServiceForTesting(
-            AssistantVoiceSearchService assistantVoiceSearchService) {
-        mAssistantVoiceSearchServiceSupplier.set(assistantVoiceSearchService);
-        onAssistantVoiceSearchServiceChanged();
-    }
-
     /* package */ void setLensControllerForTesting(LensController lensController) {
         mLensController = lensController;
     }
 
     void resetLastCachedIsLensOnOmniboxEnabledForTesting() {
         sLastCachedIsLensOnOmniboxEnabled = null;
-    }
-
-    /* package */ OneshotSupplier<AssistantVoiceSearchService>
-    getAssistantVoiceSearchServiceSupplierForTesting() {
-        return mAssistantVoiceSearchServiceSupplier;
     }
 
     /* package */ void setIsUrlBarFocusedWithoutAnimationsForTesting(
@@ -592,8 +554,6 @@ class LocationBarMediator
     /* package */ void micButtonClicked(View view) {
         if (!mNativeInitialized) return;
         RecordUserAction.record("MobileOmniboxVoiceSearch");
-        mVoiceRecognitionHandler.startVoiceRecognition(
-                VoiceRecognitionHandler.VoiceInteractionSource.OMNIBOX);
     }
 
     /** package */ void lensButtonClicked(View view) {
@@ -939,28 +899,6 @@ class LocationBarMediator
         }
     }
 
-    @VisibleForTesting
-    /* package */ void updateAssistantVoiceSearchDrawableAndColors() {
-        AssistantVoiceSearchService assistantVoiceSearchService =
-                mAssistantVoiceSearchServiceSupplier.get();
-        if (assistantVoiceSearchService == null) return;
-
-        mLocationBarLayout.setMicButtonTint(
-                assistantVoiceSearchService.getButtonColorStateList(mBrandedColorScheme, mContext));
-        mLocationBarLayout.setMicButtonDrawable(
-                assistantVoiceSearchService.getCurrentMicDrawable());
-    }
-
-    @VisibleForTesting
-    /* package */ void updateLensButtonColors() {
-        AssistantVoiceSearchService assistantVoiceSearchService =
-                mAssistantVoiceSearchServiceSupplier.get();
-        if (assistantVoiceSearchService == null) return;
-
-        mLocationBarLayout.setLensButtonTint(
-                assistantVoiceSearchService.getButtonColorStateList(mBrandedColorScheme, mContext));
-    }
-
     /**
      * Update visuals to use a correct color scheme depending on the primary color.
      */
@@ -1047,8 +985,7 @@ class LocationBarMediator
 
     private boolean shouldShowMicButton() {
         if (shouldShowDeleteButton()) return false;
-        if (!mNativeInitialized || mVoiceRecognitionHandler == null
-                || !mVoiceRecognitionHandler.isVoiceSearchEnabled()) {
+        if ((true)) {
             return false;
         }
         boolean isToolbarMicEnabled = mIsToolbarMicEnabledSupplier.getAsBoolean();
@@ -1243,9 +1180,6 @@ class LocationBarMediator
     public void onPrimaryColorChanged() {
         // This method needs to be called first as it computes |mBrandedColorScheme|.
         updateBrandedColorScheme();
-
-        updateAssistantVoiceSearchDrawableAndColors();
-        updateLensButtonColors();
     }
 
     @Override
@@ -1318,16 +1252,6 @@ class LocationBarMediator
     }
 
     @Override
-    public @Nullable VoiceRecognitionHandler getVoiceRecognitionHandler() {
-        // TODO(crbug.com/1140333): StartSurfaceMediator can call this method after destroy().
-        if (mLocationBarLayout == null) {
-            return null;
-        }
-
-        return mVoiceRecognitionHandler;
-    }
-
-    @Override
     public void addUrlFocusChangeListener(UrlFocusChangeListener listener) {
         mUrlFocusChangeListeners.addObserver(listener);
     }
@@ -1342,37 +1266,10 @@ class LocationBarMediator
         return mUrlHasFocus;
     }
 
-    @Override
     public void clearOmniboxFocus() {
         setUrlBarFocus(/*shouldBeFocused=*/false, /*pastedText=*/null, OmniboxFocusReason.UNFOCUS);
     }
 
-    @Override
-    public void notifyVoiceRecognitionCanceled() {
-        mLocationBarLayout.notifyVoiceRecognitionCanceled();
-    }
-
-    // AssistantVoiceSearchService.Observer implementation.
-
-    @Override
-    public void onAssistantVoiceSearchServiceChanged() {
-        updateAssistantVoiceSearchDrawableAndColors();
-        updateLensButtonColors();
-    }
-
-    // VoiceRecognitionHandler.Delegate implementation.
-
-    @Override
-    public void loadUrlFromVoice(String url) {
-        loadUrl(url, PageTransition.TYPED, 0);
-    }
-
-    @Override
-    public void onVoiceAvailabilityImpacted() {
-        updateButtonVisibility();
-    }
-
-    @Override
     public void setSearchQuery(String query) {
         if (TextUtils.isEmpty(query)) return;
 
@@ -1391,17 +1288,14 @@ class LocationBarMediator
         mUrlCoordinator.setKeyboardVisibility(true, false);
     }
 
-    @Override
     public LocationBarDataProvider getLocationBarDataProvider() {
         return mLocationBarDataProvider;
     }
 
-    @Override
     public AutocompleteCoordinator getAutocompleteCoordinator() {
         return mAutocompleteCoordinator;
     }
 
-    @Override
     public WindowAndroid getWindowAndroid() {
         return mWindowAndroid;
     }

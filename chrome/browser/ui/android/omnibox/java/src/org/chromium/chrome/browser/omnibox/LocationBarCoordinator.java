@@ -39,7 +39,6 @@ import org.chromium.chrome.browser.omnibox.suggestions.OmniboxPedalDelegate;
 import org.chromium.chrome.browser.omnibox.suggestions.OmniboxSuggestionsDropdownEmbedder;
 import org.chromium.chrome.browser.omnibox.suggestions.OmniboxSuggestionsDropdownScrollListener;
 import org.chromium.chrome.browser.omnibox.suggestions.basic.BasicSuggestionProcessor.BookmarkState;
-import org.chromium.chrome.browser.omnibox.voice.VoiceRecognitionHandler;
 import org.chromium.chrome.browser.privacy.settings.PrivacyPreferencesManager;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.search_engines.TemplateUrlServiceFactory;
@@ -368,13 +367,6 @@ public class LocationBarCoordinator implements LocationBar, NativeInitObserver,
         return mLocationBarLayout.getSecurityIconView();
     }
 
-    /** Returns the {@link VoiceRecognitionHandler} associated with this LocationBar. */
-    @Nullable
-    @Override
-    public VoiceRecognitionHandler getVoiceRecognitionHandler() {
-        return mLocationBarMediator.getVoiceRecognitionHandler();
-    }
-
     @Nullable
     @Override
     public OmniboxStub getOmniboxStub() {
@@ -658,11 +650,6 @@ public class LocationBarCoordinator implements LocationBar, NativeInitObserver,
     }
 
     // End tablet-specific methods.
-
-    public void setVoiceRecognitionHandlerForTesting(
-            VoiceRecognitionHandler voiceRecognitionHandler) {
-        mLocationBarMediator.setVoiceRecognitionHandlerForTesting(voiceRecognitionHandler);
-    }
 
     public void onUrlChangedForTesting() {
         mLocationBarMediator.onUrlChanged();

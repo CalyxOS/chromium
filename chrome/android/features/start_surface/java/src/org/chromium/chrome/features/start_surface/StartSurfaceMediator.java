@@ -446,8 +446,7 @@ class StartSurfaceMediator implements TabSwitcher.TabSwitcherViewObserver, View.
 
             // Initialize
             // Note that isVoiceSearchEnabled will return false in incognito mode.
-            mPropertyModel.set(IS_VOICE_RECOGNITION_BUTTON_VISIBLE,
-                    mOmniboxStub.getVoiceRecognitionHandler().isVoiceSearchEnabled());
+            mPropertyModel.set(IS_VOICE_RECOGNITION_BUTTON_VISIBLE, false);
             boolean shouldShowLensButton = mOmniboxStub.isLensEnabled(LensEntryPoint.TASKS_SURFACE);
             LensMetrics.recordShown(LensEntryPoint.TASKS_SURFACE, shouldShowLensButton);
             mPropertyModel.set(IS_LENS_BUTTON_VISIBLE, shouldShowLensButton);
@@ -1228,10 +1227,6 @@ class StartSurfaceMediator implements TabSwitcher.TabSwitcherViewObserver, View.
         // incorrect state if check synchronously.
         ThreadUtils.postOnUiThread(() -> {
             if (mOmniboxStub != null) {
-                if (mOmniboxStub.getVoiceRecognitionHandler() != null) {
-                    mPropertyModel.set(IS_VOICE_RECOGNITION_BUTTON_VISIBLE,
-                            mOmniboxStub.getVoiceRecognitionHandler().isVoiceSearchEnabled());
-                }
                 mPropertyModel.set(IS_LENS_BUTTON_VISIBLE,
                         mOmniboxStub.isLensEnabled(LensEntryPoint.TASKS_SURFACE));
             }

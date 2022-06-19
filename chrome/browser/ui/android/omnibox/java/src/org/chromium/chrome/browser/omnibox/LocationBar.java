@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 
-import org.chromium.chrome.browser.omnibox.voice.VoiceRecognitionHandler;
 import org.chromium.chrome.browser.tab.Tab;
 
 /**
@@ -67,11 +66,6 @@ public interface LocationBar {
     View getSecurityIconView();
 
 
-    /** Returns the {@link VoiceRecognitionHandler} associated with this LocationBar. */
-    @Nullable
-    default VoiceRecognitionHandler getVoiceRecognitionHandler() {
-        return null;
-    }
     /**
      * Returns a (@link OmniboxStub}.
      *
