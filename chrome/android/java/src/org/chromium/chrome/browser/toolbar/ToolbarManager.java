@@ -89,7 +89,6 @@ import org.chromium.chrome.browser.omnibox.OverrideUrlLoadingDelegate;
 import org.chromium.chrome.browser.omnibox.SearchEngineLogoUtils;
 import org.chromium.chrome.browser.omnibox.UrlFocusChangeListener;
 import org.chromium.chrome.browser.omnibox.suggestions.OmniboxPedalDelegate;
-import org.chromium.chrome.browser.omnibox.voice.VoiceRecognitionHandler;
 import org.chromium.chrome.browser.page_info.ChromePageInfo;
 import org.chromium.chrome.browser.partnercustomizations.PartnerBrowserCustomizations;
 import org.chromium.chrome.browser.privacy.settings.PrivacyPreferencesManagerImpl;
@@ -2071,11 +2070,6 @@ public class ToolbarManager implements UrlFocusChangeListener, ThemeColorObserve
     public OmniboxStub getOmniboxStub() {
         // TODO(crbug.com/1000295): Split fakebox component out of ntp package.
         return mLocationBar.getOmniboxStub();
-    }
-
-    @Nullable
-    public VoiceRecognitionHandler getVoiceRecognitionHandler() {
-        return mLocationBar.getVoiceRecognitionHandler();
     }
 
     /**

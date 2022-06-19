@@ -48,7 +48,6 @@ import org.chromium.chrome.browser.omnibox.suggestions.pedal.PedalSuggestionView
 import org.chromium.chrome.browser.omnibox.suggestions.pedal.PedalSuggestionViewBinder;
 import org.chromium.chrome.browser.omnibox.suggestions.tail.TailSuggestionView;
 import org.chromium.chrome.browser.omnibox.suggestions.tail.TailSuggestionViewBinder;
-import org.chromium.chrome.browser.omnibox.voice.VoiceRecognitionHandler;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.share.ShareDelegate;
 import org.chromium.chrome.browser.tab.Tab;
@@ -302,13 +301,6 @@ public class AutocompleteCoordinator implements UrlFocusChangeListener, UrlTextC
      */
     public void onNativeInitialized() {
         mMediator.onNativeInitialized();
-    }
-
-    /**
-     * @see AutocompleteController#onVoiceResults(List)
-     */
-    public void onVoiceResults(@Nullable List<VoiceRecognitionHandler.VoiceResult> results) {
-        mMediator.onVoiceResults(results);
     }
 
     /**

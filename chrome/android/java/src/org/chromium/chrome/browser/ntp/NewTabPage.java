@@ -56,7 +56,6 @@ import org.chromium.chrome.browser.lifecycle.PauseResumeWithNativeObserver;
 import org.chromium.chrome.browser.native_page.ContextMenuManager;
 import org.chromium.chrome.browser.omnibox.OmniboxFocusReason;
 import org.chromium.chrome.browser.omnibox.OmniboxStub;
-import org.chromium.chrome.browser.omnibox.voice.VoiceRecognitionHandler;
 import org.chromium.chrome.browser.privacy.settings.PrivacyPreferencesManagerImpl;
 import org.chromium.chrome.browser.privacy_sandbox.PrivacySandboxDialogController;
 import org.chromium.chrome.browser.privacy_sandbox.PrivacySandboxDialogLaunchContext;
@@ -110,8 +109,7 @@ import java.util.List;
  */
 public class NewTabPage implements NativePage, InvalidationAwareThumbnailProvider,
                                    TemplateUrlServiceObserver,
-                                   BrowserControlsStateProvider.Observer, FeedSurfaceDelegate,
-                                   VoiceRecognitionHandler.Observer {
+                                   BrowserControlsStateProvider.Observer, FeedSurfaceDelegate {
     private static final String TAG = "NewTabPage";
 
     // Key for the scroll position data that may be stored in a navigation entry.
@@ -143,7 +141,6 @@ public class NewTabPage implements NativePage, InvalidationAwareThumbnailProvide
     protected boolean mSearchProviderHasLogo;
 
     protected OmniboxStub mOmniboxStub;
-    private VoiceRecognitionHandler mVoiceRecognitionHandler;
 
     // The timestamp at which the constructor was called.
     protected final long mConstructedTimeNs;
@@ -222,8 +219,7 @@ public class NewTabPage implements NativePage, InvalidationAwareThumbnailProvide
 
         @Override
         public boolean isVoiceSearchEnabled() {
-            return mVoiceRecognitionHandler != null
-                    && mVoiceRecognitionHandler.isVoiceSearchEnabled();
+            return false;
         }
 
         @Override
@@ -232,21 +228,6 @@ public class NewTabPage implements NativePage, InvalidationAwareThumbnailProvide
             if (VrModuleProvider.getDelegate().isInVr()) return;
             FeedReliabilityLogger feedReliabilityLogger =
                     mFeedSurfaceProvider.getReliabilityLogger();
-            if (mVoiceRecognitionHandler != null && beginVoiceSearch) {
-                if (feedReliabilityLogger != null) {
-                    feedReliabilityLogger.onVoiceSearch();
-                }
-                mVoiceRecognitionHandler.startVoiceRecognition(
-                        VoiceRecognitionHandler.VoiceInteractionSource.NTP);
-                mTracker.notifyEvent(EventConstants.NTP_VOICE_SEARCH_BUTTON_CLICKED);
-            } else if (mOmniboxStub != null) {
-                if (feedReliabilityLogger != null) {
-                    feedReliabilityLogger.onOmniboxFocused();
-                }
-                mOmniboxStub.setUrlBarFocus(true, pastedText,
-                        pastedText == null ? OmniboxFocusReason.FAKE_BOX_TAP
-                                           : OmniboxFocusReason.FAKE_BOX_LONG_PRESS);
-            }
         }
 
         @Override
@@ -742,12 +723,6 @@ public class NewTabPage implements NativePage, InvalidationAwareThumbnailProvide
                 mOmniboxStub.addUrlFocusChangeListener(feedReliabilityLogger);
             }
         }
-
-        mVoiceRecognitionHandler = mOmniboxStub.getVoiceRecognitionHandler();
-        if (mVoiceRecognitionHandler != null) {
-            mVoiceRecognitionHandler.addObserver(this);
-            mNewTabPageLayout.updateActionButtonVisibility();
-        }
     }
 
     @Override
@@ -756,11 +731,6 @@ public class NewTabPage implements NativePage, InvalidationAwareThumbnailProvide
         if (feedReliabilityLogger != null) {
             feedReliabilityLogger.onNavigateBack();
         }
-    }
-
-    @Override
-    public void onVoiceAvailabilityImpacted() {
-        mNewTabPageLayout.updateActionButtonVisibility();
     }
 
     /** Adds an observer to be notified on most visited tile clicks. */
@@ -792,9 +762,6 @@ public class NewTabPage implements NativePage, InvalidationAwareThumbnailProvide
                     /*isIncognito=*/false, // NTP is not displayed in incognito.
                     mBottomSheetController);
         }
-
-        FeatureNotificationUtils.registerIPHCallback(FeatureType.VOICE_SEARCH,
-                mNewTabPageLayout::maybeShowFeatureNotificationVoiceSearchIPH);
     }
 
     /** Records UMA for the NTP being hidden and the time spent on it. */
@@ -803,7 +770,6 @@ public class NewTabPage implements NativePage, InvalidationAwareThumbnailProvide
         RecordHistogram.recordMediumTimesHistogram("NewTabPage.TimeSpent",
                 (System.nanoTime() - mLastShownTimeNs) / TimeUtils.NANOSECONDS_PER_MILLISECOND);
         SuggestionsMetrics.recordSurfaceHidden();
-        FeatureNotificationUtils.unregisterIPHCallback(FeatureType.VOICE_SEARCH);
     }
 
     /**
@@ -902,9 +868,6 @@ public class NewTabPage implements NativePage, InvalidationAwareThumbnailProvide
         }
         mFeedSurfaceProvider.destroy();
         mTab.getWindowAndroid().removeContextMenuCloseListener(mContextMenuManager);
-        if (mVoiceRecognitionHandler != null) {
-            mVoiceRecognitionHandler.removeObserver(this);
-        }
         if (mSearchResumptionModuleCoordinator != null) {
             mSearchResumptionModuleCoordinator.destroy();
         }
