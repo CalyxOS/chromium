@@ -113,10 +113,6 @@ OptimizationGuideKeyedService::MaybeCreatePushNotificationManager(
   if (optimization_guide::features::IsPushNotificationsEnabled()) {
     auto push_notification_manager =
         std::make_unique<optimization_guide::PushNotificationManager>();
-#if BUILDFLAG(IS_ANDROID)
-    push_notification_manager->AddObserver(
-        PriceTrackingNotificationBridge::GetForBrowserContext(profile));
-#endif
     return push_notification_manager;
   }
   return nullptr;

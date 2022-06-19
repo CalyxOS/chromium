@@ -92,8 +92,6 @@ import org.chromium.chrome.browser.omnibox.suggestions.OmniboxPedalDelegate;
 import org.chromium.chrome.browser.omnibox.voice.VoiceRecognitionHandler;
 import org.chromium.chrome.browser.page_info.ChromePageInfo;
 import org.chromium.chrome.browser.partnercustomizations.PartnerBrowserCustomizations;
-import org.chromium.chrome.browser.price_tracking.PriceTrackingFeatures;
-import org.chromium.chrome.browser.price_tracking.PriceTrackingUtilities;
 import org.chromium.chrome.browser.privacy.settings.PrivacyPreferencesManagerImpl;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.search_engines.TemplateUrlServiceFactory;
@@ -2018,21 +2016,6 @@ public class ToolbarManager implements UrlFocusChangeListener, ThemeColorObserve
      * viewed in the tab switcher grid.
      */
     private void maybeShowPriceDropIPH() {
-        if (!PriceTrackingUtilities.isTrackPricesOnTabsEnabled()
-                || !PriceTrackingFeatures.isPriceDropIphEnabled() || mTabModelSelector == null
-                || mTabModelSelector.isIncognitoSelected()) {
-            return;
-        }
-        TabModel tabModel = mTabModelSelector.getCurrentModel();
-        for (int i = 0; i < tabModel.getCount(); i++) {
-            ShoppingPersistedTabData.from(tabModel.getTabAt(i), (shoppingPersistedTabData) -> {
-                if (shoppingPersistedTabData != null
-                        && shoppingPersistedTabData.getPriceDrop() != null
-                        && !shoppingPersistedTabData.getIsCurrentPriceDropSeen()) {
-                    showPriceDropIPH();
-                }
-            });
-        }
     }
 
     private void checkIfNtpLoaded() {

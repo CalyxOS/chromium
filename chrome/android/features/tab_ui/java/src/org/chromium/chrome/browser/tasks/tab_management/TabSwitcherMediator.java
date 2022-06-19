@@ -46,7 +46,6 @@ import org.chromium.chrome.browser.incognito.reauth.IncognitoReauthManager;
 import org.chromium.chrome.browser.multiwindow.MultiWindowModeStateDispatcher;
 import org.chromium.chrome.browser.preferences.ChromePreferenceKeys;
 import org.chromium.chrome.browser.preferences.SharedPreferencesManager;
-import org.chromium.chrome.browser.price_tracking.PriceTrackingUtilities;
 import org.chromium.chrome.browser.tab.Tab;
 import org.chromium.chrome.browser.tab.TabCreationState;
 import org.chromium.chrome.browser.tab.TabSelectionType;
@@ -79,7 +78,6 @@ import java.util.List;
  */
 class TabSwitcherMediator implements TabSwitcher.Controller, TabListRecyclerView.VisibilityListener,
                                      TabListMediator.GridCardOnClickListenerProvider,
-                                     PriceMessageService.PriceWelcomeMessageReviewActionProvider,
                                      TabSwitcherCustomViewManager.Delegate {
     private static final String TAG = "TabSwitcherMediator";
 
@@ -153,7 +151,6 @@ class TabSwitcherMediator implements TabSwitcher.Controller, TabListRecyclerView
     private TabSelectionEditorCoordinator
             .TabSelectionEditorController mTabSelectionEditorController;
     private TabSwitcher.OnTabSelectingListener mOnTabSelectingListener;
-    private PriceMessageService mPriceMessageService;
     private boolean mIsOnHomepage;
 
     /**
@@ -261,29 +258,6 @@ class TabSwitcherMediator implements TabSwitcher.Controller, TabListRecyclerView
     }
 
     /**
-     * An interface to control price welcome message in grid tab switcher.
-     */
-    interface PriceWelcomeMessageController {
-        /**
-         * Remove the price welcome message item in the model list. Right now this is used when
-         * its binding tab is closed in the grid tab switcher.
-         */
-        void removePriceWelcomeMessage();
-
-        /**
-         * Restore the price welcome message item that should show. Right now this is only used
-         * when the closure of the binding tab in tab switcher is undone.
-         */
-        void restorePriceWelcomeMessage();
-
-        /**
-         * Show the price welcome message in tab switcher. This is used when any open tab in tab
-         * switcher has a price drop.
-         */
-        void showPriceWelcomeMessage(PriceMessageService.PriceTabData priceTabData);
-    }
-
-    /**
      * Basic constructor for the Mediator.
      * @param context The context to use for accessing {@link android.content.res.Resources}.
      * @param resetHandler The {@link ResetHandler} that handles reset for this Mediator.
@@ -303,7 +277,6 @@ class TabSwitcherMediator implements TabSwitcher.Controller, TabListRecyclerView
             PropertyModel containerViewModel, TabModelSelector tabModelSelector,
             BrowserControlsStateProvider browserControlsStateProvider, ViewGroup containerView,
             TabContentManager tabContentManager, MessageItemsController messageItemsController,
-            PriceWelcomeMessageController priceWelcomeMessageController,
             MultiWindowModeStateDispatcher multiWindowModeStateDispatcher, @TabListMode int mode,
             @Nullable OneshotSupplier<IncognitoReauthController>
                     incognitoReauthControllerSupplier) {
@@ -400,9 +373,6 @@ class TabSwitcherMediator implements TabSwitcher.Controller, TabListRecyclerView
             public void willCloseTab(Tab tab, boolean animate, boolean didCloseAlone) {
                 if (mTabModelSelector.getCurrentModel().getCount() == 1) {
                     messageItemsController.removeAllAppendedMessage();
-                } else if (mPriceMessageService != null
-                        && mPriceMessageService.getBindingTabId() == tab.getId()) {
-                    priceWelcomeMessageController.removePriceWelcomeMessage();
                 }
             }
 
@@ -410,10 +380,6 @@ class TabSwitcherMediator implements TabSwitcher.Controller, TabListRecyclerView
             public void tabClosureUndone(Tab tab) {
                 if (mTabModelSelector.getCurrentModel().getCount() == 1) {
                     messageItemsController.restoreAllAppendedMessage();
-                }
-                if (mPriceMessageService != null
-                        && mPriceMessageService.getBindingTabId() == tab.getId()) {
-                    priceWelcomeMessageController.restorePriceWelcomeMessage();
                 }
                 notifyBackPressStateChangedInternal();
             }
@@ -430,12 +396,6 @@ class TabSwitcherMediator implements TabSwitcher.Controller, TabListRecyclerView
 
             @Override
             public void tabClosureCommitted(Tab tab) {
-                // TODO(crbug.com/1157578): Auto update the PriceMessageService instead of
-                // updating it based on the client caller.
-                if (mPriceMessageService != null
-                        && mPriceMessageService.getBindingTabId() == tab.getId()) {
-                    mPriceMessageService.invalidateMessage();
-                }
             }
         };
 
@@ -693,14 +653,6 @@ class TabSwitcherMediator implements TabSwitcher.Controller, TabListRecyclerView
                 RecordUserAction.record(
                         "MobileTabSwitched." + TabSwitcherCoordinator.COMPONENT_NAME);
             }
-        }
-        if (mMode == TabListCoordinator.TabListMode.GRID
-                && PriceTrackingUtilities.isTabModelPriceTrackingEligible(
-                        mTabModelSelector.getCurrentModel())
-                && PriceTrackingUtilities.isTrackPricesOnTabsEnabled()) {
-            RecordUserAction.record("Commerce.TabGridSwitched."
-                    + (ShoppingPersistedTabData.hasPriceDrop(tab) ? "HasPriceDrop"
-                                                                  : "NoPriceDrop"));
         }
     }
 
@@ -1058,10 +1010,6 @@ class TabSwitcherMediator implements TabSwitcher.Controller, TabListRecyclerView
         mOnTabSelectingListener = listener;
     }
 
-    void setPriceMessageService(PriceMessageService priceMessageService) {
-        mPriceMessageService = priceMessageService;
-    }
-
     // GridCardOnClickListenerProvider implementation.
     @Override
     @Nullable
@@ -1093,11 +1041,6 @@ class TabSwitcherMediator implements TabSwitcher.Controller, TabListRecyclerView
         if (mOnTabSelectingListener != null) {
             mOnTabSelectingListener.onTabSelecting(LayoutManagerImpl.time(), tabId);
         }
-    }
-
-    @Override
-    public void scrollToTab(int tabIndex) {
-        mContainerViewModel.set(TabListContainerProperties.INITIAL_SCROLL_INDEX, tabIndex);
     }
 
     private boolean ableToOpenDialog(Tab tab) {

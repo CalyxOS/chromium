@@ -72,7 +72,6 @@ import org.chromium.chrome.browser.offlinepages.indicator.OfflineIndicatorInProd
 import org.chromium.chrome.browser.omnibox.UrlFocusChangeListener;
 import org.chromium.chrome.browser.preferences.ChromePreferenceKeys;
 import org.chromium.chrome.browser.preferences.SharedPreferencesManager;
-import org.chromium.chrome.browser.price_tracking.PriceTrackingFeatures;
 import org.chromium.chrome.browser.privacy_sandbox.PrivacySandboxDialogController;
 import org.chromium.chrome.browser.privacy_sandbox.PrivacySandboxDialogLaunchContext;
 import org.chromium.chrome.browser.profiles.Profile;
@@ -83,8 +82,6 @@ import org.chromium.chrome.browser.share.crow.CrowButtonDelegateImpl;
 import org.chromium.chrome.browser.share.crow.CrowIphController;
 import org.chromium.chrome.browser.share.link_to_text.LinkToTextIPHController;
 import org.chromium.chrome.browser.status_indicator.StatusIndicatorCoordinator;
-import org.chromium.chrome.browser.subscriptions.CommerceSubscriptionsService;
-import org.chromium.chrome.browser.subscriptions.CommerceSubscriptionsServiceFactory;
 import org.chromium.chrome.browser.tab.RequestDesktopUtils;
 import org.chromium.chrome.browser.tab.Tab;
 import org.chromium.chrome.browser.tab.TabAssociatedApp;
@@ -155,7 +152,6 @@ public class TabbedRootUiCoordinator extends RootUiCoordinator {
     private NavigationSheet mNavigationSheet;
     private ComposedBrowserControlsVisibilityDelegate mAppBrowserControlsVisibilityDelegate;
     private LayoutManagerImpl mLayoutManager;
-    private CommerceSubscriptionsService mCommerceSubscriptionsService;
     private UndoGroupSnackbarController mUndoGroupSnackbarController;
     private final int mControlContainerHeightResource;
     private final Supplier<InsetObserverView> mInsetObserverViewSupplier;
@@ -378,11 +374,6 @@ public class TabbedRootUiCoordinator extends RootUiCoordinator {
             mUndoGroupSnackbarController.destroy();
         }
 
-        if (mCommerceSubscriptionsService != null) {
-            mCommerceSubscriptionsService.destroy();
-            mCommerceSubscriptionsService = null;
-        }
-
         super.onDestroy();
     }
 
@@ -520,7 +511,6 @@ public class TabbedRootUiCoordinator extends RootUiCoordinator {
         mPwaBottomSheetController =
                 PwaBottomSheetControllerFactory.createPwaBottomSheetController(mActivity);
         PwaBottomSheetControllerFactory.attach(mWindowAndroid, mPwaBottomSheetController);
-        initCommerceSubscriptionsService();
         initUndoGroupSnackbarController();
     }
 
@@ -763,18 +753,6 @@ public class TabbedRootUiCoordinator extends RootUiCoordinator {
         browserControlsSizer.setAnimateBrowserControlsHeightChanges(animate);
         browserControlsSizer.setTopControlsHeight(topControlsNewHeight, mStatusIndicatorHeight);
         if (animate) browserControlsSizer.setAnimateBrowserControlsHeightChanges(false);
-    }
-
-    private void initCommerceSubscriptionsService() {
-        if (!PriceTrackingFeatures.getPriceTrackingNotificationsEnabled()) {
-            return;
-        }
-
-        CommerceSubscriptionsServiceFactory factory = new CommerceSubscriptionsServiceFactory();
-        mCommerceSubscriptionsService = factory.getForLastUsedProfile();
-        mCommerceSubscriptionsService.getSubscriptionsManager().queryAndUpdateWaaEnabled();
-        mCommerceSubscriptionsService.initDeferredStartupForActivity(
-                mTabModelSelectorSupplier.get(), mActivityLifecycleDispatcher);
     }
 
     private void initUndoGroupSnackbarController() {

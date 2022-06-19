@@ -77,7 +77,7 @@ public class PriceTrackingFeatures {
      * @return Whether the price drop notification is eligible to work.
      */
     public static boolean isPriceDropNotificationEligible() {
-        return isPriceTrackingEligible() && getPriceTrackingNotificationsEnabled();
+        return false;
     }
 
     private static boolean isSignedIn() {

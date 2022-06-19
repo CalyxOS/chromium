@@ -97,7 +97,7 @@ public class TabGridDialogCoordinator implements TabGridDialogMediator.DialogCon
                                 tabId, thumbnailSize, callback, forceUpdate, writeBack);
                     },
                     null, false, gridCardOnClickListenerProvider,
-                    mMediator.getTabGridDialogHandler(), TabProperties.UiType.CLOSABLE, null, null,
+                    mMediator.getTabGridDialogHandler(), TabProperties.UiType.CLOSABLE, null,
                     containerView, false, mComponentName, rootView, null);
             TabListRecyclerView recyclerView = mTabListCoordinator.getContainerView();
 

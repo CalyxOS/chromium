@@ -73,7 +73,6 @@ import org.chromium.chrome.browser.partnercustomizations.PartnerBrowserCustomiza
 import org.chromium.chrome.browser.photo_picker.DecoderService;
 import org.chromium.chrome.browser.preferences.ChromePreferenceKeys;
 import org.chromium.chrome.browser.preferences.SharedPreferencesManager;
-import org.chromium.chrome.browser.price_tracking.PriceTrackingFeatures;
 import org.chromium.chrome.browser.privacy.settings.PrivacyPreferencesManagerImpl;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.profiles.ProfileManagerUtils;
@@ -450,10 +449,6 @@ public class ProcessInitializationHandler {
                     .create()
                     .onDeferredStartup();
             // TODO(crbug.com/1355893) Move to PersistedTabData.onDeferredStartup
-            if (PriceTrackingFeatures.isPriceTrackingEligible()
-                    && ShoppingPersistedTabData.isPriceTrackingWithOptimizationGuideEnabled()) {
-                ShoppingPersistedTabData.onDeferredStartup();
-            }
         });
         deferredStartupHandler.addDeferredTask(() -> {
             if (ChromeFeatureList.isEnabled(ChromeFeatureList.FEATURE_NOTIFICATION_GUIDE)) {

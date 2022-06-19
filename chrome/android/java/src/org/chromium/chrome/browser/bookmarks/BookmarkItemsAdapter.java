@@ -22,12 +22,9 @@ import org.chromium.base.metrics.RecordUserAction;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.bookmarks.BookmarkListEntry.ViewType;
 import org.chromium.chrome.browser.bookmarks.BookmarkRow.Location;
-import org.chromium.chrome.browser.commerce.ShoppingFeatures;
 import org.chromium.chrome.browser.feature_engagement.TrackerFactory;
 import org.chromium.chrome.browser.flags.ChromeFeatureList;
 import org.chromium.chrome.browser.profiles.Profile;
-import org.chromium.chrome.browser.subscriptions.CommerceSubscriptionsServiceFactory;
-import org.chromium.chrome.browser.subscriptions.SubscriptionsManager;
 import org.chromium.chrome.browser.ui.messages.snackbar.SnackbarManager;
 import org.chromium.components.bookmarks.BookmarkId;
 import org.chromium.components.bookmarks.BookmarkItem;
@@ -65,12 +62,9 @@ public class BookmarkItemsAdapter extends DragReorderableListAdapter<BookmarkLis
     private BookmarkDelegate mDelegate;
     private String mSearchText;
     private BookmarkId mCurrentFolder;
-    private CommerceSubscriptionsServiceFactory mCommerceSubscriptionsServiceFactory;
 
     // Keep track of the currently highlighted bookmark - used for "show in folder" action.
     private BookmarkId mHighlightedBookmark;
-
-    private SubscriptionsManager mSubscriptionsManager;
 
     private BookmarkModelObserver mBookmarkModelObserver = new BookmarkModelObserver() {
         @Override
@@ -125,13 +119,7 @@ public class BookmarkItemsAdapter extends DragReorderableListAdapter<BookmarkLis
                 ImageFetcherFactory.createImageFetcher(ImageFetcherConfig.IN_MEMORY_WITH_DISK_CACHE,
                         Profile.getLastUsedRegularProfile().getProfileKey(),
                         GlobalDiscardableReferencePool.getReferencePool());
-        mCommerceSubscriptionsServiceFactory = new CommerceSubscriptionsServiceFactory();
         mSnackbarManager = snackbarManager;
-
-        if (ShoppingFeatures.isShoppingListEnabled()) {
-            mSubscriptionsManager = mCommerceSubscriptionsServiceFactory.getForLastUsedProfile()
-                                            .getSubscriptionsManager();
-        }
     }
 
     /**
@@ -237,17 +225,6 @@ public class BookmarkItemsAdapter extends DragReorderableListAdapter<BookmarkLis
                 return createViewHolderHelper(parent, R.layout.bookmark_folder_row);
             case ViewType.BOOKMARK:
                 return createViewHolderHelper(parent, R.layout.bookmark_item_row);
-            case ViewType.SHOPPING_POWER_BOOKMARK:
-                ViewHolder vh = null;
-                if (BookmarkFeatures.isBookmarksVisualRefreshEnabled()) {
-                    vh = createViewHolderHelper(parent, R.layout.power_bookmark_shopping_item_row);
-                    ((PowerBookmarkShoppingItemRow) vh.itemView)
-                            .init(mImageFetcher, mDelegate.getModel(), mSubscriptionsManager,
-                                    mSnackbarManager);
-                } else {
-                    vh = createViewHolderHelper(parent, R.layout.bookmark_item_row);
-                }
-                return vh;
             case ViewType.DIVIDER:
                 return new ViewHolder(
                         LayoutInflater.from(parent.getContext())

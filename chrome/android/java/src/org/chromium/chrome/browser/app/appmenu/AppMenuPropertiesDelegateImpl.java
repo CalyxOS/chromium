@@ -37,7 +37,6 @@ import org.chromium.chrome.browser.ActivityTabProvider;
 import org.chromium.chrome.browser.banners.AppMenuVerbiage;
 import org.chromium.chrome.browser.bookmarks.BookmarkFeatures;
 import org.chromium.chrome.browser.bookmarks.BookmarkModel;
-import org.chromium.chrome.browser.bookmarks.PowerBookmarkUtils;
 import org.chromium.chrome.browser.bookmarks.ReadingListFeatures;
 import org.chromium.chrome.browser.commerce.ShoppingFeatures;
 import org.chromium.chrome.browser.commerce.ShoppingServiceFactory;
@@ -56,7 +55,6 @@ import org.chromium.chrome.browser.multiwindow.MultiWindowUtils;
 import org.chromium.chrome.browser.night_mode.WebContentsDarkModeController;
 import org.chromium.chrome.browser.omaha.UpdateMenuItemHelper;
 import org.chromium.chrome.browser.partnercustomizations.PartnerBrowserCustomizations;
-import org.chromium.chrome.browser.price_tracking.PriceTrackingUtilities;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.read_later.ReadingListUtils;
 import org.chromium.chrome.browser.share.ShareHelper;
@@ -595,9 +593,7 @@ public class AppMenuPropertiesDelegateImpl implements AppMenuPropertiesDelegate 
                             > 1;
         }
 
-        boolean isPriceTrackingVisible = isOverviewModeMenu
-                && PriceTrackingUtilities.shouldShowPriceTrackingMenu()
-                && !DeviceClassManager.enableAccessibilityLayout(mContext) && !isIncognito;
+        boolean isPriceTrackingVisible = false;
         boolean isPriceTrackingEnabled = isPriceTrackingVisible;
         boolean hasItemBetweenDividers = false;
 
@@ -1181,9 +1177,9 @@ public class AppMenuPropertiesDelegateImpl implements AppMenuPropertiesDelegate 
      * @param stopPriceTrackingMenuItem The menu item to stop price tracking.
      * @param currentTab Current tab being displayed.
      */
-    protected void updatePriceTrackingMenuItemRow(@NonNull MenuItem startPriceTrackingMenuItem,
-            @NonNull MenuItem stopPriceTrackingMenuItem, @Nullable Tab currentTab) {
-        ShoppingService service =
+    protected void updatePriceTrackingMenuItemRow(@NonNull MenuItem startPriceTrackingMenuItem,  // disabled
+            @NonNull MenuItem stopPriceTrackingMenuItem, @Nullable Tab currentTab) {             // in Bromite
+        /*ShoppingService service =
                 ShoppingServiceFactory.getForProfile(Profile.getLastUsedRegularProfile());
         ShoppingService.ProductInfo info = null;
         if (service != null && currentTab != null) {
@@ -1219,7 +1215,9 @@ public class AppMenuPropertiesDelegateImpl implements AppMenuPropertiesDelegate 
                     info.productClusterId, mBookmarkModelSupplier.get());
         }
         startPriceTrackingMenuItem.setVisible(!priceTrackingEnabled);
-        stopPriceTrackingMenuItem.setVisible(priceTrackingEnabled);
+        stopPriceTrackingMenuItem.setVisible(priceTrackingEnabled); */
+        startPriceTrackingMenuItem.setVisible(false);
+        stopPriceTrackingMenuItem.setVisible(false);
     }
 
     /**

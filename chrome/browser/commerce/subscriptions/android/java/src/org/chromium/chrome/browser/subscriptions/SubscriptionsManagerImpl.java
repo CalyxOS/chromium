@@ -11,8 +11,6 @@ import androidx.annotation.VisibleForTesting;
 
 import org.chromium.base.Callback;
 import org.chromium.base.ObserverList;
-import org.chromium.chrome.browser.price_tracking.PriceDropNotificationManager;
-import org.chromium.chrome.browser.price_tracking.PriceTrackingFeatures;
 import org.chromium.chrome.browser.profiles.Profile;
 
 import java.lang.annotation.Retention;
@@ -43,7 +41,6 @@ public class SubscriptionsManagerImpl implements SubscriptionsManager {
     private boolean mCanHandleRequests;
     private Queue<DeferredSubscriptionOperation> mDeferredTasks;
     private final ObserverList<SubscriptionObserver> mObservers;
-    private final PriceDropNotificationManager mPriceDropNotificationManager;
 
     private static class DeferredSubscriptionOperation {
         private final @Operation int mOperation;
@@ -71,18 +68,16 @@ public class SubscriptionsManagerImpl implements SubscriptionsManager {
     }
 
     public SubscriptionsManagerImpl(
-            Profile profile, PriceDropNotificationManager priceDropNotificationManager) {
+            Profile profile) {
         this(profile, new CommerceSubscriptionsStorage(profile),
-                new CommerceSubscriptionsServiceProxy(profile), priceDropNotificationManager);
+                new CommerceSubscriptionsServiceProxy(profile));
     }
 
     @VisibleForTesting
     SubscriptionsManagerImpl(Profile profile, CommerceSubscriptionsStorage storage,
-            CommerceSubscriptionsServiceProxy proxy,
-            PriceDropNotificationManager priceDropNotificationManager) {
+            CommerceSubscriptionsServiceProxy proxy) {
         mStorage = storage;
         mServiceProxy = proxy;
-        mPriceDropNotificationManager = priceDropNotificationManager;
         mDeferredTasks = new LinkedList<>();
         mCanHandleRequests = false;
         initTypes(this::onInitComplete);
@@ -143,16 +138,6 @@ public class SubscriptionsManagerImpl implements SubscriptionsManager {
         if (!isSubscriptionTypeSupported(type)) {
             wrappedCallback.onResult(SubscriptionsManager.StatusCode.INVALID_ARGUMENT);
             return;
-        }
-
-        // Make sure the notification channel is initialized if there is a user-managed PRICE_TRACK
-        // subscription. For chrome-managed subscriptions, channel will be initialized via message
-        // card in tab switcher.
-        if (CommerceSubscription.CommerceSubscriptionType.PRICE_TRACK.equals(type)
-                && CommerceSubscription.SubscriptionManagementType.USER_MANAGED.equals(
-                        subscriptions.get(0).getManagementType())
-                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            mPriceDropNotificationManager.createNotificationChannel();
         }
 
         if (!mCanHandleRequests) {
@@ -244,11 +229,6 @@ public class SubscriptionsManagerImpl implements SubscriptionsManager {
      */
     void onIdentityChanged() {
         mStorage.deleteAll();
-        // If the feature is still eligible to work, we should re-init and fetch the fresh data.
-        if (PriceTrackingFeatures.isPriceDropNotificationEligible()) {
-            initTypes((status) -> { assert status == SubscriptionsManager.StatusCode.OK; });
-            queryAndUpdateWaaEnabled();
-        }
     }
 
     /**

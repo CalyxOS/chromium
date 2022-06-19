@@ -45,8 +45,6 @@ import org.chromium.chrome.browser.compositor.layouts.content.TabContentManager;
 import org.chromium.chrome.browser.multiwindow.MultiWindowUtils;
 import org.chromium.chrome.browser.preferences.ChromePreferenceKeys;
 import org.chromium.chrome.browser.preferences.SharedPreferencesManager;
-import org.chromium.chrome.browser.price_tracking.PriceTrackingFeatures;
-import org.chromium.chrome.browser.price_tracking.PriceTrackingUtilities;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.search_engines.TemplateUrlServiceFactory;
 import org.chromium.chrome.browser.tab.EmptyTabObserver;
@@ -71,11 +69,9 @@ import org.chromium.chrome.browser.tasks.tab_groups.EmptyTabGroupModelFilterObse
 import org.chromium.chrome.browser.tasks.tab_groups.TabGroupModelFilter;
 import org.chromium.chrome.browser.tasks.tab_groups.TabGroupTitleUtils;
 import org.chromium.chrome.browser.tasks.tab_groups.TabGroupUtils;
-import org.chromium.chrome.browser.tasks.tab_management.PriceMessageService.PriceTabData;
 import org.chromium.chrome.browser.tasks.tab_management.TabListCoordinator.TabListMode;
 import org.chromium.chrome.browser.tasks.tab_management.TabListFaviconProvider.TabFavicon;
 import org.chromium.chrome.browser.tasks.tab_management.TabProperties.UiType;
-import org.chromium.chrome.browser.tasks.tab_management.TabSwitcherMediator.PriceWelcomeMessageController;
 import org.chromium.chrome.tab_ui.R;
 import org.chromium.components.browser_ui.styles.SemanticColorUtils;
 import org.chromium.components.browser_ui.widget.selectable_list.SelectionDelegate;
@@ -184,51 +180,6 @@ class TabListMediator {
          * @return Whether the given action is a reordering action.
          */
         boolean isReorderAction(int action);
-    }
-
-    /**
-     * Provides capability to asynchronously acquire {@link ShoppingPersistedTabData}
-     */
-    static class ShoppingPersistedTabDataFetcher {
-        protected Tab mTab;
-        protected PriceWelcomeMessageController mPriceWelcomeMessageController;
-
-        /**
-         * @param tab {@link Tab} {@link ShoppingPersistedTabData} will be acquired for.
-         * @param priceWelcomeMessageController to show the price welcome message.
-         */
-        ShoppingPersistedTabDataFetcher(
-                Tab tab, @Nullable PriceWelcomeMessageController priceWelcomeMessageController) {
-            mTab = tab;
-            mPriceWelcomeMessageController = priceWelcomeMessageController;
-        }
-
-        /**
-         * Asynchronously acquire {@link ShoppingPersistedTabData}
-         * @param callback {@link Callback} to pass {@link ShoppingPersistedTabData} back in
-         */
-        public void fetch(Callback<ShoppingPersistedTabData> callback) {
-            ShoppingPersistedTabData.from(mTab, (res) -> {
-                callback.onResult(res);
-                maybeShowPriceWelcomeMessage(res);
-            });
-        }
-
-        @VisibleForTesting
-        void maybeShowPriceWelcomeMessage(
-                @Nullable ShoppingPersistedTabData shoppingPersistedTabData) {
-            // Avoid inserting message while RecyclerView is computing a layout.
-            new Handler().post(() -> {
-                if (!PriceTrackingUtilities.isPriceWelcomeMessageCardEnabled()
-                        || (mPriceWelcomeMessageController == null)
-                        || (shoppingPersistedTabData == null)
-                        || (shoppingPersistedTabData.getPriceDrop() == null)) {
-                    return;
-                }
-                mPriceWelcomeMessageController.showPriceWelcomeMessage(
-                        new PriceTabData(mTab.getId(), shoppingPersistedTabData.getPriceDrop()));
-            });
-        }
     }
 
     /**
@@ -379,7 +330,6 @@ class TabListMediator {
     private final TabGridDialogHandler mTabGridDialogHandler;
     private final String mComponentName;
     private final TabListFaviconProvider mTabListFaviconProvider;
-    private final PriceWelcomeMessageController mPriceWelcomeMessageController;
 
     private ThumbnailProvider mThumbnailProvider;
     private boolean mActionsOnAllRelatedTabs;
@@ -582,7 +532,6 @@ class TabListMediator {
      * @param gridCardOnClickListenerProvider Provides the onClickListener for opening dialog when
      *                                        click on a grid card.
      * @param dialogHandler A handler to handle requests about updating TabGridDialog.
-     * @param priceWelcomeMessageController A controller to show PriceWelcomeMessage.
      * @param componentName This is a unique string to identify different components.
      * @param uiType The type of UI this mediator should be building.
      */
@@ -593,7 +542,6 @@ class TabListMediator {
             @Nullable SelectionDelegateProvider selectionDelegateProvider,
             @Nullable GridCardOnClickListenerProvider gridCardOnClickListenerProvider,
             @Nullable TabGridDialogHandler dialogHandler,
-            @Nullable PriceWelcomeMessageController priceWelcomeMessageController,
             String componentName, @UiType int uiType) {
         mContext = context;
         mTabModelSelector = tabModelSelector;
@@ -608,7 +556,6 @@ class TabListMediator {
         mTabGridDialogHandler = dialogHandler;
         mActionsOnAllRelatedTabs = actionOnRelatedTabs;
         mUiType = uiType;
-        mPriceWelcomeMessageController = priceWelcomeMessageController;
 
         mTabModelObserver = new TabModelObserver() {
             @Override
@@ -805,35 +752,6 @@ class TabListMediator {
         mTabGridItemTouchHelperCallback = new TabGridItemTouchHelperCallback(context, mModel,
                 mTabModelSelector, mTabClosedListener, mTabGridDialogHandler, mComponentName,
                 mActionsOnAllRelatedTabs, mMode);
-
-        // Right now we need to update layout only if there is a price welcome message card in tab
-        // switcher.
-        if (mMode == TabListMode.GRID && mUiType != UiType.SELECTABLE
-                && PriceTrackingFeatures.isPriceTrackingEnabled()) {
-            mListObserver = new ListObserver<Void>() {
-                @Override
-                public void onItemRangeInserted(ListObservable source, int index, int count) {
-                    updateLayout();
-                }
-
-                @Override
-                public void onItemRangeRemoved(ListObservable source, int index, int count) {
-                    updateLayout();
-                }
-
-                @Override
-                public void onItemRangeChanged(
-                        ListObservable<Void> source, int index, int count, @Nullable Void payload) {
-                    updateLayout();
-                }
-
-                @Override
-                public void onItemMoved(ListObservable source, int curIndex, int newIndex) {
-                    updateLayout();
-                }
-            };
-            mModel.addObserver(mListObserver);
-        }
     }
 
     public void initWithNative(Profile profile) {
@@ -1259,9 +1177,6 @@ class TabListMediator {
             Collections.sort(tabsList, LAST_SHOWN_COMPARATOR);
         }
         mVisible = tabsList != null;
-        if (tabs != null) {
-            recordPriceAnnotationsEnabledMetrics();
-        }
         if (areTabsUnchanged(tabsList)) {
             if (tabsList == null) return true;
             for (int i = 0; i < tabsList.size(); i++) {
@@ -1326,11 +1241,6 @@ class TabListMediator {
 
     void hardCleanup() {
         assert !mVisible;
-        if (PriceTrackingUtilities.isTrackPricesOnTabsEnabled()
-                && (PriceTrackingFeatures.isPriceDropIphEnabled()
-                        || PriceTrackingFeatures.isPriceDropBadgeEnabled())) {
-            saveSeenPriceDrops();
-        }
         sViewedTabIds.clear();
     }
 
@@ -1491,25 +1401,6 @@ class TabListMediator {
      * @param recyclerView the {@link TabListRecyclerView} to add the listener too.
      */
     void registerOnScrolledListener(RecyclerView recyclerView) {
-        if (PriceTrackingUtilities.isTrackPricesOnTabsEnabled()
-                && (PriceTrackingFeatures.isPriceDropIphEnabled()
-                        || PriceTrackingFeatures.isPriceDropBadgeEnabled())) {
-            mRecyclerView = recyclerView;
-            mOnScrollListener = new OnScrollListener() {
-                @Override
-                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                    if (!mTabModelSelector.isIncognitoSelected()) {
-                        for (int i = 0; i < mRecyclerView.getChildCount(); i++) {
-                            if (mRecyclerView.getLayoutManager().isViewPartiallyVisible(
-                                        mRecyclerView.getChildAt(i), false, true)) {
-                                addViewedTabId(i);
-                            }
-                        }
-                    }
-                }
-            };
-            mRecyclerView.addOnScrollListener(mOnScrollListener);
-        }
     }
 
     private void unregisterOnScrolledListener() {
@@ -1887,34 +1778,6 @@ class TabListMediator {
     }
 
     private void setupPersistedTabDataFetcherForTab(PseudoTab pseudoTab, int index) {
-        if (mMode == TabListMode.GRID && pseudoTab.hasRealTab() && !pseudoTab.isIncognito()) {
-            if (PriceTrackingUtilities.isTrackPricesOnTabsEnabled()
-                    && isUngroupedTab(pseudoTab.getId())) {
-                mModel.get(index).model.set(TabProperties.SHOPPING_PERSISTED_TAB_DATA_FETCHER,
-                        new ShoppingPersistedTabDataFetcher(
-                                pseudoTab.getTab(), mPriceWelcomeMessageController));
-            } else {
-                mModel.get(index).model.set(
-                        TabProperties.SHOPPING_PERSISTED_TAB_DATA_FETCHER, null);
-            }
-            if (StoreTrackingUtilities.isStoreHoursOnTabsEnabled()
-                    && isUngroupedTab(pseudoTab.getId())) {
-                mModel.get(index).model.set(TabProperties.STORE_PERSISTED_TAB_DATA_FETCHER,
-                        new StorePersistedTabDataFetcher(pseudoTab.getTab()));
-            } else {
-                mModel.get(index).model.set(TabProperties.STORE_PERSISTED_TAB_DATA_FETCHER, null);
-            }
-            if (CouponUtilities.isCouponsOnTabsEnabled() && isUngroupedTab(pseudoTab.getId())) {
-                mModel.get(index).model.set(TabProperties.COUPON_PERSISTED_TAB_DATA_FETCHER,
-                        new CouponPersistedTabDataFetcher(pseudoTab.getTab()));
-            } else {
-                mModel.get(index).model.set(TabProperties.COUPON_PERSISTED_TAB_DATA_FETCHER, null);
-            }
-        } else {
-            mModel.get(index).model.set(TabProperties.COUPON_PERSISTED_TAB_DATA_FETCHER, null);
-            mModel.get(index).model.set(TabProperties.SHOPPING_PERSISTED_TAB_DATA_FETCHER, null);
-            mModel.get(index).model.set(TabProperties.STORE_PERSISTED_TAB_DATA_FETCHER, null);
-        }
     }
 
     @VisibleForTesting
@@ -2023,23 +1886,6 @@ class TabListMediator {
     }
 
     /**
-     * The PriceWelcomeMessage should be in view when user enters the tab switcher, so we put it
-     * exactly below the currently selected tab.
-     *
-     * @return Where the PriceWelcomeMessage should be inserted in the {@link TabListModel} when
-     *         user enters the tab switcher.
-     */
-    int getPriceWelcomeMessageInsertionIndex() {
-        assert mGridLayoutManager != null;
-        int spanCount = mGridLayoutManager.getSpanCount();
-        int selectedTabIndex = mModel.indexOfNthTabCard(
-                mTabModelSelector.getTabModelFilterProvider().getCurrentTabModelFilter().index());
-        int indexBelowSelectedTab = (selectedTabIndex / spanCount + 1) * spanCount;
-        int indexAfterLastTab = mModel.getTabIndexBefore(mModel.size()) + 1;
-        return Math.min(indexBelowSelectedTab, indexAfterLastTab);
-    }
-
-    /**
      * Update the layout of tab switcher to make it compact. Because now we have messages within the
      * tabs like PriceMessage and these messages take up the entire row, some operations like
      * closing a tab above the message card will leave a blank grid, so we need to update the
@@ -2049,7 +1895,7 @@ class TabListMediator {
     void updateLayout() {
         // Right now we need to update layout only if there is a price welcome message card in tab
         // switcher.
-        if (!PriceTrackingUtilities.isPriceWelcomeMessageCardEnabled()) return;
+        if ((true)) return;
         assert mGridLayoutManager != null;
         int spanCount = mGridLayoutManager.getSpanCount();
         GridLayoutManager.SpanSizeLookup spanSizeLookup = mGridLayoutManager.getSpanSizeLookup();
@@ -2140,26 +1986,5 @@ class TabListMediator {
 
     private boolean isShowingTabsInMRUOrder() {
         return TabSwitcherCoordinator.isShowingTabsInMRUOrder(mMode);
-    }
-
-    @VisibleForTesting
-    void recordPriceAnnotationsEnabledMetrics() {
-        if (mMode != TabListMode.GRID || !mActionsOnAllRelatedTabs
-                || !PriceTrackingFeatures.isPriceTrackingEligible()) {
-            return;
-        }
-        SharedPreferencesManager preferencesManager = SharedPreferencesManager.getInstance();
-        if (System.currentTimeMillis()
-                        - preferencesManager.readLong(
-                                ChromePreferenceKeys
-                                        .PRICE_TRACKING_ANNOTATIONS_ENABLED_METRICS_TIMESTAMP,
-                                -1)
-                >= PriceTrackingFeatures.getAnnotationsEnabledMetricsWindowDurationMilliSeconds()) {
-            RecordHistogram.recordBooleanHistogram("Commerce.PriceDrop.AnnotationsEnabled",
-                    PriceTrackingUtilities.isTrackPricesOnTabsEnabled());
-            preferencesManager.writeLong(
-                    ChromePreferenceKeys.PRICE_TRACKING_ANNOTATIONS_ENABLED_METRICS_TIMESTAMP,
-                    System.currentTimeMillis());
-        }
     }
 }

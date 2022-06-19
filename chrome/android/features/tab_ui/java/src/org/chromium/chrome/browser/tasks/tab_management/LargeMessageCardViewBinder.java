@@ -41,7 +41,6 @@ class LargeMessageCardViewBinder {
             itemView.setSecondaryActionButtonOnClickListener(
                     model.get(MessageCardViewProperties.SECONDARY_ACTION_BUTTON_CLICK_HANDLER));
         } else if (MessageCardViewProperties.PRICE_DROP == propertyKey) {
-            itemView.setupPriceInfoBox(model.get(MessageCardViewProperties.PRICE_DROP));
         } else if (MessageCardViewProperties.ICON_PROVIDER == propertyKey) {
             itemView.setIconDrawable(
                     model.get(MessageCardViewProperties.ICON_PROVIDER).getIconDrawable());

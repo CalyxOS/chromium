@@ -205,24 +205,9 @@ class TabGridViewBinder {
                 pageInfoButton.setVisibility(View.GONE);
             } else {
                 // Search query and price string are mutually exclusive
-                assert model.get(TabProperties.SHOPPING_PERSISTED_TAB_DATA_FETCHER) == null;
                 pageInfoButton.setVisibility(View.VISIBLE);
                 pageInfoButton.getPrimaryTextView().setText(query);
             }
-        } else if (TabProperties.SHOPPING_PERSISTED_TAB_DATA_FETCHER == propertyKey) {
-            fetchPriceDrop(model, (priceDrop) -> {
-                PriceCardView priceCardView =
-                        (PriceCardView) view.fastFindViewById(R.id.price_info_box_outer);
-                if (priceDrop == null) {
-                    priceCardView.setVisibility(View.GONE);
-                    return;
-                }
-                priceCardView.setPriceStrings(priceDrop.price, priceDrop.previousPrice);
-                priceCardView.setVisibility(View.VISIBLE);
-                priceCardView.setContentDescription(
-                        view.getResources().getString(R.string.accessibility_tab_price_card,
-                                priceDrop.previousPrice, priceDrop.price));
-            }, true);
         } else if (TabProperties.COUPON_PERSISTED_TAB_DATA_FETCHER == propertyKey) {
             CouponCardView couponCardView =
                     (CouponCardView) view.fastFindViewById(R.id.coupon_info_box_outer);
@@ -269,13 +254,6 @@ class TabGridViewBinder {
                 storeHoursCardView.setVisibility(View.GONE);
             }
         } else if (TabProperties.SHOULD_SHOW_PRICE_DROP_TOOLTIP == propertyKey) {
-            if (model.get(TabProperties.SHOULD_SHOW_PRICE_DROP_TOOLTIP)) {
-                PriceCardView priceCardView =
-                        (PriceCardView) view.fastFindViewById(R.id.price_info_box_outer);
-                assert priceCardView.getVisibility() == View.VISIBLE;
-                LargeMessageCardView.showPriceDropTooltip(
-                        priceCardView.findViewById(R.id.current_price));
-            }
         } else if (TabProperties.PAGE_INFO_LISTENER == propertyKey) {
             TabListMediator.TabActionListener listener =
                     model.get(TabProperties.PAGE_INFO_LISTENER);
@@ -337,21 +315,6 @@ class TabGridViewBinder {
 
     private static void fetchPriceDrop(PropertyModel model,
             Callback<ShoppingPersistedTabData.PriceDrop> callback, boolean shouldLog) {
-        if (model.get(TabProperties.SHOPPING_PERSISTED_TAB_DATA_FETCHER) == null) {
-            callback.onResult(null);
-            return;
-        }
-        model.get(TabProperties.SHOPPING_PERSISTED_TAB_DATA_FETCHER)
-                .fetch((shoppingPersistedTabData) -> {
-                    if (shoppingPersistedTabData == null) {
-                        callback.onResult(null);
-                        return;
-                    }
-                    if (shouldLog) {
-                        shoppingPersistedTabData.logPriceDropMetrics(SHOPPING_METRICS_IDENTIFIER);
-                    }
-                    callback.onResult(shoppingPersistedTabData.getPriceDrop());
-                });
     }
 
     private static void updateThumbnail(ViewLookupCachingFrameLayout view, PropertyModel model) {

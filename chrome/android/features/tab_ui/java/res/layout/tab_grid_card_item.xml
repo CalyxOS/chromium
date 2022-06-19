@@ -62,14 +62,6 @@ found in the LICENSE file.
                 app:cornerRadiusTopEnd="@dimen/tab_grid_card_thumbnail_corner_radius_top"
                 app:cornerRadiusBottomStart="@dimen/tab_grid_card_thumbnail_corner_radius_bottom"
                 app:cornerRadiusBottomEnd="@dimen/tab_grid_card_thumbnail_corner_radius_bottom"/>
-            <org.chromium.chrome.browser.tasks.tab_management.PriceCardView
-                android:id="@+id/price_info_box_outer"
-                android:layout_below="@id/tab_title"
-                android:background="@drawable/price_card_scrim"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginStart="4dp"
-                android:visibility="gone"/>
             <org.chromium.chrome.browser.tasks.tab_management.CouponCardView
                 android:id="@+id/coupon_info_box_outer"
                 android:layout_below="@id/tab_title"

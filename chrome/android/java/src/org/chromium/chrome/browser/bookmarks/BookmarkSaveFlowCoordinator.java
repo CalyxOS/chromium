@@ -17,8 +17,6 @@ import org.chromium.base.lifetime.DestroyChecker;
 import org.chromium.base.metrics.RecordUserAction;
 import org.chromium.base.task.PostTask;
 import org.chromium.chrome.R;
-import org.chromium.chrome.browser.commerce.ShoppingFeatures;
-import org.chromium.chrome.browser.subscriptions.SubscriptionsManager;
 import org.chromium.chrome.browser.user_education.IPHCommandBuilder;
 import org.chromium.chrome.browser.user_education.UserEducationHelper;
 import org.chromium.components.bookmarks.BookmarkId;
@@ -53,13 +51,10 @@ public class BookmarkSaveFlowCoordinator {
     /**
      * @param context The {@link Context} associated with this cooridnator.
      * @param bottomSheetController Allows displaying content in the bottom sheet.
-     * @param subscriptionsManager Allows un/subscribing for product updates, used for
-     *         price-tracking.
      * @param userEducationHelper A means of triggering IPH.
      */
     public BookmarkSaveFlowCoordinator(@NonNull Context context,
             @NonNull BottomSheetController bottomSheetController,
-            @Nullable SubscriptionsManager subscriptionsManager,
             @NonNull UserEducationHelper userEducationHelper) {
         mContext = context;
         mBottomSheetController = bottomSheetController;
@@ -70,7 +65,7 @@ public class BookmarkSaveFlowCoordinator {
         mBookmarkSaveFlowView = LayoutInflater.from(mContext).inflate(
                 org.chromium.chrome.R.layout.bookmark_save_flow, /*root=*/null);
         mMediator = new BookmarkSaveFlowMediator(
-                mBookmarkModel, mPropertyModel, mContext, this::close, subscriptionsManager);
+                mBookmarkModel, mPropertyModel, mContext, this::close);
         mChangeProcessor = PropertyModelChangeProcessor.create(mPropertyModel,
                 (ViewLookupCachingFrameLayout) mBookmarkSaveFlowView,
                 new BookmarkSaveFlowViewBinder());
@@ -115,36 +110,6 @@ public class BookmarkSaveFlowCoordinator {
         if (!am.isTouchExplorationEnabled()) {
             setupAutodismiss();
         }
-
-        if (ShoppingFeatures.isShoppingListEnabled()
-                && PowerBookmarkUtils.isBookmarkPriceTracked(mBookmarkModel, bookmarkId)) {
-            if (shown) {
-                showShoppingSaveFlowIPH();
-            } else {
-                mBottomSheetController.addObserver(new EmptyBottomSheetObserver() {
-                    @Override
-                    public void onSheetContentChanged(BottomSheetContent newContent) {
-                        if (newContent == mBottomSheetContent) showShoppingSaveFlowIPH();
-
-                        mBottomSheetController.removeObserver(this);
-                    }
-                });
-            }
-        }
-    }
-
-    /**
-     * Show the IPH for the save flow that tells a user that they can organize their products from
-     * the bookmarks surface.
-     */
-    private void showShoppingSaveFlowIPH() {
-        mUserEducationHelper.requestShowIPH(
-                new IPHCommandBuilder(mBookmarkSaveFlowView.getResources(),
-                        FeatureConstants.SHOPPING_LIST_SAVE_FLOW_FEATURE,
-                        R.string.iph_shopping_list_save_flow, R.string.iph_shopping_list_save_flow)
-                        .setAnchorView(
-                                mBookmarkSaveFlowView.findViewById(R.id.bookmark_select_folder))
-                        .build());
     }
 
     @VisibleForTesting

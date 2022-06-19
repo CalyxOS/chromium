@@ -144,7 +144,7 @@ public class TabGroupUiCoordinator implements TabGroupUiMediator.ResetHandler, T
             boolean actionOnAllRelatedTabs = TabUiFeatureUtilities.isConditionalTabStripEnabled();
             mTabStripCoordinator = new TabListCoordinator(TabListCoordinator.TabListMode.STRIP,
                     mContext, mTabModelSelector, null, null, actionOnAllRelatedTabs, null, null,
-                    TabProperties.UiType.STRIP, null, null, mTabListContainerView, true,
+                    TabProperties.UiType.STRIP, null, mTabListContainerView, true,
                     COMPONENT_NAME, mRootView, onModelTokenChange);
             mTabStripCoordinator.initWithNative(mDynamicResourceLoaderSupplier.get());
 

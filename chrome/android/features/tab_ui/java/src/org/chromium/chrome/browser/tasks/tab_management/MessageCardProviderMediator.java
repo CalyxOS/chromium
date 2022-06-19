@@ -112,10 +112,6 @@ public class MessageCardProviderMediator implements MessageService.MessageObserv
                 assert data instanceof IphMessageService.IphMessageData;
                 return IphMessageCardViewModel.create(mContext, this::invalidateShownMessage,
                         (IphMessageService.IphMessageData) data);
-            case PRICE_MESSAGE:
-                assert data instanceof PriceMessageService.PriceMessageData;
-                return PriceMessageCardViewModel.create(mContext, this::invalidateShownMessage,
-                        (PriceMessageService.PriceMessageData) data);
             case INCOGNITO_REAUTH_PROMO_MESSAGE:
                 assert data
                         instanceof IncognitoReauthPromoMessageService.IncognitoReauthMessageData;

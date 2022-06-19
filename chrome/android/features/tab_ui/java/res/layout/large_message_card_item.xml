@@ -22,15 +22,6 @@ found in the LICENSE file.
             android:layout_height="match_parent"
             android:layout_marginBottom="16dp"
             android:orientation="vertical">
-            <org.chromium.chrome.browser.tasks.tab_management.PriceCardView
-                android:id="@+id/price_info_box"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:layout_gravity="center"
-                android:gravity="center_horizontal"
-                android:visibility="gone" />
             <org.chromium.ui.widget.ChromeImageView
                 android:id="@+id/icon"
                 android:layout_width="26dp"

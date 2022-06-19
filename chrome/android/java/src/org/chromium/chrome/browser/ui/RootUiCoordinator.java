@@ -44,7 +44,6 @@ import org.chromium.chrome.browser.app.omnibox.OmniboxPedalDelegateImpl;
 import org.chromium.chrome.browser.app.tab_activity_glue.TabReparentingController;
 import org.chromium.chrome.browser.back_press.BackPressManager;
 import org.chromium.chrome.browser.bookmarks.BookmarkModel;
-import org.chromium.chrome.browser.bookmarks.PowerBookmarkUtils;
 import org.chromium.chrome.browser.bookmarks.TabBookmarker;
 import org.chromium.chrome.browser.browser_controls.BrowserControlsStateProvider;
 import org.chromium.chrome.browser.commerce.ShoppingFeatures;
@@ -95,7 +94,6 @@ import org.chromium.chrome.browser.omnibox.voice.VoiceRecognitionHandler;
 import org.chromium.chrome.browser.omnibox.voice.VoiceRecognitionHandler.VoiceInteractionSource;
 import org.chromium.chrome.browser.paint_preview.DemoPaintPreview;
 import org.chromium.chrome.browser.preferences.SharedPreferencesManager;
-import org.chromium.chrome.browser.price_tracking.PriceTrackingButtonController;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.search_engines.TemplateUrlServiceFactory;
 import org.chromium.chrome.browser.settings.SettingsLauncherImpl;
@@ -105,7 +103,6 @@ import org.chromium.chrome.browser.share.ShareDelegate.ShareOrigin;
 import org.chromium.chrome.browser.share.ShareUtils;
 import org.chromium.chrome.browser.share.qrcode.QrCodeDialog;
 import org.chromium.chrome.browser.share.scroll_capture.ScrollCaptureManager;
-import org.chromium.chrome.browser.subscriptions.CommerceSubscriptionsServiceFactory;
 import org.chromium.chrome.browser.tab.AccessibilityVisibilityHandler;
 import org.chromium.chrome.browser.tab.AutofillSessionLifetimeController;
 import org.chromium.chrome.browser.tab.RequestDesktopUtils;
@@ -775,17 +772,6 @@ public class RootUiCoordinator
         initMerchantTrustSignals();
         initScrollCapture();
 
-        // TODO(1293885): Remove this validator once we have an API on the backend that sends
-        //                success/failure information back.
-        if (ShoppingFeatures.isShoppingListEnabled()) {
-            mBookmarkModelSupplier.addObserver((bridge) -> {
-                PowerBookmarkUtils.validateBookmarkedCommerceSubscriptions(bridge,
-                        new CommerceSubscriptionsServiceFactory()
-                                .getForLastUsedProfile()
-                                .getSubscriptionsManager());
-            });
-        }
-
         new OneShotCallback<>(mProfileSupplier, this::initHistoryClustersCoordinator);
 
         if (DeviceFormFactor.isWindowOnTablet(mWindowAndroid)
@@ -1090,12 +1076,6 @@ public class RootUiCoordinator
 
             mIdentityDiscController = new IdentityDiscController(
                     mActivity, mActivityLifecycleDispatcher, mProfileSupplier);
-            PriceTrackingButtonController priceTrackingButtonController =
-                    new PriceTrackingButtonController(mActivityTabProvider,
-                            mModalDialogManagerSupplier.get(), getBottomSheetController(),
-                            AppCompatResources.getDrawable(
-                                    mActivity, R.drawable.price_tracking_disabled),
-                            mTabBookmarkerSupplier);
             ReaderModeToolbarButtonController readerModeToolbarButtonController =
                     new ReaderModeToolbarButtonController(mActivityTabProvider,
                             mModalDialogManagerSupplier.get(),
@@ -1146,8 +1126,6 @@ public class RootUiCoordinator
                     AdaptiveToolbarButtonVariant.SHARE, shareButtonController);
             adaptiveToolbarButtonController.addButtonVariant(
                     AdaptiveToolbarButtonVariant.VOICE, voiceToolbarButtonController);
-            adaptiveToolbarButtonController.addButtonVariant(
-                    AdaptiveToolbarButtonVariant.PRICE_TRACKING, priceTrackingButtonController);
             adaptiveToolbarButtonController.addButtonVariant(
                     AdaptiveToolbarButtonVariant.READER_MODE, readerModeToolbarButtonController);
             mButtonDataProviders =

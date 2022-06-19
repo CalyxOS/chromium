@@ -10,8 +10,6 @@ import org.chromium.chrome.browser.lifecycle.ActivityLifecycleDispatcher;
 import org.chromium.chrome.browser.lifecycle.PauseResumeWithNativeObserver;
 import org.chromium.chrome.browser.preferences.ChromePreferenceKeys;
 import org.chromium.chrome.browser.preferences.SharedPreferencesManager;
-import org.chromium.chrome.browser.price_tracking.PriceDropNotificationManager;
-import org.chromium.chrome.browser.price_tracking.PriceTrackingFeatures;
 import org.chromium.chrome.browser.subscriptions.CommerceSubscription.CommerceSubscriptionType;
 import org.chromium.chrome.browser.tabmodel.TabModelSelector;
 
@@ -27,18 +25,14 @@ public class CommerceSubscriptionsService {
 
     private final SubscriptionsManagerImpl mSubscriptionManager;
     private final SharedPreferencesManager mSharedPreferencesManager;
-    private final PriceDropNotificationManager mPriceDropNotificationManager;
     private final CommerceSubscriptionsMetrics mMetrics;
-    private ImplicitPriceDropSubscriptionsManager mImplicitPriceDropSubscriptionsManager;
     private ActivityLifecycleDispatcher mActivityLifecycleDispatcher;
     private PauseResumeWithNativeObserver mPauseResumeWithNativeObserver;
 
     /** Creates a new instance. */
-    CommerceSubscriptionsService(SubscriptionsManagerImpl subscriptionsManager,
-            PriceDropNotificationManager priceDropNotificationManager) {
+    CommerceSubscriptionsService(SubscriptionsManagerImpl subscriptionsManager) {
         mSubscriptionManager = subscriptionsManager;
         mSharedPreferencesManager = SharedPreferencesManager.getInstance();
-        mPriceDropNotificationManager = priceDropNotificationManager;
         mMetrics = new CommerceSubscriptionsMetrics();
     }
 
@@ -56,12 +50,6 @@ public class CommerceSubscriptionsService {
             public void onPauseWithNative() {}
         };
         mActivityLifecycleDispatcher.register(mPauseResumeWithNativeObserver);
-
-        if (CommerceSubscriptionsServiceConfig.isImplicitSubscriptionsEnabled()
-                && mImplicitPriceDropSubscriptionsManager == null) {
-            mImplicitPriceDropSubscriptionsManager = new ImplicitPriceDropSubscriptionsManager(
-                    tabModelSelector, mSubscriptionManager);
-        }
     }
 
     /** Returns the subscriptionsManager. */
@@ -76,10 +64,6 @@ public class CommerceSubscriptionsService {
         if (mActivityLifecycleDispatcher != null) {
             mActivityLifecycleDispatcher.unregister(mPauseResumeWithNativeObserver);
         }
-        if (mImplicitPriceDropSubscriptionsManager != null) {
-            mImplicitPriceDropSubscriptionsManager.destroy();
-            mImplicitPriceDropSubscriptionsManager = null;
-        }
     }
 
     private void maybeRecordMetricsAndInitializeSubscriptions() {
@@ -93,23 +77,5 @@ public class CommerceSubscriptionsService {
         mSharedPreferencesManager.writeLong(
                 CHROME_MANAGED_SUBSCRIPTIONS_TIMESTAMP, System.currentTimeMillis());
         mMetrics.recordAccountWaaStatus();
-        if (!PriceTrackingFeatures.isPriceDropNotificationEligible()) return;
-        recordMetricsForEligibleAccount();
-        if (mImplicitPriceDropSubscriptionsManager != null) {
-            mImplicitPriceDropSubscriptionsManager.initializeSubscriptions();
-        }
-    }
-
-    private void recordMetricsForEligibleAccount() {
-        // Record notification opt-in metrics.
-        mPriceDropNotificationManager.canPostNotificationWithMetricsRecorded();
-        mPriceDropNotificationManager.recordMetricsForNotificationCounts();
-        mSubscriptionManager.getSubscriptions(
-                CommerceSubscriptionType.PRICE_TRACK, false, mMetrics::recordSubscriptionCounts);
-    }
-
-    @VisibleForTesting
-    void setImplicitSubscriptionsManagerForTesting(ImplicitPriceDropSubscriptionsManager manager) {
-        mImplicitPriceDropSubscriptionsManager = manager;
     }
 }

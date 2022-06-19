@@ -14,7 +14,6 @@ import org.chromium.chrome.browser.dom_distiller.TabDistillabilityProvider;
 import org.chromium.chrome.browser.infobar.InfoBarContainer;
 import org.chromium.chrome.browser.media.ui.MediaSessionTabHelper;
 import org.chromium.chrome.browser.password_check.PasswordCheckUkmRecorder;
-import org.chromium.chrome.browser.price_tracking.PriceTrackingFeatures;
 import org.chromium.chrome.browser.tab.state.ShoppingPersistedTabData;
 
 /**
@@ -39,14 +38,6 @@ public final class TabHelpers {
         AutofillAssistantTabHelper.createForTab(tab);
         PasswordCheckUkmRecorder.createForTab(tab);
         AccessibilityTabHelper.createForTab(tab);
-
-        // The following will start prefetching data for the price drops feature, so
-        // we should only do it if the user is eligible for the feature (e.g. has sync enabled).
-        if (!tab.isIncognito() && !((TabImpl) tab).isCustomTab()
-                && PriceTrackingFeatures.isPriceTrackingEligible()
-                && ShoppingPersistedTabData.isPriceTrackingWithOptimizationGuideEnabled()) {
-            ShoppingPersistedTabData.initialize(tab);
-        }
 
         // TODO(jinsukkim): Do this by having something observe new tab creation.
         if (tab.isIncognito()) CipherFactory.getInstance().triggerKeyGeneration();

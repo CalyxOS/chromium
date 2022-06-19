@@ -26,7 +26,6 @@ import org.chromium.chrome.browser.commerce.ShoppingFeatures;
 import org.chromium.chrome.browser.commerce.ShoppingServiceFactory;
 import org.chromium.chrome.browser.partnerbookmarks.PartnerBookmarksReader;
 import org.chromium.chrome.browser.profiles.Profile;
-import org.chromium.chrome.browser.subscriptions.CommerceSubscriptionsServiceFactory;
 import org.chromium.chrome.browser.tab.TabLaunchType;
 import org.chromium.chrome.browser.ui.messages.snackbar.SnackbarManager;
 import org.chromium.chrome.browser.ui.native_page.BasicNativePage;
@@ -205,17 +204,6 @@ public class BookmarkManager
 
         mBookmarkModel = new BookmarkModel();
         mMainView = (ViewGroup) LayoutInflater.from(mContext).inflate(R.layout.bookmark_main, null);
-
-        // TODO(1293885): Remove this validator once we have an API on the backend that sends
-        //                success/failure information back.
-        if (ShoppingFeatures.isShoppingListEnabled()) {
-            PowerBookmarkUtils.validateBookmarkedCommerceSubscriptions(mBookmarkModel,
-                    new CommerceSubscriptionsServiceFactory()
-                            .getForLastUsedProfile()
-                            .getSubscriptionsManager());
-            ShoppingServiceFactory.getForProfile(Profile.getLastUsedRegularProfile())
-                    .scheduleSavedProductUpdate();
-        }
 
         @SuppressWarnings("unchecked")
         SelectableListLayout<BookmarkId> selectableList =

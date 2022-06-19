@@ -40,7 +40,6 @@ class LargeMessageCardView extends FrameLayout {
     private final Context mContext;
     private final int mLandscapeSidePadding;
     private MaterialCardViewNoShadow mMaterialCardViewNoShadow;
-    private PriceCardView mPriceInfoBox;
     private ChromeImageView mIcon;
     private TextView mTitle;
     private TextView mDescription;
@@ -60,7 +59,6 @@ class LargeMessageCardView extends FrameLayout {
         super.onFinishInflate();
 
         mMaterialCardViewNoShadow = findViewById(R.id.large_message_card_view);
-        mPriceInfoBox = findViewById(R.id.price_info_box);
         mIcon = findViewById(R.id.icon);
         mTitle = findViewById(R.id.title);
         mDescription = findViewById(R.id.description);
@@ -152,18 +150,6 @@ class LargeMessageCardView extends FrameLayout {
     }
 
     /**
-     * Setup the price info box.
-     */
-    void setupPriceInfoBox(@Nullable ShoppingPersistedTabData.PriceDrop priceDrop) {
-        if (priceDrop != null) {
-            mPriceInfoBox.setPriceStrings(priceDrop.price, priceDrop.previousPrice);
-            mPriceInfoBox.setVisibility(View.VISIBLE);
-        } else {
-            mPriceInfoBox.setVisibility(View.GONE);
-        }
-    }
-
-    /**
      * Set icon drawable.
      * @param iconDrawable Drawable to be shown.
      */
@@ -202,22 +188,6 @@ class LargeMessageCardView extends FrameLayout {
         } else {
             setPadding(mLandscapeSidePadding, 0, mLandscapeSidePadding, 0);
         }
-    }
-
-    // TODO(crbug.com/1166704): This method has little to do with this view. Move this function to a
-    // price tracking UI utility class.
-    /**
-     * When user taps on "Show me" on PriceWelcomeMessage, we scroll them to the binding tab, then a
-     * blue tooltip appears and points to the price drop indicator.
-     */
-    public static void showPriceDropTooltip(View view) {
-        ViewRectProvider rectProvider = new ViewRectProvider(view);
-        TextBubble textBubble = new TextBubble(view.getContext(), view,
-                R.string.price_drop_spotted_lower_price, R.string.price_drop_spotted_lower_price,
-                true, rectProvider, ChromeAccessibilityUtil.get().isAccessibilityEnabled());
-        textBubble.setFocusable(true);
-        textBubble.setDismissOnTouchInteraction(true);
-        textBubble.show();
     }
 
     /**
