@@ -12,7 +12,6 @@ import androidx.annotation.VisibleForTesting;
 
 import org.chromium.base.annotations.CalledByNative;
 import org.chromium.base.annotations.NativeMethods;
-import org.chromium.chrome.browser.omnibox.voice.VoiceRecognitionHandler.VoiceResult;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.tab.Tab;
 import org.chromium.components.omnibox.AutocompleteMatch;
@@ -250,24 +249,6 @@ public class AutocompleteController {
     }
 
     /**
-     * Pass the voice provider a list representing the results of a voice recognition.
-     * @param results A list containing the results of a voice recognition.
-     */
-    void onVoiceResults(@Nullable List<VoiceResult> results) {
-        if (mNativeController == 0) return;
-        if (results == null || results.size() == 0) return;
-        final int count = Math.min(results.size(), MAX_VOICE_SUGGESTION_COUNT);
-        String[] voiceMatches = new String[count];
-        float[] confidenceScores = new float[count];
-        for (int i = 0; i < count; i++) {
-            voiceMatches[i] = results.get(i).getMatch();
-            confidenceScores[i] = results.get(i).getConfidence();
-        }
-        AutocompleteControllerJni.get().setVoiceMatches(
-                mNativeController, voiceMatches, confidenceScores);
-    }
-
-    /**
      * Updates aqs parameters on the selected match that we will navigate to and returns the
      * updated URL.
      *
@@ -371,8 +352,6 @@ public class AutocompleteController {
                 long nativeAutocompleteControllerAndroid, int matchIndex,
                 long elapsedTimeSinceInputChange, String newQueryText, String[] newQueryParams);
         Tab getMatchingTabForSuggestion(long nativeAutocompleteControllerAndroid, int matchIndex);
-        void setVoiceMatches(long nativeAutocompleteControllerAndroid, String[] matches,
-                float[] confidenceScores);
 
         /**
          * Sends a zero suggest request to the server in order to pre-populate the result cache.

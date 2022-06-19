@@ -50,7 +50,6 @@ import org.chromium.chrome.browser.omnibox.OverrideUrlLoadingDelegate;
 import org.chromium.chrome.browser.omnibox.SearchEngineLogoUtils;
 import org.chromium.chrome.browser.omnibox.UrlFocusChangeListener;
 import org.chromium.chrome.browser.omnibox.suggestions.OmniboxSuggestionsDropdownScrollListener;
-import org.chromium.chrome.browser.omnibox.voice.VoiceRecognitionHandler;
 import org.chromium.chrome.browser.privacy.settings.PrivacyPreferencesManagerImpl;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.tab.Tab;
@@ -343,14 +342,12 @@ public class SearchActivity extends AsyncInitializationActivity
         //                will navigate to Tabbed mode.  Investigate whether this can inflate
         //                the tabbed mode layout in the background instead of CCTs.
         CustomTabsConnection.getInstance().warmup(0);
-        VoiceRecognitionHandler voiceRecognitionHandler =
-                mLocationBarCoordinator.getVoiceRecognitionHandler();
         @SearchType
         int searchType = getSearchType(getIntent().getAction());
         if (isFromQuickActionSearchWidget()) {
             recordQuickActionSearchType(searchType);
         }
-        mSearchBox.onDeferredStartup(searchType, voiceRecognitionHandler, getWindowAndroid());
+        mSearchBox.onDeferredStartup(searchType, getWindowAndroid());
         RecordUserAction.record("SearchWidget.WidgetSelected");
 
         getActivityDelegate().onFinishDeferredInitialization();
@@ -421,8 +418,7 @@ public class SearchActivity extends AsyncInitializationActivity
         if (isFromQuickActionSearchWidget()) {
             recordQuickActionSearchType(searchType);
         }
-        mSearchBox.beginQuery(searchType, getOptionalIntentQuery(),
-                mLocationBarCoordinator.getVoiceRecognitionHandler(), getWindowAndroid());
+        mSearchBox.beginQuery(searchType, getOptionalIntentQuery(), getWindowAndroid());
     }
 
     @Override
