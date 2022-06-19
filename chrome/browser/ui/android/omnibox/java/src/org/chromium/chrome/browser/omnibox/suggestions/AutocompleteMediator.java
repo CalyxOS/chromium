@@ -35,7 +35,6 @@ import org.chromium.chrome.browser.omnibox.UrlBarEditingTextStateProvider;
 import org.chromium.chrome.browser.omnibox.suggestions.AutocompleteController.OnSuggestionsReceivedListener;
 import org.chromium.chrome.browser.omnibox.suggestions.SuggestionsMetrics.RefineActionUsage;
 import org.chromium.chrome.browser.omnibox.suggestions.basic.BasicSuggestionProcessor.BookmarkState;
-import org.chromium.chrome.browser.omnibox.voice.VoiceRecognitionHandler;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.share.ShareDelegate;
 import org.chromium.chrome.browser.tab.Tab;
@@ -399,14 +398,6 @@ class AutocompleteMediator implements OnSuggestionsReceivedListener,
      */
     void setShouldPreventOmniboxAutocomplete(boolean prevent) {
         mShouldPreventOmniboxAutocomplete = prevent;
-    }
-
-    /**
-     * @see AutocompleteController#onVoiceResults(List)
-     */
-    void onVoiceResults(@Nullable List<VoiceRecognitionHandler.VoiceResult> results) {
-        if (!mNativeInitialized || mAutocomplete == null) return;
-        mAutocomplete.onVoiceResults(results);
     }
 
     /**

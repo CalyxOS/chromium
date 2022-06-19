@@ -34,7 +34,6 @@ import org.chromium.chrome.browser.lens.LensMetrics;
 import org.chromium.chrome.browser.ntp.IncognitoCookieControlsManager;
 import org.chromium.chrome.browser.omnibox.OmniboxFocusReason;
 import org.chromium.chrome.browser.omnibox.OmniboxStub;
-import org.chromium.chrome.browser.omnibox.voice.VoiceRecognitionHandler;
 import org.chromium.chrome.browser.tasks.tab_management.TabSwitcher.TabSwitcherViewObserver;
 import org.chromium.components.content_settings.CookieControlsEnforcement;
 import org.chromium.ui.modelutil.PropertyModel;
@@ -107,9 +106,6 @@ class TasksSurfaceMediator implements TabSwitcherViewObserver {
                 if (feedReliabilityLogger != null) {
                     feedReliabilityLogger.onVoiceSearch();
                 }
-                mOmniboxStub.getVoiceRecognitionHandler().startVoiceRecognition(
-                        VoiceRecognitionHandler.VoiceInteractionSource.TASKS_SURFACE);
-                RecordUserAction.record("TasksSurface.FakeBox.VoiceSearch");
             }
         });
 

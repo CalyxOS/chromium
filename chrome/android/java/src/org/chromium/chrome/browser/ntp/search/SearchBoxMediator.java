@@ -21,7 +21,6 @@ import org.chromium.chrome.browser.lens.LensQueryParams;
 import org.chromium.chrome.browser.lifecycle.ActivityLifecycleDispatcher;
 import org.chromium.chrome.browser.lifecycle.DestroyObserver;
 import org.chromium.chrome.browser.lifecycle.NativeInitObserver;
-import org.chromium.chrome.browser.omnibox.voice.AssistantVoiceSearchService;
 import org.chromium.chrome.browser.preferences.SharedPreferencesManager;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.search_engines.TemplateUrlServiceFactory;
@@ -37,14 +36,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 class SearchBoxMediator
-        implements DestroyObserver, NativeInitObserver, AssistantVoiceSearchService.Observer {
+        implements DestroyObserver, NativeInitObserver {
     private final Context mContext;
     private final PropertyModel mModel;
     private final ViewGroup mView;
     private final List<OnClickListener> mVoiceSearchClickListeners = new ArrayList<>();
     private final List<OnClickListener> mLensClickListeners = new ArrayList<>();
     private ActivityLifecycleDispatcher mActivityLifecycleDispatcher;
-    private AssistantVoiceSearchService mAssistantVoiceSearchService;
 
     /** Constructor. */
     SearchBoxMediator(Context context, PropertyModel model, ViewGroup view) {
@@ -71,11 +69,6 @@ class SearchBoxMediator
 
     @Override
     public void onDestroy() {
-        if (mAssistantVoiceSearchService != null) {
-            mAssistantVoiceSearchService.destroy();
-            mAssistantVoiceSearchService = null;
-        }
-
         if (mActivityLifecycleDispatcher != null) {
             mActivityLifecycleDispatcher.unregister(this);
             mActivityLifecycleDispatcher = null;
@@ -84,26 +77,6 @@ class SearchBoxMediator
 
     @Override
     public void onFinishNativeInitialization() {
-        mAssistantVoiceSearchService = new AssistantVoiceSearchService(mContext,
-                ExternalAuthUtils.getInstance(), TemplateUrlServiceFactory.get(),
-                GSAState.getInstance(), this, SharedPreferencesManager.getInstance(),
-                IdentityServicesProvider.get().getIdentityManager(
-                        Profile.getLastUsedRegularProfile()),
-                AccountManagerFacadeProvider.getInstance());
-        onAssistantVoiceSearchServiceChanged();
-    }
-
-    @Override
-    public void onAssistantVoiceSearchServiceChanged() {
-        // Potential race condition between destroy and the observer, see crbug.com/1055274.
-        if (mAssistantVoiceSearchService == null) return;
-
-        Drawable drawable = mAssistantVoiceSearchService.getCurrentMicDrawable();
-        mModel.set(SearchBoxProperties.VOICE_SEARCH_DRAWABLE, drawable);
-
-        ColorStateList colorStateList = mAssistantVoiceSearchService.getButtonColorStateList(
-                BrandedColorScheme.APP_DEFAULT, mContext);
-        mModel.set(SearchBoxProperties.VOICE_SEARCH_COLOR_STATE_LIST, colorStateList);
     }
 
     /** Called to set a click listener for the search box. */

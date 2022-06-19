@@ -7,7 +7,6 @@ package org.chromium.chrome.browser.omnibox;
 import androidx.annotation.Nullable;
 
 import org.chromium.chrome.browser.lens.LensEntryPoint;
-import org.chromium.chrome.browser.omnibox.voice.VoiceRecognitionHandler;
 
 import java.util.List;
 
@@ -39,13 +38,6 @@ public interface OmniboxStub {
      * @return Whether the URL bar is currently focused.
      */
     boolean isUrlBarFocused();
-
-    /**
-     * Get the {@link VoiceRecognitionHandler}.
-     * @return the {@link VoiceRecognitionHandler}
-     */
-    @Nullable
-    VoiceRecognitionHandler getVoiceRecognitionHandler();
 
     /**
      * Adds a URL focus change listener that will be notified when the URL gains or loses focus.

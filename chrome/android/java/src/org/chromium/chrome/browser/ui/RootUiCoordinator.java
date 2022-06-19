@@ -89,8 +89,6 @@ import org.chromium.chrome.browser.messages.MessagesResourceMapperInitializer;
 import org.chromium.chrome.browser.omnibox.OmniboxFocusReason;
 import org.chromium.chrome.browser.omnibox.geo.GeolocationHeader;
 import org.chromium.chrome.browser.omnibox.suggestions.OmniboxPedalDelegate;
-import org.chromium.chrome.browser.omnibox.voice.VoiceRecognitionHandler;
-import org.chromium.chrome.browser.omnibox.voice.VoiceRecognitionHandler.VoiceInteractionSource;
 import org.chromium.chrome.browser.paint_preview.DemoPaintPreview;
 import org.chromium.chrome.browser.preferences.SharedPreferencesManager;
 import org.chromium.chrome.browser.price_tracking.PriceTrackingButtonController;
@@ -272,7 +270,6 @@ public class RootUiCoordinator
     protected OneshotSupplierImpl<Boolean> mPromoShownOneshotSupplier = new OneshotSupplierImpl<>();
     protected Supplier<Tab> mStartSurfaceParentTabSupplier;
     @Nullable
-    private VoiceRecognitionHandler.Observer mMicStateObserver;
     private MediaCaptureOverlayController mCaptureController;
     private @Nullable ScrollCaptureManager mScrollCaptureManager;
     protected final ActivityLifecycleDispatcher mActivityLifecycleDispatcher;
@@ -547,9 +544,6 @@ public class RootUiCoordinator
         }
 
         if (mToolbarManager != null) {
-            if (mMicStateObserver != null && mToolbarManager.getVoiceRecognitionHandler() != null) {
-                mToolbarManager.getVoiceRecognitionHandler().removeObserver(mMicStateObserver);
-            }
             mToolbarManager.destroy();
             mToolbarManager = null;
         }
@@ -1100,19 +1094,11 @@ public class RootUiCoordinator
                     new VoiceToolbarButtonController.VoiceSearchDelegate() {
                         @Override
                         public boolean isVoiceSearchEnabled() {
-                            VoiceRecognitionHandler voiceRecognitionHandler =
-                                    mToolbarManager.getVoiceRecognitionHandler();
-                            if (voiceRecognitionHandler == null) return false;
-                            return voiceRecognitionHandler.isVoiceSearchEnabled();
+                            return false;
                         }
 
                         @Override
                         public void startVoiceRecognition() {
-                            VoiceRecognitionHandler voiceRecognitionHandler =
-                                    mToolbarManager.getVoiceRecognitionHandler();
-                            if (voiceRecognitionHandler == null) return;
-                            voiceRecognitionHandler.startVoiceRecognition(
-                                    VoiceInteractionSource.TOOLBAR);
                         }
                     };
             VoiceToolbarButtonController voiceToolbarButtonController =
@@ -1163,13 +1149,6 @@ public class RootUiCoordinator
                     mInitializeUiWithIncognitoColors, mBackPressManager);
             if (!mSupportsAppMenuSupplier.getAsBoolean()) {
                 mToolbarManager.getToolbar().disableMenuButton();
-            }
-
-            VoiceRecognitionHandler voiceRecognitionHandler =
-                    mToolbarManager.getVoiceRecognitionHandler();
-            if (voiceRecognitionHandler != null) {
-                mMicStateObserver = voiceToolbarButtonController::updateMicButtonState;
-                voiceRecognitionHandler.addObserver(mMicStateObserver);
             }
         }
     }
