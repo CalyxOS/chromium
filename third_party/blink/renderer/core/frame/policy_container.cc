@@ -57,10 +57,20 @@ network::mojom::blink::ReferrerPolicy PolicyContainer::GetReferrerPolicy()
   return policies_->referrer_policy;
 }
 
+network::mojom::blink::IPAddressSpace PolicyContainer::GetIPAddressSpace()
+    const {
+  return policies_->ip_address_space;
+}
+
 void PolicyContainer::UpdateReferrerPolicy(
     network::mojom::blink::ReferrerPolicy policy) {
   policies_->referrer_policy = policy;
   policy_container_host_remote_->SetReferrerPolicy(policy);
+}
+
+void PolicyContainer::SetIPAddressSpace(
+    network::mojom::IPAddressSpace ip_address_space) {
+  policies_->ip_address_space = ip_address_space;
 }
 
 const mojom::blink::PolicyContainerPolicies& PolicyContainer::GetPolicies()

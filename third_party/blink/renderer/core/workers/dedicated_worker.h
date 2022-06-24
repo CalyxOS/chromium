@@ -156,6 +156,7 @@ class CORE_EXPORT DedicatedWorker final
       network::mojom::ReferrerPolicy,
       Vector<network::mojom::blink::ContentSecurityPolicyPtr>
           response_content_security_policies,
+      std::optional<network::mojom::IPAddressSpace> response_address_space,
       mojo::PendingRemote<mojom::blink::BackForwardCacheControllerHost>
           back_forward_cache_controller_host,
       mojo::PendingReceiver<mojom::blink::ReportingObserver>
@@ -169,6 +170,7 @@ class CORE_EXPORT DedicatedWorker final
       network::mojom::ReferrerPolicy,
       Vector<network::mojom::blink::ContentSecurityPolicyPtr>
           response_content_security_policies,
+      std::optional<network::mojom::IPAddressSpace> response_address_space,
       mojo::PendingRemote<mojom::blink::BackForwardCacheControllerHost>
           back_forward_cache_controller_host,
       mojo::PendingReceiver<mojom::blink::ReportingObserver>
@@ -180,6 +182,7 @@ class CORE_EXPORT DedicatedWorker final
       network::mojom::ReferrerPolicy,
       Vector<network::mojom::blink::ContentSecurityPolicyPtr>
           response_content_security_policies,
+      std::optional<network::mojom::IPAddressSpace> response_address_space,
       mojo::PendingReceiver<mojom::blink::ReportingObserver>
           coep_reporting_observer,
       mojo::PendingReceiver<mojom::blink::ReportingObserver>
