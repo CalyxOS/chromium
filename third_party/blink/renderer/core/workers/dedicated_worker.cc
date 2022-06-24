@@ -300,6 +300,7 @@ void DedicatedWorker::OnHostCreated(
                   nullptr /* worker_main_script_load_params */,
                   network::mojom::ReferrerPolicy::kDefault,
                   Vector<network::mojom::blink::ContentSecurityPolicyPtr>(),
+                  std::nullopt /* response_address_space */,
                   String() /* source_code */, reject_coep_unsafe_none,
                   std::move(back_forward_cache_controller_host));
     return;
@@ -353,6 +354,7 @@ void DedicatedWorker::OnScriptLoadStarted(
   ContinueStart(script_request_url_, std::move(worker_main_script_load_params),
                 network::mojom::ReferrerPolicy::kDefault,
                 Vector<network::mojom::blink::ContentSecurityPolicyPtr>(),
+                std::nullopt /* response_address_space */,
                 String() /* source_code */, RejectCoepUnsafeNone(false),
                 std::move(back_forward_cache_controller_host));
 }
@@ -425,6 +427,7 @@ void DedicatedWorker::OnFinished(
             ? mojo::Clone(classic_script_loader_->GetContentSecurityPolicy()
                               ->GetParsedPolicies())
             : Vector<network::mojom::blink::ContentSecurityPolicyPtr>(),
+        classic_script_loader_->ResponseAddressSpace(),
         classic_script_loader_->SourceText(), RejectCoepUnsafeNone(false),
         std::move(back_forward_cache_controller_host));
     probe::ScriptImported(GetExecutionContext(),
@@ -441,6 +444,7 @@ void DedicatedWorker::ContinueStart(
     network::mojom::ReferrerPolicy referrer_policy,
     Vector<network::mojom::blink::ContentSecurityPolicyPtr>
         response_content_security_policies,
+    std::optional<network::mojom::IPAddressSpace> response_address_space,
     const String& source_code,
     RejectCoepUnsafeNone reject_coep_unsafe_none,
     mojo::PendingRemote<mojom::blink::BackForwardCacheControllerHost>
@@ -450,7 +454,8 @@ void DedicatedWorker::ContinueStart(
   context_proxy_->StartWorkerGlobalScope(
       CreateGlobalScopeCreationParams(
           script_url, referrer_policy,
-          std::move(response_content_security_policies)),
+          std::move(response_content_security_policies),
+          response_address_space),
       std::move(worker_main_script_load_params), options_, script_url,
       *outside_fetch_client_settings_object_, v8_stack_trace_id_, source_code,
       reject_coep_unsafe_none, token_,
@@ -487,7 +492,8 @@ DedicatedWorker::CreateGlobalScopeCreationParams(
     const KURL& script_url,
     network::mojom::ReferrerPolicy referrer_policy,
     Vector<network::mojom::blink::ContentSecurityPolicyPtr>
-        response_content_security_policies) {
+        response_content_security_policies,
+        std::optional<network::mojom::IPAddressSpace> response_address_space) {
   base::UnguessableToken parent_devtools_token;
   std::unique_ptr<WorkerSettings> settings;
   ExecutionContext* execution_context = GetExecutionContext();
@@ -536,6 +542,7 @@ DedicatedWorker::CreateGlobalScopeCreationParams(
       execution_context->GetSecurityOrigin(),
       execution_context->IsSecureContext(), execution_context->GetHttpsState(),
       MakeGarbageCollected<WorkerClients>(), CreateWebContentSettingsClient(),
+      response_address_space,
       OriginTrialContext::GetInheritedTrialFeatures(execution_context).get(),
       parent_devtools_token, std::move(settings),
       mojom::blink::V8CacheOptions::kDefault,
