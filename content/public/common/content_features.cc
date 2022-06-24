@@ -186,7 +186,7 @@ BASE_FEATURE(kBlockInsecurePrivateNetworkRequestsFromPrivate,
 //  - kBlockInsecurePrivateNetworkRequests
 BASE_FEATURE(kBlockInsecurePrivateNetworkRequestsFromUnknown,
              "BlockInsecurePrivateNetworkRequestsFromUnknown",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             base::FEATURE_ENABLED_BY_DEFAULT);
 
 // Enables use of the PrivateNetworkAccessNonSecureContextsAllowed deprecation
 // trial. This is a necessary yet insufficient condition: documents that wish to
