@@ -29,6 +29,7 @@
 
 #include <memory>
 #include "base/memory/scoped_refptr.h"
+#include "services/network/public/mojom/ip_address_space.mojom-blink.h"
 #include "third_party/blink/public/common/features.h"
 #include "third_party/blink/public/mojom/fetch/fetch_api_request.mojom-blink.h"
 #include "third_party/blink/renderer/core/execution_context/execution_context.h"
@@ -98,7 +99,8 @@ String CheckSameOriginEnforcement(const KURL& request_url,
 
 }  // namespace
 
-WorkerClassicScriptLoader::WorkerClassicScriptLoader() {}
+WorkerClassicScriptLoader::WorkerClassicScriptLoader()
+    : response_address_space_(network::mojom::IPAddressSpace::kPublic) {}
 
 void WorkerClassicScriptLoader::LoadSynchronously(
     ExecutionContext& execution_context,
@@ -238,6 +240,7 @@ void WorkerClassicScriptLoader::DidReceiveResponse(
   identifier_ = identifier;
   response_url_ = response.ResponseUrl();
   response_encoding_ = response.TextEncodingName();
+  response_address_space_ = response.AddressSpace();
 
   referrer_policy_ = response.HttpHeaderField(http_names::kReferrerPolicy);
   ProcessContentSecurityPolicy(response);
