@@ -92,6 +92,8 @@ DedicatedWorkerGlobalScope* DedicatedWorkerGlobalScope::Create(
   KURL response_script_url = creation_params->script_url;
   network::mojom::ReferrerPolicy response_referrer_policy =
       creation_params->referrer_policy;
+  std::optional<network::mojom::IPAddressSpace> response_address_space =
+      creation_params->response_address_space;
   const bool parent_cross_origin_isolated_capability =
       creation_params->parent_cross_origin_isolated_capability;
   const bool parent_is_isolated_context =
@@ -120,7 +122,7 @@ DedicatedWorkerGlobalScope* DedicatedWorkerGlobalScope::Create(
     // Pass dummy origin trial tokens here as it is already set to outside's
     // origin trial tokens in DedicatedWorkerGlobalScope's constructor.
     global_scope->Initialize(response_script_url, response_referrer_policy,
-                             std::move(response_csp),
+                             *response_address_space, std::move(response_csp),
                              nullptr /* response_origin_trial_tokens */);
     return global_scope;
   } else {
@@ -247,6 +249,7 @@ const AtomicString& DedicatedWorkerGlobalScope::InterfaceName() const {
 void DedicatedWorkerGlobalScope::Initialize(
     const KURL& response_url,
     network::mojom::ReferrerPolicy response_referrer_policy,
+    network::mojom::IPAddressSpace response_address_space,
     Vector<network::mojom::blink::ContentSecurityPolicyPtr> response_csp,
     const Vector<String>* /* response_origin_trial_tokens */) {
   TRACE_EVENT("blink.worker", "DedicatedWorkerGlobalScope::Initialize",
@@ -261,6 +264,9 @@ void DedicatedWorkerGlobalScope::Initialize(
   // Step 14.5. "Set worker global scope's referrer policy to the result of
   // parsing the `Referrer-Policy` header of response."
   SetReferrerPolicy(response_referrer_policy);
+
+  // https://wicg.github.io/cors-rfc1918/#integration-html
+  SetAddressSpace(response_address_space);
 
   // The following is the Content-Security-Policy part of "Initialize worker
   // global scope's policy container"
@@ -501,6 +507,7 @@ void DedicatedWorkerGlobalScope::DidFetchClassicScript(
   // Pass dummy origin trial tokens here as it is already set to outside's
   // origin trial tokens in DedicatedWorkerGlobalScope's constructor.
   Initialize(classic_script_loader->ResponseURL(), response_referrer_policy,
+             classic_script_loader->ResponseAddressSpace(),
              classic_script_loader->GetContentSecurityPolicy()
                  ? mojo::Clone(classic_script_loader->GetContentSecurityPolicy()
                                    ->GetParsedPolicies())
