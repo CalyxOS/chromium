@@ -49,6 +49,7 @@ LayoutWorkletGlobalScopeProxy::LayoutWorkletGlobalScopeProxy(
       window->IsSecureContext(), window->GetHttpsState(),
       nullptr /* worker_clients */,
       frame_client->CreateWorkerContentSettingsClient(),
+      window->AddressSpace(),
       OriginTrialContext::GetInheritedTrialFeatures(window).get(),
       base::UnguessableToken::Create(), nullptr /* worker_settings */,
       mojom::blink::V8CacheOptions::kDefault, module_responses_map,
