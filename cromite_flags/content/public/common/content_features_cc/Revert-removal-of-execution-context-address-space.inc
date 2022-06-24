@@ -1,0 +1,2 @@
+SET_CROMITE_FEATURE_ENABLED(kBlockInsecurePrivateNetworkRequests);
+SET_CROMITE_FEATURE_ENABLED(kBlockInsecurePrivateNetworkRequestsFromPrivate);
