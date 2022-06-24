@@ -32,6 +32,7 @@
 #include "base/task/single_thread_task_runner.h"
 #include "base/time/time.h"
 #include "services/network/public/mojom/fetch_api.mojom-blink-forward.h"
+#include "services/network/public/mojom/ip_address_space.mojom-blink-forward.h"
 #include "third_party/blink/public/common/loader/worker_main_script_load_parameters.h"
 #include "third_party/blink/public/common/tokens/tokens.h"
 #include "third_party/blink/public/mojom/loader/code_cache.mojom-blink-forward.h"
@@ -175,6 +176,7 @@ class CORE_EXPORT WorkerGlobalScope
   virtual void Initialize(
       const KURL& response_url,
       network::mojom::ReferrerPolicy response_referrer_policy,
+      network::mojom::IPAddressSpace response_address_space,
       Vector<network::mojom::blink::ContentSecurityPolicyPtr> response_csp,
       const Vector<String>* response_origin_trial_tokens) = 0;
 
