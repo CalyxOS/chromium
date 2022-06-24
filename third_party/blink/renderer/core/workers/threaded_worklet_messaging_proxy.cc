@@ -85,6 +85,7 @@ void ThreadedWorkletMessagingProxy::Initialize(
         /*starter_https_state=*/HttpsState::kNone,
         /*worker_clients=*/nullptr,
         /*content_settings_client=*/nullptr,
+        /*response_address_space*/network::mojom::IPAddressSpace::kUnknown,
         /*inherited_trial_features=*/nullptr,
         /*parent_devtools_token=*/
         client_provided_global_scope_creation_params->devtools_token,
@@ -130,6 +131,7 @@ void ThreadedWorkletMessagingProxy::Initialize(
           window->GetReferrerPolicy(), window->GetSecurityOrigin(),
           window->IsSecureContext(), window->GetHttpsState(), worker_clients,
           frame_client->CreateWorkerContentSettingsClient(),
+          window->AddressSpace(),
           OriginTrialContext::GetInheritedTrialFeatures(window).get(),
           base::UnguessableToken::Create(),
           std::make_unique<WorkerSettings>(window->GetFrame()->GetSettings()),
