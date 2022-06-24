@@ -13,6 +13,7 @@
 #include "mojo/public/cpp/bindings/pending_remote.h"
 #include "net/storage_access_api/status.h"
 #include "services/metrics/public/cpp/ukm_source_id.h"
+#include "services/network/public/mojom/ip_address_space.mojom-blink-forward.h"
 #include "services/network/public/mojom/referrer_policy.mojom-blink-forward.h"
 #include "third_party/blink/public/common/permissions_policy/permissions_policy.h"
 #include "third_party/blink/public/common/tokens/tokens.h"
@@ -63,6 +64,7 @@ struct CORE_EXPORT GlobalScopeCreationParams final {
       HttpsState starter_https_state,
       WorkerClients*,
       std::unique_ptr<WebContentSettingsClient>,
+      std::optional<network::mojom::IPAddressSpace>,
       const Vector<mojom::blink::OriginTrialFeature>* inherited_trial_features,
       const base::UnguessableToken& parent_devtools_token,
       std::unique_ptr<WorkerSettings>,
@@ -186,6 +188,11 @@ struct CORE_EXPORT GlobalScopeCreationParams final {
   CrossThreadPersistent<WorkerClients> worker_clients;
 
   std::unique_ptr<WebContentSettingsClient> content_settings_client;
+
+  // Worker script response's address space. This is valid only when the worker
+  // script is fetched on the main thread (i.e., when
+  // |off_main_thread_fetch_option| is kDisabled).
+  std::optional<network::mojom::IPAddressSpace> response_address_space;
 
   base::UnguessableToken parent_devtools_token;
 
