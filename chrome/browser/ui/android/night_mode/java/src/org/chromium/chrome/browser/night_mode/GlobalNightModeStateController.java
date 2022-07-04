@@ -133,7 +133,7 @@ class GlobalNightModeStateController
     }
 
     private void updateNightMode() {
-        boolean powerSaveModeOn = mPowerSaveModeMonitor.powerSavingIsOn();
+        boolean powerSaveModeOn = false;
         final int theme = NightModeUtils.getThemeSetting();
         final boolean newNightModeOn =
                 (theme == ThemeType.SYSTEM_DEFAULT
