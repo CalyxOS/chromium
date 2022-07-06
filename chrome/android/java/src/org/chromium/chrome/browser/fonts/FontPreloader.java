@@ -85,6 +85,7 @@ public class FontPreloader {
         mThreadChecker.assertOnValidThread();
         if (!mInitialized) {
             mInitialized = true;
+            if ((true)) return;
             context = context.getApplicationContext();
             OnFontCallback callback = new OnFontCallback();
             for (int font : mFonts) {
