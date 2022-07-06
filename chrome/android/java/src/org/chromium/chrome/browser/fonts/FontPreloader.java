@@ -62,6 +62,7 @@ public class FontPreloader {
         mThreadChecker.assertOnValidThread();
         if (!mInitialized) {
             mInitialized = true;
+            if ((true)) return;
             context = context.getApplicationContext();
             // Create an empty callback so we can call the async version of #getFont.
             var callback =
