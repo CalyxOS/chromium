@@ -2858,7 +2858,7 @@ void DocumentLoader::CommitNavigation() {
     // that the name would be nulled and if the name is accessed after we will
     // fire a UseCounter. If we decide to move forward with this change, we'd
     // actually clean the name here.
-    // frame_->tree().setName(g_null_atom);
+    frame_->Tree().SetName(g_null_atom);
     frame_->Tree().ExperimentalSetNulledName();
   }
 
@@ -2869,6 +2869,7 @@ void DocumentLoader::CommitNavigation() {
     // TODO(shuuran): CrossSiteCrossBrowsingContextGroupSetNulledName will just
     // record the fact that the name would be nulled and if the name is accessed
     // after we will fire a UseCounter.
+    frame_->Tree().SetName(g_null_atom);
     frame_->Tree().CrossSiteCrossBrowsingContextGroupSetNulledName();
   }
 
