@@ -278,7 +278,10 @@ class PLATFORM_EXPORT ResourceFetcher
                          uint32_t inflight_keepalive_bytes);
   blink::mojom::ControllerServiceWorkerMode IsControlledByServiceWorker() const;
 
-  String GetCacheIdentifier(const KURL& url) const;
+  String GetCacheIdentifier(const KURL& url,
+    const ResourceRequest& resource_request) const;
+  String GetCacheIdentifier(const KURL& url,
+    scoped_refptr<const blink::SecurityOrigin> origin) const;
 
   // If `url` exists as a resource in a subresource bundle in this frame,
   // returns its UnguessableToken; otherwise, returns std::nullopt.
