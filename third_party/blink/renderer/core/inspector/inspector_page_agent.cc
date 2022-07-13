@@ -174,9 +174,9 @@ Resource* CachedResource(LocalFrame* frame,
   if (!document)
     return nullptr;
   Resource* cached_resource = document->Fetcher()->CachedResource(url);
-  if (!cached_resource) {
+  if (!cached_resource && document->TopFrameOrigin()) {
     cached_resource = MemoryCache::Get()->ResourceForURL(
-        url, document->Fetcher()->GetCacheIdentifier(url));
+        url, document->Fetcher()->GetCacheIdentifier(url, document->TopFrameOrigin()));
   }
   if (!cached_resource)
     cached_resource = loader->ResourceForURL(url);
