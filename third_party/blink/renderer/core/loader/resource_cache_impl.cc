@@ -65,7 +65,7 @@ void ResourceCacheImpl::Trace(Visitor* visitor) const {
   visitor->Trace(receivers_);
 }
 
-void ResourceCacheImpl::Contains(const KURL& url, ContainsCallback callback) {
+void ResourceCacheImpl::Contains(const KURL& url, const String& cache_identifier, ContainsCallback callback) {
   Document* document = frame_->GetDocument();
   DCHECK(document);
   auto result = mojom::blink::ResourceCacheContainsResult::New();
@@ -77,7 +77,7 @@ void ResourceCacheImpl::Contains(const KURL& url, ContainsCallback callback) {
     return;
   }
 
-  result->is_in_cache = MemoryCache::Get()->ResourceForURL(url) != nullptr;
+  result->is_in_cache = MemoryCache::Get()->ResourceForURL(url, cache_identifier) != nullptr;
   result->is_visible = document->IsPageVisible();
   result->lifecycle_state =
       ConvertFrameLifecycleState(context->ContextPauseState());
