@@ -122,10 +122,7 @@ class PLATFORM_EXPORT MemoryCache final : public GarbageCollected<MemoryCache>,
   // Do not use this method outside test purposes.
   // A resourfe URL is not enough to do a correct MemoryCache lookup, and
   // relying on the method would likely yield wrong results.
-  Resource* ResourceForURLForTesting(const KURL&) const;
-
   Resource* ResourceForURL(const KURL&, const String& cache_identifier) const;
-  HeapVector<Member<Resource>> ResourcesForURL(const KURL&) const;
 
   void Add(Resource*);
   void Remove(Resource*);
@@ -168,6 +165,8 @@ class PLATFORM_EXPORT MemoryCache final : public GarbageCollected<MemoryCache>,
       base::MemoryPressureListener::MemoryPressureLevel) override;
 
  private:
+   HeapVector<Member<Resource>> ResourcesForURL(const KURL&) const;
+
   // A URL-based map of all resources that are in the cache (including the
   // freshest version of objects that are currently being referenced by a Web
   // page). removeFragmentIdentifierIfNeeded() should be called for the url
