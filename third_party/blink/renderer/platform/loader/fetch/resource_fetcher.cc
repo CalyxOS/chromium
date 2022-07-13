@@ -992,7 +992,7 @@ Resource* ResourceFetcher::CreateResourceForStaticData(
   if (!archive_ && factory.GetType() == ResourceType::kRaw)
     return nullptr;
 
-  const String cache_identifier = GetCacheIdentifier(url);
+  const String cache_identifier = GetCacheIdentifier(url, params.GetResourceRequest());
   // Most off-main-thread resource fetches use Resource::kRaw and don't reach
   // this point, but off-main-thread module fetches might.
   if (IsMainThread()) {
@@ -1408,7 +1408,8 @@ Resource* ResourceFetcher::RequestResource(FetchParameters& params,
       MakePreloadedResourceBlockOnloadIfNeeded(resource, params);
     } else if (IsMainThread()) {
       resource = MemoryCache::Get()->ResourceForURL(
-          params.Url(), GetCacheIdentifier(params.Url()));
+          params.Url(),
+            GetCacheIdentifier(params.Url(), params.GetResourceRequest()));
       if (resource) {
         policy = DetermineRevalidationPolicy(resource_type, params, *resource,
                                              is_static_data);
@@ -1719,7 +1720,8 @@ Resource* ResourceFetcher::CreateResourceForLoading(
     const FetchParameters& params,
     const ResourceFactory& factory) {
   const String cache_identifier =
-      GetCacheIdentifier(params.GetResourceRequest().Url());
+      GetCacheIdentifier(params.GetResourceRequest().Url(),
+        params.GetResourceRequest());
   DCHECK(!IsMainThread() || params.IsStaleRevalidation() ||
          !MemoryCache::Get()->ResourceForURL(params.GetResourceRequest().Url(),
                                              cache_identifier));
@@ -2788,10 +2790,23 @@ void ResourceFetcher::UpdateAllImageResourcePriorities() {
   to_be_removed.clear();
 }
 
-String ResourceFetcher::GetCacheIdentifier(const KURL& url) const {
+String ResourceFetcher::GetCacheIdentifier(const KURL& url,
+              const ResourceRequest& resource_request) const {
+  if (const scoped_refptr<const SecurityOrigin> top_origin = resource_request.TopFrameOrigin()) {
+    return ResourceFetcher::GetCacheIdentifier(url, top_origin);
+  } else if (const scoped_refptr<const SecurityOrigin> requestor_origin = resource_request.RequestorOrigin()) {
+    return ResourceFetcher::GetCacheIdentifier(url, requestor_origin);
+  }
+  NOTREACHED();
+}
+
+String ResourceFetcher::GetCacheIdentifier(const KURL& url,
+              scoped_refptr<const blink::SecurityOrigin> origin) const {
+  String origin_url = origin ? origin->ToRawString() : "";
+
   if (properties_->GetControllerServiceWorkerMode() !=
       mojom::ControllerServiceWorkerMode::kNoController) {
-    return String::Number(properties_->ServiceWorkerId());
+    return origin_url + " " + String::Number(properties_->ServiceWorkerId());
   }
 
   // Requests that can be satisfied via `archive_` (i.e. MHTML) or
@@ -2804,7 +2819,7 @@ String ResourceFetcher::GetCacheIdentifier(const KURL& url) const {
   if (bundle)
     return bundle->GetCacheIdentifier();
 
-  return MemoryCache::DefaultCacheIdentifier();
+  return origin_url;
 }
 
 std::optional<base::UnguessableToken>
