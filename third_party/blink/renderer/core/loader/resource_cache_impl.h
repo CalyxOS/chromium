@@ -36,7 +36,7 @@ class CORE_EXPORT ResourceCacheImpl final
 
  private:
   // mojom::blink::ResourceCache implementations:
-  void Contains(const KURL& url, ContainsCallback callback) override;
+  void Contains(const KURL& url, const String& cache_identifier, ContainsCallback callback) override;
 
   Member<LocalFrame> frame_;
   HeapMojoReceiverSet<mojom::blink::ResourceCache, ResourceCacheImpl>
