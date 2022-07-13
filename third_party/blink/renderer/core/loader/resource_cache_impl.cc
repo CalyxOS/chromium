@@ -77,7 +77,8 @@ void ResourceCacheImpl::Contains(const KURL& url, ContainsCallback callback) {
     return;
   }
 
-  result->is_in_cache = MemoryCache::Get()->ResourceForURL(url) != nullptr;
+  result->is_in_cache = MemoryCache::Get()->ResourceForURL(url,
+      document->Fetcher()->GetCacheIdentifier(url, document->TopFrameOrigin())) != nullptr;
   result->is_visible = document->IsPageVisible();
   result->lifecycle_state =
       ConvertFrameLifecycleState(context->ContextPauseState());
