@@ -260,6 +260,9 @@ void WorkerFetchContext::AddResourceTiming(
 
 void WorkerFetchContext::ModifyRequestForMixedContentUpgrade(
     ResourceRequest& request) {
+  if (!request.TopFrameOrigin())
+    request.SetTopFrameOrigin(GetTopFrameOrigin());
+
   MixedContentChecker::UpgradeInsecureRequest(
       request, &GetResourceFetcherProperties().GetFetchClientSettingsObject(),
       global_scope_, mojom::blink::RequestContextFrameType::kNone,
