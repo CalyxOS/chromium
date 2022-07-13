@@ -117,9 +117,7 @@ class PLATFORM_EXPORT MemoryCache final : public GarbageCollected<MemoryCache>,
     TypeStatistic other;
   };
 
-  Resource* ResourceForURL(const KURL&) const;
   Resource* ResourceForURL(const KURL&, const String& cache_identifier) const;
-  HeapVector<Member<Resource>> ResourcesForURL(const KURL&) const;
 
   void Add(Resource*);
   void Remove(Resource*);
@@ -169,6 +167,8 @@ class PLATFORM_EXPORT MemoryCache final : public GarbageCollected<MemoryCache>,
       base::MemoryPressureListener::MemoryPressureLevel) override;
 
  private:
+   HeapVector<Member<Resource>> ResourcesForURL(const KURL&) const;
+
   enum PruneStrategy {
     // Automatically decide how much to prune.
     kAutomaticPrune,
