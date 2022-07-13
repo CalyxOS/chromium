@@ -879,7 +879,8 @@ Resource* ResourceFetcher::CreateResourceForStaticData(
   if (!archive_ && factory.GetType() == ResourceType::kRaw)
     return nullptr;
 
-  const String cache_identifier = GetCacheIdentifier(url);
+  const String cache_identifier = GetCacheIdentifier(url,
+                          params.GetResourceRequest().TopFrameOrigin());
   // Most off-main-thread resource fetches use Resource::kRaw and don't reach
   // this point, but off-main-thread module fetches might.
   if (IsMainThread()) {
@@ -1360,7 +1361,9 @@ Resource* ResourceFetcher::RequestResource(FetchParameters& params,
         resource = nullptr;
       } else {
         resource = MemoryCache::Get()->ResourceForURL(
-            params.Url(), GetCacheIdentifier(params.Url()));
+            params.Url(),
+            GetCacheIdentifier(params.Url(),
+              params.GetResourceRequest().TopFrameOrigin()));
       }
       if (resource) {
         policy = DetermineRevalidationPolicy(resource_type, params, *resource,
@@ -1468,6 +1471,8 @@ Resource* ResourceFetcher::RequestResource(FetchParameters& params,
     if (resource_cache_remote_.is_bound()) {
       resource_cache_remote_->Contains(
           params.Url(),
+          GetCacheIdentifier(params.Url(),
+                        params.GetResourceRequest().TopFrameOrigin()),
           WTF::BindOnce(&ResourceFetcher::OnResourceCacheContainsFinished,
                         WrapWeakPersistent(this), base::TimeTicks::Now(),
                         resource_request.GetRequestDestination()));
@@ -1619,7 +1624,8 @@ Resource* ResourceFetcher::CreateResourceForLoading(
     const FetchParameters& params,
     const ResourceFactory& factory) {
   const String cache_identifier =
-      GetCacheIdentifier(params.GetResourceRequest().Url());
+      GetCacheIdentifier(params.GetResourceRequest().Url(),
+        params.GetResourceRequest().TopFrameOrigin());
   if (!base::FeatureList::IsEnabled(
           blink::features::kScopeMemoryCachePerContext)) {
     DCHECK(!IsMainThread() || params.IsStaleRevalidation() ||
@@ -2629,10 +2635,13 @@ void ResourceFetcher::UpdateAllImageResourcePriorities() {
   to_be_removed.clear();
 }
 
-String ResourceFetcher::GetCacheIdentifier(const KURL& url) const {
+String ResourceFetcher::GetCacheIdentifier(const KURL& url,
+              scoped_refptr<const blink::SecurityOrigin> origin) const {
+  String origin_url = origin ? origin->ToRawString() : "";
+
   if (properties_->GetControllerServiceWorkerMode() !=
       mojom::ControllerServiceWorkerMode::kNoController) {
-    return String::Number(properties_->ServiceWorkerId());
+    return origin_url + " " + String::Number(properties_->ServiceWorkerId());
   }
 
   // Requests that can be satisfied via `archive_` (i.e. MHTML) or
@@ -2645,7 +2654,7 @@ String ResourceFetcher::GetCacheIdentifier(const KURL& url) const {
   if (bundle)
     return bundle->GetCacheIdentifier();
 
-  return MemoryCache::DefaultCacheIdentifier();
+  return origin_url;
 }
 
 absl::optional<base::UnguessableToken>
