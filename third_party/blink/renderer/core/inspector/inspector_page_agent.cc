@@ -174,7 +174,7 @@ Resource* CachedResource(LocalFrame* frame,
   if (!cached_resource) {
     cached_resource = MemoryCache::Get()->ResourceForURL(
         url, document->Fetcher()->GetCacheIdentifier(
-                 url, /*skip_service_worker=*/false));
+                 url, /*skip_service_worker=*/false, document->TopFrameOrigin()));
   }
   if (!cached_resource)
     cached_resource = loader->ResourceForURL(url);
