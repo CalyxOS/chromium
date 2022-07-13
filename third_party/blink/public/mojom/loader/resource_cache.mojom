@@ -18,7 +18,7 @@ import "url/mojom/url.mojom";
 // histograms.
 interface ResourceCache {
   // Checks whether there is a cached resource for `url`.
-  Contains(url.mojom.Url url) => (ResourceCacheContainsResult result);
+  Contains(url.mojom.Url url, string cache_identifier) => (ResourceCacheContainsResult result);
 };
 
 // A result of Contains() method.
