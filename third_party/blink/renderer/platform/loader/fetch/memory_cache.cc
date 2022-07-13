@@ -207,7 +207,7 @@ void MemoryCache::RemoveInternal(ResourceMap* resource_map,
 }
 
 bool MemoryCache::Contains(const Resource* resource) const {
-  if (!resource || resource->Url().IsEmpty())
+  if (!resource || resource->Url().IsEmpty() || resource->CacheIdentifier().empty())
     return false;
 
   const auto resource_maps_it =
@@ -223,12 +223,9 @@ bool MemoryCache::Contains(const Resource* resource) const {
   return resource == resources_it->value->GetResource();
 }
 
-Resource* MemoryCache::ResourceForURL(const KURL& resource_url) const {
-  return ResourceForURL(resource_url, DefaultCacheIdentifier());
-}
-
 Resource* MemoryCache::ResourceForURL(const KURL& resource_url,
                                       const String& cache_identifier) const {
+  if (cache_identifier.empty()) return nullptr;
   DCHECK(WTF::IsMainThread());
   if (!resource_url.IsValid() || resource_url.IsNull())
     return nullptr;
