@@ -2441,7 +2441,7 @@ bool InspectorNetworkAgent::FetchResourceContent(Document* document,
   if (!cached_resource) {
     cached_resource = MemoryCache::Get()->ResourceForURL(
         url, document->Fetcher()->GetCacheIdentifier(
-                 url, /*skip_service_worker=*/false));
+                 url, /*skip_service_worker=*/false, document->TopFrameOrigin()));
   }
   if (cached_resource && InspectorPageAgent::CachedResourceContent(
                              cached_resource, content, base64_encoded)) {
