@@ -282,7 +282,12 @@ class PLATFORM_EXPORT ResourceFetcher
   // `url` is used for finding a matching WebBundle.
   // If `skip_service_worker` is true, the identifier won't be a ServiceWorker's
   // identifier to keep the cache separated.
-  String GetCacheIdentifier(const KURL& url, bool skip_service_worker) const;
+  String GetCacheIdentifier(const KURL& url, bool skip_service_worker,
+    const ResourceRequest& resource_request) const;
+  String GetCacheIdentifier(const KURL& url, bool skip_service_worker,
+    scoped_refptr<const blink::SecurityOrigin> origin) const;
+  String GetCacheIdentifier(const KURL& url, bool skip_service_worker,
+    const String origin_url) const;
 
   // If `url` exists as a resource in a subresource bundle in this frame,
   // returns its UnguessableToken; otherwise, returns std::nullopt.
