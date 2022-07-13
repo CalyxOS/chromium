@@ -851,6 +851,8 @@ void FrameFetchContext::PopulateResourceRequestBeforeCacheAccess(
   if (document_loader_->ForceFetchCacheMode()) {
     request.SetCacheMode(*document_loader_->ForceFetchCacheMode());
   }
+  if (!request.TopFrameOrigin())
+    request.SetTopFrameOrigin(GetTopFrameOrigin());
   // ResourceFetcher::DidLoadResourceFromMemoryCache() may call out in such a
   // way that the AttributionSupport is needed.
   if (const AttributionSrcLoader* attribution_src_loader =
