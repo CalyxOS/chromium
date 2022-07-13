@@ -268,6 +268,9 @@ void WorkerFetchContext::PopulateResourceRequestBeforeCacheAccess(
   DCHECK(RuntimeEnabledFeatures::
              MinimimalResourceRequestPrepBeforeCacheLookupEnabled());
 
+  if (!request.TopFrameOrigin())
+    request.SetTopFrameOrigin(GetTopFrameOrigin());
+
   MixedContentChecker::UpgradeInsecureRequest(
       request, &GetResourceFetcherProperties().GetFetchClientSettingsObject(),
       global_scope_, mojom::RequestContextFrameType::kNone,
