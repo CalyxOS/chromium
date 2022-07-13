@@ -426,7 +426,8 @@ static unsigned AvoidDownloadIfHigherDensityResourceIsInCache(
     auto* resource = MemoryCache::Get()->ResourceForURL(
         url,
         document->Fetcher()->GetCacheIdentifier(url,
-                                                /*skip_service_worker=*/false));
+                                                /*skip_service_worker=*/false,
+                                                document->TopFrameOrigin()));
     if (resource && resource->IsLoaded()) {
       UseCounter::Count(document,
                         WebFeature::kSrcSetUsedHigherDensityImageFromCache);
