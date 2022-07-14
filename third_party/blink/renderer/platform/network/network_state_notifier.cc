@@ -101,6 +101,17 @@ NetworkStateNotifier::ScopedNotifier::~ScopedNotifier() {
   }
 }
 
+NetworkStateNotifier::NetworkStateNotifier() : has_override_(false) {
+  // set default data
+  SetNetworkConnectionInfoOverride(
+    /*on_line*/ true,
+    /*type*/ WebConnectionType::kWebConnectionTypeWifi,
+    /*effective_type*/ absl::nullopt,
+    /*http_rtt_msec*/ 0,
+    /*max_bandwidth_mbps*/ std::numeric_limits<double>::max());
+  SetNetworkQuality(/*effective_type*/ WebEffectiveConnectionType::kType4G, base::TimeDelta(), base::TimeDelta(), 10000);
+}
+
 NetworkStateNotifier::NetworkStateObserverHandle::NetworkStateObserverHandle(
     NetworkStateNotifier* notifier,
     NetworkStateNotifier::ObserverType type,
