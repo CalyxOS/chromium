@@ -122,7 +122,7 @@ class PLATFORM_EXPORT NetworkStateNotifier {
     scoped_refptr<base::SingleThreadTaskRunner> task_runner_;
   };
 
-  NetworkStateNotifier() : has_override_(false) {}
+  NetworkStateNotifier();
   NetworkStateNotifier(const NetworkStateNotifier&) = delete;
   NetworkStateNotifier& operator=(const NetworkStateNotifier&) = delete;
 
