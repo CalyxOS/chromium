@@ -61,7 +61,7 @@ NetworkInformation::~NetworkInformation() {
 }
 
 bool NetworkInformation::IsObserving() const {
-  return !!connection_observer_handle_;
+  return false;
 }
 
 String NetworkInformation::type() const {
@@ -147,6 +147,7 @@ void NetworkInformation::ConnectionChange(
     const absl::optional<base::TimeDelta>& transport_rtt,
     const absl::optional<double>& downlink_mbps,
     bool save_data) {
+  if ((true)) return;
   DCHECK(GetExecutionContext()->IsContextThread());
 
   const String host = Host();
@@ -242,6 +243,7 @@ void NetworkInformation::ContextDestroyed() {
 }
 
 void NetworkInformation::StartObserving() {
+  if ((true)) return;
   if (!IsObserving() && !context_stopped_) {
     type_ = GetNetworkStateNotifier().ConnectionType();
     DCHECK(!connection_observer_handle_);
@@ -252,6 +254,7 @@ void NetworkInformation::StartObserving() {
 }
 
 void NetworkInformation::StopObserving() {
+  if ((true)) return;
   if (IsObserving()) {
     DCHECK(connection_observer_handle_);
     connection_observer_handle_ = nullptr;
