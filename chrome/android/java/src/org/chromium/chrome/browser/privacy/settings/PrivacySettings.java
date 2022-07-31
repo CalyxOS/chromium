@@ -135,9 +135,7 @@ public class PrivacySettings extends ChromeBaseSettingsFragment
                     UserPrefs.get(getProfile()).setBoolean(Pref.PRIVACY_GUIDE_VIEWED, true);
                     return false;
                 });
-        if (getProfile().isChild() || ManagedBrowserUtils.isBrowserManaged(getProfile())) {
-            getPreferenceScreen().removePreference(privacyGuidePreference);
-        }
+        getPreferenceScreen().removePreference(privacyGuidePreference);
 
         IncognitoReauthSettingSwitchPreference incognitoReauthPreference =
                 (IncognitoReauthSettingSwitchPreference) findPreference(PREF_INCOGNITO_LOCK);
