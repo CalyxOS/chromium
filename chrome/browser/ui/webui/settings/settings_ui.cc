@@ -352,8 +352,7 @@ SettingsUI::SettingsUI(content::WebUI* web_ui)
 #endif  // BUILDFLAG(IS_CHROMEOS)
 
   bool show_privacy_guide =
-      base::FeatureList::IsEnabled(features::kPrivacyGuideForceAvailable) ||
-      (!ShouldDisplayManagedUi(profile) && !profile->IsChild());
+      false;
   html_source->AddBoolean("showPrivacyGuide", show_privacy_guide);
 
   html_source->AddBoolean("enableHandTrackingContentSetting",
