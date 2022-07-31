@@ -1,0 +1,6 @@
+#if BUILDFLAG(IS_ANDROID)
+
+SET_CROMITE_FEATURE_DISABLED(kPrivacyGuideAndroid3);
+SET_CROMITE_FEATURE_DISABLED(kPrivacyGuidePreloadAndroid);
+
+#endif
