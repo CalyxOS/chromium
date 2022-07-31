@@ -518,8 +518,8 @@ BASE_FEATURE(kHaTSDesktopDevToolsIssuesCSP,
 
 // Enables or disables the Happiness Tracking System for Desktop Privacy Guide.
 BASE_FEATURE(kHappinessTrackingSurveysForDesktopPrivacyGuide,
-             "HappinessTrackingSurveysForDesktopPrivacyGuide",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "HappinessTrackingSurveysForDesktopPrivacyGuide",                      // must be disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);                                    // in Bromite
 const base::FeatureParam<base::TimeDelta>
     kHappinessTrackingSurveysForDesktopPrivacyGuideTime{
         &kHappinessTrackingSurveysForDesktopPrivacyGuide, "settings-time",
@@ -1042,8 +1042,8 @@ BASE_FEATURE(kPrintPreviewSetupAssistance,
 #endif
 
 BASE_FEATURE(kPrivacyGuideAndroid,
-             "PrivacyGuideAndroid",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "PrivacyGuideAndroid",               // always disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);  // in Bromite
 
 #if BUILDFLAG(IS_ANDROID)
 BASE_FEATURE(kPrivacyGuideAndroidPostMVP,
