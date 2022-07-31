@@ -475,26 +475,26 @@ BASE_FEATURE(kGeoLanguage, "GeoLanguage", base::FEATURE_DISABLED_BY_DEFAULT);
 // Enables or disables the Privacy Guide v3 update of the Privacy Guide feature
 // in Chrome Settings.
 BASE_FEATURE(kPrivacyGuide3,
-             "PrivacyGuide3",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "PrivacyGuide3",                     // always disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);  // in Bromite
 
 // Enables or disables the Privacy Guide preload card update of the Privacy
 // Guide feature in Chrome Settings. Also, this requires the PrivacyGuide3
 // feature to be enabled as well.
 BASE_FEATURE(kPrivacyGuidePreload,
-             "PrivacyGuidePreload",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "PrivacyGuidePreload",               // always disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);  // in Bromite
 
 #if BUILDFLAG(IS_ANDROID)
 BASE_FEATURE(kPrivacyGuideAndroid3,
-             "PrivacyGuideAndroid3",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "PrivacyGuideAndroid3",              // always disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);  // in Bromite
 #endif
 
 #if BUILDFLAG(IS_ANDROID)
 BASE_FEATURE(kPrivacyGuidePreloadAndroid,
-             "PrivacyGuidePreloadAndroid",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "PrivacyGuidePreloadAndroid",       // disabled
+             base::FEATURE_DISABLED_BY_DEFAULT); // by default
 #endif
 
 #if !BUILDFLAG(IS_ANDROID)
@@ -1050,8 +1050,8 @@ BASE_FEATURE(kPrintPreviewSetupAssistance,
 
 #if BUILDFLAG(IS_ANDROID)
 BASE_FEATURE(kPrivacyGuideAndroid,
-             "PrivacyGuideAndroid",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "PrivacyGuideAndroid",              // disabled
+             base::FEATURE_DISABLED_BY_DEFAULT); // by default
 
 BASE_FEATURE(kPrivacyGuideAndroidPostMVP,
              "PrivacyGuideAndroidPostMVP",
