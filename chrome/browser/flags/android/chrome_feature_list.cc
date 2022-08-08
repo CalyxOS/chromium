@@ -180,6 +180,7 @@ const base::Feature* const kFeaturesExposedToJava[] = {
     &kAssistantIntentTranslateInfo,
     &kAssistantNonPersonalizedVoiceSearch,
     &kAppMenuMobileSiteOption,
+    &kCloseAllTabsModalDialog,
     &kAppToWebAttribution,
     &kBackgroundThreadPool,
     &kCastDeviceFilter,
@@ -511,6 +512,10 @@ BASE_FEATURE(kConditionalTabStripAndroid,
              "ConditionalTabStripAndroid",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+BASE_FEATURE(kCloseAllTabsModalDialog,
+             "CloseAllTabsModalDialog",
+             base::FEATURE_ENABLED_BY_DEFAULT);
+
 // Used in downstream code.
 BASE_FEATURE(kCastDeviceFilter,
              "CastDeviceFilter",
@@ -521,8 +526,8 @@ BASE_FEATURE(kClearOmniboxFocusAfterNavigation,
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kCloseTabSuggestions,
-             "CloseTabSuggestions",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "CloseTabSuggestions",               // must be enabled
+             base::FEATURE_ENABLED_BY_DEFAULT);   // in Bromite
 
 BASE_FEATURE(kCriticalPersistedTabData,
              "CriticalPersistedTabData",
