@@ -197,6 +197,7 @@ const base::Feature* const kFeaturesExposedToJava[] = {
     &kBackGestureMoveToBackDuringStartup,
     &kBackGestureRefactorAndroid,
     &kBackToHomeAnimation,
+    &kCloseAllTabsModalDialog,
     &kBackgroundThreadPool,
     &kBlockIntentsWhileLocked,
     &kBottomBrowserControlsRefactor,
