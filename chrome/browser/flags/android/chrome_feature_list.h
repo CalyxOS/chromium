@@ -32,6 +32,7 @@ BASE_DECLARE_FEATURE(kAppToWebAttribution);
 BASE_DECLARE_FEATURE(kBackgroundThreadPool);
 BASE_DECLARE_FEATURE(kBaselineGM3SurfaceColors);
 BASE_DECLARE_FEATURE(kClearOmniboxFocusAfterNavigation);
+BASE_DECLARE_FEATURE(kCloseAllTabsModalDialog);
 BASE_DECLARE_FEATURE(kCloseTabSuggestions);
 BASE_DECLARE_FEATURE(kCriticalPersistedTabData);
 BASE_DECLARE_FEATURE(kCommerceCoupons);
