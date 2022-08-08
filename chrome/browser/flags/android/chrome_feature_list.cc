@@ -188,6 +188,7 @@ const base::Feature* const kFeaturesExposedToJava[] = {
     &kBottomSheetGtsSupport,
     &kCastDeviceFilter,
     &kClearOmniboxFocusAfterNavigation,
+    &kCloseAllTabsModalDialog,
     &kCloseTabSuggestions,
     &kCloseTabSaveTabList,
     &kCriticalPersistedTabData,
@@ -528,6 +529,10 @@ BASE_FEATURE(kBaselineGM3SurfaceColors,
              "BaselineGM3SurfaceColors",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+BASE_FEATURE(kCloseAllTabsModalDialog,
+             "CloseAllTabsModalDialog",
+             base::FEATURE_ENABLED_BY_DEFAULT);
+
 // Used as a killswitch rather than a rollout control as the feature this
 // depends on runs on startup and this flag needs to be cached as it is used
 // pre-native.
@@ -545,8 +550,8 @@ BASE_FEATURE(kClearOmniboxFocusAfterNavigation,
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kCloseTabSuggestions,
-             "CloseTabSuggestions",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "CloseTabSuggestions",               // must be enabled
+             base::FEATURE_ENABLED_BY_DEFAULT);   // in Bromite
 
 BASE_FEATURE(kCloseTabSaveTabList,
              "CloseTabSaveTabList",
