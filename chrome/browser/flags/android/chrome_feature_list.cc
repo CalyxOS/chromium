@@ -183,6 +183,7 @@ const base::Feature* const kFeaturesExposedToJava[] = {
     &kBackGestureActivityTabProvider,
     &kBackGestureRefactorActivityAndroid,
     &kBackGestureRefactorAndroid,
+    &kCloseAllTabsModalDialog,
     &kBackgroundThreadPool,
     &kBaselineGM3SurfaceColors,
     &kBlockIntentsWhileLocked,
@@ -528,6 +529,10 @@ BASE_FEATURE(kCacheActivityTaskID,
              "CacheActivityTaskID",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+BASE_FEATURE(kCloseAllTabsModalDialog,
+             "CloseAllTabsModalDialog",
+             base::FEATURE_ENABLED_BY_DEFAULT);
+
 // Used in downstream code.
 BASE_FEATURE(kCastDeviceFilter,
              "CastDeviceFilter",
@@ -538,8 +543,8 @@ BASE_FEATURE(kClearOmniboxFocusAfterNavigation,
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kCloseTabSuggestions,
-             "CloseTabSuggestions",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "CloseTabSuggestions",               // must be enabled
+             base::FEATURE_ENABLED_BY_DEFAULT);   // in Bromite
 
 BASE_FEATURE(kCloseTabSaveTabList,
              "CloseTabSaveTabList",
