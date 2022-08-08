@@ -9220,6 +9220,13 @@ const FeatureEntry kFeatureEntries[] = {
      FEATURE_VALUE_TYPE(features::kWaylandScreenCoordinatesEnabled)},
 #endif
 
+#if BUILDFLAG(IS_ANDROID)
+    {"close-all-tabs-modal-dialog",
+     flag_descriptions::kCloseAllTabsModalDialogName,
+     flag_descriptions::kCloseAllTabsModalDialogDescription, kOsAndroid,
+     FEATURE_VALUE_TYPE(chrome::android::kCloseAllTabsModalDialog)},
+#endif  // BUILDFLAG(IS_ANDROID)
+
 #if !BUILDFLAG(IS_ANDROID)
     {"screen-ai", flag_descriptions::kScreenAIName,
      flag_descriptions::kScreenAIDescription, kOsDesktop,
