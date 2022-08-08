@@ -215,6 +215,7 @@ const base::Feature* const kFeaturesExposedToJava[] = {
     &kAsyncNotificationManager,
     &kAsyncNotificationManagerForDownload,
     &kAuxiliarySearchDonation,
+    &kCloseAllTabsModalDialog,
     &kBackgroundThreadPool,
     &kBlockIntentsWhileLocked,
     &kBookmarkPaneAndroid,
