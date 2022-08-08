@@ -45,6 +45,9 @@ namespace flag_descriptions {
 extern const char kAccelerated2dCanvasName[];
 extern const char kAccelerated2dCanvasDescription[];
 
+extern const char kCloseAllTabsModalDialogName[];
+extern const char kCloseAllTabsModalDialogDescription[];
+
 extern const char kAcceleratedVideoDecodeName[];
 extern const char kAcceleratedVideoDecodeDescription[];
 
