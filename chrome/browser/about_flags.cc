@@ -9832,6 +9832,13 @@ const FeatureEntry kFeatureEntries[] = {
      FEATURE_VALUE_TYPE(base::i18n::kLacrosMergeIcuDataFile)},
 #endif
 
+#if BUILDFLAG(IS_ANDROID)
+    {"close-all-tabs-modal-dialog",
+     flag_descriptions::kCloseAllTabsModalDialogName,
+     flag_descriptions::kCloseAllTabsModalDialogDescription, kOsAndroid,
+     FEATURE_VALUE_TYPE(chrome::android::kCloseAllTabsModalDialog)},
+#endif  // BUILDFLAG(IS_ANDROID)
+
 #if !BUILDFLAG(IS_ANDROID)
     // TODO(https://crbug.com/1443349): Add Windows once library supports it.
     {"layout-extraction", flag_descriptions::kLayoutExtractionName,
