@@ -171,6 +171,7 @@ const base::Feature* const kFeaturesExposedToJava[] = {
     &kBackGestureActivityTabProvider,
     &kBackGestureMoveToBackDuringStartup,
     &kBackGestureRefactorAndroid,
+    &kCloseAllTabsModalDialog,
     &kBackgroundThreadPool,
     &kBlockIntentsWhileLocked,
     &kCacheActivityTaskID,
@@ -452,8 +453,8 @@ BASE_FEATURE(kAppSpecificHistory,
              base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kArchiveTabService,
-             "ArchiveTabService",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "ArchiveTabService",                 // must be enabled
+             base::FEATURE_ENABLED_BY_DEFAULT);   // in Bromite
 
 BASE_FEATURE(kAuxiliarySearchDonation,
              "AuxiliarySearchDonation",
@@ -469,6 +470,10 @@ BASE_FEATURE(kBlockIntentsWhileLocked,
 
 BASE_FEATURE(kCacheActivityTaskID,
              "CacheActivityTaskID",
+             base::FEATURE_ENABLED_BY_DEFAULT);
+
+BASE_FEATURE(kCloseAllTabsModalDialog,
+             "CloseAllTabsModalDialog",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 // Used in downstream code.
