@@ -12,6 +12,7 @@ import androidx.annotation.VisibleForTesting;
 import org.chromium.base.metrics.RecordHistogram;
 import org.chromium.base.metrics.RecordUserAction;
 import org.chromium.base.supplier.Supplier;
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.tabmodel.TabModelSelector;
 import org.chromium.ui.modaldialog.DialogDismissalCause;
@@ -35,6 +36,11 @@ public class CloseAllTabsDialog {
     public static void show(Context context,
             Supplier<ModalDialogManager> modalDialogManagerSupplier,
             @NonNull TabModelSelector tabModelSelector, Runnable onCloseAll) {
+        if (!ChromeFeatureList.isEnabled(ChromeFeatureList.CLOSE_ALL_TABS_MODAL_DIALOG)) {
+            onCloseAll.run();
+            return;
+        }
+
         assert modalDialogManagerSupplier.hasValue();
         final ModalDialogManager manager = modalDialogManagerSupplier.get();
         final boolean isIncognito = tabModelSelector.getCurrentModel().isIncognito();
