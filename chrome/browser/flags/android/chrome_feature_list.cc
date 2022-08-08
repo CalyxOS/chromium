@@ -179,6 +179,7 @@ const base::Feature* const kFeaturesExposedToJava[] = {
     &kCacheActivityTaskID,
     &kCastDeviceFilter,
     &kClearOmniboxFocusAfterNavigation,
+    &kCloseAllTabsModalDialog,
     &kCCTBeforeUnload,
     &kCCTClientDataHeader,
     &kCCTEmbedderSpecialBehaviorTrigger,
