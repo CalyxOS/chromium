@@ -429,6 +429,12 @@ extern const char kContextMenuSearchWithGoogleLensDescription[];
 extern const char kContextMenuGoogleLensSearchOptimizationsName[];
 extern const char kContextMenuGoogleLensSearchOptimizationsDescription[];
 
+extern const char kCloseAllTabsModalDialogName[];
+extern const char kCloseAllTabsModalDialogDescription[];
+
+extern const char kClosedTabCacheName[];
+extern const char kClosedTabCacheDescription[];
+
 extern const char kClearCrossSiteCrossBrowsingContextGroupWindowNameName[];
 extern const char
     kClearCrossSiteCrossBrowsingContextGroupWindowNameDescription[];
