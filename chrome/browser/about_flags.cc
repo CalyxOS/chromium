@@ -8517,6 +8517,13 @@ const FeatureEntry kFeatureEntries[] = {
      FEATURE_VALUE_TYPE(features::kWaylandScreenCoordinatesEnabled)},
 #endif
 
+#if BUILDFLAG(IS_ANDROID)
+    {"close-all-tabs-modal-dialog",
+     flag_descriptions::kCloseAllTabsModalDialogName,
+     flag_descriptions::kCloseAllTabsModalDialogDescription, kOsAndroid,
+     FEATURE_VALUE_TYPE(chrome::android::kCloseAllTabsModalDialog)},
+#endif  // BUILDFLAG(IS_ANDROID)
+
 #if !BUILDFLAG(IS_ANDROID)
     // TODO(https://crbug.com/1278249): Add Windows once library supports it.
     {"layout-extraction", flag_descriptions::kLayoutExtractionName,
