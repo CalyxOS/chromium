@@ -197,6 +197,7 @@ const base::Feature* const kFeaturesExposedToJava[] = {
     &kAutomotiveFullscreenToolbarImprovements,
     &kAuxiliarySearchDonation,
     &kAvoidSelectedTabFocusOnLayoutDoneShowing,
+    &kCloseAllTabsModalDialog,
     &kBackgroundThreadPool,
     &kBlockIntentsWhileLocked,
     &kBottomBrowserControlsRefactor,
