@@ -4042,6 +4042,11 @@ const char kChimeAndroidSdkDescription[] =
     "Enable Chime SDK to receive push notification.";
 const char kChimeAndroidSdkName[] = "Use Chime SDK";
 
+const char kCloseAllTabsModalDialogName[] = "Close all tabs modal dialog";
+const char kCloseAllTabsModalDialogDescription[] =
+    "Shows a confirmation modal dialog when clicking 'Close all tabs' in the"
+    "app menu.";
+
 const char kCriticalPersistedTabDataName[] = "Enable CriticalPersistedTabData";
 const char kCriticalPersistedTabDataDescription[] =
     "A new method of persisting Tab data across restarts has been devised "
