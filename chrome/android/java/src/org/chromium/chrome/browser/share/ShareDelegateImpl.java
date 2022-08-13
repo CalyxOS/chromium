@@ -184,14 +184,8 @@ public class ShareDelegateImpl implements ShareDelegate {
 
     @VisibleForTesting
     static boolean shouldFetchCanonicalUrl(final Tab currentTab) {
-        WebContents webContents = currentTab.getWebContents();
-        if (webContents == null) return false;
-        if (webContents.getMainFrame() == null) return false;
-        if (currentTab.getUrl().isEmpty()) return false;
-        if (currentTab.isShowingErrorPage() || SadTab.isShowing(currentTab)) {
-            return false;
-        }
-        return true;
+        // Bromite always uses the visible URL
+	return false;
     }
 
     private static void logCanonicalUrlResult(GURL visibleUrl, GURL canonicalUrl) {
