@@ -68,6 +68,7 @@
 #include "cc/base/switches.h"
 #include "components/discardable_memory/public/mojom/discardable_shared_memory_manager.mojom.h"
 #include "components/discardable_memory/service/discardable_shared_memory_manager.h"
+#include "components/language/core/browser/language_prefs.h"
 #include "components/metrics/single_sample_metrics.h"
 #include "components/services/storage/privileged/mojom/indexed_db_control.mojom.h"
 #include "components/services/storage/public/cpp/buckets/bucket_id.h"
@@ -3220,8 +3221,11 @@ void RenderProcessHostImpl::AppendRendererCommandLine(
   PropagateBrowserCommandLineToRenderer(browser_command_line, command_line);
 
   // Pass on the browser locale.
-  const std::string locale =
+  std::string locale =
       GetContentClient()->browser()->GetApplicationLocale();
+  const std::string accept_langs = GetContentClient()->browser()->GetAcceptLangs(browser_context_);
+  if (!accept_langs.empty())
+    locale = language::GetFirstLanguage(accept_langs);
   command_line->AppendSwitchASCII(switches::kLang, locale);
 
   // A non-empty RendererCmdPrefix implies that Zygote is disabled.
