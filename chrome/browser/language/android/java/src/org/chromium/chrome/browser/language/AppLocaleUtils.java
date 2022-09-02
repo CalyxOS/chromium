@@ -34,6 +34,10 @@ import java.util.Locale;
 public class AppLocaleUtils {
     private AppLocaleUtils() {}
 
+    public interface InstallListener {
+        void onComplete(boolean success);
+    }
+
     // Value of AppLocale preference when the system language is used.
     public static final String APP_LOCALE_USE_SYSTEM_LANGUAGE = null;
 
@@ -100,6 +104,22 @@ public class AppLocaleUtils {
             return APP_LOCALE_USE_SYSTEM_LANGUAGE;
         }
         return locale.toLanguageTag();
+    }
+
+    public static void setAppLanguagePref(
+            String languageName, InstallListener listener) {
+        InstallListener wrappedListener = (success) -> {
+            if (success) {
+                if (shouldUseSystemManagedLocale()) {
+                    setSystemManagedAppLanguage(languageName);
+                } else {
+                    ChromeSharedPreferences.getInstance().writeString(
+                            ChromePreferenceKeys.APPLICATION_OVERRIDE_LANGUAGE, languageName);
+                }
+            }
+            listener.onComplete(success);
+        };
+        wrappedListener.onComplete(true);
     }
 
     /**
@@ -231,7 +251,7 @@ public class AppLocaleUtils {
      */
     @ChecksSdkIntAtLeast(api = 33)
     public static boolean shouldUseSystemManagedLocale() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU;
+        return false; // Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU;
     }
 
     /**
