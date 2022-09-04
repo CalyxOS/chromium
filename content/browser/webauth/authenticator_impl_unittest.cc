@@ -1425,7 +1425,12 @@ TEST_F(AuthenticatorImplTest, OversizedCredentialId) {
   }
 }
 
-TEST_F(AuthenticatorImplTest, NoSilentAuthenticationForCable) {
+class AuthenticatorImplCableFlagSetTest : public AuthenticatorImplTest {
+ private:
+  base::test::ScopedFeatureList scoped_feature_list_{features::kWebAuthCable};
+};
+
+TEST_F(AuthenticatorImplCableFlagSetTest, NoSilentAuthenticationForCable) {
   // https://crbug.com/954355
   NavigateAndCommit(GURL(kTestOrigin1));
 
@@ -3412,7 +3417,13 @@ TEST_F(AuthenticatorContentBrowserClientTest,
             AuthenticatorStatus::SUCCESS);
 }
 
-TEST_F(AuthenticatorContentBrowserClientTest,
+class AuthenticatorContentBrowserClientWithCableFlagTest
+    : public AuthenticatorContentBrowserClientTest {
+ private:
+  base::test::ScopedFeatureList scoped_feature_list_{features::kWebAuthCable};
+};
+
+TEST_F(AuthenticatorContentBrowserClientWithCableFlagTest,
        CableCredentialWithoutCableExtension) {
   // Exercise the case where a credential is marked as "cable" but no caBLE
   // extension is provided. The AuthenticatorRequestClientDelegate should see no
