@@ -1342,6 +1342,13 @@ BASE_FEATURE(kWebAssemblyTrapHandler,
 #endif
 );
 
+// Controls whether CTAP2 devices can communicate via the WebAuthentication API
+// using pairingless BLE protocol.
+// https://w3c.github.io/webauthn
+BASE_FEATURE(kWebAuthCable,
+             "WebAuthenticationCable",                 // must be disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);       // by default in Bromite
+
 // Controls whether WebAuthn get requests for discoverable credentials use the
 // Touch To Fill bottom sheet on Android.
 BASE_FEATURE(kWebAuthnTouchToFillCredentialSelection,
