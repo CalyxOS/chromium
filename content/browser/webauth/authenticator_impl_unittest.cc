@@ -1222,7 +1222,12 @@ TEST_F(AuthenticatorImplTest, OversizedCredentialId) {
   }
 }
 
-TEST_F(AuthenticatorImplTest, NoSilentAuthenticationForCable) {
+class AuthenticatorImplCableFlagSetTest : public AuthenticatorImplTest {
+ private:
+  base::test::ScopedFeatureList scoped_feature_list_{features::kWebAuthCable};
+};
+
+TEST_F(AuthenticatorImplCableFlagSetTest, NoSilentAuthenticationForCable) {
   // https://crbug.com/954355
   NavigateAndCommit(GURL(kTestOrigin1));
 
@@ -3178,7 +3183,13 @@ TEST_F(AuthenticatorContentBrowserClientTest, Unfocused) {
   }
 }
 
-TEST_F(AuthenticatorContentBrowserClientTest,
+class AuthenticatorContentBrowserClientWithCableFlagTest
+    : public AuthenticatorContentBrowserClientTest {
+ private:
+  base::test::ScopedFeatureList scoped_feature_list_{features::kWebAuthCable};
+};
+
+TEST_F(AuthenticatorContentBrowserClientWithCableFlagTest,
        NullDelegate_RejectsWithPendingRequest) {
   test_client_.return_null_delegate = true;
   NavigateAndCommit(GURL(kTestOrigin1));

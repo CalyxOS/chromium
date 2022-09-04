@@ -493,6 +493,7 @@ IN_PROC_BROWSER_TEST_F(WebAuthnCableExtension, ServerLinkExperiments) {
 class WebAuthnCableSecondFactor : public WebAuthnBrowserTest {
  public:
   WebAuthnCableSecondFactor() {
+    scoped_feature_list_.InitWithFeatures({features::kWebAuthCable}, {});
     // This makes it a little easier to compare against.
     trace_ << std::endl;
   }
@@ -753,6 +754,7 @@ class WebAuthnCableSecondFactor : public WebAuthnBrowserTest {
   };
 
  protected:
+  base::test::ScopedFeatureList scoped_feature_list_;
   std::ostringstream trace_;
   AuthenticatorRequestDialogModel* model_ = nullptr;
 };
