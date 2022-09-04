@@ -516,6 +516,7 @@ IN_PROC_BROWSER_TEST_F(WebAuthnCableExtension, ServerLink) {
 class WebAuthnCableSecondFactor : public WebAuthnBrowserTest {
  public:
   WebAuthnCableSecondFactor() {
+    scoped_feature_list_.InitWithFeatures({features::kWebAuthCable}, {});
     // This makes it a little easier to compare against.
     trace_ << std::endl;
   }
@@ -770,6 +771,7 @@ class WebAuthnCableSecondFactor : public WebAuthnBrowserTest {
   };
 
  protected:
+  base::test::ScopedFeatureList scoped_feature_list_;
   std::ostringstream trace_;
   // This field is not a raw_ptr<> to avoid returning a reference to a temporary
   // T* (result of implicitly casting raw_ptr<T> to T*).
