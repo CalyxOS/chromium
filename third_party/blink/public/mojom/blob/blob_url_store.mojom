@@ -37,7 +37,9 @@ interface BlobURLStore {
   // both the blob URL and all other references to the blob have been dropped.
   ResolveAsURLLoaderFactory(
     url.mojom.Url url,
-    pending_receiver<network.mojom.URLLoaderFactory> factory) => (
+    pending_receiver<network.mojom.URLLoaderFactory> factory,
+    mojo_base.mojom.UnguessableToken unsafe_agent_cluster_id,
+    network.mojom.SchemefulSite? unsafe_top_level_site) => (
     // TODO(https://crbug.com/1224926): Remove these once experiment is over.
     mojo_base.mojom.UnguessableToken? unsafe_agent_cluster_id,
     network.mojom.SchemefulSite? unsafe_top_level_site);
@@ -47,7 +49,9 @@ interface BlobURLStore {
   // refer to, even after the URL is revoked.
   // As long as the token is alive, the resolved blob will also be kept alive.
   ResolveForNavigation(url.mojom.Url url,
-                       pending_receiver<BlobURLToken> token) => (
+                       pending_receiver<BlobURLToken> token,
+                       mojo_base.mojom.UnguessableToken unsafe_agent_cluster_id,
+                       network.mojom.SchemefulSite? unsafe_top_level_site) => (
     // TODO(https://crbug.com/1224926): Remove this once experiment is over.
     mojo_base.mojom.UnguessableToken? unsafe_agent_cluster_id);
 
@@ -58,7 +62,9 @@ interface BlobURLStore {
   // currently intended for use when fetching a dedicated / shared worker
   // script.
   ResolveForWorkerScriptFetch(url.mojom.Url url,
-                       pending_receiver<BlobURLToken> token) => (
+                       pending_receiver<BlobURLToken> token,
+                       mojo_base.mojom.UnguessableToken unsafe_agent_cluster_id,
+                       network.mojom.SchemefulSite? unsafe_top_level_site) => (
     // TODO(https://crbug.com/1224926): Remove this once experiment is over.
     mojo_base.mojom.UnguessableToken? unsafe_agent_cluster_id);
 };
