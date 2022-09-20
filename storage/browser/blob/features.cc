@@ -10,6 +10,7 @@ namespace features {
 BASE_FEATURE(kBlockCrossPartitionBlobUrlFetching,
              "BlockCrossPartitionBlobUrlFetching",
              base::FEATURE_DISABLED_BY_DEFAULT);
+SET_CROMITE_FEATURE_ENABLED(kBlockCrossPartitionBlobUrlFetching);
 
 // Please keep features in alphabetical order.
 
