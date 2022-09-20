@@ -64,6 +64,21 @@ static void RemoveFromNullOriginMapIfNecessary(const KURL& blob_url) {
     BlobURLNullOriginMap::GetInstance()->Remove(blob_url);
 }
 
+static absl::optional<BlinkSchemefulSite> GetInsecureTopLevelSite(
+    ExecutionContext* execution_context) {
+  absl::optional<BlinkSchemefulSite> top_level_site;
+  if (execution_context->IsWindow()) {
+    auto* window = To<LocalDOMWindow>(execution_context);
+    if (window->top() && window->top()->GetFrame()) {
+      top_level_site = BlinkSchemefulSite(window->top()
+                                              ->GetFrame()
+                                              ->GetSecurityContext()
+                                              ->GetSecurityOrigin());
+    }
+  }
+  return top_level_site;
+}
+
 }  // namespace
 
 // Execution context names corresponding to the entries from
@@ -297,6 +312,7 @@ void PublicURLManager::Resolve(
 
   GetBlobURLStore().ResolveAsURLLoaderFactory(
       url, std::move(factory_receiver),
+      GetExecutionContext()->GetAgentClusterID(), GetInsecureTopLevelSite(GetExecutionContext()),
       WTF::BindOnce(metrics_callback, WrapPersistent(GetExecutionContext())));
 }
 
@@ -320,6 +336,7 @@ void PublicURLManager::Resolve(
 
   GetBlobURLStore().ResolveForNavigation(
       url, std::move(token_receiver),
+      GetExecutionContext()->GetAgentClusterID(), GetInsecureTopLevelSite(GetExecutionContext()),
       WTF::BindOnce(metrics_callback, WrapPersistent(GetExecutionContext())));
 }
 
