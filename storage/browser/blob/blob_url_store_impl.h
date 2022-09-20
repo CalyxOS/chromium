@@ -40,20 +40,32 @@ class COMPONENT_EXPORT(STORAGE_BROWSER) BlobURLStoreImpl
       const absl::optional<net::SchemefulSite>& unsafe_top_level_site,
       RegisterCallback callback) override;
   void Revoke(const GURL& url) override;
-  void Resolve(const GURL& url, ResolveCallback callback) override;
+  void Resolve(const GURL& url,
+               const base::UnguessableToken& unsafe_agent_cluster_id,
+               const absl::optional<net::SchemefulSite>& unsafe_top_level_site,
+               ResolveCallback callback) override;
   void ResolveAsURLLoaderFactory(
       const GURL& url,
       mojo::PendingReceiver<network::mojom::URLLoaderFactory> receiver,
+      const base::UnguessableToken& unsafe_agent_cluster_id,
+      const absl::optional<net::SchemefulSite>& unsafe_top_level_site,
       ResolveAsURLLoaderFactoryCallback callback) override;
   void ResolveForNavigation(
       const GURL& url,
       mojo::PendingReceiver<blink::mojom::BlobURLToken> token,
+      const base::UnguessableToken& unsafe_agent_cluster_id,
+      const absl::optional<net::SchemefulSite>& unsafe_top_level_site,
       ResolveForNavigationCallback callback) override;
 
  private:
   // Checks if the passed in url is a valid blob url for this blob url store.
   // Returns false and reports a bad mojo message if not.
   bool BlobUrlIsValid(const GURL& url, const char* method) const;
+
+  bool IsSamePartition(
+      const GURL& blob_url,
+      const base::UnguessableToken& unsafe_agent_cluster_id,
+      const absl::optional<net::SchemefulSite>& unsafe_top_level_site);
 
   const blink::StorageKey storage_key_;
 
