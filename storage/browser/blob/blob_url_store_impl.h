@@ -53,14 +53,20 @@ class COMPONENT_EXPORT(STORAGE_BROWSER) BlobURLStoreImpl
   void ResolveAsURLLoaderFactory(
       const GURL& url,
       mojo::PendingReceiver<network::mojom::URLLoaderFactory> receiver,
+      const base::UnguessableToken& unsafe_agent_cluster_id,
+      const std::optional<net::SchemefulSite>& unsafe_top_level_site,
       ResolveAsURLLoaderFactoryCallback callback) override;
   void ResolveForNavigation(
       const GURL& url,
       mojo::PendingReceiver<blink::mojom::BlobURLToken> token,
+      const base::UnguessableToken& unsafe_agent_cluster_id,
+      const std::optional<net::SchemefulSite>& unsafe_top_level_site,
       ResolveForNavigationCallback callback) override;
   void ResolveForWorkerScriptFetch(
       const GURL& url,
       mojo::PendingReceiver<blink::mojom::BlobURLToken> token,
+      const base::UnguessableToken& unsafe_agent_cluster_id,
+      const std::optional<net::SchemefulSite>& unsafe_top_level_site,
       ResolveForNavigationCallback callback) override;
 
  private:
@@ -69,6 +75,11 @@ class COMPONENT_EXPORT(STORAGE_BROWSER) BlobURLStoreImpl
   // this function is only suitable to be called from `Register()` and
   // `Revoke()`.
   bool BlobUrlIsValid(const GURL& url, const char* method) const;
+
+  bool IsSamePartition(
+      const GURL& blob_url,
+      const base::UnguessableToken& unsafe_agent_cluster_id,
+      const std::optional<net::SchemefulSite>& unsafe_top_level_site);
 
   const blink::StorageKey storage_key_;
   // The origin used by the worker/document associated with this BlobURLStore on

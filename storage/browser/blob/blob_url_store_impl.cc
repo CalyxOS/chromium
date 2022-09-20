@@ -87,6 +87,20 @@ BlobURLStoreImpl::~BlobURLStoreImpl() {
   }
 }
 
+bool BlobURLStoreImpl::IsSamePartition(
+    const GURL& blob_url,
+    const base::UnguessableToken& unsafe_agent_cluster_id,
+    const std::optional<net::SchemefulSite>& unsafe_top_level_site) {
+  const std::optional<net::SchemefulSite>& top_level_site =
+    registry_->GetUnsafeTopLevelSite(blob_url);
+  if (top_level_site.has_value())
+    return top_level_site == unsafe_top_level_site;
+
+  std::optional<base::UnguessableToken> agent_cluster_id =
+    registry_->GetUnsafeAgentClusterID(blob_url);
+  return agent_cluster_id == unsafe_agent_cluster_id;
+}
+
 void BlobURLStoreImpl::Register(
     mojo::PendingRemote<blink::mojom::Blob> blob,
     const GURL& url,
@@ -121,6 +135,8 @@ void BlobURLStoreImpl::Revoke(const GURL& url) {
 void BlobURLStoreImpl::ResolveAsURLLoaderFactory(
     const GURL& url,
     mojo::PendingReceiver<network::mojom::URLLoaderFactory> receiver,
+    const base::UnguessableToken& unsafe_agent_cluster_id,
+    const std::optional<net::SchemefulSite>& unsafe_top_level_site,
     ResolveAsURLLoaderFactoryCallback callback) {
   if (!registry_) {
     BlobURLLoaderFactory::Create(mojo::NullRemote(), url, std::move(receiver));
@@ -139,6 +155,12 @@ void BlobURLStoreImpl::ResolveAsURLLoaderFactory(
     }
   }
 
+  if (!IsSamePartition(url, unsafe_agent_cluster_id, unsafe_top_level_site)) {
+    BlobURLLoaderFactory::Create(mojo::NullRemote(), url, std::move(receiver));
+    std::move(callback).Run(std::nullopt, std::nullopt);
+    return;
+  }
+
   BlobURLLoaderFactory::Create(registry_->GetBlobFromUrl(url), url,
                                std::move(receiver));
   // When a fragment URL is present, registry_->GetUnsafeAgentClusterID(url) and
@@ -152,8 +174,14 @@ void BlobURLStoreImpl::ResolveAsURLLoaderFactory(
 void BlobURLStoreImpl::ResolveForNavigation(
     const GURL& url,
     mojo::PendingReceiver<blink::mojom::BlobURLToken> token,
+    const base::UnguessableToken& unsafe_agent_cluster_id,
+    const std::optional<net::SchemefulSite>& unsafe_top_level_site,
     ResolveForNavigationCallback callback) {
   if (!registry_) {
+    std::move(callback).Run(std::nullopt);
+    return;
+  }
+  if (!IsSamePartition(url, unsafe_agent_cluster_id, unsafe_top_level_site)) {
     std::move(callback).Run(std::nullopt);
     return;
   }
@@ -169,8 +197,14 @@ void BlobURLStoreImpl::ResolveForNavigation(
 void BlobURLStoreImpl::ResolveForWorkerScriptFetch(
     const GURL& url,
     mojo::PendingReceiver<blink::mojom::BlobURLToken> token,
+    const base::UnguessableToken& unsafe_agent_cluster_id,
+    const std::optional<net::SchemefulSite>& unsafe_top_level_site,
     ResolveForNavigationCallback callback) {
   if (!registry_) {
+    std::move(callback).Run(std::nullopt);
+    return;
+  }
+  if (!IsSamePartition(url, unsafe_agent_cluster_id, unsafe_top_level_site)) {
     std::move(callback).Run(std::nullopt);
     return;
   }
@@ -183,7 +217,7 @@ void BlobURLStoreImpl::ResolveForWorkerScriptFetch(
       return;
     }
   }
-  ResolveForNavigation(url, std::move(token), std::move(callback));
+  ResolveForNavigation(url, std::move(token), unsafe_agent_cluster_id, unsafe_top_level_site, std::move(callback));
 }
 
 bool BlobURLStoreImpl::BlobUrlIsValid(const GURL& url,
