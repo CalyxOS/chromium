@@ -12683,6 +12683,8 @@ void RenderFrameHostImpl::ReportBlockingCrossPartitionBlobURL(
 }
 
 bool RenderFrameHostImpl::DoesDocumentHaveStorageAccess() {
+  // 6313600: [Blob URL] Allow contexts with a StorageAccessHandle
+  // to bypass Blob URL partitioning | https://chromium-review.googlesource.com/c/chromium/src/+/6313600
   return StorageAccessHandle::DoesDocumentHaveStorageAccess(this);
 }
 

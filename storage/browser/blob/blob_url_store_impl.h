@@ -60,11 +60,15 @@ class COMPONENT_EXPORT(STORAGE_BROWSER) BlobURLStoreImpl
   void ResolveAsURLLoaderFactory(
       const GURL& url,
       mojo::PendingReceiver<network::mojom::URLLoaderFactory> receiver,
+      const base::UnguessableToken& unsafe_agent_cluster_id,
+      const std::optional<net::SchemefulSite>& unsafe_top_level_site,
       ResolveAsURLLoaderFactoryCallback callback) override;
   void ResolveAsBlobURLToken(
       const GURL& url,
       mojo::PendingReceiver<blink::mojom::BlobURLToken> token,
       bool is_top_level_navigation,
+      const base::UnguessableToken& unsafe_agent_cluster_id,
+      const std::optional<net::SchemefulSite>& unsafe_top_level_site,
       ResolveAsBlobURLTokenCallback callback) override;
 
  private:
@@ -77,6 +81,8 @@ class COMPONENT_EXPORT(STORAGE_BROWSER) BlobURLStoreImpl
   void FinishResolveAsURLLoaderFactory(
       const GURL& url,
       mojo::PendingReceiver<network::mojom::URLLoaderFactory> receiver,
+      const base::UnguessableToken& unsafe_agent_cluster_id,
+      const std::optional<net::SchemefulSite>& unsafe_top_level_site,
       ResolveAsURLLoaderFactoryCallback callback,
       bool has_storage_access_handle);
 
@@ -84,8 +90,15 @@ class COMPONENT_EXPORT(STORAGE_BROWSER) BlobURLStoreImpl
       const GURL& url,
       mojo::PendingReceiver<blink::mojom::BlobURLToken> token,
       bool is_top_level_navigation,
+      const base::UnguessableToken& unsafe_agent_cluster_id,
+      const std::optional<net::SchemefulSite>& unsafe_top_level_site,
       ResolveAsBlobURLTokenCallback callback,
       bool has_storage_access_handle);
+
+  bool IsSamePartition(
+      const GURL& blob_url,
+      const base::UnguessableToken& unsafe_agent_cluster_id,
+      const std::optional<net::SchemefulSite>& unsafe_top_level_site);
 
   const blink::StorageKey storage_key_;
   // The origin used by the worker/document associated with this BlobURLStore on
