@@ -61,6 +61,7 @@ public class PrivacySettings
     private static final String PREF_HTTPS_FIRST_MODE = "https_first_mode";
     private static final String PREF_SECURE_DNS = "secure_dns";
     private static final String PREF_DO_NOT_TRACK = "do_not_track";
+    private static final String PREF_ENABLE_REFERRERS = "enable_referrers";
     private static final String PREF_CLEAR_BROWSING_DATA = "clear_browsing_data";
     private static final String PREF_PRIVACY_GUIDE = "privacy_guide";
     private static final String PREF_INCOGNITO_LOCK = "incognito_lock";
@@ -174,6 +175,9 @@ public class PrivacySettings
         } else if (PREF_CAN_MAKE_PAYMENT.equals(key)) {
             UserPrefs.get(Profile.getLastUsedRegularProfile())
                     .setBoolean(Pref.CAN_MAKE_PAYMENT_ENABLED, (boolean) newValue);
+        } else if (PREF_ENABLE_REFERRERS.equals(key)) {
+            UserPrefs.get(Profile.getLastUsedRegularProfile())
+                    .setBoolean(Pref.ENABLE_REFERRERS, (boolean) newValue);
         } else if (PREF_HTTPS_FIRST_MODE.equals(key)) {
             UserPrefs.get(Profile.getLastUsedRegularProfile())
                     .setBoolean(Pref.HTTPS_ONLY_MODE_ENABLED, (boolean) newValue);
@@ -226,6 +230,10 @@ public class PrivacySettings
                             ? R.string.text_on
                             : R.string.text_off);
         }
+
+        ChromeSwitchPreference enableReferrerPref = findPreference(PREF_ENABLE_REFERRERS);
+        enableReferrerPref.setChecked(prefService.getBoolean(Pref.ENABLE_REFERRERS));
+        enableReferrerPref.setOnPreferenceChangeListener(this);
 
         Preference preloadPagesPreference = findPreference(PREF_PRELOAD_PAGES);
         if (preloadPagesPreference != null) {

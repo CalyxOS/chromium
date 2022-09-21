@@ -431,6 +431,13 @@ void AddAdditionalRequestHeaders(
         blink::mojom::Referrer(GURL(), network::mojom::ReferrerPolicy::kNever);
   }
 
+  if (!url::IsSameOriginWith(referrer->url.GetAsReferrer(), url) &&
+      frame_tree_node->IsOutermostMainFrame()) {
+    // remove referrer if the navigation is done on the top frame
+    *referrer =
+        blink::mojom::Referrer(GURL(), network::mojom::ReferrerPolicy::kNever);
+  }
+
   // Next, set the HTTP Origin if needed.
   if (NeedsHTTPOrigin(headers, method)) {
     url::Origin origin_header_value = initiator_origin.value_or(url::Origin());

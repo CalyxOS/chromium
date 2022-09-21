@@ -130,7 +130,7 @@ struct COMPONENT_EXPORT(NETWORK_CPP_BASE) ResourceRequest {
   std::vector<GURL> navigation_redirect_chain;
 
   GURL referrer;
-  net::ReferrerPolicy referrer_policy = net::ReferrerPolicy::NEVER_CLEAR;
+  net::ReferrerPolicy referrer_policy = net::ReferrerPolicy::REDUCE_GRANULARITY_ON_TRANSITION_CROSS_ORIGIN;
   net::HttpRequestHeaders headers;
   net::HttpRequestHeaders cors_exempt_headers;
   int load_flags = 0;
