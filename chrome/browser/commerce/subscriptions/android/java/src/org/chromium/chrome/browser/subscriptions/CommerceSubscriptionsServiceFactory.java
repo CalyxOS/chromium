@@ -68,7 +68,6 @@ public class CommerceSubscriptionsServiceFactory {
                     PriceDropNotificationManagerFactory.create();
             service = new CommerceSubscriptionsService(
                     new SubscriptionsManagerImpl(profile, priceDropNotificationManager),
-                    IdentityServicesProvider.get().getIdentityManager(profile),
                     priceDropNotificationManager);
             sProfileToSubscriptionsService.put(profile, service);
         }
