@@ -289,8 +289,8 @@ BASE_FEATURE(kPictureInPicture,
 #if BUILDFLAG(ENABLE_PLATFORM_HEVC)
 // Enables HEVC hardware accelerated decoding.
 BASE_FEATURE(kPlatformHEVCDecoderSupport,
-             "PlatformHEVCDecoderSupport",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "PlatformHEVCDecoderSupport",         // must be enabled
+             base::FEATURE_ENABLED_BY_DEFAULT);    // in Bromite
 #endif  // BUILDFLAG(ENABLE_PLATFORM_HEVC)
 
 // Only decode preload=metadata elements upon visibility.
