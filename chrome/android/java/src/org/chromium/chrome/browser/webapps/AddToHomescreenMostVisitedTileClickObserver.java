@@ -43,10 +43,7 @@ public class AddToHomescreenMostVisitedTileClickObserver implements MostVisitedT
                     ntp.addMostVisitedTileClickObserver(
                             AddToHomescreenMostVisitedTileClickObserver.this);
                 } else {
-                    // If it is a regular web page, and started from a most visited tile, show IPH.
-                    if (url.getOrigin().equals(mLastClickedMostVisitedTileUrl)) {
-                        addToHomescreenIPHController.showAddToHomescreenIPH(tab);
-                    }
+                    // do not show any add to home screen IPH in Bromite
                     removeObserver(tab);
                 }
                 mLastClickedMostVisitedTileUrl = null;
