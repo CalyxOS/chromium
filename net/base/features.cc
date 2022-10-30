@@ -76,8 +76,8 @@ BASE_FEATURE(kEnableTLS13EarlyData,
              base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kEncryptedClientHello,
-             "EncryptedClientHello",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "EncryptedClientHello",                 // enabled
+             base::FEATURE_ENABLED_BY_DEFAULT);      // in Bromite
 
 BASE_FEATURE(kNetworkQualityEstimator,
              "NetworkQualityEstimator",
