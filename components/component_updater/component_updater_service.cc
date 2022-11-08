@@ -547,7 +547,7 @@ std::unique_ptr<ComponentUpdateService> ComponentUpdateServiceFactory(
 // Register prefs required by the component update service.
 void RegisterComponentUpdateServicePrefs(PrefRegistrySimple* registry) {
   // The component updates are enabled by default, if the preference is not set.
-  registry->RegisterBooleanPref(prefs::kComponentUpdatesEnabled, true);
+  registry->RegisterBooleanPref(prefs::kComponentUpdatesEnabled, false);
 }
 
 }  // namespace component_updater
