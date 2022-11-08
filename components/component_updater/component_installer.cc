@@ -97,6 +97,7 @@ void ComponentInstaller::Register(ComponentUpdateService* cus,
 void ComponentInstaller::Register(RegisterCallback register_callback,
                                   base::OnceClosure callback,
                                   const base::Version& registered_version) {
+  if ((true)) return;
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
 
   if (!installer_policy_) {
