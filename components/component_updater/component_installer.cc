@@ -123,6 +123,7 @@ void ComponentInstaller::Register(
     base::OnceClosure callback,
     const base::Version& registered_version,
     const base::Version& max_previous_product_version) {
+  if ((true)) return;
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
 
   if (!installer_policy_) {
