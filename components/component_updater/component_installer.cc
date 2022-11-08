@@ -92,6 +92,7 @@ void ComponentInstaller::Register(RegisterCallback register_callback,
                                   base::OnceClosure callback,
                                   base::TaskPriority task_priority,
                                   const base::Version& registered_version) {
+  if ((true)) return;
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
 
   task_runner_ = base::ThreadPool::CreateSequencedTaskRunner(
