@@ -541,14 +541,8 @@ std::unique_ptr<ComponentUpdateService> ComponentUpdateServiceFactory(
 
 // Register prefs required by the component update service.
 void RegisterComponentUpdateServicePrefs(PrefRegistrySimple* registry) {
-  // If the preference is not set the component updates are enabled by default
-  // unless in Chrome for Testing where we never want components to be updated
-  // automatically.
-  constexpr bool kComponentUpdatesEnabledByDefault =
-      !BUILDFLAG(CHROME_FOR_TESTING);
-
   registry->RegisterBooleanPref(prefs::kComponentUpdatesEnabled,
-                                kComponentUpdatesEnabledByDefault);
+                                false);
 }
 
 }  // namespace component_updater
