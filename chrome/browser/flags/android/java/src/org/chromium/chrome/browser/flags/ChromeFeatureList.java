@@ -594,7 +594,7 @@ public abstract class ChromeFeatureList {
             new CachedFlag(SHOULD_IGNORE_INTENT_SKIP_INTERNAL_CHECK, true);
     public static final CachedFlag sSpareTab = new CachedFlag(SPARE_TAB, false);
     public static final CachedFlag sStartSurfaceAndroid = new CachedFlag(
-            START_SURFACE_ANDROID, ChromePreferenceKeys.FLAGS_CACHED_START_SURFACE_ENABLED, true);
+            START_SURFACE_ANDROID, ChromePreferenceKeys.FLAGS_CACHED_START_SURFACE_ENABLED, false);
     public static final CachedFlag sStartSurfaceDisabledFeedImprovement =
             new CachedFlag(START_SURFACE_DISABLED_FEED_IMPROVEMENT, false);
     public static final CachedFlag sStartSurfaceOnTablet =
