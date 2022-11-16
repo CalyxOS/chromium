@@ -1038,8 +1038,8 @@ BASE_FEATURE(kTrustedWebActivityQualityEnforcementWarning,
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kStartSurfaceAndroid,
-             "StartSurfaceAndroid",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "StartSurfaceAndroid",                 // must be disabled
+             base::FEATURE_DISABLED_BY_DEFAULT);    // in Bromite
 
 BASE_FEATURE(kFeedPositionAndroid,
              "FeedPositionAndroid",
