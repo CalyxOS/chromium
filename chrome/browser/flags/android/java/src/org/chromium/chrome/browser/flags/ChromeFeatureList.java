@@ -618,7 +618,7 @@ public abstract class ChromeFeatureList {
             new CachedFlag(SHOW_NTP_AT_STARTUP_ANDROID, false);
     public static final CachedFlag sSpareTab = new CachedFlag(SPARE_TAB, false);
     public static final CachedFlag sStartSurfaceAndroid =
-            new CachedFlag(START_SURFACE_ANDROID, true);
+            new CachedFlag(START_SURFACE_ANDROID, false);
     public static final CachedFlag sStartSurfaceDisabledFeedImprovement =
             new CachedFlag(START_SURFACE_DISABLED_FEED_IMPROVEMENT, false);
     public static final CachedFlag sStartSurfaceOnTablet =
