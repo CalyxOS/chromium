@@ -231,7 +231,9 @@ void ChromeSigninClient::DoFinalInit() {
 bool ChromeSigninClient::ProfileAllowsSigninCookies(Profile* profile) {
   scoped_refptr<content_settings::CookieSettings> cookie_settings =
       CookieSettingsFactory::GetForProfile(profile);
-  return signin::SettingsAllowSigninCookies(cookie_settings.get());
+  // Make ChromeSigninClient compliant to SigninAllowed policy
+  bool cookiesAllowed = signin::SettingsAllowSigninCookies(cookie_settings.get());
+  return cookiesAllowed && profile->GetPrefs()->GetBoolean(prefs::kSigninAllowed);
 }
 
 PrefService* ChromeSigninClient::GetPrefs() {
@@ -354,6 +356,9 @@ bool ChromeSigninClient::AreNetworkCallsDelayed() {
 }
 
 void ChromeSigninClient::DelayNetworkCall(base::OnceClosure callback) {
+  // Make ChromeSigninClient compliant to SigninAllowed policy
+  if (!AreSigninCookiesAllowed()) return;
+
   wait_for_network_callback_helper_->DelayNetworkCall(std::move(callback));
 }
 

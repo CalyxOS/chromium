@@ -513,8 +513,10 @@ void DiceResponseHandler::ProcessDiceSignoutHeader(
   // - If there is a policy restriction on removing the primary account.
   bool invalidate_only_primary_account =
       identity_manager_->HasPrimaryAccount(signin::ConsentLevel::kSync) ||
+#if BUILDFLAG(ENABLE_BOUND_SESSION_CREDENTIALS)
       !signin::IsImplicitBrowserSigninOrExplicitDisabled(
           identity_manager_, signin_client_->GetPrefs()) ||
+#endif
       !signin_client_->IsClearPrimaryAccountAllowed(
           /*has_sync_account=*/false);
 
