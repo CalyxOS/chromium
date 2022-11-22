@@ -161,7 +161,7 @@ void AccountConsistencyModeManager::SetIgnoreMissingOAuthClientForTesting() {
 // static
 bool AccountConsistencyModeManager::ShouldBuildServiceForProfile(
     Profile* profile) {
-  return profile->IsRegularProfile();
+  return false;
 }
 
 AccountConsistencyMethod
@@ -192,7 +192,8 @@ AccountConsistencyModeManager::ComputeAccountConsistencyMethod(
 #endif
 
 #if BUILDFLAG(ENABLE_MIRROR)
-  return AccountConsistencyMethod::kMirror;
+  // always disabled
+  return AccountConsistencyMethod::kDisabled;
 #elif BUILDFLAG(ENABLE_DICE_SUPPORT)
   if (!profile->GetPrefs()->GetBoolean(prefs::kSigninAllowed)) {
     VLOG(1) << "Desktop Identity Consistency disabled as sign-in to Chrome "
@@ -200,7 +201,7 @@ AccountConsistencyModeManager::ComputeAccountConsistencyMethod(
     return AccountConsistencyMethod::kDisabled;
   }
 
-  return AccountConsistencyMethod::kDice;
+  return AccountConsistencyMethod::kDisabled;
 #else
   NOTREACHED();
 #endif
