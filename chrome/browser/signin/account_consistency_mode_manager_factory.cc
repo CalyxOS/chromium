@@ -51,5 +51,5 @@ void AccountConsistencyModeManagerFactory::RegisterProfilePrefs(
 
 bool AccountConsistencyModeManagerFactory::ServiceIsCreatedWithBrowserContext()
     const {
-  return true;
+  return false;
 }
