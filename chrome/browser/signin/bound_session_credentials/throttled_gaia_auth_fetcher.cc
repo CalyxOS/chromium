@@ -15,6 +15,7 @@
 #include "net/cookies/cookie_util.h"
 #include "services/network/public/cpp/shared_url_loader_factory.h"
 #include "services/network/public/mojom/fetch_api.mojom-shared.h"
+#include "build/build_config.h"
 
 ThrottledGaiaAuthFetcher::ThrottledGaiaAuthFetcher(
     GaiaAuthConsumer* consumer,
@@ -41,6 +42,7 @@ void ThrottledGaiaAuthFetcher::CreateAndStartGaiaFetcher(
     const GURL& gaia_gurl,
     network::mojom::CredentialsMode credentials_mode,
     const net::NetworkTrafficAnnotationTag& traffic_annotation) {
+#if BUILDFLAG(ENABLE_BOUND_SESSION_CREDENTIALS)
   if ((IsListAccountsUrl(gaia_gurl) || IsMultiloginUrl(gaia_gurl)) &&
       credentials_mode == network::mojom::CredentialsMode::kInclude &&
       GoogleURLLoaderThrottle::GetRequestBoundSessionStatus(
@@ -59,6 +61,7 @@ void ThrottledGaiaAuthFetcher::CreateAndStartGaiaFetcher(
   GaiaAuthFetcher::CreateAndStartGaiaFetcher(body, body_content_type, headers,
                                              gaia_gurl, credentials_mode,
                                              traffic_annotation);
+#endif
 }
 
 void ThrottledGaiaAuthFetcher::OnGaiaFetcherResumedOrCancelled(
@@ -70,6 +73,7 @@ void ThrottledGaiaAuthFetcher::OnGaiaFetcherResumedOrCancelled(
     const net::NetworkTrafficAnnotationTag& traffic_annotation,
     BoundSessionRequestThrottledHandler::UnblockAction unblock_action,
     chrome::mojom::ResumeBlockedRequestsTrigger resume_trigger) {
+#if BUILDFLAG(ENABLE_BOUND_SESSION_CREDENTIALS)
   switch (unblock_action) {
     case BoundSessionRequestThrottledHandler::UnblockAction::kResume:
       GaiaAuthFetcher::CreateAndStartGaiaFetcher(
@@ -81,4 +85,5 @@ void ThrottledGaiaAuthFetcher::OnGaiaFetcherResumedOrCancelled(
                              /*response_code=*/0);
       break;
   }
+#endif
 }
