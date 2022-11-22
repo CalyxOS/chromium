@@ -166,7 +166,7 @@ void AccountConsistencyModeManager::SetIgnoreMissingOAuthClientForTesting() {
 // static
 bool AccountConsistencyModeManager::ShouldBuildServiceForProfile(
     Profile* profile) {
-  return profile->IsRegularProfile();
+  return false;
 }
 
 AccountConsistencyMethod
@@ -204,7 +204,8 @@ AccountConsistencyModeManager::ComputeAccountConsistencyMethod(
 #endif
 
 #if BUILDFLAG(ENABLE_MIRROR)
-  return AccountConsistencyMethod::kMirror;
+  // always disabled
+  return AccountConsistencyMethod::kDisabled;
 #endif
 
 #if BUILDFLAG(ENABLE_DICE_SUPPORT)
@@ -214,7 +215,7 @@ AccountConsistencyModeManager::ComputeAccountConsistencyMethod(
     return AccountConsistencyMethod::kDisabled;
   }
 
-  return AccountConsistencyMethod::kDice;
+  return AccountConsistencyMethod::kDisabled;
 #endif
 
   NOTREACHED();
