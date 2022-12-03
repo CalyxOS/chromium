@@ -270,8 +270,8 @@ BASE_FEATURE(kCookieDomainRejectNonASCII,
 // Enables partitioning of third party storage (IndexedDB, CacheStorage, etc.)
 // by the top level site to reduce fingerprinting.
 BASE_FEATURE(kThirdPartyStoragePartitioning,
-             "ThirdPartyStoragePartitioning",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "ThirdPartyStoragePartitioning",       // must be enabled
+             base::FEATURE_ENABLED_BY_DEFAULT);     // in Bromite
 
 // Whether to use the new code paths needed to support partitioning Blob URLs.
 // This exists as a kill-switch in case an issue is identified with the Blob
