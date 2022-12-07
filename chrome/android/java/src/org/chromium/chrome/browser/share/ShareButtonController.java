@@ -95,6 +95,43 @@ public class ShareButtonController extends BaseButtonDataProvider {
         return mShareUtils.shouldEnableShare(tab);
     }
 
+/*    @Override
+    public ButtonData get(Tab tab) {
+        updateButtonVisibility(tab);
+        maybeSetIphCommandBuilder(tab);
+        return mButtonData;
+    }
+
+    private void updateButtonVisibility(Tab tab) {
+        if (tab == null || tab.getWebContents() == null || mTabProvider == null
+                || mTabProvider.get() == null || !isFeatureEnabled()) {
+            mButtonData.setCanShow(false);
+            return;
+        }
+
+        final boolean isDeviceWideEnough =
+                mScreenWidthDp >= AdaptiveToolbarFeatures.getDeviceMinimumWidthForShowingButton();
+        if (mShareDelegateSupplier.get() == null || !isDeviceWideEnough) {
+            mButtonData.setCanShow(false);
+            return;
+        }
+
+        mButtonData.setCanShow(mShareUtils.shouldEnableShare(tab));
+    }
+
+    private static boolean isFeatureEnabled() {
+        return (AdaptiveToolbarFeatures.isSingleVariantModeEnabled()
+                       && AdaptiveToolbarFeatures.getSingleVariantMode()
+                               == AdaptiveToolbarButtonVariant.SHARE)
+                || AdaptiveToolbarFeatures.isCustomizationEnabled();
+    }
+
+    private void notifyObservers(boolean hint) {
+        for (ButtonDataObserver observer : mObservers) {
+            observer.buttonDataChanged(hint);
+        }
+    } */
+
     /**
      * Returns an IPH for this button. Only called once native is initialized and when {@code
      * AdaptiveToolbarFeatures.isCustomizationEnabled()} is true.

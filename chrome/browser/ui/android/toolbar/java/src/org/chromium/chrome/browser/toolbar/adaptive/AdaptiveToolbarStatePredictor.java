@@ -97,7 +97,12 @@ public class AdaptiveToolbarStatePredictor {
 
         // Early return if the feature isn't enabled.
         if (!AdaptiveToolbarFeatures.isCustomizationEnabled()) {
-            callback.onResult(new UiState(false, AdaptiveToolbarButtonVariant.UNKNOWN,
+            boolean canShowUi = AdaptiveToolbarFeatures.isSingleVariantModeEnabled();
+            @AdaptiveToolbarButtonVariant
+            int toolbarButtonState = AdaptiveToolbarFeatures.isSingleVariantModeEnabled()
+                    ? AdaptiveToolbarFeatures.getSingleVariantMode()
+                    : AdaptiveToolbarButtonVariant.UNKNOWN;
+            callback.onResult(new UiState(canShowUi, toolbarButtonState,
                     AdaptiveToolbarButtonVariant.UNKNOWN, AdaptiveToolbarButtonVariant.UNKNOWN));
             return;
         }

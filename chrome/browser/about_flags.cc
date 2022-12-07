@@ -571,18 +571,12 @@ const FeatureEntry::FeatureParam kAdaptiveButtonCustomization_Share[] = {
     {"default_segment", "share"},
     {"show_ui_only_after_ready", "false"},
     {"ignore_segmentation_results", "true"}};
-const FeatureEntry::FeatureParam kAdaptiveButtonCustomization_Voice[] = {
-    {"default_segment", "voice"},
-    {"show_ui_only_after_ready", "false"},
-    {"ignore_segmentation_results", "true"}};
 const FeatureEntry::FeatureVariation
     kAdaptiveButtonInTopToolbarCustomizationVariations[] = {
         {"New Tab", kAdaptiveButtonCustomization_NewTab,
          std::size(kAdaptiveButtonCustomization_NewTab), nullptr},
         {"Share", kAdaptiveButtonCustomization_Share,
          std::size(kAdaptiveButtonCustomization_Share), nullptr},
-        {"Voice", kAdaptiveButtonCustomization_Voice,
-         std::size(kAdaptiveButtonCustomization_Voice), nullptr},
 };
 
 const FeatureEntry::FeatureParam kContextualPageActionPriceTracking_Quiet[] = {

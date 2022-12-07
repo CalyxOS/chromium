@@ -234,7 +234,11 @@ public class AdaptiveToolbarButtonController
 
     @Override
     public void onFinishNativeInitialization() {
-        if (AdaptiveToolbarFeatures.isCustomizationEnabled()) {
+        if (AdaptiveToolbarFeatures.isSingleVariantModeEnabled()) {
+            @AdaptiveToolbarButtonVariant
+            int variant = AdaptiveToolbarFeatures.getSingleVariantMode();
+            setSingleProvider(variant);
+        } else if (AdaptiveToolbarFeatures.isCustomizationEnabled()) {
             mAdaptiveToolbarStatePredictor.recomputeUiState(uiState -> {
                 mSessionButtonVariant = uiState.canShowUi ? uiState.toolbarButtonState
                                                           : AdaptiveToolbarButtonVariant.UNKNOWN;
