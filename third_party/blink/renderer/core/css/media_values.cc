@@ -182,7 +182,7 @@ bool MediaValues::CalculateStrictMode(LocalFrame* frame) {
 }
 
 float MediaValues::CalculateDevicePixelRatio(LocalFrame* frame) {
-  return frame->DevicePixelRatio();
+  return frame->DevicePixelRatio(false);
 }
 
 bool MediaValues::CalculateDeviceSupportsHDR(LocalFrame* frame) {
