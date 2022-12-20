@@ -629,6 +629,14 @@ void GuestViewBase::AttachToOuterWebContentsFrame(
   if (attachment_callback)
     std::move(attachment_callback).Run();
 
+  // Disable viewport protection
+  // I use this hack, i.e. I reuse the SetPageScale method for my own purposes,
+  // so that I do not have to enter a new call in mojo and thus edit
+  // so many files.
+  // the chromium code never uses negative values, so there is no
+  // danger of inserting problems
+  embedder_web_contents->SetPageScale(-999);
+
   // Completing attachment will resume suspended resource loads and then send
   // queued events.
   SignalWhenReady(base::BindOnce(&GuestViewBase::DidAttach,
