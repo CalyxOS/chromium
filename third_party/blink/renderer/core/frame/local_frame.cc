@@ -1402,6 +1402,10 @@ void LocalFrame::RestoreScrollOffsets() {
   saved_scroll_offsets_ = nullptr;
 }
 
+void LocalFrame::SetPageZoomFactorBaseValue(float factor) {
+  page_zoom_factor_base_value_ = factor;
+}
+
 void LocalFrame::SetPageZoomFactor(float factor) {
   SetPageAndTextZoomFactors(factor, text_zoom_factor_);
 }
@@ -1542,12 +1546,16 @@ device::mojom::blink::DevicePostureType LocalFrame::GetDevicePosture() {
   return mojo_handler_->GetDevicePosture();
 }
 
-double LocalFrame::DevicePixelRatio() const {
+double LocalFrame::DevicePixelRatio(bool with_zoom_factor) const {
   if (!page_)
     return 0;
 
   double ratio = page_->InspectorDeviceScaleFactorOverride();
-  ratio *= PageZoomFactor();
+  // with_zoom_factor is default true
+  if (with_zoom_factor)
+    ratio *= PageZoomFactor();
+  else
+    ratio = page_zoom_factor_;
   return ratio;
 }
 
