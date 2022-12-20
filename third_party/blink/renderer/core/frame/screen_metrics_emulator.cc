@@ -34,6 +34,7 @@ void ScreenMetricsEmulator::Trace(Visitor* vistor) const {
 }
 
 void ScreenMetricsEmulator::DisableAndApply() {
+  override_screen_type_ = false;
   frame_widget_->SetScreenMetricsEmulationParameters(false, emulation_params_);
   frame_widget_->SetScreenRects(original_view_screen_rect_,
                                 original_window_screen_rect_);
@@ -45,7 +46,16 @@ void ScreenMetricsEmulator::DisableAndApply() {
 
 void ScreenMetricsEmulator::ChangeEmulationParams(
     const DeviceEmulationParams& params) {
+  if (!params.force_mobile_calc) {
+    // user has activated device emulator via devtools
+    override_screen_type_ = true;
+    // we need to save requested value
+    last_screen_type_ = params.screen_type;
+  }
   emulation_params_ = params;
+  if (override_screen_type_) {
+    emulation_params_.screen_type = last_screen_type_;
+  }
   Apply();
 }
 
@@ -163,6 +173,9 @@ void ScreenMetricsEmulator::Apply() {
   frame_widget_->SetScreenInfoAndSize(emulated_screen_infos,
                                       /*widget_size=*/widget_size,
                                       /*visible_viewport_size=*/widget_size);
+
+  // save emulated window size
+  window_size_ = window_size;
 }
 
 void ScreenMetricsEmulator::UpdateVisualProperties(
@@ -191,9 +204,8 @@ void ScreenMetricsEmulator::OnUpdateScreenRects(
     const gfx::Rect& window_screen_rect) {
   original_view_screen_rect_ = view_screen_rect;
   original_window_screen_rect_ = window_screen_rect;
-  if (emulating_desktop()) {
-    Apply();
-  }
+  // needed as we need browser ui size
+  Apply();
 }
 
 }  // namespace blink

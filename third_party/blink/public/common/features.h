@@ -1397,6 +1397,9 @@ BLINK_COMMON_EXPORT bool IsFencedFramesEnabled();
 
 BLINK_COMMON_EXPORT bool IsMaxUnthrottledTimeoutNestingLevelEnabled();
 
+// Enable blink viewport protection
+BLINK_COMMON_EXPORT BASE_DECLARE_FEATURE(kViewportProtection);
+
 // This function checks both kNewBaseUrlInheritanceBehavior and
 // kIsolateSandboxedIframes and returns true if either is enabled.
 BLINK_COMMON_EXPORT bool IsNewBaseUrlInheritanceBehaviorEnabled();
