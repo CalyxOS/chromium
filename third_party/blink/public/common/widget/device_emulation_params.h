@@ -19,6 +19,9 @@ namespace blink {
 struct DeviceEmulationParams {
   mojom::EmulatedScreenType screen_type = mojom::EmulatedScreenType::kDesktop;
 
+  // Forces screen recalculation the same way as mobile
+  bool force_mobile_calc = false;
+
   // Emulated screen size. Typically full / physical size of the device screen
   // in DIP. Empty size means using default value: original one for kDesktop
   // screen position, equal to |view_size| for kMobile.
@@ -71,7 +74,8 @@ inline bool operator==(const DeviceEmulationParams& a,
          a.screen_orientation_angle == b.screen_orientation_angle &&
          a.viewport_offset == b.viewport_offset &&
          a.viewport_scale == b.viewport_scale &&
-         a.window_segments == b.window_segments;
+         a.window_segments == b.window_segments &&
+         a.force_mobile_calc == b.force_mobile_calc;
 }
 
 inline bool operator!=(const DeviceEmulationParams& a,
