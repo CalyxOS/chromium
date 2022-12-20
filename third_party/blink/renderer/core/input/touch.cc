@@ -30,6 +30,7 @@
 #include "third_party/blink/renderer/core/frame/local_frame_view.h"
 #include "third_party/blink/renderer/core/paint/paint_layer_scrollable_area.h"
 #include "ui/gfx/geometry/point_f.h"
+#include "third_party/blink/renderer/core/page/page.h"
 
 namespace blink {
 
@@ -75,7 +76,13 @@ Touch::Touch(LocalFrame* frame,
       radius_(radius),
       rotation_angle_(rotation_angle),
       force_(force),
-      absolute_location_(PageToAbsolute(frame, page_pos)) {}
+      absolute_location_(PageToAbsolute(frame, page_pos)) {
+    if (frame->GetPage() && frame->GetPage()->IsScreenEmulated()) {
+      // use page_pos instead of screen_pos
+      screen_pos_.set_x(page_pos_.x());
+      screen_pos_.set_y(page_pos_.y());
+    }
+  }
 
 Touch::Touch(EventTarget* target,
              int identifier,
@@ -105,7 +112,13 @@ Touch::Touch(LocalFrame* frame, const TouchInit* initializer)
       radius_(initializer->radiusX(), initializer->radiusY()),
       rotation_angle_(initializer->rotationAngle()),
       force_(initializer->force()),
-      absolute_location_(PageToAbsolute(frame, page_pos_)) {}
+      absolute_location_(PageToAbsolute(frame, page_pos_))  {
+    if (frame->GetPage() && frame->GetPage()->IsScreenEmulated()) {
+      // use page_pos instead of screen_pos
+      screen_pos_.set_x(page_pos_.x());
+      screen_pos_.set_y(page_pos_.y());
+    }
+  }
 
 Touch* Touch::CloneWithNewTarget(EventTarget* event_target) const {
   return MakeGarbageCollected<Touch>(
