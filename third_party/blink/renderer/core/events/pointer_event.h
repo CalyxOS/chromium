@@ -9,6 +9,7 @@
 #include "third_party/blink/renderer/core/core_export.h"
 #include "third_party/blink/renderer/core/events/mouse_event.h"
 #include "third_party/blink/renderer/platform/wtf/casting.h"
+#include "third_party/blink/renderer/core/page/page.h"
 
 namespace blink {
 
@@ -59,11 +60,21 @@ class CORE_EXPORT PointerEvent : public MouseEvent {
   double screenX() const override {
     if (ShouldHaveIntegerCoordinates())
       return MouseEvent::screenX();
+    if (view() && view()->GetFrame() &&
+        view()->GetFrame()->GetPage() &&
+        view()->GetFrame()->GetPage()->IsScreenEmulated()) {
+      return page_x_;
+    }
     return screen_x_;
   }
   double screenY() const override {
     if (ShouldHaveIntegerCoordinates())
       return MouseEvent::screenY();
+    if (view() && view()->GetFrame() &&
+        view()->GetFrame()->GetPage() &&
+        view()->GetFrame()->GetPage()->IsScreenEmulated()) {
+      return page_y_;
+    }
     return screen_y_;
   }
   double clientX() const override {
