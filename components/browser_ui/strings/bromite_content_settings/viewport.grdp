@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grit-part>
+  <message name="IDS_SITE_SETTINGS_TYPE_VIEWPORT" desc="The label used for viewport size change site settings controls." formatter_data="android_java">
+    Viewport Size Protection
+  </message>
+  <message name="IDS_VIEWPORT_PERMISSION_TITLE" desc="Title of the permission to use viewport size change [CHAR-LIMIT=32]" formatter_data="android_java">
+    Viewport Size Protection
+  </message>
+  <message name="IDS_SITE_SETTINGS_TYPE_VIEWPORT_MID_SENTENCE" desc="The label used for viewport size change site settings controls when used mid-sentence." formatter_data="android_java">
+    Viewport Size Protection
+  </message>
+  <message name="IDS_SETTINGS_SITE_SETTINGS_VIEWPORT_PROTECTION_DESCRIPTION" desc="Description of the viewport protection content setting." formatter_data="android_java">
+    Hides the screen size by randomly changing the values for each website
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_VIEWPORT_ENABLED" desc="Summary text explaining that viewport size change is full enabled." formatter_data="android_java">
+    Enabled
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_VIEWPORT_DISABLED" desc="Summary text explaining that viewport size change is full disabled." formatter_data="android_java">
+    Disabled
+  </message>
+  <message name="IDS_WEBSITE_SETTINGS_CATEGORY_VIEWPORT_A11Y" desc="The screen reader announcement describing a toggle with two states, controlling whether the screen size is hidden from sites by randomly changing values. It is important to keep this string as two full sentences terminated by a period." formatter_data="android_java">
+    When on, the screen size will be hidden from sites by randomly changing the values. When off, sites will see the actual screen size.
+  </message>
+  <message name="IDS_SETTINGS_SITE_SETTINGS_VIEWPORT_PROTECTION_ALLOWED_EXCEPTIONS" desc="Label for the allowed exceptions site list of the viewport protection setting.">
+    Viewport Protection is enabled with these websites
+  </message>
+  <message name="IDS_SETTINGS_SITE_SETTINGS_VIEWPORT_PROTECTION_BLOCKED_EXCEPTIONS" desc="Label for the blocked exceptions site list of the viewport protection setting.">
+    Not allowed to use Viewport Protection
+  </message>
+</grit-part>
