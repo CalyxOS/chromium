@@ -1814,6 +1814,14 @@ void WebFrameWidgetImpl::ApplyVisualPropertiesSizing(
 
     if (auto* device_emulator = DeviceEmulator()) {
       device_emulator->UpdateVisualProperties(visual_properties);
+      // Shink the view according to browsercontrols
+      size_ = widget_base_->DIPsToCeiledBlinkSpace(
+          device_emulator->ViewWindowSize());
+      View()->ResizeWithBrowserControls(
+          size_.value(),
+          widget_base_->DIPsToCeiledBlinkSpace(
+              widget_base_->VisibleViewportSizeInDIPs()),
+          visual_properties.browser_controls_params);
       return;
     }
 

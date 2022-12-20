@@ -31,6 +31,7 @@
 #include "third_party/blink/renderer/core/dom/events/simulated_click_options.h"
 #include "third_party/blink/renderer/core/events/ui_event_with_key_state.h"
 #include "third_party/blink/renderer/platform/wtf/casting.h"
+#include "third_party/blink/renderer/core/page/page.h"
 
 namespace blink {
 
@@ -143,8 +144,22 @@ class CORE_EXPORT MouseEvent : public UIEventWithKeyState {
 
   // Note that these values are adjusted to counter the effects of zoom, so that
   // values exposed via DOM APIs are invariant under zooming.
-  virtual double screenX() const { return std::floor(screen_x_); }
-  virtual double screenY() const { return std::floor(screen_y_); }
+  virtual double screenX() const {
+    if (view() && view()->GetFrame() &&
+        view()->GetFrame()->GetPage() &&
+        view()->GetFrame()->GetPage()->IsScreenEmulated()) {
+      return std::floor(page_x_);
+    }
+    return std::floor(screen_x_);
+  }
+  virtual double screenY() const {
+    if (view() && view()->GetFrame() &&
+        view()->GetFrame()->GetPage() &&
+        view()->GetFrame()->GetPage()->IsScreenEmulated()) {
+      return std::floor(page_y_);
+    }
+    return std::floor(screen_y_);
+  }
 
   virtual double clientX() const { return std::floor(client_x_); }
   virtual double clientY() const { return std::floor(client_y_); }
