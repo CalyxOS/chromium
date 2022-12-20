@@ -1575,6 +1575,10 @@ void LocalFrame::RestoreScrollOffsets() {
   saved_scroll_offsets_ = nullptr;
 }
 
+void LocalFrame::SetPageZoomFactorBaseValue(float factor) {
+  page_zoom_factor_base_value_ = factor;
+}
+
 void LocalFrame::SetLayoutZoomFactor(float factor) {
   SetLayoutAndTextZoomFactors(factor, text_zoom_factor_);
 }
@@ -1756,12 +1760,16 @@ mojom::blink::DevicePostureType LocalFrame::GetDevicePosture() {
   return mojo_handler_->GetDevicePosture();
 }
 
-double LocalFrame::DevicePixelRatio() const {
+double LocalFrame::DevicePixelRatio(bool with_zoom_factor) const {
   if (!page_)
     return 0;
 
   double ratio = page_->InspectorDeviceScaleFactorOverride();
-  ratio *= LayoutZoomFactor();
+  // with_zoom_factor is default true
+  if (with_zoom_factor)
+    ratio *= LayoutZoomFactor();
+  else
+    ratio = layout_zoom_factor_;
   return ratio;
 }
 
@@ -3360,6 +3368,11 @@ void LocalFrame::DidBufferLoadWhileInBackForwardCache(
 void LocalFrame::SetScaleFactor(float scale_factor) {
   DCHECK(!GetDocument() || !GetDocument()->Printing());
   DCHECK(IsMainFrame());
+
+  if (scale_factor <= -999) {
+    GetPage()->DisableScreenEmulated();
+    return;
+  }
 
   const PageScaleConstraints& constraints =
       GetPage()->GetPageScaleConstraintsSet().FinalConstraints();
