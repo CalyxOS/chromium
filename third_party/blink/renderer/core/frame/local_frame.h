@@ -435,7 +435,8 @@ class CORE_EXPORT LocalFrame final
   void SetInViewSourceMode(bool = true);
 
   void SetLayoutZoomFactor(float);
-  float LayoutZoomFactor() const { return layout_zoom_factor_; }
+  void SetPageZoomFactorBaseValue(float factor);
+  float LayoutZoomFactor() const { return layout_zoom_factor_ + page_zoom_factor_base_value_; }
   void SetTextZoomFactor(float);
   float TextZoomFactor() const { return text_zoom_factor_; }
   void SetCssZoomFactor(float);
@@ -444,7 +445,7 @@ class CORE_EXPORT LocalFrame final
                       float text_zoom_factor,
                       float css_zoom_factor);
 
-  double DevicePixelRatio() const;
+  double DevicePixelRatio(bool with_zoom_factor = true) const;
 
   // Informs the local root's document and its local descendant subtree that a
   // media query value changed.
@@ -1094,6 +1095,7 @@ class CORE_EXPORT LocalFrame final
   unsigned did_run_detach_impl_ : 1 = false;
 
   float layout_zoom_factor_;
+  float page_zoom_factor_base_value_ = 0;
   float text_zoom_factor_;
   float css_zoom_factor_;
 
