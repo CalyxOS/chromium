@@ -180,7 +180,7 @@ const base::FeatureParam<int> kSkipFrameCountForLazyAds(
 // Vitals.
 BASE_FEATURE(kAutomaticLazyFrameLoadingToEmbeds,
              "AutomaticLazyFrameLoadingToEmbeds",    // must be enabled
-             base::FEATURE_ENABLED_BY_DEFAULT);      // in Bromite
+             base::FEATURE_DISABLED_BY_DEFAULT);      // in Bromite
 
 // The timeout value that forces loading iframes that are lazy loaded by
 // LazyEmbeds. After this timeout, the frame loading is triggered even when the
