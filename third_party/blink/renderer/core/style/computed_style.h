@@ -1883,6 +1883,12 @@ class ComputedStyle final : public ComputedStyleBase {
            IsRunningBackdropFilterAnimationOnCompositor();
   }
 
+  float Opacity() const {
+    float v = OpacityInternal();
+    if (v >= 0.991f) v = 1.0f;
+    return v;
+  }
+
   // Opacity utility functions.
   bool HasOpacity() const { return Opacity() < 1.0f; }
 
