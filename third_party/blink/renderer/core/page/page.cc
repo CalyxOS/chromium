@@ -96,6 +96,12 @@
 #include "ui/color/color_provider.h"
 #include "ui/color/color_provider_utils.h"
 
+#include "base/rand_util.h"
+#include "build/build_config.h"
+#include "third_party/blink/public/common/widget/device_emulation_params.h"
+#include "third_party/blink/renderer/core/exported/web_view_impl.h"
+#include "third_party/blink/renderer/platform/weborigin/scheme_registry.h"
+
 namespace blink {
 
 namespace {
@@ -1067,7 +1073,94 @@ void Page::UpdateAcceleratedCompositingSettings() {
   }
 }
 
+void Page::CalculateEmulatedScreenSetting(LocalFrame* frame, bool force) {
+  bool isEnabled = base::FeatureList::IsEnabled(features::kViewportProtection);
+  blink::WebContentSettingsClient* settings = frame->GetContentSettingsClient();
+  isEnabled |= (settings && settings->AllowContentSetting(
+        ContentSettingsType::VIEWPORT, /*default_value*/ false));
+  String protocol =
+    frame->GetSecurityContext()->GetSecurityOrigin()->Protocol();
+  if (SchemeRegistry::IsWebUIScheme(protocol) || disable_screen_emulated_) {
+    isEnabled = false;
+  }
+  if (isEnabled || force) {
+    // this is the maximum (and minimum) value which in percentage
+    // corresponds to +- 0.03%
+    // more or less 3-6 pixels according to the resolution 300-600px
+    // little enough not to change the page view the user is used to,
+    // but enough to change all bounds, especially those in floating point
+    const int max_range = 300;
+
+    // only for the local main frame
+    // the other local frames use the values from main
+    // while the remote ones do not communicate the values to the parent
+    // (and they will be local main frame in their page context)
+    if (main_frame_ == frame) {
+      // set the scale factor
+      double scale_factor = 0;
+      if (override_window_scale_factor_ != 0) {
+        scale_factor = override_window_scale_factor_;
+      } else {
+        // we allow the increase or decrease of the screen size (and view)
+        scale_factor = 1.0 + base::RandInt(-max_range, max_range) / 10000.0;
+      }
+
+      // save the value, so a same domain navigation will reuse same value
+      override_window_scale_factor_ = scale_factor;
+
+      // we divide the value in half: half for the screen and the view,
+      // which then the latter will be scaled again by the zoom
+      double half_random = (scale_factor - 1.0) / 2.0;
+
+      // set emulation params
+      DeviceEmulationParams params;
+      // the screen size is changed to match the widget size with force_mobile_calc
+      params.force_mobile_calc = true;
+      params.screen_type = mojom::EmulatedScreenType::kDesktop;
+      // scale the widget size (and the screen size) by half_random scale factor
+      params.scale = 1 / (1.0 + half_random);
+
+      GetChromeClient().GetWebView()->EnableDeviceEmulation(params);
+
+      // set zoom factor
+      // the zoom factor is used by all the functions that manage the bounds,
+      // which is multiplied by the values in pixels when computed
+      // we do not modify the actual value but only the one used internally
+      // it becomes the base value used as the zoom property of the css, but
+      // it does not appear on the dom (which always remains 1.0)
+      double zoom_factor = 0;
+      if (override_zoom_factor_ != 0) {
+        zoom_factor = override_zoom_factor_;
+      } else {
+        // we only allow the page size to decrease, otherwise the scroll
+        // bars would not be visible
+        zoom_factor = base::RandInt(0, max_range/2) / 10000.0;
+      }
+
+      // save the value, so a same domain navigation will reuse same value
+      override_zoom_factor_ = zoom_factor;
+
+      frame->SetPageZoomFactorBaseValue(zoom_factor);
+    }
+    is_screen_emulated_ = true;
+  } else {
+    if (is_screen_emulated_ && main_frame_ == frame) {
+      GetChromeClient().GetWebView()->DisableDeviceEmulation();
+      frame->SetPageZoomFactorBaseValue(0);
+    }
+    is_screen_emulated_ = false;
+  }
+}
+
+void Page::DisableScreenEmulated() {
+  disable_screen_emulated_ = true;
+  GetChromeClient().GetWebView()->DisableDeviceEmulation();
+  DeprecatedLocalMainFrame()->SetPageZoomFactorBaseValue(0);
+  is_screen_emulated_ = false;
+}
+
 void Page::DidCommitLoad(LocalFrame* frame) {
+  CalculateEmulatedScreenSetting(frame);
   if (main_frame_ == frame) {
     GetConsoleMessageStorage().Clear();
     GetInspectorIssueStorage().Clear();
