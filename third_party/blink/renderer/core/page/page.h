@@ -445,6 +445,9 @@ class CORE_EXPORT Page final : public GarbageCollected<Page>,
   // place.
   void UpdateBrowsingContextGroup(const blink::BrowsingContextGroupInfo&);
 
+  void CalculateEmulatedScreenSetting(LocalFrame* frame, bool force = false);
+  bool IsScreenEmulated() { return is_screen_emulated; }
+
  private:
   friend class ScopedPagePauser;
 
@@ -587,6 +590,10 @@ class CORE_EXPORT Page final : public GarbageCollected<Page>,
   // only set for the MPArch implementation and is true when the corresponding
   // browser side FrameTree has the FrameTree::Type of kFencedFrame.
   bool is_fenced_frame_tree_ = false;
+
+  bool is_screen_emulated = false;
+  double override_window_scale_factor_ = 0;
+  double override_zoom_factor_ = 0;
 
   // This tracks the mode that the fenced frame is set to.
   blink::FencedFrame::DeprecatedFencedFrameMode fenced_frame_mode_ =

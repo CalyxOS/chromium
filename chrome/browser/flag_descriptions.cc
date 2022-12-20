@@ -7670,6 +7670,12 @@ const char kWebXrInternalsDescription[] =
     "debug issues with the WebXR Device API.";
 #endif  // #if defined(ENABLE_VR)
 
+const char kViewportProtectionName[] = "Viewport Protection";
+const char kViewportProtectionDescription[] =
+    "Scale the viewport and the screen by a random factor to prevent "
+    "coordinate-based fingerprinting scripts. The factor is changed at each "
+    "change of origin.";
+
 #if BUILDFLAG(ENABLE_WEBUI_TAB_STRIP)
 const char kWebUITabStripFlagId[] = "webui-tab-strip";
 const char kWebUITabStripName[] = "WebUI tab strip";

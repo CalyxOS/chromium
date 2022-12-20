@@ -10340,6 +10340,11 @@ const FeatureEntry kFeatureEntries[] = {
          kServiceWorkerSkipIgnorableFetchHandlerVariations,
          "ServiceWorkerSkipIgnorableFetchHandler")},
 
+    {"viewport-protection",
+     flag_descriptions::kViewportProtectionName,
+     flag_descriptions::kViewportProtectionDescription, kOsAll,
+     FEATURE_VALUE_TYPE(blink::features::kViewportProtection)},
+
 #if BUILDFLAG(IS_ANDROID)
     {"block-external-form-redirects-no-gesture",
      flag_descriptions::kIntentBlockExternalFormRedirectsNoGestureName,
