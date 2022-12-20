@@ -4432,6 +4432,9 @@ extern const char kPaintPreviewDemoName[];
 extern const char kPaintPreviewDemoDescription[];
 #endif  // ENABLE_PAINT_PREVIEW && BUILDFLAG(IS_ANDROID)
 
+extern const char kViewportProtectionName[];
+extern const char kViewportProtectionDescription[];
+
 #if BUILDFLAG(ENABLE_VR)
 extern const char kWebXrInternalsName[];
 extern const char kWebXrInternalsDescription[];
