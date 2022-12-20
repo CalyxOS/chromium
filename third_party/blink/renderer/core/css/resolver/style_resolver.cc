@@ -1977,7 +1977,12 @@ ComputedStyleBuilder StyleResolver::InitialStyleBuilderForElement() const {
   ComputedStyleBuilder builder = CreateComputedStyleBuilder();
   builder.SetRtlOrdering(GetDocument().VisuallyOrdered() ? EOrder::kVisual
                                                          : EOrder::kLogical);
-  builder.SetZoom(InitialZoom());
+  if (GetDocument().GetPage() && GetDocument().GetPage()->IsScreenEmulated()) {
+    // hides the zoom override to the dom on the html tag
+    builder.SetZoom(1);
+  } else {
+    builder.SetZoom(InitialZoom());
+  }
   builder.SetEffectiveZoom(InitialZoom());
   builder.SetInForcedColorsMode(GetDocument().InForcedColorsMode());
   builder.SetTapHighlightColor(
