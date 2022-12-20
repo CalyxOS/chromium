@@ -4209,6 +4209,7 @@
     },
     {
       name: "opacity",
+      computed_style_custom_functions: ["setter","getter"],
       property_methods: ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
       interpolable: true,
       compositable: true,
@@ -4216,7 +4217,6 @@
       field_template: "primitive",
       default_value: "1.0",
       type_name: "float",
-      computed_style_custom_functions: ["setter"],
       typedom_types: ["Number"],
       valid_for_first_letter: true,
       valid_for_first_line: true,
