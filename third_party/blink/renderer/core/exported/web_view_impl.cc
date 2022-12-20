@@ -1070,7 +1070,7 @@ WebPagePopupImpl* WebViewImpl::OpenPagePopup(PagePopupClient* client) {
   page_popup_ = WebPagePopupImpl::Create(
       std::move(popup_widget_host), std::move(widget_host),
       std::move(widget_receiver), this, agent_group_scheduler,
-      opener_widget->GetOriginalScreenInfos(), client);
+      opener_widget->GetScreenInfos(), client);
   EnablePopupMouseWheelEventListener(web_opener_frame->LocalRoot());
   return page_popup_.get();
 }
