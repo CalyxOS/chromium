@@ -63,6 +63,11 @@ class ScreenMetricsEmulator : public GarbageCollected<ScreenMetricsEmulator> {
   // Emulated position of the main frame widget (aka view) rect.
   gfx::Point ViewRectOrigin();
 
+  // Get emulated window size
+  const gfx::Size& ViewWindowSize() const {
+    return window_size_;
+  }
+
   // Disables emulation and applies non-emulated values to the
   // WebFrameWidgetImpl. Call this before destroying the ScreenMetricsEmulator.
   void DisableAndApply();
@@ -79,6 +84,8 @@ class ScreenMetricsEmulator : public GarbageCollected<ScreenMetricsEmulator> {
 
  private:
   bool emulating_desktop() const {
+    if (emulation_params_.force_mobile_calc == true)
+      return false;
     return emulation_params_.screen_type ==
            mojom::blink::EmulatedScreenType::kDesktop;
   }
@@ -91,6 +98,10 @@ class ScreenMetricsEmulator : public GarbageCollected<ScreenMetricsEmulator> {
   // Parameters as passed by `WebFrameWidgetImpl::EnableDeviceEmulation()`
   DeviceEmulationParams emulation_params_;
 
+  // Used to remember the user's choice if devtools are activated
+  bool override_screen_type_ = false;
+  mojom::EmulatedScreenType last_screen_type_;
+
   // Original values to restore back after emulation ends.
   display::ScreenInfos original_screen_infos_;
   gfx::Size original_widget_size_dips_;
@@ -100,6 +111,9 @@ class ScreenMetricsEmulator : public GarbageCollected<ScreenMetricsEmulator> {
   std::vector<gfx::Rect> original_root_viewport_segments_
       ALLOW_DISCOURAGED_TYPE(
           "WebFrameWidgetImpl::SetViewportSegments() uses STL");
+
+  // Actual size after apply
+  gfx::Size window_size_;
 };
 
 }  // namespace blink
