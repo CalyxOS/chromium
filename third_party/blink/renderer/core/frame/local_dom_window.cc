@@ -1504,7 +1504,12 @@ int LocalDOMWindow::outerHeight() const {
   if (frame->IsInFencedFrameTree()) {
     return innerHeight();
   }
-
+  // If screen is emulated and this frame is remote cross-origin
+  // return innerHeight
+  if (frame->GetPage() && frame->GetPage()->IsScreenEmulated()
+        && frame->IsCrossOriginToOutermostMainFrame()) {
+    return innerHeight();
+  }
   Page* page = frame->GetPage();
   if (!page)
     return 0;
@@ -1529,7 +1534,12 @@ int LocalDOMWindow::outerWidth() const {
   if (frame->IsInFencedFrameTree()) {
     return innerWidth();
   }
-
+  // If screen is emulated and this frame is remote cross-origin
+  // return innerWidth
+  if (frame->GetPage() && frame->GetPage()->IsScreenEmulated()
+        && frame->IsCrossOriginToOutermostMainFrame()) {
+    return innerWidth();
+  }
   Page* page = frame->GetPage();
   if (!page)
     return 0;
@@ -1730,7 +1740,8 @@ double LocalDOMWindow::devicePixelRatio() const {
   if (!GetFrame())
     return 0.0;
 
-  return GetFrame()->DevicePixelRatio();
+  // never send the zoom factor override value
+  return GetFrame()->DevicePixelRatio(/*with_zoom_factor*/false);
 }
 
 void LocalDOMWindow::scrollBy(double x, double y) const {
@@ -2315,6 +2326,23 @@ DOMWindow* LocalDOMWindow::open(v8::Isolate* isolate,
   if (!completed_url.IsEmpty() || result.new_window)
     result.frame->Navigate(frame_request, WebFrameLoadType::kStandard);
 
+  if (result.frame->IsLocalFrame()) {
+    // we need to use opener setting when opening a iframe without url
+    // (as "about:blank") to force emulated screen
+    // since result.frame.GetContentSettingsClient()->AllowViewportChange()
+    // in the Page::DidCommitLoad() event returns false for these urls
+    //
+    // prevent this js code:
+    //     var w = window.open()
+    //     var not_emulated_screen_info = w.screen
+    bool protection_enabled = base::FeatureList::IsEnabled(features::kViewportProtection);
+    protection_enabled |= GetFrame()->GetContentSettingsClient()->AllowContentSetting(
+        ContentSettingsType::VIEWPORT, false);
+    result.frame->GetPage()->CalculateEmulatedScreenSetting(
+      To<LocalFrame>(result.frame),
+      /*force*/ protection_enabled);
+  }
+
   // TODO(japhet): window-open-noopener.html?_top and several tests in
   // html/browsers/windows/browsing-context-names/ appear to require that
   // the special case target names (_top, _parent, _self) ignore opener
@@ -2370,6 +2398,15 @@ DOMWindow* LocalDOMWindow::openPictureInPictureWindow(
   DCHECK(result.new_window);
 
   result.frame->Navigate(frame_request, WebFrameLoadType::kStandard);
+
+  bool protection_enabled = base::FeatureList::IsEnabled(features::kViewportProtection);
+  protection_enabled |= GetFrame()->GetContentSettingsClient()->AllowContentSetting(
+      ContentSettingsType::VIEWPORT, false);
+  result.frame->GetPage()->CalculateEmulatedScreenSetting(
+    To<LocalFrame>(result.frame),
+    /*force*/ protection_enabled);
+  LOG(INFO) << "---protection_enabled " << protection_enabled;
+
   LocalDOMWindow* pip_dom_window =
       To<LocalDOMWindow>(result.frame->DomWindow());
   pip_dom_window->SetIsPictureInPictureWindow();
