@@ -431,6 +431,18 @@ void StorageAccessGrantPermissionContext::CheckForAutoGrantOrAutoDenial(
     permissions::PermissionRequestData request_data,
     permissions::BrowserPermissionCallback callback,
     net::FirstPartySetMetadata metadata) {
+  if ((true)) {
+    // don't use implicit grants or heuristic, ask to user
+    PermissionContextBase::DecidePermission(std::move(request_data),
+                                            std::move(callback));
+    // to deny:
+    // NotifyPermissionSetInternal(request_data.id, request_data.requesting_origin,
+    //                             request_data.embedding_origin,
+    //                             std::move(callback),
+    //                             /*persist=*/true, CONTENT_SETTING_BLOCK,
+    //                             RequestOutcome::kDeniedByFirstPartySet);
+    return;
+  }
   if (metadata.AreSitesInSameFirstPartySet()) {
     switch (metadata.top_frame_entry()->site_type()) {
       case net::SiteType::kPrimary:
