@@ -55,12 +55,7 @@ component("gvr_shim") {
   if (enable_chrome_android_internal && !is_official_build) {
     deps = [ "//clank/third_party/gvr_shim" ]
   } else {
-    if (use_relative_vtables_abi) {
-      _vtables = "_vtables"
-    } else {
-      _vtables = ""
-    }
-    library = "//third_party/gvr-android-sdk/libgvr_shim_static_${current_cpu}${_vtables}.a"
+    library = "//third_party/gvr-android-sdk/libgvr_shim_static_${current_cpu}_Cr.a"
     libs += [ library ]
 
     if (libcxx_is_shared) {
