@@ -40,7 +40,6 @@ found in the LICENSE file.
                 android:checked="true"
                 android:gravity="start|center"
                 android:lineSpacingMultiplier="1.2"
-                android:text="@string/usage_and_crash_reports_title"
                 android:textAppearance="@style/TextAppearance.TextLarge.Primary" />
 
             <TextView
