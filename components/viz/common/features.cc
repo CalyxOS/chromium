@@ -252,7 +252,7 @@ BASE_FEATURE(kRendererAllocatesImages,
 // evicts itself. This differs from Destkop platforms which evict the entire
 // FrameTree along with the topmost viz::Surface. When this feature is enabled,
 // Android will begin also evicting the entire FrameTree.
-BASE_FEATURE(kEvictSubtree, "EvictSubtree", base::FEATURE_ENABLED_BY_DEFAULT);
+BASE_FEATURE(kEvictSubtree, "EvictSubtree", base::FEATURE_ENABLED_BY_DEFAULT); // enabled by default
 
 // If enabled, CompositorFrameSinkClient::OnBeginFrame is also treated as the
 // DidReceiveCompositorFrameAck. Both in providing the Ack for the previous
