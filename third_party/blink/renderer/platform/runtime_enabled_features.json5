@@ -1910,7 +1910,7 @@
     {
       name: "FedCm",
       public: true,
-      status: "stable",
+      status: "test",
       base_feature: "none",
     },
     {
