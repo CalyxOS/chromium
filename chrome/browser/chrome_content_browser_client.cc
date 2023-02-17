@@ -781,7 +781,7 @@ namespace {
 // https://blogs.windows.com/blog/tag/code-integrity-guard/.
 BASE_FEATURE(kNetworkServiceCodeIntegrity,
              "NetworkServiceCodeIntegrity",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             base::FEATURE_ENABLED_BY_DEFAULT);
 
 #endif  // BUILDFLAG(IS_WIN) && !defined(COMPONENT_BUILD) &&
         // !defined(ADDRESS_SANITIZER)
