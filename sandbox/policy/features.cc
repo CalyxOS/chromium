@@ -207,4 +207,11 @@ bool IsNetworkSandboxEnabled() {
 #endif  // BUILDFLAG(IS_MAC) || BUILDFLAG(IS_FUCHSIA)
 }
 
+#if BUILDFLAG(IS_ANDROID)
+SET_CROMITE_FEATURE_ENABLED(kUseRendererProcessPolicy);
+SET_CROMITE_FEATURE_ENABLED(kRestrictRendererPoliciesInBaseline);
+#endif
+#if BUILDFLAG(IS_WIN)
+SET_CROMITE_FEATURE_ENABLED(kNetworkServiceSandbox);
+#endif
 }  // namespace sandbox::policy::features
