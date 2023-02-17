@@ -98,7 +98,7 @@ BASE_FEATURE(kWinSboxZeroAppShim,
 // build. See https://blogs.windows.com/blog/tag/code-integrity-guard/.
 BASE_FEATURE(kNetworkServiceCodeIntegrity,
              "NetworkServiceCodeIntegrity",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             base::FEATURE_ENABLED_BY_DEFAULT);
 #endif  // BUILDFLAG(IS_WIN)
 
 #if BUILDFLAG(IS_CHROMEOS_ASH)
@@ -201,4 +201,11 @@ bool IsNetworkSandboxEnabled() {
 #endif  // BUILDFLAG(IS_MAC) || BUILDFLAG(IS_FUCHSIA)
 }
 
+#if BUILDFLAG(IS_ANDROID)
+SET_CROMITE_FEATURE_ENABLED(kUseRendererProcessPolicy);
+SET_CROMITE_FEATURE_ENABLED(kRestrictRendererPoliciesInBaseline);
+#endif
+#if BUILDFLAG(IS_WIN)
+SET_CROMITE_FEATURE_ENABLED(kNetworkServiceSandbox);
+#endif
 }  // namespace sandbox::policy::features
