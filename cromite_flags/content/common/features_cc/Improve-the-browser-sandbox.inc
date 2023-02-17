@@ -1,0 +1,2 @@
+SET_CROMITE_FEATURE_ENABLED(kCommittedOriginEnforcements);
+SET_CROMITE_FEATURE_ENABLED(kCommittedOriginTracking);
