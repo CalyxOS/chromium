@@ -68,6 +68,7 @@ bool SendBeaconCommon(const ScriptState& state,
                       LocalFrame* frame,
                       const KURL& url,
                       const BeaconData& beacon) {
+  if ((true)) return true;
   if (!frame->DomWindow()
            ->GetContentSecurityPolicyForWorld(&state.World())
            ->AllowConnectToSource(url, url, RedirectStatus::kNoRedirect)) {
@@ -107,6 +108,7 @@ bool SendBeaconCommon(const ScriptState& state,
 void PingLoader::SendLinkAuditPing(LocalFrame* frame,
                                    const KURL& ping_url,
                                    const KURL& destination_url) {
+  if ((true)) return;
   if (!ping_url.ProtocolIsInHTTPFamily())
     return;
 
@@ -148,6 +150,7 @@ void PingLoader::SendViolationReport(ExecutionContext* execution_context,
                                      const KURL& report_url,
                                      scoped_refptr<EncodedFormData> report,
                                      bool is_frame_ancestors_violation) {
+  if ((true)) return;
   ResourceRequest request(report_url);
   request.SetHttpMethod(http_names::kPOST);
   request.SetHTTPContentType(AtomicString("application/csp-report"));
