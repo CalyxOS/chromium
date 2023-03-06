@@ -19,17 +19,38 @@ public class AppRestrictionsProvider extends AbstractAppRestrictionsProvider {
      * metrics on its runtime.
      * @param userManager UserManager service from Android System service
      * @param packageName package name for target application.
-     * @return The restrictions for the provided package name, an empty bundle if they are not
-     *         available.
+     * @return The restrictions for the provided package name
      */
     public static Bundle getApplicationRestrictionsFromUserManager(
             UserManager userManager, String packageName) {
+        Bundle restrictions = new Bundle();
         try {
-            return userManager.getApplicationRestrictions(packageName);
+            restrictions = userManager.getApplicationRestrictions(packageName);
         } catch (SecurityException e) {
             // Android bug may throw SecurityException. See crbug.com/886814.
-            return new Bundle();
+            // Do nothing, because we append our own policies below
         }
+        // https://chromeenterprise.google/policies/#BrowserSignin
+        restrictions.putInt("BrowserSignin", 0); // Disable browser sign-in
+        // https://chromeenterprise.google/policies/#ContextualSearchEnabled
+        restrictions.putBoolean("ContextualSearchEnabled", false);
+        // https://chromeenterprise.google/policies/#DomainReliabilityAllowed
+        restrictions.putBoolean("DomainReliabilityAllowed", false);
+        // https://chromeenterprise.google/policies/#MetricsReportingEnabled
+        restrictions.putBoolean("MetricsReportingEnabled", false);
+        // https://chromeenterprise.google/policies/#NTPContentSuggestionsEnabled
+        restrictions.putBoolean("NTPContentSuggestionsEnabled", false);
+        // https://chromeenterprise.google/policies/#NetworkPredictionOptions
+        restrictions.putInt("NetworkPredictionOptions", 2); // Do not predict network actions on any network connection
+        // https://chromeenterprise.google/policies/#PrivacySandbox
+        restrictions.putBoolean("PrivacySandboxAdMeasurementEnabled", false);
+        restrictions.putBoolean("PrivacySandboxAdTopicsEnabled", false);
+        restrictions.putBoolean("PrivacySandboxPromptEnabled", false);
+        restrictions.putBoolean("PrivacySandboxSiteEnabledAdsEnabled", false);
+        // https://chromeenterprise.google/policies/#SafeBrowsing
+        restrictions.putBoolean("SafeBrowsingExtendedReportingEnabled", false);
+        restrictions.putInt("SafeBrowsingProtectionLevel", 0); // Safe Browsing is never active.
+        return restrictions;
     }
 
     private final UserManager mUserManager;
