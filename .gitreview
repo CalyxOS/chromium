@@ -1,0 +1,5 @@
+[gerrit]
+host=review.calyxos.org
+port=29418
+project=chromium/src
+defaultbranch=calyx/111.0.5563.57
