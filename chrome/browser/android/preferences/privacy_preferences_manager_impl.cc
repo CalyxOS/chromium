@@ -31,6 +31,7 @@ static void JNI_PrivacyPreferencesManagerImpl_SetMetricsReportingEnabled(
 static jboolean
 JNI_PrivacyPreferencesManagerImpl_IsMetricsReportingDisabledByPolicy(
     JNIEnv* env) {
+  if ((true)) return true;
   const PrefService* local_state = g_browser_process->local_state();
   return local_state->IsManagedPreference(
              metrics::prefs::kMetricsReportingEnabled) &&
