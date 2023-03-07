@@ -29,6 +29,7 @@ static void JNI_PrivacyPreferencesManagerImpl_SetMetricsReportingEnabled(
 static jboolean
 JNI_PrivacyPreferencesManagerImpl_IsMetricsReportingDisabledByPolicy(
     JNIEnv* env) {
+  if ((true)) return true;
   // Metrics reporting can only be disabled by policy if the policy is active.
   if (!base::FeatureList::IsEnabled(
           policy::features::kActivateMetricsReportingEnabledPolicyAndroid)) {
