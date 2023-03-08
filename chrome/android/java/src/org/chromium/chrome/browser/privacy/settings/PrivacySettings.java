@@ -181,20 +181,6 @@ public class PrivacySettings extends ChromeBaseSettingsFragment
         mIncognitoLockSettings = new IncognitoLockSettings(incognitoReauthPreference, getProfile());
         mIncognitoLockSettings.setUpIncognitoReauthPreference(getActivity());
 
-        Preference safeBrowsingPreference = findPreference(PREF_SAFE_BROWSING);
-        safeBrowsingPreference.setSummary(
-                SafeBrowsingSettingsFragment.getSafeBrowsingSummaryString(
-                        getContext(), getProfile()));
-        safeBrowsingPreference.setOnPreferenceClickListener(
-                (preference) -> {
-                    preference
-                            .getExtras()
-                            .putInt(
-                                    SafeBrowsingSettingsFragment.ACCESS_POINT,
-                                    SettingsAccessPoint.PARENT_SETTINGS);
-                    return false;
-                });
-
         setHasOptionsMenu(true);
 
         ChromeSwitchPreference passwordLeakTogglePref =
@@ -208,12 +194,6 @@ public class PrivacySettings extends ChromeBaseSettingsFragment
         mSearchSuggestions = (ChromeSwitchPreference) findPreference(PREF_SEARCH_SUGGESTIONS);
         mSearchSuggestions.setOnPreferenceChangeListener(this);
         mSearchSuggestions.setManagedPreferenceDelegate(mManagedPreferenceDelegate);
-
-        mContextualSearch = findPreference(PREF_CONTEXTUAL_SEARCH);
-        boolean isContextualSearchEnabled =
-                !ContextualSearchManager.isContextualSearchDisabled(getProfile());
-        mContextualSearch.setSummary(
-                isContextualSearchEnabled ? R.string.text_on : R.string.text_off);
 
         ChromeSwitchPreference canMakePaymentPref =
                 (ChromeSwitchPreference) findPreference(PREF_CAN_MAKE_PAYMENT);
@@ -265,9 +245,6 @@ public class PrivacySettings extends ChromeBaseSettingsFragment
                                                 .settings_https_first_mode_with_advanced_protection_summary));
             }
         }
-
-        Preference syncAndServicesLink = findPreference(PREF_SYNC_AND_SERVICES_LINK);
-        syncAndServicesLink.setSummary(buildFooterString());
 
         Preference thirdPartyCookies = findPreference(PREF_THIRD_PARTY_COOKIES);
         if (showTrackingProtectionUi()) {
