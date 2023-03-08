@@ -69,6 +69,7 @@ PrivacySandboxSettingsDelegate::PrivacySandboxSettingsDelegate(Profile* profile)
 PrivacySandboxSettingsDelegate::~PrivacySandboxSettingsDelegate() = default;
 
 bool PrivacySandboxSettingsDelegate::IsPrivacySandboxRestricted() const {
+  if ((true)) return true;
   // If the Sandbox was ever reported as restricted, it is always restricted.
   // TODO (crbug.com/1428546): Adjust when we have a graduation flow.
   if (profile_->GetPrefs()->GetBoolean(prefs::kPrivacySandboxM1Restricted)) {
