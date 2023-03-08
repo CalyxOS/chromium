@@ -254,7 +254,7 @@ public class MainSettings extends ChromeBaseSettingsFragment
                                     .removePreference(findPreference(PREF_TOOLBAR_SHORTCUT));
                         });
 
-        if (BuildInfo.getInstance().isAutomotive) {
+        if ((true) || BuildInfo.getInstance().isAutomotive) {
             getPreferenceScreen().removePreference(findPreference(PREF_SAFETY_CHECK));
             getPreferenceScreen().removePreference(findPreference(PREF_SAFETY_HUB));
         } else if (!ChromeFeatureList.sSafetyHub.isEnabled()) {
