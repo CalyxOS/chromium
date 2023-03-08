@@ -2007,9 +2007,6 @@ GetPedalImplementations(bool incognito, bool guest, bool testing) {
   add(new OmniboxPedalManagePasswords());
   add(new OmniboxPedalUpdateCreditCard());
   add(new OmniboxPedalLaunchIncognito());
-  if (!base::android::BuildInfo::GetInstance()->is_automotive()) {
-    add(new OmniboxPedalRunChromeSafetyCheck());
-  }
   add(new OmniboxPedalPlayChromeDinoGame());
   add(new OmniboxPedalManageSiteSettings());
   add(new OmniboxPedalManageChromeSettings());
