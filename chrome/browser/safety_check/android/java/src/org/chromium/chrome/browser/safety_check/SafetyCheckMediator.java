@@ -414,6 +414,7 @@ class SafetyCheckMediator {
 
     /** Triggers all safety check child checks. */
     public void performSafetyCheck() {
+        if (true) return;
         // Cancel pending delayed show callbacks if a new check is starting while any existing
         // elements are pending.
         mHandler.removeCallbacksAndMessages(null);
