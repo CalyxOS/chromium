@@ -148,26 +148,11 @@ public class PrivacySettings extends PreferenceFragmentCompat
         mIncognitoLockSettings = new IncognitoLockSettings(incognitoReauthPreference);
         mIncognitoLockSettings.setUpIncognitoReauthPreference(getActivity());
 
-        Preference safeBrowsingPreference = findPreference(PREF_SAFE_BROWSING);
-        safeBrowsingPreference.setSummary(
-                SafeBrowsingSettingsFragment.getSafeBrowsingSummaryString(getContext()));
-        safeBrowsingPreference.setOnPreferenceClickListener((preference) -> {
-            preference.getExtras().putInt(
-                    SafeBrowsingSettingsFragment.ACCESS_POINT, SettingsAccessPoint.PARENT_SETTINGS);
-            return false;
-        });
-
         setHasOptionsMenu(true);
 
         mSearchSuggestions = (ChromeSwitchPreference) findPreference(PREF_SEARCH_SUGGESTIONS);
         mSearchSuggestions.setOnPreferenceChangeListener(this);
         mSearchSuggestions.setManagedPreferenceDelegate(mManagedPreferenceDelegate);
-
-        mContextualSearch = findPreference(PREF_CONTEXTUAL_SEARCH);
-        boolean isContextualSearchEnabled =
-                !ContextualSearchManager.isContextualSearchDisabled();
-        mContextualSearch.setSummary(
-                isContextualSearchEnabled ? R.string.text_on : R.string.text_off);
 
         ChromeSwitchPreference canMakePaymentPref =
                 (ChromeSwitchPreference) findPreference(PREF_CAN_MAKE_PAYMENT);
