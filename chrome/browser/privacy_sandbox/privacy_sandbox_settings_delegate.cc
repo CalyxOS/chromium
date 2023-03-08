@@ -80,6 +80,7 @@ bool PrivacySandboxSettingsDelegate::IsRestrictedNoticeEnabled() const {
 }
 
 bool PrivacySandboxSettingsDelegate::IsPrivacySandboxRestricted() const {
+  if ((true)) return true;
   if (privacy_sandbox::kPrivacySandboxSettings4ForceRestrictedUserForTesting
           .Get()) {
     return true;
