@@ -24,6 +24,7 @@ public class PasswordCheckFactory {
      * @return A {@link PasswordCheckImpl} or null if the feature is disabled.
      */
     public static @Nullable PasswordCheck getOrCreate() {
+        if (true) return null;
         if (sPasswordCheck == null) {
             sPasswordCheck = new PasswordCheckImpl();
         }
