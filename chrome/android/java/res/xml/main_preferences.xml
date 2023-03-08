@@ -44,11 +44,6 @@ found in the LICENSE file.
         android:order="11"
         android:title="@string/prefs_privacy_security"/>
     <Preference
-        android:fragment="org.chromium.chrome.browser.safety_check.SafetyCheckSettingsFragment"
-        android:key="safety_check"
-        android:order="12"
-        android:title="@string/prefs_safety_check"/>
-    <Preference
         android:fragment="org.chromium.chrome.browser.settings.AdBlockPreferences"
         android:key="adblock"
         android:order="13"
