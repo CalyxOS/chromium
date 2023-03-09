@@ -16,6 +16,24 @@
       "message": "Just for what it\u0027s worth, the commit message of this appears to be wrong (maybe I wrote it before finding this implementation).\n\nThis patch alone should take care of disabling MetricsReportingEnabled. With this patch and without the policy, the policy still appears to be force-disabled in Settings. So, setting the policy separately shouldn\u0027t be necessary, but it doesn\u0027t hurt.\n\nWe can confirm this at some point, or we can just keep things as-is.",
       "revId": "6289001164882b5b0f269acad52cbfd75b80f77e",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d16af95_91e1fb3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-03-09T16:11:03Z",
+      "side": 1,
+      "message": "Feel free to fix this .patch in platform_external_calyx_chromium.\n\nAnd yes I agree, I noticed but didn\u0027t want to rework the entire patchset for a message.\n\nDoesn\u0027t hurt keeping around the policy.",
+      "parentUuid": "fc18091a_d87a3a81",
+      "revId": "6289001164882b5b0f269acad52cbfd75b80f77e",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
