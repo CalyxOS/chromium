@@ -498,7 +498,7 @@ void PasswordManager::RegisterProfilePrefs(
 #if BUILDFLAG(IS_MAC) || BUILDFLAG(IS_WIN) || BUILDFLAG(IS_ANDROID) || \
     BUILDFLAG(IS_CHROMEOS)
   registry->RegisterBooleanPref(prefs::kBiometricAuthenticationBeforeFilling,
-                                false);
+                                true);
 #endif  // BUILDFLAG(IS_MAC) || BUILDFLAG(IS_WIN) || BUILDFLAG(IS_ANDROID) ||
         // BUILDFLAG(IS_CHROMEOS)
 #if !BUILDFLAG(IS_ANDROID) && !BUILDFLAG(IS_IOS)  // Desktop
@@ -531,7 +531,7 @@ void PasswordManager::RegisterProfilePrefs(
   registry->RegisterBooleanPref(prefs::kAccountStoreMigratedToOSCryptAsync,
                                 false);
   registry->RegisterBooleanPref(
-      prefs::kAutomaticPasskeyUpgrades, true,
+      prefs::kAutomaticPasskeyUpgrades, false,
       user_prefs::PrefRegistrySyncable::SYNCABLE_PRIORITY_PREF);
 }
 
