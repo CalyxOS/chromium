@@ -192,8 +192,7 @@ bool LeakDetectionCheckImpl::HasAccountForRequest(
     const signin::IdentityManager* identity_manager) {
   // On desktop HasPrimaryAccount(signin::ConsentLevel::kSignin) will
   // always return something if the user is signed in.
-  return identity_manager &&
-         identity_manager->HasPrimaryAccount(signin::ConsentLevel::kSignin);
+  return false;
 }
 
 void LeakDetectionCheckImpl::Start(LeakDetectionInitiator initiator,
