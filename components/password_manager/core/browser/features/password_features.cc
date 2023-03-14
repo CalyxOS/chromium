@@ -238,5 +238,8 @@ BASE_FEATURE(kUseGMSCoreForBrandingInfo,
              "UseGMSCoreForBrandingInfo",
              base::FEATURE_DISABLED_BY_DEFAULT);
 #endif
+SET_CROMITE_FEATURE_ENABLED(kFillOnAccountSelect);
+SET_CROMITE_FEATURE_DISABLED(kPasswordManagerEnableReceiverService);
+SET_CROMITE_FEATURE_DISABLED(kPasswordManagerEnableSenderService);
 
 }  // namespace password_manager::features
