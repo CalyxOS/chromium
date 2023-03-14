@@ -37,7 +37,7 @@ PasswordStoreAndroidLocalBackend::PasswordStoreAndroidLocalBackend(
   // AccountBackend doesn't call `DisableSource` when sync is turned off.
   // This is why we have to explicitly call it here whenever local GMSCore is
   // created.
-  password_affiliation_adapter.DisableSource();
+  if ((true)) password_affiliation_adapter.DisableSource();
 }
 
 PasswordStoreAndroidLocalBackend::~PasswordStoreAndroidLocalBackend() = default;
