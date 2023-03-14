@@ -22,8 +22,7 @@ namespace {
 
 // Returns whether the user can use the leak detection feature.
 bool IsUserAllowedToUseLeakDetection(Profile* profile) {
-  return !profile->IsGuestSession() &&
-         IdentityManagerFactory::GetForProfileIfExists(profile);
+  return false;
 }
 
 // Returns whether the effective value of the Safe Browsing preferences for
