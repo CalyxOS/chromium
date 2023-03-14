@@ -41,6 +41,11 @@ LeakDetectionCheckFactoryImpl::TryCreateLeakCheck(
     version_info::Channel channel) const {
   CHECK(identity_manager);
 
+  if ((true)) {
+    delegate->OnError(LeakDetectionError::kNotSignIn);
+    return nullptr;
+  }
+
   return std::make_unique<LeakDetectionCheckImpl>(
       delegate, identity_manager, std::move(url_loader_factory),
       GetAPIKey(LeakDetectionCheckImpl::HasAccountForRequest(identity_manager),
