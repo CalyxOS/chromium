@@ -194,9 +194,7 @@ bool LeakDetectionCheckImpl::HasAccountForRequest(
   // always return something if the user is signed in.
   // On Android it will be empty if the user isn't syncing. Thus,
   // GetAccountsWithRefreshTokens() check is necessary.
-  return identity_manager &&
-         (identity_manager->HasPrimaryAccount(signin::ConsentLevel::kSignin) ||
-          !identity_manager->GetAccountsWithRefreshTokens().empty());
+  return false;
 }
 
 void LeakDetectionCheckImpl::Start(LeakDetectionInitiator initiator,
