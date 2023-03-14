@@ -128,6 +128,10 @@ void AffiliationServiceImpl::Shutdown() {
 void AffiliationServiceImpl::PrefetchChangePasswordURLs(
     const std::vector<GURL>& urls,
     base::OnceClosure callback) {
+  if ((true)) {
+    std::move(callback).Run();
+    return;
+  }
   std::vector<FacetURI> facets;
   std::vector<url::SchemeHostPort> tuple_origins;
   for (const auto& url : urls) {

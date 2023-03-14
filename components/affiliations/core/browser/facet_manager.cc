@@ -117,6 +117,10 @@ void FacetManager::GetAffiliationsAndBranding(
   RequestInfo request_info;
   request_info.callback = std::move(callback);
   request_info.callback_task_runner = callback_task_runner;
+  if ((true)) {
+    ServeRequestWithFailure(std::move(request_info));
+    return;
+  }
   if (IsCachedDataFresh()) {
     AffiliatedFacetsWithUpdateTime affiliation;
     if (!backend_->ReadAffiliationsAndBrandingFromDatabase(facet_uri_,
