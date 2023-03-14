@@ -331,6 +331,10 @@ void AffiliationServiceImpl::GetPSLExtensions(
 void AffiliationServiceImpl::UpdateAffiliationsAndBranding(
     const std::vector<FacetURI>& facets,
     base::OnceClosure callback) {
+  if ((true)) {
+    std::move(callback).Run();
+    return;
+  }
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
   DCHECK(backend_);
   auto callback_in_main_sequence =
