@@ -117,25 +117,7 @@ void FacetManager::GetAffiliationsAndBranding(
   RequestInfo request_info;
   request_info.callback = std::move(callback);
   request_info.callback_task_runner = callback_task_runner;
-  if (IsCachedDataFresh()) {
-    AffiliatedFacetsWithUpdateTime affiliation;
-    if (!backend_->ReadAffiliationsAndBrandingFromDatabase(facet_uri_,
-                                                           &affiliation)) {
-      ServeRequestWithFailure(std::move(request_info));
-      return;
-    }
-    DCHECK_EQ(affiliation.last_update_time, last_update_time_) << facet_uri_;
-    ServeRequestWithSuccess(std::move(request_info), affiliation.facets);
-  } else if (cache_miss_strategy == StrategyOnCacheMiss::FETCH_OVER_NETWORK) {
-    pending_requests_.push_back(std::move(request_info));
-    backend_->SignalNeedNetworkRequest();
-  } else if (cache_miss_strategy ==
-             StrategyOnCacheMiss::TRY_ONCE_OVER_NETWORK) {
-    pending_one_time_requests_.push_back(std::move(request_info));
-    backend_->SignalNeedNetworkRequest();
-  } else {
-    ServeRequestWithFailure(std::move(request_info));
-  }
+  ServeRequestWithFailure(std::move(request_info));
 }
 
 void FacetManager::Prefetch(const base::Time& keep_fresh_until) {
@@ -254,7 +236,8 @@ void FacetManager::ServeRequestWithSuccess(
     const AffiliatedFacets& affiliation) {
   request_info.callback_task_runner->PostTask(
       FROM_HERE,
-      base::BindOnce(std::move(request_info.callback), affiliation, true));
+      base::BindOnce(std::move(request_info.callback),
+                                AffiliatedFacets(), false));
 }
 
 // static
