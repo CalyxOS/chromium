@@ -27,6 +27,10 @@ PasswordAffiliationSourceAdapter::~PasswordAffiliationSourceAdapter() = default;
 
 void PasswordAffiliationSourceAdapter::GetFacets(
     AffiliationSource::ResultCallback response_callback) {
+  if (((true))) {
+    std::move(response_callback).Run({});
+    return;
+  }
   on_password_forms_received_callback_ = std::move(response_callback);
   store_->GetAllLogins(weak_ptr_factory_.GetWeakPtr());
 }
