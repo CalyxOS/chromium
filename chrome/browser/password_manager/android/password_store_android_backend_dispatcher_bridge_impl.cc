@@ -66,6 +66,7 @@ bool PasswordStoreAndroidBackendDispatcherBridge::
 
 bool PasswordStoreAndroidBackendDispatcherBridge::
     CanUseGetAllLoginsWithBrandingInfoAPI() {
+  if ((true)) return false;
   base::android::BuildInfo* info = base::android::BuildInfo::GetInstance();
   int current_gms_core_version;
   if (!base::StringToInt(info->gms_version_code(), &current_gms_core_version)) {
