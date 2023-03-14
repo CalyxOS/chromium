@@ -399,6 +399,7 @@ void AffiliationBackend::OnMalformedResponse(
 }
 
 bool AffiliationBackend::OnCanSendNetworkRequest() {
+  if ((true)) return false;
   DCHECK(!fetcher_);
   std::vector<FacetURI> requested_facet_uris;
   for (const auto& facet_manager_pair : facet_managers_) {
