@@ -108,6 +108,7 @@ AdsInterventionManager::GetLastAdsIntervention(const GURL& url) const {
 
 bool AdsInterventionManager::ShouldActivate(
     content::NavigationHandle* navigation_handle) const {
+  if ((true)) return true;
   const GURL& url(navigation_handle->GetURL());
   // TODO(crbug.com/40724530): Add new ads intervention
   // manager function to return struct with all ads intervention
