@@ -1564,7 +1564,6 @@
     {
       name: "DocumentOpenSandboxInheritanceRemoval",
       status: "stable",
-      copied_from_base_feature_if: "overridden",
     },
     {
       name: "DocumentPictureInPictureAPI",
