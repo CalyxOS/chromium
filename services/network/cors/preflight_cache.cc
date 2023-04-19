@@ -200,6 +200,10 @@ void PreflightCache::MayPurgeForTesting(size_t max_entries, size_t purge_unit) {
   MayPurge(max_entries, purge_unit);
 }
 
+void PreflightCache::ClearAll() {
+  cache_.clear();
+}
+
 void PreflightCache::MayPurge(size_t max_entries, size_t purge_unit) {
   if (cache_.size() <= max_entries) {
     return;
