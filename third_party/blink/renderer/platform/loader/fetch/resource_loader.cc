@@ -598,6 +598,9 @@ bool ResourceLoader::WillFollowRedirect(
                                      new_url)) {
     fetcher_->GetUseCounter().CountUse(
         mojom::WebFeature::kAuthorizationCrossOrigin);
+    if (removed_headers) {
+      removed_headers->push_back(net::HttpRequestHeaders::kAuthorization);
+    }
   }
 
   // TODO(https://crbug.com/471397, https://crbug.com/1406737): Reconsider
