@@ -199,6 +199,10 @@ void SyncLoadContext::FollowRedirect(std::vector<std::string> removed_headers,
     return;
   }
 
+  if (response_->has_authorization_header_between_cross_origin_redirect_) {
+    removed_headers.push_back(net::HttpRequestHeaders::kAuthorization);
+  }
+
   response_->redirect_info = net::RedirectInfo();
   *context_for_redirect_ = nullptr;
   std::move(follow_redirect_callback_)
