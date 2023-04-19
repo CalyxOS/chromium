@@ -1316,6 +1316,7 @@ void NetworkContext::ClearHttpCache(base::Time start_time,
                                     base::Time end_time,
                                     mojom::ClearDataFilterPtr filter,
                                     ClearHttpCacheCallback callback) {
+  cors_preflight_controller_.ClearCache();
   // It's safe to use Unretained below as the HttpCacheDataRemover is owned by
   // |this| and guarantees it won't call its callback if deleted.
   http_cache_data_removers_.push_back(HttpCacheDataRemover::CreateAndStart(
