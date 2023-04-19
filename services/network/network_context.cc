@@ -1178,6 +1178,8 @@ void NetworkContext::ClearHttpCache(base::Time start_time,
       base::BindOnce(&NetworkContext::OnHttpCacheCleared,
                      base::Unretained(this), std::move(callback))));
 
+  cors_preflight_controller_.ClearCache();
+
   NetworkServiceMemoryCache* memory_cache = GetMemoryCache();
   if (memory_cache)
     memory_cache->Clear();

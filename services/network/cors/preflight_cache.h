@@ -78,6 +78,8 @@ class COMPONENT_EXPORT(NETWORK_SERVICE) PreflightCache final {
   // `max_entries` for testing.
   void MayPurgeForTesting(size_t max_entries, size_t purge_unit);
 
+  void ClearAll();
+
  private:
   void MayPurge(size_t max_entries, size_t purge_unit);
 
