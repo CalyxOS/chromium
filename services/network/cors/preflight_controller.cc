@@ -835,6 +835,10 @@ void PreflightController::ClearCorsPreflightCache(
   cache_.ClearCache(std::move(url_filter));
 }
 
+void PreflightController::ClearCache() {
+  cache_.ClearAll();
+}
+
 void PreflightController::RemoveLoader(PreflightLoader* loader) {
   auto it = loaders_.find(loader);
   CHECK(it != loaders_.end(), base::NotFatalUntil::M130);
