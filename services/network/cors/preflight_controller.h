@@ -141,6 +141,8 @@ class COMPONENT_EXPORT(NETWORK_SERVICE) PreflightController final {
       mojo::PendingRemote<mojom::URLLoaderNetworkServiceObserver>
           url_loader_network_service_observer);
 
+  void ClearCache();
+
   // Clears the CORS preflight cache. The time range is always "all time" as
   // the preflight cache max age is capped to 2hrs. in Chrome.
   // It clears origins selectively when the url filter is not null, otherwise
