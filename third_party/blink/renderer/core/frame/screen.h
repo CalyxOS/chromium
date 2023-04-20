@@ -33,9 +33,13 @@
 #include "third_party/blink/renderer/core/dom/events/event_target.h"
 #include "third_party/blink/renderer/core/execution_context/execution_context_lifecycle_observer.h"
 #include "third_party/blink/renderer/platform/heap/garbage_collected.h"
+#include "third_party/blink/public/mojom/permissions/permission.mojom-blink.h"
+#include "third_party/blink/renderer/platform/mojo/heap_mojo_remote.h"
 #include "third_party/blink/renderer/platform/supplementable.h"
 #include "third_party/blink/renderer/platform/wtf/text/atomic_string.h"
 #include "ui/gfx/geometry/rect.h"
+
+#include "third_party/blink/public/mojom/permissions/permission.mojom-blink.h"
 
 namespace display {
 struct ScreenInfo;
@@ -91,6 +95,12 @@ class CORE_EXPORT Screen : public EventTarget,
 
   // The internal id of the underlying display, to support multi-screen devices.
   int64_t display_id_;
+
+ private:
+  void DidGetPermissionState(mojom::blink::PermissionStatus status);
+
+  bool has_permission_ = false;
+  HeapMojoRemote<mojom::blink::PermissionService> permission_service_;
 };
 
 }  // namespace blink
