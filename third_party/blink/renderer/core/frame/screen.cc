@@ -35,6 +35,7 @@
 #include "third_party/blink/renderer/core/frame/local_frame.h"
 #include "third_party/blink/renderer/core/frame/settings.h"
 #include "third_party/blink/renderer/core/page/chrome_client.h"
+#include "third_party/blink/renderer/modules/permissions/permission_utils.h"
 #include "ui/display/screen_info.h"
 #include "ui/display/screen_infos.h"
 
@@ -45,7 +46,26 @@ namespace {
 }  // namespace
 
 Screen::Screen(LocalDOMWindow* window, int64_t display_id)
-    : ExecutionContextClient(window), display_id_(display_id) {}
+    : ExecutionContextClient(window), display_id_(display_id),
+      permission_service_(window) {
+  if (!permission_service_.is_bound()) {
+    ConnectToPermissionService(
+        window, permission_service_.BindNewPipeAndPassReceiver(
+                    window->GetTaskRunner(TaskType::kMiscPlatformAPI)));
+  }
+
+  permission_service_->HasPermission(
+      CreatePermissionDescriptor(mojom::blink::PermissionName::WINDOW_MANAGEMENT),
+      WTF::BindOnce(&Screen::DidGetPermissionState,
+                    WrapPersistent(this)));
+}
+
+void Screen::DidGetPermissionState(
+    mojom::blink::PermissionStatus status) {
+  has_permission_ =
+    status == mojom::blink::PermissionStatus::GRANTED;
+  permission_service_.reset();
+}
 
 // static
 bool Screen::AreWebExposedScreenPropertiesEqual(
@@ -144,6 +164,7 @@ int Screen::availWidth() const {
 }
 
 void Screen::Trace(Visitor* visitor) const {
+  visitor->Trace(permission_service_);
   EventTarget::Trace(visitor);
   ExecutionContextClient::Trace(visitor);
   Supplementable<Screen>::Trace(visitor);
@@ -166,7 +187,7 @@ bool Screen::isExtended() const {
     return false;
   }
 
-  return GetScreenInfo().is_extended;
+  return GetScreenInfo().is_extended && has_permission_;
 }
 
 gfx::Rect Screen::GetRect(bool available) const {
