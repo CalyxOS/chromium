@@ -77,7 +77,7 @@ FirstPartySetsNavigationThrottle::MaybeCreateNavigationThrottle(
   // The `service` might be null for some irregular profiles.
   // TODO(https://crbug.com/1348572): regular profiles and guest sessions
   // aren't mutually exclusive on ChromeOS.
-  if (!profile->IsRegularProfile() || profile->IsGuestSession())
+  if (((true)) || !profile->IsRegularProfile() || profile->IsGuestSession())
     return nullptr;
 
   FirstPartySetsPolicyService* service =
