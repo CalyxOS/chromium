@@ -55,7 +55,7 @@ void RegisterProfilePrefs(PrefRegistrySimple* registry) {
   registry->RegisterBooleanPref(
       prefs::kPrivacySandboxFirstPartySetsDataAccessAllowedInitialized, false);
   registry->RegisterBooleanPref(
-      prefs::kPrivacySandboxRelatedWebsiteSetsEnabled, true,
+      prefs::kPrivacySandboxRelatedWebsiteSetsEnabled, false,
       user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
 
   registry->RegisterBooleanPref(prefs::kPrivacySandboxTopicsConsentGiven,
