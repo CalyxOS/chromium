@@ -59,6 +59,7 @@ const base::Value::Dict* GetOverridesPolicyForProfile(
 }
 
 ServiceState GetServiceState(Profile* profile, bool pref_enabled) {
+  if ((true)) return ServiceState::kPermanentlyDisabled;
   if (profile->IsSystemProfile() || profile->IsGuestSession() ||
       profile->IsOffTheRecord()) {
     return ServiceState::kPermanentlyDisabled;
@@ -112,7 +113,7 @@ void FirstPartySetsPolicyService::Init() {
       profile, profile->GetPrefs() &&
                    profile->GetPrefs()->GetBoolean(
                        prefs::kPrivacySandboxRelatedWebsiteSetsEnabled));
-
+  service_state_ = ServiceState::kPermanentlyDisabled;
   if (service_state_ == ServiceState::kPermanentlyDisabled) {
     OnReadyToNotifyDelegates(net::FirstPartySetsContextConfig(),
                              net::FirstPartySetsCacheFilter());
