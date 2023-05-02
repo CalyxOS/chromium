@@ -64,13 +64,13 @@ void RegisterProfilePrefs(PrefRegistrySimple* registry) {
 
   // Tracking Protection Settings Prefs
   registry->RegisterBooleanPref(
-      prefs::kBlockAll3pcToggleEnabled, false,
+      prefs::kBlockAll3pcToggleEnabled, false, // with true enables FPS
       user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
   registry->RegisterIntegerPref(
       prefs::kTrackingProtectionLevel,
       static_cast<int>(TrackingProtectionLevel::kStandard),
       user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
-  registry->RegisterBooleanPref(prefs::kTrackingProtection3pcdEnabled, false);
+  registry->RegisterBooleanPref(prefs::kTrackingProtection3pcdEnabled, false); // with true enables FPS
   registry->RegisterBooleanPref(
       prefs::kEnableDoNotTrack, false,
       user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
