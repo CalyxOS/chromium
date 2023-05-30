@@ -120,6 +120,7 @@
 #include "chrome/browser/password_manager/password_reuse_manager_factory.h"
 #include "chrome/browser/password_manager/profile_password_store_factory.h"
 #include "chrome/browser/permissions/adaptive_quiet_notification_permission_ui_enabler.h"
+#include "chrome/browser/permissions/last_tab_standing_tracker_factory.h"
 #include "chrome/browser/permissions/notifications_engagement_service_factory.h"
 #include "chrome/browser/permissions/one_time_permissions_tracker_factory.h"
 #include "chrome/browser/permissions/origin_keyed_permission_action_service_factory.h"
@@ -1019,6 +1020,7 @@ void ChromeBrowserMainExtraPartsProfiles::
 #if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
   OnDeviceTailModelServiceFactory::GetInstance();
 #endif
+  LastTabStandingTrackerFactory::GetInstance();
 #if !BUILDFLAG(IS_ANDROID)
   OneGoogleBarServiceFactory::GetInstance();
   OneTimePermissionsTrackerFactory::GetInstance();
