@@ -1940,6 +1940,16 @@ static_library("browser") {
     ]
   }
 
+  sources += [
+    "permissions/last_tab_standing_tracker.cc",
+    "permissions/last_tab_standing_tracker.h",
+    "permissions/last_tab_standing_tracker_factory.cc",
+    "permissions/last_tab_standing_tracker_factory.h",
+    "permissions/last_tab_standing_tracker_observer.h",
+    "permissions/last_tab_standing_tracker_tab_helper.cc",
+    "permissions/last_tab_standing_tracker_tab_helper.h",
+  ]
+
   if (!is_android && !is_chromeos) {
     sources += [
       "compose/chrome_compose_client.cc",
