@@ -224,6 +224,7 @@ IN_PROC_BROWSER_TEST_F(ProfileKeyedServiceBrowserTest,
 #endif
     "HidDeviceManager",
     "HostContentSettingsMap",
+    "LastTabStandingTrackerKeyedService",
     "MediaRouterUIService",
     "NotificationDisplayService",
 #if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
@@ -402,6 +403,7 @@ IN_PROC_BROWSER_TEST_F(ProfileKeyedServiceBrowserTest,
     "KidsChromeManagementClient",
 #endif  // BUILDFLAG(ENABLE_SUPERVISED_USERS)
     "LanguageSettingsPrivateDelegate",
+    "LastTabStandingTrackerKeyedService",
     "LazyBackgroundTaskQueue",
     "LoginUIServiceFactory",
     "MDnsAPI",
