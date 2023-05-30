@@ -11,6 +11,7 @@
 #include "build/buildflag.h"
 #include "chrome/browser/content_settings/one_time_permission_provider.h"
 #include "chrome/browser/permissions/one_time_permissions_tracker_factory.h"
+#include "chrome/browser/permissions/last_tab_standing_tracker_factory.h"
 #include "chrome/browser/profiles/off_the_record_profile_impl.h"
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/profiles/profile_key.h"
@@ -59,6 +60,7 @@ HostContentSettingsMapFactory::HostContentSettingsMapFactory()
               .WithAshInternals(ProfileSelection::kOwnInstance)
               .Build()) {
   DependsOn(SupervisedUserSettingsServiceFactory::GetInstance());
+  DependsOn(LastTabStandingTrackerFactory::GetInstance());
 #if BUILDFLAG(IS_ANDROID)
   DependsOn(TemplateURLServiceFactory::GetInstance());
 #endif
