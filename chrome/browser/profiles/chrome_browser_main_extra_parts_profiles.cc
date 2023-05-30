@@ -98,6 +98,7 @@
 #include "chrome/browser/password_manager/password_reuse_manager_factory.h"
 #include "chrome/browser/password_manager/password_store_factory.h"
 #include "chrome/browser/permissions/adaptive_quiet_notification_permission_ui_enabler.h"
+#include "chrome/browser/permissions/last_tab_standing_tracker_factory.h"
 #include "chrome/browser/permissions/notification_permission_review_service_factory.h"
 #include "chrome/browser/permissions/notifications_engagement_service_factory.h"
 #include "chrome/browser/permissions/one_time_permissions_tracker_factory.h"
@@ -684,6 +685,7 @@ void ChromeBrowserMainExtraPartsProfiles::
 #endif
   KAnonymityServiceFactory::GetInstance();
   LanguageModelManagerFactory::GetInstance();
+  LastTabStandingTrackerFactory::GetInstance();
 #if !BUILDFLAG(IS_ANDROID)
   if (base::FeatureList::IsEnabled(permissions::features::kOneTimePermission)) {
     OneTimePermissionsTrackerFactory::GetInstance();
