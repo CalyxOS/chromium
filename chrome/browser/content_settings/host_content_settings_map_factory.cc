@@ -11,6 +11,7 @@
 #include "build/buildflag.h"
 #include "chrome/browser/content_settings/one_time_permission_provider.h"
 #include "chrome/browser/permissions/one_time_permissions_tracker_factory.h"
+#include "chrome/browser/permissions/last_tab_standing_tracker_factory.h"
 #include "chrome/browser/profiles/off_the_record_profile_impl.h"
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/profiles/profiles_state.h"
@@ -56,6 +57,7 @@ HostContentSettingsMapFactory::HostContentSettingsMapFactory()
               // Guest mode.
               .WithGuest(ProfileSelection::kOwnInstance)
               .Build()) {
+  DependsOn(LastTabStandingTrackerFactory::GetInstance());
 #if BUILDFLAG(ENABLE_SUPERVISED_USERS)
   DependsOn(SupervisedUserSettingsServiceFactory::GetInstance());
 #endif
