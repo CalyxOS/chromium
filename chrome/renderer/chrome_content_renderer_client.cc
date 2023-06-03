@@ -541,11 +541,6 @@ void ChromeContentRendererClient::RenderThreadStarted() {
   // TODO(nyquist): Add test to ensure this happens when the flag is set.
   WebSecurityPolicy::RegisterURLSchemeAsDisplayIsolated(dom_distiller_scheme);
 
-#if BUILDFLAG(IS_ANDROID)
-  WebSecurityPolicy::RegisterURLSchemeAsAllowedForReferrer(
-      WebString::FromUTF8(content::kAndroidAppScheme));
-#endif
-
   // chrome-search: pages should not be accessible by bookmarklets
   // or javascript: URLs typed in the omnibox.
   WebSecurityPolicy::RegisterURLSchemeAsNotAllowingJavascriptURLs(
