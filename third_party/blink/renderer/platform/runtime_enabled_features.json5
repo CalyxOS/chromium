@@ -3270,8 +3270,8 @@
       status: "stable",
     },
     {
-      name: "RemoveDataUrlInSvgUse",
-      status: "stable",
+      name: "RemoveDataUrlInSvgUse",  // enabled
+      status: "stable",               // by default
     },
     {
       name: "RemoveMobileViewportDoubleTap",
