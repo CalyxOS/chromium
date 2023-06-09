@@ -764,3 +764,5 @@ if (is_component_build) {
 set_defaults("component") {
   configs = default_component_configs
 }
+
+import("//build/bromite/bromite_utils.gni")
