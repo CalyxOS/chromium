@@ -13,6 +13,11 @@ import org.chromium.components.browser_ui.settings.SettingsNavigation;
 import org.chromium.components.user_prefs.UserPrefs;
 import org.chromium.content_public.browser.BrowserContextHandle;
 
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.chrome.browser.flags.CromiteNativeUtils;
+import org.chromium.chrome.browser.preferences.ChromePreferenceKeys;
+import org.chromium.chrome.browser.preferences.ChromeSharedPreferences;
+
 /** The Chrome implementation of AccessibilitySettingsDelegate. */
 public class ChromeAccessibilitySettingsDelegate implements AccessibilitySettingsDelegate {
     private static class TextSizeContrastAccessibilityDelegate
