@@ -728,6 +728,7 @@ set_defaults("component") {
   configs = default_component_configs
 }
 
+import("//build/bromite/bromite_utils.gni")
 # =============================================================================
 # ACTION OVERRIDE
 # =============================================================================
