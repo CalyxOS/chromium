@@ -2275,6 +2275,8 @@ DOMWindow* LocalDOMWindow::open(v8::Isolate* isolate,
     //     var w = window.open()
     //     var not_emulated_screen_info = w.screen
     bool protection_enabled = base::FeatureList::IsEnabled(features::kViewportProtection);
+    protection_enabled |= GetFrame()->GetContentSettingsClient()->AllowContentSetting(
+        ContentSettingsType::VIEWPORT, false);
     result.frame->GetPage()->CalculateEmulatedScreenSetting(
       To<LocalFrame>(result.frame),
       /*force*/ protection_enabled);
