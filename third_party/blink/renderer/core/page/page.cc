@@ -896,6 +896,9 @@ void Page::UpdateAcceleratedCompositingSettings() {
 
 void Page::CalculateEmulatedScreenSetting(LocalFrame* frame, bool force) {
   bool isEnabled = base::FeatureList::IsEnabled(features::kViewportProtection);
+  blink::WebContentSettingsClient* settings = frame->GetContentSettingsClient();
+  isEnabled |= (settings && settings->AllowContentSetting(
+        ContentSettingsType::VIEWPORT, /*default_value*/ false));
   if (isEnabled || force) {
     // this is the maximum (and minimum) value which in percentage
     // corresponds to +- 0.03%
