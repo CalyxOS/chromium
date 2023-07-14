@@ -16,6 +16,24 @@
       "message": "Revert looks ok at least, building.",
       "revId": "ac11d8c6d4d3f5064ca10e6daa0eeffa931ea9d9",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39e9cdee_a815b7cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-07-14T22:17:08Z",
+      "side": 1,
+      "message": "Nope, still fails. 😞",
+      "parentUuid": "7fa15686_439c96f8",
+      "revId": "ac11d8c6d4d3f5064ca10e6daa0eeffa931ea9d9",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
