@@ -2020,7 +2020,7 @@ const TemplateURLData::RegulatoryExtension* TemplateURL::GetRegulatoryExtension(
 }
 
 bool TemplateURL::IsSideSearchSupported() const {
-  return !side_search_param().empty();
+  return false;
 }
 
 bool TemplateURL::IsSideImageSearchSupported() const {
