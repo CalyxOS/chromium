@@ -55,6 +55,11 @@ BASE_FEATURE(kCompanionEnableNewBadgesInContextMenu,
 BASE_FEATURE(kCompanionEnablePageContent,
              "CompanionEnablePageContent",
              base::FEATURE_DISABLED_BY_DEFAULT);
+
+SET_CROMITE_FEATURE_DISABLED_W_NAMESPACE(internal, kSidePanelCompanion);
+SET_CROMITE_FEATURE_DISABLED_W_NAMESPACE(internal, kSidePanelCompanion2);
+SET_CROMITE_FEATURE_DISABLED_W_NAMESPACE(internal, kCompanionEnabledByObservingExpsNavigations);
+SET_CROMITE_FEATURE_DISABLED(kCompanionEnablePageContent);
 }  // namespace features
 
 namespace switches {
@@ -65,6 +70,7 @@ const char kDisableCheckUserPermissionsForCompanion[] =
 const char kForceCompanionPinnedState[] = "force-companion-pinned-state";
 
 bool ShouldOverrideCheckingUserPermissionsForCompanion() {
+  if ((true)) return false;
   base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
   return command_line->HasSwitch(kDisableCheckUserPermissionsForCompanion);
 }
