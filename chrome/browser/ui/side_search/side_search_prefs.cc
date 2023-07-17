@@ -13,7 +13,7 @@ namespace side_search_prefs {
 const char kSideSearchEnabled[] = "side_search.enabled";
 
 void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
-  registry->RegisterBooleanPref(kSideSearchEnabled, true);
+  registry->RegisterBooleanPref(kSideSearchEnabled, false);
 }
 
 }  // namespace side_search_prefs
