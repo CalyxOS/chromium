@@ -1388,7 +1388,8 @@ void ProfileNetworkContextService::ConfigureNetworkContextParamsInternal(
     // access by sqlite3 implementation in the network service.
     //
     // TODO(crbug.com/377642763): See if we can remove this flag.
-    network_context_params->enable_locking_cookie_database = true;
+    network_context_params->enable_locking_cookie_database =
+        base::FeatureList::IsEnabled(features::kLockProfileCookieDatabase);
 #endif  // BUILDFLAG(IS_WIN)
 
     g_browser_process->system_network_context_manager()
