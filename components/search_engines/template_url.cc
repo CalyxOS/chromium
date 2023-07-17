@@ -1934,7 +1934,7 @@ GURL TemplateURL::GenerateSuggestionURL(
 }
 
 bool TemplateURL::IsSideSearchSupported() const {
-  return !side_search_param().empty();
+  return false;
 }
 
 bool TemplateURL::IsSideImageSearchSupported() const {
