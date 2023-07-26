@@ -15,8 +15,8 @@ namespace history_clusters {
 namespace features {
 
 BASE_FEATURE(kOnDeviceClustering,
-             "HistoryClustersOnDeviceClustering",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "HistoryClustersOnDeviceClustering",      // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 BASE_FEATURE(kOnDeviceClusteringContentClustering,
              "JourneysOnDeviceClusteringContentClustering",
@@ -31,8 +31,8 @@ BASE_FEATURE(kOnDeviceClusteringBlocklists,
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kOnDeviceClusteringKeywordFiltering,
-             "JourneysKeywordFiltering",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "JourneysKeywordFiltering",               // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 BASE_FEATURE(kOnDeviceClusteringVisitRanking,
              "JourneysOnDeviceClusteringVisitRanking",
