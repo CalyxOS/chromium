@@ -260,12 +260,12 @@ BASE_FEATURE(kWaitForFirstPartySetsInit,
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kPartitionedCookies,
-             "PartitionedCookies",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "PartitionedCookies",                     // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 BASE_FEATURE(kNoncedPartitionedCookies,
-             "NoncedPartitionedCookies",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "NoncedPartitionedCookies",               // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 BASE_FEATURE(kClampCookieExpiryTo400Days,
              "ClampCookieExpiryTo400Days",
@@ -430,8 +430,8 @@ BASE_FEATURE(kEnableEarlyHintsOnHttp11,
              base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kEnableWebTransportDraft07,
-             "EnableWebTransportDraft07",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "EnableWebTransportDraft07",              // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 BASE_FEATURE(kZstdContentEncoding,
              "ZstdContentEncoding",

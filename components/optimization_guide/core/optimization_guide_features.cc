@@ -214,8 +214,8 @@ BASE_FEATURE(kPageContentAnnotationsPersistSalientImageMetadata,
 // Killswitch for fetching on search results from a remote Optimization Guide
 // Service.
 BASE_FEATURE(kOptimizationGuideFetchingForSRP,
-             "OptimizationHintsFetchingSRP",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "OptimizationHintsFetchingSRP",           // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // Enables the model store to save relative paths computed from the base model
 // store dir. Storing as relative path in the model store is needed for IOS,

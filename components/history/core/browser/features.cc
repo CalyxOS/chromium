@@ -77,8 +77,8 @@ const base::FeatureParam<int> kRepeatableQueriesMinVisitCount(
     is_android ? 6 : 1);
 
 BASE_FEATURE(kSyncSegmentsData,
-             "SyncSegmentsData",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "SyncSegmentsData",                       // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // The maximum number of New Tab Page displays to show with synced segments
 // data.
