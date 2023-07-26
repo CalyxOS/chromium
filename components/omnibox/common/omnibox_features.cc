@@ -242,15 +242,15 @@ BASE_FEATURE(kDocumentProvider,
 // If enabled, the 'Show Google Drive Suggestions' setting is removed and Drive
 // suggestions are available to all clients who meet the other requirements.
 BASE_FEATURE(kDocumentProviderNoSetting,
-             "OmniboxDocumentProviderNoSetting",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "OmniboxDocumentProviderNoSetting",       // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // If enabled, the requirement to be in an active Sync state is removed and
 // Drive suggestions are available to all clients who meet the other
 // requirements.
 BASE_FEATURE(kDocumentProviderNoSyncRequirement,
-             "OmniboxDocumentProviderNoSyncRequirement",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "OmniboxDocumentProviderNoSyncRequirement", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);         // in Brave, too
 
 // Feature to determine if the HQP should double as a domain provider by
 // suggesting up to the provider limit for each of the user's highly visited
@@ -328,8 +328,8 @@ BASE_FEATURE(kMostVisitedTilesHorizontalRenderGroup,
 // prefixes. Will also adjust the location bar UI and omnibox text selection to
 // accommodate the autocompletions.
 BASE_FEATURE(kRichAutocompletion,
-             "OmniboxRichAutocompletion",
-             enabled_by_default_desktop_only);
+             "OmniboxRichAutocompletion",              // disabled by default
+             enabled_by_default_desktop_only);         // in Brave, too; we are Android
 
 // Feature used to enable Pedals in the NTP Realbox.
 BASE_FEATURE(kNtpRealboxPedals,
@@ -354,8 +354,8 @@ BASE_FEATURE(kOmniboxMatchToolbarAndStatusBarColor,
 // Feature used to add most visited tiles to the suggestions when the user is on
 // a search result page that does not do search term replacement.
 BASE_FEATURE(kOmniboxMostVisitedTilesOnSrp,
-             "OmniboxMostVisitedTilesOnSrp",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "OmniboxMostVisitedTilesOnSrp",           // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // If enabled, allows Search Ready Omnibox to populate original search query
 // when the user presses the <edit> button on EditUrl suggestion.
