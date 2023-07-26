@@ -1,0 +1,2 @@
+SET_CROMITE_FEATURE_DISABLED(kEnabledStructuredMetricsService);
+SET_CROMITE_FEATURE_DISABLED(kPhoneHubStructuredMetrics);
