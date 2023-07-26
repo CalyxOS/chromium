@@ -1,0 +1,2 @@
+SET_CROMITE_FEATURE_DISABLED(kClearBrowsingDataAndroidSurvey);
+SET_CROMITE_FEATURE_DISABLED(kMagicStackAndroid);

@@ -92,4 +92,5 @@ const char kMvtScoringParamRecencyFactor_Default[] = "default";
 const char kMvtScoringParamRecencyFactor_Decay[] = "decay";
 const char kMvtScoringParamRecencyFactor_DecayStaircase[] = "decay_staircase";
 
+#include "cromite_flags/components_history_core_browser_features_cc.inc"
 }  // namespace history

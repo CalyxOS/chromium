@@ -191,4 +191,8 @@ bool IsHistoryEmbeddingsAnswersFeatureEnabled() {
          base::FeatureList::IsEnabled(kLaunchedHistoryEmbeddingsAnswers);
 }
 
+SET_CROMITE_FEATURE_DISABLED(kHistoryEmbeddings);                // disabled in Brave
+SET_CROMITE_FEATURE_DISABLED(kHistoryEmbeddingsAnswers);         // disabled in Brave
+SET_CROMITE_FEATURE_DISABLED(kLaunchedHistoryEmbeddings);        // disabled in Brave
+SET_CROMITE_FEATURE_DISABLED(kLaunchedHistoryEmbeddingsAnswers); // disabled in Brave
 }  // namespace history_embeddings

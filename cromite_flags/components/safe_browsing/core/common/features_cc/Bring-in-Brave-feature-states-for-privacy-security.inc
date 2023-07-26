@@ -1,0 +1,2 @@
+SET_CROMITE_FEATURE_DISABLED(kExtensionTelemetryForEnterprise);
+SET_CROMITE_FEATURE_DISABLED(kGooglePlayProtectInApkTelemetry);
