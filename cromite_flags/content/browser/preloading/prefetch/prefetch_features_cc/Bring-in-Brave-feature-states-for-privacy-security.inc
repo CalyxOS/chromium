@@ -1,0 +1,2 @@
+SET_CROMITE_FEATURE_DISABLED(kPrefetchClientHints);
+SET_CROMITE_FEATURE_DISABLED(kPrefetchOffTheRecord);
