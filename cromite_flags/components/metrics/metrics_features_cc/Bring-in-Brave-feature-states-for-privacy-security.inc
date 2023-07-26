@@ -1,0 +1,2 @@
+SET_CROMITE_FEATURE_DISABLED(kMetricsServiceDeltaSnapshotInBg);
+SET_CROMITE_FEATURE_DISABLED(kStructuredMetrics);
