@@ -21,8 +21,8 @@ BASE_FEATURE(kLinkCapturingUiUpdate,
 );
 
 BASE_FEATURE(kLinkCapturingInfoBar,
-             "LinkCapturingInfoBar",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "LinkCapturingInfoBar",                   // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 bool LinkCapturingUiUpdateEnabled() {
   return base::FeatureList::IsEnabled(kLinkCapturingUiUpdate);
