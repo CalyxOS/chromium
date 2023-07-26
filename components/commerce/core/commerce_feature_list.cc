@@ -609,4 +609,6 @@ bool IsNoDiscountMerchant(const GURL& url) {
   return RE2::PartialMatch(url.host_piece(), *pattern_from_component);
 }
 #endif
+
+#include "cromite_flags/components_commerce_core_commerce_feature_list_cc.inc"
 }  // namespace commerce
