@@ -53,5 +53,6 @@ extern const base::FeatureParam<int> kMaxDaysForMLPromotionGuardrailStorage(
 BASE_FEATURE(kCheckWebAppExistenceAsync,
              "CheckWebAppExistenceAsync",
              base::FEATURE_DISABLED_BY_DEFAULT);
+SET_CROMITE_FEATURE_DISABLED(kWebAppsEnableMLModelForPromotion);  // disabled in Brave
 }  // namespace features
 }  // namespace webapps
