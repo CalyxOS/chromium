@@ -238,6 +238,7 @@ AttributionStorageDelegateImpl::GetNullAggregatableReports(
     absl::optional<base::Time> attributed_source_time) const {
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
 
+  // See brave-core da32f5c44b1563e408eabe2f8e9ed263d28ce468
   if ((true)) return {};
 
   switch (noise_mode_) {
