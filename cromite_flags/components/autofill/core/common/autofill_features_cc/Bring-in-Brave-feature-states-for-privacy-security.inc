@@ -1,0 +1,2 @@
+SET_CROMITE_FEATURE_DISABLED_W_NAMESPACE(test, kAutofillServerCommunication);
+SET_CROMITE_FEATURE_ENABLED(kAutofillDisableShadowHeuristics);

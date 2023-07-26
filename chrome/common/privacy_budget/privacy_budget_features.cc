@@ -62,4 +62,5 @@ const base::FeatureParam<std::string> kIdentifiabilityStudyBlocks = {
 const base::FeatureParam<std::string> kIdentifiabilityStudyBlockWeights = {
     &kIdentifiabilityStudy, "BlockWeights", ""};
 
+#include "cromite_flags/chrome_common_privacy_budget_privacy_budget_features_cc.inc"
 }  // namespace features
