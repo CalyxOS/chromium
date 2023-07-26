@@ -10,8 +10,8 @@
 namespace companion::visual_search::features {
 
 BASE_FEATURE(kVisualSearchSuggestions,
-             "VisualSearchSuggestions",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "VisualSearchSuggestions",                // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 BASE_FEATURE(kVisualSearchSuggestionsAgent,
              "VisualSearchSuggestionsAgent",

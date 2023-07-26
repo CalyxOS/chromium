@@ -10,8 +10,8 @@
 namespace send_tab_to_self {
 
 BASE_FEATURE(kSendTabToSelfSigninPromo,
-             "SendTabToSelfSigninPromo",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "SendTabToSelfSigninPromo",               // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 BASE_FEATURE(kSendTabToSelfEnableNotificationTimeOut,
              "SendTabToSelfEnableNotificationTimeOut",

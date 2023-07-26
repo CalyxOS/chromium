@@ -95,8 +95,8 @@ const base::FeatureParam<int> kEvaluateProtectedPasswordLengthMinimumValue{
     /*default_value=*/4};
 
 BASE_FEATURE(kExtensionTelemetry,
-             "SafeBrowsingExtensionTelemetry",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "SafeBrowsingExtensionTelemetry",         // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 const base::FeatureParam<int> kExtensionTelemetryUploadIntervalSeconds{
     &kExtensionTelemetry, "UploadIntervalSeconds",
@@ -149,16 +149,16 @@ BASE_FEATURE(
     base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kExtensionTelemetryTabsApiSignal,
-             "SafeBrowsingExtensionTelemetryTabsApiSignal",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "SafeBrowsingExtensionTelemetryTabsApiSignal", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);            // in Brave, too
 
 BASE_FEATURE(kExtensionTelemetryTabsExecuteScriptSignal,
              "SafeBrowsingExtensionTelemetryTabsExecuteScriptSignal",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kExtensionTelemetryDisableOffstoreExtensions,
-             "SafeBrowsingExtensionTelemetryDisableOffstoreExtensions",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "SafeBrowsingExtensionTelemetryDisableOffstoreExtensions",   // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);                          // in Brave, too
 
 BASE_FEATURE(kFriendlierSafeBrowsingSettingsEnhancedProtection,
              "FriendlierSafeBrowsingSettingsEnhancedProtection",

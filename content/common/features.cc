@@ -340,8 +340,8 @@ BASE_FEATURE(kPrivateNetworkAccessForIframesWarningOnly,
 // Enables reporting ResourceTiming entries for document, who initiated a
 // cancelled navigation in one of their <iframe>.
 BASE_FEATURE(kResourceTimingForCancelledNavigationInFrame,
-             "ResourceTimingForCancelledNavigationInFrame",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "ResourceTimingForCancelledNavigationInFrame", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);            // in Brave
 
 // Enable the ProactivelySwapBrowsingInstance experiment. A browsing instance
 // represents a set of frames that can script each other. Currently, Chrome does
@@ -405,8 +405,8 @@ BASE_FEATURE(kReloadHiddenTabsWithCrashedSubframes,
 //
 // crbug.com/1472634 for more details.
 BASE_FEATURE(kServiceWorkerAutoPreload,
-             "ServiceWorkerAutoPreload",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "ServiceWorkerAutoPreload",               // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // (crbug.com/1371756): When enabled, the static routing API starts
 // ServiceWorker when the routing result of a main resource request was network
