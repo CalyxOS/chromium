@@ -1,0 +1,5 @@
+SET_CROMITE_FEATURE_DISABLED_W_NAMESPACE(internal, kHistoryClustersInternalsPage);
+SET_CROMITE_FEATURE_DISABLED_W_NAMESPACE(internal, kHistoryClustersNavigationContextClustering);
+SET_CROMITE_FEATURE_DISABLED_W_NAMESPACE(internal, kJourneys);
+SET_CROMITE_FEATURE_DISABLED_W_NAMESPACE(internal, kOmniboxAction);
+SET_CROMITE_FEATURE_DISABLED_W_NAMESPACE(internal, kOmniboxHistoryClusterProvider);

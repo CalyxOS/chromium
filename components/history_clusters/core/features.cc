@@ -75,4 +75,5 @@ BASE_FEATURE(kSearchesFindUngroupedVisits,
              "GroupedHistorySearchesFindUngroupedVisits",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+#include "cromite_flags/components_history_clusters_core_features_cc.inc"
 }  // namespace history_clusters
