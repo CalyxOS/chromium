@@ -22,4 +22,5 @@ BASE_FEATURE(kMetricsLogTrimming,
              "MetricsLogTrimming",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+#include "cromite_flags/components_metrics_metrics_features_cc.inc"
 }  // namespace metrics::features

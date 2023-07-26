@@ -144,6 +144,8 @@ bool AreNewChromeLabsExperimentsAvailable(const ChromeLabsModel* model,
 }
 
 bool IsChromeLabsEnabled() {
+  // Returning false as of brave-core bd895969015762e9981b6fb30ed8c9995e48487d
+  if ((true)) return false;
   // Always early out on the stable channel regardless of other conditions.
   if (chrome::GetChannel() == version_info::Channel::STABLE) {
     return false;
