@@ -253,5 +253,7 @@ BASE_FEATURE(kWebViewEnableCrash,
              "WebViewEnableCrash",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+SET_CROMITE_FEATURE_DISABLED(kWebViewEnumerateDevicesCache); // as in Brave
+
 }  // namespace features
 }  // namespace android_webview

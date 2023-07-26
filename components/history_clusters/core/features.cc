@@ -27,7 +27,9 @@ constexpr auto enabled_by_default_desktop_only =
 
 namespace internal {
 
-BASE_FEATURE(kJourneys, "Journeys", enabled_by_default_desktop_only);
+BASE_FEATURE(kJourneys,
+             "Journeys",                               // disabled by default
+             enabled_by_default_desktop_only);         // in Brave, too; we are Android
 
 BASE_FEATURE(kJourneysLabels,
              "JourneysLabel",
@@ -41,12 +43,12 @@ const base::FeatureParam<bool> kJourneysImagesCover{
     &kJourneysImages, "JourneysImagesCover", true};
 
 BASE_FEATURE(kOmniboxAction,
-             "JourneysOmniboxAction",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "JourneysOmniboxAction",                  // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 BASE_FEATURE(kOmniboxHistoryClusterProvider,
-             "JourneysOmniboxHistoryClusterProvider",
-             enabled_by_default_desktop_only);
+             "JourneysOmniboxHistoryClusterProvider",  // disabled by default
+             enabled_by_default_desktop_only);         // in Brave (too; we are Android)
 
 BASE_FEATURE(kNonUserVisibleDebug,
              "JourneysNonUserVisibleDebug",
@@ -57,12 +59,12 @@ BASE_FEATURE(kUserVisibleDebug,
              base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kPersistContextAnnotationsInHistoryDb,
-             "JourneysPersistContextAnnotationsInHistoryDb",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "JourneysPersistContextAnnotationsInHistoryDb", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);             // in Brave
 
 BASE_FEATURE(kHistoryClustersInternalsPage,
-             "HistoryClustersInternalsPage",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "HistoryClustersInternalsPage",                 // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);             // in Brave, too
 
 BASE_FEATURE(kHistoryClustersUseContinueOnShutdown,
              "HistoryClustersUseContinueOnShutdown",
@@ -83,27 +85,27 @@ BASE_FEATURE(kJourneysIncludeSyncedVisits,
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kJourneysPersistCachesToPrefs,
-             "JourneysPersistCachesToPrefs",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "JourneysPersistCachesToPrefs",               // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);           // in Brave
 
 BASE_FEATURE(kHistoryClustersNavigationContextClustering,
-             "HistoryClustersNavigationContextClustering",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "HistoryClustersNavigationContextClustering", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);           // in Brave
 
 // Killswitch only.
 BASE_FEATURE(kJourneysNamedNewTabGroups,
-             "JourneysNamedNewTabGroups",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "JourneysNamedNewTabGroups",              // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 BASE_FEATURE(kJourneysZeroStateFiltering,
-             "JourneysZeroStateFiltering",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "JourneysZeroStateFiltering",             // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 }  // namespace internal
 
 BASE_FEATURE(kSidePanelJourneys,
-             "SidePanelJourneys",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "SidePanelJourneys",                      // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 // If enabled, and the main flag is also enabled, the Journeys omnibox
 // entrypoints open Journeys in Side Panel rather than the History WebUI.
 const base::FeatureParam<bool> kSidePanelJourneysOpensFromOmnibox{

@@ -74,13 +74,8 @@ const base::FeatureParam<bool> kSpareRendererWarmupDelayUntilPageStopsLoading{
 // On Lacros the feature is enabled only for secondary profiles, check the
 // implementation of `ProfileManager::ProfileInfo::FromUnownedProfile()`.
 BASE_FEATURE(kDestroyProfileOnBrowserClose,
-             "DestroyProfileOnBrowserClose",
-#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_WIN) || \
-    BUILDFLAG(IS_CHROMEOS_LACROS)
-             base::FEATURE_ENABLED_BY_DEFAULT);
-#else
-             base::FEATURE_DISABLED_BY_DEFAULT);
-#endif
+             "DestroyProfileOnBrowserClose",           // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // DestroyProfileOnBrowserClose only covers deleting regular (non-System)
 // Profiles. This flags lets us destroy the System Profile, as well.
