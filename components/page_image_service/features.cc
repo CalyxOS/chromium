@@ -25,4 +25,5 @@ BASE_FEATURE(kImageServiceObserveSyncDownloadStatus,
              "ImageServiceObserveSyncDownloadStatus",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+#include "cromite_flags/components_page_image_service_features_cc.inc"
 }  // namespace page_image_service

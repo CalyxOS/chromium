@@ -260,5 +260,6 @@ BASE_FEATURE(kCreateSpareRendererOnBrowserContextCreation,
 
 SET_CROMITE_FEATURE_DISABLED(kWebViewMediaIntegrityApi);
 SET_CROMITE_FEATURE_DISABLED(kWebViewMediaIntegrityApiBlinkExtension);
+#include "cromite_flags/android_webview_common_aw_features_cc.inc"
 }  // namespace features
 }  // namespace android_webview
