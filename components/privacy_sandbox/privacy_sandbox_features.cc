@@ -281,4 +281,5 @@ BASE_FEATURE(kPrivacySandboxFirstTimeNoticeV2,
 SET_CROMITE_FEATURE_DISABLED(kPrivacySandboxSettings4);
 SET_CROMITE_FEATURE_ENABLED(kDisablePrivacySandboxPrompts);
 SET_CROMITE_FEATURE_DISABLED(kEnforcePrivacySandboxAttestations);
+#include "cromite_flags/components_privacy_sandbox_privacy_sandbox_features_cc.inc"
 }  // namespace privacy_sandbox
