@@ -13,8 +13,8 @@
 namespace aggregation_service {
 
 BASE_FEATURE(kAggregationServiceMultipleCloudProviders,
-             "AggregationServiceMultipleCloudProviders",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "AggregationServiceMultipleCloudProviders", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);         // in Brave
 
 const base::FeatureParam<std::string> kAggregationServiceCoordinatorAwsCloud{
     &kAggregationServiceMultipleCloudProviders, "aws_cloud",

@@ -7,8 +7,8 @@
 namespace features {
 
 BASE_FEATURE(kPerformanceSettingsPreloadingSubpage,
-             "PerformanceSettingsPreloadingSubpage",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "PerformanceSettingsPreloadingSubpage",   // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 const base::FeatureParam<bool> kPerformanceSettingsPreloadingSubpageV2{
     &kPerformanceSettingsPreloadingSubpage, "use_v2_preloading_subpage", true};

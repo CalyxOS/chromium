@@ -139,8 +139,8 @@ BASE_FEATURE(kAutofillEnablePaymentsMandatoryReauth,
 
 // When enabled, some extra metrics logging for Autofill Downstream will start.
 BASE_FEATURE(kAutofillEnableRemadeDownstreamMetrics,
-             "AutofillEnableRemadeDownstreamMetrics",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "AutofillEnableRemadeDownstreamMetrics",  // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // When enabled, Autofill will attempt to offer upload save for IBANs
 // (International Bank Account Numbers) and autofill server-based IBANs.
@@ -220,8 +220,8 @@ BASE_FEATURE(kAutofillUpstream,
 // user's email domain is from a common email provider (thus unlikely to be an
 // enterprise or education user).
 BASE_FEATURE(kAutofillUpstreamAllowAdditionalEmailDomains,
-             "AutofillUpstreamAllowAdditionalEmailDomains",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "AutofillUpstreamAllowAdditionalEmailDomains", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);            // in Brave
 
 // When enabled, Chrome allows credit card upload to Google Payments, no matter
 // the user's email domain.
