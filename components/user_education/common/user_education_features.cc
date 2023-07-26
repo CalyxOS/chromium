@@ -174,4 +174,5 @@ base::TimeDelta GetNewBadgeDisplayWindow() {
       kDefaultNewBadgeDisplayWindow);
 }
 
+SET_CROMITE_FEATURE_DISABLED(kWhatsNewVersion2);  // disabled in Brave
 }  // namespace user_education::features
