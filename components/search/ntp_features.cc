@@ -561,4 +561,5 @@ int GetWallpaperSearchButtonAnimationShownThreshold() {
 SET_CROMITE_FEATURE_DISABLED(kNtpHistoryClustersModule);
 SET_CROMITE_FEATURE_DISABLED(kNtpHistoryClustersModuleLoad);
 SET_CROMITE_FEATURE_DISABLED(kNtpHistoryClustersModuleUseModelRanking);
+#include "cromite_flags/components_search_ntp_features_cc.inc"
 }  // namespace ntp_features
