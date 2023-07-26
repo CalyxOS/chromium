@@ -141,8 +141,8 @@ BASE_FEATURE(kPageVisibilityPageContentAnnotations,
              base::FEATURE_ENABLED_BY_DEFAULT);
 // Enables the text embedding model to be annotated on every page load.
 BASE_FEATURE(kTextEmbeddingPageContentAnnotations,
-             "TextEmbeddingPageContentAnnotations",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "TextEmbeddingPageContentAnnotations",    // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // This feature flag does not allow for the entities model to load the name and
 // prefix filters.
@@ -220,8 +220,8 @@ BASE_FEATURE(kPageContentAnnotationsPersistSalientImageMetadata,
 // Killswitch for fetching on search results from a remote Optimization Guide
 // Service.
 BASE_FEATURE(kOptimizationGuideFetchingForSRP,
-             "OptimizationHintsFetchingSRP",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "OptimizationHintsFetchingSRP",           // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // Enables the model store to save relative paths computed from the base model
 // store dir. Storing as relative path in the model store is needed for IOS,

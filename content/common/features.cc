@@ -40,8 +40,8 @@ BASE_FEATURE(kRestrictCanAccessDataForOriginToUIThread,
              base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kServiceWorkerAutoPreload,
-             "ServiceWorkerAutoPreload",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "ServiceWorkerAutoPreload",               // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 BASE_FEATURE(kServiceWorkerStaticRouterStartServiceWorker,
              "ServiceWorkerStaticRouterStartServiceWorker",
