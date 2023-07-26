@@ -1,0 +1,2 @@
+SET_CROMITE_FEATURE_DISABLED(kAutofillEnableCardBenefitsForAmericanExpress);
+SET_CROMITE_FEATURE_DISABLED(kAutofillEnableCardBenefitsForBmo);

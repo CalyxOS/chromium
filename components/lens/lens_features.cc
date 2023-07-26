@@ -815,4 +815,5 @@ int GetZstdCompressionLevel() {
 bool PageContentUploadRequestIdFixEnabled() {
   return kPageContentUploadRequestIdFix.Get();
 }
+SET_CROMITE_FEATURE_DISABLED(kLensOverlay);    // disabled in Brave
 }  // namespace lens::features
