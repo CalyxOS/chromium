@@ -82,4 +82,5 @@ base::TimeDelta GetExternalMetricsCollectionInterval() {
   return base::Seconds(kExternalMetricsCollectionIntervalInSeconds.Get());
 }
 
+#include "cromite_flags/components_metrics_structured_structured_metrics_features_cc.inc"
 }  // namespace metrics::structured
