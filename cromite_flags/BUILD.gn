@@ -18,6 +18,16 @@
 # this file is intentionally empty
 #
 
+cpp_bromite_include("android_webview_common_aw_features_cc") {
+  inputs = [ "//cromite_flags/android_webview/common/aw_features_cc/placeholder.txt" ]
+  output_file = "android_webview_common_aw_features_cc.inc"
+}
+
+cpp_bromite_include("base_features_cc") {
+  inputs = [ "//cromite_flags/base/features_cc/placeholder.txt" ]
+  output_file = "base_features_cc.inc"
+}
+
 cpp_bromite_include("chrome_browser_about_flags_cc") {
   inputs = [ "//cromite_flags/chrome/browser/about_flags_cc/placeholder.txt" ]
   output_file = "chrome_browser_about_flags_cc.inc"
@@ -26,6 +36,16 @@ cpp_bromite_include("chrome_browser_about_flags_cc") {
 cpp_bromite_include("chrome_common_chrome_features_cc") {
   inputs = [ "//cromite_flags/chrome/common/chrome_features_cc/placeholder.txt" ]
   output_file = "chrome_common_chrome_features_cc.inc"
+}
+
+cpp_bromite_include("chrome_common_companion_visual_query_features_cc") {
+  inputs = [ "//cromite_flags/chrome/common/companion/visual_query/features_cc/placeholder.txt" ]
+  output_file = "chrome_common_companion_visual_query_features_cc.inc"
+}
+
+cpp_bromite_include("chrome_common_privacy_budget_privacy_budget_features_cc") {
+  inputs = [ "//cromite_flags/chrome/common/privacy_budget/privacy_budget_features_cc/placeholder.txt" ]
+  output_file = "chrome_common_privacy_budget_privacy_budget_features_cc.inc"
 }
 
 cpp_bromite_include("content_common_features_cc") {
@@ -68,6 +88,16 @@ cpp_bromite_include("chrome_browser_browser_features_cc") {
   output_file = "chrome_browser_browser_features_cc.inc"
 }
 
+cpp_bromite_include("chrome_browser_companion_core_features_cc") {
+  inputs = [ "//cromite_flags/chrome/browser/companion/core/features_cc/placeholder.txt" ]
+  output_file = "chrome_browser_companion_core_features_cc.inc"
+}
+
+cpp_bromite_include("chrome_browser_signin_signin_features_cc") {
+  inputs = [ "//cromite_flags/chrome/browser/signin/signin_features_cc/placeholder.txt" ]
+  output_file = "chrome_browser_signin_signin_features_cc.inc"
+}
+
 cpp_bromite_include("chrome_browser_ui_ui_features_cc") {
   inputs = [ "//cromite_flags/chrome/browser/ui/ui_features_cc/placeholder.txt" ]
   output_file = "chrome_browser_ui_ui_features_cc.inc"
@@ -83,14 +113,64 @@ cpp_bromite_include("media_base_media_switches_h") {
   output_file = "media_base_media_switches_h.inc"
 }
 
+cpp_bromite_include("components_aggregation_service_features_cc") {
+  inputs = [ "//cromite_flags/components/aggregation_service/features_cc/placeholder.txt" ]
+  output_file = "components_aggregation_service_features_cc.inc"
+}
+
+cpp_bromite_include("components_autofill_core_common_autofill_features_cc") {
+  inputs = [ "//cromite_flags/components/autofill/core/common/autofill_features_cc/placeholder.txt" ]
+  output_file = "components_autofill_core_common_autofill_features_cc.inc"
+}
+
+cpp_bromite_include("components_autofill_core_common_autofill_payments_features_cc") {
+  inputs = [ "//cromite_flags/components/autofill/core/common/autofill_payments_features_cc/placeholder.txt" ]
+  output_file = "components_autofill_core_common_autofill_payments_features_cc.inc"
+}
+
+cpp_bromite_include("components_commerce_core_commerce_feature_list_cc") {
+  inputs = [ "//cromite_flags/components/commerce/core/commerce_feature_list_cc/placeholder.txt" ]
+  output_file = "components_commerce_core_commerce_feature_list_cc.inc"
+}
+
+cpp_bromite_include("components_compose_core_browser_compose_features_cc") {
+  inputs = [ "//cromite_flags/components/compose/core/browser/compose_features_cc/placeholder.txt" ]
+  output_file = "components_compose_core_browser_compose_features_cc.inc"
+}
+
 cpp_bromite_include("components_content_settings_core_common_features_cc") {
   inputs = [ "//cromite_flags/components/content_settings/core/common/features_cc/placeholder.txt" ]
   output_file = "components_content_settings_core_common_features_cc.inc"
 }
 
-cpp_bromite_include("components_permissions_features_cc") {
-  inputs = [ "//cromite_flags/components/permissions/features_cc/placeholder.txt" ]
-  output_file = "components_permissions_features_cc.inc"
+cpp_bromite_include("components_history_core_browser_features_cc") {
+  inputs = [ "//cromite_flags/components/history/core/browser/features_cc/placeholder.txt" ]
+  output_file = "components_history_core_browser_features_cc.inc"
+}
+
+cpp_bromite_include("components_history_clusters_core_features_cc") {
+  inputs = [ "//cromite_flags/components/history_clusters/core/features_cc/placeholder.txt" ]
+  output_file = "components_history_clusters_core_features_cc.inc"
+}
+
+cpp_bromite_include("components_history_clusters_core_on_device_clustering_features_cc") {
+  inputs = [ "//cromite_flags/components/history_clusters/core/on_device_clustering_features_cc/placeholder.txt" ]
+  output_file = "components_history_clusters_core_on_device_clustering_features_cc.inc"
+}
+
+cpp_bromite_include("components_metrics_metrics_features_cc") {
+  inputs = [ "//cromite_flags/components/metrics/metrics_features_cc/placeholder.txt" ]
+  output_file = "components_metrics_metrics_features_cc.inc"
+}
+
+cpp_bromite_include("components_metrics_structured_structured_metrics_features_cc") {
+  inputs = [ "//cromite_flags/components/metrics/structured/structured_metrics_features_cc/placeholder.txt" ]
+  output_file = "components_metrics_structured_structured_metrics_features_cc.inc"
+}
+
+cpp_bromite_include("components_network_time_network_time_tracker_cc") {
+  inputs = [ "//cromite_flags/components/network_time/network_time_tracker_cc/placeholder.txt" ]
+  output_file = "components_network_time_network_time_tracker_cc.inc"
 }
 
 cpp_bromite_include("components_offline_pages_core_offline_page_feature_cc") {
@@ -101,6 +181,41 @@ cpp_bromite_include("components_offline_pages_core_offline_page_feature_cc") {
 cpp_bromite_include("components_offline_pages_core_offline_page_feature_h") {
   inputs = [ "//cromite_flags/components/offline_pages/core/offline_page_feature_h/placeholder.txt" ]
   output_file = "components_offline_pages_core_offline_page_feature_h.inc"
+}
+
+cpp_bromite_include("components_page_image_service_features_cc") {
+  inputs = [ "//cromite_flags/components/page_image_service/features_cc/placeholder.txt" ]
+  output_file = "components_page_image_service_features_cc.inc"
+}
+
+cpp_bromite_include("components_permissions_features_cc") {
+  inputs = [ "//cromite_flags/components/permissions/features_cc/placeholder.txt" ]
+  output_file = "components_permissions_features_cc.inc"
+}
+
+cpp_bromite_include("components_safe_browsing_core_common_features_cc") {
+  inputs = [ "//cromite_flags/components/safe_browsing/core/common/features_cc/placeholder.txt" ]
+  output_file = "components_safe_browsing_core_common_features_cc.inc"
+}
+
+cpp_bromite_include("components_search_ntp_features_cc") {
+  inputs = [ "//cromite_flags/components/search/ntp_features_cc/placeholder.txt" ]
+  output_file = "components_search_ntp_features_cc.inc"
+}
+
+cpp_bromite_include("components_segmentation_platform_public_features_cc") {
+  inputs = [ "//cromite_flags/components/segmentation_platform/public/features_cc/placeholder.txt" ]
+  output_file = "components_segmentation_platform_public_features_cc.inc"
+}
+
+cpp_bromite_include("components_shared_highlighting_core_common_shared_highlighting_features_cc") {
+  inputs = [ "//cromite_flags/components/shared_highlighting/core/common/shared_highlighting_features_cc/placeholder.txt" ]
+  output_file = "components_shared_highlighting_core_common_shared_highlighting_features_cc.inc"
+}
+
+cpp_bromite_include("components_subresource_filter_core_common_common_features_cc") {
+  inputs = [ "//cromite_flags/components/subresource_filter/core/common/common_features_cc/placeholder.txt" ]
+  output_file = "components_subresource_filter_core_common_common_features_cc.inc"
 }
 
 cpp_bromite_include("net_base_features_cc") {
@@ -123,28 +238,93 @@ cpp_bromite_include("services_network_public_cpp_features_h") {
   output_file = "services_network_public_cpp_features_h.inc"
 }
 
+cpp_bromite_include("components_heap_profiling_in_process_heap_profiler_parameters_cc") {
+  inputs = [ "//cromite_flags/components/heap_profiling/in_process/heap_profiler_parameters_cc/placeholder.txt" ]
+  output_file = "components_heap_profiling_in_process_heap_profiler_parameters_cc.inc"
+}
+
+cpp_bromite_include("components_omnibox_common_omnibox_features_cc") {
+  inputs = [ "//cromite_flags/components/omnibox/common/omnibox_features_cc/placeholder.txt" ]
+  output_file = "components_omnibox_common_omnibox_features_cc.inc"
+}
+
+cpp_bromite_include("components_optimization_guide_core_optimization_guide_features_cc") {
+  inputs = [ "//cromite_flags/components/optimization_guide/core/optimization_guide_features_cc/placeholder.txt" ]
+  output_file = "components_optimization_guide_core_optimization_guide_features_cc.inc"
+}
+
+cpp_bromite_include("components_password_manager_core_common_password_manager_features_cc") {
+  inputs = [ "//cromite_flags/components/password_manager/core/common/password_manager_features_cc/placeholder.txt" ]
+  output_file = "components_password_manager_core_common_password_manager_features_cc.inc"
+}
+
+cpp_bromite_include("components_privacy_sandbox_privacy_sandbox_features_cc") {
+  inputs = [ "//cromite_flags/components/privacy_sandbox/privacy_sandbox_features_cc/placeholder.txt" ]
+  output_file = "components_privacy_sandbox_privacy_sandbox_features_cc.inc"
+}
+
+cpp_bromite_include("content_browser_preloading_prefetch_prefetch_features_cc") {
+  inputs = [ "//cromite_flags/content/browser/preloading/prefetch/prefetch_features_cc/placeholder.txt" ]
+  output_file = "content_browser_preloading_prefetch_prefetch_features_cc.inc"
+}
+
+cpp_bromite_include("ui_base_ui_base_features_cc") {
+  inputs = [ "//cromite_flags/ui/base/ui_base_features_cc/placeholder.txt" ]
+  output_file = "ui_base_ui_base_features_cc.inc"
+}
+
 component("cromite_flags") {
   deps = [
+    ":android_webview_common_aw_features_cc",
+    ":base_features_cc",
+    ":content_browser_preloading_prefetch_prefetch_features_cc",
     ":content_common_features_cc",
     ":content_public_common_content_features_cc",
     ":content_public_common_content_features_h",
+    ":components_aggregation_service_features_cc",
+    ":components_autofill_core_common_autofill_features_cc",
+    ":components_autofill_core_common_autofill_payments_features_cc",
+    ":components_commerce_core_commerce_feature_list_cc",
+    ":components_compose_core_browser_compose_features_cc",
     ":components_content_settings_core_common_features_cc",
+    ":components_heap_profiling_in_process_heap_profiler_parameters_cc",
+    ":components_history_core_browser_features_cc",
+    ":components_history_clusters_core_features_cc",
+    ":components_history_clusters_core_on_device_clustering_features_cc",
     ":components_permissions_features_cc",
+    ":components_metrics_metrics_features_cc",
+    ":components_metrics_structured_structured_metrics_features_cc",
+    ":components_network_time_network_time_tracker_cc",
     ":components_offline_pages_core_offline_page_feature_cc",
     ":components_offline_pages_core_offline_page_feature_h",
+    ":components_omnibox_common_omnibox_features_cc",
+    ":components_optimization_guide_core_optimization_guide_features_cc",
+    ":components_page_image_service_features_cc",
+    ":components_password_manager_core_common_password_manager_features_cc",
+    ":components_privacy_sandbox_privacy_sandbox_features_cc",
+    ":components_safe_browsing_core_common_features_cc",
+    ":components_search_ntp_features_cc",
+    ":components_segmentation_platform_public_features_cc",
+    ":components_shared_highlighting_core_common_shared_highlighting_features_cc",
+    ":components_subresource_filter_core_common_common_features_cc",
     ":media_base_media_switches_cc",
     ":media_base_media_switches_h",
     ":net_base_features_cc",
     ":net_base_features_h",
     ":chrome_common_chrome_features_cc",
+    ":chrome_common_companion_visual_query_features_cc",
+    ":chrome_common_privacy_budget_privacy_budget_features_cc",
     ":chrome_browser_about_flags_cc",
     ":chrome_browser_flags_android_chrome_feature_list_cc",
     ":chrome_browser_flags_android_chrome_feature_list_h",
+    ":chrome_browser_signin_signin_features_cc",
     ":chrome_browser_ui_ui_features_cc",
     ":chrome_browser_browser_features_cc",
+    ":chrome_browser_companion_core_features_cc",
     ":services_network_public_cpp_features_cc",
     ":services_network_public_cpp_features_h",
     ":third_party_blink_common_features_cc",
     ":third_party_blink_common_features_h",
+    ":ui_base_ui_base_features_cc",
   ]
 }

@@ -123,3 +123,5 @@ BASE_FEATURE(kPreconnectAccountCapabilitiesBeforeSignIn,
              "PreconnectAccountCapabilitiesBeforeSignIn",
              base::FEATURE_ENABLED_BY_DEFAULT);
 #endif
+
+#include "cromite_flags/chrome_browser_signin_signin_features_cc.inc"

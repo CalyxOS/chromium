@@ -1,0 +1,3 @@
+#if BUILDFLAG(ENABLE_DICE_SUPPORT)
+SET_CROMITE_FEATURE_DISABLED(kPreconnectAccountCapabilitiesBeforeSignIn);
+#endif

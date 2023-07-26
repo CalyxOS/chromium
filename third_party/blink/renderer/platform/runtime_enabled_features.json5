@@ -262,9 +262,9 @@
     },
     {
       // Interest Group JS API/runtimeflag.
-      name: "AdInterestGroupAPI",
+      name: "AdInterestGroupAPI", // disabled
+      status: {},                 // in Brave
       origin_trial_feature_name: "AdInterestGroupAPI",
-      implied_by: ["Fledge", "Parakeet"],
       public: true,
     },
     // Adjust the end of the next paragraph if the end position for the
@@ -275,9 +275,9 @@
       status: "stable",
     },
     {
-      name: "AdTagging",
+      name: "AdTagging", // disabled
+      status: {},        // in Brave
       public: true,
-      status: "test",
       base_feature: "none",
     },
     {
@@ -311,8 +311,10 @@
       name: "AnimationWorklet",
     },
     {
-      name: "AnonymousIframe",
-      status: "stable",
+      name: "AnonymousIframe", // disabled
+      status: {},              // in Brave
+      public: true,
+      base_feature: "none",
     },
     {
       name: "AOMAriaRelationshipProperties",
@@ -689,8 +691,8 @@
     },
     {
       // Shipping in M125. Should be removed after M127.
-      name: "ComputePressure",
-      status: "stable",
+      name: "ComputePressure", // disabled
+      status: {},              // in Brave
     },
     {
       name: "ConsolidatedMovementXY",
@@ -1026,8 +1028,8 @@
       implied_by: ["CSSStickyContainerQueries", "CSSStickyContainerQueries"],
     },
     {
-      name: "CSSSelectorFragmentAnchor",
-      status: "experimental",
+      name: "CSSSelectorFragmentAnchor", // disabled
+      status: {},                        // in Brave
       base_feature: "CssSelectorFragmentAnchor",
     },
     {
@@ -1748,7 +1750,8 @@
       status: "experimental",
     },
     {
-      name: "Fledge",
+      name: "Fledge", // disabled
+      status: {},     // in Brave
       base_feature: "none",
       origin_trial_feature_name: "PrivacySandboxAdsAPIs",
       origin_trial_allows_third_party: true,
@@ -1790,7 +1793,8 @@
       base_feature: "none",
     },
     {
-      name: "FledgeMultiBid",
+      name: "FledgeMultiBid", // disabled
+      status: {},             // in Brave
       public: true,
     },
     {
@@ -2873,7 +2877,8 @@
     },
     {
       // PARAKEET ad serving runtime flag/JS API.
-      name: "Parakeet",
+      name: "Parakeet", // disabled
+      status: {},       // in Brave
       origin_trial_feature_name: "Parakeet",
     },
     // This is to add an option to enable the Reveal button on password inputs while waiting ::reveal gets standardized.
@@ -3036,8 +3041,8 @@
       // preloading.) See https://crbug.com/1494471.
       //
       // It also has some feature params defined throughout the codebase.
-      name: "Prerender2",
-      status: "test",
+      name: "Prerender2", // disabled
+      status: {},         // in Brave
     },
     {
       name: "Presentation",
@@ -4309,8 +4314,8 @@
     {
       // WebGPU experimental features are meant for features that would
       // eventually land in the WebGPU spec.
-      name: "WebGPUExperimentalFeatures",
-      status: "experimental",
+      name: "WebGPUExperimentalFeatures", // disabled
+      status: {},                         // in Brave
       public: true,
     },
     {
