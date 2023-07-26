@@ -122,8 +122,8 @@ BASE_FEATURE(kCommerceAllowLocalImages,
              base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kCommerceAllowOnDemandBookmarkUpdates,
-             "CommerceAllowOnDemandBookmarkUpdates",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "CommerceAllowOnDemandBookmarkUpdates",   // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 BASE_FEATURE(kCommerceAllowOnDemandBookmarkBatchUpdates,
              "CommerceAllowOnDemandBookmarkBatchUpdates",
@@ -134,8 +134,8 @@ BASE_FEATURE(kCommerceAllowServerImages,
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kCommerceMerchantViewer,
-             "CommerceMerchantViewer",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "CommerceMerchantViewer",                 // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 #if BUILDFLAG(IS_ANDROID)
 BASE_FEATURE(kCommerceMerchantViewerRegionLaunched,
              "CommerceMerchantViewerRegionLaunched",
@@ -151,8 +151,8 @@ BASE_FEATURE(kCommerceLocalPDPDetection,
              base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kCommercePriceTracking,
-             "CommercePriceTracking",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "CommercePriceTracking",                  // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 #if BUILDFLAG(IS_ANDROID)
 BASE_FEATURE(kCommercePriceTrackingRegionLaunched,
@@ -247,7 +247,9 @@ BASE_FEATURE(kShoppingCollection,
              "ShoppingCollection",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
-BASE_FEATURE(kShoppingList, "ShoppingList", base::FEATURE_DISABLED_BY_DEFAULT);
+BASE_FEATURE(kShoppingList,
+             "ShoppingList",                           // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 #if BUILDFLAG(IS_ANDROID) || BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || \
     BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_IOS)
 BASE_FEATURE(kShoppingListRegionLaunched,
@@ -268,8 +270,8 @@ BASE_FEATURE(kShoppingListWAARestrictionRemoval,
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kShoppingPDPMetrics,
-             "ShoppingPDPMetrics",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "ShoppingPDPMetrics",                     // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 BASE_FEATURE(kShoppingPDPMetricsRegionLaunched,
              "ShoppingPDPMetricsRegionLaunched",
@@ -283,11 +285,13 @@ BASE_FEATURE(kShoppingPageTypesRegionLaunched,
              "ShoppingPageTypesRegionLaunched",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
-BASE_FEATURE(kRetailCoupons, "RetailCoupons", base::FEATURE_ENABLED_BY_DEFAULT);
+BASE_FEATURE(kRetailCoupons,
+             "RetailCoupons",                          // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 BASE_FEATURE(kCommerceDeveloper,
-             "CommerceDeveloper",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "CommerceDeveloper",                      // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 const char kRetailCouponsWithCodeParam[] = "RetailCouponsWithCodeParam";
 

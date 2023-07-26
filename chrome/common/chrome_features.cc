@@ -892,8 +892,8 @@ BASE_FEATURE(kKioskEnableSystemWebApps,
 
 // When enabled, allows other features to use the k-Anonymity Service.
 BASE_FEATURE(kKAnonymityService,
-             "KAnonymityService",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "KAnonymityService",                      // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // Origin to use for requests to the k-Anonymity Auth server to get trust
 // tokens.
@@ -935,8 +935,8 @@ constexpr base::FeatureParam<base::TimeDelta> kKAnonymityServiceQueryInterval{
 // When enabled, the k-Anonymity Service will send requests to the Join and
 // Query k-anonymity servers.
 BASE_FEATURE(kKAnonymityServiceOHTTPRequests,
-             "KAnonymityServiceOHTTPRequests",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "KAnonymityServiceOHTTPRequests",   // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT); // in Brave
 
 // When enabled, the k-Anonymity Service can use a persistent storage to cache
 // public keys.
@@ -1114,8 +1114,8 @@ BASE_FEATURE(kPrivacyGuideAndroid,
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kPrivacyGuideAndroidPostMVP,
-             "PrivacyGuideAndroidPostMVP",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "PrivacyGuideAndroidPostMVP",             // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 #endif
 
 // Enables or disables push subscriptions keeping Chrome running in the

@@ -164,8 +164,8 @@ BASE_FEATURE(kAutofillEnablePaymentsMandatoryReauth,
 
 // When enabled, some extra metrics logging for Autofill Downstream will start.
 BASE_FEATURE(kAutofillEnableRemadeDownstreamMetrics,
-             "AutofillEnableRemadeDownstreamMetrics",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "AutofillEnableRemadeDownstreamMetrics",  // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // When enabled, the save card screen will present a loading spinner when
 // uploading the card to the server and present a confirmation screen with the
