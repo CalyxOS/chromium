@@ -52,7 +52,9 @@ const base::FeatureParam<base::TimeDelta>
         &kSafetyCheckUnusedSitePermissions,
         "unused-site-permissions-revocation-cleanup-threshold", base::Days(30)};
 
-BASE_FEATURE(kUserBypassUI, "UserBypassUI", base::FEATURE_ENABLED_BY_DEFAULT);
+BASE_FEATURE(kUserBypassUI,
+             "UserBypassUI",                           // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 const base::FeatureParam<base::TimeDelta> kUserBypassUIExceptionExpiration{
     &kUserBypassUI, "expiration", base::Days(90)};
@@ -75,8 +77,8 @@ BASE_FEATURE(kImprovedSemanticsActivityIndicators,
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kTrackingProtection3pcd,
-             "TrackingProtection3pcd",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "TrackingProtection3pcd",                    // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);          // in Brave, too
 
 const char kTpcdReadHeuristicsGrantsName[] = "TpcdReadHeuristicsGrants";
 

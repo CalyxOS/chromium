@@ -33,13 +33,13 @@ BASE_FEATURE(kCustomizeChromeColorExtraction,
 // If enabled, shows an extension card within the Customize Chrome Side
 // Panel for access to the Chrome Web Store extensions.
 BASE_FEATURE(kCustomizeChromeSidePanelExtensionsCard,
-             "CustomizeChromeSidePanelExtensionsCard",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "CustomizeChromeSidePanelExtensionsCard", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // If enabled, shows wallpaper search within the Cusotmize Chrome Side Panel.
 BASE_FEATURE(kCustomizeChromeWallpaperSearch,
-             "CustomizeChromeWallpaperSearch",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "CustomizeChromeWallpaperSearch",         // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // If enabled, shows inspiration card in Customize Chrome Side Panel Wallpaper
 // Search.
@@ -113,19 +113,19 @@ BASE_FEATURE(kRealboxUseGoogleGIcon,
 
 // If enabled, alpha NTP backgrounds will show in Customize Chrome.
 BASE_FEATURE(kNtpAlphaBackgroundCollections,
-             "NtpAlphaBackgroundCollections",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "NtpAlphaBackgroundCollections",          // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // If enabled, NTP background image links will be checked for HTTP status
 // errors."
 BASE_FEATURE(kNtpBackgroundImageErrorDetection,
-             "NtpBackgroundImageErrorDetection",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "NtpBackgroundImageErrorDetection",       // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // If enabled, chrome cart module will be shown.
 BASE_FEATURE(kNtpChromeCartModule,
-             "NtpChromeCartModule",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "NtpChromeCartModule",                    // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // If enabled, Comprehensive Theming color changes will be applied to the
 // Realbox on the New Tab Page.
@@ -201,8 +201,8 @@ BASE_FEATURE(kNtpModulesOrder,
 
 // Dummy feature to set param "NtpModulesMaxColumnCountParam".
 BASE_FEATURE(kNtpModulesMaxColumnCount,
-             "NtpModulesMaxColumnCount",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "NtpModulesMaxColumnCount",               // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // Dummy feature to set param "NtpModulesLoadedWithOtherModulesMaxInstanceCount"
 BASE_FEATURE(kNtpModulesLoadedWithOtherModulesMaxInstanceCount,
@@ -308,8 +308,8 @@ BASE_FEATURE(kNtpSingleRowShortcuts,
 
 // If enabled, the History clusters module will be shown.
 BASE_FEATURE(kNtpHistoryClustersModule,
-             "NtpHistoryClustersModule",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "NtpHistoryClustersModule",               // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // Dummy feature to set kNtpHistoryClustersModuleBeginTimeDurationHoursParam.
 BASE_FEATURE(kNtpHistoryClustersModuleBeginTimeDuration,
@@ -335,8 +335,8 @@ BASE_FEATURE(kNtpHistoryClustersModuleCategories,
 // useful to determine if a user would have seen modules in order to
 // counterfactually log or trigger.
 BASE_FEATURE(kNtpHistoryClustersModuleLoad,
-             "NtpHistoryClustersModuleLoad",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "NtpHistoryClustersModuleLoad",           // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // Dummy feature to set kNtpHistoryClustersModuleMaxClustersParam.
 BASE_FEATURE(kNtpHistoryClustersModuleMaxClusters,
@@ -356,8 +356,8 @@ BASE_FEATURE(kNtpHistoryClustersModuleSuggestionChipHeader,
 // If enabled, Discounts badge will show on the visit tile in the History
 // clusters module when available.
 BASE_FEATURE(kNtpHistoryClustersModuleDiscounts,
-             "NtpHistoryClustersModuleDiscounts",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "NtpHistoryClustersModuleDiscounts",      // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // If enabled, ChromeCart tile will show in the History clusters module when
 // available.
