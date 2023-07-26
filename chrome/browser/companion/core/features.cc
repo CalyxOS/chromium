@@ -59,6 +59,7 @@ SET_CROMITE_FEATURE_DISABLED_W_NAMESPACE(internal, kSidePanelCompanion);
 SET_CROMITE_FEATURE_DISABLED_W_NAMESPACE(internal, kSidePanelCompanion2);
 SET_CROMITE_FEATURE_DISABLED_W_NAMESPACE(internal, kCompanionEnabledByObservingExpsNavigations);
 SET_CROMITE_FEATURE_DISABLED(kCompanionEnablePageContent);
+#include "cromite_flags/chrome_browser_companion_core_features_cc.inc"
 }  // namespace features
 
 namespace switches {
