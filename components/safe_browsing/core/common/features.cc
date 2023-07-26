@@ -398,4 +398,5 @@ base::Value::List GetFeatureStatusList() {
   return param_list;
 }
 
+#include "cromite_flags/components_safe_browsing_core_common_features_cc.inc"
 }  // namespace safe_browsing

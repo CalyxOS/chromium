@@ -291,6 +291,8 @@ bool AwWebContentsDelegate::CheckMediaAccessPermission(
     content::RenderFrameHost* render_frame_host,
     const url::Origin& security_origin,
     blink::mojom::MediaStreamType type) {
+  // Returning false as of brave-core 3672721d9e6e530f97656e4072910e685c397aca
+  if ((true)) return false;
   WebContents* web_contents =
       WebContents::FromRenderFrameHost(render_frame_host);
   if (!web_contents) {

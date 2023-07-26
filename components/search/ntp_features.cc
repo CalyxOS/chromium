@@ -443,4 +443,6 @@ std::string GetMobilePromoTargetURL() {
       ntp_features::kNtpMobilePromoTargetUrlParam);
   return (field_trial_url.empty()) ? kMobilePromoQRCodeURL : field_trial_url;
 }
+
+#include "cromite_flags/components_search_ntp_features_cc.inc"
 }  // namespace ntp_features

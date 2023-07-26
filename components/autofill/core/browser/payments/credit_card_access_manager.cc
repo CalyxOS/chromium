@@ -1634,8 +1634,10 @@ bool CreditCardAccessManager::ShouldLogServerCardUnmaskAttemptMetrics(
   // be attempted to be unmasked.
   CHECK_NE(record_type, CreditCard::RecordType::kFullServerCard);
 
-  return record_type == CreditCard::RecordType::kMaskedServerCard ||
-      record_type == CreditCard::RecordType::kVirtualCard;
+  // Only log virtual card metrics in Brave after removal of kAutofillEnableRemadeDownstreamMetrics
+  // flag (brave-core commit 7fa23a1d354f04d1f9496bc12b0ba361748a848b).
+  // Side note, are we even logging metrics at all right now? If so, why?
+  return record_type == CreditCard::RecordType::kVirtualCard;
 }
 
 void CreditCardAccessManager::StartDeviceAuthenticationForFilling(
