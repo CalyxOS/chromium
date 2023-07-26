@@ -177,4 +177,6 @@ BASE_FEATURE(kDevToolsDebuggingRestrictions,
 );
 #endif  // BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX)
 
+SET_CROMITE_FEATURE_DISABLED(kDevToolsNewPermissionDialog); // disabled in Brave
+SET_CROMITE_FEATURE_DISABLED(kDevToolsAiGeneratedTimelineLabels); // similar enough to disable
 }  // namespace features
