@@ -24,11 +24,11 @@ namespace internal {
 // enabled via multiple field trials (e.g., one that's session consistent, other
 // that's permanent consistent).
 BASE_FEATURE(kSidePanelCompanion,
-             "SidePanelCompanion",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "SidePanelCompanion",                         // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);           // in Brave
 BASE_FEATURE(kSidePanelCompanion2,
-             "SidePanelCompanion2",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "SidePanelCompanion2",                        // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);           // in Brave
 // Enables the companion on ChromeOS.
 BASE_FEATURE(kSidePanelCompanionChromeOS,
              "SidePanelCompanionChromeOS",
@@ -36,8 +36,8 @@ BASE_FEATURE(kSidePanelCompanionChromeOS,
 // Dynamically enables the search companion if the user has experiments
 // enabled.
 BASE_FEATURE(kCompanionEnabledByObservingExpsNavigations,
-             "CompanionEnabledByObservingExpsNavigations",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "CompanionEnabledByObservingExpsNavigations", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);           // in Brave, too
 }  // namespace internal
 
 // When search companion is enabled, show a context menu item that allows the

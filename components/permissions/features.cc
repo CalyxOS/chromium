@@ -130,8 +130,8 @@ BASE_FEATURE(kWindowPlacementPermissionAlias,
 // storage access exceptions. This will allow RWS permission grants to be
 // visible in the Embedded content settings page.
 BASE_FEATURE(kShowRelatedWebsiteSetsPermissionGrants,
-             "ShowRelatedWebsiteSetsPermissionGrants",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "ShowRelatedWebsiteSetsPermissionGrants", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // When enabled, Quiet prompts triggered by CPSS will have "Get Notifications?"
 // as the the chip text instead of the usual "Notifications Blocked".
