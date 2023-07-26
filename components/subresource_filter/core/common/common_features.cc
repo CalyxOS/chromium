@@ -12,4 +12,5 @@ BASE_FEATURE(kTPCDAdHeuristicSubframeRequestTagging,
              "TPCDAdHeuristicSubframeRequestTagging",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+#include "cromite_flags/components_subresource_filter_core_common_common_features_cc.inc"
 }  // namespace subresource_filter

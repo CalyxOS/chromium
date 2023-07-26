@@ -645,4 +645,5 @@ BASE_FEATURE(kUseGammaContrastRegistrySettings,
              base::FEATURE_ENABLED_BY_DEFAULT);
 #endif  // BUILDFLAG(IS_WIN)
 
+#include "cromite_flags/ui_base_ui_base_features_cc.inc"
 }  // namespace features

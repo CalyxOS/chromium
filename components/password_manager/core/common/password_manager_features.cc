@@ -162,4 +162,5 @@ bool IsBulkUploadLocalPasswordsEnabled() {
 }
 #endif  // IS_IOS
 
+#include "cromite_flags/components_password_manager_core_common_password_manager_features_cc.inc"
 }  // namespace password_manager::features

@@ -24,4 +24,5 @@ const base::FeatureParam<std::string> kAggregationServiceCoordinatorGcpCloud{
     &kAggregationServiceMultipleCloudProviders, "gcp_cloud",
     kDefaultAggregationCoordinatorGcpCloud};
 
+#include "cromite_flags/components_aggregation_service_features_cc.inc"
 }  // namespace aggregation_service
