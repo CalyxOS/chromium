@@ -250,4 +250,6 @@ constexpr base::FeatureParam<int> kMaxTabGroupSyncCardImpressions{
 SET_CROMITE_FEATURE_DISABLED(kSegmentationPlatformFeature);
 SET_CROMITE_FEATURE_DISABLED(kSegmentationPlatformFeedSegmentFeature);
 SET_CROMITE_FEATURE_DISABLED(kSegmentationPlatformAdaptiveToolbarV2Feature);
+
+#include "cromite_flags/components_segmentation_platform_public_features_cc.inc"
 }  // namespace segmentation_platform::features
