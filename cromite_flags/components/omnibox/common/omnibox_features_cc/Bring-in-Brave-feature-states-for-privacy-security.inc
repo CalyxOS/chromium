@@ -1,0 +1,5 @@
+SET_CROMITE_FEATURE_DISABLED(kDocumentProviderNoSetting);
+SET_CROMITE_FEATURE_DISABLED(kDocumentProviderNoSyncRequirement);
+SET_CROMITE_FEATURE_DISABLED(kMlUrlScoring);
+SET_CROMITE_FEATURE_DISABLED(kRichAutocompletion);
+SET_CROMITE_FEATURE_DISABLED(kZeroSuggestPrefetching);
