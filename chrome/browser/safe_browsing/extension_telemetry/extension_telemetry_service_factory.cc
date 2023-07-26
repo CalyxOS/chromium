@@ -22,9 +22,13 @@
 
 namespace safe_browsing {
 
+// We attempt to turn off all of this, now that the kExtensionTelemetry flag is removed.
+// See brave-core 1d8262e0f94031472bb1419ddac1bdfbce6cbffb
+
 // static
 ExtensionTelemetryService* ExtensionTelemetryServiceFactory::GetForProfile(
     Profile* profile) {
+  if ((true)) return nullptr;
   return static_cast<ExtensionTelemetryService*>(
       GetInstance()->GetServiceForBrowserContext(profile, /* create= */ true));
 }
@@ -41,15 +45,13 @@ ExtensionTelemetryServiceFactory::ExtensionTelemetryServiceFactory()
           // AshInternals should be 'kNone' since ExtensionTelemetryService
           // should not be initialized for internal profiles on ChromeOS Ash.
           "ExtensionTelemetryService",
-          ProfileSelections::BuildForRegularProfile()) {
-  DependsOn(NetworkContextServiceFactory::GetInstance());
-  DependsOn(extensions::ExtensionPrefsFactory::GetInstance());
-  DependsOn(extensions::ExtensionRegistryFactory::GetInstance());
-  DependsOn(extensions::ExtensionManagementFactory::GetInstance());
-  DependsOn(extensions::ExtensionSystemFactory::GetInstance());
-  DependsOn(enterprise_connectors::ConnectorsServiceFactory::GetInstance());
-  DependsOn(enterprise_connectors::ExtensionTelemetryEventRouterFactory::
-                GetInstance());
+          ProfileSelections::BuildNoProfilesSelected()) {
+}
+
+content::BrowserContext*
+ExtensionTelemetryServiceFactory::GetBrowserContextToUse(
+    content::BrowserContext* context) const {
+  return nullptr;
 }
 
 std::unique_ptr<KeyedService>
