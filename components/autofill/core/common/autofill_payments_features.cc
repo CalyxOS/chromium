@@ -113,8 +113,8 @@ BASE_FEATURE(kAutofillEnableNewSaveCardBubbleUi,
 // When enabled, a notification will be displayed on page navigation if the
 // domain has an eligible merchant promo code offer or reward.
 BASE_FEATURE(kAutofillEnableOfferNotificationForPromoCodes,
-             "AutofillEnableOfferNotificationForPromoCodes",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "AutofillEnableOfferNotificationForPromoCodes", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);             // in Brave
 
 // When enabled, offers will be displayed in the Clank keyboard accessory during
 // downstream.
@@ -139,8 +139,8 @@ BASE_FEATURE(kAutofillEnablePaymentsMandatoryReauth,
 
 // When enabled, some extra metrics logging for Autofill Downstream will start.
 BASE_FEATURE(kAutofillEnableRemadeDownstreamMetrics,
-             "AutofillEnableRemadeDownstreamMetrics",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "AutofillEnableRemadeDownstreamMetrics",  // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // When enabled, Autofill will attempt to offer upload save for IBANs
 // (International Bank Account Numbers) and autofill server-based IBANs.
@@ -228,8 +228,8 @@ BASE_FEATURE(kAutofillUpstream,
 // user's email domain is from a common email provider (thus unlikely to be an
 // enterprise or education user).
 BASE_FEATURE(kAutofillUpstreamAllowAdditionalEmailDomains,
-             "AutofillUpstreamAllowAdditionalEmailDomains",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "AutofillUpstreamAllowAdditionalEmailDomains", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);            // in Brave
 
 // When enabled, Chrome allows credit card upload to Google Payments, no matter
 // the user's email domain.
