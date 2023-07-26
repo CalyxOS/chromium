@@ -900,5 +900,6 @@ SET_CROMITE_FEATURE_DISABLED(kOptimizationGuideModelDownloading);
 SET_CROMITE_FEATURE_DISABLED(kPushNotifications);
 SET_CROMITE_FEATURE_DISABLED(kPreventLongRunningPredictionModels);
 SET_CROMITE_FEATURE_DISABLED(kOptimizationGuideFetchingForSRP);
+#include "cromite_flags/components_optimization_guide_core_optimization_guide_features_cc.inc"
 }  // namespace features
 }  // namespace optimization_guide
