@@ -333,8 +333,8 @@ BASE_FEATURE(kMostVisitedTiles,
 // prefixes. Will also adjust the location bar UI and omnibox text selection to
 // accommodate the autocompletions.
 BASE_FEATURE(kRichAutocompletion,
-             "OmniboxRichAutocompletion",
-             enabled_by_default_desktop_only);
+             "OmniboxRichAutocompletion",              // disabled by default
+             enabled_by_default_desktop_only);         // in Brave, too; we are Android
 
 // Feature used to enable Pedals in the NTP Realbox.
 BASE_FEATURE(kNtpRealboxPedals,

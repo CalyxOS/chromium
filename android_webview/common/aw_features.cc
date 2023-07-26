@@ -16,8 +16,8 @@ namespace features {
 // The filtering for package names will be done on the server side using this
 // flag
 BASE_FEATURE(kWebViewAppsPackageNamesServerSideAllowlist,
-             "WebViewAppsPackageNamesServerSideAllowlist",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "WebViewAppsPackageNamesServerSideAllowlist", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);           // in Brave
 
 // Enable brotli compression support in WebView.
 BASE_FEATURE(kWebViewBrotliSupport,
@@ -44,8 +44,8 @@ BASE_FEATURE(kWebViewConnectionlessSafeBrowsing,
 // Cache origins which have camera/mic permissions approved to allow subsequent
 // calls to enumerate devices to return device labels.
 BASE_FEATURE(kWebViewEnumerateDevicesCache,
-             "WebViewEnumerateDevicesCache",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "WebViewEnumerateDevicesCache",           // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // Enable WebView to automatically darken the page in FORCE_DARK_AUTO mode if
 // the app's theme is dark.
@@ -92,8 +92,8 @@ BASE_FEATURE(kWebViewJavaJsBridgeMojo,
 // Enable reporting filtered metrics from webview clients used to be
 // out-sampled.
 BASE_FEATURE(kWebViewMetricsFiltering,
-             "WebViewMetricsFiltering",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "WebViewMetricsFiltering",                // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // Field trial feature for controlling support of Origin Trials on WebView.
 BASE_FEATURE(kWebViewOriginTrials,

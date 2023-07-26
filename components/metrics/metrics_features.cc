@@ -15,8 +15,8 @@ BASE_FEATURE(kMetricsClearLogsOnClonedInstall,
              base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kStructuredMetrics,
-             "EnableStructuredMetrics",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "EnableStructuredMetrics",                // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 #if BUILDFLAG(IS_ANDROID)
 BASE_FEATURE(kMergeSubprocessMetricsOnBgAndFg,
