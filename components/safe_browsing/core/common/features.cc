@@ -99,8 +99,8 @@ BASE_FEATURE(
     base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kExtensionTelemetryTabsApiSignal,
-             "SafeBrowsingExtensionTelemetryTabsApiSignal",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "SafeBrowsingExtensionTelemetryTabsApiSignal", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);            // in Brave
 
 BASE_FEATURE(kExtensionTelemetryTabsApiSignalCaptureVisibleTab,
              "SafeBrowsingExtensionTelemetryTabsApiSignalCaptureVisibleTab",
@@ -111,8 +111,8 @@ BASE_FEATURE(kExtensionTelemetryTabsExecuteScriptSignal,
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kExtensionTelemetryDisableOffstoreExtensions,
-             "SafeBrowsingExtensionTelemetryDisableOffstoreExtensions",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "SafeBrowsingExtensionTelemetryDisableOffstoreExtensions",   // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);                          // in Brave
 
 BASE_FEATURE(kFriendlierSafeBrowsingSettingsEnhancedProtection,
              "FriendlierSafeBrowsingSettingsEnhancedProtection",
