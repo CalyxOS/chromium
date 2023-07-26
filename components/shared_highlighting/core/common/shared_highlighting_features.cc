@@ -31,4 +31,5 @@ int GetPreemptiveLinkGenTimeoutLengthMs() {
 #endif
 }
 
+#include "cromite_flags/components_shared_highlighting_core_common_shared_highlighting_features_cc.inc"
 }  // namespace shared_highlighting
