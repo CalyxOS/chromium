@@ -20,13 +20,13 @@ namespace internal {
 // This differs from the search companion by providing a separate WebUI that
 // contains untrusted content in an iframe.
 BASE_FEATURE(kSidePanelCompanion,
-             "SidePanelCompanion",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "SidePanelCompanion",                         // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);           // in Brave, too
 // Dynamically enables the search companion if the user has experiments
 // enabled.
 BASE_FEATURE(kCompanionEnabledByObservingExpsNavigations,
-             "CompanionEnabledByObservingExpsNavigations",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "CompanionEnabledByObservingExpsNavigations", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);           // in Brave, too
 }  // namespace internal
 
 }  // namespace features

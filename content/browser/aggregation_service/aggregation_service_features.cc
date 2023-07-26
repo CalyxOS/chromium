@@ -8,8 +8,8 @@ namespace content {
 
 // Enables the Aggregation Service. See crbug.com/1207974.
 BASE_FEATURE(kPrivacySandboxAggregationService,
-             "PrivacySandboxAggregationService",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "PrivacySandboxAggregationService",       // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 const base::FeatureParam<std::string>
     kPrivacySandboxAggregationServiceTrustedServerUrlAwsParam{

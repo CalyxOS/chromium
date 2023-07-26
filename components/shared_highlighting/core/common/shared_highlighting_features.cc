@@ -16,12 +16,8 @@ constexpr base::FeatureParam<int> kPreemptiveLinkGenTimeoutLengthMs{
     &kPreemptiveLinkToTextGeneration, "TimeoutLengthMs", 500};
 
 BASE_FEATURE(kSharedHighlightingAmp,
-             "SharedHighlightingAmp",
-#if BUILDFLAG(IS_IOS)
-             base::FEATURE_DISABLED_BY_DEFAULT
-#else
-             base::FEATURE_ENABLED_BY_DEFAULT
-#endif
+             "SharedHighlightingAmp",                  // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT         // in Brave
 );
 
 BASE_FEATURE(kIOSSharedHighlightingV2,
@@ -37,8 +33,8 @@ BASE_FEATURE(kSharedHighlightingRefinedMaxContextWords,
              base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kSharedHighlightingManager,
-             "SharedHighlightingManager",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "SharedHighlightingManager",              // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 const char kSharedHighlightingRefinedMaxContextWordsName[] =
     "SharedHighlightingRefinedMaxContextWords";

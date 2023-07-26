@@ -316,9 +316,9 @@
     },
     {
       // Interest Group JS API/runtimeflag.
-      name: "AdInterestGroupAPI",
+      name: "AdInterestGroupAPI", // disabled
+      status: {},                 // in Brave
       origin_trial_feature_name: "AdInterestGroupAPI",
-      implied_by: ["Fledge", "Parakeet"],
     },
     {
       name: "AdTagging",
@@ -340,11 +340,11 @@
       base_feature: "none",
     },
     {
-      name: "AnonymousIframe",
+      name: "AnonymousIframe", // disabled
+      status: {},              // in Brave
       origin_trial_allows_third_party: true,
       origin_trial_feature_name: "AnonymousIframeOriginTrial",
       public: true,
-      status: "stable",
       base_feature: "none",
     },
     {
@@ -608,8 +608,8 @@
       base_feature: "none",
     },
     {
-      name: "ClientHintsMetaEquivDelegateCH",
-      status: "stable",
+      name: "ClientHintsMetaEquivDelegateCH", // disabled
+      status: {},                             // in Brave
     },
     {
       name: "ClientHintsMetaHTTPEquivAcceptCH",
@@ -696,11 +696,9 @@
     {
       // blink::features::kComputePressure is a kill switch for the API. If the
       // feature is disabled, origin trial tokens are ignored.
-      name: "ComputePressure",
+      name: "ComputePressure", // disabled
+      status: {},              // in Brave
       origin_trial_feature_name: "ComputePressure_v2",
-      status: "experimental",
-      base_feature_status: "enabled",
-      copied_from_base_feature_if: "overridden",
     },
     {
       name: "ConfirmationOfAction",
@@ -1087,8 +1085,8 @@
       status: "test",
     },
     {
-      name: "CSSSelectorFragmentAnchor",
-      status: "experimental",
+      name: "CSSSelectorFragmentAnchor", // disabled
+      status: {},                        // in Brave
       base_feature: "CssSelectorFragmentAnchor",
     },
     {
@@ -1748,7 +1746,8 @@
       status: "stable",
     },
     {
-      name: "Fledge",
+      name: "Fledge", // disabled
+      status: {},     // in Brave
       base_feature: "none",
       origin_trial_feature_name: "PrivacySandboxAdsAPIs",
       origin_trial_allows_third_party: true,
@@ -2633,7 +2632,8 @@
     },
     {
       // PARAKEET ad serving runtime flag/JS API.
-      name: "Parakeet",
+      name: "Parakeet", // disabled
+      status: {},       // in Brave
       origin_trial_feature_name: "Parakeet",
     },
     {
@@ -2808,8 +2808,8 @@
     },
     {
       // https://crbug.com/1126305
-      name: "Prerender2",
-      status: "stable",
+      name: "Prerender2", // disabled
+      status: {},         // in Brave
     },
     {
       name: "Presentation",
@@ -2902,8 +2902,8 @@
     // This User-Agent Reduction feature has been enabled starting from M101,
     // but we still keep this flag for future phase tests.
     {
-      name: "ReduceUserAgentMinorVersion",
-      status: "stable",
+      name: "ReduceUserAgentMinorVersion", // enabled
+      status: "stable",                    // in Brave, too
     },
     {
       // If enabled, the platform and oscpu of the User-Agent string will be
@@ -3379,11 +3379,9 @@
       origin_trial_allows_third_party: true,
     },
     {
-      name: "SpeculationRulesPrefetchProxy",
+      name: "SpeculationRulesPrefetchProxy", // disabled
+      status: {},                            // in Brave
       origin_trial_feature_name: "SpeculationRulesPrefetch",
-      status: "stable",
-      copied_from_base_feature_if: "overridden",
-      implied_by: ["SpeculationRulesPrefetchFuture", "NoVarySearchPrefetch"],
     },
     {
       name: "SpeculationRulesPrefetchWithSubresources",

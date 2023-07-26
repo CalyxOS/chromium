@@ -125,8 +125,8 @@ BASE_FEATURE(kBackForwardCacheWithKeepaliveRequest,
 // Enable background resource fetch in Blink. See https://crbug.com/1379780 for
 // more details.
 BASE_FEATURE(kBackgroundResourceFetch,
-             "BackgroundResourceFetch",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "BackgroundResourceFetch",               // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);      // in Brave, too
 
 // Enable intervention for download that was initiated from or occurred in an ad
 // frame without user activation.
@@ -221,8 +221,8 @@ BASE_FEATURE(kPath2DPaintCache,
              base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kPrivacySandboxAdsAPIs,
-             "PrivacySandboxAdsAPIs",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "PrivacySandboxAdsAPIs",                  // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // When enabled, pages that don't specify a layout width will default to the
 // window width rather than the traditional mobile fallback width of 980px.
@@ -232,8 +232,8 @@ BASE_FEATURE(kDefaultViewportIsDeviceWidth,
              base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kMixedContentAutoupgrade,
-             "AutoupgradeMixedContent",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "AutoupgradeMixedContent",                // enabled by default
+             base::FEATURE_ENABLED_BY_DEFAULT);        // in Brave, too
 
 // Used to control the collection of anchor element metrics (crbug.com/856683).
 // If kNavigationPredictor is enabled, then metrics of anchor elements
@@ -267,14 +267,16 @@ BASE_FEATURE(kPortalsCrossOrigin,
 // this feature does not automatically expose this element to the web, it only
 // allows the element to be enabled by the runtime enabled feature, for origin
 // trials.
-BASE_FEATURE(kFencedFrames, "FencedFrames", base::FEATURE_DISABLED_BY_DEFAULT);
+BASE_FEATURE(kFencedFrames,
+             "FencedFrames",                           // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // Enables the Private Aggregation API. Note that this API also requires the
 // `kPrivacySandboxAggregationService` to be enabled to successfully send
 // reports.
 BASE_FEATURE(kPrivateAggregationApi,
-             "PrivateAggregationApi",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "PrivateAggregationApi",                  // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // Selectively allows the JavaScript API to be disabled in just one of the
 // contexts.
@@ -296,8 +298,8 @@ constexpr base::FeatureParam<bool>
 // enabled by the runtime enabled feature, for origin trials.
 // https://github.com/pythagoraskitty/shared-storage/blob/main/README.md
 BASE_FEATURE(kSharedStorageAPI,
-             "SharedStorageAPI",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "SharedStorageAPI",                       // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 const base::FeatureParam<int>
     kSharedStorageURLSelectionOperationInputURLSizeLimit{
         &kSharedStorageAPI, "url_selection_operation_input_url_size_limit", 8};
@@ -333,8 +335,8 @@ const base::FeatureParam<int>
         "SharedStorageMaxAllowedFencedFrameDepthForSelectURL", 1};
 
 BASE_FEATURE(kSharedStorageSelectURLLimit,
-             "SharedStorageSelectURLLimit",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "SharedStorageSelectURLLimit",            // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 const base::FeatureParam<int> kSharedStorageSelectURLBitBudgetPerPageLoad = {
     &kSharedStorageSelectURLLimit, "SharedStorageSelectURLBitBudgetPerPageLoad",
     12};
@@ -927,8 +929,8 @@ bool IsParkableStringsToDiskEnabled() {
 // Reduce the amount of information in the default 'referer' header for
 // cross-origin requests.
 BASE_FEATURE(kReducedReferrerGranularity,
-             "ReducedReferrerGranularity",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "ReducedReferrerGranularity",             // enabled by default
+             base::FEATURE_ENABLED_BY_DEFAULT);        // in Brave, too
 
 // Enables the constant streaming in the ContentCapture task.
 BASE_FEATURE(kContentCaptureConstantStreaming,
@@ -1034,8 +1036,8 @@ const base::FeatureParam<std::string>
 // Kill switch for the Interest Group API, i.e. if disabled, the
 // API exposure will be disabled regardless of the OT config.
 BASE_FEATURE(kInterestGroupStorage,
-             "InterestGroupStorage",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "InterestGroupStorage",                   // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 // TODO(crbug.com/1197209): Adjust these limits in response to usage.
 const base::FeatureParam<int> kInterestGroupStorageMaxOwners{
     &kInterestGroupStorage, "max_owners", 1000};
@@ -1048,21 +1050,23 @@ const base::FeatureParam<int> kInterestGroupStorageMaxOpsBeforeMaintenance{
 
 // See https://github.com/WICG/turtledove/blob/main/FLEDGE.md
 // Enables FLEDGE implementation. See https://crbug.com/1186444.
-BASE_FEATURE(kFledge, "Fledge", base::FEATURE_DISABLED_BY_DEFAULT);
+BASE_FEATURE(kFledge,
+             "Fledge",                                 // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // See
 // https://github.com/WICG/turtledove/blob/main/FLEDGE_browser_bidding_and_auction_API.md
 BASE_FEATURE(kFledgeBiddingAndAuctionServer,
-             "FledgeBiddingAndAuctionServer",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "FledgeBiddingAndAuctionServer",          // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // See in the header.
 BASE_FEATURE(kFledgeConsiderKAnonymity,
-             "FledgeConsiderKAnonymity",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "FledgeConsiderKAnonymity",               // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 BASE_FEATURE(kFledgeEnforceKAnonymity,
-             "FledgeEnforceKAnonymity",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "FledgeEnforceKAnonymity",                // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // See https://github.com/WICG/turtledove/blob/main/FLEDGE.md
 // Changes default Permissions Policy for features join-ad-interest-group and
@@ -1074,15 +1078,15 @@ BASE_FEATURE(kAdInterestGroupAPIRestrictedPolicyByDefault,
 // See https://github.com/WICG/turtledove/blob/main/FLEDGE.md
 // Feature flag to enable debug reporting APIs.
 BASE_FEATURE(kBiddingAndScoringDebugReportingAPI,
-             "BiddingAndScoringDebugReportingAPI",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "BiddingAndScoringDebugReportingAPI",     // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // Enables URN URLs like those produced by FLEDGE auctions to be displayed by
 // iframes (instead of requiring fenced frames). This is only intended to be
 // enabled as part of the FLEDGE origin trial.
 BASE_FEATURE(kAllowURNsInIframes,
-             "AllowURNsInIframes",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "AllowURNsInIframes",                     // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 BLINK_COMMON_EXPORT bool IsAllowURNsInIframeEnabled() {
   return base::FeatureList::IsEnabled(blink::features::kAllowURNsInIframes);
@@ -1091,8 +1095,8 @@ BLINK_COMMON_EXPORT bool IsAllowURNsInIframeEnabled() {
 // https://github.com/jkarlin/topics
 // Kill switch for the Topics API.
 BASE_FEATURE(kBrowsingTopics,
-             "BrowsingTopics",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "BrowsingTopics",                         // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 // The number of epochs from where to calculate the topics to give to a
 // requesting contexts.
 const base::FeatureParam<int> kBrowsingTopicsNumberOfEpochsToExpose{
@@ -1166,8 +1170,8 @@ const base::FeatureParam<std::string> kBrowsingTopicsDisabledTopicsList{
 // `kBrowsingTopics` is enabled, and, either a valid Origin Trial token exists
 // or `kPrivacySandboxAdsAPIsOverride` is enabled.)
 BASE_FEATURE(kBrowsingTopicsXHR,
-             "BrowsingTopicsXHR",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "BrowsingTopicsXHR",                      // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // If enabled, the check for whether the IP address is publicly routable will be
 // bypassed when determining the eligibility for a page to be included in topics
@@ -1786,12 +1790,12 @@ bool IsThrottleDisplayNoneAndVisibilityHiddenCrossOriginIframesEnabled() {
 }
 
 BASE_FEATURE(kSpeculationRulesHeaderEnableThirdPartyOriginTrial,
-             "SpeculationRulesHeaderEnableThirdPartyOriginTrial",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "SpeculationRulesHeaderEnableThirdPartyOriginTrial", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);                  // in Brave
 
 BASE_FEATURE(kSpeculationRulesPrefetchFuture,
-             "SpeculationRulesPrefetchFuture",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "SpeculationRulesPrefetchFuture",                    // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);                  // in Brave
 
 // TODO(https://crbug.com/1331187): Delete the flag.
 BASE_FEATURE(kAllowPageWithIDBConnectionInBFCache,

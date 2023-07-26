@@ -91,8 +91,8 @@ const base::FeatureParam<bool> kEsbIphBubbleAndCollapseSettingsEnableCollapse{
     &kEsbIphBubbleAndCollapseSettings, "EnableEsbSettingCollapse", true};
 
 BASE_FEATURE(kExtensionTelemetry,
-             "SafeBrowsingExtensionTelemetry",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "SafeBrowsingExtensionTelemetry",         // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 const base::FeatureParam<int> kExtensionTelemetryUploadIntervalSeconds{
     &kExtensionTelemetry, "UploadIntervalSeconds",
@@ -156,8 +156,8 @@ BASE_FEATURE(kExtensionTelemetryCookiesGetSignal,
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kExtensionTelemetryDeclarativeNetRequestSignal,
-             "SafeBrowsingExtensionTelemetryDeclarativeNetRequestSignal",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "SafeBrowsingExtensionTelemetryDeclarativeNetRequestSignal", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);                          // in Brave, too
 
 BASE_FEATURE(kFileTypePoliciesTag,
              "FileTypePoliciesTag",

@@ -7,8 +7,8 @@
 namespace privacy_sandbox {
 
 BASE_FEATURE(kPrivacySandboxSettings4,
-             "PrivacySandboxSettings4",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "PrivacySandboxSettings4",                // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 const char kPrivacySandboxSettings4ConsentRequiredName[] = "consent-required";
 const char kPrivacySandboxSettings4NoticeRequiredName[] = "notice-required";
@@ -61,8 +61,8 @@ const base::FeatureParam<bool> kPrivacySandboxSettings4ShowSampleDataForTesting{
     kPrivacySandboxSettings4ShowSampleDataForTestingName, false};
 
 BASE_FEATURE(kPrivacySandboxSettings3,
-             "PrivacySandboxSettings3",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "PrivacySandboxSettings3",                // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 const base::FeatureParam<bool> kPrivacySandboxSettings3ConsentRequired{
     &kPrivacySandboxSettings3, "consent-required", false};
 const base::FeatureParam<bool> kPrivacySandboxSettings3NoticeRequired{
@@ -80,8 +80,8 @@ const base::FeatureParam<bool> kPrivacySandboxSettings3DisablePromptForTesting{
     &kPrivacySandboxSettings3, "disable-dialog-for-testing", false};
 
 BASE_FEATURE(kOverridePrivacySandboxSettingsLocalTesting,
-             "OverridePrivacySandboxSettingsLocalTesting",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "OverridePrivacySandboxSettingsLocalTesting", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);           // in Brave, too
 
 BASE_FEATURE(kDisablePrivacySandboxPrompts,
              "DisablePrivacySandboxPrompts",
@@ -94,7 +94,7 @@ const base::FeatureParam<bool> kPrivacySandboxFirstPartySetsUISampleSets{
     &kPrivacySandboxFirstPartySetsUI, "use-sample-sets", false};
 
 BASE_FEATURE(kEnforcePrivacySandboxAttestations,
-             "EnforcePrivacySandboxAttestations",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "EnforcePrivacySandboxAttestations",      // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 }  // namespace privacy_sandbox
