@@ -81,8 +81,8 @@ BASE_FEATURE(kSegmentationDefaultReportingSegments,
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kSegmentationPlatformDeviceTier,
-             "SegmentationPlatformDeviceTier",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "SegmentationPlatformDeviceTier",         // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 BASE_FEATURE(kSegmentationPlatformTabletProductivityUser,
              "SegmentationPlatformTabletProductivityUser",
@@ -117,12 +117,12 @@ BASE_FEATURE(kSegmentationPlatformIosModuleRanker,
 #endif
 
 BASE_FEATURE(kSegmentationPlatformTimeDelaySampling,
-             "SegmentationPlatformTimeDelaySampling",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "SegmentationPlatformTimeDelaySampling",  // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 BASE_FEATURE(kSegmentationPlatformCollectTabRankData,
-             "SegmentationPlatformCollectTabRankData",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "SegmentationPlatformCollectTabRankData", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 BASE_FEATURE(kSegmentationPlatformModelInitializationDelay,
              "SegmentationPlatformModelInitializationDelay",

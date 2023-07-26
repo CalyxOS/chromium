@@ -14,12 +14,13 @@ BASE_FEATURE(kConversionMeasurement,
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kAttributionReportingTriggerConfig,
-             "AttributionReportingTriggerConfig",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "AttributionReportingTriggerConfig", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);  // in Brave, too
 
 BASE_FEATURE(kAttributionReportingTriggerContextId,
              "AttributionReportingTriggerContextId",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 SET_CROMITE_FEATURE_DISABLED(kConversionMeasurement);
+SET_CROMITE_FEATURE_DISABLED(kAttributionReportingTriggerContextId);   // disabled in Brave
 }  // namespace attribution_reporting::features
