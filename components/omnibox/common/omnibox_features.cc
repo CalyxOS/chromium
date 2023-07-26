@@ -415,4 +415,5 @@ BASE_FEATURE(kEnableSearchAggregatorPolicy,
              "EnableSearchAggregatorPolicy",
              DISABLED);
 
+#include "cromite_flags/components_omnibox_common_omnibox_features_cc.inc"
 }  // namespace omnibox

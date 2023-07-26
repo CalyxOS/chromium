@@ -73,7 +73,7 @@ BASE_FEATURE(kWebViewMediaIntegrityApiBlinkExtension,
              "WebViewMediaIntegrityApiBlinkExtension",
              base::FEATURE_ENABLED_BY_DEFAULT);
 SET_CROMITE_FEATURE_DISABLED(kWebViewMediaIntegrityApiBlinkExtension);
-
+#include "cromite_flags/android_webview_common_aw_features_cc.inc"
 // When enabled, passive mixed content (Audio/Video/Image subresources loaded
 // over HTTP on HTTPS sites) will be autoupgraded to HTTPS, and the load will be
 // blocked if the resource fails to load over HTTPS. This only affects apps that

@@ -1,0 +1,13 @@
+SET_CROMITE_FEATURE_DISABLED(kAllowURNsInIframes);
+// in Keep-disabled-FetchLaterAPI.inc: SET_CROMITE_FEATURE_DISABLED(kAttributionReportingInBrowserMigration);
+SET_CROMITE_FEATURE_DISABLED(kBackgroundResourceFetch);
+SET_CROMITE_FEATURE_DISABLED(kBiddingAndScoringDebugReportingAPI);
+SET_CROMITE_FEATURE_DISABLED(kControlledFrame);
+// in Disable-conversion-measurement-api.inc: SET_CROMITE_FEATURE_DISABLED(kFledge);
+SET_CROMITE_FEATURE_DISABLED(kFledgeConsiderKAnonymity);
+SET_CROMITE_FEATURE_DISABLED(kFledgeEnforceKAnonymity);
+// in Disable-privacy-sandbox.inc: SET_CROMITE_FEATURE_DISABLED(kSharedStorageAPI);
+SET_CROMITE_FEATURE_DISABLED(kSpeculationRulesPrefetchFuture);
+SET_CROMITE_FEATURE_ENABLED(kMixedContentAutoupgrade);
+SET_CROMITE_FEATURE_ENABLED(kReducedReferrerGranularity);
+SET_CROMITE_FEATURE_ENABLED(kUACHOverrideBlank);
