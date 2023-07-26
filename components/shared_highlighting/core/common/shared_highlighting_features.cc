@@ -26,8 +26,8 @@ BASE_FEATURE(kIOSSharedHighlightingV2,
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kSharedHighlightingManager,
-             "SharedHighlightingManager",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "SharedHighlightingManager",              // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 int GetPreemptiveLinkGenTimeoutLengthMs() {
   return kPreemptiveLinkGenTimeoutLengthMs.Get();
