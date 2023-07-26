@@ -56,5 +56,6 @@ extern const base::FeatureParam<int> kMaxDaysForMLPromotionGuardrailStorage(
     "max_days_to_store_guardrails",
     kTotalDaysToStoreMLGuardrails);
 
+SET_CROMITE_FEATURE_DISABLED(kWebAppsEnableMLModelForPromotion);  // disabled in Brave
 }  // namespace features
 }  // namespace webapps

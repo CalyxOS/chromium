@@ -16,4 +16,5 @@ const base::FeatureParam<bool> kCheckFor3pcException{
     &kTPCDAdHeuristicSubframeRequestTagging, /*name=*/"check_exceptions",
     /*default_value=*/true};
 
+#include "cromite_flags/components_subresource_filter_core_common_common_features_cc.inc"
 }  // namespace subresource_filter
