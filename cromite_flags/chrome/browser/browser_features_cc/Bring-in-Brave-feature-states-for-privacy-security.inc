@@ -1,0 +1,3 @@
+SET_CROMITE_FEATURE_DISABLED(kDestroyProfileOnBrowserClose);
+SET_CROMITE_FEATURE_DISABLED(kFedCmWithoutThirdPartyCookies);
+// in Enable-Certificate-Transparency.inc: SET_CROMITE_FEATURE_ENABLED(kCertificateTransparencyAskBeforeEnabling);
