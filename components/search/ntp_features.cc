@@ -434,4 +434,6 @@ int GetWallpaperSearchButtonHideCondition() {
       kNtpWallpaperSearchButtonHideCondition,
       kNtpWallpaperSearchButtonHideConditionParam, 0);
 }
+
+#include "cromite_flags/components_search_ntp_features_cc.inc"
 }  // namespace ntp_features

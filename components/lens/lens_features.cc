@@ -736,4 +736,5 @@ base::TimeDelta GetLensOverlaySurveyResultsTime() {
   return kLensOverlaySurveyResultsTime.Get();
 }
 
+SET_CROMITE_FEATURE_DISABLED(kLensOverlay);    // disabled in Brave
 }  // namespace lens::features
