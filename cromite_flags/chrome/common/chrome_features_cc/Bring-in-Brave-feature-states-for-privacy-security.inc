@@ -1,0 +1,3 @@
+SET_CROMITE_FEATURE_DISABLED(kChromeStructuredMetrics);
+SET_CROMITE_FEATURE_DISABLED(kKAnonymityService);
+SET_CROMITE_FEATURE_DISABLED(kKAnonymityServiceOHTTPRequests);
