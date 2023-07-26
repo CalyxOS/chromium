@@ -6,6 +6,8 @@
 
 namespace subresource_filter {
 
-BASE_FEATURE(kAdTagging, "AdTagging", base::FEATURE_ENABLED_BY_DEFAULT);
+BASE_FEATURE(kAdTagging,
+             "AdTagging",                              // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 }  // namespace subresource_filter

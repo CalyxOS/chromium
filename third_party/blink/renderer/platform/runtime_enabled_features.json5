@@ -283,9 +283,9 @@
     },
     {
       // Interest Group JS API/runtimeflag.
-      name: "AdInterestGroupAPI",
+      name: "AdInterestGroupAPI", // disabled
+      status: {},                 // in Brave
       origin_trial_feature_name: "AdInterestGroupAPI",
-      implied_by: ["Fledge", "Parakeet"],
       public: true,
     },
     {
@@ -316,9 +316,9 @@
       base_feature: "none",
     },
     {
-      name: "AnonymousIframe",
+      name: "AnonymousIframe", // disabled
+      status: {},              // in Brave
       public: true,
-      status: "stable",
       base_feature: "none",
     },
     {
@@ -603,8 +603,8 @@
       base_feature: "none",
     },
     {
-      name: "ClientHintsMetaEquivDelegateCH",
-      status: "stable",
+      name: "ClientHintsMetaEquivDelegateCH", // disabled
+      status: {},                             // in Brave
     },
     {
       name: "ClientHintsMetaHTTPEquivAcceptCH",
@@ -704,11 +704,9 @@
     {
       // blink::features::kComputePressure is a kill switch for the API. If the
       // feature is disabled, origin trial tokens are ignored.
-      name: "ComputePressure",
+      name: "ComputePressure", // disabled
+      status: {},              // in Brave
       origin_trial_feature_name: "ComputePressure_v2",
-      status: "experimental",
-      base_feature_status: "enabled",
-      copied_from_base_feature_if: "overridden",
     },
     {
       name: "ConfirmationOfAction",
@@ -1084,8 +1082,8 @@
       status: "test",
     },
     {
-      name: "CSSSelectorFragmentAnchor",
-      status: "experimental",
+      name: "CSSSelectorFragmentAnchor", // disabled
+      status: {},                        // in Brave
       base_feature: "CssSelectorFragmentAnchor",
     },
     {
@@ -1784,7 +1782,8 @@
       status: "stable",
     },
     {
-      name: "Fledge",
+      name: "Fledge", // disabled
+      status: {},     // in Brave
       base_feature: "none",
       origin_trial_feature_name: "PrivacySandboxAdsAPIs",
       origin_trial_allows_third_party: true,
@@ -2816,7 +2815,8 @@
     },
     {
       // PARAKEET ad serving runtime flag/JS API.
-      name: "Parakeet",
+      name: "Parakeet", // disabled
+      status: {},       // in Brave
       origin_trial_feature_name: "Parakeet",
     },
     {
@@ -3009,8 +3009,8 @@
     },
     {
       // https://crbug.com/1126305
-      name: "Prerender2",
-      status: "test",
+      name: "Prerender2", // disabled
+      status: {},         // in Brave
     },
     {
       name: "Presentation",
@@ -3615,11 +3615,9 @@
       origin_trial_allows_third_party: true,
     },
     {
-      name: "SpeculationRulesPrefetchProxy",
+      name: "SpeculationRulesPrefetchProxy", // disabled
+      status: {},                            // in Brave
       origin_trial_feature_name: "SpeculationRulesPrefetch",
-      status: "stable",
-      copied_from_base_feature_if: "overridden",
-      implied_by: ["SpeculationRulesPrefetchFuture", "NoVarySearchPrefetch"],
     },
     {
       name: "SpeculationRulesPrefetchWithSubresources",
@@ -4194,15 +4192,8 @@
       base_feature: "none",
     },
     {
-      name: "WebEnvironmentIntegrity",
-      status: "experimental",
-      origin_trial_feature_name: "WebEnvironmentIntegrity",
-      // base_feature is meant as kill-switch. The RuntimeFeature should follow
-      // the `status` field or Origin Trial unless explicitly overriden by
-      // Finch / command line flags.
-      base_feature_status: "enabled",
-      copied_from_base_feature_if: "overridden",
-      origin_trial_allows_third_party: true,
+      name: "WebEnvironmentIntegrity", // disabled
+      status: {},                      // in Brave
     },
     {
       name: "WebFontResizeLCP",
