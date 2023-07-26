@@ -280,4 +280,5 @@ BASE_FEATURE(kWebViewAutoGrantSanitizedClipboardWrite,
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 SET_CROMITE_FEATURE_DISABLED(kWebViewMediaIntegrityApiBlinkExtension);
+#include "cromite_flags/android_webview_common_aw_features_cc.inc"
 }  // namespace android_webview::features
