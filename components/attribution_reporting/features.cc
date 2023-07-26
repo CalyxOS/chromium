@@ -14,7 +14,7 @@ BASE_FEATURE(kConversionMeasurement,
              base::FEATURE_DISABLED_BY_DEFAULT); // by default
 
 BASE_FEATURE(kAttributionReportingTriggerConfig,
-             "AttributionReportingTriggerConfig",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "AttributionReportingTriggerConfig", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);  // in Brave, too
 
 }  // namespace attribution_reporting::features

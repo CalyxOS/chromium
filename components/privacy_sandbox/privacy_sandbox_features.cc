@@ -93,22 +93,22 @@ const base::FeatureParam<bool> kPrivacySandboxSettings3DisablePromptForTesting{
     &kPrivacySandboxSettings3, "disable-dialog-for-testing", false};
 
 BASE_FEATURE(kOverridePrivacySandboxSettingsLocalTesting,
-             "OverridePrivacySandboxSettingsLocalTesting",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "OverridePrivacySandboxSettingsLocalTesting", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);           // in Brave, too
 
 BASE_FEATURE(kDisablePrivacySandboxPrompts,
              "DisablePrivacySandboxPrompts",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kPrivacySandboxFirstPartySetsUI,
-             "PrivacySandboxFirstPartySetsUI",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "PrivacySandboxFirstPartySetsUI",         // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 const base::FeatureParam<bool> kPrivacySandboxFirstPartySetsUISampleSets{
     &kPrivacySandboxFirstPartySetsUI, "use-sample-sets", false};
 
 BASE_FEATURE(kEnforcePrivacySandboxAttestations,
-             "EnforcePrivacySandboxAttestations",  // if enabled
-             base::FEATURE_ENABLED_BY_DEFAULT);    // log to console
+             "EnforcePrivacySandboxAttestations",      // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 BASE_FEATURE(kDefaultAllowPrivacySandboxAttestations,
              "DefaultAllowPrivacySandboxAttestations",
@@ -122,8 +122,8 @@ BASE_FEATURE(kPrivacySandboxAttestationsHigherComponentRegistrationPriority,
              base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kPrivacySandboxProactiveTopicsBlocking,
-             "PrivacySandboxProactiveTopicsBlocking",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "PrivacySandboxProactiveTopicsBlocking",  // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 BASE_FEATURE(kTrackingProtectionSettingsPageRollbackNotice,
              "TrackingProtectionSettingsPageRollbackNotice",

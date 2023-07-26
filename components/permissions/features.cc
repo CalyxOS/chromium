@@ -151,8 +151,8 @@ BASE_FEATURE(kWindowPlacementPermissionAlias,
 // storage access exceptions. This will allow RWS permission grants to be
 // visible in the Embedded content settings page.
 BASE_FEATURE(kShowRelatedWebsiteSetsPermissionGrants,
-             "ShowRelatedWebsiteSetsPermissionGrants",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "ShowRelatedWebsiteSetsPermissionGrants", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // Enables disallowing MIDI permission by default.
 BASE_FEATURE(kBlockMidiByDefault,

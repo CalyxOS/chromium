@@ -61,8 +61,8 @@ namespace network_time {
 // which uses tlsdated to set the system time.
 #if BUILDFLAG(IS_ANDROID) || BUILDFLAG(IS_CHROMEOS_ASH) || BUILDFLAG(IS_IOS)
 BASE_FEATURE(kNetworkTimeServiceQuerying,
-             "NetworkTimeServiceQuerying",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "NetworkTimeServiceQuerying",             // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 #else
 BASE_FEATURE(kNetworkTimeServiceQuerying,
              "NetworkTimeServiceQuerying",

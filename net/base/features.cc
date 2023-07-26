@@ -252,12 +252,12 @@ BASE_FEATURE(kCookieSameSiteConsidersRedirectChain,
              base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kWaitForFirstPartySetsInit,
-             "WaitForFirstPartySetsInit",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "WaitForFirstPartySetsInit",              // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 BASE_FEATURE(kPartitionedCookies,
-             "PartitionedCookies",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "PartitionedCookies",                     // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 BASE_FEATURE(kBlockTruncatedCookies,
              "BlockTruncatedCookies",
@@ -289,8 +289,8 @@ BASE_FEATURE(kTpcdSupportSettings,
              base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kTpcdMetadataGrants,
-             "TpcdMetadataGrants",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "TpcdMetadataGrants",               // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT); // in Brave
 
 BASE_FEATURE(kAlpsParsing, "AlpsParsing", base::FEATURE_ENABLED_BY_DEFAULT);
 
@@ -454,8 +454,8 @@ BASE_FEATURE(kEnableEarlyHintsOnHttp11,
              base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kEnableWebTransportDraft07,
-             "EnableWebTransportDraft07",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "EnableWebTransportDraft07",              // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 BASE_FEATURE(kZstdContentEncoding,
              "ZstdContentEncoding",
