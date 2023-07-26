@@ -1,0 +1,6 @@
+SET_CROMITE_FEATURE_DISABLED(kCustomizeChromeSidePanelExtensionsCard);
+SET_CROMITE_FEATURE_DISABLED(kCustomizeChromeWallpaperSearch);
+SET_CROMITE_FEATURE_DISABLED(kNtpAlphaBackgroundCollections);
+SET_CROMITE_FEATURE_DISABLED(kNtpBackgroundImageErrorDetection);
+SET_CROMITE_FEATURE_DISABLED(kNtpChromeCartModule);
+SET_CROMITE_FEATURE_DISABLED(kNtpModulesMaxColumnCount);
