@@ -941,4 +941,5 @@ BASE_FEATURE(kAutofillUploadThrottling,
 
 }  // namespace test
 
+#include "cromite_flags/components_autofill_core_common_autofill_features_cc.inc"
 }  // namespace autofill::features

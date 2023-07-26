@@ -34,5 +34,6 @@ BASE_FEATURE(kOnDeviceClusteringVisitRanking,
              "JourneysOnDeviceClusteringVisitRanking",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+#include "cromite_flags/components_history_clusters_core_on_device_clustering_features_cc.inc"
 }  // namespace features
 }  // namespace history_clusters
