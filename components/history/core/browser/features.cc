@@ -84,4 +84,5 @@ BASE_FEATURE(kMostVisitedTilesNewScoring,
              is_android ? base::FEATURE_ENABLED_BY_DEFAULT
                         : base::FEATURE_DISABLED_BY_DEFAULT);
 
+#include "cromite_flags/components_history_core_browser_features_cc.inc"
 }  // namespace history
