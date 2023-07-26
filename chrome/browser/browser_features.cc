@@ -26,13 +26,8 @@ BASE_FEATURE(kClosedTabCache,
 // On Lacros the feature is enabled only for secondary profiles, check the
 // implementation of `ProfileManager::ProfileInfo::FromUnownedProfile()`.
 BASE_FEATURE(kDestroyProfileOnBrowserClose,
-             "DestroyProfileOnBrowserClose",
-#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_WIN) || \
-    BUILDFLAG(IS_CHROMEOS_LACROS)
-             base::FEATURE_ENABLED_BY_DEFAULT);
-#else
-             base::FEATURE_DISABLED_BY_DEFAULT);
-#endif
+             "DestroyProfileOnBrowserClose",           // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // DestroyProfileOnBrowserClose only covers deleting regular (non-System)
 // Profiles. This flags lets us destroy the System Profile, as well.
@@ -170,12 +165,8 @@ BASE_FEATURE(kWebUsbDeviceDetection,
 // update the list of accepted logs. Embedders who are planning to enable this
 // should first reach out to chrome-certificate-transparency@google.com.
 BASE_FEATURE(kCertificateTransparencyAskBeforeEnabling,
-             "CertificateTransparencyAskBeforeEnabling",
-#if BUILDFLAG(GOOGLE_CHROME_BRANDING)
-             base::FEATURE_ENABLED_BY_DEFAULT);
-#else
-             base::FEATURE_DISABLED_BY_DEFAULT);
-#endif  // BUILDFLAG(GOOGLE_CHROME_BRANDING)
+             "CertificateTransparencyAskBeforeEnabling", // enabled by default
+             base::FEATURE_ENABLED_BY_DEFAULT);          // in Brave
 
 BASE_FEATURE(kLargeFaviconFromGoogle,
              "LargeFaviconFromGoogle",
@@ -233,8 +224,8 @@ BASE_FEATURE(kFlexOrgManagementDisclosure,
 
 // Enables usage of the FedCM API without third party cookies at the same time.
 BASE_FEATURE(kFedCmWithoutThirdPartyCookies,
-             "FedCmWithoutThirdPartyCookies",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "FedCmWithoutThirdPartyCookies",          // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // Enables the Incoming Call Notifications scenario. When created by an
 // installed origin, an incoming call notification should have increased
@@ -289,8 +280,8 @@ BASE_FEATURE(kAutocompleteActionPredictorConfidenceCutoff,
 // kOmniboxTriggerForPrerender2 takes effect.
 // TODO(crbug.com/1267731): Remove this flag once the experiments are completed.
 BASE_FEATURE(kOmniboxTriggerForNoStatePrefetch,
-             "OmniboxTriggerForNoStatePrefetch",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "OmniboxTriggerForNoStatePrefetch",       // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 #if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_WIN)
 BASE_FEATURE(kPayloadTestComponent,
