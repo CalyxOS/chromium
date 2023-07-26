@@ -27,8 +27,8 @@ BASE_FEATURE(kAndroidSurfaceControlMagnifier,
 
 // Enables FLEDGE and Attribution Reporting API integration.
 BASE_FEATURE(kAttributionFencedFrameReportingBeacon,
-             "AttributionFencedFrameReportingBeacon",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "AttributionFencedFrameReportingBeacon",  // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // Launches the audio service on the browser startup.
 BASE_FEATURE(kAudioServiceLaunchOnStartup,
@@ -186,8 +186,8 @@ BASE_FEATURE(kCompositeBGColorAnimation,
 // server side testing without cookies.
 // (See https://developer.chrome.com/en/docs/privacy-sandbox/chrome-testing)
 BASE_FEATURE(kCookieDeprecationFacilitatedTesting,
-             "CookieDeprecationFacilitatedTesting",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "CookieDeprecationFacilitatedTesting", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);    // in Brave, too
 
 // Set whether to enable cookie deprecation API for off-the-record profiles.
 const base::FeatureParam<bool>
@@ -230,18 +230,15 @@ BASE_FEATURE(kDevicePosture,
 // Controls whether the Digital Goods API is enabled.
 // https://github.com/WICG/digital-goods/
 BASE_FEATURE(kDigitalGoodsApi,
-             "DigitalGoodsApi",
-#if BUILDFLAG(IS_ANDROID) || BUILDFLAG(IS_CHROMEOS)
-             base::FEATURE_ENABLED_BY_DEFAULT
-#else
-             base::FEATURE_DISABLED_BY_DEFAULT
-#endif
-);
+             "DigitalGoodsApi",                        // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // Enables the DIPS (Detect Incidental Party State) feature.
 // On by default to allow for collecting metrics. All potentially dangerous
 // behavior (database persistence, DIPS deletion) will be gated by params.
-BASE_FEATURE(kDIPS, "DIPS", base::FEATURE_ENABLED_BY_DEFAULT);
+BASE_FEATURE(kDIPS,
+             "DIPS",                                   // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // Set whether DIPS persists its database to disk.
 const base::FeatureParam<bool> kDIPSPersistedDatabaseEnabled{
@@ -351,7 +348,9 @@ BASE_FEATURE(kEnableServiceWorkersForChromeScheme,
 // by the flag in RuntimeEnabledFeatures on the blink side. See also
 // the use of kSetOnlyIfOverridden in content/child/runtime_features.cc.
 // We enable it here by default to support use in origin trials.
-BASE_FEATURE(kFedCm, "FedCm", base::FEATURE_ENABLED_BY_DEFAULT);
+BASE_FEATURE(kFedCm,
+             "FedCm",                                  // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // Enables usage of the FedCM AutoSelectedFlag feature.
 // ChromeStatus entry: https://chromestatus.com/feature/5384360374566912
@@ -425,8 +424,8 @@ BASE_FEATURE(kWebIdentityDigitalCredentials,
 
 // Enables usage of First Party Sets to determine cookie availability.
 BASE_FEATURE(kFirstPartySets,
-             "FirstPartySets",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "FirstPartySets",                         // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // Controls whether to clear sites data on FPS transitions.
 const base::FeatureParam<bool> kFirstPartySetsClearSiteDataOnChangedSets{
@@ -520,14 +519,14 @@ BASE_FEATURE(kLazyInitializeMediaControls,
 
 // Enables reporting of Cookie Issues for Legacy Technology Report.
 BASE_FEATURE(kLegacyTechReportEnableCookieIssueReports,
-             "LegacyTechReportEnableCookieIssueReports",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "LegacyTechReportEnableCookieIssueReports", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);         // in Brave, too
 
 // Using top-level document URL when create an enterprise report for legacy
 // technologies usage
 BASE_FEATURE(kLegacyTechReportTopLevelUrl,
-             "LegacyTechReportTopLevelUrl",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "LegacyTechReportTopLevelUrl",              // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);         // in Brave
 
 // Configures whether Blink on Windows 8.0 and below should use out of process
 // API font fallback calls to retrieve a fallback font family name as opposed to
@@ -621,8 +620,8 @@ BASE_FEATURE(kNotificationContentImage,
 
 // Enables the notification trigger API.
 BASE_FEATURE(kNotificationTriggers,
-             "NotificationTriggers",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "NotificationTriggers",                   // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // Feature which holdbacks NoStatePrefetch on all surfaces.
 BASE_FEATURE(kNoStatePrefetchHoldback,
@@ -984,7 +983,9 @@ BASE_FEATURE(kUserMediaCaptureOnFocus,
 
 // This is intended as a kill switch for the WebOTP Service feature. To enable
 // this feature, the experimental web platform features flag should be set.
-BASE_FEATURE(kWebOTP, "WebOTP", base::FEATURE_ENABLED_BY_DEFAULT);
+BASE_FEATURE(kWebOTP,
+             "WebOTP",                                 // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // Enable the web lockscreen API implementation
 // (https://github.com/WICG/lock-screen) in Chrome.
@@ -1291,7 +1292,9 @@ BASE_FEATURE(kUserMediaScreenCapturing,
 // Kill switch for the WebNFC feature. This feature can be enabled for all sites
 // using the kEnableExperimentalWebPlatformFeatures flag.
 // https://w3c.github.io/web-nfc/
-BASE_FEATURE(kWebNfc, "WebNFC", base::FEATURE_ENABLED_BY_DEFAULT);
+BASE_FEATURE(kWebNfc,
+             "WebNFC",                                 // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 #endif  // BUILDFLAG(IS_ANDROID)
 
