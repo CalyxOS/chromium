@@ -18,4 +18,5 @@ BASE_FEATURE(kAggregationServiceMultipleCloudProviders,
 const base::FeatureParam<std::string> kAggregationServiceCoordinatorAllowlist{
     &kAggregationServiceMultipleCloudProviders, "allowlist", ""};
 
+#include "cromite_flags/components_aggregation_service_features_cc.inc"
 }  // namespace aggregation_service
