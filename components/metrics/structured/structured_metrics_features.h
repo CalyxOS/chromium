@@ -87,6 +87,9 @@ int GetUploadInterval();
 // minutes).
 base::TimeDelta GetExternalMetricsCollectionInterval();
 
+SET_CROMITE_FEATURE_DISABLED(kEnabledStructuredMetricsService);   // disabled in Brave
+SET_CROMITE_FEATURE_DISABLED(kNearbyShareMetrics);                // disabled in Brave
+SET_CROMITE_FEATURE_DISABLED(kPhoneHubStructuredMetrics);         // disabled in Brave
 }  // namespace metrics::structured
 
 #endif  // COMPONENTS_METRICS_STRUCTURED_STRUCTURED_METRICS_FEATURES_H_
