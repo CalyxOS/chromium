@@ -576,4 +576,5 @@ bool IsLensOverlayTranslateButtonEnabled() {
   return base::FeatureList::IsEnabled(kLensOverlayTranslateButton);
 }
 
+SET_CROMITE_FEATURE_DISABLED(kLensOverlay);    // disabled in Brave
 }  // namespace lens::features

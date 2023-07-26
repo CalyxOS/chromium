@@ -75,5 +75,6 @@ BASE_FEATURE(kUniversalInstallDefaultUrl,
              "UniversalInstallDefaultUrl",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+SET_CROMITE_FEATURE_DISABLED(kWebAppsEnableMLModelForPromotion);  // disabled in Brave
 }  // namespace features
 }  // namespace webapps
