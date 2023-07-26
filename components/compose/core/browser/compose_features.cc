@@ -104,4 +104,5 @@ BASE_FEATURE(kComposeUpfrontInputModes,
              "ComposeUpfrontInputModes",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+#include "cromite_flags/components_compose_core_browser_compose_features_cc.inc"
 }  // namespace compose::features
