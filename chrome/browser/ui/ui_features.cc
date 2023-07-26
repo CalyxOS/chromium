@@ -34,7 +34,9 @@ BASE_FEATURE(kBrowserMetricsAPI,
              base::FEATURE_DISABLED_BY_DEFAULT);
 
 // Enables Chrome Labs menu in the toolbar. See https://crbug.com/1145666
-BASE_FEATURE(kChromeLabs, "ChromeLabs", base::FEATURE_ENABLED_BY_DEFAULT);
+BASE_FEATURE(kChromeLabs,
+             "ChromeLabs",                             // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 const char kChromeLabsActivationParameterName[] =
     "chrome_labs_activation_percentage";
 const base::FeatureParam<int> kChromeLabsActivationPercentage{

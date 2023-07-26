@@ -9,7 +9,7 @@
 namespace attribution_reporting {
 
 BASE_FEATURE(kAttributionReportingNullAggregatableReports,
-             "AttributionReportingNullAggregatableReports",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "AttributionReportingNullAggregatableReports", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);            // in Brave
 
 }  // namespace attribution_reporting
