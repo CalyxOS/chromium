@@ -30,8 +30,8 @@ BASE_FEATURE(kFileSystemAccessDoNotOverwriteOnMove,
 // When enabled, move() supports moving local files (i.e. that do not live in
 // the OPFS).
 BASE_FEATURE(kFileSystemAccessMoveLocalFiles,
-             "FileSystemAccessMoveLocalFiles",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "FileSystemAccessMoveLocalFiles",         // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // TODO(crbug.com/1114923): Remove this flag eventually.
 // When enabled, the remove() method is enabled. Otherwise, throws a

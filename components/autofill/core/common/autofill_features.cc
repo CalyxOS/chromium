@@ -148,8 +148,8 @@ BASE_FEATURE(kAutofillDisableAddressImport,
 // Kill switch for computing heuristics other than the active ones
 // (GetActivePatternSource()).
 BASE_FEATURE(kAutofillDisableShadowHeuristics,
-             "AutofillDisableShadowHeuristics",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "AutofillDisableShadowHeuristics",        // enabled by default
+             base::FEATURE_ENABLED_BY_DEFAULT);        // in Brave
 
 // When enabled, autofill will use the new ranking algorithm for address profile
 // autofill suggestions.
@@ -837,8 +837,8 @@ BASE_FEATURE(kAutofillLogToTerminal,
 // "upload" resources.
 // i.e., https://other.autofill.server:port/tbproxy/af/
 BASE_FEATURE(kAutofillServerCommunication,
-             "AutofillServerCommunication",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "AutofillServerCommunication",            // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // Controls attaching the autofill type predictions to their respective
 // element in the DOM.

@@ -51,8 +51,8 @@ BASE_FEATURE(kEnableContextMenuInLensSidePanel,
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kEnableLensPing,
-             "EnableLensPing",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "EnableLensPing",                         // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 constexpr base::FeatureParam<std::string> kHomepageURLForLens{
     &kLensStandalone, "lens-homepage-url", "https://lens.google.com/v3/"};
