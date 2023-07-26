@@ -649,8 +649,8 @@ BASE_FEATURE(kHttpsFirstModeForAdvancedProtectionUsers,
 
 // Enables the new implementation of HTTPS-First Mode.
 BASE_FEATURE(kHttpsFirstModeV2,
-             "HttpsFirstModeV2",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "HttpsFirstModeV2",                       // enabled by default
+             base::FEATURE_ENABLED_BY_DEFAULT);        // in Brave, too
 
 // Enables HTTPS-First Mode for engaged sites. No-op if HttpsFirstModeV2 or
 // HTTPS-Upgrades is disabled.
@@ -734,8 +734,8 @@ BASE_FEATURE(kKioskEnableAppService,
 
 // When enabled, allows other features to use the k-Anonymity Service.
 BASE_FEATURE(kKAnonymityService,
-             "KAnonymityService",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "KAnonymityService",                      // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // Origin to use for requests to the k-Anonymity Auth server to get trust
 // tokens.

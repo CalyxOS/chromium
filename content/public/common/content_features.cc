@@ -39,8 +39,8 @@ BASE_FEATURE(kAndroidSurfaceControlMagnifier,
 
 // Enables FLEDGE and Attribution Reporting API integration.
 BASE_FEATURE(kAttributionFencedFrameReportingBeacon,
-             "AttributionFencedFrameReportingBeacon",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "AttributionFencedFrameReportingBeacon",  // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // Launches the audio service on the browser startup.
 BASE_FEATURE(kAudioServiceLaunchOnStartup,
@@ -304,13 +304,8 @@ BASE_FEATURE(kDevicePosture,
 // Controls whether the Digital Goods API is enabled.
 // https://github.com/WICG/digital-goods/
 BASE_FEATURE(kDigitalGoodsApi,
-             "DigitalGoodsApi",
-#if BUILDFLAG(IS_ANDROID) || BUILDFLAG(IS_CHROMEOS)
-             base::FEATURE_ENABLED_BY_DEFAULT
-#else
-             base::FEATURE_DISABLED_BY_DEFAULT
-#endif
-);
+             "DigitalGoodsApi",                        // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // Enable document policy for configuring and restricting feature behavior.
 BASE_FEATURE(kDocumentPolicy,
@@ -384,7 +379,9 @@ BASE_FEATURE(kExtraSafelistedRequestHeadersForOutOfBlinkCors,
 // by the flag in RuntimeEnabledFeatures on the blink side. See also
 // the use of kSetOnlyIfOverridden in content/child/runtime_features.cc.
 // We enable it here by default to support use in origin trials.
-BASE_FEATURE(kFedCm, "FedCm", base::FEATURE_ENABLED_BY_DEFAULT);
+BASE_FEATURE(kFedCm,
+             "FedCm",                                  // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // Field trial boolean parameter which indicates whether FedCM IDP sign-out
 // is enabled.
@@ -409,8 +406,8 @@ BASE_FEATURE(kFedCmIdPRegistration,
 
 // Enables usage of the FedCM API with iframe support.
 BASE_FEATURE(kFedCmIframeSupport,
-             "FedCmIframeSupport",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "FedCmIframeSupport",                     // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // Enables usage of the FedCM API with metrics endpoint at the same time.
 BASE_FEATURE(kFedCmMetricsEndpoint,
@@ -432,7 +429,9 @@ BASE_FEATURE(kFedCmRpContext,
 // Note that actual exposure of the FedCM API to web content is controlled
 // by the flag in RuntimeEnabledFeatures on the blink side. See also
 // the use of kSetOnlyIfOverridden in content/child/runtime_features.cc.
-BASE_FEATURE(kFedCmUserInfo, "FedCmUserInfo", base::FEATURE_ENABLED_BY_DEFAULT);
+BASE_FEATURE(kFedCmUserInfo,
+             "FedCmUserInfo",                          // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // Enables usage of the FedCM API with the Selective Disclosure API at the same
 // time.
@@ -465,8 +464,8 @@ BASE_FEATURE(kWebIdentityMDocs,
 
 // Enables usage of First Party Sets to determine cookie availability.
 BASE_FEATURE(kFirstPartySets,
-             "FirstPartySets",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "FirstPartySets",                         // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // Controls whether to clear sites data on FPS transitions.
 const base::FeatureParam<bool> kFirstPartySetsClearSiteDataOnChangedSets{
@@ -753,8 +752,8 @@ BASE_FEATURE(kNotificationContentImage,
 
 // Enables the notification trigger API.
 BASE_FEATURE(kNotificationTriggers,
-             "NotificationTriggers",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "NotificationTriggers",                   // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // Feature which holdbacks NoStatePrefetch on all surfaces.
 BASE_FEATURE(kNoStatePrefetchHoldback,
@@ -1188,7 +1187,9 @@ BASE_FEATURE(kUserMediaCaptureOnFocus,
 
 // This is intended as a kill switch for the WebOTP Service feature. To enable
 // this feature, the experimental web platform features flag should be set.
-BASE_FEATURE(kWebOTP, "WebOTP", base::FEATURE_ENABLED_BY_DEFAULT);
+BASE_FEATURE(kWebOTP,
+             "WebOTP",                                 // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // Enables WebOTP calls in cross-origin iframes if allowed by Permissions
 // Policy.
@@ -1548,7 +1549,9 @@ BASE_FEATURE(kWarmUpNetworkProcess,
 // Kill switch for the WebNFC feature. This feature can be enabled for all sites
 // using the kEnableExperimentalWebPlatformFeatures flag.
 // https://w3c.github.io/web-nfc/
-BASE_FEATURE(kWebNfc, "WebNFC", base::FEATURE_ENABLED_BY_DEFAULT);
+BASE_FEATURE(kWebNfc,
+             "WebNFC",                                 // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 #endif  // BUILDFLAG(IS_ANDROID)
 
