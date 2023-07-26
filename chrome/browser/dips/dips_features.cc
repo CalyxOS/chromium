@@ -12,7 +12,9 @@ namespace dips {
 // Enables the DIPS (Detect Incidental Party State) feature.
 // On by default to allow for collecting metrics. All potentially dangerous
 // behavior (database persistence, DIPS deletion) will be gated by params.
-BASE_FEATURE(kFeature, "DIPS", base::FEATURE_ENABLED_BY_DEFAULT);
+BASE_FEATURE(kFeature,
+             "DIPS",                                   // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // Set whether DIPS persists its database to disk.
 const base::FeatureParam<bool> kPersistedDatabaseEnabled{

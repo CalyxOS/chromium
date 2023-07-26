@@ -36,8 +36,8 @@ BASE_FEATURE(kAcceleratedStaticBitmapImageSerialization,
 
 // Enable the Protected Audience's reporting with ad macro API.
 BASE_FEATURE(kAdAuctionReportingWithMacroApi,
-             "AdAuctionReportingWithMacroApi",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "AdAuctionReportingWithMacroApi",         // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 // See https://github.com/WICG/turtledove/blob/main/FLEDGE.md
 // Changes default Permissions Policy for features join-ad-interest-group and
@@ -103,8 +103,8 @@ BASE_FEATURE(kAllowSyncXHRInPageDismissal,
 // iframes (instead of requiring fenced frames). This is only intended to be
 // enabled as part of the FLEDGE origin trial.
 BASE_FEATURE(kAllowURNsInIframes,
-             "AllowURNsInIframes",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "AllowURNsInIframes",                     // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // Anchor Element Interaction
 BASE_FEATURE(kAnchorElementInteraction,
@@ -224,8 +224,8 @@ BASE_FEATURE(kBackForwardCacheWithKeepaliveRequest,
 // Enable background resource fetch in Blink. See https://crbug.com/1379780 for
 // more details.
 BASE_FEATURE(kBackgroundResourceFetch,
-             "BackgroundResourceFetch",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "BackgroundResourceFetch",               // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);      // in Brave, too
 
 // Used to configure a per-origin allowlist of performance.mark events that are
 // permitted to be included in slow reports traces. See crbug.com/1181774.
@@ -241,8 +241,8 @@ const base::FeatureParam<std::string>
 // Due to an issue in how prevWins were stored this flag should not be enabled
 // until July 2023.
 BASE_FEATURE(kBiddingAndScoringDebugReportingAPI,
-             "BiddingAndScoringDebugReportingAPI",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "BiddingAndScoringDebugReportingAPI",     // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 BASE_FEATURE(kAudioContextShuffleEnabled,
              "AudioContextShuffleEnabled",
@@ -298,8 +298,8 @@ const base::FeatureParam<int> kBoostImagePriorityTightMediumLimit{
 // https://github.com/patcg-individual-drafts/topics
 // Kill switch for the Topics API.
 BASE_FEATURE(kBrowsingTopics,
-             "BrowsingTopics",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "BrowsingTopics",                         // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // If enabled, the check for whether the IP address is publicly routable will be
 // bypassed when determining the eligibility for a page to be included in topics
@@ -390,8 +390,8 @@ const base::FeatureParam<std::string> kBrowsingTopicsDisabledTopicsList{
 // `kBrowsingTopics` is enabled, and, either a valid Origin Trial token exists
 // or `kPrivacySandboxAdsAPIsOverride` is enabled.)
 BASE_FEATURE(kBrowsingTopicsXHR,
-             "BrowsingTopicsXHR",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "BrowsingTopicsXHR",                      // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // Suppresses console errors for CORS problems which report an associated
 // inspector issue anyway.
@@ -490,8 +490,8 @@ BASE_FEATURE(kClientHintsDeviceMemory_DEPRECATED,
 
 // Enable `form-factor` client hint.
 BASE_FEATURE(kClientHintsFormFactor,
-             "ClientHintsFormFactor",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "ClientHintsFormFactor",                  // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // Enable `sec-ch-width` client hint.
 BASE_FEATURE(kClientHintsResourceWidth,
@@ -744,8 +744,8 @@ BASE_FEATURE(kEventTimingMatchPresentationIndex,
 // Enables reporting Event Timing entries with a smaller presentation index on
 // resolved painted presentation.
 BASE_FEATURE(kEventTimingReportAllEarlyEntriesOnPaintedPresentation,
-             "EventTimingReportAllEarlyEntriesOnPaintedPresentation",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "EventTimingReportAllEarlyEntriesOnPaintedPresentation", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);                      // in Brave, too
 
 // Enables unload handler deprecation via Permissions-Policy.
 // https://crbug.com/1324111
@@ -785,7 +785,9 @@ BASE_FEATURE(kExtendScriptResourceLifetime,
 // this feature does not automatically expose this element to the web, it only
 // allows the element to be enabled by the runtime enabled feature, for origin
 // trials.
-BASE_FEATURE(kFencedFrames, "FencedFrames", base::FEATURE_DISABLED_BY_DEFAULT);
+BASE_FEATURE(kFencedFrames,
+             "FencedFrames",                           // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // Enable text snippets in URL fragments. https://crbug.com/919204.
 BASE_FEATURE(kTextFragmentAnchor,
@@ -818,23 +820,25 @@ BASE_FEATURE(kFilteringScrollPrediction,
 
 // See https://github.com/WICG/turtledove/blob/main/FLEDGE.md
 // Enables FLEDGE implementation. See https://crbug.com/1186444.
-BASE_FEATURE(kFledge, "Fledge", base::FEATURE_DISABLED_BY_DEFAULT);
+BASE_FEATURE(kFledge,
+             "Fledge",                                 // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // See
 // https://github.com/WICG/turtledove/blob/main/FLEDGE_browser_bidding_and_auction_API.md
 BASE_FEATURE(kFledgeBiddingAndAuctionServer,
-             "FledgeBiddingAndAuctionServer",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "FledgeBiddingAndAuctionServer",          // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 const base::FeatureParam<std::string> kFledgeBiddingAndAuctionKeyURL{
     &kFledgeBiddingAndAuctionServer, "FledgeBiddingAndAuctionKeyURL", ""};
 
 // See in the header.
 BASE_FEATURE(kFledgeConsiderKAnonymity,
-             "FledgeConsiderKAnonymity",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "FledgeConsiderKAnonymity",               // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 BASE_FEATURE(kFledgeEnforceKAnonymity,
-             "FledgeEnforceKAnonymity",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "FledgeEnforceKAnonymity",                // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 BASE_FEATURE(kFledgePassKAnonStatusToReportWin,
              "FledgePassKAnonStatusToReportWin",
@@ -989,8 +993,8 @@ const char kIntensiveWakeUpThrottling_GracePeriodSeconds_Name[] =
 // Kill switch for the Interest Group API, i.e. if disabled, the
 // API exposure will be disabled regardless of the OT config.
 BASE_FEATURE(kInterestGroupStorage,
-             "InterestGroupStorage",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "InterestGroupStorage",                   // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 // TODO(crbug.com/1197209): Adjust these limits in response to usage.
 const base::FeatureParam<int> kInterestGroupStorageMaxOwners{
     &kInterestGroupStorage, "max_owners", 1000};
@@ -1155,8 +1159,8 @@ BASE_FEATURE(kMaxUnthrottledTimeoutNestingLevel,
 const base::FeatureParam<int> kMaxUnthrottledTimeoutNestingLevelParam{
     &kMaxUnthrottledTimeoutNestingLevel, "nesting", 15};
 BASE_FEATURE(kMixedContentAutoupgrade,
-             "AutoupgradeMixedContent",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "AutoupgradeMixedContent",                // enabled by default
+             base::FEATURE_ENABLED_BY_DEFAULT);        // in Brave, too
 
 BASE_FEATURE(kMemoryCacheStrongReferenceFilterImages,
              "MemoryCacheStrongReferenceFilterImages",
@@ -1434,8 +1438,8 @@ const base::FeatureParam<int> kRTCGpuCodecSupportWaiterTimeoutParam{
 // Reduce the amount of information in the default 'referer' header for
 // cross-origin requests.
 BASE_FEATURE(kReducedReferrerGranularity,
-             "ReducedReferrerGranularity",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "ReducedReferrerGranularity",             // enabled by default
+             base::FEATURE_ENABLED_BY_DEFAULT);        // in Brave, too
 
 const base::FeatureParam<std::string> kUserAgentFrozenBuildVersion{
     &kReduceUserAgentMinorVersion, "build_version", "0"};
@@ -1571,8 +1575,8 @@ BASE_FEATURE(kSetTimeoutWithoutClamp,
 // enabled by the runtime enabled feature, for origin trials.
 // https://github.com/pythagoraskitty/shared-storage/blob/main/README.md
 BASE_FEATURE(kSharedStorageAPI,
-             "SharedStorageAPI",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "SharedStorageAPI",                       // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 const base::FeatureParam<int>
     kSharedStorageURLSelectionOperationInputURLSizeLimit{
         &kSharedStorageAPI, "url_selection_operation_input_url_size_limit", 8};
@@ -1608,8 +1612,8 @@ const base::FeatureParam<int>
         "SharedStorageMaxAllowedFencedFrameDepthForSelectURL", 1};
 
 BASE_FEATURE(kSharedStorageSelectURLLimit,
-             "SharedStorageSelectURLLimit",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "SharedStorageSelectURLLimit",            // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 const base::FeatureParam<int> kSharedStorageSelectURLBitBudgetPerPageLoad = {
     &kSharedStorageSelectURLLimit, "SharedStorageSelectURLBitBudgetPerPageLoad",
     12};
@@ -1641,12 +1645,12 @@ BASE_FEATURE(kSmallScriptStreaming,
              base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kSpeculationRulesHeaderEnableThirdPartyOriginTrial,
-             "SpeculationRulesHeaderEnableThirdPartyOriginTrial",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "SpeculationRulesHeaderEnableThirdPartyOriginTrial", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);                  // in Brave
 
 BASE_FEATURE(kSpeculationRulesPrefetchFuture,
-             "SpeculationRulesPrefetchFuture",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "SpeculationRulesPrefetchFuture",                    // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);                  // in Brave
 
 // Enable service worker warming-up feature. (https://crbug.com/1431792)
 BASE_FEATURE(kSpeculativeServiceWorkerWarmUp,
@@ -1835,8 +1839,8 @@ BASE_FEATURE(kTimedHTMLParserBudget,
 // Changes behavior of User-Agent Client Hints to send blank headers when the
 // User-Agent string is overridden, instead of disabling the headers altogether.
 BASE_FEATURE(kUACHOverrideBlank,
-             "UACHOverrideBlank",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "UACHOverrideBlank",                      // enabled by default
+             base::FEATURE_ENABLED_BY_DEFAULT);        // in Brave
 
 BASE_FEATURE(kURLSetPortCheckOverflow,
              "URLSetPortCheckOverflow",

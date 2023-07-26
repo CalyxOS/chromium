@@ -157,8 +157,8 @@ BASE_FEATURE(kAttributionReportingCrossAppWeb,    // in bromite
 // set, and handling their responses, according to the protocol.
 // (See https://github.com/WICG/trust-token-api.)
 BASE_FEATURE(kPrivateStateTokens,
-             "PrivateStateTokens",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "PrivateStateTokens",                     // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // Secondary flag used by the FLEDGE ads experiment in the interim before
 // PSTs are fully rolled out to stable.

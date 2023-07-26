@@ -770,8 +770,8 @@ BASE_FEATURE(kKioskEnableAppService,
 
 // When enabled, allows other features to use the k-Anonymity Service.
 BASE_FEATURE(kKAnonymityService,
-             "KAnonymityService",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "KAnonymityService",                      // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // Origin to use for requests to the k-Anonymity Auth server to get trust
 // tokens.
@@ -997,8 +997,8 @@ BASE_FEATURE(kPrivacyGuideAndroid,
 
 #if BUILDFLAG(IS_ANDROID)
 BASE_FEATURE(kPrivacyGuideAndroidPostMVP,
-             "PrivacyGuideAndroidPostMVP",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "PrivacyGuideAndroidPostMVP",             // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 #endif
 
 // Enables or disables push subscriptions keeping Chrome running in the
