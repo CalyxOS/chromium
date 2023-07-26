@@ -67,4 +67,5 @@ BASE_FEATURE(kCollectAndroidFrameTimelineMetrics,
              base::FEATURE_DISABLED_BY_DEFAULT);
 #endif  // BUILDFLAG(IS_ANDROID)
 
+#include "cromite_flags/base_features_cc.inc"
 }  // namespace base::features

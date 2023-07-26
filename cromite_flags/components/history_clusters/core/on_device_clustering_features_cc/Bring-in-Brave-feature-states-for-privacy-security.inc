@@ -1,0 +1,2 @@
+SET_CROMITE_FEATURE_DISABLED(kOnDeviceClustering);
+SET_CROMITE_FEATURE_DISABLED(kOnDeviceClusteringKeywordFiltering);

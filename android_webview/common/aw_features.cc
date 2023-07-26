@@ -253,5 +253,6 @@ BASE_FEATURE(kWebViewEnableCrash,
              "WebViewEnableCrash",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+#include "cromite_flags/android_webview_common_aw_features_cc.inc"
 }  // namespace features
 }  // namespace android_webview
