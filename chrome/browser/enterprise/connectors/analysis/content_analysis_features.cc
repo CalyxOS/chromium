@@ -7,8 +7,8 @@
 namespace enterprise_connectors {
 
 BASE_FEATURE(kLocalContentAnalysisEnabled,
-             "LocalContentAnalysisEnabled",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "LocalContentAnalysisEnabled",            // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 BASE_FEATURE(kDialogCustomRuleMessageEnabled,
              "DialogCustomRuleMessageEnabled",
