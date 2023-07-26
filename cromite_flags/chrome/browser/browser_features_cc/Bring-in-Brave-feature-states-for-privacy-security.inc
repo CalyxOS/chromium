@@ -1,0 +1,4 @@
+SET_CROMITE_FEATURE_DISABLED(kDestroyProfileOnBrowserClose);
+SET_CROMITE_FEATURE_DISABLED(kFedCmWithoutThirdPartyCookies);
+SET_CROMITE_FEATURE_DISABLED(kOmniboxTriggerForNoStatePrefetch);
+// in Enable-Certificate-Transparency.inc: SET_CROMITE_FEATURE_ENABLED(kCertificateTransparencyAskBeforeEnabling);

@@ -1,0 +1,2 @@
+SET_CROMITE_FEATURE_DISABLED(kResourceTimingForCancelledNavigationInFrame);
+SET_CROMITE_FEATURE_DISABLED(kServiceWorkerAutoPreload);

@@ -1,0 +1,2 @@
+SET_CROMITE_FEATURE_DISABLED(kImageService);
+SET_CROMITE_FEATURE_DISABLED(kImageServiceSuggestPoweredImages);

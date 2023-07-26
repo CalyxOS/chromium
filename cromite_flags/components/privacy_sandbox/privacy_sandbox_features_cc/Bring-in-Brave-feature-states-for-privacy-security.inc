@@ -1,0 +1,4 @@
+SET_CROMITE_FEATURE_DISABLED(kCookieSettingsUiAlignment);
+SET_CROMITE_FEATURE_DISABLED(kOverridePrivacySandboxSettingsLocalTesting);
+// in components/privacy_sandbox/privacy_sandbox_features.cc: SET_CROMITE_FEATURE_DISABLED(kPrivacySandboxFirstPartySetsUI);
+SET_CROMITE_FEATURE_DISABLED(kPrivacySandboxProactiveTopicsBlocking);
