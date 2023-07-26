@@ -1,0 +1,4 @@
+SET_CROMITE_FEATURE_DISABLED(kExtensionTelemetryDisableOffstoreExtensions);
+SET_CROMITE_FEATURE_DISABLED(kExtensionTelemetryForEnterprise);
+SET_CROMITE_FEATURE_DISABLED(kExtensionTelemetryTabsApiSignal);
+SET_CROMITE_FEATURE_DISABLED(kGooglePlayProtectInApkTelemetry);

@@ -1,0 +1,3 @@
+SET_CROMITE_FEATURE_DISABLED(kDestroyProfileOnBrowserClose);
+// in Enable-Certificate-Transparency.inc: SET_CROMITE_FEATURE_ENABLED(kCertificateTransparencyAskBeforeEnabling);
+SET_CROMITE_FEATURE_DISABLED(kDevToolsConsoleInsights);
