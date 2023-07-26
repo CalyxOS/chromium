@@ -514,4 +514,10 @@ std::vector<std::string> GetModulesOrder() {
 SET_CROMITE_FEATURE_DISABLED(kNtpHistoryClustersModule);
 SET_CROMITE_FEATURE_DISABLED(kNtpHistoryClustersModuleLoad);
 SET_CROMITE_FEATURE_DISABLED(kNtpHistoryClustersModuleUseModelRanking);
+SET_CROMITE_FEATURE_DISABLED(kCustomizeChromeSidePanelExtensionsCard);                // as in Brave
+SET_CROMITE_FEATURE_DISABLED(kCustomizeChromeWallpaperSearch);                        // as in Brave
+SET_CROMITE_FEATURE_DISABLED(kNtpAlphaBackgroundCollections);                         // as in Brave
+SET_CROMITE_FEATURE_DISABLED(kNtpBackgroundImageErrorDetection);                      // as in Brave
+SET_CROMITE_FEATURE_DISABLED(kNtpChromeCartModule);                                   // as in Brave
+SET_CROMITE_FEATURE_DISABLED(kNtpModulesMaxColumnCount);                              // as in Brave
 }  // namespace ntp_features

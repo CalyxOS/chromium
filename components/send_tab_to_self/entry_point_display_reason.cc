@@ -40,6 +40,9 @@ absl::optional<EntryPointDisplayReason> GetEntryPointDisplayReason(
     syncer::SyncService* sync_service,
     SendTabToSelfModel* send_tab_to_self_model,
     PrefService* pref_service) {
+  // Modified to replicate logic in brave-core 111b3401484fc8f52352776ea12fa40fb9880899
+  // since the kSendTabToSelfSigninPromo flag is removed.
+
   if (!url_to_share.SchemeIsHTTPOrHTTPS()) {
     return absl::nullopt;
   }
@@ -50,24 +53,15 @@ absl::optional<EntryPointDisplayReason> GetEntryPointDisplayReason(
   }
 
   if (ShouldOfferSignin(sync_service, pref_service)) {
-    return EntryPointDisplayReason::kOfferSignIn;
+    return absl::nullopt;
   }
 
   if (!send_tab_to_self_model->IsReady()) {
-    syncer::SyncUserSettings* settings = sync_service->GetUserSettings();
-    if (sync_service->IsEngineInitialized() &&
-        (settings->IsPassphraseRequiredForPreferredDataTypes() ||
-         settings->IsTrustedVaultKeyRequiredForPreferredDataTypes())) {
-      // There's an encryption error, the model won't become ready unless the
-      // user takes explicit action. But the error will be surfaced by dedicated
-      // non send-tab-to-self UI. So just treat this as the no device case.
-      return EntryPointDisplayReason::kInformNoTargetDevice;
-    }
     return absl::nullopt;
   }
 
   if (!send_tab_to_self_model->HasValidTargetDevice()) {
-    return EntryPointDisplayReason::kInformNoTargetDevice;
+    return absl::nullopt;
   }
 
   return EntryPointDisplayReason::kOfferFeature;
