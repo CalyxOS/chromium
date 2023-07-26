@@ -124,4 +124,5 @@ void Init(EmitThreadControllerProfilerMetadata
 #endif
 }
 
+#include "cromite_flags/base_features_cc.inc"
 }  // namespace base::features

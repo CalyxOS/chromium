@@ -557,4 +557,5 @@ BASE_FEATURE(kOmniboxShortcutsAndroid,
              "OmniboxShortcutsAndroid",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+#include "cromite_flags/components_omnibox_common_omnibox_features_cc.inc"
 }  // namespace omnibox
