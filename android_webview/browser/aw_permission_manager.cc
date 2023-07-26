@@ -780,6 +780,8 @@ void AwPermissionManager::CancelPermissionRequests() {
 void AwPermissionManager::SetOriginCanReadEnumerateDevicesAudioLabels(
     const url::Origin& origin,
     bool audio) {
+  // Stubbed out as of brave-core 3672721d9e6e530f97656e4072910e685c397aca
+  if ((true)) return;
   auto it = enumerate_devices_labels_cache_.find(origin);
   if (it == enumerate_devices_labels_cache_.end()) {
     enumerate_devices_labels_cache_[origin] = std::make_pair(audio, false);
@@ -791,6 +793,8 @@ void AwPermissionManager::SetOriginCanReadEnumerateDevicesAudioLabels(
 void AwPermissionManager::SetOriginCanReadEnumerateDevicesVideoLabels(
     const url::Origin& origin,
     bool video) {
+  // Stubbed out as of brave-core 3672721d9e6e530f97656e4072910e685c397aca
+  if ((true)) return;
   auto it = enumerate_devices_labels_cache_.find(origin);
   if (it == enumerate_devices_labels_cache_.end())
     enumerate_devices_labels_cache_[origin] = std::make_pair(false, video);

@@ -619,4 +619,5 @@ void NetworkTimeTracker::NotifyObservers() {
   }
 }
 
+#include "cromite_flags/components_network_time_network_time_tracker_cc.inc"
 }  // namespace network_time

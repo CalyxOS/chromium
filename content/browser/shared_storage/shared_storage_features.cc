@@ -20,4 +20,5 @@ BASE_FEATURE_PARAM(double,
                    "SharedStorageSelectURLBitBudgetPerSitePerPageLoad",
                    6.0);
 
+SET_CROMITE_FEATURE_DISABLED(kSharedStorageSelectURLLimit);
 }  // namespace content::features

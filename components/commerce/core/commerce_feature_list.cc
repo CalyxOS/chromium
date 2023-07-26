@@ -450,4 +450,6 @@ SET_CROMITE_FEATURE_DISABLED(kParcelTrackingRegionLaunched);
 
 SET_CROMITE_FEATURE_DISABLED(kEnableDiscountInfoApi);
 SET_CROMITE_FEATURE_DISABLED(kEnableDiscountInfoApiRegionLaunched);
+
+#include "cromite_flags/components_commerce_core_commerce_feature_list_cc.inc"
 }  // namespace commerce

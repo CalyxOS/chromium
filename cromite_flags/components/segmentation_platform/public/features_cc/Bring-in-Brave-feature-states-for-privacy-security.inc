@@ -1,0 +1,3 @@
+SET_CROMITE_FEATURE_DISABLED(kSegmentationPlatformCollectTabRankData);
+SET_CROMITE_FEATURE_DISABLED(kSegmentationPlatformDeviceTier);
+SET_CROMITE_FEATURE_DISABLED(kSegmentationPlatformTimeDelaySampling);

@@ -913,4 +913,6 @@ bool UpdateViewportEachQueryEnabled() {
 bool IsUpdatedClientContextEnabled() {
   return base::FeatureList::IsEnabled(kLensOverlayUpdatedClientContext);
 }
+
+SET_CROMITE_FEATURE_DISABLED(kLensOverlay);    // disabled in Brave
 }  // namespace lens::features
