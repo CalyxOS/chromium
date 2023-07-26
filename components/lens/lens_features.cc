@@ -662,4 +662,5 @@ bool IsLensOverlayContextualSearchboxEnabled() {
   return base::FeatureList::IsEnabled(kLensOverlayContextualSearchbox);
 }
 
+SET_CROMITE_FEATURE_DISABLED(kLensOverlay);    // disabled in Brave
 }  // namespace lens::features

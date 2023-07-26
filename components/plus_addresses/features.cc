@@ -158,4 +158,5 @@ BASE_FEATURE(kPlusAddressUserOnboardingEnabled,
              "PlusAddressUserOnboardingEnabled",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+SET_CROMITE_FEATURE_DISABLED(kPlusAddressesEnabled);  // disabled in Brave
 }  // namespace plus_addresses::features
