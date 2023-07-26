@@ -123,15 +123,51 @@ cpp_bromite_include("services_network_public_cpp_features_h") {
   output_file = "services_network_public_cpp_features_h.inc"
 }
 
+cpp_bromite_include("components_heap_profiling_in_process_heap_profile_parameters_cc") {
+  inputs = [ "//cromite_flags/components/heap_profiling/in_process/heap_profile_parameters_cc/placeholder.txt" ]
+  output_file = "components_heap_profiling_in_process_heap_profile_parameters_cc.inc"
+}
+
+cpp_bromite_include("components_omnibox_common_omnibox_features_cc") {
+  inputs = [ "//cromite_flags/components/omnibox/common/omnibox_features_cc/placeholder.txt" ]
+  output_file = "components_omnibox_common_omnibox_features_cc.inc"
+}
+
+cpp_bromite_include("components_optimization_guide_core_optimization_guide_features_cc") {
+  inputs = [ "//cromite_flags/components/optimization_guide/core/optimization_guide_features_cc/placeholder.txt" ]
+  output_file = "components_optimization_guide_core_optimization_guide_features_cc.inc"
+}
+
+cpp_bromite_include("components_password_manager_core_common_password_manager_features_cc") {
+  inputs = [ "//cromite_flags/components/password_manager/core/common/password_manager_features_cc/placeholder.txt" ]
+  output_file = "components_password_manager_core_common_password_manager_features_cc.inc"
+}
+
+cpp_bromite_include("components_privacy_sandbox_privacy_sandbox_features_cc") {
+  inputs = [ "//cromite_flags/components/privacy_sandbox/privacy_sandbox_features_cc/placeholder.txt" ]
+  output_file = "components_privacy_sandbox_privacy_sandbox_features_cc.inc"
+}
+
+cpp_bromite_include("content_browser_preloading_prefetch_prefetch_features_cc") {
+  inputs = [ "//cromite_flags/content/browser/preloading/prefetch/prefetch_features_cc/placeholder.txt" ]
+  output_file = "content_browser_preloading_prefetch_prefetch_features_cc.inc"
+}
+
 component("cromite_flags") {
   deps = [
+    ":content_browser_preloading_prefetch_prefetch_features_cc",
     ":content_common_features_cc",
     ":content_public_common_content_features_cc",
     ":content_public_common_content_features_h",
     ":components_content_settings_core_common_features_cc",
+    ":components_heap_profiling_in_process_heap_profile_parameters_cc",
     ":components_permissions_features_cc",
     ":components_offline_pages_core_offline_page_feature_cc",
     ":components_offline_pages_core_offline_page_feature_h",
+    ":components_omnibox_common_omnibox_features_cc",
+    ":components_optimization_guide_core_optimization_guide_features_cc",
+    ":components_password_manager_core_common_password_manager_features_cc",
+    ":components_privacy_sandbox_privacy_sandbox_features_cc",
     ":media_base_media_switches_cc",
     ":media_base_media_switches_h",
     ":net_base_features_cc",
