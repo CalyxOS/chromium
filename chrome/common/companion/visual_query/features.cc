@@ -35,4 +35,5 @@ int MaxVisualSuggestions() {
                                           "max_visual_suggestions", 1);
 }
 
+#include "cromite_flags/chrome_common_companion_visual_query_features_cc.inc"
 }  // namespace companion::visual_query::features

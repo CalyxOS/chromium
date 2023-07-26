@@ -95,4 +95,5 @@ bool IsSyncSegmentsDataEnabled() {
   return base::FeatureList::IsEnabled(kSyncSegmentsData);
 }
 
+#include "cromite_flags/components_history_core_browser_features_cc.inc"
 }  // namespace history

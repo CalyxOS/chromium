@@ -1,0 +1,2 @@
+SET_CROMITE_FEATURE_DISABLED(kExtensionTelemetryTabsApiSignal);
+SET_CROMITE_FEATURE_DISABLED(kExtensionTelemetryDisableOffstoreExtensions);

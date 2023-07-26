@@ -267,4 +267,5 @@ bool ShouldShowImprovedUserConsentForCreditCardSave() {
 #endif
 }
 
+#include "cromite_flags/components_autofill_core_common_autofill_payments_features_cc.inc"
 }  // namespace autofill::features

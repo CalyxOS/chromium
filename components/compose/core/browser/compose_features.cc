@@ -82,4 +82,6 @@ BASE_FEATURE(kEnableNudgeForUnspecifiedHint,
 BASE_FEATURE(kEnableAdditionalTextMetrics,
              "EnableAdditionalTextMetrics",
              base::FEATURE_ENABLED_BY_DEFAULT);
+
+#include "cromite_flags/components_compose_core_browser_compose_features_cc.inc"
 }  // namespace compose::features

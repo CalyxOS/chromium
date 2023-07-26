@@ -56,4 +56,5 @@ BASE_FEATURE(kPrefetchUnblockOnCancel,
              "PrefetchUnblockOnCancel",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+#include "cromite_flags/content_browser_preloading_prefetch_prefetch_features_cc.inc"
 }  // namespace features
