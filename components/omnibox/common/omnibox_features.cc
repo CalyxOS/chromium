@@ -598,4 +598,5 @@ static jlong JNI_OmniboxFeatureMap_GetNativeMap(JNIEnv* env) {
 }  // namespace android
 #endif  // BUILDFLAG(IS_ANDROID)
 
+#include "cromite_flags/components_omnibox_common_omnibox_features_cc.inc"
 }  // namespace omnibox

@@ -112,4 +112,5 @@ BASE_FEATURE(kPlusAddressAndroidManualFallbackEnabled,
              base::FEATURE_DISABLED_BY_DEFAULT);
 #endif  // BUILDFLAG(IS_ANDROID)
 
+SET_CROMITE_FEATURE_DISABLED(kPlusAddressesEnabled);  // disabled in Brave
 }  // namespace plus_addresses::features
