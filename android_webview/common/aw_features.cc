@@ -253,5 +253,6 @@ BASE_FEATURE(kWebViewAsyncDns,
              "WebViewAsyncDns",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+#include "cromite_flags/android_webview_common_aw_features_cc.inc"
 }  // namespace features
 }  // namespace android_webview
