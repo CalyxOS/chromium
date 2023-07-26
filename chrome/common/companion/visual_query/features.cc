@@ -35,4 +35,5 @@ int MaxVisualSuggestions() {
                                           "max_visual_suggestions", 1);
 }
 
+SET_CROMITE_FEATURE_DISABLED(kVisualQuerySuggestions);   // disabled in Brave
 }  // namespace companion::visual_query::features
