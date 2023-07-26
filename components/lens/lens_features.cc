@@ -1022,4 +1022,6 @@ bool ShouldLensOverlayRecontextualizeOnQuery() {
   return base::FeatureList::IsEnabled(kLensOverlayRecontextualizeOnQuery);
 }
 
+SET_CROMITE_FEATURE_DISABLED(kLensOverlay);    // disabled in Brave
+SET_CROMITE_FEATURE_DISABLED(kLensOverlayOmniboxEntryPoint); // disabled in Brave
 }  // namespace lens::features

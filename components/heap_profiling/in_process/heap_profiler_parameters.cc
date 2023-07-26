@@ -213,4 +213,5 @@ float GetHashSetLoadFactorForProcess(
   }
 }
 
+#include "cromite_flags/components_heap_profiling_in_process_heap_profiler_parameters_cc.inc"
 }  // namespace heap_profiling
