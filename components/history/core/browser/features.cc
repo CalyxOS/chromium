@@ -102,4 +102,5 @@ bool IsSyncSegmentsDataEnabled() {
   return base::FeatureList::IsEnabled(kSyncSegmentsData);
 }
 
+SET_CROMITE_FEATURE_DISABLED(kSyncSegmentsData);         // as in Brave
 }  // namespace history

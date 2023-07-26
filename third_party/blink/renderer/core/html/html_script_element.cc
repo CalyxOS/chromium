@@ -375,8 +375,8 @@ bool HTMLScriptElement::supports(const AtomicString& type) {
   if (type == script_type_names::kImportmap)
     return true;
 
-  if (type == script_type_names::kSpeculationrules) {
-    return true;
+  if (type == script_type_names::kSpeculationrules) {  // disabled
+    return false;                                      // in Brave
   }
   if (type == script_type_names::kWebbundle)
     return true;
