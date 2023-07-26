@@ -23,6 +23,11 @@ bool IsOfferValid(AutofillOfferData* offer) {
     return false;
   }
 
+  // See brave-core 36df5203f5164b9f63b74a47870370793ed992e4
+  if (offer->IsPromoCodeOffer()) {
+    return false;
+  }
+
   if (offer->GetMerchantOrigins().empty()) {
     return false;
   }

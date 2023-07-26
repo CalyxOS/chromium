@@ -184,8 +184,8 @@ BASE_FEATURE(kPageVisibilityPageContentAnnotations,
              base::FEATURE_ENABLED_BY_DEFAULT);
 // Enables the text embedding model to be annotated on every page load.
 BASE_FEATURE(kTextEmbeddingPageContentAnnotations,
-             "TextEmbeddingPageContentAnnotations",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "TextEmbeddingPageContentAnnotations",    // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // This feature flag does not allow for the entities model to load the name and
 // prefix filters.
