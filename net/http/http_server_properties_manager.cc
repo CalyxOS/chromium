@@ -41,7 +41,7 @@ const int kMissingVersion = 0;
 const int kVersionNumber = 5;
 
 // Persist at most 200 currently-broken alternative services to disk.
-const int kMaxBrokenAlternativeServicesToPersist = 200;
+const int kMaxBrokenAlternativeServicesToPersist = 0;
 
 const char kServerKey[] = "server";
 const char kQuicServerIdKey[] = "server_id";
