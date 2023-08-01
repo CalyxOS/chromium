@@ -1308,11 +1308,7 @@ HttpStreamFactory::JobController::GetAlternativeServiceInfoInternal(
     // single user on a multi-user system to hijack the alternate protocol.
     // These systems also enforce ports <1024 as restricted ports.  So don't
     // allow protocol upgrades to user-controllable ports.
-    const int kUnrestrictedPort = 1024;
-    if (!session_->params().enable_user_alternate_protocol_ports &&
-        (alternative_service_info.alternative_service().port >=
-             kUnrestrictedPort &&
-         original_url.EffectiveIntPort() < kUnrestrictedPort)) {
+    if (alternative_service_info.alternative_service().port != 443) {
       continue;
     }
 
@@ -1357,8 +1353,7 @@ HttpStreamFactory::JobController::GetAlternativeServiceInfoInternal(
 
     GURL destination = CreateAltSvcUrl(
         original_url, alternative_service_info.GetHostPortPair());
-    if (session_key.host() != destination.host_piece() &&
-        !session_->context().quic_context->params()->allow_remote_alt_svc) {
+    if (session_key.host() != destination.host_piece()) {
       continue;
     }
     RewriteUrlWithHostMappingRules(destination);
