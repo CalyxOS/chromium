@@ -203,7 +203,7 @@ struct NET_EXPORT QuicParams {
   bool allow_server_migration = true;
   // If true, allows QUIC to use alternative services with a different
   // hostname from the origin.
-  bool allow_remote_alt_svc = true;
+  bool allow_remote_alt_svc = false; // Disabled by default
   // If true, estimate the initial RTT for QUIC connections based on network.
   bool estimate_initial_rtt = false;
   // The initial rtt that will be used in crypto handshake if no cached
