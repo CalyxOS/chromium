@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18450042_507a08e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-08-02T20:21:09Z",
+      "side": 1,
+      "message": "Not to be merged, just here for easier review.\n\nPS1 here matches PS4 at https://review.calyxos.org/c/CalyxOS/platform_external_calyx_chromium/+/18683",
+      "revId": "cc9df11972a25bc588e164de04e4e4487273cef7",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
