@@ -368,6 +368,13 @@ void PictureInPictureControllerImpl::CreateDocumentPictureInPictureWindow(
     return;
   }
 
+  if (!opener.GetFrame()->GetContentSettings()->allow_popup) {
+    exception_state.ThrowDOMException(DOMExceptionCode::kNotAllowedError,
+                                      "Document PiP requires user popup permission");
+    resolver->Reject(exception_state);
+    return;
+  }
+
   WebPictureInPictureWindowOptions web_options;
   web_options.width = options->width();
   web_options.height = options->height();
