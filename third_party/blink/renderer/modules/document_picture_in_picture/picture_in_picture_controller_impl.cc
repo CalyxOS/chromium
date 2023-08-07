@@ -27,6 +27,7 @@
 #include "third_party/blink/renderer/core/html/media/html_media_element.h"
 #include "third_party/blink/renderer/core/html/media/html_video_element.h"
 #include "third_party/blink/renderer/core/layout/layout_video.h"
+#include "third_party/blink/renderer/core/loader/document_loader.h"
 #include "third_party/blink/renderer/modules/picture_in_picture/picture_in_picture_event.h"
 #include "third_party/blink/renderer/platform/heap/garbage_collected.h"
 #include "third_party/blink/renderer/platform/runtime_enabled_features.h"
@@ -379,6 +380,13 @@ void PictureInPictureControllerImpl::CreateDocumentPictureInPictureWindow(
   if (!LocalFrame::ConsumeTransientUserActivation(opener.GetFrame())) {
     exception_state.ThrowDOMException(DOMExceptionCode::kNotAllowedError,
                                       "Document PiP requires user activation");
+    resolver->Reject(exception_state);
+    return;
+  }
+
+  if (!opener.GetFrame()->Loader().GetDocumentLoader()->GetContentSettings()->allow_popup) {
+    exception_state.ThrowDOMException(DOMExceptionCode::kNotAllowedError,
+                                      "Document PiP requires user popup permission");
     resolver->Reject(exception_state);
     return;
   }
