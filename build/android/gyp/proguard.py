@@ -52,6 +52,8 @@ _IGNORE_WARNINGS = (
         r'EditorDialogToolbar',
         # https://crbug.com/1441226
         r'PaymentRequest[BH]',
+        # No fetching of trials
+        r'org\.chromium\.android_webview\.services\.AwVariationsSeedFetcher',
     ]) + ')',
     # TODO(agrieve): Remove once we update to U SDK.
     r'OnBackAnimationCallback',
