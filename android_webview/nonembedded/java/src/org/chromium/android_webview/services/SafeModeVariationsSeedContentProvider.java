@@ -85,13 +85,7 @@ public class SafeModeVariationsSeedContentProvider extends ContentProvider {
     }
 
     private Boolean awaitSeedResults() {
-        CountDownLatch countDownLatch = new CountDownLatch(1);
-        try {
-            return countDownLatch.await(TIMEOUT_IN_MILLIS, TimeUnit.MILLISECONDS);
-        } catch (InterruptedException e) {
-            Log.w(TAG, e.toString());
-            return false;
-        }
+        return false;
     }
 
     @Override
