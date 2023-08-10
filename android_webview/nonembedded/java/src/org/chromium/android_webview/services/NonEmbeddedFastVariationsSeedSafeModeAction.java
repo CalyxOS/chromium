@@ -27,13 +27,11 @@ public class NonEmbeddedFastVariationsSeedSafeModeAction implements NonEmbeddedS
 
     @Override
     public boolean onActivate() {
-        AwVariationsSeedFetcher.scheduleIfNeeded(/*requireFastMode=*/true);
         return true;
     }
 
     @Override
     public boolean onDeactivate() {
-        AwVariationsSeedFetcher.cancelSafeModeSeedFetchSchedulerJob();
         return true;
     }
 }
