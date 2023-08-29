@@ -889,7 +889,8 @@ PeerConnectionDependencyFactory::CreatePortAllocator(
       WebRTCIPHandlingPolicy policy =
           GetWebRTCIPHandlingPolicy(webrtc_ip_handling_policy);
       blink::WebContentSettingsClient* settings = web_frame->GetContentSettingsClient();
-      if (settings && settings->AllowContentSetting(ContentSettingsType::WEBRTC, false)) {
+      if (!settings || settings->AllowContentSetting(ContentSettingsType::WEBRTC,
+              /*default_value=*/true)) {
         policy = kDefault;
       }
 
