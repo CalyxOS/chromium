@@ -438,7 +438,7 @@ bool AutoplayPolicy::IsAutoplayAllowedPerSettings() const {
     return false;
   if (auto* settings_client = frame->GetContentSettingsClient()) {
     return settings_client->AllowContentSetting(
-        ContentSettingsType::AUTOPLAY, /*default_value*/ false);
+        ContentSettingsType::AUTOPLAY, /*default_value*/ true);
   }
   return true;
 }
