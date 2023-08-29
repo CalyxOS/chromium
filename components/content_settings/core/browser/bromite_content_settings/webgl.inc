@@ -1,4 +1,4 @@
-  Register(ContentSettingsType::WEBGL, "webgl", CONTENT_SETTING_BLOCK,
+  Register(ContentSettingsType::WEBGL, "webgl", CONTENT_SETTING_ALLOW,
            WebsiteSettingsInfo::SYNCABLE,
            /*allowlisted_schemes=*/{},
            /*valid_settings=*/{CONTENT_SETTING_ALLOW,
