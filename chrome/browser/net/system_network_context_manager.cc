@@ -635,7 +635,7 @@ SystemNetworkContextManager::~SystemNetworkContextManager() {
 void SystemNetworkContextManager::RegisterPrefs(PrefRegistrySimple* registry) {
   StubResolverConfigReader::RegisterPrefs(registry);
 
-  registry->RegisterBooleanPref(prefs::kAdBlockEnabled, false);
+  registry->RegisterBooleanPref(prefs::kAdBlockEnabled, true);
   registry->RegisterStringPref(prefs::kAdBlockFiltersURL,
     "https://www.bromite.org/filters/filters.dat");
 
