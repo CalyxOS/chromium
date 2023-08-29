@@ -938,7 +938,8 @@ PeerConnectionDependencyFactory::CreatePortAllocator(
       // collected depends on if mic/camera permission is granted for this
       // origin.
       blink::WebContentSettingsClient* settings = web_frame->GetContentSettingsClient();
-      if (settings && settings->AllowContentSetting(ContentSettingsType::WEBRTC, false)) {
+      if (!settings || settings->AllowContentSetting(ContentSettingsType::WEBRTC,
+              /*default_value=*/true)) {
         webrtc_ip_handling_policy = mojom::blink::WebRtcIpHandlingPolicy::kDefault;
       }
 
