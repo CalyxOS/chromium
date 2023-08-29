@@ -638,7 +638,7 @@ void SystemNetworkContextManager::RegisterPrefs(PrefRegistrySimple* registry) {
   StubResolverConfigReader::RegisterPrefs(registry);
   DefaultDnsOverHttpsConfigSource::RegisterPrefs(registry);
 
-  registry->RegisterBooleanPref(prefs::kAdBlockEnabled, false);
+  registry->RegisterBooleanPref(prefs::kAdBlockEnabled, true);
   registry->RegisterStringPref(prefs::kAdBlockFiltersURL,
     "about:blank");
 
