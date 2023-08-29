@@ -88,8 +88,8 @@ blink::WebContentSettingsClient* GetContentSettingsClientFor(
 bool AllowWebgl(ExecutionContext* context) {
   blink::WebContentSettingsClient* settings = GetContentSettingsClientFor(context);
   if (settings)
-    return settings->AllowContentSetting(ContentSettingsType::WEBGL, false);
-  return false;
+    return settings->AllowContentSetting(ContentSettingsType::WEBGL, /*default_value=*/true);
+  return true;
 }
 
 ExecutionContext::ExecutionContext(v8::Isolate* isolate,
