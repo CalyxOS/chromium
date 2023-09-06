@@ -217,6 +217,7 @@ static_library("safe_browsing") {
       "//components/webdata/common",
       "//content/public/browser",
       "//services/preferences/public/mojom:mojom",
+      "//third_party/flatbuffers:flatbuffers",
     ]
 
     allow_circular_includes_from += [ "//chrome/browser/ui/safety_hub" ]
