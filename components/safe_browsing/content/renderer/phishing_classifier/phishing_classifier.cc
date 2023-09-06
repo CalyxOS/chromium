@@ -234,7 +234,7 @@ void PhishingClassifier::VisualExtractionFinished(bool success) {
       *bitmap_, base::BindOnce(&PhishingClassifier::OnVisualTfLiteModelDone,
                                weak_factory_.GetWeakPtr(), std::move(verdict)));
 #else
-  RunCallback(*verdict);
+  RunCallback(*verdict, Result::kSuccess);
 #endif
 }
 
