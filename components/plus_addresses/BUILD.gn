@@ -102,6 +102,7 @@ source_set("plus_addresses") {
     "//services/data_decoder/public/cpp",
     "//services/network/public/cpp",
     "//ui/base",
+    "//third_party/re2",
   ]
   public_deps = [
     # While not strictly public by h file inclusion, this is a temporary move
