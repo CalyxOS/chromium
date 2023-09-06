@@ -69,6 +69,8 @@ class NavigationPredictorMetricsDocumentData
     UserInteractionsData(const UserInteractionsData&);
     UserInteractionsData& operator=(const UserInteractionsData&);
 
+    UserInteractionsData& operator=(UserInteractionsData&&) noexcept = default;
+
     // True if the anchor element is still in viewport, otherwise false.
     bool is_in_viewport = false;
     // True if the pointer is still hovering over the anchor element,
