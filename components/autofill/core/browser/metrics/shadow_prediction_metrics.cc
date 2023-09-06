@@ -61,6 +61,7 @@ int GetShadowPrediction(ServerFieldType current,
 }
 
 void LogShadowPredictionComparison(const AutofillField& field) {
+#pragma clang diagnostic ignored "-Wunused-variable"
   const auto& submitted_types = field.possible_types();
 
 #if BUILDFLAG(USE_INTERNAL_AUTOFILL_PATTERNS)
