@@ -6,6 +6,7 @@
 
 #include "base/base64.h"
 #include "base/base64url.h"
+#include "base/containers/contains.h"
 #include "build/branding_buildflags.h"
 #include "chrome/browser/bookmarks/bookmark_model_factory.h"
 #include "chrome/browser/browser_process.h"
