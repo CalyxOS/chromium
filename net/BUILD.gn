@@ -1585,6 +1585,7 @@ component("net") {
     configs -= [ "//build/config/compiler:default_optimization" ]
     configs += [ "//build/config/compiler:optimize_max" ]
   }
+  configs -= [ "//build/config/clang:find_bad_constructs" ]
 }
 
 # net_export.h has its own build target so that code (eg
