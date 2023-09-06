@@ -570,6 +570,7 @@ extern const base::FeatureParam<bool> kDomainSuggestionsAlternativeScoring;
 // on the main thread. After that, it can be called from any thread.
 struct MLConfig {
   MLConfig();
+#pragma clang diagnostic ignored "-Wdeprecated-copy-with-user-provided-copy"
   MLConfig(const MLConfig&);
 
   // If true, logs Omnibox URL scoring signals to OmniboxEventProto.
