@@ -95,6 +95,7 @@ Suggestion GetFillFullNameSuggestion(Suggestion::BackendId backend_id) {
   return suggestion;
 }
 
+#if 0 // unused in Bromite
 // Creates the suggestion that will fill the whole form for the profile. This
 // suggestion is displayed once the users is on group filling level or field by
 // field level. It is used as a way to allow users to go back to filling the
@@ -112,6 +113,7 @@ Suggestion GetFillEverythingFromAddressProfileSuggestion(
       IDS_AUTOFILL_A11Y_ANNOUNCE_FILL_EVERYTHING_FROM_ADDRESS_PROFILE_POPUP_OPTION_SELECTED);
   return suggestion;
 }
+#endif
 // Append new suggestions to `suggestions` based on the `ServerFieldType` list
 // provided. Suggestions are not added if their info is not found in the
 // provided `profile`. Returns true if any suggestion was added.
