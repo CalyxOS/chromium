@@ -58,6 +58,8 @@ static_library("libevent") {
     configs += [ "//build/config/compiler:optimize_max" ]
   }
 
+  configs -= [ "//build/config/clang:find_bad_constructs" ]
+
   configs -= [ "//build/config/compiler:chromium_code" ]
   configs += [ "//build/config/compiler:no_chromium_code" ]
 }
