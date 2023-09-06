@@ -1666,7 +1666,11 @@ config("clang_revision") {
         _expected_clang_revision = "$_py_revision-$_py_subrevision"
 
         assert(
-            _clang_revision == _expected_clang_revision,
+            filter_include([ _clang_revision ],
+                           [
+                             _expected_clang_revision,
+                             "$_expected_clang_revision,*",
+                           ]) != [],
             "clang_revision=\"$_clang_revision\" but update.py expected \"$_expected_clang_revision\". Did you forget to gclient sync?")
       }
     }
