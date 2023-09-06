@@ -281,6 +281,7 @@ std::optional<AlignedByteLength<uint64_t>> CalculateAlignedByteLength(
 }
 
 // Same as above, but given a map of names to descriptors.
+[[maybe_unused]]
 std::optional<AlignedByteLength<std::string>>
 CalculateAlignedByteLengthFromDescriptors(
     const base::flat_map<std::string, OperandDescriptor>&
@@ -389,6 +390,7 @@ UploadAndCreateConstantBufferBinding(
   return key_to_buffer_binding_map;
 }
 
+[[maybe_unused]]
 HRESULT MapAndCopyInputDataToBuffer(
     const base::flat_map<std::string, mojo_base::BigBuffer>& named_inputs,
     const std::map<std::string, D3D12_RANGE>& input_name_to_d3d12_range_map,
