@@ -262,6 +262,7 @@ bool ChromeBrowsingDataModelDelegate::IsCookieDeletionDisabled(
     auto* client = permissions::PermissionsClient::Get();
     return client->IsCookieDeletionDisabled(profile_, url);
   }
+  return false;
 #endif
   return false;
 }
