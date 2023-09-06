@@ -1006,11 +1006,11 @@ MLConfig& MLConfig::operator=(const MLConfig& other) = default;
 
 ScopedMLConfigForTesting::ScopedMLConfigForTesting()
     : original_config_(std::make_unique<MLConfig>(GetMLConfig())) {
-  GetMLConfigInternal() = {};
+  //GetMLConfigInternal() = {};
 }
 
 ScopedMLConfigForTesting::~ScopedMLConfigForTesting() {
-  GetMLConfigInternal() = *original_config_;
+  //GetMLConfigInternal() = *original_config_;
 }
 
 MLConfig& ScopedMLConfigForTesting::GetMLConfig() {
