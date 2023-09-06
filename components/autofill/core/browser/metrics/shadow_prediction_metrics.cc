@@ -74,11 +74,12 @@ void LogRegexShadowPredictions(const AutofillField& field) {
 
 void LogMlShadowPredictions(const AutofillField& field) {
 #if !BUILDFLAG(BUILD_WITH_TFLITE_LIB)
-  return;
+  if ((true)) return;
 #endif
   if (!base::FeatureList::IsEnabled(features::kAutofillModelPredictions)) {
     return;
   }
+#pragma clang diagnostic ignored "-Wunused-variable"
   const FieldTypeSet& submitted_types = field.possible_types();
   base::UmaHistogramSparse(
       "Autofill.ShadowPredictions.DefaultServerToMLModel",
