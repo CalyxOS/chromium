@@ -204,6 +204,7 @@ void EncodeRandomizedValue(const RandomizedEncoder& encoder,
                         output);
 }
 
+#if 0 // unused in Bromite
 // Merges manual and server type predictions.
 //
 // The logic to merge manual and server overrides (which may differ in length),
@@ -246,6 +247,7 @@ std::deque<FieldSuggestion> MergeManualAndServerOverrides(
 
   return result;
 }
+#endif
 
 void PopulateRandomizedFormMetadata(const RandomizedEncoder& encoder,
                                     const FormStructure& form,
