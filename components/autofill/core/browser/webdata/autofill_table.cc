@@ -412,6 +412,7 @@ void InsertBuilder(sql::Database* db,
           .c_str()));
 }
 
+#if 0 // unused in Bromite
 // Renames the table `from` into `to` and returns true if successful.
 bool RenameTable(sql::Database* db,
                  std::string_view from,
@@ -419,6 +420,7 @@ bool RenameTable(sql::Database* db,
   return db->Execute(
       base::StrCat({"ALTER TABLE ", from, " RENAME TO ", to}).c_str());
 }
+#endif
 
 // Wrapper around `sql::Database::DoesColumnExist()`, because that function
 // only accepts const char* parameters.
