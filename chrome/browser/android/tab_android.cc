@@ -16,6 +16,7 @@
 #include "base/memory/raw_ptr.h"
 #include "base/metrics/user_metrics.h"
 #include "cc/slim/layer.h"
+#pragma clang diagnostic ignored "-Wunused-function"
 #include "chrome/android/chrome_jni_headers/TabImpl_jni.h"
 #include "chrome/android/chrome_jni_headers/TabUtils_jni.h"
 #include "chrome/browser/android/background_tab_manager.h"

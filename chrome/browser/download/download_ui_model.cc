@@ -177,6 +177,7 @@ bool ShouldShowWarningForNoSafeBrowsing(Profile* profile) {
 #endif
 }
 
+#if 0 // unused in Bromite
 bool CanUserTurnOnSafeBrowsing(Profile* profile) {
 #if BUILDFLAG(FULL_SAFE_BROWSING)
   return !safe_browsing::IsSafeBrowsingPolicyManaged(*profile->GetPrefs());
@@ -184,6 +185,7 @@ bool CanUserTurnOnSafeBrowsing(Profile* profile) {
   return false;
 #endif
 }
+#endif
 
 }  // namespace
 
