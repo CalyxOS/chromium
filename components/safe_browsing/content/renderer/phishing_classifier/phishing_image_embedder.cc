@@ -52,17 +52,9 @@ void PhishingImageEmbedder::BeginImageEmbedding(DoneCallback done_callback) {
 }
 
 void PhishingImageEmbedder::OnPlaybackDone(std::unique_ptr<SkBitmap> bitmap) {
-  if (bitmap) {
-    bitmap_ = std::move(bitmap);
-    ScorerStorage::GetInstance()
-        ->GetScorer()
-        ->ApplyVisualTfLiteModelImageEmbedding(
-            *bitmap_,
-            base::BindOnce(&PhishingImageEmbedder::OnImageEmbeddingDone,
-                           weak_factory_.GetWeakPtr()));
-  } else {
-    RunFailureCallback();
-  }
+  // (UAZO) removed due error:
+  // no member named 'ApplyVisualTfLiteModelImageEmbedding' in 'safe_browsing::Scorer'
+  RunFailureCallback();
 }
 
 void PhishingImageEmbedder::CancelPendingImageEmbedding() {
