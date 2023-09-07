@@ -7,12 +7,12 @@
 # Force LF checkout for all source files
 *.bin binary
 *.c text eol=lf
-*.cc text eol=lf
+*.cc text eol=lf diff
 *.cpp text eol=lf
 *.csv text eol=lf
 *.grd   text eol=lf
 *.grdp   text eol=lf
-*.gn text eol=lf
+*.gn text eol=lf diff
 *.gni text eol=lf
 *.h text eol=lf
 *.html   text eol=lf
