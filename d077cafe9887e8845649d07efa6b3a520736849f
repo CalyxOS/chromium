@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f59c4bd7_a2d54ac9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-09-08T18:02:05Z",
+      "side": 1,
+      "message": "Environment issue, maybe debian bookworm git\n\nSolved using https://stackoverflow.com/questions/28026767/where-should-i-place-my-global-gitattributes-file",
+      "revId": "d077cafe9887e8845649d07efa6b3a520736849f",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
