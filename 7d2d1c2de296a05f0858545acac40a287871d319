@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dfd3f2f_10659592",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-09-12T22:46:41Z",
+      "side": 1,
+      "message": "I forgot to update the commit message. :( There are some things that needed changing, e.g.\n\nv1.60.4 now\n\nkTextFragmentAnchor actually *is* a privacy/security change and we included it elsewhere now.",
+      "revId": "7d2d1c2de296a05f0858545acac40a287871d319",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
