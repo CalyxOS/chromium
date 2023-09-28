@@ -29,6 +29,9 @@ BASE_FEATURE(kMediaDeviceIdRandomSaltsPerStorageKey,
              "MediaDeviceIdRandomSaltsPerStorageKey",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+SET_CROMITE_FEATURE_ENABLED(kMediaDeviceIdPartitioning);
+SET_CROMITE_FEATURE_ENABLED(kMediaDeviceIdRandomSaltsPerStorageKey);
+
 namespace {
 
 scoped_refptr<base::SequencedTaskRunner> CreateDatabaseTaskRunner() {
