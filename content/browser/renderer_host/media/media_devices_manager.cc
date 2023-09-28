@@ -927,6 +927,11 @@ void MediaDevicesManager::OnDevicesEnumerated(
       }
     }
   }
+#if !BUILDFLAG(IS_ANDROID)
+  int video_input_index = static_cast<size_t>(MediaDeviceType::kMediaVideoInput);
+  if (requested_types[video_input_index] && !has_permissions[video_input_index])
+    translation[video_input_index].clear();
+#endif
 
   GetAudioInputCapabilities(video_input_capabilities_requested,
                             audio_input_capabilities_requested,
