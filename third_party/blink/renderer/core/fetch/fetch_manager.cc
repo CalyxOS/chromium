@@ -270,6 +270,7 @@ class ResponseResolver final : public GarbageCollected<ResponseResolver> {
   // Rejects the promise with the supplied object.
   void Reject(v8::Local<v8::Value> error);
   void Reject(DOMException*);
+  void Detach();
 
   // Rejects the promise with the TypeError exception created at construction
   // time. Also optionally passes `devtools_request_id`, `issue_id`, and
@@ -322,6 +323,12 @@ void ResponseResolver::Reject(v8::Local<v8::Value> error) {
 void ResponseResolver::Reject(DOMException* dom_exception) {
   CHECK(resolver_);
   resolver_->Reject(dom_exception);
+  Clear();
+}
+
+void ResponseResolver::Detach() {
+  CHECK(resolver_);
+  resolver_->Detach();
   Clear();
 }
 
@@ -1286,10 +1293,20 @@ void FetchManager::Loader::Failed(
   if (response_resolver_) {
     ScriptState::Scope scope(GetScriptState());
     if (dom_exception) {
-      response_resolver_->Reject(dom_exception);
+      if (!GetFetchRequestData()->Keepalive()) {
+        response_resolver_->Reject(dom_exception);
+      } else {
+        response_resolver_->Detach();
+      }
     } else {
-      response_resolver_->RejectBecauseFailed(
+      if (!GetFetchRequestData()->Keepalive()) {
+        response_resolver_->RejectBecauseFailed(
           std::move(devtools_request_id), issue_id, std::move(issue_summary));
+      } else {
+        devtools_request_id.reset();
+        issue_summary.reset();
+        response_resolver_->Detach();
+      }
       LogIfKeepalive("Failed");
     }
     response_resolver_.Clear();
