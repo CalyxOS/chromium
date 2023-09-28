@@ -40,6 +40,36 @@
 #include "services/network/public/mojom/url_request.mojom.h"
 #include "third_party/blink/public/common/features.h"
 
+namespace {
+  constexpr net::NetworkTrafficAnnotationTag kTrafficAnnotation =
+    net::DefineNetworkTrafficAnnotation(
+        "keep_alive_url_loader", R"(
+      semantics {
+        sender: "Keep alive urls"
+        description:
+          "Allow a network request to survive to context destoy"
+        trigger:
+          "FetchLater API or keep-alive fetch api."
+        data: "Mutable"
+        destination: WEBSITE
+        last_reviewed: "2024-03-22"
+        internal {
+          contacts {
+            email: "uazo@users.noreply.github.com"
+          }
+        }
+        user_data {
+          type: NONE
+        }
+      }
+      policy {
+        cookies_allowed: YES
+        cookies_store: "user"
+        setting: "This feature cannot be disabled by settings."
+        policy_exception_justification: "Not implemented."
+      })");
+}
+
 namespace content {
 namespace {
 
@@ -301,7 +331,6 @@ KeepAliveURLLoader::KeepAliveURLLoader(
       forwarding_client_(
           std::make_unique<ForwardingClient>(this,
                                              std::move(forwarding_client))),
-      traffic_annotation_(traffic_annotation),
       network_loader_factory_(std::move(network_loader_factory)),
       stored_url_load_(std::make_unique<StoredURLLoad>()),
       policy_container_host_(std::move(policy_container_host)),
@@ -348,7 +377,7 @@ void KeepAliveURLLoader::Start() {
   url_loader_ = blink::ThrottlingURLLoader::CreateLoaderAndStart(
       network_loader_factory_, throttles_getter_.Run(), request_id_, options_,
       &resource_request_, forwarding_client_.get(),
-      net::NetworkTrafficAnnotationTag(traffic_annotation_),
+      net::NetworkTrafficAnnotationTag(kTrafficAnnotation),
       base::SingleThreadTaskRunner::GetCurrentDefault(),
       /*cors_exempt_header_list=*/std::nullopt,
       // `this`'s lifetime is at least the same as `url_loader_`.
