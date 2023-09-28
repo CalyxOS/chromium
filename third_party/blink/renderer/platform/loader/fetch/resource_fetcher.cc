@@ -2800,7 +2800,7 @@ void ResourceFetcher::PrepareForLeakDetection() {
 void ResourceFetcher::StopFetchingInternal(StopFetchingTarget target) {
   // TODO(toyoshim): May want to suspend scheduler while canceling loaders so
   // that the cancellations below do not awake unnecessary scheduling.
-
+  target = StopFetchingTarget::kIncludingKeepaliveLoaders;
   HeapVector<Member<ResourceLoader>> loaders_to_cancel;
   for (const auto& loader : non_blocking_loaders_) {
     if (target == StopFetchingTarget::kIncludingKeepaliveLoaders ||
