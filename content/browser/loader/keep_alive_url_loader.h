@@ -312,9 +312,6 @@ class CONTENT_EXPORT KeepAliveURLLoader
   // disconnected from the remote of URLLoader in the renderer.
   base::OneShotTimer disconnected_loader_timer_;
 
-  // The NetworkTrafficAnnotationTag for the request being loaded.
-  net::MutableNetworkTrafficAnnotationTag traffic_annotation_;
-
   // A refptr to the URLLoaderFactory implementation that can actually create a
   // URLLoader. An extra refptr is required here to support deferred loading.
   scoped_refptr<network::SharedURLLoaderFactory> network_loader_factory_;
