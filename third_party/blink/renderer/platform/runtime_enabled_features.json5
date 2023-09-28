@@ -1963,10 +1963,9 @@
     },
     {
       // The Blink runtime-enabled feature name for the API's IDL.
-      name: "FetchLaterAPI",
-      status: "experimental",
+      name: "FetchLaterAPI",   // disable
+      status: "experimental",  // by default
       origin_trial_feature_name: "FetchLaterAPI",
-      origin_trial_allows_third_party: true,
       base_feature: "FetchLaterAPI",
       // base_feature is meant as kill-switch. This runtime-enabled feature
       // should follow the Origin Trial unless explicitly overriden by Finch or
