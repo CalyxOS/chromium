@@ -25,6 +25,8 @@ BASE_FEATURE(kMediaDeviceIdPartitioning,
              "MediaDeviceIdPartitioning",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+SET_CROMITE_FEATURE_ENABLED(kMediaDeviceIdPartitioning);
+
 namespace {
 
 scoped_refptr<base::SequencedTaskRunner> CreateDatabaseTaskRunner() {
