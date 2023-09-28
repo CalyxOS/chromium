@@ -1170,7 +1170,11 @@ void FetchManager::Loader::Failed(
   if (resolver_) {
     ScriptState::Scope scope(GetScriptState());
     if (dom_exception) {
-      resolver_->Reject(dom_exception);
+      if (!GetFetchRequestData()->Keepalive()) {
+        resolver_->Reject(dom_exception);
+      } else {
+        resolver_->Detach();
+      }
     } else {
       v8::Local<v8::Value> value =
           exception_.Get(GetScriptState()->GetIsolate());
@@ -1190,7 +1194,11 @@ void FetchManager::Loader::Failed(
             V8String(GetScriptState()->GetIsolate(),
                      IdentifiersFactory::IdFromToken(*issue_id)));
       }
-      resolver_->Reject(value);
+      if (!GetFetchRequestData()->Keepalive()) {
+        resolver_->Reject(value);;
+      } else {
+        resolver_->Detach();
+      }
       LogIfKeepalive("Failed");
     }
   }
