@@ -1,0 +1,2 @@
+SET_CROMITE_FEATURE_ENABLED(kKeepAliveInBrowserMigration);
+SET_CROMITE_FEATURE_DISABLED(kAttributionReportingInBrowserMigration);
