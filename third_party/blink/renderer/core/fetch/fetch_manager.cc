@@ -297,6 +297,8 @@ class ResponseResolver final : public GarbageCollected<ResponseResolver> {
   void RejectBecauseFailed(std::optional<String> devtools_request_id,
                            std::optional<base::UnguessableToken> issue_id);
 
+  void Detach();
+
   void Trace(Visitor* visitor) const {
     visitor->Trace(resolver_);
     visitor->Trace(exception_);
@@ -366,6 +368,10 @@ void ResponseResolver::RejectBecauseFailed(
   }
   resolver_->Reject(value);
   Clear();
+}
+
+void ResponseResolver::Detach() {
+  resolver_->Detach();
 }
 
 void ResponseResolver::Clear() {
@@ -1283,10 +1289,18 @@ void FetchManager::Loader::Failed(
   if (response_resolver_) {
     ScriptState::Scope scope(GetScriptState());
     if (dom_exception) {
-      response_resolver_->Reject(dom_exception);
+      if (!GetFetchRequestData()->Keepalive()) {
+        response_resolver_->Reject(dom_exception);
+      } else {
+        response_resolver_->Detach();
+      }
     } else {
-      response_resolver_->RejectBecauseFailed(std::move(devtools_request_id),
-                                              issue_id);
+      if (!GetFetchRequestData()->Keepalive()) {
+        response_resolver_->RejectBecauseFailed(std::move(devtools_request_id),
+                                                issue_id);
+      } else {
+        response_resolver_->Detach();
+      }
       LogIfKeepalive("Failed");
     }
     response_resolver_.Clear();
