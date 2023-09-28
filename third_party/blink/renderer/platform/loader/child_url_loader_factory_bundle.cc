@@ -254,17 +254,19 @@ void ChildURLLoaderFactoryBundle::CreateLoaderAndStart(
     return;
   }
 
+  bool keepalive = request.keepalive;
+  if (keepalive && !request.is_fetch_later_api &&
+        url::IsSameOriginWith(request.url, request.referrer)) {
+    keepalive = false;
+  }
+
   // Use |keep_alive_loader_factory_| to send the keepalive requests to the
   // KeepAliveURLLoaderService in the browser process and trigger the special
   // keepalive request handling.
   // |keep_alive_loader_factory_| only presents when
   // features::kKeepAliveInBrowserMigration is true.
-  if (request.keepalive && keep_alive_loader_factory_ &&
-      base::FeatureList::IsEnabled(features::kKeepAliveInBrowserMigration) &&
-      (request.attribution_reporting_eligibility ==
-           network::mojom::AttributionReportingEligibility::kUnset ||
-       base::FeatureList::IsEnabled(
-           features::kAttributionReportingInBrowserMigration))) {
+  if (keepalive && keep_alive_loader_factory_ &&
+      base::FeatureList::IsEnabled(features::kKeepAliveInBrowserMigration)) {
     keep_alive_loader_factory_->CreateLoaderAndStart(
         std::move(loader), request_id, options, request, std::move(client),
         traffic_annotation);
