@@ -2001,8 +2001,8 @@
     {
       // The Blink runtime-enabled feature name for the API's IDL.
       // https://chromestatus.com/feature/4654499737632768
-      name: "FetchLaterAPI",
-      status: "stable",
+      name: "FetchLaterAPI",   // disable
+      status: "experimental",  // by default
     },
     {
       name: "FetchUploadStreaming",
