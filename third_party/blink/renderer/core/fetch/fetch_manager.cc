@@ -1283,10 +1283,18 @@ void FetchManager::Loader::Failed(
   if (response_resolver_) {
     ScriptState::Scope scope(GetScriptState());
     if (dom_exception) {
-      response_resolver_->Reject(dom_exception);
+      if (!GetFetchRequestData()->Keepalive()) {
+        response_resolver_->Reject(dom_exception);
+      } else {
+        response_resolver_->Detach();
+      }
     } else {
-      response_resolver_->RejectBecauseFailed(std::move(devtools_request_id),
-                                              issue_id);
+      if (!GetFetchRequestData()->Keepalive()) {
+        response_resolver_->RejectBecauseFailed(std::move(devtools_request_id),
+                                                issue_id);
+      } else {
+        response_resolver_->Detach();
+      }
       LogIfKeepalive("Failed");
     }
     response_resolver_.Clear();
