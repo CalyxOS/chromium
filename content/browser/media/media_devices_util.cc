@@ -164,6 +164,9 @@ blink::WebMediaDeviceInfo TranslateMediaDeviceInfo(
     bool has_permission,
     const MediaDeviceSaltAndOrigin& salt_and_origin,
     const blink::WebMediaDeviceInfo& device_info) {
+  // If device permission is not granted by the user,
+  // media-device enumeration will provide at most one device per type and the
+  // device IDs will not be available.
   if (has_permission) {
     return blink::WebMediaDeviceInfo(
         GetHMACForRawMediaDeviceID(salt_and_origin, device_info.device_id),
