@@ -234,7 +234,7 @@ bool TranslateRankerImpl::ShouldOfferTranslation(
   // absence of a model or if enforcement is disabled. As this is ranker is
   // subsumed into a more general assist ranker, this default will go away
   // (or become False).
-  const bool kDefaultResponse = true;
+  const bool kDefaultResponse = false;
 
   translate_event->set_ranker_request_timestamp_sec(
       (base::TimeTicks::Now() - base::TimeTicks()).InSeconds());
@@ -389,6 +389,8 @@ bool TranslateRankerImpl::ShouldOverrideMatchesPreviousLanguageDecision(
   }
 }
 
+SET_CROMITE_FEATURE_DISABLED(kTranslateRankerQuery);
+SET_CROMITE_FEATURE_DISABLED(kTranslateRankerEnforcement);
 }  // namespace translate
 
 std::ostream& operator<<(std::ostream& stream,
