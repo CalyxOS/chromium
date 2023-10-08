@@ -94,11 +94,11 @@ const char kDefaultTranslateRankerModelURL[] =
 #endif
 
 BASE_FEATURE(kTranslateRankerQuery,
-             "TranslateRankerQuery",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "TranslateRankerQuery",             // disable
+             base::FEATURE_DISABLED_BY_DEFAULT); // by default
 BASE_FEATURE(kTranslateRankerEnforcement,
-             "TranslateRankerEnforcement",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "TranslateRankerEnforcement",        // disable
+             base::FEATURE_DISABLED_BY_DEFAULT);  // by default
 
 BASE_FEATURE(kTranslateRankerPreviousLanguageMatchesOverride,
              "TranslateRankerPreviousLanguageMatchesOverride",
