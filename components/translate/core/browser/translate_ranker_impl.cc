@@ -94,11 +94,11 @@ const char kDefaultTranslateRankerModelURL[] =
 #endif
 
 BASE_FEATURE(kTranslateRankerQuery,
-             "TranslateRankerQuery",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "TranslateRankerQuery",             // disable
+             base::FEATURE_DISABLED_BY_DEFAULT); // by default
 BASE_FEATURE(kTranslateRankerEnforcement,
-             "TranslateRankerEnforcement",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "TranslateRankerEnforcement",        // disable
+             base::FEATURE_DISABLED_BY_DEFAULT);  // by default
 
 BASE_FEATURE(kTranslateRankerPreviousLanguageMatchesOverride,
              "TranslateRankerPreviousLanguageMatchesOverride",
@@ -234,7 +234,7 @@ bool TranslateRankerImpl::ShouldOfferTranslation(
   // absence of a model or if enforcement is disabled. As this is ranker is
   // subsumed into a more general assist ranker, this default will go away
   // (or become False).
-  const bool kDefaultResponse = true;
+  const bool kDefaultResponse = false;
 
   translate_event->set_ranker_request_timestamp_sec(
       (base::TimeTicks::Now() - base::TimeTicks()).InSeconds());
