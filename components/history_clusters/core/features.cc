@@ -114,7 +114,7 @@ const base::FeatureParam<bool> kSidePanelJourneysOpensFromOmnibox{
     &kSidePanelJourneys, "SidePanelJourneysOpensFromOmnibox", true};
 
 BASE_FEATURE(kRenameJourneys,
-             "RenameJourneys",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             "RenameJourneys",                         // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave
 
 }  // namespace history_clusters

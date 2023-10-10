@@ -33,13 +33,13 @@ BASE_FEATURE(kCustomizeChromeColorExtraction,
 // If enabled, shows an extension card within the Customize Chrome Side
 // Panel for access to the Chrome Web Store extensions.
 BASE_FEATURE(kCustomizeChromeSidePanelExtensionsCard,
-             "CustomizeChromeSidePanelExtensionsCard",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "CustomizeChromeSidePanelExtensionsCard", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // If enabled, shows wallpaper search within the Cusotmize Chrome Side Panel.
 BASE_FEATURE(kCustomizeChromeWallpaperSearch,
-             "CustomizeChromeWallpaperSearch",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "CustomizeChromeWallpaperSearch",         // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // Forces a dark Google logo for a specific subset of Chrome Web Store themes
 // (see crbug.com/1329552). This is enabled by default to allow finch to disable
@@ -165,8 +165,8 @@ BASE_FEATURE(kNtpModulesOrder,
 
 // Dummy feature to set param "NtpModulesMaxColumnCountParam".
 BASE_FEATURE(kNtpModulesMaxColumnCount,
-             "NtpModulesMaxColumnCount",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "NtpModulesMaxColumnCount",               // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // Dummy feature to set param "NtpModulesLoadedWithOtherModulesMaxInstanceCount"
 BASE_FEATURE(kNtpModulesLoadedWithOtherModulesMaxInstanceCount,
@@ -320,8 +320,8 @@ BASE_FEATURE(kNtpHistoryClustersModuleSuggestionChipHeader,
 // If enabled, Discounts badge will show on the visit tile in the History
 // clusters module when available.
 BASE_FEATURE(kNtpHistoryClustersModuleDiscounts,
-             "NtpHistoryClustersModuleDiscounts",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "NtpHistoryClustersModuleDiscounts",      // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 // If enabled, ChromeCart tile will show in the History clusters module when
 // available.
