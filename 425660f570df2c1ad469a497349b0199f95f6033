@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0214ce85_d8e766f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-10-10T16:25:32Z",
+      "side": 1,
+      "message": "Added in next-v118: https://github.com/uazo/cromite/commit/c3d74a36a850c466bb60d6385625b1fe345c50ce\n\nWorks +1 because it builds and doesn\u0027t obviously crash or anything.",
+      "revId": "425660f570df2c1ad469a497349b0199f95f6033",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
