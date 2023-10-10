@@ -157,8 +157,8 @@ BASE_FEATURE(
     base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kExtensionTelemetryTabsApiSignal,
-             "SafeBrowsingExtensionTelemetryTabsApiSignal",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "SafeBrowsingExtensionTelemetryTabsApiSignal", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);            // in Brave, too
 
 BASE_FEATURE(kExtensionTelemetryTabsExecuteScriptSignal,
              "SafeBrowsingExtensionTelemetryTabsExecuteScriptSignal",
@@ -173,8 +173,8 @@ BASE_FEATURE(kExtensionTelemetryDeclarativeNetRequestSignal,
              base::FEATURE_DISABLED_BY_DEFAULT);                          // in Brave, too
 
 BASE_FEATURE(kExtensionTelemetryDisableOffstoreExtensions,
-             "SafeBrowsingExtensionTelemetryDisableOffstoreExtensions",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "SafeBrowsingExtensionTelemetryDisableOffstoreExtensions",   // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);                          // in Brave, too
 
 BASE_FEATURE(kFileTypePoliciesTag,
              "FileTypePoliciesTag",

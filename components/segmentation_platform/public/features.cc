@@ -113,11 +113,11 @@ BASE_FEATURE(kSegmentationPlatformIosModuleRanker,
 #endif
 
 BASE_FEATURE(kSegmentationPlatformTimeDelaySampling,
-             "SegmentationPlatformTimeDelaySampling",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "SegmentationPlatformTimeDelaySampling",  // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 BASE_FEATURE(kSegmentationPlatformCollectTabRankData,
-             "SegmentationPlatformCollectTabRankData",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "SegmentationPlatformCollectTabRankData", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 }  // namespace segmentation_platform::features

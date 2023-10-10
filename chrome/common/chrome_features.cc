@@ -464,8 +464,8 @@ BASE_FEATURE(kPrivacyGuide3,
 // Guide feature in Chrome Settings. Also, this requires the PrivacyGuide3
 // feature to be enabled as well.
 BASE_FEATURE(kPrivacyGuidePreload,
-             "PrivacyGuidePreload",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "PrivacyGuidePreload",                    // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 
 #if BUILDFLAG(IS_ANDROID)
 BASE_FEATURE(kPrivacyGuideAndroid3,
@@ -475,8 +475,8 @@ BASE_FEATURE(kPrivacyGuideAndroid3,
 
 #if BUILDFLAG(IS_ANDROID)
 BASE_FEATURE(kPrivacyGuidePreloadAndroid,
-             "PrivacyGuidePreloadAndroid",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "PrivacyGuidePreloadAndroid",             // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);       // in Brave, too
 #endif
 
 #if !BUILDFLAG(IS_ANDROID)

@@ -77,8 +77,8 @@ BASE_FEATURE(kImprovedSemanticsActivityIndicators,
              base::FEATURE_DISABLED_BY_DEFAULT);
 
 BASE_FEATURE(kThirdPartyCookieDeprecationCookieSettings,
-             "ThirdPartyCookieDeprecationCookieSettings",
-             base::FEATURE_DISABLED_BY_DEFAULT);
+             "ThirdPartyCookieDeprecationCookieSettings", // disabled by default
+             base::FEATURE_DISABLED_BY_DEFAULT);          // in Brave, too
 
 }  // namespace features
 }  // namespace content_settings
