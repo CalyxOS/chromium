@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "356fa42f_8829ec68",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-10-10T16:25:37Z",
+      "side": 1,
+      "message": "I\u0027m eventually intending to squash this with the main Brave change if that sounds okay, but I wanted to keep it separate at first.\n\nWorks +1 because it builds and doesn\u0027t obviously crash or anything.",
+      "revId": "852d5898ca25d6d33a80d775bcfa2ee008fa916e",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
