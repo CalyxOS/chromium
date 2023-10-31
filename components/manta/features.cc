@@ -9,11 +9,13 @@
 namespace manta::features {
 
 BASE_FEATURE(kMantaService, "MantaService", base::FEATURE_ENABLED_BY_DEFAULT);
+SET_CROMITE_FEATURE_DISABLED(kMantaService);
 
 // Enables Orca Prod Server
 BASE_FEATURE(kOrcaUseProdServer,
              "OrcaUseProdServer",
              base::FEATURE_ENABLED_BY_DEFAULT);
+SET_CROMITE_FEATURE_DISABLED(kOrcaUseProdServer);
 
 // Enables SeaPen Prod Server
 BASE_FEATURE(kSeaPenUseProdServer,
