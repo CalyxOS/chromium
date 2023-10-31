@@ -41,4 +41,5 @@ bool IsMahiUseProdServerEnabled() {
   return base::FeatureList::IsEnabled(kMahiUseProdServer);
 }
 
+SET_CROMITE_FEATURE_DISABLED(kMantaService);
 }  // namespace manta::features
