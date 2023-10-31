@@ -9,36 +9,43 @@
 namespace manta::features {
 
 BASE_FEATURE(kMantaService, "MantaService", base::FEATURE_ENABLED_BY_DEFAULT);
+SET_CROMITE_FEATURE_DISABLED(kMantaService);
 
 // Enables Anchovy Prod Server
 BASE_FEATURE(kAnchovyUseProdServer,
              "AnchovyUseProdServer",
              base::FEATURE_ENABLED_BY_DEFAULT);
+SET_CROMITE_FEATURE_DISABLED(kAnchovyUseProdServer);
 
 // Enables Orca Prod Server
 BASE_FEATURE(kOrcaUseProdServer,
              "OrcaUseProdServer",
              base::FEATURE_ENABLED_BY_DEFAULT);
+SET_CROMITE_FEATURE_DISABLED(kOrcaUseProdServer);
 
 // Enables Scanner Prod Server
 BASE_FEATURE(kScannerUseProdServer,
              "ScannerUseProdServer",
              base::FEATURE_ENABLED_BY_DEFAULT);
+SET_CROMITE_FEATURE_DISABLED(kScannerUseProdServer);
 
 // Enables SeaPen Prod Server
 BASE_FEATURE(kSeaPenUseProdServer,
              "SeaPenUseProdServer",
              base::FEATURE_ENABLED_BY_DEFAULT);
+SET_CROMITE_FEATURE_DISABLED(kSeaPenUseProdServer);
 
 // Enables Mahi Prod Server
 BASE_FEATURE(kMahiUseProdServer,
              "MahiUseProdServer",
              base::FEATURE_ENABLED_BY_DEFAULT);
+SET_CROMITE_FEATURE_DISABLED(kMahiUseProdServer);
 
 // Enables Walrus Prod Server
 BASE_FEATURE(kWalrusUseProdServer,
              "WalrusUseProdServer",
              base::FEATURE_ENABLED_BY_DEFAULT);
+SET_CROMITE_FEATURE_DISABLED(kWalrusUseProdServer);
 
 bool IsMantaServiceEnabled() {
   return base::FeatureList::IsEnabled(kMantaService);
