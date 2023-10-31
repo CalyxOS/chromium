@@ -23,4 +23,5 @@ bool IsOrcaUseProdServerEnabled() {
   return base::FeatureList::IsEnabled(kOrcaUseProdServer);
 }
 
+SET_CROMITE_FEATURE_DISABLED(kMantaService);
 }  // namespace manta::features
