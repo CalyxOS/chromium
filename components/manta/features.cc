@@ -32,4 +32,5 @@ bool IsSeaPenUseProdServerEnabled() {
   return base::FeatureList::IsEnabled(kSeaPenUseProdServer);
 }
 
+SET_CROMITE_FEATURE_DISABLED(kMantaService);
 }  // namespace manta::features
