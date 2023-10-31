@@ -9,6 +9,7 @@
 namespace manta::features {
 
 BASE_FEATURE(kMantaService, "MantaService", base::FEATURE_ENABLED_BY_DEFAULT);
+SET_CROMITE_FEATURE_DISABLED(kMantaService);
 
 // Enables Anchovy Prod Server
 BASE_FEATURE(kAnchovyUseProdServer,
@@ -19,6 +20,7 @@ BASE_FEATURE(kAnchovyUseProdServer,
 BASE_FEATURE(kOrcaUseProdServer,
              "OrcaUseProdServer",
              base::FEATURE_ENABLED_BY_DEFAULT);
+SET_CROMITE_FEATURE_DISABLED(kOrcaUseProdServer);
 
 // Enables Scanner Prod Server
 BASE_FEATURE(kScannerUseProdServer,
