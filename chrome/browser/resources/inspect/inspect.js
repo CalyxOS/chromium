@@ -50,6 +50,7 @@ if ('browser-inspector' in queryParamsObject) {
 })();
 
 function isVersionNewerThanHost(version) {
+  if ((true)) return true;
   if (!HOST_CHROME_VERSION) {
     return false;
   }
