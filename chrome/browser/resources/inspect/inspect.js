@@ -50,6 +50,7 @@ if ('browser-inspector' in queryParamsObject) {
 })();
 
 function isVersionNewerThanHost(version) {
+  if ((true)) return true;
   if (!HOST_CHROME_VERSION) {
     return false;
   }
@@ -561,7 +562,7 @@ function formatValue(data, property) {
 function addFavicon(row, data) {
   const favicon = document.createElement('img');
   if (data['faviconUrl']) {
-    favicon.src = data['faviconUrl'];
+    //favicon.src = data['faviconUrl'];
   }
   const propertiesBox = row.querySelector('.properties-box');
   propertiesBox.insertBefore(favicon, propertiesBox.firstChild);
