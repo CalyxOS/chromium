@@ -1,5 +1,7 @@
 package org.chromium.chrome.browser.flags;
 
+import org.chromium.base.cached_flags.CachedFlag;
+import org.chromium.base.cached_flags.CachedFlagsSharedPreferences;
 import org.chromium.chrome.browser.flags.ChromeFeatureList;
 import org.chromium.chrome.browser.preferences.ChromePreferenceKeys;
 import org.chromium.chrome.browser.preferences.ChromeSharedPreferences;
@@ -27,7 +29,8 @@ public class CromiteNativeUtils {
 
         if (!featureName.isEmpty()) {
             CachedFlag cachedFlag = ChromeFeatureList.sAllCachedFlags.get(featureName);
-            String preferenceName = cachedFlag.getSharedPreferenceKey();
+            String preferenceName =
+                    CachedFlagsSharedPreferences.FLAGS_CACHED.createKey(featureName);
 
             ChromeSharedPreferences.getInstance().writeBoolean(preferenceName, newValue);
             cachedFlag.setValueReturnedOverride(newValue);
