@@ -12,6 +12,9 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import android.content.res.TypedArray;
+
 import androidx.annotation.ColorRes;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.preference.PreferenceViewHolder;
@@ -38,6 +41,11 @@ public class ChromeSwitchPreference extends SwitchPreferenceCompat {
      */
     private String mSummaryOverrideForScreenReader;
 
+    @Nullable
+    private String mFeatureName;
+
+    private final boolean mNeedRestart;
+
     public ChromeSwitchPreference(Context context) {
         this(context, null);
     }
@@ -46,6 +54,18 @@ public class ChromeSwitchPreference extends SwitchPreferenceCompat {
         super(context, attrs);
 
         mHasCustomLayout = ManagedPreferencesUtils.isCustomLayoutApplied(context, attrs);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ChromeBasePreference);
+        mFeatureName = a.getString(R.styleable.ChromeBasePreference_featureName);
+        mNeedRestart = a.getBoolean(R.styleable.ChromeBasePreference_needRestart, false);
+        a.recycle();
+    }
+
+    public String getFeatureName() {
+        return mFeatureName;
+    }
+
+    public boolean needRestart() {
+        return mNeedRestart;
     }
 
     /** Sets the ManagedPreferenceDelegate which will determine whether this preference is managed. */
