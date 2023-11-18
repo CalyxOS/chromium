@@ -34,7 +34,7 @@ public class HomepageSettings extends ChromeBaseSettingsFragment {
     private RadioButtonGroupHomepagePreference mRadioButtons;
 
     @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+    public void onCreatePreferencesCromite(Bundle savedInstanceState, String rootKey) {
         mHomepageManager = HomepageManager.getInstance();
 
         getActivity().setTitle(R.string.options_homepage_title);

@@ -378,4 +378,5 @@ BASE_FEATURE(kBrowserDynamicCodeDisabled,
              base::FEATURE_DISABLED_BY_DEFAULT);
 #endif  // BUILDFLAG(IS_WIN)
 
+#include "cromite_flags/chrome_browser_browser_features_cc.inc"
 }  // namespace features
