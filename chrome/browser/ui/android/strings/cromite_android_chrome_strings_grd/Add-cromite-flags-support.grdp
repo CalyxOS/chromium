@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grit-part>
+    <message name="IDS_RELAUNCH" desc="Relaunch message">
+        Relaunch
+    </message>
+    <message name="IDS_UI_RELAUNCH_NOTICE" desc="Summary for relaunch message">
+        Your changes will take effect the next time you relaunch Cromite.
+    </message>
+</grit-part>

@@ -594,4 +594,5 @@ BASE_FEATURE(kLegacyPKCS1ForTLS13,
              "LegacyPKCS1ForTLS13",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+#include "cromite_flags/net_base_features_cc.inc"
 }  // namespace net::features

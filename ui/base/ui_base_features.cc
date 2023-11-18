@@ -536,4 +536,5 @@ BASE_FEATURE(kAsyncFullscreenWindowState,
              "AsyncFullscreenWindowState",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+#include "cromite_flags/ui_base_features_cc.inc"
 }  // namespace features

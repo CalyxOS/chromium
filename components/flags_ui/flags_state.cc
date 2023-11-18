@@ -365,6 +365,21 @@ void FlagsState::GetSwitchesAndFeaturesFromFlags(
 
   for (const std::string& entry_name : enabled_entries) {
     const auto& entry_it = name_to_switch_map.find(entry_name);
+    if (entry_it == name_to_switch_map.end()) {
+      // check if is a cromite feature
+      std::string::size_type pos = entry_name.find('@');
+      if (pos != std::string::npos) {
+        std::string feature_name = entry_name.substr(0, pos);
+        if (base::FeatureList::IsCromiteFlag(feature_name)) {
+          if (entry_name.ends_with("@1"))
+            features->insert(entry_name + ":enabled");
+          else
+            features->insert(entry_name + ":disabled");
+          continue;
+        }
+      }
+      NOTREACHED_NORETURN();
+    }
     CHECK(entry_it != name_to_switch_map.end(), base::NotFatalUntil::M130);
 
     const SwitchEntry& entry = entry_it->second;
@@ -682,6 +697,27 @@ void FlagsState::GetFlagFeatureEntries(
       data.Set("links", std::move(links));
     }
 
+    if (entry.type == FeatureEntry::FEATURE_VALUE
+        || entry.type == FeatureEntry::FEATURE_WITH_PARAMS_VALUE) {
+      DCHECK(entry.feature.feature);
+      if (base::FeatureList::IsCromiteChanged(*entry.feature.feature)) {
+        bool is_enabled = base::FeatureList::GetCromiteChange(*entry.feature.feature);
+        data.Set("is_cromite", true);
+        data.Set("default_value",
+          is_enabled ? "enabled" : "disabled");
+      } else {
+        bool is_enabled = entry.feature.feature->default_state == base::FEATURE_ENABLED_BY_DEFAULT;
+        data.Set("default_value", is_enabled
+            ? "enabled" : "disabled");
+        if (is_enabled)
+          data.Set("is_default_value_on", true);
+      }
+      if (entry.feature.feature->is_cromite)
+        data.Set("is_cromite", true);
+      if (entry.feature.feature->is_new)
+        data.Set("is_new", true);
+    }
+
     switch (entry.type) {
       case FeatureEntry::SINGLE_VALUE:
       case FeatureEntry::SINGLE_DISABLE_VALUE:
@@ -810,6 +846,16 @@ void FlagsState::AddSwitchesToCommandLine(
   for (const std::string& entry_name : enabled_entries) {
     const auto& entry_it = name_to_switch_map.find(entry_name);
     if (entry_it == name_to_switch_map.end()) {
+      // check if is a cromite feature
+      std::string::size_type pos = entry_name.find('@');
+      if (pos != std::string::npos) {
+        std::string feature_name = entry_name.substr(0, pos);
+        if (base::FeatureList::IsCromiteFlag(feature_name)) {
+          feature_switches[feature_name] =
+            entry_name.ends_with("@1");
+          continue;
+        }
+      }
       NOTREACHED_IN_MIGRATION();
       continue;
     }
@@ -1062,6 +1108,14 @@ const FeatureEntry* FlagsState::FindFeatureEntryByName(
 bool FlagsState::IsSupportedFeature(const FlagsStorage* storage,
                                     const std::string& name,
                                     int platform_mask) const {
+  // check if is a cromite feature
+  std::string::size_type pos = name.find('@');
+  if (pos != std::string::npos) {
+    std::string feature_name = name.substr(0, pos);
+    if (base::FeatureList::IsCromiteFlag(feature_name)) {
+      return true;
+    }
+  }
   for (const auto& entry : feature_entries_) {
     DCHECK(entry.IsValid());
     if (!(entry.supported_platforms & platform_mask))

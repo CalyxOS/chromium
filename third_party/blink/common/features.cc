@@ -2708,4 +2708,5 @@ bool IsCanvasSharedBitmapConversionEnabled() {
       features::kCanvasSharedBitmapToSharedImage);
 }
 
+#include "cromite_flags/third_party_blink_common_features_cc.inc"
 }  // namespace blink::features

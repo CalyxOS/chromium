@@ -600,6 +600,7 @@ NET_EXPORT BASE_DECLARE_FEATURE(kOptimizeParsingDataUrls);
 // support RSA-PSS.
 NET_EXPORT BASE_DECLARE_FEATURE(kLegacyPKCS1ForTLS13);
 
+#include "cromite_flags/net_base_features_h.inc"
 }  // namespace net::features
 
 #endif  // NET_BASE_FEATURES_H_
