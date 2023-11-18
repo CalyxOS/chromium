@@ -440,4 +440,5 @@ BASE_FEATURE(kPageActionsMigration,
              "PageActionsMigration",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+#include "cromite_flags/chrome_browser_ui_ui_features_cc.inc"
 }  // namespace features

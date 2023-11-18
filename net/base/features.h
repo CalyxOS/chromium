@@ -687,6 +687,7 @@ NET_EXPORT BASE_DECLARE_FEATURE(kNewClientCertPathBuilding);
 // When enabled HSTS upgrades will only apply to top-level navigations.
 NET_EXPORT BASE_DECLARE_FEATURE(kHstsTopLevelNavigationsOnly);
 
+#include "cromite_flags/net_base_features_h.inc"
 }  // namespace net::features
 
 #endif  // NET_BASE_FEATURES_H_

@@ -9,6 +9,9 @@ found in the LICENSE file.
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation">
 
+    <string name="cromite_flags_title">Open Cromite flags list</string>
+    <string name="cromite_flags_url">chrome://flags/cromite</string>
+
     <!-- Full Screen Constants -->
     <!-- These constants were chosen empirically for their visually pleasant behavior.
          Contact tedchoc@chromium.org or dtrainor@chromium.org for questions about

@@ -24,8 +24,10 @@ import org.chromium.components.omnibox.OmniboxFeatures;
 import org.chromium.content_public.browser.ContentFeatureList;
 import org.chromium.content_public.browser.ContentFeatureMap;
 
+import org.chromium.chrome.browser.settings.ChromeBaseSettingsFragment;
+
 /** Fragment to keep track of all the accessibility related preferences. */
-public class AccessibilitySettings extends PreferenceFragmentCompat
+public class AccessibilitySettings extends ChromeBaseSettingsFragment
         implements EmbeddableSettingsPage, Preference.OnPreferenceChangeListener {
     public static final String PREF_PAGE_ZOOM_DEFAULT_ZOOM = "page_zoom_default_zoom";
     public static final String PREF_PAGE_ZOOM_INCLUDE_OS_ADJUSTMENT =
@@ -64,7 +66,7 @@ public class AccessibilitySettings extends PreferenceFragmentCompat
     }
 
     @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+    public void onCreatePreferencesCromite(Bundle savedInstanceState, String rootKey) {
         SettingsUtils.addPreferencesFromResource(this, R.xml.accessibility_preferences);
 
         mPageZoomDefaultZoomPref = (PageZoomPreference) findPreference(PREF_PAGE_ZOOM_DEFAULT_ZOOM);
