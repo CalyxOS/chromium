@@ -42,6 +42,7 @@ bool IsOnTheFlyMhtmlHashComputationEnabled();
 // offline pages to avoid showing them even when the device is online.
 bool IsOfflinePagesNetworkStateLikelyUnknown();
 
+#include "cromite_flags/components_offline_pages_core_offline_page_feature_h.inc"
 }  // namespace offline_pages
 
 #endif  // COMPONENTS_OFFLINE_PAGES_CORE_OFFLINE_PAGE_FEATURE_H_

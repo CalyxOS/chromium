@@ -84,7 +84,7 @@ public class PrivacySettings extends ChromeBaseSettingsFragment
     private final ObservableSupplierImpl<String> mPageTitle = new ObservableSupplierImpl<>();
 
     @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+    public void onCreatePreferencesCromite(Bundle savedInstanceState, String rootKey) {
         mPageTitle.set(getString(R.string.prefs_privacy_security));
 
         SettingsUtils.addPreferencesFromResource(this, R.xml.privacy_preferences);
