@@ -261,6 +261,7 @@ BASE_DECLARE_FEATURE(kUseUtf8EncodingForSvgImage);
 COMPONENT_EXPORT(UI_BASE_FEATURES)
 BASE_DECLARE_FEATURE(kAsyncFullscreenWindowState);
 
+#include "cromite_flags/ui_base_features_h.inc"
 }  // namespace features
 
 #endif  // UI_BASE_UI_BASE_FEATURES_H_

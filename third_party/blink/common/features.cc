@@ -2691,5 +2691,6 @@ BASE_FEATURE(kOptimizeLoadingDataUrls,
              "OptimizeLoadingDataUrls",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+#include "cromite_flags/third_party_blink_common_features_cc.inc"
 }  // namespace features
 }  // namespace blink

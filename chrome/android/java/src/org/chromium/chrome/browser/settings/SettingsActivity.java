@@ -4,6 +4,7 @@
 
 package org.chromium.chrome.browser.settings;
 
+import android.app.Activity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -88,6 +89,7 @@ import org.chromium.chrome.browser.sync.settings.ManageSyncSettings;
 import org.chromium.chrome.browser.ui.device_lock.MissingDeviceLockLauncher;
 import org.chromium.chrome.browser.ui.messages.snackbar.SnackbarManager;
 import org.chromium.chrome.browser.ui.messages.snackbar.SnackbarManager.SnackbarManageable;
+import org.chromium.chrome.browser.ui.messages.snackbar.Snackbar;
 import org.chromium.components.browser_ui.bottomsheet.BottomSheetController;
 import org.chromium.components.browser_ui.bottomsheet.BottomSheetControllerFactory;
 import org.chromium.components.browser_ui.bottomsheet.ManagedBottomSheetController;
@@ -128,6 +130,36 @@ public class SettingsActivity extends ChromeBaseAppCompatActivity
         implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback,
                 SnackbarManageable,
                 DisplayStyleObserver {
+    private static class RequestRestartDelegate implements ChromeBaseSettingsFragment.RequireRestartDelegate {
+        private SnackbarManager mSnackbarManager;
+        private Activity mActivity;
+
+        RequestRestartDelegate(SnackbarManager snackbarManager, Activity activity) {
+            mSnackbarManager = snackbarManager;
+            mActivity = activity;
+        }
+
+        @Override
+        public void RequireRestart() {
+            Snackbar mSnackbar = Snackbar.make(mActivity.getString(R.string.ui_relaunch_notice),
+                new SnackbarManager.SnackbarController() {
+                    @Override
+                    public void onDismissNoAction(Object actionData) { }
+
+                    @Override
+                    public void onAction(Object actionData) {
+                            ApplicationLifetime.terminate(true);
+                    }
+                }, Snackbar.TYPE_NOTIFICATION, Snackbar.UMA_UNKNOWN)
+                .setSingleLine(false)
+                .setAction(mActivity.getString(R.string.relaunch),
+                        /*actionData*/null)
+                .setDuration(/*durationMs*/70000);
+            if (!mSnackbarManager.isShowing())
+                mSnackbarManager.showSnackbar(mSnackbar);
+        }
+    }
+
     @VisibleForTesting(otherwise = VisibleForTesting.PACKAGE_PRIVATE)
     public static final String EXTRA_SHOW_FRAGMENT = "show_fragment";
 
@@ -370,6 +402,10 @@ public class SettingsActivity extends ChromeBaseAppCompatActivity
         if (fragment instanceof PrivacySandboxSettingsBaseFragment) {
             ((PrivacySandboxSettingsBaseFragment) fragment)
                     .setSnackbarManager(getSnackbarManager());
+        }
+        if (fragment instanceof ChromeBaseSettingsFragment) {
+            ((ChromeBaseSettingsFragment)fragment).setRequestRestartDelegate(
+                new RequestRestartDelegate(mSnackbarManager, this));
         }
         if (fragment instanceof AccountManagementFragment) {
             ((AccountManagementFragment) fragment).setSnackbarManager(mSnackbarManager);
