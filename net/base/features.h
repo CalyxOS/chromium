@@ -530,6 +530,7 @@ NET_EXPORT BASE_DECLARE_FEATURE(kDeviceBoundSessions);
 // save the cost of the JNI call for future access.
 NET_EXPORT BASE_DECLARE_FEATURE(kStoreConnectionSubtype);
 
+#include "cromite_flags/net_base_features_h.inc"
 }  // namespace net::features
 
 #endif  // NET_BASE_FEATURES_H_

@@ -43,6 +43,31 @@
 
 namespace base {
 
+namespace internal {
+
+using DefaultStateOverrides =
+    flat_map<const Feature*, FeatureState>;
+
+constexpr size_t kDefaultStateOverridesReserve = 64 * 4;
+
+DefaultStateOverrides& GetListOfNewFeatureState() {
+  static NoDestructor<DefaultStateOverrides>
+      startup_default_state_overrides([] {
+        DefaultStateOverrides v;
+        v.reserve(kDefaultStateOverridesReserve);
+        return v;
+      }());
+  return *startup_default_state_overrides;
+}
+
+FeatureDefaultStateOverrider::FeatureDefaultStateOverrider(
+    const Feature& feature, FeatureState state) {
+  auto& default_state_overrides = GetListOfNewFeatureState();
+  default_state_overrides.insert({&feature, state});
+}
+
+} // namespace internal
+
 namespace {
 
 // Pointer to the FeatureList instance singleton that was set via
@@ -473,6 +498,48 @@ bool FeatureList::IsEnabled(const Feature& feature) {
 }
 
 // static
+bool FeatureList::IsCromiteChanged(const Feature& feature) {
+  for(auto const& [key, value]: internal::GetListOfNewFeatureState()) {
+    if (key->name == feature.name) {
+      return true;
+    }
+  }
+  return false;
+}
+
+// static
+const base::Feature* FeatureList::GetCromiteFlag(const std::string& feature_name) {
+  for(auto const& [key, value]: internal::GetListOfNewFeatureState()) {
+    if (key->name == feature_name && key->is_cromite) {
+      return key;
+    }
+  }
+  NOTREACHED();
+  return nullptr;
+}
+
+// static
+bool FeatureList::IsCromiteFlag(const std::string& feature_name) {
+  for(auto const& [key, value]: internal::GetListOfNewFeatureState()) {
+    if (key->name == feature_name && key->is_cromite) {
+      return true;
+    }
+  }
+  return false;
+}
+
+// static
+bool FeatureList::GetCromiteChange(const Feature& feature) {
+  for(auto const& [key, value]: internal::GetListOfNewFeatureState()) {
+    if (key->name == feature.name) {
+      return value == base::FEATURE_ENABLED_BY_DEFAULT;
+    }
+  }
+  NOTREACHED();
+  return false;
+}
+
+// static
 bool FeatureList::IsValidFeatureOrFieldTrialName(std::string_view name) {
   return IsStringASCII(name) && name.find_first_of(",<*") == std::string::npos;
 }
@@ -718,6 +785,17 @@ void FeatureList::VisitFeaturesAndParams(FeatureVisitor& visitor) {
 
 void FeatureList::FinalizeInitialization() {
   DCHECK(!initialized_);
+  //LOG(INFO) << "---FinalizeInitialization";
+  for(auto const& [key, value]: internal::GetListOfNewFeatureState()) {
+    // LOG(INFO) << "---key " << key->name
+    //           << " "
+    //           << (value == base::FEATURE_ENABLED_BY_DEFAULT ? "1" : "0");
+    RegisterOverride(key->name,
+        value == base::FEATURE_ENABLED_BY_DEFAULT
+          ? OverrideState::OVERRIDE_ENABLE_FEATURE
+          : OverrideState::OVERRIDE_DISABLE_FEATURE,
+        /* field_trial = */ nullptr);
+  }
   // Store the field trial list pointer for DCHECKing.
   field_trial_list_ = FieldTrialList::GetInstance();
   initialized_ = true;
