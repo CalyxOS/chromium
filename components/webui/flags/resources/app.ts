@@ -132,6 +132,7 @@ export class FlagsAppElement extends CrLitElement {
     // <if expr="not is_ios">
     loadTimeData.getString('unavailable'),
     // </if>
+    "Cromite",
   ];
   protected selectedTabIndex_: number = 0;
 
@@ -150,9 +151,12 @@ export class FlagsAppElement extends CrLitElement {
 
   protected defaultFeatures: Feature[] = [];
   protected nonDefaultFeatures: Feature[] = [];
+  protected defaultCromiteFeatures: Feature[] = [];
+  protected nonDefaultCromiteFeatures: Feature[] = [];
   protected searching: boolean = false;
   protected needsRestart: boolean = false;
 
+  private onlyCromiteFlags: boolean = false;
   private announceStatusDelayMs: number = 100;
   private featuresResolver: PromiseResolver<void> = new PromiseResolver();
   private flagSearch: FlagSearch|null = null;
@@ -186,10 +190,25 @@ export class FlagsAppElement extends CrLitElement {
     if (changedPrivateProperties.has('data')) {
       const defaultFeatures: Feature[] = [];
       const nonDefaultFeatures: Feature[] = [];
+      const defaultCromiteFeatures: Feature[] = [];
+      const nonDefaultCromiteFeatures: Feature[] = [];
+
+      if (this.onlyCromiteFlags) {
+        this.data.supportedFeatures =
+          this.data.supportedFeatures.filter(item => item.is_new);
+      }
+      this.data.supportedFeatures.forEach(
+        f => (f.is_cromite
+                ? (f.is_default ? defaultCromiteFeatures : nonDefaultCromiteFeatures).push(f)
+                : undefined));
+      this.data.supportedFeatures.sort(
+        (a,b) => (a.internal_name.localeCompare(b.internal_name)));
 
       this.data.supportedFeatures.forEach(
           f => (f.is_default ? defaultFeatures : nonDefaultFeatures).push(f));
 
+      this.defaultCromiteFeatures = defaultCromiteFeatures;
+      this.nonDefaultCromiteFeatures = nonDefaultCromiteFeatures;
       this.defaultFeatures = defaultFeatures;
       this.nonDefaultFeatures = nonDefaultFeatures;
 
@@ -233,6 +252,11 @@ export class FlagsAppElement extends CrLitElement {
   override connectedCallback() {
     super.connectedCallback();
 
+    if (location.pathname == '/cromite') {
+      this.onlyCromiteFlags = true;
+      this.getRequiredElement("#appcontainer").classList.add('cromite');
+      document.title = "Cromite Flags List";
+    }
     // <if expr="not is_ios">
     const pathname = new URL(window.location.href).pathname;
     this.isFlagsDeprecatedUrl_ =

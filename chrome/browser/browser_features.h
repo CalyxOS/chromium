@@ -134,6 +134,7 @@ BASE_DECLARE_FEATURE(kRemovalOfIWAsFromTabCapture);
 // module, e.g.
 // //chrome/browser/<foo_module>/features.h
 //
+#include "cromite_flags/chrome_browser_browser_features_h.inc"
 }  // namespace features
 
 #endif  // CHROME_BROWSER_BROWSER_FEATURES_H_
