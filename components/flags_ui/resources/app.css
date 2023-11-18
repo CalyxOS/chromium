@@ -383,3 +383,27 @@ cr-tabs {
     padding-top: 1.5rem;
   }
 }
+#appcontainer {
+  overflow-y: scroll;
+}
+.cromite #header {
+  display: none;
+}
+.cromite .blurb-container {
+  display: none;
+}
+.cromite #tabs {
+  display: none;
+}
+.cromite #tab-content-available {
+  display: none;
+}
+.cromite #tab-content-unavailable {
+  display: none;
+}
+.cromite #tab-content-cromite {
+  display: block !important;
+}
+.cromite .section-header-title {
+  display: none;
+}

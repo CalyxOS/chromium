@@ -54,6 +54,10 @@ found in the LICENSE file.
         android:key="do_not_track"
         android:title="@string/do_not_track_title"
         android:fragment="org.chromium.chrome.browser.privacy.settings.DoNotTrackSettings" />
+    <org.chromium.chrome.browser.about_settings.HyperlinkPreference
+        android:key="cromite_flags"
+        android:title="@string/cromite_flags_title"
+        app:url="@string/cromite_flags_url" />
     <Preference
         android:key="preload_pages"
         android:title="@string/preload_pages_title"
