@@ -78,6 +78,10 @@ enum FeatureState {
   constinit const base::Feature feature(           \
       name, default_state, base::internal::FeatureMacroHandshake::kSecret)
 
+#define BASE_FEATURE_CROMITE(feature, name, default_state, cromite, is_new_flag) \
+  constinit const base::Feature feature(           \
+      name, default_state, base::internal::FeatureMacroHandshake::kSecret, cromite, is_new_flag)
+
 // Secret handshake to (try to) ensure all places that construct a base::Feature
 // go through the helper `BASE_FEATURE()` macro above.
 namespace internal {
@@ -108,8 +112,11 @@ enum class FeatureMacroHandshake { kSecret };
 struct BASE_EXPORT LOGICALLY_CONST Feature {
   constexpr Feature(const char* name,
                     FeatureState default_state,
-                    internal::FeatureMacroHandshake)
-      : name(name), default_state(default_state) {
+                    internal::FeatureMacroHandshake,
+                    bool cromite = false,
+                    bool is_new_flag = false)
+      : name(name), default_state(default_state),
+        is_cromite(cromite), is_new(is_new_flag) {
 #if BUILDFLAG(ENABLE_BANNED_BASE_FEATURE_PREFIX)
     if (std::string_view(name).find(BUILDFLAG(BANNED_BASE_FEATURE_PREFIX)) ==
         0) {
@@ -135,6 +142,9 @@ struct BASE_EXPORT LOGICALLY_CONST Feature {
   // NOTE: The actual runtime state may be different, due to a field trial or a
   // command line switch.
   const FeatureState default_state;
+
+  const bool is_cromite = false;
+  const bool is_new = false;
 
  private:
   friend class FeatureList;
@@ -411,6 +421,11 @@ class BASE_EXPORT FeatureList {
   // instance, which is checked in builds with DCHECKs enabled.
   static bool IsEnabled(const Feature& feature);
 
+  static bool IsCromiteFlag(const std::string& featureName);
+  static const base::Feature* GetCromiteFlag(const std::string& featureName);
+  static bool IsCromiteChanged(const Feature& feature);
+  static bool GetCromiteChange(const Feature& feature);
+
   // Some characters are not allowed to appear in feature names or the
   // associated field trial names, as they are used as special characters for
   // command-line serialization. This function checks that the strings are ASCII
@@ -675,5 +690,63 @@ class BASE_EXPORT FeatureList {
 };
 
 }  // namespace base
+
+namespace base {
+namespace internal {
+
+// Perform base::Feature duplicates check and fills overriden states into a
+// map that is used at runtime to get an override if available.
+class BASE_EXPORT FeatureDefaultStateOverrider {
+ public:
+  using FeatureOverrideInfo =
+      std::pair<std::reference_wrapper<const Feature>, FeatureState>;
+
+  FeatureDefaultStateOverrider(
+      const Feature& feature, FeatureState state);
+};
+
+}  // namespace internal
+}  // namespace base
+
+#define CROMITE_FEATURE(feature, name, default_state) \
+  BASE_FEATURE_CROMITE(feature, name, default_state, true, true); \
+  _Pragma("clang diagnostic push")                              \
+  _Pragma("clang diagnostic ignored \"-Wglobal-constructors\"") \
+  static const ::base::internal::FeatureDefaultStateOverrider   \
+      g_feature_default_state_overrider_ ##feature {feature, default_state}; \
+  _Pragma("clang diagnostic pop")                               \
+  static_assert(true, "") /* for a semicolon requirement */
+
+#define SET_CROMITE_FEATURE_ENABLED(feature) \
+  _Pragma("clang diagnostic push")                              \
+  _Pragma("clang diagnostic ignored \"-Wglobal-constructors\"") \
+  static const ::base::internal::FeatureDefaultStateOverrider   \
+      g_feature_default_state_overrider_ ##feature {feature, base::FEATURE_ENABLED_BY_DEFAULT}; \
+  _Pragma("clang diagnostic pop")                               \
+  static_assert(true, "") /* for a semicolon requirement */
+
+#define SET_CROMITE_FEATURE_DISABLED(feature) \
+  _Pragma("clang diagnostic push")                              \
+  _Pragma("clang diagnostic ignored \"-Wglobal-constructors\"") \
+  static const ::base::internal::FeatureDefaultStateOverrider   \
+      g_feature_default_state_overrider_ ##feature {feature, base::FEATURE_DISABLED_BY_DEFAULT}; \
+  _Pragma("clang diagnostic pop")                               \
+  static_assert(true, "") /* for a semicolon requirement */
+
+#define SET_CROMITE_FEATURE_ENABLED_W_NAMESPACE(namespace_value, feature) \
+  _Pragma("clang diagnostic push")                              \
+  _Pragma("clang diagnostic ignored \"-Wglobal-constructors\"") \
+  static const ::base::internal::FeatureDefaultStateOverrider   \
+      g_feature_default_state_overrider_ ##feature {namespace_value::feature, base::FEATURE_ENABLED_BY_DEFAULT}; \
+  _Pragma("clang diagnostic pop")                               \
+  static_assert(true, "") /* for a semicolon requirement */
+
+#define SET_CROMITE_FEATURE_DISABLED_W_NAMESPACE(namespace_value, feature) \
+  _Pragma("clang diagnostic push")                              \
+  _Pragma("clang diagnostic ignored \"-Wglobal-constructors\"") \
+  static const ::base::internal::FeatureDefaultStateOverrider   \
+      g_feature_default_state_overrider_ ##feature {namespace_value::feature, base::FEATURE_DISABLED_BY_DEFAULT}; \
+  _Pragma("clang diagnostic pop")                               \
+  static_assert(true, "") /* for a semicolon requirement */
 
 #endif  // BASE_FEATURE_LIST_H_
