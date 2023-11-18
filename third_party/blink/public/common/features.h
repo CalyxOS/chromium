@@ -1840,6 +1840,7 @@ BLINK_COMMON_EXPORT BASE_DECLARE_FEATURE(kOptimizeLoadingDataUrls);
 BLINK_COMMON_EXPORT BASE_DECLARE_FEATURE(kCanvasSharedBitmapToSharedImage);
 BLINK_COMMON_EXPORT bool IsCanvasSharedBitmapConversionEnabled();
 
+#include "cromite_flags/third_party_blink_common_features_h.inc"
 }  // namespace features
 }  // namespace blink
 

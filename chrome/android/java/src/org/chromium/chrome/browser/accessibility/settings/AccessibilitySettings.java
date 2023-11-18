@@ -18,6 +18,7 @@ import org.chromium.chrome.R;
 import org.chromium.chrome.browser.image_descriptions.ImageDescriptionsController;
 import org.chromium.chrome.browser.preferences.Pref;
 import org.chromium.chrome.browser.settings.SettingsLauncherFactory;
+import org.chromium.chrome.browser.settings.ChromeBaseSettingsFragment;
 import org.chromium.components.browser_ui.accessibility.AccessibilitySettingsDelegate;
 import org.chromium.components.browser_ui.accessibility.FontSizePrefs;
 import org.chromium.components.browser_ui.accessibility.FontSizePrefs.FontSizePrefsObserver;
@@ -36,7 +37,7 @@ import org.chromium.content_public.browser.ContentFeatureList;
 import org.chromium.content_public.browser.ContentFeatureMap;
 
 /** Fragment to keep track of all the accessibility related preferences. */
-public class AccessibilitySettings extends PreferenceFragmentCompat
+public class AccessibilitySettings extends ChromeBaseSettingsFragment
         implements SettingsPage, Preference.OnPreferenceChangeListener {
     public static final String PREF_TEXT_SCALE = "text_scale";
     public static final String PREF_PAGE_ZOOM_DEFAULT_ZOOM = "page_zoom_default_zoom";
@@ -99,7 +100,7 @@ public class AccessibilitySettings extends PreferenceFragmentCompat
     }
 
     @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+    public void onCreatePreferencesCromite(Bundle savedInstanceState, String rootKey) {
         SettingsUtils.addPreferencesFromResource(this, R.xml.accessibility_preferences);
 
         mTextScalePref = (TextScalePreference) findPreference(PREF_TEXT_SCALE);

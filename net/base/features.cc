@@ -596,4 +596,5 @@ BASE_FEATURE(kNoVarySearchIgnoreUnrecognizedKeys,
              "NoVarySearchIgnoreUnrecognizedKeys",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+#include "cromite_flags/net_base_features_cc.inc"
 }  // namespace net::features

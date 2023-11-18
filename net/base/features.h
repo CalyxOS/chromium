@@ -608,6 +608,7 @@ NET_EXPORT BASE_DECLARE_FEATURE(kKeepWhitespaceForDataUrls);
 // Otherwise, unrecognized keys are treated as if the header was invalid.
 NET_EXPORT BASE_DECLARE_FEATURE(kNoVarySearchIgnoreUnrecognizedKeys);
 
+#include "cromite_flags/net_base_features_h.inc"
 }  // namespace net::features
 
 #endif  // NET_BASE_FEATURES_H_
