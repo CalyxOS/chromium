@@ -16,7 +16,7 @@ import java.util.Map;
 /** Keeps track of values returned for cached flags and field trial parameters. */
 public abstract class ValuesReturned {
     @GuardedBy("sBoolValues")
-    private static final Map<String, Boolean> sBoolValues = new HashMap<>();
+    public static final Map<String, Boolean> sBoolValues = new HashMap<>();
 
     @GuardedBy("sStringValues")
     private static final Map<String, String> sStringValues = new HashMap<>();

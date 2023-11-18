@@ -629,4 +629,5 @@ BASE_FEATURE(kIgnoreHSTSForLocalhost,
              "IgnoreHSTSForLocalhost",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+#include "cromite_flags/net_base_features_cc.inc"
 }  // namespace net::features

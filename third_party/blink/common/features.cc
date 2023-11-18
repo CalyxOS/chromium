@@ -2932,4 +2932,5 @@ bool IsCanvasSharedBitmapConversionEnabled() {
 //
 // DO NOT ADD NEW FEATURES HERE.
 
+#include "cromite_flags/third_party_blink_common_features_cc.inc"
 }  // namespace blink::features
