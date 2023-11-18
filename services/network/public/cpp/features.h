@@ -181,6 +181,7 @@ extern const base::FeatureParam<bool> kSkipTpcdMitigationsForAdsMetadata;
 COMPONENT_EXPORT(NETWORK_CPP)
 extern const base::FeatureParam<bool> kSkipTpcdMitigationsForAdsSupport;
 
+#include "cromite_flags/services_network_public_cpp_features_h.inc"
 }  // namespace features
 }  // namespace network
 
