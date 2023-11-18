@@ -20,7 +20,7 @@
 namespace version_ui {
 namespace {
 
-#if !defined(NDEBUG)
+#if true
 std::string GetActiveGroupNameAsString(
     const base::FieldTrial::ActiveGroup& group) {
   static const unsigned char kNonBreakingHyphenUTF8[] = {0xE2, 0x80, 0x91,
@@ -56,7 +56,7 @@ base::Value::List GetVariationsList() {
   base::FieldTrialListIncludingLowAnonymity::GetActiveFieldTrialGroups(
       &active_groups);
 
-#if !defined(NDEBUG)
+#if true
   for (const auto& group : active_groups) {
     variations.push_back(GetActiveGroupNameAsString(group));
   }
