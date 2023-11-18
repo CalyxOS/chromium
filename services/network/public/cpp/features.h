@@ -195,6 +195,7 @@ COMPONENT_EXPORT(NETWORK_CPP) BASE_DECLARE_FEATURE(kStorageAccessHeaders);
 // Enables the Storage Access Headers Origin Trial.
 COMPONENT_EXPORT(NETWORK_CPP) BASE_DECLARE_FEATURE(kStorageAccessHeadersTrial);
 
+#include "cromite_flags/services_network_public_cpp_features_h.inc"
 }  // namespace network::features
 
 #endif  // SERVICES_NETWORK_PUBLIC_CPP_FEATURES_H_

@@ -109,5 +109,6 @@ BASE_FEATURE(kContentSettingsPartitioning,
              "ContentSettingsPartitioning",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+#include "cromite_flags/components_content_settings_core_common_features_cc.inc"
 }  // namespace features
 }  // namespace content_settings
