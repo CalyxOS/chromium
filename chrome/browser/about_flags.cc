@@ -3713,6 +3713,10 @@ const FeatureEntry::Choice kAccountBookmarksAndReadingListBehindOptInChoices[] =
 };
 #endif  // BUILDFLAG(IS_ANDROID)
 
+#define FEATURE_PARAM_SECTION
+#include "cromite_flags/chrome_browser_about_flags_cc.inc"
+#undef FEATURE_PARAM_SECTION
+
 // RECORDING USER METRICS FOR FLAGS:
 // -----------------------------------------------------------------------------
 // The first line of the entry is the internal name.
@@ -3739,6 +3743,9 @@ const FeatureEntry::Choice kAccountBookmarksAndReadingListBehindOptInChoices[] =
 const FeatureEntry kFeatureEntries[] = {
 // Include generated flags for flag unexpiry; see //docs/flag_expiry.md and
 // //tools/flags/generate_unexpire_flags.py.
+#define FLAG_SECTION
+#include "cromite_flags/chrome_browser_about_flags_cc.inc"
+#undef FLAG_SECTION
 #include "build/chromeos_buildflags.h"
 #include "chrome/browser/unexpire_flags_gen.inc"
     {variations::switches::kEnableBenchmarking,

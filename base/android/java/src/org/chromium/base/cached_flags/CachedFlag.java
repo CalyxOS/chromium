@@ -157,6 +157,12 @@ public class CachedFlag extends Flag {
                 .removeKeysWithPrefix(CachedFlagsSharedPreferences.FLAGS_CACHED);
     }
 
+    public void setValueReturnedOverride(@Nullable Boolean value) {
+        synchronized (ValuesReturned.sBoolValues) {
+            ValuesReturned.sBoolValues.put(getSharedPreferenceKey(), value);
+        }
+    }
+
     /** Create a Map of feature names -> {@link CachedFlag} from multiple lists of CachedFlags. */
     public static Map<String, CachedFlag> createCachedFlagMap(
             List<List<CachedFlag>> allCachedFlagsLists) {
