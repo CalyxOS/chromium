@@ -474,4 +474,5 @@ const base::FeatureParam<int> kNetworkContextPrefetchMaxLoaders{
     &kNetworkContextPrefetch,
     /*name=*/"max_loaders", /*default_value=*/10};
 
+#include "cromite_flags/services_network_public_cpp_features_cc.inc"
 }  // namespace network::features
