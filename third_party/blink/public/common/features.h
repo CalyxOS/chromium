@@ -1709,6 +1709,7 @@ BLINK_COMMON_EXPORT BASE_DECLARE_FEATURE(kNoThrottlingVisibleAgent);
 // https://github.com/WICG/turtledove/blob/main/FLEDGE.md#23-scoring-bids
 BLINK_COMMON_EXPORT BASE_DECLARE_FEATURE(kRenderSizeInScoreAdBrowserSignals);
 
+#include "cromite_flags/third_party_blink_common_features_h.inc"
 }  // namespace features
 }  // namespace blink
 

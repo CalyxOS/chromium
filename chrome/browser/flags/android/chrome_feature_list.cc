@@ -986,5 +986,6 @@ BASE_FEATURE(kWebApkAllowIconUpdate,
              "WebApkAllowIconUpdate",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+#include "cromite_flags/chrome_browser_flags_android_chrome_feature_list_cc.inc"
 }  // namespace android
 }  // namespace chrome
