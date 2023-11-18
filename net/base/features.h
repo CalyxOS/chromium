@@ -522,6 +522,7 @@ NET_EXPORT BASE_DECLARE_FEATURE(kStorageAccessHeaders);
 // not causing any problems.
 NET_EXPORT BASE_DECLARE_FEATURE(kSpdySessionForProxyAdditionalChecks);
 
+#include "cromite_flags/net_base_features_h.inc"
 }  // namespace net::features
 
 #endif  // NET_BASE_FEATURES_H_

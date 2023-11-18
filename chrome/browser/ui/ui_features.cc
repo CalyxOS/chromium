@@ -517,4 +517,5 @@ BASE_FEATURE(kStopLoadingAnimationForHiddenWindow,
              "StopLoadingAnimationForHiddenWindow",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+#include "cromite_flags/chrome_browser_ui_ui_features_cc.inc"
 }  // namespace features
