@@ -22,10 +22,27 @@ class FeatureParserDelegate(java_cpp_utils.CppConstantParser.Delegate):
   #   ExtractConstantName() -> 'ConstantName'
   #   ExtractValue() -> '"StringNameOfTheFeature"'
   FEATURE_RE = re.compile(r'BASE_FEATURE\(k([^,]+),')
+
+  FEATURE_RE1 = re.compile(r'CROMITE_FEATURE\(k([^,]+),')
+  FEATURE_RE2 = re.compile(r'CROMITE_FEATURE_KEEP_DISABLED\(k([^,]+),')
+  FEATURE_RE3 = re.compile(r'CROMITE_FEATURE_DISABLED\(k([^,]+),')
+  FEATURE_RE4 = re.compile(r'CROMITE_FEATURE_KEEP_ENABLED\(k([^,]+),')
+  FEATURE_RE5 = re.compile(r'CROMITE_FEATURE_ENABLED\(k([^,]+),')
+
   VALUE_RE = re.compile(r'\s*("(?:\"|[^"])*")\s*,')
 
   def ExtractConstantName(self, line):
     match = FeatureParserDelegate.FEATURE_RE.match(line)
+    if match is None:
+      match = FeatureParserDelegate.FEATURE_RE1.match(line)
+    if match is None:
+      match = FeatureParserDelegate.FEATURE_RE2.match(line)
+    if match is None:
+      match = FeatureParserDelegate.FEATURE_RE3.match(line)
+    if match is None:
+      match = FeatureParserDelegate.FEATURE_RE4.match(line)
+    if match is None:
+      match = FeatureParserDelegate.FEATURE_RE5.match(line)
     return match.group(1) if match else None
 
   def ExtractValue(self, line):

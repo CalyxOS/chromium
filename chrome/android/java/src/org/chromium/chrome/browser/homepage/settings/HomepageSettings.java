@@ -37,7 +37,7 @@ public class HomepageSettings extends ChromeBaseSettingsFragment {
     private final ObservableSupplierImpl<String> mPageTitle = new ObservableSupplierImpl<>();
 
     @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+    public void onCreatePreferencesCromite(Bundle savedInstanceState, String rootKey) {
         mHomepageManager = HomepageManager.getInstance();
 
         mPageTitle.set(getString(R.string.options_homepage_title));
