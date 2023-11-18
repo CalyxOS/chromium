@@ -133,6 +133,8 @@ BASE_FEATURE(kOsAdditionalSecurityPermissionKillSwitch,
              "OsAdditionalSecurityPermissionKillSwitch",
              base::FEATURE_DISABLED_BY_DEFAULT);
 #endif
+
+#include "cromite_flags/components_permissions_features_cc.inc"
 }  // namespace features
 namespace feature_params {
 

@@ -1506,4 +1506,5 @@ bool IsPushSubscriptionChangeEventEnabled() {
              features::kPushSubscriptionChangeEventOnResubscribe);
 }
 
+#include "cromite_flags/content_public_common_content_features_cc.inc"
 }  // namespace features
