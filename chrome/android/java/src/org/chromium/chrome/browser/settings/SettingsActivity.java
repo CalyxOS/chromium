@@ -4,6 +4,7 @@
 
 package org.chromium.chrome.browser.settings;
 
+import android.app.Activity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -32,7 +33,9 @@ import org.chromium.base.Callback;
 import org.chromium.base.CallbackUtils;
 import org.chromium.base.Log;
 import org.chromium.base.metrics.RecordHistogram;
+import org.chromium.base.supplier.Supplier;
 import org.chromium.base.supplier.ObservableSupplier;
+import org.chromium.base.supplier.OneshotSupplier;
 import org.chromium.base.supplier.OneshotSupplierImpl;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.ChromeBaseAppCompatActivity;
@@ -41,12 +44,14 @@ import org.chromium.chrome.browser.back_press.SecondaryActivityBackPressUma.Seco
 import org.chromium.chrome.browser.feedback.HelpAndFeedbackLauncherImpl;
 import org.chromium.chrome.browser.flags.ChromeFeatureList;
 import org.chromium.chrome.browser.init.ChromeBrowserInitializer;
+import org.chromium.chrome.browser.lifetime.ApplicationLifetime;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.profiles.ProfileManager;
 import org.chromium.chrome.browser.profiles.ProfileManagerUtils;
 import org.chromium.chrome.browser.ui.device_lock.MissingDeviceLockLauncher;
 import org.chromium.chrome.browser.ui.messages.snackbar.SnackbarManager;
 import org.chromium.chrome.browser.ui.messages.snackbar.SnackbarManager.SnackbarManageable;
+import org.chromium.chrome.browser.ui.messages.snackbar.Snackbar;
 import org.chromium.components.browser_ui.bottomsheet.BottomSheetController;
 import org.chromium.components.browser_ui.bottomsheet.BottomSheetControllerFactory;
 import org.chromium.components.browser_ui.bottomsheet.ManagedBottomSheetController;
@@ -83,6 +88,40 @@ import java.util.Locale;
  */
 public class SettingsActivity extends ChromeBaseAppCompatActivity
         implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback, SnackbarManageable {
+    private static class RequestRestartDelegate implements ChromeBaseSettingsFragment.RequireRestartDelegate {
+        private OneshotSupplier<SnackbarManager> mSnackbarManagerSupplier;
+        private Activity mActivity;
+
+        RequestRestartDelegate(OneshotSupplier<SnackbarManager> snackbarManagerSupplier,
+                               Activity activity) {
+            mSnackbarManagerSupplier = snackbarManagerSupplier;
+            mActivity = activity;
+        }
+
+        @Override
+        public void RequireRestart() {
+            mSnackbarManagerSupplier.onAvailable(
+                (snackbarManager) -> {
+                    Snackbar mSnackbar = Snackbar.make(mActivity.getString(R.string.ui_relaunch_notice),
+                        new SnackbarManager.SnackbarController() {
+                            @Override
+                            public void onDismissNoAction(Object actionData) { }
+
+                            @Override
+                            public void onAction(Object actionData) {
+                                    ApplicationLifetime.terminate(true);
+                            }
+                        }, Snackbar.TYPE_NOTIFICATION, Snackbar.UMA_UNKNOWN)
+                        .setSingleLine(false)
+                        .setAction(mActivity.getString(R.string.relaunch),
+                                /*actionData*/null)
+                        .setDuration(/*durationMs*/70000);
+                    if (!snackbarManager.isShowing())
+                        snackbarManager.showSnackbar(mSnackbar);
+                });
+        }
+    }
+
     @VisibleForTesting(otherwise = VisibleForTesting.PACKAGE_PRIVATE)
     public static final String EXTRA_SHOW_FRAGMENT = "show_fragment";
 
@@ -141,7 +180,8 @@ public class SettingsActivity extends ChromeBaseAppCompatActivity
                         mProfile,
                         mSnackbarManagerSupplier,
                         mBottomSheetControllerSupplier,
-                        getModalDialogManagerSupplier()),
+                        getModalDialogManagerSupplier(),
+                        () -> new RequestRestartDelegate(mSnackbarManagerSupplier, this)),
                 true /* recursive */);
         fragmentManager.registerFragmentLifecycleCallbacks(
                 new WideDisplayPaddingApplier(), false /* recursive */);

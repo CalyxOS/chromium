@@ -181,4 +181,5 @@ BASE_FEATURE(kEncryptAllPasswordsWithOSCryptAsync,
              "EncryptAllPasswordsWithOSCryptAsync",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+#include "cromite_flags/components_password_manager_core_browser_features_password_features_cc.inc"
 }  // namespace password_manager::features
