@@ -12,9 +12,14 @@ android_library("java") {
     "android/java/src/org/chromium/chrome/browser/flags/ChromeFeatureMap.java",
     "android/java/src/org/chromium/chrome/browser/flags/ChromeSessionState.java",
   ]
+  sources += [
+    "android/java/src/org/chromium/chrome/browser/flags/cromite/include_all_directory.java",
+  ]
   public_deps = [ "//components/cached_flags:java" ]
   deps = [
+    ":java_cromite_cached_flags",
     "//base:base_java",
+    "//base:base_cached_flags_java",
     "//base/version_info/android:version_constants_java",
     "//build:chromeos_buildflags",
     "//build/android:build_java",
@@ -24,10 +29,18 @@ android_library("java") {
     "//third_party/jni_zero:jni_zero_java",
   ]
   srcjar_deps = [
+    ":java_cromite_cached_flags",
     ":chrome_android_java_switches_srcjar",
     ":chrome_browser_flags_enums_srcjar",
     ":jni_headers",
   ]
+}
+
+java_bromite_impl("java_cromite_cached_flags") {
+  inputs = [ "android/java/src/org/chromium/chrome/browser/flags/cromite/include_all_directory.java" ]
+  namespace = "org.chromium.chrome.browser.flags.cromite"
+  template = "android/java/src/org/chromium/chrome/browser/flags/cromite/java_template/CromiteCachedFlag.java.tmpl"
+  static_classes = true
 }
 
 generate_jni("jni_headers") {
