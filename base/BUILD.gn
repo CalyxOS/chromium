@@ -202,6 +202,8 @@ buildflag_header("message_pump_buildflags") {
 # This does not include test code (test support and anything in the test
 # directory) which should use source_set as is recommended for GN targets).
 component("base") {
+  deps = [ "//cromite_flags", ]
+
   sources = [
     "allocator/allocator_check.cc",
     "allocator/allocator_check.h",
@@ -1054,7 +1056,7 @@ component("base") {
     "//build/config/compiler:wglobal_constructors",
   ]
 
-  deps = [
+  deps += [
     ":check_version_internal",
     ":message_pump_buildflags",
     "//base/allocator:buildflags",
