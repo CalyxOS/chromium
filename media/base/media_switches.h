@@ -561,5 +561,5 @@ MEDIA_EXPORT OOPVDMode GetOutOfProcessVideoDecodingMode();
 MEDIA_EXPORT uint32_t GetPassthroughAudioFormats();
 
 }  // namespace media
-
+#include "cromite_flags/media_base_media_switches_h.inc"
 #endif  // MEDIA_BASE_MEDIA_SWITCHES_H_
