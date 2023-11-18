@@ -200,6 +200,7 @@ BASE_DECLARE_FEATURE(kAvoidResourceRequestCopies);
 
 COMPONENT_EXPORT(NETWORK_CPP) BASE_DECLARE_FEATURE(kDocumentIsolationPolicy);
 
+#include "cromite_flags/services_network_public_cpp_features_h.inc"
 }  // namespace features
 }  // namespace network
 
