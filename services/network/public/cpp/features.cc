@@ -614,4 +614,5 @@ BASE_FEATURE(kDeviceBoundSessionAccessObserverSharedRemote,
 
 BASE_FEATURE(kCSPScriptSrcV2, "ScriptSrcV2", base::FEATURE_DISABLED_BY_DEFAULT);
 
+#include "cromite_flags/services_network_public_cpp_features_cc.inc"
 }  // namespace network::features

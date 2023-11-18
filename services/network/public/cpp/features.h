@@ -329,6 +329,7 @@ BASE_DECLARE_FEATURE(kDeviceBoundSessionAccessObserverSharedRemote);
 COMPONENT_EXPORT(NETWORK_CPP_FLAGS_AND_SWITCHES)
 BASE_DECLARE_FEATURE(kCSPScriptSrcV2);
 
+#include "cromite_flags/services_network_public_cpp_features_h.inc"
 }  // namespace network::features
 
 #endif  // SERVICES_NETWORK_PUBLIC_CPP_FEATURES_H_
