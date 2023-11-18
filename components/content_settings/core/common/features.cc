@@ -112,5 +112,6 @@ BASE_FEATURE(kIndexedHostContentSettingsMap,
              "IndexedHostContentSettingsMap",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+#include "cromite_flags/components_content_settings_core_common_features_cc.inc"
 }  // namespace features
 }  // namespace content_settings
