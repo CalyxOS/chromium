@@ -708,4 +708,5 @@ BASE_FEATURE(kSelfSignedLocalNetworkInterstitial,
 BASE_FEATURE(kVerifyQWACs, "VerifyQWACs", base::FEATURE_DISABLED_BY_DEFAULT);
 #endif  // BUILDFLAG(CHROME_ROOT_STORE_SUPPORTED)
 
+#include "cromite_flags/net_base_features_cc.inc"
 }  // namespace net::features
