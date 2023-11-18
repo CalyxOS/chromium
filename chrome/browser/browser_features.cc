@@ -335,4 +335,5 @@ BASE_FEATURE(kOmniboxTriggerForNoStatePrefetch,
              "OmniboxTriggerForNoStatePrefetch",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+#include "cromite_flags/chrome_browser_browser_features_cc.inc"
 }  // namespace features
