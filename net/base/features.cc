@@ -701,4 +701,5 @@ BASE_FEATURE(kUseCertTransparencyAwareApiForOsCertVerify,
              base::FEATURE_ENABLED_BY_DEFAULT);
 #endif  // BUILDFLAG(IS_ANDROID)
 
+#include "cromite_flags/net_base_features_cc.inc"
 }  // namespace net::features

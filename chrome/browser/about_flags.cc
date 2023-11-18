@@ -394,6 +394,10 @@ using flags_ui::kOsLinux;
 using flags_ui::kOsMac;
 using flags_ui::kOsWin;
 
+#define ABOUT_FLAG_INCLUDE_SECTION
+#include "cromite_flags/chrome_browser_about_flags_cc.inc"
+#undef ABOUT_FLAG_INCLUDE_SECTION
+
 namespace about_flags {
 
 namespace {
@@ -4383,6 +4387,10 @@ const FeatureEntry::FeatureVariation kTabSwitcherColorBlendAnimateVariations[] =
       std::size(kTabSwitcherColorBlendAnimateVariation3), nullptr}};
 #endif  // BUILDFLAG(IS_ANDROID)
 
+#define FEATURE_PARAM_SECTION
+#include "cromite_flags/chrome_browser_about_flags_cc.inc"
+#undef FEATURE_PARAM_SECTION
+
 // RECORDING USER METRICS FOR FLAGS:
 // -----------------------------------------------------------------------------
 // The first line of the entry is the internal name.
@@ -4409,6 +4417,9 @@ const FeatureEntry::FeatureVariation kTabSwitcherColorBlendAnimateVariations[] =
 const FeatureEntry kFeatureEntries[] = {
 // Include generated flags for flag unexpiry; see //docs/flag_expiry.md and
 // //tools/flags/generate_unexpire_flags.py.
+#define FLAG_SECTION
+#include "cromite_flags/chrome_browser_about_flags_cc.inc"
+#undef FLAG_SECTION
 #include "build/chromeos_buildflags.h"
 #include "chrome/browser/unexpire_flags_gen.inc"
     {variations::switches::kEnableBenchmarking,
