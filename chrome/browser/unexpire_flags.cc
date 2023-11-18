@@ -12,6 +12,7 @@
 #include "base/containers/contains.h"
 #include "base/containers/flat_map.h"
 #include "base/no_destructor.h"
+#include "chrome/browser/about_flags.h"
 #include "chrome/browser/expired_flags_list.h"
 #include "chrome/browser/unexpire_flags_gen.h"
 #include "chrome/common/chrome_version.h"
@@ -117,7 +118,19 @@ bool IsFlagExpired(const flags_ui::FlagsStorage* storage,
 
   // Otherwise, the flag is expired if its expiration mstone is less than the
   // mstone of this copy of Chromium.
-  return mstone < CHROME_VERSION_MAJOR;
+  if (mstone < CHROME_VERSION_MAJOR) {
+    if (const flags_ui::FeatureEntry* entry =
+          about_flags::GetCurrentFlagsState()->FindFeatureEntryByName(
+            internal_name)) {
+      if (const base::Feature* feature = entry->feature.feature) {
+        if (feature->is_cromite) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+  return false;
 }
 
 namespace testing {

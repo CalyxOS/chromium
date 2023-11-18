@@ -12,6 +12,7 @@
 }
 
 .experiment {
+  padding-bottom: 25px;
   color: var(--secondary-color);
   line-height: 1.45;
   width: 100%;
@@ -77,6 +78,11 @@
 
 .experiment-origin-list-value {
   resize: none;
+}
+
+.experiment-on select {
+  background: #dddddd;
+  color: var(--link-color);
 }
 
 select {
@@ -155,6 +161,7 @@ input {
 @media (max-width: 480px) {
   .experiment {
     border-bottom: 1px solid var(--separator-color);
+    padding-bottom: 8px;
   }
 
   .experiment-name {
@@ -172,7 +179,6 @@ input {
   .experiment .experiment-actions {
     max-width: 100%;
     padding-top: 12px;
-    text-align: left; /* csschecker-disable-line left-right */
     width: 100%;
   }
 
@@ -180,7 +186,6 @@ input {
   .body {
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
     width: 100%;
   }
 
