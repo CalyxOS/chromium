@@ -61,6 +61,10 @@ found in the LICENSE file.
         android:title="@string/open_external_links_incognito_title"
         android:summary="@string/open_external_links_incognito_summary"
         android:defaultValue="false" />
+    <org.chromium.chrome.browser.about_settings.HyperlinkPreference
+        android:key="cromite_flags"
+        android:title="@string/cromite_flags_title"
+        app:url="@string/cromite_flags_url" />
     <Preference
         android:key="preload_pages"
         android:title="@string/preload_pages_title"

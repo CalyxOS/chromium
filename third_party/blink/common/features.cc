@@ -2647,5 +2647,6 @@ BASE_FEATURE(kRenderSizeInScoreAdBrowserSignals,
              "RenderSizeInScoreAdBrowserSignals",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+#include "cromite_flags/third_party_blink_common_features_cc.inc"
 }  // namespace features
 }  // namespace blink
