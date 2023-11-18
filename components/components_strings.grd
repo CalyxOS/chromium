@@ -281,6 +281,7 @@
   </translations>
   <release seq="1">
     <messages fallback_to_english="true">
+      <part file="cromite_components_strings_grd/placeholder.txt"/>
       <part file="arc_strings.grdp" />
       <part file="autofill_payments_strings.grdp" />
       <part file="autofill_prediction_improvements_strings.grdp" />

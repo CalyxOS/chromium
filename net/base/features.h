@@ -650,6 +650,7 @@ NET_EXPORT extern const base::FeatureParam<DiskCacheBackend>
 // If enabled, ignore Strict-Transport-Security for [*.]localhost hosts.
 NET_EXPORT BASE_DECLARE_FEATURE(kIgnoreHSTSForLocalhost);
 
+#include "cromite_flags/net_base_features_h.inc"
 }  // namespace net::features
 
 #endif  // NET_BASE_FEATURES_H_

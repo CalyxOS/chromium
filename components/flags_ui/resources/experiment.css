@@ -79,6 +79,11 @@
   resize: none;
 }
 
+.experiment-on select {
+  background: #dddddd;
+  color: var(--link-color);
+}
+
 select {
   background: white;
   border: 1px solid var(--link-color);
@@ -172,7 +177,6 @@ input {
   .experiment .experiment-actions {
     max-width: 100%;
     padding-top: 12px;
-    text-align: left; /* csschecker-disable-line left-right */
     width: 100%;
   }
 
@@ -180,7 +184,6 @@ input {
   .body {
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
     width: 100%;
   }
 

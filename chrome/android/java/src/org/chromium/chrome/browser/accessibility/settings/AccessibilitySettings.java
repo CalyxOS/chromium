@@ -19,6 +19,7 @@ import org.chromium.chrome.R;
 import org.chromium.chrome.browser.image_descriptions.ImageDescriptionsController;
 import org.chromium.chrome.browser.preferences.Pref;
 import org.chromium.chrome.browser.settings.SettingsNavigationFactory;
+import org.chromium.chrome.browser.settings.ChromeBaseSettingsFragment;
 import org.chromium.components.browser_ui.accessibility.AccessibilitySettingsDelegate;
 import org.chromium.components.browser_ui.accessibility.FontSizePrefs;
 import org.chromium.components.browser_ui.accessibility.PageZoomPreference;
@@ -37,7 +38,7 @@ import org.chromium.content_public.browser.ContentFeatureList;
 import org.chromium.content_public.browser.ContentFeatureMap;
 
 /** Fragment to keep track of all the accessibility related preferences. */
-public class AccessibilitySettings extends PreferenceFragmentCompat
+public class AccessibilitySettings extends ChromeBaseSettingsFragment
         implements EmbeddableSettingsPage, Preference.OnPreferenceChangeListener {
     public static final String PREF_PAGE_ZOOM_DEFAULT_ZOOM = "page_zoom_default_zoom";
     public static final String PREF_PAGE_ZOOM_INCLUDE_OS_ADJUSTMENT =
@@ -85,7 +86,7 @@ public class AccessibilitySettings extends PreferenceFragmentCompat
     }
 
     @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+    public void onCreatePreferencesCromite(Bundle savedInstanceState, String rootKey) {
         SettingsUtils.addPreferencesFromResource(this, R.xml.accessibility_preferences);
 
         mPageZoomDefaultZoomPref = (PageZoomPreference) findPreference(PREF_PAGE_ZOOM_DEFAULT_ZOOM);
