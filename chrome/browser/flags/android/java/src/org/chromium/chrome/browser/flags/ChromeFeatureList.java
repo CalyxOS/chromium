@@ -20,6 +20,10 @@ import org.chromium.components.cached_flags.DoubleCachedFeatureParam;
 import org.chromium.components.cached_flags.IntCachedFeatureParam;
 import org.chromium.components.cached_flags.StringCachedFeatureParam;
 
+import org.chromium.chrome.browser.flags.cromite.CromiteCachedFlagImplBase;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import java.util.List;
 import java.util.Map;
 
@@ -818,7 +822,7 @@ public abstract class ChromeFeatureList {
     public static final CachedFlag sWebApkMinShellApkVersion =
             newCachedFlag(WEB_APK_MIN_SHELL_APK_VERSION, true);
 
-    public static final List<CachedFlag> sFlagsCachedFullBrowser =
+    public static final List<CachedFlag> sFlagsCachedFullBrowserChromium =
             List.of(
                     sAndroidAppIntegration,
                     sAndroidAppIntegrationModule,
@@ -915,6 +919,13 @@ public abstract class ChromeFeatureList {
                     sUseChimeAndroidSdk,
                     sUseLibunwindstackNativeUnwinderAndroid,
                     sWebApkMinShellApkVersion);
+
+    private static <T> List<T> concatenateLists(List<T>... collections) {
+        return Arrays.stream(collections).flatMap(x -> x.stream()).collect(Collectors.toList());
+    }
+
+    public static final List<CachedFlag> sFlagsCachedFullBrowser =
+            concatenateLists(CromiteCachedFlagImplBase.getList(), sFlagsCachedFullBrowserChromium);
 
     public static final List<CachedFlag> sFlagsCachedInMinimalBrowser = List.of();
 

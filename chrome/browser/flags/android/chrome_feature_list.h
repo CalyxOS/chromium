@@ -225,6 +225,7 @@ constexpr base::FeatureParam<std::string> kQuickDeleteAndroidSurveyTriggerId(
     "trigger_id",
     /*default_value=*/"");
 
+#include "cromite_flags/chrome_browser_flags_android_chrome_feature_list_h.inc"
 }  // namespace android
 }  // namespace chrome
 

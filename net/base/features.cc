@@ -666,4 +666,5 @@ BASE_FEATURE(kHstsTopLevelNavigationsOnly,
              "HstsTopLevelNavigationsOnly",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+#include "cromite_flags/net_base_features_cc.inc"
 }  // namespace net::features
