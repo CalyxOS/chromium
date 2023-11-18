@@ -1889,6 +1889,7 @@ BLINK_COMMON_EXPORT bool IsUpdateComplexSafaAreaConstraintsEnabled();
 //
 // DO NOT ADD NEW FEATURES HERE.
 
+#include "cromite_flags/third_party_blink_common_features_h.inc"
 }  // namespace features
 }  // namespace blink
 

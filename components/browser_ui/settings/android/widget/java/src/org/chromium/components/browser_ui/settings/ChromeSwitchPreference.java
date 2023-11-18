@@ -15,6 +15,8 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.TextView;
 
+import android.content.res.TypedArray;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.VisibleForTesting;
 import androidx.preference.PreferenceViewHolder;
@@ -40,6 +42,11 @@ public class ChromeSwitchPreference extends SwitchPreferenceCompat {
     /** Indicates if the preference uses a custom layout. */
     private final boolean mHasCustomLayout;
 
+    @Nullable
+    private String mFeatureName;
+
+    private final boolean mNeedRestart;
+
     // TOOD(crbug.com/1451550): This is an interim solution. In the long-term, we should migrate
     // away from a switch with dynamically changing summaries onto a radio group.
     /**
@@ -59,6 +66,18 @@ public class ChromeSwitchPreference extends SwitchPreferenceCompat {
 
         mHasCustomLayout = ManagedPreferencesUtils.isCustomLayoutApplied(context, attrs);
         mUseSummaryAsTitle = true;
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ChromeBasePreference);
+        mFeatureName = a.getString(R.styleable.ChromeBasePreference_featureName);
+        mNeedRestart = a.getBoolean(R.styleable.ChromeBasePreference_needRestart, false);
+        a.recycle();
+    }
+
+    public String getFeatureName() {
+        return mFeatureName;
+    }
+
+    public boolean needRestart() {
+        return mNeedRestart;
     }
 
     /**

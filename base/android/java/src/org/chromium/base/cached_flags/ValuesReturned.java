@@ -18,7 +18,7 @@ import java.util.Map;
 @NullMarked
 public abstract class ValuesReturned {
     @GuardedBy("sBoolValues")
-    private static final Map<String, Boolean> sBoolValues = new HashMap<>();
+    public static final Map<String, Boolean> sBoolValues = new HashMap<>();
 
     @GuardedBy("sStringValues")
     private static final Map<String, String> sStringValues = new HashMap<>();

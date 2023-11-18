@@ -17,11 +17,12 @@ import org.chromium.base.version_info.VersionInfo;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.preferences.ChromePreferenceKeys;
 import org.chromium.chrome.browser.preferences.ChromeSharedPreferences;
+import org.chromium.chrome.browser.settings.ChromeBaseSettingsFragment;
 import org.chromium.components.browser_ui.settings.EmbeddableSettingsPage;
 import org.chromium.components.browser_ui.settings.SettingsUtils;
 
 /** Settings fragment containing preferences aimed at Chrome and web developers. */
-public class DeveloperSettings extends PreferenceFragmentCompat implements EmbeddableSettingsPage {
+public class DeveloperSettings extends ChromeBaseSettingsFragment implements EmbeddableSettingsPage {
     private static final String UI_PREF_BETA_STABLE_HINT = "beta_stable_hint";
 
     // Non-translated strings:
@@ -52,7 +53,7 @@ public class DeveloperSettings extends PreferenceFragmentCompat implements Embed
     }
 
     @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String s) {
+    public void onCreatePreferencesCromite(Bundle savedInstanceState, String s) {
         SettingsUtils.addPreferencesFromResource(this, R.xml.developer_preferences);
 
         if (VersionInfo.isBetaBuild() || VersionInfo.isStableBuild()) {
