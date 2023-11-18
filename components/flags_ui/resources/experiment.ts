@@ -61,9 +61,14 @@ function resetHighlights(element: HTMLElement) {
 
 export class FlagsExperimentElement extends CustomElement {
   private feature_: Feature|null = null;
+  private permalink_: boolean = true;
 
   static override get template() {
     return getTemplate();
+  }
+
+  set permalink(visible: boolean) {
+    this.permalink_ = visible;
   }
 
   set data(feature: Feature) {
@@ -77,12 +82,18 @@ export class FlagsExperimentElement extends CustomElement {
         'experiment-default', feature.is_default);
     experimentDefault.classList.toggle(
         'experiment-switched', !feature.is_default);
+    experimentDefault.classList.toggle(
+        'cromite', feature.is_cromite && feature.is_new);
+    experimentDefault.classList.toggle(
+        'experiment-on', !!feature.is_default_value_on);
 
     const experimentName = this.getRequiredElement('.experiment-name');
     experimentName.id = `${feature.internal_name}_name`;
     experimentName.title =
         feature.is_default ? '' : loadTimeData.getString('experiment-enabled');
     experimentName.textContent = feature.name;
+    if (feature.is_cromite && feature.is_new)
+    experimentName.textContent += " (Cromite flag)"
 
     const description = this.getRequiredElement('.description');
     description.textContent = feature.description;
@@ -125,6 +136,7 @@ export class FlagsExperimentElement extends CustomElement {
     const permalink = this.getRequiredElement<HTMLAnchorElement>('.permalink');
     permalink.href = `#${feature.internal_name}`;
     permalink.textContent = `#${feature.internal_name}`;
+    if (!this.permalink_) permalink.hidden = true;
 
     const smallScreenCheck = window.matchMedia('(max-width: 480px)');
     // Toggling of experiment description overflow content on smaller screens.
@@ -153,6 +165,10 @@ export class FlagsExperimentElement extends CustomElement {
         const optionEl = document.createElement('option');
         optionEl.selected = option.selected;
         optionEl.textContent = option.description;
+        if (option.description == "Default" &&
+              feature.default_value !== undefined) {
+          optionEl.textContent += " (" + feature.default_value + ")";
+        }
         experimentSelect.appendChild(optionEl);
       }
 

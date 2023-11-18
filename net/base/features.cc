@@ -535,4 +535,5 @@ BASE_FEATURE(kReduceIPAddressChangeNotification,
              base::FEATURE_ENABLED_BY_DEFAULT);
 #endif  // BUILDFLAG(IS_MAC)
 
+#include "cromite_flags/net_base_features_cc.inc"
 }  // namespace net::features
