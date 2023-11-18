@@ -7,6 +7,10 @@ package org.chromium.chrome.browser.flags;
 import org.chromium.base.FeatureMap;
 import org.chromium.base.MutableFlagWithSafeDefault;
 
+import org.chromium.chrome.browser.flags.cromite.CromiteCachedFlagImplBase;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import java.util.List;
 import java.util.Map;
 
@@ -656,7 +660,7 @@ public abstract class ChromeFeatureList {
     public static final CachedFlag sVerticalAutomotiveBackButtonToolbar =
             new CachedFlag(VERTICAL_AUTOMOTIVE_BACK_BUTTON_TOOLBAR, false);
 
-    public static final List<CachedFlag> sFlagsCachedFullBrowser =
+    public static final List<CachedFlag> sFlagsCachedFullBrowserChromium =
             List.of(
                     sAndroidAppIntegration,
                     sAndroidHub,
@@ -734,6 +738,13 @@ public abstract class ChromeFeatureList {
                     sUseChimeAndroidSdk,
                     sUseLibunwindstackNativeUnwinderAndroid,
                     sVerticalAutomotiveBackButtonToolbar);
+
+    private static <T> List<T> concatenateLists(List<T>... collections) {
+        return Arrays.stream(collections).flatMap(x -> x.stream()).collect(Collectors.toList());
+    }
+
+    public static final List<CachedFlag> sFlagsCachedFullBrowser =
+            concatenateLists(CromiteCachedFlagImplBase.getList(), sFlagsCachedFullBrowserChromium);
 
     public static final List<CachedFlag> sFlagsCachedInMinimalBrowser =
             List.of(sExperimentsForAgsa);

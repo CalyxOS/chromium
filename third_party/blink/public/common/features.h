@@ -1504,6 +1504,7 @@ BLINK_COMMON_EXPORT extern const base::FeatureParam<int> kPixelDistanceToExpand;
 BLINK_COMMON_EXPORT BASE_DECLARE_FEATURE(
     kTreatHTTPExpiresHeaderValueZeroAsExpiredInBlink);
 
+#include "cromite_flags/third_party_blink_common_features_h.inc"
 }  // namespace features
 }  // namespace blink
 

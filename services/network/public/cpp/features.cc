@@ -454,4 +454,5 @@ const base::FeatureParam<bool> kSkipTpcdMitigationsForAdsSupport{
     &kSkipTpcdMitigationsForAds, /*name=*/"SkipTpcdMitigationsForAdsSupport",
     /*default_value=*/false};
 
+#include "cromite_flags/services_network_public_cpp_features_cc.inc"
 }  // namespace network::features

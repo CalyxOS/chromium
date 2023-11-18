@@ -100,5 +100,6 @@ BASE_FEATURE(kHostIndexedMetadataGrants,
 const base::FeatureParam<int> kMetadataGrantsThreshold{
     &kHostIndexedMetadataGrants, kMetadataGrantsThresholdName, 1};
 
+#include "cromite_flags/components_content_settings_core_common_features_cc.inc"
 }  // namespace features
 }  // namespace content_settings

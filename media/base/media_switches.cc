@@ -1763,5 +1763,5 @@ uint32_t GetPassthroughAudioFormats() {
   return 0;
 #endif  // BUILDFLAG(ENABLE_PASSTHROUGH_AUDIO_CODECS)
 }
-
+#include "cromite_flags/media_base_media_switches_cc.inc"
 }  // namespace media

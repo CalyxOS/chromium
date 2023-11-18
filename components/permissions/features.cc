@@ -135,6 +135,7 @@ BASE_FEATURE(kShowRelatedWebsiteSetsPermissionGrants,
              "ShowRelatedWebsiteSetsPermissionGrants",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+#include "cromite_flags/components_permissions_features_cc.inc"
 }  // namespace features
 namespace feature_params {
 
