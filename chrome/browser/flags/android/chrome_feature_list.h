@@ -231,6 +231,7 @@ constexpr base::FeatureParam<int> kAuxiliarySearchMaxTabsCountParam(
     "auxiliary_search_max_donation_tab",
     100);
 
+#include "cromite_flags/chrome_browser_flags_android_chrome_feature_list_h.inc"
 }  // namespace android
 }  // namespace chrome
 
