@@ -81,6 +81,11 @@ export class ExperimentElement extends CrLitElement {
     enabled: false,
     is_default: false,
     supported_platforms: [],
+    is_default_value_on: false,
+    default_value: '',
+    is_cromite: false,
+    is_new: false,
+    permalink: true,
   };
 
   // Whether the controls to change the experiment state should be hidden.
@@ -127,9 +132,12 @@ export class ExperimentElement extends CrLitElement {
   }
 
   protected getExperimentTitle_(): string {
+    const suffix =
+      this.feature_.is_cromite && this.feature_.is_new
+        ? " (Cromite flag)" : "";
     if (this.showEnableDisableSelect_()) {
-      return this.isDefault_ ? '' :
-                               loadTimeData.getString('experiment-enabled');
+      return (this.isDefault_ ? '' :
+                               loadTimeData.getString('experiment-enabled')) + suffix;
     }
 
     return '';

@@ -544,4 +544,5 @@ BASE_FEATURE_PARAM(int,
                    "max_ops_before_maintenance",
                    1000);
 
+#include "cromite_flags/services_network_public_cpp_features_cc.inc"
 }  // namespace network::features
