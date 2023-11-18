@@ -475,4 +475,5 @@ BASE_FEATURE(kEnableLockCookieDatabaseByDefault,
              base::FEATURE_ENABLED_BY_DEFAULT);
 #endif  // BUILDFLAG(IS_WIN)
 
+#include "cromite_flags/services_network_public_cpp_features_cc.inc"
 }  // namespace network::features

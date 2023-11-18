@@ -10,7 +10,8 @@ export function getHtml(this: ExperimentElement) {
   // clang-format off
   return html`<!--_html_template_start_-->
 <div class="experiment" id="${this.feature_.internal_name}">
-  <div class="flex-container">
+  <div class="flex-container" class="${(this.feature_.is_cromite && this.feature_.is_new ? "cromite " : "")
+                                       + (this.feature_.is_default_value_on ? "experiment-on" : "")}">
     <div class="flex">
       ${this.showingSearchHit_? html`
         <h2 class="experiment-name clone" id="${this.getHeaderId_()}"
@@ -86,7 +87,9 @@ export function getHtml(this: ExperimentElement) {
             @change="${this.onExperimentSelectChange_}">
           ${this.feature_.options!.map(option => html`
             <option ?selected="${option.selected}">
-              ${option.description}
+              ${option.description == "Default" && this.feature_.default_value !== undefined
+                  ? option.description + " (" + this.feature_.default_value + ")"
+                  : option.description}
             </option>
           `)}
         </select>

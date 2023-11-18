@@ -9,6 +9,7 @@ import type {AppElement} from './app.js';
 export function getHtml(this: AppElement) {
   // clang-format off
   return html`<!--_html_template_start_-->
+<div id="appcontainer">
 <div id="header">
   <div class="flex-container">
     <div class="flex search-container">
@@ -120,6 +121,32 @@ export function getHtml(this: AppElement) {
         <div class="no-match" role="alert" hidden>$i18n{no-results}</div>
       </div>
 </if>
+      <div id="tab-content-cromite" class="tab-content"
+           ?selected="${this.isTabSelected_(2)}"
+           role="tabpanel" aria-labelledby="tab-cromite" aria-hidden="false">
+
+        <!-- Non default experiments. -->
+        <div id="non-default-cromite-experiments">
+          ${this.nonDefaultCromiteFeatures.map(feature => html`
+            <flags-experiment id="${feature.internal_name}" .data="${feature}"
+                @select-change="${this.onSelectChange_}"
+                @textarea-change="${this.onTextareaChange_}"
+                @input-change="${this.onInputChange_}">
+            </flags-experiment>
+          `)}
+        </div>
+        <!-- Experiments with default settings. -->
+        <div id="cromite-experiments">
+          ${this.defaultCromiteFeatures.map(feature => html`
+            <flags-experiment id="${feature.internal_name}" .data="${feature}"
+                @select-change="${this.onSelectChange_}"
+                @textarea-change="${this.onTextareaChange_}"
+                @input-change="${this.onInputChange_}">
+            </flags-experiment>
+          `)}
+        </div>
+        <div class="no-match" role="alert" hidden>$i18n{no-results}</div>
+      </div>
     </div>
     <div id="needs-restart">
       <div class="flex-container">
@@ -137,6 +164,7 @@ export function getHtml(this: AppElement) {
       </div>
     </div>
   </div>
+</div>
 </div>
 <!--_html_template_end_-->`;
   // clang-format on
