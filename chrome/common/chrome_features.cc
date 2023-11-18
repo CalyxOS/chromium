@@ -1666,4 +1666,5 @@ BASE_FEATURE(kEventBasedLogUpload,
              base::FEATURE_DISABLED_BY_DEFAULT);
 #endif  // BUILDFLAG(IS_CHROMEOS_ASH)
 
+#include "cromite_flags/chrome_common_chrome_features_cc.inc"
 }  // namespace features
