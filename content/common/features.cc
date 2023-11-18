@@ -481,4 +481,5 @@ BASE_FEATURE(kLimitCrossOriginNonActivatedPaintHolding,
 
 // Please keep features in alphabetical order.
 
+#include "cromite_flags/content_common_features_cc.inc"
 }  // namespace features
