@@ -127,12 +127,15 @@ export class ExperimentElement extends CrLitElement {
   }
 
   protected getExperimentTitle_(): string {
+    const suffix =
+      this.feature_.is_cromite && this.feature_.is_new
+        ? " (Cromite flag)" : "";
     if (this.showEnableDisableSelect_()) {
-      return this.isDefault_ ? '' :
-                               loadTimeData.getString('experiment-enabled');
+      return (this.isDefault_ ? '' :
+                               loadTimeData.getString('experiment-enabled')) + suffix;
     }
 
-    return '';
+    return suffix;
   }
 
   protected getPlatforms_(): string {

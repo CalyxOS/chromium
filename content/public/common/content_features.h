@@ -334,6 +334,7 @@ CONTENT_EXPORT extern const base::FeatureParam<CapturingState>
 CONTENT_EXPORT bool IsVideoCaptureServiceEnabledForOutOfProcess();
 CONTENT_EXPORT bool IsVideoCaptureServiceEnabledForBrowserProcess();
 
+#include "cromite_flags/content_public_common_content_features_h.inc"
 }  // namespace features
 
 #endif  // CONTENT_PUBLIC_COMMON_CONTENT_FEATURES_H_

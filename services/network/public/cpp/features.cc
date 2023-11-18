@@ -515,4 +515,5 @@ BASE_FEATURE(kStorageAccessHeadersTrial,
              "StorageAccessHeadersTrial",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+#include "cromite_flags/services_network_public_cpp_features_cc.inc"
 }  // namespace network::features

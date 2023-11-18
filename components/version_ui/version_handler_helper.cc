@@ -56,7 +56,7 @@ base::Value::List GetVariationsList() {
   base::FieldTrialListIncludingLowAnonymity::GetActiveFieldTrialGroups(
       &active_groups);
 
-#if !defined(NDEBUG)
+#if true
   for (const auto& group : active_groups) {
     variations.push_back(GetActiveGroupNameAsString(group));
   }
