@@ -16,6 +16,11 @@ export interface Feature {
   description: string;
   enabled: boolean;
   is_default: boolean;
+  is_default_value_on: boolean;
+  default_value: string;
+  is_cromite: boolean;
+  is_new: boolean;
+  permalink: boolean;
   supported_platforms: string[];
   origin_list_value?: string;
   string_value?: string;

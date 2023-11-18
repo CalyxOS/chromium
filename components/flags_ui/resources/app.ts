@@ -194,6 +194,7 @@ export class FlagsAppElement extends CustomElement {
     return getTemplate();
   }
 
+  private onlyCromiteFlags: boolean = false;
   private announceStatusDelayMs: number = 100;
   private featuresResolver: PromiseResolver<void> = new PromiseResolver();
   private flagSearch: FlagSearch = new FlagSearch(this);
@@ -210,6 +211,10 @@ export class FlagsAppElement extends CustomElement {
 
   tabs: Tab[] = [
     {
+      tabEl: this.getRequiredElement('#tab-cromite')!,
+      panelEl: this.getRequiredElement('#tab-content-cromite')!,
+    },
+    {
       tabEl: this.getRequiredElement('#tab-available'),
       panelEl: this.getRequiredElement('#tab-content-available'),
     },
@@ -222,6 +227,11 @@ export class FlagsAppElement extends CustomElement {
   ];
 
   connectedCallback() {
+    if (location.pathname == '/cromite') {
+      this.onlyCromiteFlags = true;
+      this.getRequiredElement("#appcontainer").classList.add('cromite');
+      document.title = "Cromite Flags List";
+    }
     // <if expr="not is_ios">
     const pathname = new URL(window.location.href).pathname;
     this.isFlagsDeprecatedUrl_ =
@@ -306,20 +316,29 @@ export class FlagsAppElement extends CustomElement {
     const defaultFeatures: Feature[] = [];
     const nonDefaultFeatures: Feature[] = [];
 
+    if (this.onlyCromiteFlags) {
+      experimentalFeaturesData.supportedFeatures =
+        experimentalFeaturesData.supportedFeatures.filter(item => item.is_new);
+    }
+    experimentalFeaturesData.supportedFeatures.sort(
+        (a,b) => (a.internal_name.localeCompare(b.internal_name)));
     experimentalFeaturesData.supportedFeatures.forEach(
         f => (f.is_default ? defaultFeatures : nonDefaultFeatures).push(f));
 
     this.renderExperiments(
         nonDefaultFeatures,
-        this.getRequiredElement('#non-default-experiments'));
+        this.getRequiredElement('#non-default-experiments'),
+        this.getRequiredElement('#non-default-cromite-experiments'), false);
 
     this.renderExperiments(
-        defaultFeatures, this.getRequiredElement('#default-experiments'));
+        defaultFeatures, this.getRequiredElement('#default-experiments'),
+        this.getRequiredElement('#cromite-experiments'), false);
 
     // <if expr="not is_ios">
     this.renderExperiments(
         experimentalFeaturesData.unsupportedFeatures,
-        this.getRequiredElement('#unavailable-experiments'), true);
+        this.getRequiredElement('#unavailable-experiments'),
+        undefined, true);
     // </if>
 
     this.showRestartToast(experimentalFeaturesData.needsRestart);
@@ -438,16 +457,23 @@ export class FlagsAppElement extends CustomElement {
   }
 
   private renderExperiments(
-      features: Feature[], container: HTMLElement, unsupported = false) {
+      features: Feature[], container: HTMLElement,
+      cromiteContainer: HTMLElement | undefined, unsupported: boolean = false) {
     const fragment = document.createDocumentFragment();
+    const fragmentCromite = document.createDocumentFragment();
+    const show_permalink = !document.body.classList.contains('cromite');
     for (const feature of features) {
       const experiment = document.createElement('flags-experiment');
 
       experiment.toggleAttribute('unsupported', unsupported);
+      experiment.permalink = show_permalink;
       experiment.data = feature;
       experiment.id = feature.internal_name;
 
       const select = experiment.getSelect();
+      // if (select && feature.is_cromite && !feature.is_new) {
+      //   select.disabled = true;
+      // }
       if (select) {
         experiment.addEventListener('select-change', e => {
           e.preventDefault();
@@ -471,9 +497,14 @@ export class FlagsAppElement extends CustomElement {
           this.showRestartToast(true);
         });
       }
-      fragment.appendChild(experiment);
+      if (feature.is_cromite)
+        fragmentCromite.appendChild(experiment);
+      else
+        fragment.appendChild(experiment);
     }
     container.replaceChildren(fragment);
+    if (!!cromiteContainer)
+      cromiteContainer.replaceChildren(fragmentCromite);
   }
 
   /**

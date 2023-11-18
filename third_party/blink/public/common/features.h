@@ -1744,6 +1744,7 @@ BLINK_COMMON_EXPORT BASE_DECLARE_FEATURE(kRenderSizeInScoreAdBrowserSignals);
 // Optimize loading data: URLs.
 BLINK_COMMON_EXPORT BASE_DECLARE_FEATURE(kOptimizeLoadingDataUrls);
 
+#include "cromite_flags/third_party_blink_common_features_h.inc"
 }  // namespace features
 }  // namespace blink
 
