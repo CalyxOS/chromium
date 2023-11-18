@@ -40,6 +40,9 @@ found in the LICENSE file.
     <!-- Contextual Search -->
     <item name="contextual_search_sheet_full_height_fraction" format="float" type="dimen">0.95</item>
 
+    <string name="cromite_flags_title">Open Cromite flags list</string>
+    <string name="cromite_flags_url">chrome://flags/cromite</string>
+
     <!-- Revamped Incognito NTP -->
     <integer name="descriptions_weight">1</integer>
 </resources>
