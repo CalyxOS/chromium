@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import org.chromium.base.IntentUtils;
+import org.chromium.base.supplier.Supplier;
 import org.chromium.base.supplier.ObservableSupplier;
 import org.chromium.base.supplier.OneshotSupplier;
 import org.chromium.chrome.browser.LaunchIntentDispatcher;
@@ -75,18 +76,21 @@ public class FragmentDependencyProvider extends FragmentManager.FragmentLifecycl
     private final OneshotSupplier<SnackbarManager> mSnackbarManagerSupplier;
     private final OneshotSupplier<BottomSheetController> mBottomSheetControllerSupplier;
     private final ObservableSupplier<ModalDialogManager> mModalDialogManagerSupplier;
+    private final Supplier<ChromeBaseSettingsFragment.RequireRestartDelegate> mRequireRestartDelegateSupplier;
 
     public FragmentDependencyProvider(
             Context context,
             Profile profile,
             OneshotSupplier<SnackbarManager> snackbarManagerSupplier,
             OneshotSupplier<BottomSheetController> bottomSheetControllerSupplier,
-            ObservableSupplier<ModalDialogManager> modalDialogManagerSupplier) {
+            ObservableSupplier<ModalDialogManager> modalDialogManagerSupplier,
+            Supplier<ChromeBaseSettingsFragment.RequireRestartDelegate> requireRestartDelegateSupplier) {
         mContext = context;
         mProfile = profile;
         mSnackbarManagerSupplier = snackbarManagerSupplier;
         mBottomSheetControllerSupplier = bottomSheetControllerSupplier;
         mModalDialogManagerSupplier = modalDialogManagerSupplier;
+        mRequireRestartDelegateSupplier = requireRestartDelegateSupplier;
     }
 
     @Override
@@ -95,6 +99,10 @@ public class FragmentDependencyProvider extends FragmentManager.FragmentLifecycl
             @NonNull Fragment fragment,
             @NonNull Context unusedContext) {
         // Common dependencies attachments.
+        if (fragment instanceof ChromeBaseSettingsFragment) {
+            ((ChromeBaseSettingsFragment)fragment).setRequestRestartDelegateSupplier(
+                mRequireRestartDelegateSupplier);
+        }
         if (fragment instanceof ProfileDependentSetting) {
             ((ProfileDependentSetting) fragment).setProfile(mProfile);
         }
