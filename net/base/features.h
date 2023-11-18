@@ -521,6 +521,7 @@ NET_EXPORT BASE_DECLARE_FEATURE(kTruncateBodyToContentLength);
 NET_EXPORT BASE_DECLARE_FEATURE(kReduceIPAddressChangeNotification);
 #endif  // BUILDFLAG(IS_MAC)
 
+#include "cromite_flags/net_base_features_h.inc"
 }  // namespace net::features
 
 #endif  // NET_BASE_FEATURES_H_
