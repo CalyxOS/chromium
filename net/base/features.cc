@@ -616,4 +616,5 @@ const base::FeatureParam<DiskCacheBackend> kDiskCacheBackendParam{
     &kDiskCacheBackendExperiment, "backend", DiskCacheBackend::kBlockfile,
     &kDiskCacheBackendOptions};
 
+#include "cromite_flags/net_base_features_cc.inc"
 }  // namespace net::features

@@ -48,4 +48,5 @@ bool IsOfflinePagesNetworkStateLikelyUnknown() {
   return base::FeatureList::IsEnabled(kOfflinePagesNetworkStateLikelyUnknown);
 }
 
+#include "cromite_flags/components_offline_pages_core_offline_page_feature_cc.inc"
 }  // namespace offline_pages
