@@ -47,6 +47,11 @@ const Feature* FeatureMap::FindFeatureExposedToJava(
 static jboolean JNI_FeatureMap_IsEnabled(JNIEnv* env,
                                          jlong jfeature_map,
                                          std::string& feature_name) {
+  if (base::FeatureList::IsCromiteFlag(feature_name)) {
+    const base::Feature* cromite_feature =
+      base::FeatureList::GetCromiteFlag(feature_name);
+    return base::FeatureList::IsEnabled(*cromite_feature);
+  }
   FeatureMap* feature_map = reinterpret_cast<FeatureMap*>(jfeature_map);
   const base::Feature* feature =
       feature_map->FindFeatureExposedToJava(feature_name);

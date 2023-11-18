@@ -351,4 +351,5 @@ BASE_FEATURE(kAdAuctionEventRegistration,
              "AdAuctionEventRegistration",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+#include "cromite_flags/services_network_public_cpp_features_cc.inc"
 }  // namespace network::features

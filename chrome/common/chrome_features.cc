@@ -1569,4 +1569,5 @@ BASE_FEATURE(kDisableShortcutsEnableDiy,
              "DisableShortcutsEnableDiy",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+#include "cromite_flags/chrome_common_chrome_features_cc.inc"
 }  // namespace features

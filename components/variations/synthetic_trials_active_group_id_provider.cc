@@ -27,7 +27,7 @@ SyntheticTrialsActiveGroupIdProvider::GetActiveGroupIds() {
   return group_ids_;
 }
 
-#if !defined(NDEBUG)
+#if true
 std::vector<SyntheticTrialGroup>
 SyntheticTrialsActiveGroupIdProvider::GetGroups() {
   base::AutoLock scoped_lock(lock_);
@@ -53,7 +53,7 @@ void SyntheticTrialsActiveGroupIdProvider::OnSyntheticTrialsChanged(
     for (const auto& group : groups) {
       group_ids_.push_back(group.id());
     }
-#if !defined(NDEBUG)
+#if true
     groups_ = groups;
 #endif  // !defined(NDEBUG)
   }
