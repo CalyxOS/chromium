@@ -473,7 +473,32 @@
       padding-top: 1.5rem;
     }
   }
+  #appcontainer {
+    overflow-y: scroll;
+  }
+  .cromite #header {
+    display: none;
+  }
+  .cromite .blurb-container {
+    display: none;
+  }
+  .cromite #tabs {
+    display: none;
+  }
+  .cromite #tab-content-available {
+    display: none;
+  }
+  .cromite #tab-content-unavailable {
+    display: none;
+  }
+  .cromite #tab-content-cromite {
+    display: block !important;
+  }
+  .cromite .section-header-title {
+    display: none;
+  }
 </style>
+<div id="appcontainer">
 <div id="header">
   <div class="flex-container">
     <div class="flex search-container">
@@ -540,6 +565,11 @@
         $i18n{unavailable}
       </a>
 </if>
+      <a href="#tab-content-cromite" id="tab-cromite" class="tab"
+          role="tab"
+          aria-selected="true"
+          aria-controls="panel1"
+          tabindex="5">Cromite</a>
     </div>
     <div id="tabpanels">
       <div id="tab-content-available" class="tab-content selected"
@@ -559,6 +589,14 @@
         </div>
       </div>
 </if>
+      <div id="tab-content-cromite" class="tab-content"
+          role="tabpanel" aria-labelledby="tab-cromite" aria-hidden="false">
+        <!-- Non default experiments. -->
+        <div id="non-default-cromite-experiments"></div>
+        <!-- Experiments with default settings. -->
+        <div id="cromite-experiments"></div>
+        <div class="no-match hidden" role="alert">$i18n{no-results}</div>
+      </div>
     </div>
     <div id="needs-restart">
       <div class="flex-container">
@@ -573,4 +611,6 @@
       </div>
     </div>
   </div>
+</div>
+
 </div>
