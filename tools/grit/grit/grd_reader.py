@@ -126,6 +126,7 @@ class GrdContentHandler(xml.sax.handler.ContentHandler):
   def characters(self, content):
     if self.ignore_depth == 0:
       if self.stack[-1]:
+        content = self.replace_browser(content)
         self.stack[-1].AppendContent(content)
 
   def ignorableWhitespace(self, whitespace):
@@ -133,6 +134,38 @@ class GrdContentHandler(xml.sax.handler.ContentHandler):
     # parser?
     pass
 
+  def replace_browser(self, content_orig):
+    content = content_orig.replace("Chromiumdontreplace", "zzzyyyyxxxx1")
+    content = content.replace("Chromedontreplace", "zzzyyyyxxxx2")
+    content = content.replace("chromedontreplace", "zzzyyyyxxxx3")
+    content = content.replace("//chrome", "zzzyyyyxxxx4")
+    content = content.replace("chrome://", "zzzyyyyxxxx5")
+    content = content.replace("/chrome/", "zzzyyyyxxxx6")
+    content = content.replace("chrome_", "zzzyyyyxxxx7")
+    content = content.replace(".chromium.org", "zzzyyyyxxxx8")
+    content = content.replace("chromebook", "zzzyyyyxxxx9")
+    content = content.replace("chromeos", "zzzyyyyxxxxA")
+
+    content = content.replace("google chrome", "chromium")
+    content = content.replace("Chrome", "Chromium")
+    content = content.replace("Bromite", "Cromite")
+    content = content.replace("chrome", "chromium")
+    content = content.replace("bromite", "cromite")
+
+    content = content.replace("zzzyyyyxxxx1", "Chromium")
+    content = content.replace("zzzyyyyxxxx2", "Chrome")
+    content = content.replace("zzzyyyyxxxx3", "chrome")
+    content = content.replace("zzzyyyyxxxx4", "//chrome")
+    content = content.replace("zzzyyyyxxxx5", "chrome://")
+    content = content.replace("zzzyyyyxxxx6", "/chrome/")
+    content = content.replace("zzzyyyyxxxx7", "chrome_")
+    content = content.replace("zzzyyyyxxxx8", ".chromium.org")
+    content = content.replace("zzzyyyyxxxx9", "chromebook")
+    content = content.replace("zzzyyyyxxxxA", "chromeos")
+    # if "dontreplace" in content_orig:
+    #   raise exception.MissingElement("stop")
+    #   print(content + " <-- " + content_orig)
+    return content
 
 class GrdPartContentHandler(xml.sax.handler.ContentHandler):
   def __init__(self, parent):
