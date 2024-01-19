@@ -301,6 +301,8 @@ bool VariationsFieldTrialCreatorBase::SetUpFieldTrials(
                                      safe_seed_manager);
   }
 
+  platform_field_trials->RegisterFeatureOverrides(feature_list.get());
+
   base::FeatureList::SetInstance(std::move(feature_list));
 
   // For testing Variations Safe Mode, maybe crash here.
