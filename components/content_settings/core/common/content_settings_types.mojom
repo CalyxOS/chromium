@@ -388,7 +388,13 @@ enum ContentSettingsType {
   WEB_PRINTING,
 
   NUM_TYPES_CHROMIUM,
-#include "components/content_settings/core/common/bromite_content_settings.inc"
+
+  // Content setting for timezone customization functionality.
+  TIMEZONE_OVERRIDE,
+  VIEWPORT,
+  WEBGL,
+  WEBRTC,
+
   NUM_TYPES_BROMITE,
 };
 
