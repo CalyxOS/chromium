@@ -1,4 +1,3 @@
-apk_path=lib/arm64-v8a/libarcore_sdk_c.so, compress=False, alignment=16384
 apk_path=lib/arm64-v8a/libcrashpad_handler_trampoline.so, compress=False, alignment=16384
 apk_path=lib/arm64-v8a/libmonochrome_64.so, compress=False, alignment=16384
 apk_path=assets/icudtl.dat, compress=False, alignment=4
