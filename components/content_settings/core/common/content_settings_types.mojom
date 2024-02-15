@@ -408,4 +408,10 @@ enum ContentSettingsType {
   // Pointer Lock API allows a site to hide the cursor and have exclusive access
   // to mouse inputs.
   POINTER_LOCK,
+
+  // Content setting for timezone customization functionality.
+  TIMEZONE_OVERRIDE,
+  VIEWPORT,
+  WEBGL,
+  WEBRTC,
 };
