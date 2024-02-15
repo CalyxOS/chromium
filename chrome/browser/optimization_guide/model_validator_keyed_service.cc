@@ -29,6 +29,7 @@ namespace {
 constexpr base::TimeDelta kOnDeviceModelExecutionValidationStartupDelay =
     base::Seconds(5);
 
+#if false
 std::unique_ptr<optimization_guide::proto::ComposeRequest>
 ParseComposeRequestFromFile(base::FilePath path) {
   std::string serialized_request;
@@ -47,6 +48,7 @@ void WriteResponseToFile(base::FilePath path,
   bool write_file_success = base::WriteFile(path, response.output());
   DCHECK(write_file_success);
 }
+#endif
 
 }  // namespace
 
@@ -55,12 +57,7 @@ namespace optimization_guide {
 ModelValidatorKeyedService::ModelValidatorKeyedService(Profile* profile)
     : profile_(profile) {
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
-  DCHECK(ShouldStartModelValidator());
-  auto* opt_guide_service =
-      OptimizationGuideKeyedServiceFactory::GetForProfile(profile);
-  if (!opt_guide_service) {
-    return;
-  }
+#if false
 #if BUILDFLAG(BUILD_WITH_TFLITE_LIB)
   if (switches::ShouldValidateModel()) {
     // Create the validator object which will get destroyed when the model
@@ -96,6 +93,7 @@ ModelValidatorKeyedService::ModelValidatorKeyedService(Profile* profile)
             &ModelValidatorKeyedService::StartOnDeviceModelExecutionValidation,
             weak_ptr_factory_.GetWeakPtr()));
   }
+#endif
 }
 
 ModelValidatorKeyedService::~ModelValidatorKeyedService() = default;
@@ -122,11 +120,7 @@ void ModelValidatorKeyedService::OnPrimaryAccountChanged(
 
 void ModelValidatorKeyedService::StartModelExecutionValidation() {
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
-  auto* opt_guide_service =
-      OptimizationGuideKeyedServiceFactory::GetForProfile(profile_);
-  if (!opt_guide_service) {
-    return;
-  }
+#if false
   base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
   std::string model_execution_input =
       command_line->GetSwitchValueASCII(switches::kModelExecutionValidate);
@@ -139,6 +133,7 @@ void ModelValidatorKeyedService::StartModelExecutionValidation() {
       proto::ModelExecutionFeature::MODEL_EXECUTION_FEATURE_TEST, request,
       base::BindOnce(&ModelValidatorKeyedService::OnModelExecuteResponse,
                      weak_ptr_factory_.GetWeakPtr()));
+#endif
 }
 
 void ModelValidatorKeyedService::StartOnDeviceModelExecutionValidation(
@@ -156,18 +151,14 @@ void ModelValidatorKeyedService::StartOnDeviceModelExecutionValidation(
 
 void ModelValidatorKeyedService::PerformOnDeviceModelExecutionValidation(
     std::unique_ptr<optimization_guide::proto::ComposeRequest> request) {
-  DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
-  auto* opt_guide_service =
-      OptimizationGuideKeyedServiceFactory::GetForProfile(profile_);
-  if (!opt_guide_service) {
-    return;
-  }
+#if false
   on_device_validation_session_ = opt_guide_service->StartSession(
       proto::ModelExecutionFeature::MODEL_EXECUTION_FEATURE_COMPOSE);
   on_device_validation_session_->ExecuteModel(
       *request, base::RepeatingCallback(base::BindRepeating(
                     &ModelValidatorKeyedService::OnDeviceModelExecuteResponse,
                     weak_ptr_factory_.GetWeakPtr())));
+#endif
 }
 
 void ModelValidatorKeyedService::OnDeviceModelExecuteResponse(
@@ -185,10 +176,6 @@ void ModelValidatorKeyedService::OnDeviceModelExecuteResponse(
   if (!out_file) {
     return;
   }
-
-  base::ThreadPool::PostTask(
-      FROM_HERE, {base::MayBlock()},
-      base::BindOnce(&WriteResponseToFile, *out_file, compose_response));
 }
 
 void ModelValidatorKeyedService::OnModelExecuteResponse(
