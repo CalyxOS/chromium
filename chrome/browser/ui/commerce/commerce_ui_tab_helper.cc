@@ -286,9 +286,7 @@ void CommerceUiTabHelper::HandleDiscountsResponse(const DiscountsMap& map) {
 
   page_has_discounts_ =
       response_has_discounts
-          ? shopping_service_->IsDiscountEligibleToShowOnNavigation() ||
-                commerce::UrlContainsDiscountUtmTag(
-                    web_contents()->GetLastCommittedURL())
+          ? shopping_service_->IsDiscountEligibleToShowOnNavigation()
           : false;
 
   got_discounts_response_for_page_ = true;
