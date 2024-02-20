@@ -62,56 +62,6 @@ const CountryLocaleMap& GetAllowedCountryToLocaleMap() {
   return *allowed_map;
 }
 
-constexpr base::FeatureParam<std::string> kRulePartnerMerchantPattern{
-    &ntp_features::kNtpChromeCartModule, "partner-merchant-pattern",
-    // This regex does not match anything.
-    "\\b\\B"};
-
-constexpr base::FeatureParam<std::string> kCouponPartnerMerchantPattern{
-    &commerce::kRetailCoupons, "coupon-partner-merchant-pattern",
-    // This regex does not match anything.
-    "\\b\\B"};
-
-const re2::RE2& GetRulePartnerMerchantPattern() {
-#if !BUILDFLAG(IS_ANDROID)
-  auto* pattern_from_component =
-      commerce_heuristics::CommerceHeuristicsData::GetInstance()
-          .GetRuleDiscountPartnerMerchantPattern();
-  if (pattern_from_component && kRulePartnerMerchantPattern.Get() ==
-                                    kRulePartnerMerchantPattern.default_value) {
-    CommerceHeuristicsDataMetricsHelper::RecordPartnerMerchantPatternSource(
-        CommerceHeuristicsDataMetricsHelper::HeuristicsSource::FROM_COMPONENT);
-    return *pattern_from_component;
-  }
-#endif  // !BUILDFLAG(IS_ANDROID)
-  re2::RE2::Options options;
-  options.set_case_sensitive(false);
-  static base::NoDestructor<re2::RE2> instance(
-      kRulePartnerMerchantPattern.Get(), options);
-  CommerceHeuristicsDataMetricsHelper::RecordPartnerMerchantPatternSource(
-      CommerceHeuristicsDataMetricsHelper::HeuristicsSource::
-          FROM_FEATURE_PARAMETER);
-  return *instance;
-}
-
-const re2::RE2& GetCouponPartnerMerchantPattern() {
-#if !BUILDFLAG(IS_ANDROID)
-  auto* pattern_from_component =
-      commerce_heuristics::CommerceHeuristicsData::GetInstance()
-          .GetCouponDiscountPartnerMerchantPattern();
-  if (pattern_from_component &&
-      kCouponPartnerMerchantPattern.Get() ==
-          kCouponPartnerMerchantPattern.default_value) {
-    return *pattern_from_component;
-  }
-#endif  // !BUILDFLAG(IS_ANDROID)
-  re2::RE2::Options options;
-  options.set_case_sensitive(false);
-  static base::NoDestructor<re2::RE2> instance(
-      kCouponPartnerMerchantPattern.Get(), options);
-  return *instance;
-}
-
 }  // namespace
 
 BASE_FEATURE(kCommerceAllowLocalImages,
@@ -387,16 +337,15 @@ const base::FeatureParam<bool> kRevertIconOnFailure{
     &kShoppingList, kRevertIconOnFailureParam, false};
 
 bool IsPartnerMerchant(const GURL& url) {
-  return commerce::IsCouponDiscountPartnerMerchant(url) ||
-         IsRuleDiscountPartnerMerchant(url);
+  return false;
 }
 
 bool IsRuleDiscountPartnerMerchant(const GURL& url) {
-  return RE2::PartialMatch(url.spec(), GetRulePartnerMerchantPattern());
+  return false;
 }
 
 bool IsCouponDiscountPartnerMerchant(const GURL& url) {
-  return RE2::PartialMatch(url.spec(), GetCouponPartnerMerchantPattern());
+  return false;
 }
 
 bool IsCartDiscountFeatureEnabled() {
@@ -449,6 +398,7 @@ bool IsRegionLockedFeatureEnabled(const base::Feature& feature,
                                   const base::Feature& feature_region_launched,
                                   const std::string& country_code,
                                   const std::string& locale) {
+  if ((true)) return false;
   bool flag_enabled = base::FeatureList::IsEnabled(feature);
   bool region_launched =
       base::FeatureList::IsEnabled(feature_region_launched) &&
@@ -471,6 +421,7 @@ base::TimeDelta GetDiscountFetchDelay() {
 }
 
 bool IsNoDiscountMerchant(const GURL& url) {
+  if ((true)) return true;
   auto* pattern_from_component =
       commerce_heuristics::CommerceHeuristicsData::GetInstance()
           .GetNoDiscountMerchantPattern();
@@ -482,4 +433,12 @@ bool IsNoDiscountMerchant(const GURL& url) {
   return RE2::PartialMatch(url.host_piece(), *pattern_from_component);
 }
 #endif
+
+SET_CROMITE_FEATURE_DISABLED(kShoppingListRegionLaunched);
+
+SET_CROMITE_FEATURE_DISABLED(kParcelTracking);
+SET_CROMITE_FEATURE_DISABLED(kParcelTrackingRegionLaunched);
+
+SET_CROMITE_FEATURE_DISABLED(kEnableDiscountInfoApi);
+SET_CROMITE_FEATURE_DISABLED(kEnableDiscountInfoApiRegionLaunched);
 }  // namespace commerce
