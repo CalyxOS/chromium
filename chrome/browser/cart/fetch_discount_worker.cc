@@ -150,16 +150,12 @@ void FetchDiscountWorker::ReadyToFetch(
   // If there is no eligible merchant cart, don't fetch immediately; instead,
   // post another delayed fetch.
   bool has_partner_merchant = false;
-  bool has_potential_merchant = false;
   for (auto pair : proto_pairs) {
     auto cart_url = pair.second.merchant_cart_url();
     bool is_partner_merchant = commerce::IsPartnerMerchant(GURL(cart_url));
-    bool is_potential_merchant =
-        !commerce::IsNoDiscountMerchant(GURL(cart_url));
     has_partner_merchant |= is_partner_merchant;
-    has_potential_merchant |= is_potential_merchant;
   }
-  if (has_partner_merchant || has_potential_merchant) {
+  if (has_partner_merchant) {
     backend_task_runner_->PostTask(
         FROM_HERE,
         base::BindOnce(
