@@ -363,6 +363,16 @@ const char kParcelTrackingTestDataParamDelivered[] = "Delivered";
 const char kParcelTrackingTestDataParamInProgress[] = "InProgress";
 const char kParcelTrackingTestDataParamOutForDelivery[] = "OutForDelivery";
 
+SET_CROMITE_FEATURE_DISABLED(kCommerceHintAndroid);
+SET_CROMITE_FEATURE_DISABLED(kCommercePriceTrackingRegionLaunched);
+SET_CROMITE_FEATURE_DISABLED(kShoppingListRegionLaunched);
+
+SET_CROMITE_FEATURE_DISABLED(kParcelTracking);
+SET_CROMITE_FEATURE_DISABLED(kParcelTrackingRegionLaunched);
+
+SET_CROMITE_FEATURE_DISABLED(kEnableDiscountInfoApi);
+SET_CROMITE_FEATURE_DISABLED(kEnableDiscountInfoApiRegionLaunched);
+
 // Params for Discount Consent V2 in the NTP Cart module.
 const char kNtpChromeCartModuleDiscountConsentNtpVariationParam[] =
     "discount-consent-ntp-variation";
