@@ -2356,7 +2356,7 @@ void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry,
 
 #if BUILDFLAG(IS_ANDROID)
   registry->RegisterBooleanPref(prefs::kVirtualKeyboardResizesLayoutByDefault,
-                                false);
+                                true);
 #endif
 
   registry->RegisterBooleanPref(
