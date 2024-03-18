@@ -139,67 +139,6 @@ void AttributionOsLevelManagerAndroid::Register(
     OsRegistration registration,
     const std::vector<bool>& is_debug_key_allowed,
     RegisterCallback callback) {
-  DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
-  CHECK_EQ(registration.registration_items.size(), is_debug_key_allowed.size());
-
-  JNIEnv* env = base::android::AttachCurrentThread();
-
-  attribution_reporting::mojom::RegistrationType type = registration.GetType();
-  GlobalRenderFrameHostId render_frame_id = registration.render_frame_id;
-  std::vector<base::android::ScopedJavaLocalRef<jobject>> registration_urls;
-  base::ranges::transform(
-      registration.registration_items, std::back_inserter(registration_urls),
-      [env](const attribution_reporting::OsRegistrationItem& item) {
-        return url::GURLAndroid::FromNativeGURL(env, item.url);
-      });
-  auto top_level_origin = url::GURLAndroid::FromNativeGURL(
-      env, registration.top_level_origin.GetURL());
-  std::optional<AttributionInputEvent> input_event = registration.input_event;
-
-  int request_id = next_callback_id_++;
-  pending_registration_callbacks_.emplace(
-      request_id, base::BindOnce(std::move(callback), std::move(registration)));
-
-  switch (type) {
-    case attribution_reporting::mojom::RegistrationType::kSource:
-      DCHECK(input_event.has_value());
-      if (AttributionOsLevelManager::ShouldUseOsWebSource(render_frame_id)) {
-        auto sources = Java_AttributionOsLevelManager_createWebSourceParamsList(
-            env, is_debug_key_allowed.size());
-        for (size_t i = 0; i < is_debug_key_allowed.size(); ++i) {
-          Java_AttributionOsLevelManager_addWebSourceParams(
-              env, sources, registration_urls[i], is_debug_key_allowed[i]);
-        }
-        Java_AttributionOsLevelManager_registerWebAttributionSource(
-            env, jobj_, request_id, sources, top_level_origin,
-            input_event->input_event);
-      } else {
-        Java_AttributionOsLevelManager_registerAttributionSource(
-            env, jobj_, request_id,
-            url::GURLAndroid::ToJavaArrayOfGURLs(env, registration_urls),
-            input_event->input_event);
-      }
-      break;
-    case attribution_reporting::mojom::RegistrationType::kTrigger:
-      if (AttributionOsLevelManager::ShouldUseOsWebTrigger(render_frame_id)) {
-        auto triggers =
-            Java_AttributionOsLevelManager_createWebTriggerParamsList(
-                env, is_debug_key_allowed.size());
-        for (size_t i = 0; i < is_debug_key_allowed.size(); ++i) {
-          Java_AttributionOsLevelManager_addWebTriggerParams(
-              env, triggers, registration_urls[i], is_debug_key_allowed[i]);
-        }
-        Java_AttributionOsLevelManager_registerWebAttributionTrigger(
-            env, jobj_, request_id, triggers, top_level_origin);
-
-      } else {
-        for (const auto& registration_url : registration_urls) {
-          Java_AttributionOsLevelManager_registerAttributionTrigger(
-              env, jobj_, request_id, registration_url);
-        }
-      }
-      break;
-  }
 }
 
 void AttributionOsLevelManagerAndroid::ClearData(

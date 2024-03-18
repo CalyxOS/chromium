@@ -2509,18 +2509,17 @@ void ChromeContentBrowserClient::AppendExtraCommandLineSwitches(
         base::NumberToString(pid));
   }
 #endif
-  enable_crash_reporter = false;
-  if (enable_crash_reporter) {
-    std::string switch_value;
-    std::unique_ptr<metrics::ClientInfo> client_info =
-        GoogleUpdateSettings::LoadMetricsClientInfo();
-    if (client_info) {
-      switch_value = client_info->client_id;
-    }
-    switch_value.push_back(',');
-    switch_value.append(chrome::GetChannelName(chrome::WithExtendedStable(true)));
-    command_line->AppendSwitchASCII(switches::kEnableCrashReporter, switch_value);
+#if false
+  std::string switch_value;
+  std::unique_ptr<metrics::ClientInfo> client_info =
+      GoogleUpdateSettings::LoadMetricsClientInfo();
+  if (client_info) {
+    switch_value = client_info->client_id;
   }
+  switch_value.push_back(',');
+  switch_value.append(chrome::GetChannelName(chrome::WithExtendedStable(true)));
+  command_line->AppendSwitchASCII(switches::kEnableCrashReporter, switch_value);
+#endif
 #endif
 
   if (logging::DialogsAreSuppressed())
