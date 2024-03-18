@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb9143c7_c232f03d",
+        "filename": "cromite_flags/chrome/common/chrome_features_cc/Disable-AsyncDNS-by-default.inc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-03-18T22:19:47Z",
+      "side": 1,
+      "message": "No idea why this fails, it\u0027s defined everywhere.",
+      "revId": "b3a12760b96c1d9748f0dcc6884a0403e50cb299",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
