@@ -449,7 +449,8 @@ void FrameFetchContext::AddClientHintsIfNecessary(
 
   // Check if |url| is allowed to run JavaScript. If not, client hints are not
   // attached to the requests that initiate on the render side.
-  if (!GetFrame()->ScriptEnabled()) {
+  if (!AllowScriptFromSourceWithoutNotifying(
+          request.Url(), GetContentSettingsClient(), GetSettings())) {
     return;
   }
 
@@ -586,15 +587,26 @@ void FrameFetchContext::SetFirstPartyCookie(ResourceRequest& request) {
     request.SetSiteForCookies(GetSiteForCookies());
 }
 
-bool FrameFetchContext::AllowScript() const {
-  bool script_enabled = GetFrame()->ScriptEnabled();
-  if (!script_enabled) {
-    WebContentSettingsClient* settings_client = GetContentSettingsClient();
-    if (settings_client) {
-      settings_client->DidNotAllowScript();
-    }
+bool FrameFetchContext::AllowScriptFromSource(const KURL& url) const {
+  if (AllowScriptFromSourceWithoutNotifying(url, GetContentSettingsClient(),
+                                            GetSettings())) {
+    return true;
   }
-  return script_enabled;
+  WebContentSettingsClient* settings_client = GetContentSettingsClient();
+  if (settings_client)
+    settings_client->DidNotAllowScript();
+  return false;
+}
+
+// static
+bool FrameFetchContext::AllowScriptFromSourceWithoutNotifying(
+    const KURL& url,
+    WebContentSettingsClient* settings_client,
+    Settings* settings) {
+  bool allow_script = !settings || settings->GetScriptEnabled();
+  if (settings_client)
+    allow_script = settings_client->AllowScriptFromSource(allow_script, url);
+  return allow_script;
 }
 
 bool FrameFetchContext::IsFirstPartyOrigin(
