@@ -90,6 +90,9 @@ class ContentSettingsAgentImpl
   bool AllowStorageAccessSync(StorageType type) override;
   bool AllowImage(bool enabled_per_settings,
                   const blink::WebURL& image_url) override;
+  bool AllowScript(bool enabled_per_settings) override;
+  bool AllowScriptFromSource(bool enabled_per_settings,
+                             const blink::WebURL& script_url) override;
   bool AllowReadFromClipboard() override;
   bool AllowWriteToClipboard() override;
   bool AllowMutationEvents(bool default_value) override;
@@ -156,6 +159,9 @@ class ContentSettingsAgentImpl
   // Caches the result of AllowStorageAccess.
   using StoragePermissionsKey = std::pair<url::Origin, StorageType>;
   base::flat_map<StoragePermissionsKey, bool> cached_storage_permissions_;
+
+  // Caches the result of AllowScript.
+  base::flat_map<blink::WebFrame*, bool> cached_script_permissions_;
 
   std::unique_ptr<Delegate> delegate_;
 
