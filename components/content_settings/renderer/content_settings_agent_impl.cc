@@ -168,7 +168,7 @@ void ContentSettingsAgentImpl::DidCommitProvisionalLoad(
   // `allowPlugins()` is called for the new page so that these functions can
   // correctly detect that a piece of content flipped from "not blocked" to
   // "blocked".
-  ClearBlockedContentSettings();
+  ClearBlockedContentSettings(); // do not remove
 
   blink::WebLocalFrame* frame = render_frame()->GetWebFrame();
   if (frame->Parent())
@@ -351,6 +351,41 @@ bool ContentSettingsAgentImpl::AllowImage(bool enabled_per_settings,
   return allow;
 }
 
+bool ContentSettingsAgentImpl::AllowScript(bool enabled_per_settings) {
+  if (!enabled_per_settings)
+    return false;
+
+  blink::WebLocalFrame* frame = render_frame()->GetWebFrame();
+  const auto it = cached_script_permissions_.find(frame);
+  if (it != cached_script_permissions_.end())
+    return it->second;
+
+  // Evaluate the content setting rules before
+  // IsAllowlistedForContentSettings(); if there is only the default rule
+  // allowing all scripts, it's quicker this way.
+  bool allow = AllowContentSetting(
+                  ContentSettingsType::JAVASCRIPT, enabled_per_settings);
+  allow = allow || IsAllowlistedForContentSettingsCromite();
+
+  cached_script_permissions_[frame] = allow;
+  return allow;
+}
+
+bool ContentSettingsAgentImpl::AllowScriptFromSource(
+    bool enabled_per_settings,
+    const blink::WebURL& script_url) {
+  if (!enabled_per_settings)
+    return false;
+
+  bool allow = true;
+  if (content_setting_rules_) {
+    allow = AllowContentSetting(
+        ContentSettingsType::JAVASCRIPT, script_url, enabled_per_settings);
+  }
+  allow = allow || IsAllowlistedForContentSettingsCromite();
+  return allow;
+}
+
 bool ContentSettingsAgentImpl::AllowReadFromClipboard() {
   return delegate_->AllowReadFromClipboard();
 }
@@ -409,6 +444,7 @@ void ContentSettingsAgentImpl::DidNotAllowImage() {
 void ContentSettingsAgentImpl::ClearBlockedContentSettings() {
   content_blocked_.clear();
   cached_storage_permissions_.clear();
+  cached_script_permissions_.clear();
 }
 
 bool ContentSettingsAgentImpl::IsAllowlistedForContentSettingsCromite() const {
