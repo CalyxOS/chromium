@@ -778,7 +778,9 @@ void HTMLMetaElement::ProcessMetaCH(Document& document,
     return;
   }
 
-  if (!frame->ScriptEnabled()) {
+  if (!FrameFetchContext::AllowScriptFromSourceWithoutNotifying(
+          document.Url(), frame->GetContentSettingsClient(),
+          frame->GetSettings())) {
     // Do not allow configuring client hints if JavaScript is disabled.
     return;
   }
