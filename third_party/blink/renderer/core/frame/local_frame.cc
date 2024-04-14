@@ -4040,14 +4040,6 @@ const mojom::RendererContentSettingsPtr& LocalFrame::GetContentSettings() {
 }
 
 
-bool LocalFrame::ScriptEnabled() {
-  DCHECK(!IsDetached());
-
-  bool allow_script_renderer = GetSettings()->GetScriptEnabled();
-  bool allow_script_content_setting = GetContentSettings()->allow_script;
-  return allow_script_renderer && allow_script_content_setting;
-}
-
 const WebPrintParams& LocalFrame::GetPrintParams() const {
   // If this fails, it's probably because nobody called StartPrinting().
   DCHECK(GetDocument()->Printing());
