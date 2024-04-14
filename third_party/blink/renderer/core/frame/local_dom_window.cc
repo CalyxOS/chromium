@@ -50,6 +50,7 @@
 #include "third_party/blink/public/platform/task_type.h"
 #include "third_party/blink/public/platform/web_string.h"
 #include "third_party/blink/public/web/web_picture_in_picture_window_options.h"
+#include "third_party/blink/renderer/core/loader/frame_fetch_context.h"
 #include "third_party/blink/renderer/bindings/core/v8/binding_security.h"
 #include "third_party/blink/renderer/bindings/core/v8/capture_source_location.h"
 #include "third_party/blink/renderer/bindings/core/v8/isolated_world_csp.h"
@@ -486,7 +487,10 @@ bool LocalDOMWindow::CanExecuteScripts(
     }
     return false;
   }
-  bool script_enabled = GetFrame()->ScriptEnabled();
+  bool script_enabled =
+    FrameFetchContext::AllowScriptFromSourceWithoutNotifying(
+      Url(), GetFrame()->GetContentSettingsClient(),
+        GetFrame()->GetSettings());
   if (!script_enabled && reason == kAboutToExecuteScript) {
     WebContentSettingsClient* settings_client =
         GetFrame()->GetContentSettingsClient();
