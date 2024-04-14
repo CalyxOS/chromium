@@ -330,6 +330,23 @@ bool ContentSettingsAgentImpl::AllowStorageAccessSync(
   return result;
 }
 
+bool ContentSettingsAgentImpl::AllowImage(bool enabled_per_settings,
+                                          const WebURL& image_url) {
+  bool allow = enabled_per_settings;
+  if (enabled_per_settings) {
+    if (IsAllowlistedForContentSettings())
+      return true;
+
+    if (content_setting_rules_) {
+      allow = GetContentSettingFromRules(content_setting_rules_->image_rules,
+                                         image_url) != CONTENT_SETTING_BLOCK;
+    }
+  }
+  if (!allow)
+    DidBlockContentType(ContentSettingsType::IMAGES);
+  return allow;
+}
+
 bool ContentSettingsAgentImpl::AllowScript(bool enabled_per_settings) {
   if (!enabled_per_settings)
     return false;
