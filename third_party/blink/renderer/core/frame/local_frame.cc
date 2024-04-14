@@ -4038,19 +4038,6 @@ bool LocalFrame::IsSameOrigin() {
   return security_origin->IsSameOriginWith(top_security_origin);
 }
 
-bool LocalFrame::ScriptEnabled() {
-  DCHECK(!IsDetached());
-  // If this is called in the middle of detach, GetDocumentLoader() might
-  // already be nullptr.
-  if (!loader_.GetDocumentLoader()) {
-    return false;
-  }
-  bool allow_script_renderer = GetSettings()->GetScriptEnabled();
-  bool allow_script_content_setting =
-      loader_.GetDocumentLoader()->GetContentSettings()->allow_script;
-  return allow_script_renderer && allow_script_content_setting;
-}
-
 const WebPrintParams& LocalFrame::GetPrintParams() const {
   // If this fails, it's probably because nobody called StartPrinting().
   DCHECK(GetDocument()->Printing());
