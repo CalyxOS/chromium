@@ -936,12 +936,6 @@ class CORE_EXPORT LocalFrame final
   // Can only be called while the frame is not detached.
   bool ImagesEnabled();
 
-  // Returns whether script is allowed to run for the current frame. This is a
-  // convenience method that checks both renderer content settings and frame
-  // settings.
-  // Can only be called while the frame is not detached.
-  bool ScriptEnabled();
-
   const WebPrintParams& GetPrintParams() const;
 
   // Return a keep alive handle for the browser side NavigationStateKeepAlive.
