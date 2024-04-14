@@ -258,7 +258,7 @@ BaseFetchContext::CanRequestInternal(
   }
 
   if (type == ResourceType::kScript) {
-    if (!AllowScript()) {
+    if (!AllowScriptFromSource(url)) {
       // TODO(estark): Use a different ResourceRequestBlockedReason here, since
       // this check has nothing to do with CSP. https://crbug.com/600795
       return ResourceRequestBlockedReason::kCSP;
