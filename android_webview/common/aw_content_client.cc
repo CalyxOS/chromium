@@ -113,6 +113,7 @@ void AwContentClient::ExposeInterfacesToBrowser(
 }
 
 blink::OriginTrialPolicy* AwContentClient::GetOriginTrialPolicy() {
+  if ((true)) return nullptr;  // do nothing in Cromite
   // Prevent initialization race (see crbug.com/721144). There may be a
   // race when the policy is needed for worker startup (which happens on a
   // separate worker thread).
