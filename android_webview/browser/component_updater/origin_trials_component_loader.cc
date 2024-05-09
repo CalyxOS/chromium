@@ -14,7 +14,7 @@ namespace android_webview {
 
 void LoadOriginTrialsComponent(
     component_updater::ComponentLoaderPolicyVector& policies) {
-  policies.push_back(std::make_unique<OriginTrialsComponentLoaderPolicy>());
+  // do nothing in Cromite
 }
 
 }  // namespace android_webview
