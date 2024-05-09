@@ -196,6 +196,10 @@ void ContentSettingsAgentImpl::SetAllowRunningInsecureContent() {
     frame->StartReload(blink::WebFrameLoadType::kReload);
 }
 
+void ContentSettingsAgentImpl::SetDisabledMixedContentUpgrades() {
+  mixed_content_autoupgrades_disabled_ = true;
+}
+
 void ContentSettingsAgentImpl::SendRendererContentSettingRules(
     const RendererContentSettingRules& renderer_settings) {
   content_setting_rules_ = std::make_unique<RendererContentSettingRules>(
@@ -322,6 +326,9 @@ bool ContentSettingsAgentImpl::AllowRunningInsecureContent(
 }
 
 bool ContentSettingsAgentImpl::ShouldAutoupgradeMixedContent() {
+  if (mixed_content_autoupgrades_disabled_)
+    return false;
+
   if (content_setting_rules_) {
     auto setting = GetContentSettingFromRules(
         content_setting_rules_->mixed_content_rules, GURL());
