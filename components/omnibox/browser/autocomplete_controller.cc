@@ -117,6 +117,7 @@ using ScoringSignals = ::metrics::OmniboxEventProto::Suggestion::ScoringSignals;
 
 constexpr bool is_android = !!BUILDFLAG(IS_ANDROID);
 
+#pragma clang diagnostic ignored "-Wunused-function"
 void RecordMlScoreCoverage(size_t matches_with_non_null_scores,
                            size_t total_scored_matches) {
   int percent_score_coverage =
