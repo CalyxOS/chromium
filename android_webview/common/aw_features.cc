@@ -262,5 +262,7 @@ BASE_FEATURE(kCreateSpareRendererOnBrowserContextCreation,
              "CreateSpareRendererOnBrowserContextCreation",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
+SET_CROMITE_FEATURE_DISABLED(kWebViewMediaIntegrityApi);
+SET_CROMITE_FEATURE_DISABLED(kWebViewMediaIntegrityApiBlinkExtension);
 }  // namespace features
 }  // namespace android_webview
