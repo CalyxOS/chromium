@@ -248,4 +248,5 @@ BASE_FEATURE(kWebViewAutoGrantSanitizedClipboardWrite,
              "WebViewAutoGrantSanitizedClipboardWrite",
              base::FEATURE_ENABLED_BY_DEFAULT);
 
+SET_CROMITE_FEATURE_DISABLED(kWebViewMediaIntegrityApiBlinkExtension);
 }  // namespace android_webview::features
