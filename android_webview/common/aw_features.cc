@@ -73,6 +73,7 @@ BASE_FEATURE(kWebViewLazyFetchHandWritingIcon,
 BASE_FEATURE(kWebViewMediaIntegrityApiBlinkExtension,
              "WebViewMediaIntegrityApiBlinkExtension",
              base::FEATURE_ENABLED_BY_DEFAULT);
+SET_CROMITE_FEATURE_DISABLED(kWebViewMediaIntegrityApiBlinkExtension);
 
 // When enabled, passive mixed content (Audio/Video/Image subresources loaded
 // over HTTP on HTTPS sites) will be autoupgraded to HTTPS, and the load will be
