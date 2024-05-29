@@ -385,6 +385,9 @@ void DedicatedOrSharedWorkerFetchContextImpl::FinalizeRequest(
   if (renderer_preferences_.enable_do_not_track) {
     request.SetHttpHeaderField(WebString::FromUTF8(kDoNotTrackHeader), "1");
   }
+  if (renderer_preferences_.enable_gpc) {
+    request.SetHttpHeaderField(WebString::FromUTF8(kSecGPCHeader), "1");
+  }
 
   auto url_request_extra_data = base::MakeRefCounted<WebURLRequestExtraData>();
   request.SetURLRequestExtraData(std::move(url_request_extra_data));
