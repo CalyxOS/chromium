@@ -117,6 +117,9 @@ void UpdateFromSystemSettings(blink::RendererPreferences* prefs,
   prefs->enable_do_not_track =
       TrackingProtectionSettingsFactory::GetForProfile(profile)
           ->IsDoNotTrackEnabled();
+  prefs->enable_gpc =
+      TrackingProtectionSettingsFactory::GetForProfile(profile)
+          ->IsGPCEnabled();
   prefs->enable_encrypted_media =
       pref_service->GetBoolean(prefs::kEnableEncryptedMedia);
   prefs->webrtc_ip_handling_policy = std::string();

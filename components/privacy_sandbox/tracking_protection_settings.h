@@ -38,6 +38,8 @@ class TrackingProtectionSettings : public KeyedService {
   // Returns whether "do not track" is enabled.
   bool IsDoNotTrackEnabled() const;
 
+  bool IsGPCEnabled() const;
+
   // Returns whether tracking protection for 3PCD (prefs + UX) is enabled.
   bool IsTrackingProtection3pcdEnabled() const;
 
@@ -72,6 +74,7 @@ class TrackingProtectionSettings : public KeyedService {
 
   // Callbacks for pref observation.
   void OnDoNotTrackEnabledPrefChanged();
+  void OnGPCEnabledPrefChanged();
   void OnBlockAllThirdPartyCookiesPrefChanged();
   void OnTrackingProtection3pcdPrefChanged();
   void OnIpProtectionPrefChanged();
