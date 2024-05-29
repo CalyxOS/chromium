@@ -959,6 +959,7 @@ chrome_java_sources = [
   "java/src/org/chromium/chrome/browser/settings/AdBlockPreferences.java",
   "java/src/org/chromium/chrome/browser/policy/PolicyAuditor.java",
   "java/src/org/chromium/chrome/browser/policy/PolicyAuditorBridge.java",
+  "java/src/org/chromium/chrome/browser/privacy/settings/GpcSettings.java",
   "java/src/org/chromium/chrome/browser/privacy/settings/DoNotTrackSettings.java",
   "java/src/org/chromium/chrome/browser/privacy/settings/IncognitoLockSettings.java",
   "java/src/org/chromium/chrome/browser/privacy/settings/PrivacyPreferencesManagerImpl.java",

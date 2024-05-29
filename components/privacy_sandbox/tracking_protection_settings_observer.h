@@ -22,6 +22,8 @@ class TrackingProtectionSettingsObserver {
   // For observation of DNT.
   virtual void OnDoNotTrackEnabledChanged() {}
 
+  virtual void OnGPCEnabledChanged() {}
+
   // For observation of anti-fingerprinting.
   virtual void OnFingerprintingProtectionEnabledChanged() {}
 
