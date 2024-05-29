@@ -55,6 +55,10 @@ found in the LICENSE file.
         android:key="do_not_track"
         android:title="@string/do_not_track_title"
         android:fragment="org.chromium.chrome.browser.privacy.settings.DoNotTrackSettings" />
+    <Preference
+        android:key="gpc"
+        android:title="@string/gpc_title"
+        android:fragment="org.chromium.chrome.browser.privacy.settings.GpcSettings" />
     <org.chromium.chrome.browser.about_settings.HyperlinkPreference
         android:key="cromite_flags"
         android:title="@string/cromite_flags_title"
