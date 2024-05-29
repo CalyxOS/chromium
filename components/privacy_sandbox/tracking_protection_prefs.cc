@@ -72,6 +72,7 @@ void RegisterProfilePrefs(PrefRegistrySimple* registry) {
   registry->RegisterBooleanPref(
       prefs::kEnableDoNotTrack, false,
       user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
+  registry->RegisterBooleanPref(prefs::kEnableGPC, true);
 }
 
 }  // namespace privacy_sandbox::tracking_protection
