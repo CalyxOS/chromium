@@ -79,6 +79,7 @@ public class PrivacySettings extends ChromeBaseSettingsFragment
     private static final String PREF_HTTPS_FIRST_MODE = "https_first_mode";
     private static final String PREF_SECURE_DNS = "secure_dns";
     private static final String PREF_USAGE_STATS = "usage_stats_reporting";
+    private static final String PREF_GPC = "gpc";
     private static final String PREF_SAFE_BROWSING = "safe_browsing";
     private static final String PREF_SYNC_AND_SERVICES_LINK = "sync_and_services_link";
     private static final String PREF_PRIVACY_SANDBOX = "privacy_sandbox";
@@ -408,6 +409,14 @@ public class PrivacySettings extends ChromeBaseSettingsFragment
         if (doNotTrackPref != null) {
             doNotTrackPref.setSummary(
                     UserPrefs.get(getProfile()).getBoolean(Pref.ENABLE_DO_NOT_TRACK)
+                            ? R.string.text_on
+                            : R.string.text_off);
+        }
+
+        Preference gpcPref = findPreference(PREF_GPC);
+        if (gpcPref != null) {
+            gpcPref.setSummary(
+                    UserPrefs.get(getProfile()).getBoolean(Pref.ENABLE_GPC)
                             ? R.string.text_on
                             : R.string.text_off);
         }
