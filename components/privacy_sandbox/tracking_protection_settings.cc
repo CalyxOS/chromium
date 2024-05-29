@@ -40,6 +40,11 @@ TrackingProtectionSettings::TrackingProtectionSettings(
           &TrackingProtectionSettings::OnDoNotTrackEnabledPrefChanged,
           base::Unretained(this)));
   pref_change_registrar_.Add(
+      prefs::kEnableGPC,
+      base::BindRepeating(
+          &TrackingProtectionSettings::OnGPCEnabledPrefChanged,
+          base::Unretained(this)));
+  pref_change_registrar_.Add(
       prefs::kFingerprintingProtectionEnabled,
       base::BindRepeating(
           &TrackingProtectionSettings::OnFingerprintingProtectionPrefChanged,
@@ -185,6 +190,10 @@ void TrackingProtectionSettings::MaybeInitializeIppPref() {
   pref_service_->SetBoolean(prefs::kIpProtectionInitializedByDogfood, true);
 }
 
+bool TrackingProtectionSettings::IsGPCEnabled() const {
+  return pref_service_->GetBoolean(prefs::kEnableGPC);
+}
+
 void TrackingProtectionSettings::OnEnterpriseControlForPrefsChanged() {
   if (!IsTrackingProtection3pcdEnabled()) {
     return;
@@ -220,6 +229,12 @@ void TrackingProtectionSettings::OnTrackingProtectionOnboardingUpdated(
 void TrackingProtectionSettings::OnDoNotTrackEnabledPrefChanged() {
   for (auto& observer : observers_) {
     observer.OnDoNotTrackEnabledChanged();
+  }
+}
+
+void TrackingProtectionSettings::OnGPCEnabledPrefChanged() {
+  for (auto& observer : observers_) {
+    observer.OnGPCEnabledChanged();
   }
 }
 

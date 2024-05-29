@@ -110,6 +110,8 @@ inline constexpr char kFingerprintingProtectionEnabled[] =
 // Whether to send the DNT header.
 inline constexpr char kEnableDoNotTrack[] = "enable_do_not_track";
 
+inline constexpr char kEnableGPC[] = "enable_gpc";
+
 }  // namespace prefs
 
 namespace privacy_sandbox::tracking_protection {
