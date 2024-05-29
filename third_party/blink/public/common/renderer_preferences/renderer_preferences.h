@@ -57,6 +57,7 @@ struct BLINK_COMMON_EXPORT RendererPreferences {
   bool enable_referrers{true};
   bool allow_cross_origin_auth_prompt{false};
   bool enable_do_not_track{false};
+  bool enable_gpc{false};
   bool enable_encrypted_media{true};
   std::string webrtc_ip_handling_policy;
   uint16_t webrtc_udp_min_port{0};
