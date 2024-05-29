@@ -171,6 +171,10 @@ void PrefWatcher::OnDoNotTrackEnabledChanged() {
   UpdateRendererPreferences();
 }
 
+void PrefWatcher::OnGPCEnabledChanged() {
+  UpdateRendererPreferences();
+}
+
 void PrefWatcher::UpdateRendererPreferences() {
   for (PrefsTabHelper* helper : tab_helpers_) {
     helper->UpdateRendererPreferences();

@@ -128,6 +128,11 @@ struct BLINK_COMMON_EXPORT
     return data.enable_do_not_track;
   }
 
+  static const bool& enable_gpc(
+      const ::blink::RendererPreferences& data) {
+    return data.enable_gpc;
+  }
+
   static const bool& enable_encrypted_media(
       const ::blink::RendererPreferences& data) {
     return data.enable_encrypted_media;
