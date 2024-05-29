@@ -39,6 +39,11 @@ TrackingProtectionSettings::TrackingProtectionSettings(
           &TrackingProtectionSettings::OnDoNotTrackEnabledPrefChanged,
           base::Unretained(this)));
   pref_change_registrar_.Add(
+      prefs::kEnableGPC,
+      base::BindRepeating(
+          &TrackingProtectionSettings::OnGPCEnabledPrefChanged,
+          base::Unretained(this)));
+  pref_change_registrar_.Add(
       prefs::kIpProtectionEnabled,
       base::BindRepeating(
           &TrackingProtectionSettings::OnIpProtectionPrefChanged,
@@ -165,6 +170,10 @@ void TrackingProtectionSettings::MaybeInitializeIppPref() {
   pref_service_->SetBoolean(prefs::kIpProtectionInitializedByDogfood, true);
 }
 
+bool TrackingProtectionSettings::IsGPCEnabled() const {
+  return pref_service_->GetBoolean(prefs::kEnableGPC);
+}
+
 // TODO(https://b/333527273): Delete with Mode B cleanup
 void TrackingProtectionSettings::OnEnterpriseControlForPrefsChanged() {
   if (!IsTrackingProtection3pcdEnabled()) {
@@ -211,6 +220,12 @@ void TrackingProtectionSettings::MigrateUserBypassExceptions(
 void TrackingProtectionSettings::OnDoNotTrackEnabledPrefChanged() {
   for (auto& observer : observers_) {
     observer.OnDoNotTrackEnabledChanged();
+  }
+}
+
+void TrackingProtectionSettings::OnGPCEnabledPrefChanged() {
+  for (auto& observer : observers_) {
+    observer.OnGPCEnabledChanged();
   }
 }
 

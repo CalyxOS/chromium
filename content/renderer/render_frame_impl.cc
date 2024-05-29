@@ -4506,6 +4506,10 @@ void RenderFrameImpl::WillSendRequestInternal(
     request.SetHttpHeaderField(
         blink::WebString::FromUTF8(blink::kDoNotTrackHeader), "1");
   }
+  if (GetWebView()->GetRendererPreferences().enable_gpc) {
+    request.SetHttpHeaderField(
+        blink::WebString::FromUTF8(blink::kSecGPCHeader), "1");
+  }
 
   ApplyFilePathAlias(&request);
   GURL new_url;
