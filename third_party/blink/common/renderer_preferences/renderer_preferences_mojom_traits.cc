@@ -49,6 +49,7 @@ bool StructTraits<blink::mojom::RendererPreferencesDataView,
   out->enable_referrers = data.enable_referrers();
   out->allow_cross_origin_auth_prompt = data.allow_cross_origin_auth_prompt();
   out->enable_do_not_track = data.enable_do_not_track();
+  out->enable_gpc = data.enable_gpc();
   out->enable_encrypted_media = data.enable_encrypted_media();
 
   if (!data.ReadWebrtcIpHandlingPolicy(&out->webrtc_ip_handling_policy))
