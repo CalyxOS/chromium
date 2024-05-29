@@ -3510,6 +3510,9 @@ void WebViewImpl::UpdateRendererPreferences(
   GetSettings()->SetCaretBrowsingEnabled(
       renderer_preferences_.caret_browsing_enabled);
 
+  WebRuntimeFeatures::EnableGlobalPrivacyControl(
+    renderer_preferences_.enable_gpc);
+
 #if BUILDFLAG(IS_OZONE)
   GetSettings()->SetSelectionClipboardBufferAvailable(
       renderer_preferences_.selection_clipboard_buffer_available);

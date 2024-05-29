@@ -359,6 +359,7 @@ const PrefsUtil::TypedPrefMap& PrefsUtil::GetAllowlistedKeys() {
   (*s_allowlist)[::prefs::kTrackingProtectionLevel] =
       settings_api::PrefType::kNumber;
   (*s_allowlist)[::prefs::kEnableDoNotTrack] = settings_api::PrefType::kBoolean;
+  (*s_allowlist)[::prefs::kEnableGPC] = settings_api::PrefType::kBoolean;
   (*s_allowlist)[::prefs::kIpProtectionEnabled] =
       settings_api::PrefType::kBoolean;
   (*s_allowlist)[::prefs::kFingerprintingProtectionEnabled] =

@@ -51,6 +51,10 @@ found in the LICENSE file.
         android:key="do_not_track"
         android:title="@string/do_not_track_title"
         android:fragment="org.chromium.chrome.browser.privacy.settings.DoNotTrackSettings" />
+    <Preference
+        android:key="gpc"
+        android:title="@string/gpc_title"
+        android:fragment="org.chromium.chrome.browser.privacy.settings.GpcSettings" />
     <org.chromium.components.browser_ui.settings.ChromeSwitchPreference
         android:key="allow_custom_tab_intents"
         android:title="@string/allow_custom_tab_intents_title"

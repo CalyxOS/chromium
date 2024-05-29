@@ -30,6 +30,12 @@ void UpdateAdditionalHeadersForBrowserInitiatedRequest(
     }
     headers->SetHeaderIfMissing(blink::kDoNotTrackHeader, "1");
   }
+  if (renderer_preferences.enable_gpc) {
+    if (should_update_existing_headers) {
+      headers->RemoveHeader(blink::kSecGPCHeader);
+    }
+    headers->SetHeaderIfMissing(blink::kSecGPCHeader, "1");
+  }
 
   // TODO(crbug.com/40833603): WARNING: This bypasses the permissions policy.
   // Unfortunately, workers lack a permissions policy and to derive proper hints
