@@ -120,6 +120,8 @@ inline constexpr char kFingerprintingProtectionEnabled[] =
 // Whether to send the DNT header.
 inline constexpr char kEnableDoNotTrack[] = "enable_do_not_track";
 
+inline constexpr char kEnableGPC[] = "enable_gpc";
+
 // Whether User Bypass 3PC exceptions have been migrated to Tracking Protection
 // exceptions.
 inline constexpr char kUserBypass3pcExceptionsMigrated[] =
