@@ -2160,6 +2160,11 @@
       base_feature: "none",
     },
     {
+      name: "GlobalPrivacyControl",
+      base_feature_status: "disabled",
+      public: true,
+    },
+    {
       name: "ForcedColorsPreserveParentColor",
       status: "stable",
     },
