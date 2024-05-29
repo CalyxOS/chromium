@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grit-part>
+      <message name="IDS_GPC_TITLE" desc="">
+        Global Privacy Control "Sec-GPC"
+      </message>
+      <message name="IDS_GPC_DESCRIPTION" desc="">
+        Enables support for Global Privacy Control signals.
+
+Right to opt-out of sale or sharing: You may request that businesses stop selling or sharing your personal information (“opt-out”).
+
+Businesses cannot sell or share your personal information after they receive your opt-out request unless you later authorize them to do so again.
+
+Please note that it only applies to the states of California (under CCPA and CPRA) and Colorado (under CoPA).
+      </message>
+</grit-part>
