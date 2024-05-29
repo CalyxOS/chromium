@@ -7,5 +7,6 @@
 namespace blink {
 
 const char kDoNotTrackHeader[] = "DNT";
+const char kSecGPCHeader[] = "Sec-GPC";
 
 }  // namespace blink
