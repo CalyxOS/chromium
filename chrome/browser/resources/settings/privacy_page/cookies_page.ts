@@ -19,6 +19,7 @@ import '../settings_shared.css.js';
 import '../site_settings/site_list.js';
 import './collapse_radio_button.js';
 import './do_not_track_toggle.js';
+import './gpc_toggle.js';
 import '../controls/settings_radio_group.js';
 
 import {PrefsMixin} from '/shared/settings/prefs/prefs_mixin.js';
