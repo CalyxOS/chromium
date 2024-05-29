@@ -44,6 +44,7 @@ class PrefWatcher : public KeyedService,
   void OnNativeThemeUpdated(ui::NativeTheme* observed_theme) override;
 
   void OnDoNotTrackEnabledChanged() override;
+  void OnGPCEnabledChanged() override;
 
   void UpdateRendererPreferences();
   void OnWebPrefChanged(const std::string& pref_name);
