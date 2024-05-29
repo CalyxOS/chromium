@@ -49,6 +49,7 @@ void RegisterProfilePrefs(PrefRegistrySimple* registry) {
   registry->RegisterBooleanPref(
       prefs::kEnableDoNotTrack, false,
       user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
+  registry->RegisterBooleanPref(prefs::kEnableGPC, true);
   registry->RegisterBooleanPref(prefs::kUserBypass3pcExceptionsMigrated, false);
 
   // TODO(https://b/333527273): Deprecate
