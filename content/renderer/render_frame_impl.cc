@@ -4603,6 +4603,10 @@ void RenderFrameImpl::FinalizeRequestInternal(
     request.SetHttpHeaderField(
         blink::WebString::FromUTF8(blink::kDoNotTrackHeader), "1");
   }
+  if (GetWebView()->GetRendererPreferences().enable_gpc) {
+    request.SetHttpHeaderField(
+        blink::WebString::FromUTF8(blink::kSecGPCHeader), "1");
+  }
 
   // The request's extra data may indicate that we should set a custom user
   // agent. This needs to be done here, after WebKit is through with setting the
