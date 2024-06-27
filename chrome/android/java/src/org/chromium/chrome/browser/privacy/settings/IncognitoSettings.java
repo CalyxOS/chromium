@@ -59,6 +59,9 @@ public class IncognitoSettings
     private static final String PREF_INCOGNITO_SAVE_SITE_SETTING = "incognito_save_site_setting";
 
     private final PrefService prefService = UserPrefs.get(ProfileManager.getLastUsedRegularProfile());
+    private ChromeSwitchPreference alwaysIncognitoPref;
+    private ChromeSwitchPreference historyInIncognitoPref;
+    private ChromeSwitchPreference saveSiteSettingsPref;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -69,6 +72,10 @@ public class IncognitoSettings
 
         setHasOptionsMenu(true);
 
+        historyInIncognitoPref =
+                (ChromeSwitchPreference) findPreference(PREF_INCOGNITO_TAB_HISTORY);
+        saveSiteSettingsPref =
+                (ChromeSwitchPreference) findPreference(PREF_INCOGNITO_SAVE_SITE_SETTING);
         updatePreferences();
     }
 
@@ -79,10 +86,10 @@ public class IncognitoSettings
     }
 
     public void updatePreferences() {
-        ChromeSwitchPreference alwaysIncognitoPref =
+        final boolean alwaysIncognito = prefService.getBoolean(Pref.ALWAYS_INCOGNITO_ENABLED);
+        alwaysIncognitoPref =
                 (ChromeSwitchPreference) findPreference(PREF_ALWAYS_INCOGNITO);
-        alwaysIncognitoPref.setChecked(
-                prefService.getBoolean(Pref.ALWAYS_INCOGNITO_ENABLED));
+        alwaysIncognitoPref.setChecked(alwaysIncognito);
         alwaysIncognitoPref.setOnPreferenceChangeListener(this);
 
         mSnackbar = Snackbar.make(getActivity().getString(R.string.ui_relaunch_notice),
@@ -100,16 +107,14 @@ public class IncognitoSettings
                         /*actionData*/null)
                 .setDuration(/*durationMs*/70000);
 
-        ChromeSwitchPreference historyInIncognitoPref =
-                (ChromeSwitchPreference) findPreference(PREF_INCOGNITO_TAB_HISTORY);
-        historyInIncognitoPref.setChecked(
+        historyInIncognitoPref.setChecked(!alwaysIncognito ? false :
                 prefService.getBoolean(Pref.INCOGNITO_TAB_HISTORY_ENABLED));
+        historyInIncognitoPref.setEnabled(alwaysIncognito);
         historyInIncognitoPref.setOnPreferenceChangeListener(this);
 
-        ChromeSwitchPreference saveSiteSettingsPref =
-                (ChromeSwitchPreference) findPreference(PREF_INCOGNITO_SAVE_SITE_SETTING);
-        saveSiteSettingsPref.setChecked(
+        saveSiteSettingsPref.setChecked(!alwaysIncognito ? false :
                 prefService.getBoolean(Pref.INCOGNITO_SAVE_SITE_SETTING_ENABLED));
+        saveSiteSettingsPref.setEnabled(alwaysIncognito);
         saveSiteSettingsPref.setOnPreferenceChangeListener(this);
     }
 
@@ -117,6 +122,17 @@ public class IncognitoSettings
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         String key = preference.getKey();
         if (PREF_ALWAYS_INCOGNITO.equals(key)) {
+            if (((boolean) newValue) == false) {
+                prefService.setBoolean(Pref.INCOGNITO_TAB_HISTORY_ENABLED, false);
+                prefService.setBoolean(Pref.INCOGNITO_SAVE_SITE_SETTING_ENABLED, false);
+                historyInIncognitoPref.setChecked(false);
+                saveSiteSettingsPref.setChecked(false);
+                historyInIncognitoPref.setEnabled(false);
+                saveSiteSettingsPref.setEnabled(false);
+            } else {
+                historyInIncognitoPref.setEnabled(true);
+                saveSiteSettingsPref.setEnabled(true);
+            }
             AlwaysIncognitoLinkInterceptor.setAlwaysIncognito((boolean) newValue);
         } else if (PREF_INCOGNITO_TAB_HISTORY.equals(key)) {
             prefService.setBoolean(Pref.INCOGNITO_TAB_HISTORY_ENABLED, (boolean) newValue);
