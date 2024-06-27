@@ -25,11 +25,6 @@
         android:summary="@string/always_incognito_summary"
         android:defaultValue="false" />
     <org.chromium.components.browser_ui.settings.ChromeSwitchPreference
-        android:key="incognito_history"
-        android:title="@string/incognito_history_enabled_title"
-        android:summary="@string/incognito_history_enabled_summary"
-        android:defaultValue="false" />
-    <org.chromium.components.browser_ui.settings.ChromeSwitchPreference
         android:key="incognito_save_site_setting"
         android:title="@string/incognito_save_site_setting_enabled_title"
         android:summary="@string/incognito_save_site_setting_enabled_summary"
