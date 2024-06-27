@@ -55,12 +55,10 @@ public class IncognitoSettings
     private Snackbar mSnackbar;
 
     private static final String PREF_ALWAYS_INCOGNITO = "always_incognito";
-    private static final String PREF_INCOGNITO_TAB_HISTORY = "incognito_history";
     private static final String PREF_INCOGNITO_SAVE_SITE_SETTING = "incognito_save_site_setting";
 
     private final PrefService prefService = UserPrefs.get(ProfileManager.getLastUsedRegularProfile());
     private ChromeSwitchPreference alwaysIncognitoPref;
-    private ChromeSwitchPreference historyInIncognitoPref;
     private ChromeSwitchPreference saveSiteSettingsPref;
 
     @Override
@@ -72,8 +70,6 @@ public class IncognitoSettings
 
         setHasOptionsMenu(true);
 
-        historyInIncognitoPref =
-                (ChromeSwitchPreference) findPreference(PREF_INCOGNITO_TAB_HISTORY);
         saveSiteSettingsPref =
                 (ChromeSwitchPreference) findPreference(PREF_INCOGNITO_SAVE_SITE_SETTING);
         updatePreferences();
@@ -107,11 +103,6 @@ public class IncognitoSettings
                         /*actionData*/null)
                 .setDuration(/*durationMs*/70000);
 
-        historyInIncognitoPref.setChecked(!alwaysIncognito ? false :
-                prefService.getBoolean(Pref.INCOGNITO_TAB_HISTORY_ENABLED));
-        historyInIncognitoPref.setEnabled(alwaysIncognito);
-        historyInIncognitoPref.setOnPreferenceChangeListener(this);
-
         saveSiteSettingsPref.setChecked(!alwaysIncognito ? false :
                 prefService.getBoolean(Pref.INCOGNITO_SAVE_SITE_SETTING_ENABLED));
         saveSiteSettingsPref.setEnabled(alwaysIncognito);
@@ -121,21 +112,16 @@ public class IncognitoSettings
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         String key = preference.getKey();
+        prefService.setBoolean(Pref.INCOGNITO_TAB_HISTORY_ENABLED, false);
         if (PREF_ALWAYS_INCOGNITO.equals(key)) {
             if (((boolean) newValue) == false) {
-                prefService.setBoolean(Pref.INCOGNITO_TAB_HISTORY_ENABLED, false);
                 prefService.setBoolean(Pref.INCOGNITO_SAVE_SITE_SETTING_ENABLED, false);
-                historyInIncognitoPref.setChecked(false);
                 saveSiteSettingsPref.setChecked(false);
-                historyInIncognitoPref.setEnabled(false);
                 saveSiteSettingsPref.setEnabled(false);
             } else {
-                historyInIncognitoPref.setEnabled(true);
                 saveSiteSettingsPref.setEnabled(true);
             }
             AlwaysIncognitoLinkInterceptor.setAlwaysIncognito((boolean) newValue);
-        } else if (PREF_INCOGNITO_TAB_HISTORY.equals(key)) {
-            prefService.setBoolean(Pref.INCOGNITO_TAB_HISTORY_ENABLED, (boolean) newValue);
         } else if (PREF_INCOGNITO_SAVE_SITE_SETTING.equals(key)) {
             prefService.setBoolean(Pref.INCOGNITO_SAVE_SITE_SETTING_ENABLED, (boolean) newValue);
         }
