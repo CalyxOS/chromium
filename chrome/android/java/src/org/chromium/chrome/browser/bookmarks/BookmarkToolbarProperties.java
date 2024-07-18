@@ -4,6 +4,7 @@
 
 package org.chromium.chrome.browser.bookmarks;
 
+import org.chromium.components.bookmarks.BookmarkId;
 import org.chromium.components.browser_ui.widget.selectable_list.SelectionDelegate;
 import org.chromium.ui.modelutil.PropertyKey;
 import org.chromium.ui.modelutil.PropertyModel.WritableBooleanPropertyKey;
@@ -19,6 +20,8 @@ import java.util.function.Function;
  */
 class BookmarkToolbarProperties {
     /** Dependencies */
+    static final WritableObjectPropertyKey<BookmarkModel> BOOKMARK_MODEL =
+            new WritableObjectPropertyKey<>();
     static final WritableObjectPropertyKey<BookmarkOpener> BOOKMARK_OPENER =
             new WritableObjectPropertyKey<>();
 
@@ -68,6 +71,10 @@ class BookmarkToolbarProperties {
     static final WritableObjectPropertyKey<Boolean> FAKE_SELECTION_STATE_CHANGE =
             new WritableObjectPropertyKey<>(/* skipEquality= */ true);
 
+    /** Bookmark state properties. */
+    static final WritableObjectPropertyKey<BookmarkId> CURRENT_FOLDER =
+            new WritableObjectPropertyKey<>(/* skipEquality= */ true);
+
     /** Callables to delegate business logic back to the mediator */
     static final WritableObjectPropertyKey<Function<Integer, Boolean>> MENU_ID_CLICKED_FUNCTION =
             new WritableObjectPropertyKey<>();
@@ -88,6 +95,8 @@ class BookmarkToolbarProperties {
         NEW_FOLDER_BUTTON_VISIBLE,
         NEW_FOLDER_BUTTON_ENABLED,
         NAVIGATION_BUTTON_STATE,
+        BOOKMARK_MODEL,
+        CURRENT_FOLDER,
         SORT_MENU_IDS,
         SORT_MENU_IDS_ENABLED,
         CHECKED_SORT_MENU_ID,
