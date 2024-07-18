@@ -11,10 +11,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import androidx.annotation.IdRes;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
 import androidx.core.view.MenuCompat;
 
 import org.chromium.chrome.browser.bookmarks.BookmarkUiState.BookmarkUiMode;
+import org.chromium.components.bookmarks.BookmarkItem;
 import org.chromium.components.bookmarks.BookmarkId;
 import org.chromium.components.browser_ui.util.ToolbarUtils;
 import org.chromium.components.browser_ui.widget.selectable_list.SelectableListToolbar;
@@ -30,8 +32,10 @@ import java.util.function.Function;
  */
 public class BookmarkToolbar extends SelectableListToolbar<BookmarkId>
         implements OnMenuItemClickListener, OnClickListener {
+    private BookmarkModel mBookmarkModel;
     private SelectionDelegate<BookmarkId> mSelectionDelegate;
 
+    private @Nullable BookmarkItem mCurrentFolder;
     private boolean mEditButtonVisible;
     private boolean mNewFolderButtonVisible;
     private boolean mNewFolderButtonEnabled;
@@ -59,6 +63,11 @@ public class BookmarkToolbar extends SelectableListToolbar<BookmarkId>
 
         setOnMenuItemClickListener(this);
     }
+
+    void setBookmarkModel(BookmarkModel bookmarkModel) {
+        mBookmarkModel = bookmarkModel;
+    }
+
 
     void setSelectionDelegate(SelectionDelegate selectionDelegate) {
         mSelectionDelegate = selectionDelegate;
@@ -161,6 +170,10 @@ public class BookmarkToolbar extends SelectableListToolbar<BookmarkId>
 
     void setCheckedViewMenuId(@IdRes int id) {
         getMenu().findItem(id).setChecked(true);
+    }
+
+    void setCurrentFolder(BookmarkId folder) {
+        mCurrentFolder = mBookmarkModel.getBookmarkById(folder);
     }
 
     void setNavigateBackRunnable(Runnable navigateBackRunnable) {
