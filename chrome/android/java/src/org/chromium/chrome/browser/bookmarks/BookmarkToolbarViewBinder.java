@@ -13,6 +13,8 @@ class BookmarkToolbarViewBinder {
     public static void bind(PropertyModel model, BookmarkToolbar bookmarkToolbar, PropertyKey key) {
         if (key == BookmarkToolbarProperties.BOOKMARK_OPENER) {
             bookmarkToolbar.setBookmarkOpener(model.get(BookmarkToolbarProperties.BOOKMARK_OPENER));
+        } else if (key == BookmarkToolbarProperties.BOOKMARK_MODEL) {
+            bookmarkToolbar.setBookmarkModel(model.get(BookmarkToolbarProperties.BOOKMARK_MODEL));
         } else if (key == BookmarkToolbarProperties.SELECTION_DELEGATE) {
             bookmarkToolbar.setSelectionDelegate(
                     model.get(BookmarkToolbarProperties.SELECTION_DELEGATE));
@@ -52,6 +54,8 @@ class BookmarkToolbarViewBinder {
         } else if (key == BookmarkToolbarProperties.CHECKED_VIEW_MENU_ID) {
             bookmarkToolbar.setCheckedViewMenuId(
                     model.get(BookmarkToolbarProperties.CHECKED_VIEW_MENU_ID));
+        } else if (key == BookmarkToolbarProperties.CURRENT_FOLDER) {
+            bookmarkToolbar.setCurrentFolder(model.get(BookmarkToolbarProperties.CURRENT_FOLDER));
         } else if (key == BookmarkToolbarProperties.NAVIGATE_BACK_RUNNABLE) {
             bookmarkToolbar.setNavigateBackRunnable(
                     model.get(BookmarkToolbarProperties.NAVIGATE_BACK_RUNNABLE));
