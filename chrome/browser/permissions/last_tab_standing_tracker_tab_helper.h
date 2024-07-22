@@ -5,6 +5,7 @@
 #ifndef CHROME_BROWSER_PERMISSIONS_LAST_TAB_STANDING_TRACKER_TAB_HELPER_H_
 #define CHROME_BROWSER_PERMISSIONS_LAST_TAB_STANDING_TRACKER_TAB_HELPER_H_
 
+#include "absl/types/optional.h"
 #include "content/public/browser/web_contents_observer.h"
 #include "content/public/browser/web_contents_user_data.h"
 
