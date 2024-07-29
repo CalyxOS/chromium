@@ -5716,19 +5716,12 @@ To change this setting, <ph name="BEGIN_LINK">BEGIN_LINK</ph>delete the Chrome d
       <message name="IDS_NEAR_OOM_INTERVENTION_DECLINE" desc="The text of the button letting the user decline the browser's intervention, so that the page can resume what it was doing.">
          Resume
       </message>
-      <!-- Allow custom tab intents -->
-      <message name="IDS_ALLOW_CUSTOM_TAB_INTENTS_TITLE" desc="Text for 'Allow custom tab intents' settings-privacy option.">
-        Allow custom tab intents
-      </message>
-      <message name="IDS_ALLOW_CUSTOM_TAB_INTENTS_SUMMARY" desc="Summary text for 'Allow custom tab intents' settings-privacy option.">
-        Allow applications to open custom tab intents, similar to webview.
-      </message>
-      <!-- Open External Links in Incognito -->
-      <message name="IDS_OPEN_EXTERNAL_LINKS_INCOGNITO_TITLE" desc="Text for 'Open external links in incognito' settings-privacy option.">
+      <!-- Open External Links in Incognito and turn off Custom Tabs -->
+      <message name="IDS_OPEN_EXTERNAL_LINKS_INCOGNITO_COMBINED_TITLE" desc="Text for 'Open external links in incognito' settings-privacy option.">
         Open external links in incognito
       </message>
-      <message name="IDS_OPEN_EXTERNAL_LINKS_INCOGNITO_SUMMARY" desc="Summary text for 'Open external links in incognito' settings-privacy option.">
-        Force the opening of all external links in incognito mode
+      <message name="IDS_OPEN_EXTERNAL_LINKS_INCOGNITO_COMBINED_SUMMARY" desc="Summary text for 'Open external links in incognito' settings-privacy option.">
+        Force the opening of all external links in incognito mode. Also turns off Custom Tabs
       </message>
       <!-- Usage Stats strings -->
       <message name="IDS_USAGE_STATS_CONSENT_TITLE" desc="Title for activity authorizing Digital Wellbeing to access Chrome usage data">
