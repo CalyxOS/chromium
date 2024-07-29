@@ -270,9 +270,10 @@ public class LaunchIntentDispatcher {
     @OptIn(markerClass = ExperimentalAuthTab.class)
     public static boolean isCustomTabIntent(Intent intent) {
         if (intent == null) return false;
-        if (!ContextUtils.getAppSharedPreferences()
-                .getBoolean(PrivacySettings.PREF_ALLOW_CUSTOM_TAB_INTENTS, false))
+        if (ContextUtils.getAppSharedPreferences()
+                .getBoolean(PrivacySettings.PREF_OPEN_EXTERNAL_LINKS_INCOGNITO, false)) {
             return false;
+        }
         Log.w(
                 TAG,
                 "CustomTabsIntent#shouldAlwaysUseBrowserUI() = "
