@@ -51,7 +51,7 @@ public class BromiteWebRTCContentSetting extends BromiteCustomContentSetting {
             /*defaultDisabledValue*/ getDefaultDisabledValue(),
             /*enabledSummary*/ R.string.website_settings_category_webrtc_enabled,
             /*disabledSummary*/ R.string.website_settings_category_webrtc_disabled,
-            /*summaryOverrideForScreenReader*/ 0);
+            /*summaryOverrideForScreenReader*/ R.string.website_settings_category_webrtc_a11y);
     }
 
     @Override
