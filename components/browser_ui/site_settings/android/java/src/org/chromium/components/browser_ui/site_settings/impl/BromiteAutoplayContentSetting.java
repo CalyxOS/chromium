@@ -51,7 +51,7 @@ public class BromiteAutoplayContentSetting extends BromiteCustomContentSetting {
             /*defaultDisabledValue*/ getDefaultDisabledValue(),
             /*enabledSummary*/ R.string.website_settings_category_autoplay_enabled,
             /*disabledSummary*/ R.string.website_settings_category_autoplay_disabled,
-            /*summaryOverrideForScreenReader*/ 0);
+            /*summaryOverrideForScreenReader*/ R.string.website_settings_category_autoplay_a11y);
     }
 
     @Override
