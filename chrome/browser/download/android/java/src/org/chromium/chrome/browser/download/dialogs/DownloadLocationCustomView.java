@@ -85,7 +85,7 @@ public class DownloadLocationCustomView extends ScrollView
         mDirectoryAdapter.update();
     }
 
-    void setTitle(CharSequence title) {
+    public void setTitle(CharSequence title) {
         mTitle.setText(title);
     }
 
@@ -93,7 +93,7 @@ public class DownloadLocationCustomView extends ScrollView
         mSubtitleView.setText(subtitle);
     }
 
-    void setFileName(CharSequence fileName) {
+    public void setFileName(CharSequence fileName) { 
         mFileName.setText(fileName);
     }
 
