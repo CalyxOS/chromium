@@ -184,7 +184,7 @@ class FileBookmarksExportObserver: public BookmarksExportObserver {
 
     JNIEnv* env = AttachCurrentThread();
     Java_BookmarkBridge_bookmarksExported(env, obj_, window_->GetJavaObject(),
-                                          ConvertUTF8ToJavaString(env, export_path_),
+                                          base::android::ConvertUTF8ToJavaString(env, export_path_),
                                           result == Result::kSuccess);
     delete this;
   }
