@@ -1450,6 +1450,8 @@ const std::vector<EngineAndTier> GetPrepopulationSetFromCountryID(
   for (size_t i = 0; i < num_engines; i++) {
     t_url.push_back(engines[i]);
   }
+  // Must update kMax*PrepopulatedEngines constants if any others are added below!
+  // See components/search_engines/template_url_prepopulate_data.h
   t_url.push_back({SearchEngineTier::kTopEngines, &googleen});
   t_url.push_back({SearchEngineTier::kTopEngines, &duckduckgo_light});
   return t_url;
