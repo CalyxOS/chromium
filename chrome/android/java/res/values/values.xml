@@ -24,7 +24,7 @@ found in the LICENSE file.
 
     <string name="adblock_on">Autoupdate enabled</string>
     <string name="adblock_off">Autoupdate disabled</string>
-    <string name="adblock_help_url">https://www.bromite.org/custom-filters</string>
+    <string name="adblock_help_url">https://calyxos.org/bromite/custom-filters</string>
 
     <!-- Download InfoBar animation. -->
     <integer name="download_infobar_fill_in_delay">1200</integer>
