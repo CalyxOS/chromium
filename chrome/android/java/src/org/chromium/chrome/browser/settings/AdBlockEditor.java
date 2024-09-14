@@ -23,6 +23,9 @@ import org.chromium.components.url_formatter.UrlFormatter;
  * Provides the Java-UI for editing AdBlock preferences.
  */
 public class AdBlockEditor extends Fragment implements TextWatcher {
+    // TODO: This is duplicated all over the place. Find some way to centralize it.
+    private static final String DEFAULT_ADBLOCK_FILTERS_URL =
+            "https://calyxos.org/bromite/filters/filters.dat";
     private EditText mAdBlockFiltersUrlEdit;
     private Button mSaveButton;
     private Button mResetButton;
@@ -65,7 +68,7 @@ public class AdBlockEditor extends Fragment implements TextWatcher {
         mResetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAdBlockFiltersUrlEdit.setText(AdBlockNativeGateway.getAdBlockFiltersURL());
+                mAdBlockFiltersUrlEdit.setText(DEFAULT_ADBLOCK_FILTERS_URL);
             }
         });
 
