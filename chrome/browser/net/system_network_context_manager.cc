@@ -653,7 +653,7 @@ void SystemNetworkContextManager::RegisterPrefs(PrefRegistrySimple* registry) {
 
   registry->RegisterBooleanPref(prefs::kAdBlockEnabled, true);
   registry->RegisterStringPref(prefs::kAdBlockFiltersURL,
-    "about:blank");
+    "https://calyxos.org/bromite/filters/filters.dat");
 
   // Static auth params
   registry->RegisterStringPref(prefs::kAuthSchemes,
