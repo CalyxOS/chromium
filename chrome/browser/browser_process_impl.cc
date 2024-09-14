@@ -1241,8 +1241,10 @@ BrowserProcessImpl::adblock_updater() {
   auto adblock_updater_url =
     local_state()->GetString(prefs::kAdBlockFiltersURL);
   if (base::StartsWith(adblock_updater_url,
-        "https://www.bromite.org", base::CompareCase::INSENSITIVE_ASCII)) {
-    local_state()->SetString(prefs::kAdBlockFiltersURL, "about:blank");
+        "https://www.bromite.org", base::CompareCase::INSENSITIVE_ASCII)
+              || adblock_updater_url == "about:blank") {
+    local_state()->SetString(prefs::kAdBlockFiltersURL,
+        "https://calyxos.org/bromite/filters/filters.dat");
   }
 
   adblock_updater_ = std::make_unique<adblock_updater::AdBlockUpdaterService>(
