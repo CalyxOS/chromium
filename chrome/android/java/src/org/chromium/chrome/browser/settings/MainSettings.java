@@ -701,7 +701,6 @@ public class MainSettings extends ChromeBaseSettingsFragment
     }
 
     private boolean useLegacySettingsOrder() {
-        return !ChromeFeatureList.isEnabled(
-                AutofillFeatures.AUTOFILL_VIRTUAL_VIEW_STRUCTURE_ANDROID);
+        return false;
     }
 }
