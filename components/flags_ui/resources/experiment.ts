@@ -80,6 +80,11 @@ export class ExperimentElement extends CrLitElement {
     description: '',
     enabled: false,
     is_default: false,
+    is_default_value_on: false,
+    default_value: '',
+    is_cromite: false,
+    is_new: false,
+    permalink: false,
     supported_platforms: [],
   };
 

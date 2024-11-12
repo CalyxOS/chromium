@@ -156,9 +156,8 @@ public class CachedFlag extends Flag {
     }
 
     public void setValueReturnedOverride(@Nullable Boolean value) {
-        synchronized (ValuesReturned.sBoolValues) {
-            ValuesReturned.sBoolValues.put(getSharedPreferenceKey(), value);
-        }
+        // Warning: Upstream is changing a lot, so we'll need to do something different soon.
+        setForTesting(value);
     }
 
     /** Create a Map of feature names -> {@link CachedFlag} from multiple lists of CachedFlags. */
