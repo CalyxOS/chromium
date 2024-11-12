@@ -36,7 +36,7 @@ class COMPONENT_EXPORT(VARIATIONS) SyntheticTrialsActiveGroupIdProvider
   // Returns currently active synthetic trial group IDs.
   std::vector<ActiveGroupId> GetActiveGroupIds();
 
-#if !defined(NDEBUG)
+#if true
   // In debug mode, not only the group IDs are tracked but also the full group
   // info, to display the names unhashed in chrome://version.
   std::vector<SyntheticTrialGroup> GetGroups();
@@ -60,7 +60,7 @@ class COMPONENT_EXPORT(VARIATIONS) SyntheticTrialsActiveGroupIdProvider
 
   base::Lock lock_;
   std::vector<ActiveGroupId> group_ids_;  // GUARDED_BY(lock_);
-#if !defined(NDEBUG)
+#if true
   // In debug builds, keep the full group information to be able to display it
   // in chrome://version.
   std::vector<SyntheticTrialGroup> groups_;  // GUARDED_BY(lock_);
