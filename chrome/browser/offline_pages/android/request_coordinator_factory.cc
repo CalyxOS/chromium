@@ -137,7 +137,7 @@ RequestCoordinatorFactory::GetBrowserContextToUse(
     return BrowserContextKeyedServiceFactory::GetBrowserContextToUse(context);
   }
 
-  return chrome::GetBrowserContextRedirectedInIncognito(context);
+  return GetBrowserContextRedirectedInIncognito(context);
 }
 
 
