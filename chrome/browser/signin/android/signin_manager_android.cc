@@ -93,13 +93,6 @@ class ProfileDataRemover : public content::BrowsingDataRemover::Observer {
           content::BrowsingDataFilterBuilder::Create(
               content::BrowsingDataFilterBuilder::Mode::kDelete);
 
-      // TODO(msramek): BrowsingDataFilterBuilder was not designed for
-      // large filters. Optimize it.
-      for (const std::string& domain :
-           google_util::GetGoogleRegistrableDomains()) {
-        google_tld_filter->AddRegisterableDomain(domain);
-      }
-
       remover_->RemoveWithFilterAndReply(
           base::Time(), base::Time::Max(),
           content::BrowsingDataRemover::DATA_TYPE_CACHE_STORAGE,
