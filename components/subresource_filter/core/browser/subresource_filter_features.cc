@@ -56,8 +56,7 @@ class CommaSeparatedStrings {
 };
 
 
-std::vector<Configuration> FillEnabledPresetConfigurations(
-    std::map<std::string, std::string>* params) {
+std::vector<Configuration> FillEnabledPresetConfigurations() {
   // If ad tagging is enabled, turn on the dryrun automatically.
   bool ad_tagging_enabled = base::FeatureList::IsEnabled(kAdTagging);
   const struct {
