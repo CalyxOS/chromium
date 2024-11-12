@@ -965,12 +965,7 @@ void BookmarkBridge::FileSelected(const ui::SelectedFileInfo& file, int index) {
 }
 
 const std::string BookmarkBridge::FileSelectedImpl(const base::FilePath& path) {
-  base::File file;
-  if (path.IsContentUri()) {
-    file = base::OpenContentUri(path, base::File::FLAG_OPEN | base::File::FLAG_READ);
-  } else {
-    file.Initialize(path, base::File::FLAG_OPEN | base::File::FLAG_READ);
-  }
+  base::File file(path, base::File::FLAG_OPEN | base::File::FLAG_READ);
   if (!file.IsValid()) {
     select_file_dialog_->ShowToast("Cannot open bookmarks file for import");
     return "";
