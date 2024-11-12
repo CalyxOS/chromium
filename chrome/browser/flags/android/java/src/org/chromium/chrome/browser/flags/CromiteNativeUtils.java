@@ -1,8 +1,8 @@
 package org.chromium.chrome.browser.flags;
 
-import org.chromium.base.cached_flags.CachedFlag;
-import org.chromium.chrome.browser.flags.ChromeFeatureList;
 import org.chromium.base.cached_flags.CachedFlagsSharedPreferences;
+import org.chromium.chrome.browser.flags.ChromeFeatureList;
+import org.chromium.components.cached_flags.CachedFlag;
 
 import org.jni_zero.CalledByNative;
 import org.jni_zero.NativeMethods;
