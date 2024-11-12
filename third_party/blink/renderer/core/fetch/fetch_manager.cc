@@ -297,6 +297,8 @@ class ResponseResolver final : public GarbageCollected<ResponseResolver> {
   void RejectBecauseFailed(std::optional<String> devtools_request_id,
                            std::optional<base::UnguessableToken> issue_id);
 
+  void Detach();
+
   void Trace(Visitor* visitor) const {
     visitor->Trace(resolver_);
     visitor->Trace(exception_);
@@ -366,6 +368,10 @@ void ResponseResolver::RejectBecauseFailed(
   }
   resolver_->Reject(value);
   Clear();
+}
+
+void ResponseResolver::Detach() {
+  resolver_->Detach();
 }
 
 void ResponseResolver::Clear() {
