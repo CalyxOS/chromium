@@ -2,6 +2,14 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
+# Additionally, some of this code is from Brave, and will be marked as such with the
+# "# BEGIN BRAVE" and "# END BRAVE" lines.
+# That license is as follows:
+# Copyright (c) 2018 The Brave Authors. All rights reserved.
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this file,
+# You can obtain one at https://mozilla.org/MPL/2.0/.
+
 # =============================================================================
 # WHAT IS THIS FILE?
 # =============================================================================
@@ -335,6 +343,11 @@ is_posix = !is_win && !is_fuchsia
 
 # Holds all configs used for running the compiler.
 default_compiler_configs = [
+# BEGIN BRAVE
+# Include the changes made in build/BUILD.gn to support overrides.
+# See: https://github.com/brave/brave-core/blob/v1.75.9/patches/build-config-BUILDCONFIG.gn.patch
+  "//build:compiler",
+# END BRAVE
   "//build/config:feature_flags",
   "//build/config/compiler:afdo",
   "//build/config/compiler:afdo_optimize_size",
