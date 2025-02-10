@@ -95,39 +95,5 @@ public class AutofillClientProviderUtils {
         return AndroidAutofillAvailabilityStatus.AVAILABLE;
     }
 
-    @CalledByNative
-    public static void setThirdPartyModePref(boolean usesPlatformAutofill) {
-        Editor editor =
-                ContextUtils.getApplicationContext()
-                        .getSharedPreferences(
-                                AUTOFILL_THIRD_PARTY_MODE_SHARED_PREFS_FILE, Context.MODE_PRIVATE)
-                        .edit();
-        editor.putBoolean(AUTOFILL_THIRD_PARTY_MODE_KEY, usesPlatformAutofill);
-        editor.apply();
-    }
-
-    @CalledByNative
-    public static void unsetThirdPartyModePref() {
-        Editor editor =
-                ContextUtils.getApplicationContext()
-                        .getSharedPreferences(
-                                AUTOFILL_THIRD_PARTY_MODE_SHARED_PREFS_FILE, Context.MODE_PRIVATE)
-                        .edit();
-        editor.remove(AUTOFILL_THIRD_PARTY_MODE_KEY);
-        editor.apply();
-    }
-
-    @CalledByNative
-    public static void setAutofillOptionsDeepLinkPref(boolean featureOn) {
-        featureOn = false;
-        Editor editor =
-                ContextUtils.getApplicationContext()
-                        .getSharedPreferences(
-                                AUTOFILL_OPTIONS_DEEP_LINK_SHARED_PREFS_FILE, Context.MODE_PRIVATE)
-                        .edit();
-        editor.putBoolean(AUTOFILL_OPTIONS_DEEP_LINK_FEATURE_KEY, featureOn);
-        editor.apply();
-    }
-
     private AutofillClientProviderUtils() {}
 }
