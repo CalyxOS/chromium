@@ -1,0 +1,3 @@
+SET_CROMITE_FEATURE_DISABLED(kSegmentationPlatformAndroidHomeModuleRanker);
+SET_CROMITE_FEATURE_DISABLED(kSegmentationPlatformAndroidHomeModuleRankerV2);
+SET_CROMITE_FEATURE_DISABLED(kSegmentationPlatformEphemeralCardRanker);
