@@ -496,7 +496,9 @@ void ContentSettingsRegistry::Init() {
 
   // The "nfc" name should not be used in the future to avoid name collisions.
   // See crbug.com/1275576
-  Register(ContentSettingsType::NFC, "nfc-devices", CONTENT_SETTING_ASK,
+  content_settings_info_.erase(ContentSettingsType::NFC);
+  website_settings_registry_->UnRegister(ContentSettingsType::NFC);
+  Register(ContentSettingsType::NFC, "nfc-devices", CONTENT_SETTING_BLOCK, // disabled in Brave
            WebsiteSettingsInfo::UNSYNCABLE, /*allowlisted_primary_schemes=*/{},
            /*valid_settings=*/
            {CONTENT_SETTING_ALLOW, CONTENT_SETTING_ASK, CONTENT_SETTING_BLOCK},
