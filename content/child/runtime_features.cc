@@ -534,6 +534,7 @@ void SetCustomizedRuntimeFeaturesFromCombinedArgs(
       !command_line.HasSwitch(switches::kFingerprintingCanvasMeasureTextNoise));
   WebRuntimeFeatures::EnableFingerprintingCanvasImageDataNoise(
       !command_line.HasSwitch(switches::kFingerprintingCanvasImageDataNoise));
+  WebRuntimeFeatures::EnableWebNFC(false);  // disabled in Brave
   // CAUTION: Only add custom enabling logic here if it cannot
   // be covered by the other functions.
 
