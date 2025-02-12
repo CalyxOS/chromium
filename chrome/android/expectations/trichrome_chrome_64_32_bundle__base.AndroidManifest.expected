@@ -36,7 +36,6 @@
   <uses-permission android:name="android.permission.INTERNET"/>
   <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
   <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-  <uses-permission android:name="android.permission.NFC"/>
   <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
   <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -120,12 +119,12 @@
         android:exported="true">
       <path-permission android:path="/bookmarks/search_suggest_query" android:readPermission="android.permission.GLOBAL_SEARCH"/>
     </provider>  # DIFF-ANCHOR: 37f48914
-    <provider  # DIFF-ANCHOR: 6e040436
-        android:name="org.chromium.chrome.browser.provider.PageContentProvider"
+    <provider  # DIFF-ANCHOR: e38fc4ec
+        android:name="$PACKAGE.browser.provider.PageContentProvider"
         android:authorities="$PACKAGE.PageContentProvider"
         android:exported="false"
         android:grantUriPermissions="true">
-    </provider>  # DIFF-ANCHOR: 6e040436
+    </provider>  # DIFF-ANCHOR: e38fc4ec
     <provider  # DIFF-ANCHOR: 8845e3f4
         android:name="$PACKAGE.browser.util.ChromeFileProvider"
         android:authorities="$PACKAGE.FileProvider"
