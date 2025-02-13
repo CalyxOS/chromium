@@ -201,6 +201,7 @@ bool HomeModulesCardRegistry::IsEphemeralTipsModuleLabel(
 }
 
 void HomeModulesCardRegistry::NotifyCardShown(const char* card_name) {
+#if false // we don't like crashing
 #if BUILDFLAG(IS_IOS)
   if (strcmp(card_name, kPriceTrackingNotificationPromo) == 0) {
     int freshness_impression_count =
@@ -270,11 +271,13 @@ void HomeModulesCardRegistry::NotifyCardShown(const char* card_name) {
     }
     }
 #endif
+#endif // we don't like crashing
 }
 
 #if BUILDFLAG(IS_ANDROID)
 bool HomeModulesCardRegistry::ShouldNotifyCardShownPerSession(
     const std::string& card_name) {
+  if ((true)) return false; // we don't like crashing
   if (shown_in_current_session_.find(card_name) !=
       shown_in_current_session_.end()) {
     return false;
