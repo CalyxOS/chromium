@@ -176,7 +176,7 @@ public class NativePageFactory {
         private final StartupMetricsTracker mStartupMetricsTracker;
 
         public NativePageBuilder(
-                Activity activity,
+                ChromeActivity activity,
                 Supplier<NewTabPageUma> uma,
                 BottomSheetController sheetController,
                 BrowserControlsManager browserControlsManager,
