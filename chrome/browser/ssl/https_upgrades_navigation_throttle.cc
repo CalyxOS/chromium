@@ -34,7 +34,7 @@ namespace {
 
 // Time that the throttle will wait before canceling the upgraded navigation and
 // showing the HTTPS-First Mode interstitial.
-base::TimeDelta g_fallback_delay = base::Seconds(3);
+base::TimeDelta g_fallback_delay = base::Seconds(10);
 
 }  // namespace
 
