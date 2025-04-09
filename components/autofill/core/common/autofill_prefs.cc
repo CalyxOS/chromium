@@ -29,7 +29,7 @@ constexpr char kAutofillRanQuasiDuplicateExtraDeduplication[] =
 void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
   // Synced prefs. Used for cross-device choices, e.g., credit card Autofill.
   registry->RegisterBooleanPref(
-      kAutofillProfileEnabled, true,
+      kAutofillProfileEnabled, false,
       user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
   registry->RegisterIntegerPref(
       kAutofillLastVersionDeduped, 0,
@@ -38,13 +38,13 @@ void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
       kAutofillHasSeenIban, false,
       user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
   registry->RegisterBooleanPref(
-      kAutofillCreditCardEnabled, true,
+      kAutofillCreditCardEnabled, false,
       user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
   registry->RegisterBooleanPref(
-      kAutofillPaymentCvcStorage, true,
+      kAutofillPaymentCvcStorage, false,
       user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
   registry->RegisterBooleanPref(
-      kAutofillPaymentCardBenefits, true,
+      kAutofillPaymentCardBenefits, false,
       user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
 
   // Non-synced prefs. Used for per-device choices, e.g., signin promo.
