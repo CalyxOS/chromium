@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
+import org.chromium.base.Callback;
 import org.chromium.base.Log;
 import org.chromium.base.ResettersForTesting;
 import org.chromium.base.SysUtils;
@@ -36,15 +37,19 @@ import org.chromium.chrome.browser.IntentHandler;
 import org.chromium.chrome.browser.LaunchIntentDispatcher;
 import org.chromium.chrome.browser.WarmupManager;
 import org.chromium.chrome.browser.firstrun.FirstRunFlowSequencer;
+import org.chromium.chrome.browser.firstrun.FirstRunStatus;
 import org.chromium.chrome.browser.lifecycle.ActivityLifecycleDispatcher;
 import org.chromium.chrome.browser.lifecycle.ActivityLifecycleDispatcherProvider;
 import org.chromium.chrome.browser.metrics.SimpleStartupForegroundSessionDetector;
 import org.chromium.chrome.browser.multiwindow.MultiWindowModeStateDispatcher;
 import org.chromium.chrome.browser.multiwindow.MultiWindowModeStateDispatcherImpl;
+import org.chromium.chrome.browser.preferences.Pref;
 import org.chromium.chrome.browser.profiles.ProfileProvider;
 import org.chromium.chrome.browser.util.BrowserUiUtils;
 import org.chromium.components.browser_ui.share.ShareHelper;
 import org.chromium.components.browser_ui.util.FirstDrawDetector;
+import org.chromium.components.prefs.PrefService;
+import org.chromium.components.user_prefs.UserPrefs;
 import org.chromium.ui.base.ActivityIntentRequestTrackerDelegate;
 import org.chromium.ui.base.ActivityWindowAndroid;
 import org.chromium.ui.base.DeviceFormFactor;
@@ -396,6 +401,37 @@ public abstract class AsyncInitializationActivity extends ChromeBaseAppCompatAct
         mStartupDelayed = shouldDelayBrowserStartup();
 
         ChromeBrowserInitializer.getInstance().handlePreNativeStartupAndLoadLibraries(this);
+
+        mProfileProviderSupplier.onAvailable(new Callback<ProfileProvider>() {
+            private PrefService mPrefService;
+            private boolean mIsFirstRun;
+
+            @Override
+            public void onResult(ProfileProvider provider) {
+                mPrefService = UserPrefs.get(provider.getOriginalProfile());
+                mIsFirstRun = !FirstRunStatus.getFirstRunFlowComplete();
+                solidifyDefaultValue(Pref.AUTOFILL_CREDIT_CARD_ENABLED, /* priorDefault */ true);
+                solidifyDefaultValue(Pref.AUTOFILL_PAYMENT_CARD_BENEFITS, /* priorDefault */ true);
+                solidifyDefaultValue(Pref.AUTOFILL_PAYMENT_CVC_STORAGE, /* priorDefault */ true);
+                solidifyDefaultValue(Pref.AUTOFILL_PROFILE_ENABLED, /* priorDefault */ true);
+            }
+
+            private void solidifyDefaultValue(
+                    final String preference,
+                    final boolean priorDefault) {
+                final boolean isUnset = mPrefService.isDefaultValuePreference(preference);
+                if (isUnset) {
+                    if (mIsFirstRun) {
+                        // Set the preference explicitly to its default value.
+                        mPrefService.setBoolean(preference, mPrefService.getBoolean(preference));
+                    } else {
+                        // Set the preference explicitly to its prior default value.
+                        mPrefService.setBoolean(preference, priorDefault);
+                    }
+                }
+            }
+        });
+
         return true;
     }
 
