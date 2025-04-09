@@ -21,7 +21,7 @@ namespace prefs {
 void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
   // Synced prefs. Used for cross-device choices, e.g., credit card Autofill.
   registry->RegisterBooleanPref(
-      prefs::kAutofillProfileEnabled, true,
+      prefs::kAutofillProfileEnabled, false,
       user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
   registry->RegisterIntegerPref(
       prefs::kAutofillLastVersionDeduped, 0,
@@ -30,13 +30,13 @@ void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
       prefs::kAutofillHasSeenIban, false,
       user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
   registry->RegisterBooleanPref(
-      prefs::kAutofillCreditCardEnabled, true,
+      prefs::kAutofillCreditCardEnabled, false,
       user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
   registry->RegisterBooleanPref(
-      prefs::kAutofillPaymentCvcStorage, true,
+      prefs::kAutofillPaymentCvcStorage, false,
       user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
   registry->RegisterBooleanPref(
-      kAutofillPaymentCardBenefits, true,
+      kAutofillPaymentCardBenefits, false,
       user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
 
   // Non-synced prefs. Used for per-device choices, e.g., signin promo.
