@@ -15,10 +15,11 @@ PredictionServiceRequest::PredictionServiceRequest(
     const permissions::PredictionRequestFeatures& entity,
     permissions::PredictionServiceBase::LookupResponseCallback callback)
     : callback_(std::move(callback)) {
-  service->StartLookup(
-      entity, base::NullCallback(),
+  // Fail the prediction service request
+  base::SequencedTaskRunner::GetCurrentDefault()->PostTask(
+      FROM_HERE,
       base::BindOnce(&PredictionServiceRequest::LookupReponseReceived,
-                     weak_factory_.GetWeakPtr()));
+                     weak_factory_.GetWeakPtr(), false, false, std::nullopt));
 }
 
 PredictionServiceRequest::~PredictionServiceRequest() = default;
