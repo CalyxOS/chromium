@@ -13,8 +13,7 @@
 // static
 permissions::PredictionService* PredictionServiceFactory::GetForProfile(
     Profile* profile) {
-  return static_cast<permissions::PredictionService*>(
-      GetInstance()->GetServiceForBrowserContext(profile, true));
+  return nullptr;
 }
 
 // static
@@ -26,24 +25,12 @@ PredictionServiceFactory* PredictionServiceFactory::GetInstance() {
 PredictionServiceFactory::PredictionServiceFactory()
     : ProfileKeyedServiceFactory(
           "PredictionService",
-          ProfileSelections::Builder()
-              .WithRegular(ProfileSelection::kOwnInstance)
-              // TODO(crbug.com/40257657): Check if this service is needed in
-              // Guest mode.
-              .WithGuest(ProfileSelection::kOwnInstance)
-              // TODO(crbug.com/41488885): Check if this service is needed for
-              // Ash Internals.
-              .WithAshInternals(ProfileSelection::kOwnInstance)
-              .Build()) {}
+          ProfileSelections::BuildNoProfilesSelected()) {}
 
 PredictionServiceFactory::~PredictionServiceFactory() = default;
 
 std::unique_ptr<KeyedService>
 PredictionServiceFactory::BuildServiceInstanceForBrowserContext(
     content::BrowserContext* context) const {
-  auto url_loader_factory =
-      std::make_unique<network::CrossThreadPendingSharedURLLoaderFactory>(
-          g_browser_process->shared_url_loader_factory());
-  return std::make_unique<permissions::PredictionService>(
-      network::SharedURLLoaderFactory::Create(std::move(url_loader_factory)));
+  return nullptr;
 }
