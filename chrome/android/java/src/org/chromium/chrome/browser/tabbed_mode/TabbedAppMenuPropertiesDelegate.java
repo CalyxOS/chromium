@@ -133,7 +133,7 @@ public class TabbedAppMenuPropertiesDelegate extends AppMenuPropertiesDelegateIm
         if (menuGroup == MenuGroup.PAGE_MENU) {
             preparePageMenu(menu, currentTab, handler, isIncognito);
         }
-        prepareCommonMenuItems(menu, menuGroup, isIncognito);
+        prepareCommonMenuItems(menu, menuGroup, isIncognito, currentTab);
     }
 
     private void setMenuGroupVisibility(@MenuGroup int menuGroup, Menu menu) {
@@ -316,7 +316,7 @@ public class TabbedAppMenuPropertiesDelegate extends AppMenuPropertiesDelegateIm
                 .setVisible(ChromeFeatureList.sNewTabPageCustomization.isEnabled());
     }
 
-    private void prepareCommonMenuItems(Menu menu, @MenuGroup int menuGroup, boolean isIncognito) {
+    private void prepareCommonMenuItems(Menu menu, @MenuGroup int menuGroup, boolean isIncognito, Tab currentTab) {
         boolean always_incognito = AlwaysIncognitoLinkInterceptor.isAlwaysIncognito();
         if (always_incognito) {
             final MenuItem newTabOption = menu.findItem(R.id.new_tab_menu_id);
