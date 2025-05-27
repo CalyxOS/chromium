@@ -20,8 +20,8 @@ found in the LICENSE file.
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:checked="true"
-          app:primaryText="@string/autofill_third_party_filling_default"
-          app:descriptionText="@string/autofill_third_party_filling_default_description"/>
+          app:primaryText="@string/autofill_third_party_filling_default_calyx"
+          app:descriptionText="@string/autofill_third_party_filling_default_description_calyx"/>
 
         <org.chromium.components.browser_ui.widget.RadioButtonWithDescription
           android:id="@+id/autofill_third_party_filling_opt_in"
