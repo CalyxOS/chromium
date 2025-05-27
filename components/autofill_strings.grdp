@@ -362,11 +362,17 @@
     </message>
   </if>
   <if expr="is_android">
+    <message name="IDS_AUTOFILL_THIRD_PARTY_FILLING_DEFAULT_CALYX" desc="Title of the option to use the default Chrome autofill experience." formatter_data="android_java">
+      Autofill with Chrome
+    </message>
     <message name="IDS_AUTOFILL_THIRD_PARTY_FILLING_DEFAULT" desc="Title of the option to use the default Chrome autofill experience." formatter_data="android_java">
       Autofill with Google
     </message>
     <message name="IDS_AUTOFILL_THIRD_PARTY_FILLING_OPT_IN" desc="Title of the option to use third-party autofill in Chrome." formatter_data="android_java">
       Autofill using another service
+    </message>
+    <message name="IDS_AUTOFILL_THIRD_PARTY_FILLING_DEFAULT_DESCRIPTION_CALYX" desc="Description shown on the option to use the default Chrome autofill experience." formatter_data="android_java">
+      Use Chrome Autofill to save and fill passwords, payment methods, and addresses
     </message>
     <message name="IDS_AUTOFILL_THIRD_PARTY_FILLING_DEFAULT_DESCRIPTION" desc="Description shown on the option to use the default Chrome autofill experience." formatter_data="android_java">
       Use Google Password Manager and Chrome Autofill to save and fill passwords, payment methods, and addresses
